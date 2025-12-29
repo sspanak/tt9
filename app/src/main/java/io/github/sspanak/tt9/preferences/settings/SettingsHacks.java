@@ -9,6 +9,8 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 class SettingsHacks extends BaseSettings {
+	public static final int COMPOSING_TEXT_RESTART_THRESHOLD = 150; // ms
+
 	private boolean demoMode = false;
 
 	SettingsHacks(Context context) { super(context); }
@@ -79,8 +81,8 @@ class SettingsHacks extends BaseSettings {
 		getPrefsEditor().putBoolean("pref_show_donations", yes).apply();
 	}
 
-	public boolean getAllowComposingText() {
-		return prefs.getBoolean("pref_allow_composing_text", true);
+	public boolean getAutoDisableComposing() {
+		return prefs.getBoolean("hack_auto_disable_composing", true);
 	}
 
 

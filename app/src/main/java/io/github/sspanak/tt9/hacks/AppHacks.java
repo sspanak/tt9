@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.hacks;
 
+import android.inputmethodservice.InputMethodService;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
@@ -13,6 +14,7 @@ import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.Timer;
@@ -20,18 +22,30 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class AppHacks {
 	private final static String TYPING_SESSION_TIMER = "TYPING_SESSION_TIMER";
-	private static boolean previousWasMessengerChat = false;
+	private boolean previousWasMessengerChat = false;
 
 
-	@Nullable private final InputType inputType;
-	@Nullable private final TextField textField;
-	@Nullable private final TextSelection textSelection;
+	private final static String COMPOSING_TEXT_TO_RESTART_TIMER = "COMPOSING_RESTART_TIMER";
+	private long composingTextToRestartTime = Integer.MAX_VALUE;
+
+	@Nullable private InputType inputType;
+	@Nullable private TextField textField;
+	@Nullable private TextSelection textSelection;
 
 
-	public AppHacks(@Nullable InputType inputType, @Nullable TextField textField, @Nullable TextSelection textSelection) {
+	public void setDependencies(@Nullable InputType inputType, @Nullable TextField textField, @Nullable TextSelection textSelection) {
 		this.inputType = inputType;
 		this.textField = textField;
 		this.textSelection = textSelection;
+	}
+
+
+	/**
+	 * Perform hacks to prepare the state for our onStart().
+	 */
+	public void onBeforeStart(@NonNull InputMethodService ims, @NonNull SettingsStore settings, @Nullable Language language, @Nullable EditorInfo field, boolean restarting) {
+		mitigateRestartOnKeypressComposingTextCorruption(ims, settings, language, field, restarting);
+		resetMessengerPadding(ims, settings, field);
 	}
 
 
@@ -66,23 +80,32 @@ public class AppHacks {
 
 	/**
 	 * setComposingTextWithHighlightedStem
-	 * A compatibility function for text fields that do not support SpannableString. Effectively disables highlighting.
-	 * Also, performs extra operations when setting composing text for apps that do not do it properly themselves.
+	 * A compatibility function for text fields that do not properly support composing text.
 	 */
 	public void setComposingTextWithHighlightedStem(@NonNull String word, @Nullable String stem, boolean isStemFilterFuzzy) {
 		if (inputType == null || textField == null) {
 			return;
 		}
 
+		// use composing text but do not highlight it with SpannableString
 		if (inputType.isKindleInvertedTextField()) {
 			textField.setComposingText(word);
 			return;
 		}
 
+		// if the composing text starts with an emoji, reset to empty before settings new composing text
 		if (inputType.isWhatsApp() && Text.isGraphic(word)) {
 			textField.setComposingText("");
 		}
 
+		// disable composing text for stupid search fields in eBay or Deezer, which restart the connection
+		// on every key press, causing duplication of the composing text.
+		if (isComposingCausingRestarts()) {
+			textField.disableComposing();
+		}
+		Timer.start(COMPOSING_TEXT_TO_RESTART_TIMER);
+
+		// set the composing text in the app
 		textField.setComposingTextWithHighlightedStem(word, stem, isStemFilterFuzzy);
 	}
 
@@ -173,7 +196,7 @@ public class AppHacks {
 		int candidatesStart,
 		int candidatesEnd
 	) {
-		if (textField != null && CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd) && textField.isEmpty()) {
+		if (textField != null && !isComposingCausingRestarts() && CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd) && textField.isEmpty()) {
 			inputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 			inputMode.reset();
 			return true;
@@ -208,15 +231,49 @@ public class AppHacks {
 	}
 
 
-	public static void onStart(@NonNull SettingsStore settings, @NonNull EditorInfo field) {
-		// currently, onStart() only adjusts the padding of MainSmall, so save some resources by not
-		// doing anything if another layout is used.
+	private boolean isComposingCausingRestarts() {
+		return composingTextToRestartTime <= SettingsStore.COMPOSING_TEXT_RESTART_THRESHOLD;
+	}
+
+
+	/**
+	 * For Deezer, eBay and other apps' search fields, where the input connection gets restarted on
+	 * every key press. The restart causes initialization of a new TextField object, losing the previous
+	 * composing text for us, but remaining in the app's field. When we attempt to set new text, on
+	 * the next key press, the text will get duplicated. For this reason, when we detect such behavior,
+	 * we disable composing, and delete the first loose character.
+	 */
+	private void mitigateRestartOnKeypressComposingTextCorruption(@NonNull InputMethodService ims, @NonNull SettingsStore settings, @Nullable Language language, EditorInfo field, boolean restarting) {
+		if (!settings.getAutoDisableComposing()) {
+			return;
+		}
+
+		if (!restarting) {
+			composingTextToRestartTime = Integer.MAX_VALUE;
+			return;
+		}
+
+		final long time = Timer.stop(COMPOSING_TEXT_TO_RESTART_TIMER);
+		if (time > 0 && !isComposingCausingRestarts() && time <= SettingsStore.COMPOSING_TEXT_RESTART_THRESHOLD) {
+			composingTextToRestartTime = time;
+
+			// delete the corrupted character that went out of control
+			// the surrounding if ensures we do it once
+			TextField corruptedField = textField == null ? new TextField(ims, field) : textField;
+			corruptedField.deleteChars(language, 1);
+		}
+	}
+
+
+	private void resetMessengerPadding(@NonNull InputMethodService ims, @NonNull SettingsStore settings, @Nullable EditorInfo field) {
+		// below we adjust the padding of MainSmall, so save some resources by not doing anything if
+		// another layout is used.
 		if (!settings.isMainLayoutSmall()) {
 			settings.setMessengerReplyExtraPadding(false);
 			return;
 		}
 
-		final InputType newInputType = new InputType(null, field);
+		final InputType newInputType = new InputType(ims, field);
 		if (newInputType.notMessenger()) {
 			settings.setMessengerReplyExtraPadding(false);
 			return;

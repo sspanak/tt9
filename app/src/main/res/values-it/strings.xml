@@ -33,7 +33,6 @@
 	<string name="pref_abc_auto_accept_fast">Veloce</string>
 	<string name="pref_abc_auto_accept_normal">Moderata</string>
 	<string name="pref_abc_auto_accept_slow">Lenta</string>
-	<string name="pref_allow_composing_text_summary">Mostra le parole nei campi di testo durante la digitazione. Disattiva quando un\'app interrompe la digitazione.</string>
 	<string name="pref_alternative_suggestion_scrolling">Metodo alternativo di scorrimento delle suggerimenti</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Abilitare se a volte non riesci a vedere tutti i suggerimenti o hai problemi a scorrerli.</string>
 	<string name="pref_arrows_left_right_summary">Mostrare i tasti freccia sinistra/destra per scorrere i suggerimenti o spostare il cursore di testo orizzontalmente.</string>
@@ -142,6 +141,7 @@
 	<string name="pref_double_zero_char">Simbolo quando si preme due volte il tasto \"0\"</string>
 	<string name="pref_hack_always_on_top">Sempre in primo piano</string>
 	<string name="pref_hack_always_on_top_summary">Non consentire ad altre applicazioni di coprire %1$s o di spingerlo fuori dallo schermo.</string>
+	<string name="pref_hack_auto_disable_composing_summary">Quando un’app causa problemi di digitazione, nascondere le parole durante la digitazione e mostrarle dopo aver premuto OK o Spazio.</string>
 	<string name="pref_hack_key_pad_debounce_time">Protezione contro la ripetizione accidentale dei tasti</string>
 	<string name="pref_hack_key_pad_debounce_off">Spento</string>
 	<string name="dictionary_export_finished">Esportazione completata</string>
@@ -234,7 +234,6 @@
 	<string name="function_next_mode">Modalità di input successiva</string>
 	<string name="function_select_keyboard">Selezionare tastiera</string>
 	<string name="function_show_settings">Mostrare impostazioni</string>
-	<string name="pref_allow_composing_text">Mostra testo in composizione</string>
 	<string name="pref_bottom_padding_portrait">Spazio sotto (verticale)</string>
 	<string name="pref_drag_resize">Trascinare per ridimensionare</string>
 	<string name="function_undo">Annulla (Undo)</string>
@@ -258,5 +257,6 @@
 	<string name="tutorial_classic_title">Primi passi</string>
 	<string name="tutorial_classic_OK_swipe">Quando non ci sono suggerimenti, scorri verso l’alto/il basso per spostare il cursore.\n\nQuando ci sono suggerimenti, scorri verso l’alto per filtrarli o verso il basso per rimuovere il filtro.</string>
 	<string name="tutorial_classic_add_word">Scorri verso sinistra per aggiungere una parola.</string>
+	<string name="pref_hack_auto_disable_composing">Disattivare automaticamente la composizione del testo</string>
 </resources>
 

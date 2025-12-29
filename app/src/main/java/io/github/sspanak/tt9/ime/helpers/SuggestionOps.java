@@ -38,7 +38,7 @@ public class SuggestionOps {
 
 		this.appHacks = appHacks;
 		this.statusBar = statusBar;
-		this.textField = textField != null ? textField : new TextField(ims, null, null);
+		this.textField = textField != null ? textField : new TextField(ims, null);
 
 		if (settings != null && mainView != null && onSuggestionClick != null) {
 			suggestionBar = new SuggestionsBar(settings, mainView, onSuggestionClick);

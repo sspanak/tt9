@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
-import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
 import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
@@ -33,7 +32,7 @@ import io.github.sspanak.tt9.util.chars.Characters;
 public abstract class TypingHandler extends KeyPadHandler {
 	// internal settings/data
 	@NonNull protected InputType inputType = new InputType(null, null);
-	@NonNull protected TextField textField = new TextField(null, null, null);
+	@NonNull protected TextField textField = new TextField(null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(null, null);
 	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null, null);
 
@@ -100,11 +99,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		InputMethodService context = field != null ? this : null;
 		inputType = new InputType(context, field);
-		textField = new TextField(context, settings, field);
+		textField = new TextField(context, field);
 		textSelection = new TextSelection(context, inputType);
 
 		// changing the TextField and notifying all interested classes is an atomic operation
-		appHacks = new AppHacks(inputType, textField, textSelection);
+		appHacks.setDependencies(inputType, textField, textSelection);
 		suggestionOps.setDependencies(appHacks, textField, statusBar);
 	}
 
