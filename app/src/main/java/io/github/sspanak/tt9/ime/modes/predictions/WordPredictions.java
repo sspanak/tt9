@@ -362,7 +362,8 @@ public class WordPredictions extends Predictions {
 
 		return beforeCursor.getPreviousWord(
 			!currentWord.isEmpty(),
-			LanguageKind.isUkrainian(language) || LanguageKind.isHebrew(language)
+			LanguageKind.isUkrainian(language) || LanguageKind.isHebrew(language),
+			true
 		);
 	}
 }
