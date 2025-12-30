@@ -88,9 +88,9 @@ class ModeWords extends ModeCheonjiin {
 
 
 	@Override
-	public boolean onNumber(int number, boolean hold, int repeat) {
+	public boolean onNumber(int number, boolean hold, int repeat, @NonNull String[] surroundingChars) {
 		isCursorDirectionForward = true;
-		return super.onNumber(number, hold, repeat);
+		return super.onNumber(number, hold, repeat, surroundingChars);
 	}
 
 
@@ -324,6 +324,8 @@ class ModeWords extends ModeCheonjiin {
 			.setInputWord(currentWord.isEmpty() ? stem : currentWord)
 			.setIsStemFuzzy(isStemFuzzy)
 			.setStem(stem)
+			.setAfterCursor(afterCursor)
+			.setBeforeCursor(beforeCursor)
 			.setDigitSequence(digitSequence)
 			.setLanguage(language)
 			.load();
