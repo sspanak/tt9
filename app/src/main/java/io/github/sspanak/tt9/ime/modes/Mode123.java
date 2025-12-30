@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -21,9 +22,14 @@ class Mode123 extends ModePassthrough {
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
 
-	protected Mode123(SettingsStore settings, Language language, InputType inputType) {
+	protected Mode123(@NonNull SettingsStore settings, @NonNull Language language, @Nullable InputType inputType) {
 		super(settings, inputType);
 		setLanguage(language);
+
+		if (inputType == null) {
+			setDefaultSpecialCharacters();
+			return;
+		}
 
 		if (inputType.isPhoneNumber()) {
 			setSpecificSpecialCharacters(Characters.Phone, false);

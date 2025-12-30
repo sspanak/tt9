@@ -1,13 +1,14 @@
 package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 // see: InputType.isSpecialNumeric()
 class ModePassthrough extends InputMode {
-	protected ModePassthrough(SettingsStore settings, InputType inputType) {
+	protected ModePassthrough(@Nullable SettingsStore settings, @Nullable InputType inputType) {
 		super(settings, inputType);
 		reset();
 	}

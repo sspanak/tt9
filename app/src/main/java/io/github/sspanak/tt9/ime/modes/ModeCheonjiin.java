@@ -38,12 +38,12 @@ class ModeCheonjiin extends InputMode {
 	// text analysis
 	@NonNull protected Text afterCursor = new Text(null);
 	@NonNull protected Text beforeCursor = new Text(null);
-	protected final AutoSpace autoSpace;
-	protected final InputType inputType;
-	protected final TextField textField;
+	@NonNull protected final AutoSpace autoSpace;
+	@Nullable protected final InputType inputType;
+	@Nullable protected final TextField textField;
 
 
-	protected ModeCheonjiin(SettingsStore settings, InputType inputType, TextField textField) {
+	protected ModeCheonjiin(@NonNull SettingsStore settings, @Nullable InputType inputType, @Nullable TextField textField) {
 		super(settings, inputType);
 
 		autoSpace = new AutoSpace(settings);
