@@ -156,7 +156,7 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	public String recompose() {
 		isRecomposing = false;
-		if (!language.hasSpaceBetweenWords() || language.isTranscribed()) {
+		if (textField == null || !language.hasSpaceBetweenWords() || language.isTranscribed()) {
 			return null;
 		}
 
@@ -412,7 +412,7 @@ class ModeWords extends ModeCheonjiin {
 	}
 
 	private void determineTextFieldTextCase() {
-		int fieldCase = inputType.determineTextCase();
+		final int fieldCase = inputType != null ? inputType.determineTextCase() : CASE_UNDEFINED;
 		textFieldTextCase = allowedTextCases.contains(fieldCase) ? fieldCase : CASE_UNDEFINED;
 	}
 

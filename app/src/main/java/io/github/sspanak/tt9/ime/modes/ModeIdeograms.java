@@ -22,7 +22,7 @@ public class ModeIdeograms extends ModeWords {
 	@NonNull private String lastTextBeforeDelete = "";
 
 
-	protected ModeIdeograms(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
+	protected ModeIdeograms(@NonNull SettingsStore settings, @NonNull Language lang, @Nullable InputType inputType, @Nullable TextField textField) {
 		super(settings, lang, inputType, textField);
 		NAME = super.toString();
 	}
@@ -76,14 +76,19 @@ public class ModeIdeograms extends ModeWords {
 
 	@Override
 	public void beforeDeleteText() {
-		String textBefore = textField.getComposingText();
+		if (textField == null) {
+			lastTextBeforeDelete = "";
+			return;
+		}
+
+		final String textBefore = textField.getComposingText();
 		lastTextBeforeDelete = textBefore.isEmpty() ? textField.getTextBeforeCursor(language, 1).toString() : textBefore;
 	}
 
 
 	@Override
 	public String recompose() {
-		if (lastAcceptedWord.isEmpty()) {
+		if (textField == null || lastAcceptedWord.isEmpty()) {
 			return null;
 		}
 
