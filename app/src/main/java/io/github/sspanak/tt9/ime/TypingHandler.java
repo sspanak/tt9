@@ -182,9 +182,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		suggestionOps.cancelDelayedAccept();
 
 		hold = hold && settings.getHoldToType();
-
-
-		String previousChars = null;
+		String[] surroundingChars = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
 
 		// Automatically accept the previous word, when the next one is a space or punctuation,
 		// instead of requiring "OK" before that.
@@ -196,20 +194,13 @@ public abstract class TypingHandler extends KeyPadHandler {
 			// the suggestions in SuggestionOps, since we don't clear that list.
 			String lastWord = suggestionOps.acceptIncompleteAndKeepList();
 			mInputMode.onAcceptSuggestion(lastWord);
-			String[] surroundingChars = autoCorrectSpace(
-				lastWord,
-				textField.getSurroundingStringForAutoAssistance(settings, mInputMode),
-				false,
-				key
-			);
-
-			previousChars = surroundingChars[0];
+			surroundingChars = autoCorrectSpace(lastWord, surroundingChars, false, key);
 		}
 
 		// Auto-adjust the text case before each word/char, if the InputMode supports it.
-		mInputMode.determineNextWordTextCase(previousChars, key);
+		mInputMode.determineNextWordTextCase(surroundingChars[0], key);
 
-		if (!mInputMode.onNumber(key, hold, repeat)) {
+		if (!mInputMode.onNumber(key, hold, repeat, surroundingChars)) {
 			forceShowWindow();
 			return false;
 		}

@@ -94,7 +94,7 @@ class Mode123 extends ModePassthrough {
 	}
 
 
-	@Override public boolean onNumber(int number, boolean hold, int repeat) {
+	@Override public boolean onNumber(int number, boolean hold, int repeat, @NonNull String[] s) {
 		reset();
 		digitSequence = String.valueOf(number);
 

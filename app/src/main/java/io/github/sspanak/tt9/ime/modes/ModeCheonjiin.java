@@ -17,6 +17,7 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -35,6 +36,8 @@ class ModeCheonjiin extends InputMode {
 	@NonNull private String previousJamoSequence = "";
 
 	// text analysis
+	@NonNull protected Text afterCursor = new Text(null);
+	@NonNull protected Text beforeCursor = new Text(null);
 	protected final AutoSpace autoSpace;
 	protected final InputType inputType;
 	protected final TextField textField;
@@ -127,7 +130,10 @@ class ModeCheonjiin extends InputMode {
 
 
 	@Override
-	public boolean onNumber(int number, boolean hold, int repeat) {
+	public boolean onNumber(int number, boolean hold, int repeat, @NonNull String[] surroundingChars) {
+		beforeCursor = new Text(language, surroundingChars[0]);
+		afterCursor = new Text(language, surroundingChars[1]);
+
 		if (hold) {
 			reset();
 			digitSequence = String.valueOf(number);
@@ -224,8 +230,10 @@ class ModeCheonjiin extends InputMode {
 		}
 
 		predictions
-			.setLanguage(language)
+			.setAfterCursor(afterCursor)
+			.setBeforeCursor(beforeCursor)
 			.setDigitSequence(currentSeq)
+			.setLanguage(language)
 			.load();
 	}
 

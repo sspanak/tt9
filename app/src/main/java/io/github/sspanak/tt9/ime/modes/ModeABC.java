@@ -6,7 +6,6 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.hacks.InputType;
-import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
@@ -26,18 +25,16 @@ class ModeABC extends InputMode {
 	@NonNull private final AutoSpace autoSpace;
 	@NonNull private final AutoTextCase autoTextCase;
 	@Nullable private final InputType inputType;
-	@Nullable private final TextField textField;
 	private final int textFieldTextCase;
 
 	@Override public int getId() { return MODE_ABC; }
 
 
-	protected ModeABC(@NonNull SettingsStore settings, @NonNull Language lang, @Nullable InputType inputType, @Nullable TextField textField) {
+	protected ModeABC(@NonNull SettingsStore settings, @NonNull Language lang, @Nullable InputType inputType) {
 		super(settings, inputType);
 		autoSpace = new AutoSpace(settings);
 		autoTextCase = new AutoTextCase(settings, new Sequences(), inputType);
 		this.inputType = inputType;
-		this.textField = textField;
 		textFieldTextCase = inputType == null ? CASE_UNDEFINED : inputType.determineTextCase();
 
 		setLanguage(lang);
@@ -56,7 +53,12 @@ class ModeABC extends InputMode {
 
 
 	@Override
-	public boolean onNumber(int number, boolean hold, int repeat) {
+	public boolean onNumber(int number, boolean hold, int repeat, @NonNull String[] s) {
+		return onNumber(number, hold, repeat);
+	}
+
+
+	private boolean onNumber(int number, boolean hold, int repeat) {
 		if (hold) {
 			reset();
 			autoAcceptTimeout = 0;

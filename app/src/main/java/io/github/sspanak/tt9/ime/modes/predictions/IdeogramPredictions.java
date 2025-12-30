@@ -91,7 +91,8 @@ public class IdeogramPredictions extends WordPredictions {
 
 		final int currentWordLength = currentWord.length();
 		final int requiredTextLength = currentWordLength + lastWordLength;
-		String text = textField.getTextBeforeCursor(language, requiredTextLength).toString();
+		String text = beforeCursor.toString();
+		text = text.length() <= requiredTextLength ? text : text.substring(text.length() - requiredTextLength);
 		final int textLength = text.length();
 		if (textLength == 0) {
 			return "";

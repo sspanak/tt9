@@ -68,12 +68,12 @@ abstract public class InputMode {
 				return new ModeWords(settings, language, inputType, textField);
 			case MODE_HIRAGANA:
 				if (LanguageKind.isJapanese(language)) return new ModeHiragana(settings, language, inputType, textField);
-				return new ModeABC(settings, language, inputType, textField);
+				return new ModeABC(settings, language, inputType);
 			case MODE_KATAKANA:
 				if (LanguageKind.isJapanese(language)) return new ModeKatakana(settings, language, inputType, textField);
-				return new ModeABC(settings, language, inputType, textField);
+				return new ModeABC(settings, language, inputType);
 			case MODE_ABC:
-				return new ModeABC(settings, language, inputType, textField);
+				return new ModeABC(settings, language, inputType);
 			case MODE_PASSTHROUGH:
 				return new ModePassthrough(settings, inputType);
 			default:
@@ -99,7 +99,7 @@ abstract public class InputMode {
 
 	// Key handlers. Return "true" when handling the key or "false", when is nothing to do.
 	public boolean onBackspace() { return false; }
-	abstract public boolean onNumber(int number, boolean hold, int repeat);
+	abstract public boolean onNumber(int number, boolean hold, int repeat, @NonNull String[] surroundingChars);
 
 	// Suggestions
 	public void onAcceptSuggestion(@NonNull String word) { onAcceptSuggestion(word, false); }

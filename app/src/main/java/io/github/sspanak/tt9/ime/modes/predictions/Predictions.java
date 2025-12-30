@@ -8,11 +8,14 @@ import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Text;
 
 abstract public class Predictions {
 	protected final SettingsStore settings;
 
 	// settings
+	@NonNull protected Text afterCursor = new Text(null);
+	@NonNull protected Text beforeCursor = new Text(null);
 	@NonNull protected String digitSequence = "";
 	@NonNull protected Language language = new NullLanguage();
 	protected boolean orderWordsByLength = true;
@@ -39,6 +42,18 @@ abstract public class Predictions {
 		areThereDbWords = false;
 		containsGeneratedWords = false;
 		words.clear();
+	}
+
+
+	public Predictions setAfterCursor(@NonNull Text afterCursor) {
+		this.afterCursor = afterCursor;
+		return this;
+	}
+
+
+	public Predictions setBeforeCursor(@NonNull Text beforeCursor) {
+		this.beforeCursor = beforeCursor;
+		return this;
 	}
 
 
