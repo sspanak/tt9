@@ -19,9 +19,7 @@ public class CommandCollection {
 
 	private static final ArrayList<Command> hotkeys = new ArrayList<>();
 	private static final LinkedHashMap<Integer, Command> palette = new LinkedHashMap<>();
-	private static final HashMap<String, Integer> reversePalette = new HashMap<>();
 	private static final LinkedHashMap<Integer, Command> textEditing = new LinkedHashMap<>();
-	private static final HashMap<String, Integer> reverseTextEditing = new HashMap<>();
 
 
 	@Nullable
@@ -66,32 +64,6 @@ public class CommandCollection {
 	}
 
 
-	public static int indexOf(int collectionType, @Nullable String commandId) {
-		if (collectionType == COLLECTION_HOTKEYS) {
-			return indexOfHotkeyCommand(commandId);
-		}
-
-		HashMap<String, Integer> reverse = switch(collectionType) {
-			case COLLECTION_PALETTE -> reversePalette;
-			case COLLECTION_TEXT_EDITING -> reverseTextEditing;
-			default -> new HashMap<>();
-		};
-
-		Integer key = reverse.get(commandId);
-		return key != null ? key : -1;
-	}
-
-
-	private static void generateReverseMap(@NonNull LinkedHashMap<Integer, Command> commands, @NonNull HashMap<String, Integer> target) {
-		for (Integer keyId : commands.keySet()) {
-			Command cmd = commands.get(keyId);
-			if (cmd != null) {
-				target.put(cmd.getId(), keyId);
-			}
-		}
-	}
-
-
 	@NonNull
 	public static ArrayList<Command> getHotkeyCommands() {
 		if (hotkeys.isEmpty()) {
@@ -118,17 +90,6 @@ public class CommandCollection {
 	}
 
 
-	private static int indexOfHotkeyCommand(@Nullable String commandId) {
-		ArrayList<Command> commands = getHotkeyCommands();
-		for (int i = 0; i < commands.size(); i++) {
-			if (commands.get(i).getId().equals(commandId)) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
-
 	@NonNull
 	private static LinkedHashMap<Integer, Command> getPaletteCommands() {
 		if (palette.isEmpty()) {
@@ -139,7 +100,6 @@ public class CommandCollection {
 			palette.put(R.id.soft_key_5, new CmdEditText());
 			palette.put(R.id.soft_key_6, new CmdRedo());
 			palette.put(R.id.soft_key_8, new CmdSelectKeyboard());
-			generateReverseMap(palette, reversePalette);
 		}
 
 		return palette;
@@ -157,7 +117,6 @@ public class CommandCollection {
 			textEditing.put(R.id.soft_key_7, new CmdTxtCut());
 			textEditing.put(R.id.soft_key_8, new CmdTxtCopy());
 			textEditing.put(R.id.soft_key_9, new CmdTxtPaste());
-			generateReverseMap(textEditing, reverseTextEditing);
 		}
 
 		return textEditing;

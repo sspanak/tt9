@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ui.main;
 
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.util.ThemedContextBuilder;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -166,11 +164,6 @@ abstract public class BaseMainLayout {
 
 
 	int getHeight(boolean forceRecalculate) {
-		return 0;
-	}
-
-
-	protected int getStatusBarHeight(@NonNull Resources resources, @NonNull SettingsStore settings) {
 		return 0;
 	}
 

@@ -133,7 +133,6 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 	}
 
 
-	@Override
 	protected int getStatusBarHeight(@NonNull Resources resources, @NonNull SettingsStore settings) {
 		final int spacing = resources.getDimensionPixelSize(R.dimen.numpad_status_bar_spacing_bottom);
 
