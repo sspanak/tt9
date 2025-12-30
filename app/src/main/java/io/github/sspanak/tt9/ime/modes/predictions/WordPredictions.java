@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.DataStore;
-import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -13,7 +12,6 @@ import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class WordPredictions extends Predictions {
-	protected final TextField textField;
 	private LocaleWordsSorter localeWordsSorter;
 
 	private String inputWord;
@@ -23,13 +21,12 @@ public class WordPredictions extends Predictions {
 	protected String penultimateWord;
 
 
-	public WordPredictions(SettingsStore settings, TextField textField) {
+	public WordPredictions(SettingsStore settings) {
 		super(settings);
 		lastEnforcedTopWord = "";
 		localeWordsSorter = new LocaleWordsSorter(null);
 		penultimateWord = "";
 		stem = "";
-		this.textField = textField;
 	}
 
 

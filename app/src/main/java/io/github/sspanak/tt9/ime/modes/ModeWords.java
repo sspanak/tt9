@@ -53,7 +53,7 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	protected void initPredictions() {
-		predictions = new WordPredictions(settings, textField);
+		predictions = new WordPredictions(settings);
 		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 

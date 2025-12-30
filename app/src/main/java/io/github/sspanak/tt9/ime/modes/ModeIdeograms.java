@@ -49,7 +49,7 @@ public class ModeIdeograms extends ModeWords {
 
 	@Override
 	protected void initPredictions() {
-		predictions = new IdeogramPredictions(settings, textField);
+		predictions = new IdeogramPredictions(settings);
 		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 

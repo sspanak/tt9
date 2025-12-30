@@ -42,7 +42,6 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 	}
 
 
-	@Override
 	protected int getStatusBarHeight(@NonNull Resources resources, @NonNull SettingsStore settings) {
 		float textSize = resources.getDimension(R.dimen.status_bar_text_size);
 		float padding = textSize * 0.45f;
