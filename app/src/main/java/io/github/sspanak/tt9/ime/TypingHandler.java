@@ -442,14 +442,15 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	private String onAcceptPreviousSuggestion() {
-		String lastWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength() - 1);
+		final int lastWordLength = InputModeKind.isABC(mInputMode) ? 1 : mInputMode.getSequenceLength() - 1;
+		String lastWord = suggestionOps.getCurrent(mLanguage, lastWordLength);
 		if (Characters.PLACEHOLDER.equals(lastWord)) {
 			lastWord = "";
 		}
 
 		suggestionOps.commitCurrent(false, true);
 		mInputMode.onAcceptSuggestion(lastWord, true);
-		String beforeCursor = autoCorrectSpace(
+		final String beforeCursor = autoCorrectSpace(
 			lastWord,
 			textField.getSurroundingStringForAutoAssistance(settings, mInputMode),
 			false,
