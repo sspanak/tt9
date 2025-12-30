@@ -166,7 +166,7 @@ class ModeWords extends ModeCheonjiin {
 		}
 
 		boolean includeApostrophes = LanguageKind.isUkrainian(language) || LanguageKind.isHebrew(language);
-		String previousWord = textField.getTextBeforeCursor(language, 50).getPreviousWord(false, includeApostrophes);
+		String previousWord = textField.getTextBeforeCursor(language, 50).getPreviousWord(false, includeApostrophes, false);
 		if (previousWord.length() < 2 || previousWord.contains(" ")) {
 			Logger.d(LOG_TAG, "Not recomposing invalid word: '" + previousWord + "'");
 			textCase = settings.getTextCase();
