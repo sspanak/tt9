@@ -263,7 +263,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		String previousChars = surroundingChars[0];
-		String nextChars = surroundingChars[1];
+		final String nextChars = surroundingChars[1];
 
 		if (!inputType.isRustDesk() && mInputMode.shouldDeletePrecedingSpace(previousChars)) {
 			textField.deletePrecedingSpace(currentWord);
@@ -283,7 +283,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		if (mInputMode.shouldAddTrailingSpace(previousChars, nextChars, isWordAcceptedManually, nextKey)) {
 			textField.setText(" ");
-			nextChars = " " + nextChars;
+			previousChars += " ";
 		}
 
 		return new String[] { previousChars, nextChars };
