@@ -72,6 +72,8 @@
 	<string name="pref_abc_auto_accept_fast">Rapide</string>
 	<string name="pref_abc_auto_accept_normal">Modérée</string>
 	<string name="pref_abc_auto_accept_slow">Lente</string>
+	<string name="pref_allow_composing_text">Afficher texte en cours</string>
+	<string name="pref_allow_composing_text_summary">Afficher les mots dans les champs de texte pendant la saisie. Lorsqu’elle est désactivée, les mots ne s’affichent qu’après avoir appuyé sur OK ou Espace.</string>
 	<string name="pref_alternative_suggestion_scrolling">Méthode alternative de défilement des mots</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Activez si parfois vous ne pouvez pas voir tous les mots ou vous avez des difficultés à les défiler.</string>
 	<string name="pref_arrows_left_right_summary">Afficher les flèches gauche/droite pour faire défiler les suggestions ou déplacer le curseur de texte horizontalement.</string>
@@ -153,7 +155,7 @@
 	<string name="dictionary_update_update">Charger</string>
 	<string name="donate_title">Donner</string>
 	<string name="donate_summary">Si vous aimez %1$s, vous pouvez m\'offrir une bière.</string>
-	<string name="pref_hack_auto_disable_composing_summary">Lorsqu’une application provoque des problèmes de saisie, masquer les mots pendant la frappe et les afficher après avoir appuyé sur OK ou Espace.</string>
+	<string name="pref_hack_auto_disable_composing_summary">Désactiver automatiquement la composition de texte lorsqu’une application provoque des problèmes de saisie.</string>
 	<string name="pref_hack_key_pad_debounce_time">Protection contre la répétition accidentelle des touches</string>
 	<string name="pref_hack_key_pad_debounce_off">Désactivée</string>
 	<string name="dictionary_export_finished">Exportation terminée</string>

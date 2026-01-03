@@ -73,6 +73,8 @@
 	<string name="pref_abc_auto_accept_fast">Быстро</string>
 	<string name="pref_abc_auto_accept_normal">Умеренное</string>
 	<string name="pref_abc_auto_accept_slow">Медленное</string>
+	<string name="pref_allow_composing_text">Показывать текст при вводе</string>
+	<string name="pref_allow_composing_text_summary">Показывать слова в текстовых полях во время набора. Если отключено, слова отображаются только после нажатия OK или пробела.</string>
 	<string name="pref_alternative_suggestion_scrolling">Альтернативный метод прокрутки слов</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Включите, если иногда вы не видите все слова или у вас возникают проблемы с их прокруткой.</string>
 	<string name="pref_arrows_left_right_summary">Показывать клавиши со стрелками влево/вправо для прокрутки подсказок или горизонтального перемещения текстового курсора.</string>
@@ -155,7 +157,7 @@
 	<string name="donate_summary">Если вам нравится %1$s, вы можете угостить меня пивом.</string>
 	<string name="pref_hack_always_on_top">Поверх других приложений</string>
 	<string name="pref_hack_always_on_top_summary">Не разрешать другим приложениям перекрывать %1$s или выталкивать его с экрана.</string>
-	<string name="pref_hack_auto_disable_composing_summary">Если приложение вызывает проблемы при вводе текста, скрывать слова во время набора и показывать их после нажатия OK или пробела.</string>
+	<string name="pref_hack_auto_disable_composing_summary">Автоматически скрывать текущий текст, когда приложение вызывает проблемы при вводе.</string>
 	<string name="pref_hack_key_pad_debounce_time">Защита от случайного повторения нажатий</string>
 	<string name="pref_hack_key_pad_debounce_off">Выключена</string>
 	<string name="dictionary_export_finished">Экспорт завершен</string>
@@ -254,5 +256,5 @@
 	<string name="tutorial_classic_title">Первые шаги</string>
 	<string name="tutorial_classic_OK_swipe">Когда нет подсказок, свайп вверх/вниз перемещает курсор.\n\nКогда есть подсказки, свайп вверх фильтрует их, а свайп вниз очищает фильтр.</string>
 	<string name="tutorial_classic_add_word">Свайп влево — добавить слово.</string>
-	<string name="pref_hack_auto_disable_composing">Автоматически отключать режим составления текста</string>
+	<string name="pref_hack_auto_disable_composing">Автоматически скрывать вводимый текст</string>
 </resources>

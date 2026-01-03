@@ -51,6 +51,13 @@
 	<PreferenceCategory android:title="@string/pref_category_hacks">
 		<SwitchPreferenceCompat
 			android:defaultValue="true"
+			android:key="pref_allow_composing_text"
+			android:summary="@string/pref_allow_composing_text_summary"
+			android:title="@string/pref_allow_composing_text" />
+
+		<SwitchPreferenceCompat
+			android:dependency="pref_allow_composing_text"
+			android:defaultValue="true"
 			android:key="hack_auto_disable_composing"
 			android:summary="@string/pref_hack_auto_disable_composing_summary"
 			android:title="@string/pref_hack_auto_disable_composing" />

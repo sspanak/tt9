@@ -32,7 +32,7 @@ import io.github.sspanak.tt9.util.chars.Characters;
 public abstract class TypingHandler extends KeyPadHandler {
 	// internal settings/data
 	@NonNull protected InputType inputType = new InputType(null, null);
-	@NonNull protected TextField textField = new TextField(null, null);
+	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(null, null);
 	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null, null);
 
@@ -99,7 +99,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		InputMethodService context = field != null ? this : null;
 		inputType = new InputType(context, field);
-		textField = new TextField(context, field);
+		textField = new TextField(context, settings, field);
 		textSelection = new TextSelection(context, inputType);
 
 		// changing the TextField and notifying all interested classes is an atomic operation

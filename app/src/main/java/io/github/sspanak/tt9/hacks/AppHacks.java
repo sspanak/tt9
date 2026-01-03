@@ -259,7 +259,7 @@ public class AppHacks {
 
 			// delete the corrupted character that went out of control
 			// the surrounding if ensures we do it once
-			TextField corruptedField = textField == null ? new TextField(ims, field) : textField;
+			TextField corruptedField = textField == null ? new TextField(ims, settings, field) : textField;
 			corruptedField.deleteChars(language, 1);
 		}
 	}
