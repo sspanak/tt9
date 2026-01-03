@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.preferences.screens;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.preference.PreferenceFragmentCompat;
 
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -12,21 +14,23 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
-	protected PreferencesActivity activity;
+	@Nullable protected PreferencesActivity activity;
 	private ScreenPreferencesList preferencesList;
 
 
-	protected void init(PreferencesActivity activity) {
-		this.activity = activity;
-		init();
+	public BaseScreenFragment() { init(null); }
+	public BaseScreenFragment(@Nullable PreferencesActivity activity) { init(activity); }
+
+
+	protected void init(@Nullable PreferencesActivity activity) {
+		this.activity = activity == null ? (PreferencesActivity) getActivity() : activity;
+		setScreenTitle();
 	}
 
 
-	protected void init() {
-		if (activity == null) {
-			activity = (PreferencesActivity) getActivity();
-			setScreenTitle();
-		}
+	public void restart(@NonNull PreferencesActivity activity) {
+		init(activity);
+		onCreate();
 	}
 
 
@@ -48,6 +52,10 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
 		LanguageCollection.init(getContext());
 		setPreferencesFromResource(getXml(), rootKey);
+
+		if (activity == null) {
+			activity = (PreferencesActivity) getActivity();
+		}
 
 		if (activity == null) {
 			Logger.w(
@@ -83,6 +91,10 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 
 
 	public void resetFontSize(boolean reloadList) {
+		if (activity == null) {
+			return;
+		}
+
 		initPreferencesList();
 		preferencesList.getAll(reloadList, true);
 		if (DeviceInfo.AT_LEAST_ANDROID_12) {
@@ -90,7 +102,6 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 		} else {
 			preferencesList.setFontSize(activity.getSettings().getSettingsFontSize());
 		}
-
 	}
 
 

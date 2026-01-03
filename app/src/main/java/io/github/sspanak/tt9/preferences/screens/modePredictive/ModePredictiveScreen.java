@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.preferences.screens.modePredictive;
 
+import androidx.annotation.Nullable;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
@@ -8,8 +10,8 @@ import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 public class ModePredictiveScreen extends BaseScreenFragment {
 	public static final String NAME = "ModePredictive";
 
-	public ModePredictiveScreen() { init(); }
-	public ModePredictiveScreen(PreferencesActivity activity) { init(activity); }
+	public ModePredictiveScreen() { super(); }
+	public ModePredictiveScreen(@Nullable PreferencesActivity activity) { super(activity); }
 
 	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_category_predictive_mode; }
@@ -23,7 +25,7 @@ public class ModePredictiveScreen extends BaseScreenFragment {
 		};
 
 		for (EnhancedDropDownPreference dropdown : dropdowns) {
-			if (dropdown != null) dropdown.populate(activity.getSettings()).preview();
+			if (dropdown != null && activity != null) dropdown.populate(activity.getSettings()).preview();
 		}
 
 		resetFontSize(false);

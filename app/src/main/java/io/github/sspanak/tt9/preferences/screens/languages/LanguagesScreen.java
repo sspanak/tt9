@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -29,8 +30,8 @@ public class LanguagesScreen extends BaseScreenFragment {
 	private ItemTruncateAll truncateAllItem;
 	private ItemTruncateUnselected truncateUnselectedItem;
 
-	public LanguagesScreen() { init(); }
-	public LanguagesScreen(PreferencesActivity activity) { init(activity); }
+	public LanguagesScreen() { super(); }
+	public LanguagesScreen(@Nullable PreferencesActivity activity) { super(activity); }
 
 	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_choose_languages; }
