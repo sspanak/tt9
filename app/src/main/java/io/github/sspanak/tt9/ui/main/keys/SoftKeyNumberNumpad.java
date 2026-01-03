@@ -88,7 +88,7 @@ public class SoftKeyNumberNumpad extends BaseSwipeableKey {
 	}
 
 
-	protected int getNumber() {
+	public int getNumber() {
 		return getNumber(getId());
 	}
 

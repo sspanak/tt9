@@ -249,6 +249,17 @@ public class SoftKey extends BaseClickableKey {
 
 
 	/**
+	 * Renders the click effect of the key without performing the actual action.
+	 */
+	public void renderClick() {
+		if (isEnabled()) {
+			setPressed(true);
+			setPressed(false);
+		}
+	}
+
+
+	/**
 	 * Renders the central text of the key and styles it based on "isEnabled".
 	 */
 	private void renderTitle(boolean isEnabled) {

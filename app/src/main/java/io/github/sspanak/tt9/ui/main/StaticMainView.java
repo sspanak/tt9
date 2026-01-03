@@ -79,6 +79,18 @@ public class StaticMainView {
 		main.render();
 	}
 
+	public void renderClickFn(int keyCode) {
+		if (main != null) {
+			main.renderClickFn(keyCode);
+		}
+	}
+
+	public void renderClickNumber(int number) {
+		if (main != null) {
+			main.renderClickNumber(number);
+		}
+	}
+
 	public void renderDynamicKeys() {
 		if (main == null) {
 			Logger.e(LOG_TAG, "Cannot render dynamic keys for a null MainView.");

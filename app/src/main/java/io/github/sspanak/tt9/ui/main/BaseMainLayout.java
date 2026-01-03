@@ -17,7 +17,19 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.ime.helpers.Key;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyAddWord;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyBackspace;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyCommandPalette;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyFilter;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyLF4;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumberNumpad;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyOk;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyRF3;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyShift;
 import io.github.sspanak.tt9.util.ThemedContextBuilder;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
@@ -336,6 +348,58 @@ abstract public class BaseMainLayout {
 	 * Do all the necessary stuff to display the View.
 	 */
 	abstract void render();
+
+
+	/**
+	 * Renders a visual click effect on the key that corresponds to the given keyCode, without
+	 * performing any action.
+	 */
+	void renderClickFn(int keyCode) {
+		if (tt9 == null || !tt9.getSettings().getHardwareKeyVisualFeedback()) {
+			return;
+		}
+
+		final SettingsStore cfg = tt9.getSettings();
+
+		for (SoftKey key : getKeys()) {
+			final int keyId = key.getId();
+
+			if (
+				(key instanceof SoftKeyAddWord && keyCode == cfg.getKeyAddWord())
+				|| (key instanceof SoftKeyBackspace && Key.isBackspace(cfg, keyCode))
+				|| (key instanceof SoftKeyCommandPalette && keyCode == cfg.getKeyCommandPalette())
+				|| (key instanceof SoftKeyLF4 && (keyCode == cfg.getKeyNextInputMode() || keyCode == cfg.getKeyNextLanguage()))
+				|| (key instanceof SoftKeyFilter && (keyCode == cfg.getKeyFilterSuggestions() || keyCode == cfg.getKeyFilterClear()))
+				|| (key instanceof SoftKeyOk && Key.isOK(keyCode))
+				|| (key instanceof SoftKeySettings && keyCode == cfg.getKeyShowSettings())
+				|| (key instanceof SoftKeyShift && keyCode == cfg.getKeyShift())
+				|| (key instanceof SoftKeyRF3 && (keyCode == cfg.getKeyEditText() || keyCode == cfg.getKeyVoiceInput()))
+				|| (keyId == R.id.soft_key_left_arrow && (Key.isArrowLeft(keyCode) || keyCode == cfg.getKeyPreviousSuggestion()))
+				|| (keyId == R.id.soft_key_right_arrow && (Key.isArrowRight(keyCode) || keyCode == cfg.getKeyNextSuggestion()))
+			) {
+				key.renderClick();
+				return;
+			}
+		}
+	}
+
+
+	/**
+	 * Renders a visual click effect on given number key, without performing any action.
+	 */
+	void renderClickNumber(int number) {
+		if (tt9 == null || !tt9.getSettings().getHardwareKeyVisualFeedback()) {
+			return;
+		}
+
+		for (SoftKey key : getKeys()) {
+			if (key instanceof SoftKeyNumberNumpad && ((SoftKeyNumberNumpad) key).getNumber() == number) {
+				key.renderClick();
+				return;
+			}
+		}
+	}
+
 
 	/**
 	 * Tells all layout keys to re-render themselves. If onlyDynamic is true, only keys that

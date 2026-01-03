@@ -72,6 +72,8 @@
 	<string name="pref_layout_stealth">Невидимий режим</string>
 	<string name="pref_layout_tray">Лише список слів</string>
 	<string name="pref_haptic_feedback_summary">Вібрувати при натисканні віртуальної клавіші. (Неможливо на всіх пристроях)</string>
+	<string name="pref_hardware_key_visual_feedback">Візуалізація натискань</string>
+	<string name="pref_hardware_key_visual_feedback_summary">Натискання фізичної клавіші виділить відповідну клавішу на екрані.</string>
 	<string name="pref_help">Допомога</string>
 	<string name="pref_suggestion_font_size">Розмір шрифту пропозицій</string>
 	<string name="pref_suggestion_smooth_scroll">Плавне гортання пропозицій</string>

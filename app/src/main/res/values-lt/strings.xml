@@ -65,6 +65,8 @@
 	<string name="pref_layout_stealth">Nematomas režimas</string>
 	<string name="pref_layout_tray">Tik žodžių sąrašas</string>
 	<string name="pref_haptic_feedback_summary">Vibruoti paspaudus virtualų klavišą. (Neįmanoma visuose įrenginiuose)</string>
+	<string name="pref_hardware_key_visual_feedback">Rodyti klavišų paspaudimus</string>
+	<string name="pref_hardware_key_visual_feedback_summary">Paspaudus fizinį klavišą, atitinkamas ekrano klavišas bus paryškintas.</string>
 	<string name="pref_help">Pagalba</string>
 	<string name="pref_suggestion_font_size">Siūlymų šrifto dydis</string>
 	<string name="pref_suggestion_smooth_scroll">Sklandus žodžių sąrašo slinkimas</string>
