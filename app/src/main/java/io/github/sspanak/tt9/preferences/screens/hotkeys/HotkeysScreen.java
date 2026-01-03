@@ -1,6 +1,8 @@
 package io.github.sspanak.tt9.preferences.screens.hotkeys;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
 import java.util.HashMap;
@@ -19,8 +21,8 @@ public class HotkeysScreen extends BaseScreenFragment {
 	@NonNull static final HashMap<String, PreferenceHotkey> hotkeys = new HashMap<>();
 
 
-	public HotkeysScreen() { init(); }
-	public HotkeysScreen(PreferencesActivity activity) { init(activity); }
+	public HotkeysScreen() { super(); }
+	public HotkeysScreen(@Nullable PreferencesActivity activity) { super(activity); }
 
 	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_category_function_keys; }
@@ -29,8 +31,10 @@ public class HotkeysScreen extends BaseScreenFragment {
 	@Override
 	public void onCreate() {
 		createOptions();
-		(new ItemResetKeys(findPreference(ItemResetKeys.NAME), activity, hotkeys.values())).enableClickHandler();
-		resetFontSize(false);
+		if (activity != null) {
+			(new ItemResetKeys(findPreference(ItemResetKeys.NAME), activity, hotkeys.values())).enableClickHandler();
+		}
+		resetFontSize(true);
 	}
 
 	@Override
@@ -51,6 +55,12 @@ public class HotkeysScreen extends BaseScreenFragment {
 		}
 
 		for (Command cmd : CommandCollection.getHotkeyCommands()) {
+			Preference old = cmd.getId() != null ? findPreference(cmd.getId()) : null;
+			if (old instanceof PreferenceHotkey) {
+				hotkeys.put(cmd.getId(), (PreferenceHotkey) old);
+				continue;
+			}
+
 			PreferenceHotkey hotkeyItem = switch (cmd.getId()) {
 				case CmdBackspace.ID -> new PreferenceBackspaceHotkey(activity, activity.getSettings(), cmd);
 				case CmdVoiceInput.ID -> new PreferenceVoiceInputHotkey(activity, activity.getSettings(), cmd);

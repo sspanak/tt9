@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.preferences.screens.main;
 
+import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
 import java.util.ArrayList;
@@ -14,8 +15,8 @@ import io.github.sspanak.tt9.util.sys.SystemSettings;
 public class MainSettingsScreen extends BaseScreenFragment {
 	final public static String NAME = "Main";
 
-	public MainSettingsScreen() { init(); }
-	public MainSettingsScreen(PreferencesActivity activity) { init(activity); }
+	public MainSettingsScreen() { super(); }
+	public MainSettingsScreen(@Nullable PreferencesActivity activity) { super(activity); }
 
 	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.app_settings;}
@@ -34,7 +35,6 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 	@Override
 	public void onResume() {
-		init(); // changing the theme recreates the PreferencesActivity, making "this.activity" NULL, so we reinitialize it.
 		super.onResume();
 
 		boolean isTT9On = SystemSettings.isTT9Enabled(activity);
@@ -55,7 +55,7 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 	private void updateHelpButtonDescription() {
 		Preference help = findPreference("screen_help");
-		if (help == null) {
+		if (help == null || activity == null) {
 			return;
 		}
 
@@ -69,6 +69,10 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 
 	private void createSettingsSection(boolean isTT9On) {
+		if (activity == null) {
+			return;
+		}
+
 		Preference gotoSetup = findPreference("screen_setup");
 		if (gotoSetup != null) {
 			gotoSetup.setSummary(isTT9On ? "" : activity.getString(R.string.setup_click_here_to_enable));

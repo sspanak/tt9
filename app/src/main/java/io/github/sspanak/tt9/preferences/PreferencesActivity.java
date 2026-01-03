@@ -39,7 +39,7 @@ import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 public class PreferencesActivity extends PremiumPreferencesActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		getSettings();
 		applyTheme();
 		Logger.setLevel(settings.getLogLevel());
@@ -47,12 +47,8 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 
 		super.onCreate(savedInstanceState);
 
-		// changing the theme causes onCreate(), which displays the MainSettingsScreen,
-		// but leaves the old "back" history, which is no longer valid,
-		// so we must reset it
-		getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
 		buildLayout();
+		displayScreen(getPreviousScreen(savedInstanceState), false);
 	}
 
 
@@ -201,7 +197,23 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 		}
 
 		setContentView(R.layout.preferences_container);
-		displayScreen(getScreen("default"), false);
+	}
+
+
+	@NonNull
+	private BaseScreenFragment getPreviousScreen(Bundle savedInstanceState) {
+		BaseScreenFragment screen = null;
+		if (savedInstanceState != null) {
+			FragmentManager fragmentManager = getSupportFragmentManager();
+			screen = (BaseScreenFragment) fragmentManager.findFragmentById(R.id.preferences_container);
+		}
+
+		if (screen == null) {
+			return getScreen("default");
+		}
+
+		screen.restart(this);
+		return screen;
 	}
 
 

@@ -19,8 +19,8 @@ public class PunctuationScreen extends BaseScreenFragment {
 	private ItemPunctuationOrderSave saveOrder;
 	private final ArrayList<AbstractPreferenceCharList> charLists = new ArrayList<>();
 
-	public PunctuationScreen() { init(); }
-	public PunctuationScreen(PreferencesActivity activity) { init(activity); }
+	public PunctuationScreen() { super(); }
+	public PunctuationScreen(@Nullable PreferencesActivity activity) { super(activity); }
 
 	@Override
 	public String getName() {
@@ -65,7 +65,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 	private void initLanguageList() {
 		languageList = findPreference(DropDownPunctuationOrderLanguage.NAME);
-		if (languageList == null) {
+		if (languageList == null || activity == null) {
 			return;
 		}
 
@@ -78,13 +78,13 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 	private void initIncludeSwitches(@Nullable Language language) {
 		PreferenceIncludeTab includeTab = findPreference(PreferenceIncludeTab.NAME);
-		if (includeTab != null && language != null) {
+		if (includeTab != null && language != null && activity != null) {
 			includeTab.setLanguage(activity.getSettings(), language);
 			includeTab.setOnChange(this::onSaveOrdering);
 		}
 
 		PreferenceIncludeNewline includeNewline = findPreference(PreferenceIncludeNewline.NAME);
-		if (includeNewline != null && language != null) {
+		if (includeNewline != null && language != null && activity != null) {
 			includeNewline.setLanguage(activity.getSettings(), language);
 			includeNewline.setOnChange(this::onSaveOrdering);
 		}
@@ -102,7 +102,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 	private void initResetDefaults(@Nullable Language initialLanguage) {
 		Preference item = findPreference(ItemRestoreDefaultPunctuation.NAME);
-		if (item == null) {
+		if (item == null || activity == null) {
 			return;
 		}
 
@@ -114,6 +114,10 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 
 	private void onSaveOrdering() {
+		if (activity == null) {
+			return;
+		}
+
 		for (AbstractPreferenceCharList charList : charLists) {
 			if (charList == null || !charList.validateCurrentChars()) {
 				UI.toastShortSingle(activity, R.string.punctuation_order_save_error);

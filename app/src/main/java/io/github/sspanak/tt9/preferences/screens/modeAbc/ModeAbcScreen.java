@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.preferences.screens.modeAbc;
 
+import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
@@ -9,8 +10,8 @@ import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 public class ModeAbcScreen extends BaseScreenFragment {
 	public static final String NAME = "ModeAbc";
 
-	public ModeAbcScreen() { init(); }
-	public ModeAbcScreen(PreferencesActivity activity) { init(activity); }
+	public ModeAbcScreen() { super(); }
+	public ModeAbcScreen(@Nullable PreferencesActivity activity) { super(activity); }
 
 	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_category_abc_mode; }
@@ -20,7 +21,7 @@ public class ModeAbcScreen extends BaseScreenFragment {
 	protected void onCreate() {
 		resetFontSize(false);
 		Preference dropDown = findPreference(DropDownAbcAutoAcceptTime.NAME);
-		if (dropDown instanceof DropDownAbcAutoAcceptTime) {
+		if (activity != null && dropDown instanceof DropDownAbcAutoAcceptTime) {
 			((DropDownAbcAutoAcceptTime) dropDown).populate(activity.getSettings()).preview();
 		}
 	}

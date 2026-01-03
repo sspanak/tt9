@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.preferences.screens.setup;
 
+import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
@@ -9,8 +10,9 @@ import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 public class SetupScreen extends BaseScreenFragment {
 	final public static String NAME = "Setup";
-	public SetupScreen() { init(); }
-	public SetupScreen(PreferencesActivity activity) { init(activity); }
+
+	public SetupScreen() { super(); }
+	public SetupScreen(@Nullable PreferencesActivity activity) { super(activity); }
 
 	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_category_setup;}

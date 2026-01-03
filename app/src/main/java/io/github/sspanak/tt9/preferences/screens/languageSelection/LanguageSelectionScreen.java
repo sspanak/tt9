@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.preferences.screens.languageSelection;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.preference.PreferenceCategory;
 
 import java.util.ArrayList;
@@ -19,8 +20,8 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 
 	private PreferenceCategory languagesCategory;
 
-	public LanguageSelectionScreen() { init(); }
-	public LanguageSelectionScreen(PreferencesActivity activity) { init(activity); }
+	public LanguageSelectionScreen() { super(); }
+	public LanguageSelectionScreen(@Nullable PreferencesActivity activity) { super(activity); }
 
 
 	@Override public String getName() { return NAME; }
@@ -55,7 +56,7 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 
 
 	private void addLanguagesToCategory(@NonNull PreferenceCategory category, ArrayList<Language> allLanguages) {
-		ArrayList<Integer> enabledLanguageIds = activity.getSettings().getEnabledLanguageIds();
+		ArrayList<Integer> enabledLanguageIds = activity != null ? activity.getSettings().getEnabledLanguageIds() : new ArrayList<>();
 
 		PreferenceSwitchLanguage.clearItems();
 
@@ -74,7 +75,7 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 
 
 	private void addLoadedStatus(ArrayList<Integer> enabledLanguageIds) {
-		if (languagesCategory == null) {
+		if (languagesCategory == null || activity == null) {
 			return;
 		}
 

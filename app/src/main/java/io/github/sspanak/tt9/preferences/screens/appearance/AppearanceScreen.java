@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.preferences.screens.appearance;
 
+import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -12,8 +13,8 @@ import io.github.sspanak.tt9.preferences.screens.ScreenWithPreviewKeyboardHeader
 public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 	final public static String NAME = "Appearance";
 
-	public AppearanceScreen() { init(); }
-	public AppearanceScreen(PreferencesActivity activity) { init(activity); }
+	public AppearanceScreen() { super(); }
+	public AppearanceScreen(@Nullable PreferencesActivity activity) { super(activity); }
 
 	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_category_appearance; }
@@ -40,6 +41,10 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 
 
 	protected void createMainSection() {
+		if (activity == null) {
+			return;
+		}
+
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
 		(new ItemSuggestionSmoothScroll(findPreference(ItemSuggestionSmoothScroll.NAME), activity.getSettings())).populate();
 
@@ -123,6 +128,10 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 
 
 	private void createHacksSection() {
+		if (activity == null) {
+			return;
+		}
+
 		ItemSwitch[] items = {
 			new ItemAlternativeSuggestionScrolling(findPreference(ItemAlternativeSuggestionScrolling.NAME), activity.getSettings()),
 			new ItemClearInsets(findPreference(ItemClearInsets.NAME), activity.getSettings())

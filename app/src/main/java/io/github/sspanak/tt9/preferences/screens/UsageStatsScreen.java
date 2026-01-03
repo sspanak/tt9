@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.preferences.screens;
 
+import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
@@ -20,8 +21,8 @@ public class UsageStatsScreen extends BaseScreenFragment {
 	final private static String WORD_PAIRS_CONTAINER = "word_pairs_container";
 	private ItemText queryListContainer;
 
-	public UsageStatsScreen() { init(); }
-	public UsageStatsScreen(PreferencesActivity activity) { init(activity); }
+	public UsageStatsScreen() { super(); }
+	public UsageStatsScreen(@Nullable PreferencesActivity activity) { super(activity); }
 
 	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_category_usage_stats; }

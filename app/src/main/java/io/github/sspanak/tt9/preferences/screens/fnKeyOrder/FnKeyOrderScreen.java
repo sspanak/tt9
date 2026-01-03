@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.preferences.screens.fnKeyOrder;
 
+import androidx.annotation.Nullable;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
@@ -10,8 +12,8 @@ public class FnKeyOrderScreen extends BaseScreenFragment {
 	private LeftFnOrderPreference left;
 	private RightFnOrderPreference right;
 
-	public FnKeyOrderScreen() { init(); }
-	public FnKeyOrderScreen(PreferencesActivity activity) { init(activity); }
+	public FnKeyOrderScreen() { super(); }
+	public FnKeyOrderScreen(@Nullable PreferencesActivity activity) { super(activity); }
 
 	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_category_fn_key_order; }

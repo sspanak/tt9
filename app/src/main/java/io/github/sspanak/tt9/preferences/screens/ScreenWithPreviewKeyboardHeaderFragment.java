@@ -11,11 +11,15 @@ import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.colors.AbstractColorScheme;
+import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.KeyboardPreviewSwitchPreference;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 abstract public class ScreenWithPreviewKeyboardHeaderFragment extends BaseScreenFragment {
 	private KeyboardPreviewSwitchPreference preview;
+
+	public ScreenWithPreviewKeyboardHeaderFragment() { super(); }
+	public ScreenWithPreviewKeyboardHeaderFragment(@Nullable PreferencesActivity activity) { super(activity); }
 
 	@NonNull
 	@Override
