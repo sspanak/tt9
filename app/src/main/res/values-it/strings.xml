@@ -25,6 +25,8 @@
 	<string name="pref_layout_stealth">Invisibile</string>
 	<string name="pref_layout_tray">Solo elenco delle parole</string>
 	<string name="pref_haptic_feedback_summary">Vibrare alla pressione di un tasto virtuale. (Non possibile su tutti i dispositivi)</string>
+	<string name="pref_hardware_key_visual_feedback">Visualizzare le pressioni</string>
+	<string name="pref_hardware_key_visual_feedback_summary">Premendo un tasto fisico, il tasto corrispondente sullo schermo verrà evidenziato.</string>
 	<string name="pref_help">Aiuto</string>
 	<string name="pref_category_typing">Digitazione</string>
 	<string name="pref_abc_auto_accept">Selezione automatica delle lettere</string>

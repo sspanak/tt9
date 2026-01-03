@@ -23,6 +23,8 @@
 	<string name="pref_layout_stealth">Görünmez</string>
 	<string name="pref_layout_tray">Sadece Tahminler</string>
 	<string name="pref_haptic_feedback_summary">Sanal bir tuşa basıldığında titremek. (Tüm cihazlarda mümkün değil)</string>
+	<string name="pref_hardware_key_visual_feedback">Tuş vuruşlarını görselleştir</string>
+	<string name="pref_hardware_key_visual_feedback_summary">Fiziksel bir tuşa basıldığında, ekran üzerindeki karşılık gelen tuş vurgulanacaktır.</string>
 	<string name="pref_help">Yardım</string>
 	<string name="pref_category_typing">Girdi</string>
 	<string name="pref_abc_auto_accept">Otomatik Harf Seçimi</string>

@@ -22,6 +22,8 @@
 	<string name="pref_layout_stealth">Невидимый режим</string>
 	<string name="pref_layout_tray">Только список слов</string>
 	<string name="pref_haptic_feedback_summary">Вибрировать при нажатии виртуальной клавиши. (Невозможно на всех устройствах)</string>
+	<string name="pref_hardware_key_visual_feedback">Визуализация нажатий</string>
+	<string name="pref_hardware_key_visual_feedback_summary">При нажатии физической клавиши соответствующая клавиша на экране будет выделена.</string>
 	<string name="pref_help">Помощь</string>
 	<string name="pref_auto_capitals_after_newline">Автоматические заглавные буквы на каждой строке</string>
 	<string name="pref_auto_capitals_after_newline_summary">Начинать каждую строку с заглавной буквы, даже если она в середине предложения.</string>

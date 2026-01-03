@@ -22,6 +22,8 @@
 	<string name="pref_layout_stealth">Invisible</string>
 	<string name="pref_layout_tray">Seulement liste de mots</string>
 	<string name="pref_haptic_feedback_summary">Vibrer lors de l\'appui sur une touche virtuelle. (Non possible sur tous les appareils)</string>
+	<string name="pref_hardware_key_visual_feedback">Visualiser les pressions</string>
+	<string name="pref_hardware_key_visual_feedback_summary">Appuyer sur une touche physique mettra en surbrillance la touche correspondante à l’écran.</string>
 	<string name="pref_help">Aide</string>
 	<string name="pref_auto_capitals_after_newline">Majuscules automatiques sur chaque ligne</string>
 	<string name="pref_auto_capitals_after_newline_summary">Commencer chaque ligne avec une majuscule, même si elle est au milieu d\'une phrase.</string>

@@ -54,6 +54,16 @@ public class Key {
 	}
 
 
+	public static boolean isArrowLeft(int keyCode) {
+		return keyCode == KeyEvent.KEYCODE_DPAD_LEFT;
+	}
+
+
+	public static boolean isArrowRight(int keyCode) {
+		return keyCode == KeyEvent.KEYCODE_DPAD_RIGHT;
+	}
+
+
 	public static boolean isBackspace(SettingsStore settings, int keyCode) {
 		return isHardwareBackspace(keyCode) || keyCode == settings.getKeyBackspace();
 	}

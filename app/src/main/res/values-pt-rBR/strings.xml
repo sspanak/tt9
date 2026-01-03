@@ -65,6 +65,8 @@
 	<string name="pref_layout_stealth">Modo invisível</string>
 	<string name="pref_layout_tray">Apenas lista de palavras</string>
 	<string name="pref_haptic_feedback_summary">Vibrar ao pressionar uma tecla virtual. (Não é possível em todos os dispositivos)</string>
+	<string name="pref_hardware_key_visual_feedback">Visualizar pressionamentos</string>
+	<string name="pref_hardware_key_visual_feedback_summary">Pressionar uma tecla física destacará a tecla correspondente na tela.</string>
 	<string name="pref_help">Ajuda</string>
 
 	<string name="pref_numpad_shape_long_space">Barra de espaço longa</string>

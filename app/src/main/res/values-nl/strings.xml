@@ -22,6 +22,8 @@
 	<string name="pref_layout_stealth">Onzichtbare modus</string>
 	<string name="pref_layout_tray">Alleen suggestielijst</string>
 	<string name="pref_haptic_feedback_summary">Trillen bij het indrukken van een virtuele toets. (Niet mogelijk op alle apparaten)</string>
+	<string name="pref_hardware_key_visual_feedback">Toetsindrukken visualiseren</string>
+	<string name="pref_hardware_key_visual_feedback_summary">Het indrukken van een fysieke toets zal de bijbehorende toets op het scherm markeren.</string>
 	<string name="pref_help">Helpen</string>
 	<string name="pref_category_typing">Invoer</string>
 	<string name="pref_abc_auto_accept">Automatische letterselectie</string>

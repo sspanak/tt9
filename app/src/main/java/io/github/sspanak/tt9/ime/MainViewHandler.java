@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ime;
 
+import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,37 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		resetNormalizedDimensions();
 		dragResize = settings.getDragResize();
 		return super.onStart(field, restarting);
+	}
+
+
+	@Override
+	public boolean onBackspace(int repeat) {
+		mainView.renderClickFn(KeyEvent.KEYCODE_DEL);
+		return super.onBackspace(repeat);
+	}
+
+
+	@Override
+	protected boolean onNumber(int key, boolean hold, int repeat) {
+		mainView.renderClickNumber(key);
+		return super.onNumber(key, hold, repeat);
+	}
+
+
+	@Override
+	public boolean onOK() {
+		mainView.renderClickFn(KeyEvent.KEYCODE_ENTER);
+		return super.onOK();
+	}
+
+
+	@Override
+	public boolean onHotkey(int keyCode, boolean repeat, boolean validateOnly) {
+		if (!validateOnly) { // on release
+			mainView.renderClickFn(keyCode);
+		}
+
+		return super.onHotkey(keyCode, repeat, validateOnly);
 	}
 
 

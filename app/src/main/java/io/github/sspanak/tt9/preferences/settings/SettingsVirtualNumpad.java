@@ -47,6 +47,10 @@ public class SettingsVirtualNumpad extends SettingsCustomKeyActions {
 		return prefs.getBoolean(SwitchShowArrowsUpDown.NAME, SwitchShowArrowsUpDown.DEFAULT);
 	}
 
+	public boolean getHardwareKeyVisualFeedback() {
+		return prefs.getBoolean("pref_hardware_key_visual_feedback", false);
+	}
+
 	@NonNull public String getLfnKeyOrder() {
 		return prefs.getString("pref_lfn_key_order", DEFAULT_LFN_KEY_ORDER);
 	}
