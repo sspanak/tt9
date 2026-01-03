@@ -31,6 +31,8 @@
 	<string name="pref_abc_auto_accept_fast">Schnell</string>
 	<string name="pref_abc_auto_accept_normal">Mäßig</string>
 	<string name="pref_abc_auto_accept_slow">Langsam</string>
+	<string name="pref_allow_composing_text">Zusammengesetzten Text anzeigen</string>
+	<string name="pref_allow_composing_text_summary">Wörter in Textfeldern während der Eingabe anzeigen. Wenn deaktiviert, werden Wörter nur nach Drücken von OK oder der Leertaste angezeigt.</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternative Wort-Scroll-Methode</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Aktivieren Sie, wenn Sie manchmal nicht alle Vorschläge sehen können oder Probleme beim Scrollen haben.</string>
 	<string name="pref_arrows_left_right_summary">Linke/rechte Pfeiltasten anzeigen, um durch Vorschläge zu scrollen oder den Textcursor horizontal zu bewegen.</string>
@@ -140,7 +142,7 @@
 	<string name="pref_double_zero_char">Zeichen bei doppeltem Drücken der Taste „0“</string>
 	<string name="pref_hack_always_on_top">Immer im Vordergrund</string>
 	<string name="pref_hack_always_on_top_summary">Andere Anwendungen nicht erlauben, %1$s zu überdecken oder vom Bildschirm zu schieben.</string>
-	<string name="pref_hack_auto_disable_composing_summary">Wenn eine App Probleme beim Tippen verursacht, Wörter während der Eingabe ausblenden und sie nach Drücken von OK oder Leertaste anzeigen.</string>
+	<string name="pref_hack_auto_disable_composing_summary">Texterstellung automatisch deaktivieren, wenn eine App Probleme beim Tippen verursacht.</string>
 	<string name="pref_hack_key_pad_debounce_time">Schutz vor versehentlichem Tastenwiederholen</string>
 	<string name="pref_hack_key_pad_debounce_off">Aus</string>
 	<string name="dictionary_export_finished">Export abgeschlossen</string>

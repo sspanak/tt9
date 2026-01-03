@@ -31,6 +31,8 @@
 	<string name="pref_abc_auto_accept_fast">Hızlı</string>
 	<string name="pref_abc_auto_accept_normal">Normal</string>
 	<string name="pref_abc_auto_accept_slow">Yavaş</string>
+	<string name="pref_allow_composing_text">Yazılan metni göster</string>
+	<string name="pref_allow_composing_text_summary">Yazarken metin alanlarında kelimeleri göster. Devre dışı bırakıldığında, kelimeler yalnızca OK veya Boşluk tuşuna basıldıktan sonra gösterilir.</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternatif Kaydırmalı Tahmin</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Tüm önerileri göremediğiniz ya da tahminlerde kaydırma yapamadığınız zaman etkinleştirin.</string>
 	<string name="pref_arrows_left_right_summary">Öneriler arasında gezinmek veya metin imlecini yatay olarak hareket ettirmek için sol/sağ ok tuşlarını göster.</string>
@@ -135,7 +137,7 @@
 	<string name="pref_double_zero_char">"0" tuşuna iki kere basıldığında yazılacak karakter</string>
 	<string name="pref_hack_always_on_top">Her zaman en üstte tut</string>
 	<string name="pref_hack_always_on_top_summary">Diğer uygulamaların %1$s ekranını kaplamasına veya ekranın dışına itmesine izin vermeyin.</string>
-	<string name="pref_hack_auto_disable_composing_summary">Bir uygulama yazma sorunlarına neden olduğunda, yazarken kelimeleri gizle ve OK ya da Boşluk tuşuna bastıktan sonra göster.</string>
+	<string name="pref_hack_auto_disable_composing_summary">Bir uygulama yazma sorunlarına neden olduğunda, geçerli metni otomatik olarak gizle.</string>
 	<string name="pref_hack_key_pad_debounce_time">Tuşlara yanlışlıkla birden fazla basma engelleyici</string>
 	<string name="pref_hack_key_pad_debounce_off">Kapalı</string>
 	<string name="dictionary_export_finished">Dışa aktarma tamamlandı.</string>
@@ -259,5 +261,5 @@
 	<string name="tutorial_classic_title">İlk adımlar</string>
 	<string name="tutorial_classic_OK_swipe">Öneri yokken, imleci hareket ettirmek için yukarı/aşağı kaydırın.\n\nÖneriler varken, filtrelemek için yukarı, filtreyi temizlemek için aşağı kaydırın.</string>
 	<string name="tutorial_classic_add_word">Bir kelime eklemek için sola kaydırın.</string>
-	<string name="pref_hack_auto_disable_composing">Metin oluşturmayı otomatik olarak devre dışı bırak</string>
+	<string name="pref_hack_auto_disable_composing">Otomatik olarak metin girişini gizle</string>
 </resources>

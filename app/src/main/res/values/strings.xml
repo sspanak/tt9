@@ -57,6 +57,8 @@
 	<string name="pref_abc_auto_accept_fast">Quick</string>
 	<string name="pref_abc_auto_accept_normal">Moderate</string>
 	<string name="pref_abc_auto_accept_slow">Slow</string>
+	<string name="pref_allow_composing_text">Show Composing Text</string>
+	<string name="pref_allow_composing_text_summary">Show words in text fields while typing. When disabled, words are shown only after pressing OK or Space.</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternative Suggestion Scrolling Method</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Enable if sometimes you can not see all suggestions or have trouble scrolling them.</string>
 	<string name="pref_arrows_left_right">Left/Right Arrows</string>
@@ -88,7 +90,7 @@
 	<string name="pref_hack_always_on_top">Always on Top</string>
 	<string name="pref_hack_always_on_top_summary">Prevent other apps from covering %1$s or pushing it off the screen.</string>
 	<string name="pref_hack_auto_disable_composing">Automatically Disable Composing Text</string>
-	<string name="pref_hack_auto_disable_composing_summary">When an app causes typing issues, hide words while you type and show them after pressing OK or Space.</string>
+	<string name="pref_hack_auto_disable_composing_summary">Automatically disable composing text when an app causes typing issues.</string>
 	<string name="pref_hack_key_pad_debounce_time">Accidental Key Repeat Protection</string>
 	<string name="pref_hack_key_pad_debounce_off">Off</string>
 	<string name="pref_haptic_feedback">Vibration</string>

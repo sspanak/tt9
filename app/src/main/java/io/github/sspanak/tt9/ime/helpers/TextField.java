@@ -30,11 +30,14 @@ public class TextField extends InputField {
 	private final boolean isUs;
 
 
-	public TextField(@Nullable InputMethodService ims, EditorInfo inputField) {
+	public TextField(@Nullable InputMethodService ims, @Nullable SettingsStore settings, EditorInfo inputField) {
 		super(ims, inputField);
 
 		InputType inputType = new InputType(ims, inputField);
-		isComposingSupported = !inputType.isNumeric() && !inputType.isLimited() && !inputType.isRustDesk(); // unsupported input fields
+		isComposingSupported =
+			!inputType.isNumeric() && !inputType.isLimited() // unsupported input fields
+			&& !inputType.isRustDesk() // not fixed by settings.getAutoDisableComposing()
+			&& (settings == null || settings.getAllowComposingText()); // disabled in settings
 		isNonText = !inputType.isText();
 		isUs = inputType.isUs();
 	}

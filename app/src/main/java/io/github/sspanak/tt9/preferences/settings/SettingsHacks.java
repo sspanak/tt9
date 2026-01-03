@@ -81,8 +81,12 @@ class SettingsHacks extends BaseSettings {
 		getPrefsEditor().putBoolean("pref_show_donations", yes).apply();
 	}
 
+	public boolean getAllowComposingText() {
+		return prefs.getBoolean("pref_allow_composing_text", true);
+	}
+
 	public boolean getAutoDisableComposing() {
-		return prefs.getBoolean("hack_auto_disable_composing", true);
+		return getAllowComposingText() && prefs.getBoolean("hack_auto_disable_composing", true);
 	}
 
 
