@@ -615,11 +615,11 @@
 	</style>
 
 	<style name="TTheme.Classic.Tutorial.GuideVertical.Left">
-		<item name="layout_constraintGuide_percent">0.475</item>
+		<item name="layout_constraintGuide_percent">0.485</item>
 	</style>
 
 	<style name="TTheme.Classic.Tutorial.GuideVertical.Right">
-		<item name="layout_constraintGuide_percent">0.525</item>
+		<item name="layout_constraintGuide_percent">0.515</item>
 	</style>
 
 	<style name="TTheme.Classic.Tutorial.KeyboardImage" parent="">
@@ -643,8 +643,8 @@
 		<item name="layout_constraintStart_toStartOf">parent</item>
 		<item name="layout_constraintEnd_toEndOf">parent</item>
 
-		<item name="layout_constraintVertical_bias">0.3</item>
-		<item name="layout_constraintWidth_percent">0.85</item>
+		<item name="layout_constraintVertical_bias">0</item>
+		<item name="layout_constraintWidth_percent">0.95</item>
 	</style>
 
 	<style name="TTheme.Classic.Tutorial.OverlayText.AddWord">

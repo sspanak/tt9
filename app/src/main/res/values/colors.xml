@@ -41,7 +41,7 @@
 	<color name="suggestion_separator">#888888</color>
 
 	<color name="tutorial_background_color">#888</color>
-	<color name="tutorial_button_background">#83d2e4</color>
+	<color name="tutorial_button_background">#A1E483</color>
 	<color name="tutorial_button_text_color">#000</color>
 	<color name="tutorial_text_balloon_background">#fff</color>
 </resources>
