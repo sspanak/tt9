@@ -96,6 +96,6 @@
 			android:excludeFromRecents="true"
 			android:label=""
 			android:name="io.github.sspanak.tt9.ui.dialogs.TutorialDialog"
-			android:theme="@style/TTheme.AddWord" />
+			android:theme="@style/TTheme" />
 	</application>
 </manifest>
