@@ -29,9 +29,11 @@ generate_async NotoSans-Bold.ttf 12 -0.15 123
 
 # ABC
 generate_async NotoSans-Bold.ttf ab -0.15 latin_lo
-generate_async NotoSans-Bold.ttf AB -0.15 latin_up
+generate_async NotoSans-Bold.ttf Ab -0.15 latin_cp
+generate_async NotoSans-Bold.ttf AB -0.17 latin_up
 generate_async NotoSans-Bold.ttf аб -0.15 cyrillic_lo
-generate_async NotoSans-Bold.ttf АБ -0.15 cyrillic_up
+generate_async NotoSans-Bold.ttf Аб -0.15 cyrillic_cp
+generate_async NotoSans-Bold.ttf АБ -0.17 cyrillic_up
 
 # Arabic / Farsi
 generate_async NotoSansArabic-Bold.ttf ع -0.05 ar
@@ -43,11 +45,14 @@ generate_async NotoSansJP-Bold.ttf あ -0.15 hiragana
 generate_async NotoSansJP-Bold.ttf ア -0.15 katakana
 generate_async NotoSansJP-Bold.ttf 漢 -0.17 kanji
 generate_async NotoSansKR-Bold.ttf 한 -0.17 ko
+generate_async NotoSansSC-Bold.ttf ㄅ -0.17 zh_bopomofo
 generate_async NotoSansSC-Bold.ttf 拼 -0.17 zh_pinyin
+generate_async NotoSansSC-Bold.ttf 注 -0.17 zh_traditional
 
 # Greek
 generate_all_cases "NotoSans-Bold.ttf" "ελ" "el" -0.12 -0.12 -0.15
 generate_async NotoSans-Bold.ttf αβ alfabeta_lo
+generate_async NotoSans-Bold.ttf Αβ alfabeta_cp
 generate_async NotoSans-Bold.ttf ΑΒ -0.15 alfabeta_up
 
 # Hebrew / Yiddish
