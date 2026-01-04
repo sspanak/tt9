@@ -83,19 +83,23 @@ public class AutoTextCase {
 			return settingsTextCase;
 		}
 
-		// lowercase also takes priority but not as strict as uppercase
-		if (textFieldTextCase != InputMode.CASE_UNDEFINED && settingsTextCase != InputMode.CASE_LOWER) {
-			return textFieldTextCase;
-		}
+		final boolean startOfWord = !Text.isNextToWord(beforeCursor);
 
-		// start of text or sentence
-		if (textFieldTextCase == InputMode.CASE_UPPER || beforeCursor == null || beforeCursor.isEmpty() || Text.isStartOfSentence(beforeCursor)) {
+		if (textFieldTextCase == InputMode.CASE_CAPITALIZE) {
+			return startOfWord ? InputMode.CASE_CAPITALIZE : InputMode.CASE_LOWER;
+		} else if (textFieldTextCase == InputMode.CASE_UPPER) {
 			return InputMode.CASE_UPPER;
 		}
 
-		// beginning of a new word in a text field that requires capitalization
-		if ((textFieldTextCase == InputMode.CASE_CAPITALIZE || modeTextCase == InputMode.CASE_CAPITALIZE) && !Text.isNextToWord(beforeCursor)) {
-			return InputMode.CASE_UPPER;
+		final boolean isStartOfText = beforeCursor == null || beforeCursor.isEmpty();
+		final boolean isStartOfSentence = Text.isStartOfSentence(beforeCursor);
+
+		if (settingsTextCase == InputMode.CASE_LOWER && !isStartOfSentence && !isStartOfText) {
+			return InputMode.CASE_LOWER;
+		}
+
+		if (isStartOfText || isStartOfSentence) {
+			return InputMode.CASE_CAPITALIZE;
 		}
 
 		return InputMode.CASE_LOWER;

@@ -81,11 +81,11 @@ class ModeABC extends InputMode {
 	}
 
 
-	/******** AUTO-CAPITALIZATION ********/
+	/******** TEXT CASE ********/
 	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {
 		if (language.hasUpperCase()) {
-			return newTextCase == CASE_UPPER ? word.toUpperCase(language.getLocale()) : word.toLowerCase(language.getLocale());
+			return newTextCase == CASE_LOWER ? word.toLowerCase(language.getLocale()) : word.toUpperCase(language.getLocale());
 		} else {
 			return word;
 		}
@@ -195,9 +195,24 @@ class ModeABC extends InputMode {
 	}
 
 
-	@Override public void onAcceptSuggestion(@NonNull String w) { reset(); }
-	@Override public boolean shouldAcceptPreviousSuggestion(String word) { return !shouldSelectNextLetter && !Characters.PLACEHOLDER.equals(word); }
-	@Override public boolean shouldSelectNextSuggestion() { return shouldSelectNextLetter; }
+	@Override public void onAcceptSuggestion(@NonNull String w) {
+		reset();
+	}
+
+
+	@Override
+	public boolean shouldAcceptPreviousSuggestion(String word) {
+		return
+			!shouldSelectNextLetter
+			&& word != null && !word.isEmpty()
+			&& !Characters.PLACEHOLDER.equals(word);
+	}
+
+
+	@Override
+	public boolean shouldSelectNextSuggestion() {
+		return shouldSelectNextLetter;
+	}
 
 
 	@Override
