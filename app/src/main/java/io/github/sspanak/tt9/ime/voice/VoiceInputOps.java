@@ -58,26 +58,29 @@ public class VoiceInputOps {
 	}
 
 
-	static Intent createIntent(@NonNull String locale) {
+	static Intent createIntent(@Nullable String locale) {
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, locale);
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
 		intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
+		if (locale != null) {
+			intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, locale);
+		}
 		return intent;
 	}
 
 
-	private void createRecognizer(@Nullable Language language) {
+	private void createGoogleRecognizer(@Nullable Language language) {
 		boolean isLanguageAllowedOffline = language != null && !Boolean.TRUE.equals(isOfflineModeDisabled.get(language.getId()));
 
-		if (isLanguageAllowedOffline && DeviceInfo.AT_LEAST_ANDROID_13 && recognizerSupport.isLanguageSupportedOffline(language)) {
+		if (isLanguageAllowedOffline && DeviceInfo.AT_LEAST_ANDROID_13 && recognizerSupport.isLanguageSupportedOffline(ims, language)) {
 			Logger.d(LOG_TAG, "Creating offline SpeechRecognizer...");
 			speechRecognizer = SpeechRecognizer.createOnDeviceSpeechRecognizer(ims);
-		} else if (recognizerSupport.isRecognitionAvailable) {
+		} else if (recognizerSupport.isGoogleOnlineRecognitionAvailable(ims)) {
 			Logger.d(LOG_TAG, "Creating online SpeechRecognizer...");
 			speechRecognizer = SpeechRecognizer.createSpeechRecognizer(ims);
 		} else {
 			Logger.d(LOG_TAG, "Cannot create SpeechRecognizer, recognition not available.");
+			speechRecognizer = null;
 			return;
 		}
 
@@ -86,7 +89,10 @@ public class VoiceInputOps {
 
 
 	public boolean isAvailable() {
-		return recognizerSupport.isRecognitionAvailable || recognizerSupport.isOnDeviceRecognitionAvailable;
+		return
+			recognizerSupport.isAlternativeAvailable(ims)
+			|| recognizerSupport.isGoogleOnlineRecognitionAvailable(ims)
+			|| recognizerSupport.isGoogleOfflineRecognitionAvailable(ims);
 	}
 
 
@@ -96,29 +102,15 @@ public class VoiceInputOps {
 
 
 	public void listen(@Nullable Language language) {
-		if (language == null) {
-			onListeningError.accept(new VoiceInputError(ims, VoiceInputError.ERROR_INVALID_LANGUAGE));
-			return;
-		}
-
-		if (!isAvailable()) {
-			onListeningError.accept(new VoiceInputError(ims, VoiceInputError.ERROR_NOT_AVAILABLE));
-			return;
-		}
-
-		if (isListening()) {
-			onListeningError.accept(new VoiceInputError(ims, SpeechRecognizer.ERROR_RECOGNIZER_BUSY));
-			return;
-		}
-
 		this.language = language;
-		recognizerSupport.setLanguage(language).checkOfflineSupport(this::listenAsync);
-	}
-
-
-	private void listenAsync() {
-		Handler mainHandler = new Handler(Looper.getMainLooper());
-		mainHandler.post(this::listen);
+		if (recognizerSupport.isAlternativeAvailable(ims)) {
+			ims.startActivity(VoiceInputPickerActivity.generateShowIntent(ims));
+		} else {
+			recognizerSupport.setLanguage(language).checkOfflineSupport(
+				ims,
+				() -> new Handler(Looper.getMainLooper()).post(this::listen)
+			);
+		}
 	}
 
 
@@ -128,18 +120,12 @@ public class VoiceInputOps {
 			return;
 		}
 
-		if (!isAvailable()) {
-			onListeningError.accept(new VoiceInputError(ims, VoiceInputError.ERROR_NOT_AVAILABLE));
-			return;
-		}
-
 		if (isListening()) {
 			onListeningError.accept(new VoiceInputError(ims, SpeechRecognizer.ERROR_RECOGNIZER_BUSY));
 			return;
 		}
 
-		createRecognizer(language);
-
+		createGoogleRecognizer(language);
 		if (speechRecognizer == null) {
 			onListeningError.accept(new VoiceInputError(ims, VoiceInputError.ERROR_NOT_AVAILABLE));
 			return;
@@ -159,7 +145,7 @@ public class VoiceInputOps {
 
 	public void stop() {
 		this.language = null;
-		if (speechRecognizer != null && isAvailable() && isListening()) {
+		if (speechRecognizer != null && isListening()) {
 			speechRecognizer.stopListening();
 		}
 	}

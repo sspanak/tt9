@@ -42,10 +42,10 @@ class SpeechRecognizerSupportModern extends SpeechRecognizerSupportLegacy implem
 
 
 	@Override
-	void checkOfflineSupport(@NonNull Runnable onSupportChecked) {
+	void checkOfflineSupport(@NonNull Context context, @NonNull Runnable onSupportChecked) {
 		if (
 			locale == null
-			|| !isOnDeviceRecognitionAvailable
+			|| !isGoogleOfflineRecognitionAvailable(context)
 			|| missingOfflineLanguages.contains(locale)
 			|| availableOfflineLanguages.contains(locale)
 		) {
@@ -61,8 +61,8 @@ class SpeechRecognizerSupportModern extends SpeechRecognizerSupportLegacy implem
 
 
 	@Override
-	boolean isLanguageSupportedOffline(@Nullable Language language) {
-		return language != null && isOnDeviceRecognitionAvailable && availableOfflineLanguages.contains(VoiceInputOps.getLocale(language));
+	boolean isLanguageSupportedOffline(@NonNull Context context, @Nullable Language language) {
+		return language != null && isGoogleOfflineRecognitionAvailable(context) && availableOfflineLanguages.contains(VoiceInputOps.getLocale(language));
 	}
 
 
