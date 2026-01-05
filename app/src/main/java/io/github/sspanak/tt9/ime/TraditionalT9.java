@@ -33,6 +33,9 @@ public class TraditionalT9 extends PremiumHandler {
 	private boolean isDead = false;
 	private int zombieChecks = 0;
 
+	// A String to be committed after successfully starting in an input field.
+	@NonNull private final StringBuffer onAfterStartText = new StringBuffer();
+
 
 	@Override
 	public View onCreateInputView() {
@@ -93,9 +96,16 @@ public class TraditionalT9 extends PremiumHandler {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		int result = super.onStartCommand(intent, flags, startId);
 
-		String wakeupCommand = intent != null ? intent.getStringExtra(UI.COMMAND_WAKEUP_MAIN) : null;
-		if (UI.COMMAND_WAKEUP_MAIN.equals(wakeupCommand)) {
-			forceShowWindow();
+		final String command = intent != null ? intent.getStringExtra(UI.COMMAND) : null;
+
+		switch (command == null ? "" : command) {
+			case UI.COMMAND_WAKEUP_MAIN -> forceShowWindow();
+			case UI.COMMAND_PRINT_VOICE_INPUT -> {
+				final String text = intent.getStringExtra(UI.COMMAND_PRINT_VOICE_INPUT_TEXT);
+				if (text != null) {
+					onAfterStartText.append(text);
+				}
+			}
 		}
 
 		return result;
@@ -167,6 +177,11 @@ public class TraditionalT9 extends PremiumHandler {
 		}
 
 		askForNotifications();
+
+		if (onAfterStartText.length() > 0) {
+			onText(onAfterStartText.toString(), false);
+			onAfterStartText.setLength(0);
+		}
 
 		return true;
 	}
