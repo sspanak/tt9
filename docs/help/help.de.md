@@ -269,7 +269,7 @@ _Im Modern-Layout befindet sich die Taste unten links._
 Löscht Zeichen bei Betätigung. Wenn Einstellungen → Tastenfeld → Schnelles Löschen aktiviert ist, können Sie durch Zurückwischen das vorherige Wort löschen.
 
 #### Filtertaste
-- **Drücken:** Filtert die Vorschlagsliste. Siehe [oben](#filter-suggestions-key-default-d-pad-up) zur Funktionsweise der Wortfilterung.
+- **Drücken:** Filtert die Vorschlagsliste. Siehe [oben](#vorschläge-filtern-taste-standard-steuerkreuz-oben) zur Funktionsweise der Wortfilterung.
 - **Gedrückt halten:** Löscht den Filter, sofern aktiv.
 
 _Diese Taste ist nur im Modern-Layout verfügbar. Position: zweite Taste von oben._
@@ -289,7 +289,7 @@ Im Retro-Layout können zusätzlich Wischgesten über Einstellungen → Erschein
 
 - **Nach oben wischen ohne Vorschläge:** Cursor nach oben bewegen (entspricht D-PAD nach oben).
 - **Nach unten wischen ohne Vorschläge:** Cursor nach unten bewegen (entspricht D-PAD nach unten).
-- **Nach oben wischen bei vorhandenen Vorschlägen:** Vorschlagsliste filtern. Siehe [oben](#filter-suggestions-key-default-d-pad-up).
+- **Nach oben wischen bei vorhandenen Vorschlägen:** Vorschlagsliste filtern. Siehe [oben](#vorschläge-filtern-taste-standard-steuerkreuz-oben).
 - **Nach unten wischen bei vorhandenen Vorschlägen:** Vorschlagsfilter löschen.
 
 ### Tastaturfeld beim Tippen anpassen

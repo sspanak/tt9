@@ -269,7 +269,7 @@ _En el diseño Modern, es la tecla inferior izquierda._
 Elimina caracteres al pulsarla. Cuando Configuración → Teclado → Eliminación rápida está habilitado, puede deslizar hacia atrás para borrar la palabra anterior.
 
 #### Tecla de filtro
-- **Pulsar:** Filtra la lista de sugerencias. Consulte [arriba](#filter-suggestions-key-default-d-pad-up) cómo funciona el filtrado de palabras.
+- **Pulsar:** Filtra la lista de sugerencias. Consulte [arriba](#tecla-de-filtrar-sugerencias-por-defecto-flecha-arriba-del-d-pad) cómo funciona el filtrado de palabras.
 - **Mantener pulsado:** Borra el filtro, si está activo.
 
 _Esta tecla solo está disponible en el diseño Modern. Ubicación: segunda tecla desde arriba._
@@ -289,7 +289,7 @@ El diseño Retro permite además habilitar gestos de deslizamiento desde Configu
 
 - **Deslizar hacia arriba sin sugerencias:** Mover el cursor hacia arriba (igual que D-PAD arriba).
 - **Deslizar hacia abajo sin sugerencias:** Mover el cursor hacia abajo (igual que D-PAD abajo).
-- **Deslizar hacia arriba con sugerencias:** Filtrar la lista de sugerencias. Consulte [arriba](#filter-suggestions-key-default-d-pad-up).
+- **Deslizar hacia arriba con sugerencias:** Filtrar la lista de sugerencias. Consulte [arriba](#tecla-de-filtrar-sugerencias-por-defecto-flecha-arriba-del-d-pad).
 - **Deslizar hacia abajo con sugerencias:** Borrar el filtro de sugerencias.
 
 ### Redimensionar el Panel del Teclado Mientras Escribes

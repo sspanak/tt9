@@ -269,7 +269,7 @@ _No layout Moderno, é a tecla no canto inferior esquerdo._
 Remove caracteres quando pressionada. Quando Configurações → Teclado → Exclusão Rápida está ativado, é possível deslizar para trás para excluir a palavra anterior.
 
 #### Tecla de Filtro
-- **Pressionar:** Filtra a lista de sugestões. Consulte [acima](#filter-suggestions-key-default-d-pad-up) como funciona a filtragem de palavras.
+- **Pressionar:** Filtra a lista de sugestões. Consulte [acima](#tecla-de-filtro-de-sugestões-padrão-seta-para-cima) como funciona a filtragem de palavras.
 - **Manter pressionado:** Limpa o filtro, se estiver ativo.
 
 _A tecla está disponível apenas no layout Moderno. Localização: segunda tecla a partir do topo._
@@ -289,7 +289,7 @@ O layout Retrô permite ainda ativar gestos de deslizar em Configurações → A
 
 - **Deslizar para cima sem sugestões:** Move o cursor para cima (igual ao D-PAD para cima).
 - **Deslizar para baixo sem sugestões:** Move o cursor para baixo (igual ao D-PAD para baixo).
-- **Deslizar para cima com sugestões:** Filtra a lista de sugestões. Consulte [acima](#filter-suggestions-key-default-d-pad-up).
+- **Deslizar para cima com sugestões:** Filtra a lista de sugestões. Consulte [acima](#tecla-de-filtro-de-sugestões-padrão-seta-para-cima).
 - **Deslizar para baixo com sugestões:** Limpa o filtro de sugestões.
 
 ### Redimensionar o Painel do Teclado Durante a Digitação

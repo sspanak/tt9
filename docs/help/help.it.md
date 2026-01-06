@@ -13,7 +13,7 @@ Un altro problema è che potrebbe mostrare un fastidioso popup "Aggiungi Parola"
 
 Se è necessario eseguire questo passaggio, l'opzione "Correttore ortografico di sistema" nella schermata Configurazione Iniziale sarà attiva. Cliccarci per disabilitare il componente di sistema. Se tale opzione non è presente, non è necessario fare altro.
 
-Dopo aver completato la configurazione, dare un'occhiata alla sezione [Tastierino su Schermo](#tastierino-su-schermo) per ulteriori suggerimenti e trucchi.
+Dopo aver completato la configurazione, dare un'occhiata alla sezione [Tastierino a Schermo](#tastierino-a-schermo) per ulteriori suggerimenti e trucchi.
 
 ### Abilitare la Modalità Predittiva
 La Modalità Predittiva richiede che venga caricato un dizionario di lingua per fornire suggerimenti di parole. È possibile attivare le lingue abilitate e caricare i loro dizionari da Schermata Impostazioni → [Lingue](#opzioni-di-lingua). In caso di dimenticanza, Traditional T9 caricherà automaticamente il dizionario quando si inizia a digitare. Per ulteriori informazioni, [vedi sotto](#opzioni-di-lingua).
@@ -269,7 +269,7 @@ _Nel layout Modern, si trova in basso a sinistra._
 Elimina i caratteri quando viene premuto. Quando Impostazioni → Tastierino → Eliminazione rapida è attivato, è possibile scorrere all’indietro per eliminare la parola precedente.
 
 #### Tasto filtro
-- **Pressione:** Filtra l’elenco dei suggerimenti. Vedere [sopra](#filter-suggestions-key-default-d-pad-up) per il funzionamento del filtro delle parole.
+- **Pressione:** Filtra l’elenco dei suggerimenti. Vedere [sopra](#tasto-filtro-suggerimenti-default-d-pad-su) per il funzionamento del filtro delle parole.
 - **Pressione prolungata:** Cancella il filtro, se attivo.
 
 _Il tasto è disponibile solo nel layout Modern. Posizione: secondo tasto dall’alto._
@@ -289,7 +289,7 @@ Il layout Retro consente inoltre di abilitare i gesti di scorrimento da Impostaz
 
 - **Scorrimento verso l’alto senza suggerimenti:** Sposta il cursore verso l’alto (equivalente a D-PAD su).
 - **Scorrimento verso il basso senza suggerimenti:** Sposta il cursore verso il basso (equivalente a D-PAD giù).
-- **Scorrimento verso l’alto con suggerimenti:** Filtra l’elenco dei suggerimenti. Vedere [sopra](#filter-suggestions-key-default-d-pad-up).
+- **Scorrimento verso l’alto con suggerimenti:** Filtra l’elenco dei suggerimenti. Vedere [sopra](#tasto-filtro-suggerimenti-default-d-pad-su).
 - **Scorrimento verso il basso con suggerimenti:** Cancella il filtro dei suggerimenti.
 
 ### Ridimensionamento del Pannello Tastiera Durante la Digitazione

@@ -13,7 +13,7 @@ Bir başka sorun da, karışıklığa neden olabilecek "Kelime Ekle" açılır i
 
 Bu adımı yapmanız gerekiyorsa, İlk Kurulum ekranında "Sistem Yazım Denetleyicisi" öğesi etkin olacaktır. Sistem bileşenini devre dışı bırakmak için üzerine tıklayın. Böyle bir öğe yoksa başka bir şey yapmanıza gerek yoktur.
 
-Kurulumu tamamladıktan sonra daha fazla ipucu ve püf noktası için [Ekran Üzerindeki Tuş Takımı bölümüne](#ekran-üzeri-tuș-takımı) göz atın.
+Kurulumu tamamladıktan sonra daha fazla ipucu ve püf noktası için [Ekran Üzerindeki Tuş Takımı bölümüne](#ekran-üzeri-tuş-takımı) göz atın.
 
 ### Tahmin Modunu Etkinleştirme
 Tahmin Modu, kelime önerileri sağlamak için bir dil sözlüğünün yüklenmesini gerektirir. Etkin dilleri değiştirebilir ve Ayarlar Ekranı → [Diller](#dil-seçenekleri) bölümünden sözlüklerini yükleyebilirsiniz. Sözlüklerden bazılarını yüklemeyi unutursanız, Traditional T9 yazmaya başladığınızda otomatik olarak yükleyecektir. Daha fazla bilgi için [aşağıya bakın](#dil-seçenekleri).
@@ -269,7 +269,7 @@ _Modern düzende, sol alt köşedeki tuştur._
 Basılıp bırakıldığında karakterleri siler. Ayarlar → Tuş Takımı → Hızlı Silme etkinleştirildiğinde, geri kaydırarak önceki kelime silinebilir.
 
 #### Filtre Tuşu
-- **Bas:** Öneri listesini filtreler. Kelime filtrelemenin nasıl çalıştığı için [yukarıya](#filter-suggestions-key-default-d-pad-up) bakın.
+- **Bas:** Öneri listesini filtreler. Kelime filtrelemenin nasıl çalıştığı için [yukarıya](#öneri-filtreleme-tuşu-varsayılan-d-pad-yukarı) bakın.
 - **Basılı tut:** Etkinse filtreyi temizler.
 
 _Tuş yalnızca Modern düzende mevcuttur. Konum: üstten ikinci tuş._
@@ -289,7 +289,7 @@ Retro düzende ayrıca Ayarlar → Görünüm → Tuşlar bölümünden kaydırm
 
 - **Öneri yokken yukarı kaydırma:** İmleci yukarı taşır (D-PAD yukarı ile aynı).
 - **Öneri yokken aşağı kaydırma:** İmleci aşağı taşır (D-PAD aşağı ile aynı).
-- **Öneri varken yukarı kaydırma:** Öneri listesini filtreler. [Yukarıya](#filter-suggestions-key-default-d-pad-up) bakın.
+- **Öneri varken yukarı kaydırma:** Öneri listesini filtreler. [Yukarıya](#öneri-filtreleme-tuşu-varsayılan-d-pad-yukarı) bakın.
 - **Öneri varken aşağı kaydırma:** Öneri filtresini temizler.
 
 ### Yazarken Klavye Panelini Yeniden Boyutlandırma
@@ -466,7 +466,7 @@ _Hâlâ herhangi bir endişeniz varsa, lütfen uygulamanın Gizlilik Politikası
 ### QWERTY Düzeni Kullanmak İstiyorum (yalnızca dokunmatik ekran cihazları)
 Traditional T9, bir T9 klavyesidir ve bu nedenle QWERTY benzeri bir düzen sağlamaz.
 
-T9 kullanmayı öğreniyorsanız ve ara sıra geri dönmeniz gerekiyorsa veya yeni kelimeleri QWERTY ile yazmak daha uygun geliyorsa, farklı bir klavyeye geçmek için giriş modu tuşuna yukarı kaydırabilirsiniz. Daha fazla bilgi için [sanal tuşlar genel bakışına](#sanal-tușlara-genel-bakış) bakın.
+T9 kullanmayı öğreniyorsanız ve ara sıra geri dönmeniz gerekiyorsa veya yeni kelimeleri QWERTY ile yazmak daha uygun geliyorsa, farklı bir klavyeye geçmek için giriş modu tuşuna yukarı kaydırabilirsiniz. Daha fazla bilgi için [sanal tuşlar genel bakışına](#sanal-tuşlara-genel-bakış) bakın.
 
 Çoğu diğer klavye, space tuşuna veya "dil değiştirme" tuşuna basılı tutarak tekrar Traditional T9'a geçiş yapmanıza izin verir. İlgili kılavuz veya kullanım kılavuzuna göz atın.
 

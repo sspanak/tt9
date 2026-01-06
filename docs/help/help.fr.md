@@ -269,7 +269,7 @@ _Dans la disposition Modern, il s’agit de la touche en bas à gauche._
 Supprime des caractères lorsqu’elle est pressée. Lorsque Paramètres → Clavier → Suppression rapide est activé, un balayage vers l’arrière permet de supprimer le mot précédent.
 
 #### Touche de filtrage
-- **Appui :** Filtre la liste des suggestions. Voir [ci-dessus](#filter-suggestions-key-default-d-pad-up) pour le fonctionnement du filtrage des mots.
+- **Appui :** Filtre la liste des suggestions. Voir [ci-dessus](#touche-de-filtrage-des-suggestions-par-défaut-flèche-vers-le-haut) pour le fonctionnement du filtrage des mots.
 - **Appui long :** Efface le filtre, s’il est actif.
 
 _Cette touche est disponible uniquement dans la disposition Modern. Emplacement : deuxième touche à partir du haut._
@@ -289,7 +289,7 @@ La disposition Retro permet en outre d’activer des gestes de balayage depuis P
 
 - **Balayage vers le haut sans suggestions :** Déplacer le curseur vers le haut (équivalent au D-PAD haut).
 - **Balayage vers le bas sans suggestions :** Déplacer le curseur vers le bas (équivalent au D-PAD bas).
-- **Balayage vers le haut avec suggestions :** Filtrer la liste des suggestions. Voir [ci-dessus](#filter-suggestions-key-default-d-pad-up).
+- **Balayage vers le haut avec suggestions :** Filtrer la liste des suggestions. Voir [ci-dessus](#touche-de-filtrage-des-suggestions-par-défaut-flèche-vers-le-haut).
 - **Balayage vers le bas avec suggestions :** Effacer le filtre des suggestions.
 
 ### Redimensionner le panneau du clavier pendant la saisie
