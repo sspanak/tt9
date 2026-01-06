@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 
 public class HardwareInfo {
 	public static final boolean IS_CAT_S22_FLIP = Build.MANUFACTURER.equals("Cat") && Build.MODEL.contains("S22");
+	public static final boolean IS_EMULATOR = (Build.MANUFACTURER.equalsIgnoreCase("google") || Build.MANUFACTURER.equalsIgnoreCase("unknown")) && Build.MODEL.toUpperCase().contains("SDK") && Build.MODEL.toUpperCase().contains("X86");
 	public static final boolean IS_LG_X100S = Build.MANUFACTURER.equals("LGE") && Build.MODEL.contains("X100S");
 	public static final boolean IS_QIN_F21 = Build.MANUFACTURER.equals("DuoQin") && Build.MODEL.contains("F21");
 	public static final boolean IS_SAMSUNG = Build.MANUFACTURER.equals("samsung") || Build.MANUFACTURER.equals("Samsung") || Build.MANUFACTURER.equals("SAMSUNG");
