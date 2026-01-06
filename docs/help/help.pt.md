@@ -7,13 +7,15 @@ Após a instalação, primeiro é necessário ativar o Traditional T9 como tecla
 _Se o ícone não aparecer imediatamente após a instalação, reinicie seu telefone e ele deverá aparecer. Isso ocorre porque o Android tenta economizar energia não atualizando a lista de aplicativos recém-instalados._
 
 ### Uso em um telefone apenas com tela sensível ao toque
-Em dispositivos com tela sensível ao toque, recomenda-se desativar o corretor ortográfico do sistema. Ele não pode ser usado durante a digitação com as teclas numéricas, o que permite prolongar a vida útil da bateria ao desativá-lo.
+Em dispositivos com tela sensível ao toque, também é altamente recomendável desativar o corretor ortográfico do sistema. Quando ativado, ele sublinha em vermelho algumas ou todas as palavras digitadas.
 
-Outro problema é que o corretor ortográfico pode exibir uma janela pop-up “Adicionar uma palavra” que adiciona palavras ao teclado padrão do sistema (geralmente o Gboard) e não ao dicionário do Traditional T9. Para evitar isso, o corretor ortográfico do sistema deve ser desativado.
+Outro problema é que o corretor ortográfico pode exibir uma janela pop-up confusa de “Adicionar palavra”. Essa janela adicionará novas palavras ao teclado padrão do sistema (geralmente o Gboard), e não ao dicionário do Traditional T9.
 
-Se você precisar realizar essa etapa, o item “Corretor ortográfico do sistema” na tela de configuração inicial será ativado. Clique nele para desativar o componente do sistema. Se este item não for visível, não há mais nada a ser feito.
+Para evitar essas situações, o corretor ortográfico do sistema deve ser desativado.
 
-Após concluir a configuração, consulte a seção [Teclado na Tela](#teclado-na-tela) para obter mais dicas.
+Se for necessário realizar esta etapa, o item “Corretor Ortográfico do Sistema” estará ativo na tela de configuração inicial. Toque nele para desativar o componente do sistema. Se o item estiver desativado, nenhuma ação adicional é necessária.
+
+Após concluir a configuração inicial, consulte a seção [Teclado na Tela](#teclado-na-tela) para obter mais dicas e truques.
 
 ### Ativação do Modo Preditivo
 O Modo Preditivo requer o carregamento de um dicionário de idioma para sugerir palavras. Você pode ativar idiomas e carregar seus dicionários acessando Tela de Configurações → [Idiomas](#opções-de-idioma). Se esquecer de carregar um dicionário, o Traditional T9 o fará automaticamente ao iniciar a digitação. Para mais informações, [veja abaixo](#opções-de-idioma).

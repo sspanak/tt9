@@ -7,13 +7,15 @@ Nach der Installation müssen Sie Traditional T9 als Android-Tastatur aktivieren
 _Wenn das Symbol direkt nach der Installation nicht angezeigt wird, starten Sie Ihr Telefon neu. Dies ist eine Energiesparmaßnahme von Android, um die Liste neu installierter Apps nicht sofort zu aktualisieren._
 
 ### Verwendung auf einem reinen Touchscreen-Handy
-Auf Touchscreen-Geräten wird ebenfalls empfohlen, den System-Rechtschreibprüfer zu deaktivieren. Dieser kann nicht verwendet werden, wenn Sie mit den Nummerntasten tippen, sodass Sie durch das Deaktivieren etwas Akkulaufzeit sparen können.
+Auf Geräten mit Touchscreen wird außerdem dringend empfohlen, die systemweite Rechtschreibprüfung zu deaktivieren. Ist sie aktiviert, werden einige oder alle eingegebenen Wörter rot unterstrichen.
 
-Ein weiteres Problem ist, dass möglicherweise ein verwirrender Dialog "Wort hinzufügen" angezeigt wird, der Wörter zur Standardtastatur des Systems (meistens Gboard) und nicht zum Wörterbuch von Traditional T9 hinzufügt. Um solche Situationen zu vermeiden, muss der System-Rechtschreibprüfer deaktiviert sein.
+Ein weiteres Problem besteht darin, dass die Rechtschreibprüfung ein verwirrendes Pop-up-Fenster „Wort hinzufügen“ anzeigen kann. Dieses Dialogfeld fügt neue Wörter zur standardmäßigen Systemtastatur (in der Regel Gboard) hinzu und nicht zum Wörterbuch von Traditional T9.
 
-Falls Sie diesen Schritt ausführen müssen, wird das Element „System-Rechtschreibprüfer“ im Bildschirm für die Ersteinrichtung aktiv sein. Klicken Sie darauf, um die Systemkomponente zu deaktivieren. Wenn kein solches Element vorhanden ist, müssen Sie nichts weiter tun.
+Um solche Situationen zu vermeiden, muss die systemweite Rechtschreibprüfung deaktiviert werden.
 
-Wenn die Einrichtung abgeschlossen ist, schauen Sie sich den Abschnitt [Bildschirmtastatur](#bildschirmtastatur) für weitere Tipps und Tricks an.
+Falls dieser Schritt erforderlich ist, ist der Eintrag „System-Rechtschreibprüfung“ auf dem Bildschirm der Ersteinrichtung aktiv. Tippen Sie darauf, um die Systemkomponente zu deaktivieren. Ist der Eintrag deaktiviert, ist keine weitere Aktion erforderlich.
+
+Nach Abschluss der Ersteinrichtung lesen Sie bitte den Abschnitt [Bildschirmtastatur](#bildschirmtastatur) für weitere Tipps und Hinweise.
 
 ### Aktivierung des Prädiktiven Modus
 Der Prädiktive Modus erfordert das Laden eines Sprachwörterbuchs, um Wortvorschläge zu bieten. Sie können die aktivierten Sprachen wechseln und ihre Wörterbücher laden unter Einstellungen → [Sprachen](#sprachoptionen). Falls Sie das Laden eines Wörterbuchs vergessen haben, erledigt Traditional T9 dies automatisch, wenn Sie mit dem Tippen beginnen. Weitere Informationen finden Sie [unten](#sprachoptionen).

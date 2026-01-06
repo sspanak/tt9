@@ -7,13 +7,15 @@ Después de instalar, primero debe habilitar T9 Tradicional como teclado de Andr
 _Si no ve el icono justo después de la instalación, reinicie su teléfono, y debería aparecer. Esto se debe a que Android intenta ahorrar batería al no actualizar la lista de aplicaciones recién instaladas._
 
 ### Uso en un teléfono solo con pantalla táctil
-En los dispositivos con pantalla táctil, también se recomienda deshabilitar el corrector ortográfico del sistema. No se puede usar cuando se escribe con las teclas numéricas, por lo que puede ahorrar algo de batería al desactivarlo.
+En dispositivos con pantalla táctil, también se recomienda encarecidamente desactivar el corrector ortográfico del sistema. Cuando está activado, subraya en rojo algunas o todas las palabras que escribe.
 
-Otro problema es que puede mostrar un cuadro de diálogo confuso de "Agregar palabra", que agrega palabras al teclado predeterminado del sistema (generalmente Gboard) y no al diccionario de T9 Tradicional. De nuevo, para evitar tales situaciones, debe deshabilitarse el corrector ortográfico del sistema.
+Otro problema es que el corrector ortográfico puede mostrar un confuso cuadro emergente de “Agregar palabra”. Este cuadro añadirá nuevas palabras al teclado predeterminado del sistema (normalmente Gboard) y no al diccionario de Traditional T9.
 
-Si necesita realizar este paso, el elemento "Corrector Ortográfico del Sistema" en la pantalla de Configuración Inicial estará activo. Haga clic en él para deshabilitar el componente del sistema. Si no aparece ese elemento, entonces no necesita hacer nada más.
+Para evitar estas situaciones, el corrector ortográfico del sistema debe desactivarse.
 
-Una vez que haya terminado con la configuración, consulte la sección [Teclado en pantalla](#teclado-en-pantalla) para obtener más consejos y trucos.
+Si necesita realizar este paso, el elemento “Corrector ortográfico del sistema” estará activo en la pantalla de configuración inicial. Tóquelo para desactivar el componente del sistema. Si el elemento está desactivado, no se requiere ninguna acción adicional.
+
+Después de completar la configuración inicial, consulte la sección [Teclado en pantalla](#teclado-en-pantalla) para obtener más consejos y trucos.
 
 ### Habilitar el Modo Predictivo
 El Modo Predictivo requiere que se cargue un diccionario de idioma para ofrecer sugerencias de palabras. Puede activar o desactivar los idiomas habilitados y cargar sus diccionarios desde la Pantalla de Configuración → [Idiomas](#opciones-de-idioma). En caso de que olvide cargar algún diccionario, T9 Tradicional lo hará automáticamente cuando empiece a escribir. Para más información, [consulte a continuación](#opciones-de-idioma).

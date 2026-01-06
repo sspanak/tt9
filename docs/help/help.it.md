@@ -7,13 +7,15 @@ Dopo l’installazione, per prima cosa bisogna abilitare Traditional T9 come tas
 _Se l'icona non appare subito dopo l’installazione, riavviare il telefono, e dovrebbe apparire. Ciò è dovuto al tentativo di Android di risparmiare batteria non aggiornando la lista delle app appena installate._
 
 ### Utilizzo su telefoni solo touchscreen
-Sui dispositivi touchscreen, si consiglia vivamente di disabilitare il correttore ortografico di sistema. Non può essere usato quando si digita con i tasti numerici, quindi è possibile risparmiare batteria disabilitandolo.
+Sui dispositivi con touchscreen si consiglia inoltre vivamente di disattivare il correttore ortografico di sistema. Quando è attivo, sottolinea in rosso alcune o tutte le parole digitate.
 
-Un altro problema è che potrebbe mostrare un fastidioso popup "Aggiungi Parola", che aggiunge parole alla tastiera di sistema predefinita (solitamente, Gboard) e non al dizionario di Traditional T9. Di nuovo, per evitare tali situazioni, il correttore ortografico di sistema deve essere disabilitato.
+Un altro problema è che il correttore ortografico può mostrare una finestra pop-up confusa con la voce “Aggiungi parola”. Questa finestra aggiungerà nuove parole alla tastiera di sistema predefinita (di solito Gboard) e non al dizionario di Traditional T9.
 
-Se è necessario eseguire questo passaggio, l'opzione "Correttore ortografico di sistema" nella schermata Configurazione Iniziale sarà attiva. Cliccarci per disabilitare il componente di sistema. Se tale opzione non è presente, non è necessario fare altro.
+Per evitare tali situazioni, il correttore ortografico di sistema deve essere disattivato.
 
-Dopo aver completato la configurazione, dare un'occhiata alla sezione [Tastierino a Schermo](#tastierino-a-schermo) per ulteriori suggerimenti e trucchi.
+Se è necessario eseguire questo passaggio, la voce “Correttore ortografico di sistema” nella schermata di configurazione iniziale sarà attiva. Toccarla per disattivare il componente di sistema. Se la voce è disattivata, non è richiesta alcuna azione.
+
+Dopo aver completato la configurazione iniziale, consultare la sezione [Tastiera a schermo](#tastierino-a-schermo) per ulteriori suggerimenti e consigli.
 
 ### Abilitare la Modalità Predittiva
 La Modalità Predittiva richiede che venga caricato un dizionario di lingua per fornire suggerimenti di parole. È possibile attivare le lingue abilitate e caricare i loro dizionari da Schermata Impostazioni → [Lingue](#opzioni-di-lingua). In caso di dimenticanza, Traditional T9 caricherà automaticamente il dizionario quando si inizia a digitare. Per ulteriori informazioni, [vedi sotto](#opzioni-di-lingua).

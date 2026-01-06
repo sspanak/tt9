@@ -7,13 +7,15 @@ Kurulumu yaptıktan sonra, ilk olarak Traditional T9'u bir Android klavyesi olar
 _Yüklemeden hemen sonra simgeyi görmüyorsanız, telefonunuzu yeniden başlatın, simge görünmelidir. Bu, Android'in yeni yüklenen uygulamalar listesini yenilemeyerek biraz pil tasarrufu sağlamaya çalışmasından kaynaklanmaktadır._
 
 ### Sadece Dokunmatik Ekranlı Telefonlarda Kullanım
-Dokunmatik ekran cihazlarında, sistemin yazım denetleyicisini devre dışı bırakmak da önemle tavsiye edilir. Yazarken numara tuşları kullanıldığında işlev göremez, bu nedenle devre dışı bırakarak pil tasarrufu yapabilirsiniz.
+Dokunmatik ekranlı cihazlarda, sistem yazım denetleyicisinin kapatılması da şiddetle tavsiye edilir. Etkin olduğunda, yazdığınız kelimelerin bir kısmını veya tamamını kırmızıyla altı çizili olarak gösterir.
 
-Bir başka sorun da, karışıklığa neden olabilecek "Kelime Ekle" açılır iletişim kutusunu göstermesidir. Bu iletişim kutusu varsayılan sistem klavyesine (genellikle Gboard) ve değil, Traditional T9'un sözlüğüne kelimeler ekler. Bu tür durumları önlemek için sistem yazım denetleyicisi devre dışı bırakılmalıdır.
+Bir diğer sorun ise yazım denetleyicisinin kafa karıştırıcı bir “Kelime Ekle” açılır penceresi gösterebilmesidir. Bu pencere, yeni kelimeleri Traditional T9 sözlüğüne değil, varsayılan sistem klavyesine (genellikle Gboard) ekler.
 
-Bu adımı yapmanız gerekiyorsa, İlk Kurulum ekranında "Sistem Yazım Denetleyicisi" öğesi etkin olacaktır. Sistem bileşenini devre dışı bırakmak için üzerine tıklayın. Böyle bir öğe yoksa başka bir şey yapmanıza gerek yoktur.
+Bu tür durumları önlemek için sistem yazım denetleyicisi devre dışı bırakılmalıdır.
 
-Kurulumu tamamladıktan sonra daha fazla ipucu ve püf noktası için [Ekran Üzerindeki Tuş Takımı bölümüne](#ekran-üzeri-tuş-takımı) göz atın.
+Bu adımı gerçekleştirmeniz gerekiyorsa, İlk Kurulum ekranındaki “Sistem Yazım Denetleyicisi” öğesi etkin olacaktır. Sistem bileşenini kapatmak için üzerine dokunun. Öğe devre dışıysa, herhangi bir işlem yapmanıza gerek yoktur.
+
+İlk kurulumu tamamladıktan sonra, daha fazla ipucu ve püf noktası için [Ekran Üzeri Tuş Takımı](#ekran-üzeri-tuş-takımı) bölümüne göz atın.
 
 ### Tahmin Modunu Etkinleştirme
 Tahmin Modu, kelime önerileri sağlamak için bir dil sözlüğünün yüklenmesini gerektirir. Etkin dilleri değiştirebilir ve Ayarlar Ekranı → [Diller](#dil-seçenekleri) bölümünden sözlüklerini yükleyebilirsiniz. Sözlüklerden bazılarını yüklemeyi unutursanız, Traditional T9 yazmaya başladığınızda otomatik olarak yükleyecektir. Daha fazla bilgi için [aşağıya bakın](#dil-seçenekleri).

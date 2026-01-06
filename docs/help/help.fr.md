@@ -7,13 +7,15 @@ Après l'installation, il est d'abord nécessaire d'activer Traditional T9 comme
 _Si l'icône n'apparaît pas immédiatement après l'installation, redémarrez votre téléphone et elle devrait apparaître. Cela est dû à Android qui essaie d'économiser de l'énergie en ne rafraîchissant pas la liste des applications nouvellement installées._
 
 ### Utilisation sur un téléphone à écran tactile uniquement
-Sur les appareils à écran tactile, il est fortement recommandé de désactiver le correcteur orthographique du système. Il ne peut pas être utilisé lors de la saisie avec les touches numériques, ce qui vous permet de prolonger l'autonomie de la batterie en le désactivant.
+Sur les appareils à écran tactile, il est également fortement recommandé de désactiver le correcteur orthographique du système. Lorsqu’il est activé, il souligne en rouge certains ou tous les mots que vous saisissez.
 
-Un autre problème est que le correcteur orthographique peut afficher une fenêtre contextuelle "Ajouter un mot" qui ajoute des mots au clavier système par défaut (souvent Gboard) et non au dictionnaire de Traditional T9. Pour éviter cela, le correcteur orthographique du système doit être désactivé.
+Un autre problème est que le correcteur orthographique peut afficher une fenêtre contextuelle déroutante « Ajouter un mot ». Cette boîte de dialogue ajoute de nouveaux mots au clavier système par défaut (généralement Gboard) et non au dictionnaire de Traditional T9.
 
-Si vous devez effectuer cette étape, l'élément "Correcteur orthographique système" dans l'écran de configuration initiale sera activé. Cliquez dessus pour désactiver le composant système. Si cet élément n'est pas visible, vous n'avez rien d'autre à faire.
+Afin d’éviter ce type de situation, le correcteur orthographique du système doit être désactivé.
 
-Une fois la configuration terminée, consultez la section [Pavé numérique à l’écran](#pavé-numérique-à-l-écran) pour des astuces supplémentaires.
+Si cette étape est nécessaire, l’élément « Correcteur orthographique du système » sera actif sur l’écran de configuration initiale. Appuyez dessus pour désactiver le composant système. Si l’élément est désactivé, aucune action n’est requise.
+
+Une fois la configuration initiale terminée, consultez la section [Clavier à l’écran](#pavé-numérique-à-l-écran) pour découvrir d’autres conseils et astuces.
 
 ### Activation du Mode Prédictif
 Le Mode Prédictif nécessite le chargement d’un dictionnaire linguistique pour proposer des suggestions de mots. Vous pouvez activer les langues et charger leurs dictionnaires depuis Écran de Paramètres → [Langues](#options-de-langue). Si vous oubliez de charger un dictionnaire, Traditional T9 le fera automatiquement au début de la saisie. Pour plus d'informations, [voir ci-dessous](#options-de-langue).

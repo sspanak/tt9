@@ -254,7 +254,7 @@
 	<string name="setup_tt9_off">%1$s is disabled</string>
 	<string name="setup_click_here_to_enable">Click here to enable TT9 from Android Settings.</string>
 	<string name="setup_spell_checker">System Spell Checker</string>
-	<string name="setup_spell_checker_on">System spell checker may interfere with adding words. Click here to disable.</string>
+	<string name="setup_spell_checker_on">The system spell checker underlines text in red and may prevent adding new words. Tap to disable.</string>
 	<string name="setup_spell_checker_off">Disabled</string>
 
 	<string name="key_key">Key</string>
