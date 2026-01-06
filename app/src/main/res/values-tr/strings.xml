@@ -78,7 +78,7 @@
 	<string name="pref_category_hacks">Uyumluluk</string>
 	<string name="dictionary_loading_indeterminate">Sözlüğü yükle</string>
 	<string name="pref_category_appearance">Görünüş</string>
-	<string name="pref_category_keypad_hardware">Donanım tuşları</string>
+	<string name="pref_category_keypad_hardware">Fiziksel tuşlar</string>
 	<string name="pref_category_keypad_onscreen">Ekran tuşları</string>
 	<string name="pref_category_predictive_mode">Tahmin modu</string>
 	<string name="pref_category_function_keys">Klavye Kısayolları</string>

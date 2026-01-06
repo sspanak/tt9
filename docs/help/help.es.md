@@ -88,7 +88,7 @@ Con "Importar", puedes importar un CSV exportado previamente. Sin embargo, hay a
 
 Con la opción "Eliminar", puedes buscar y eliminar palabras mal escritas u otras que no deseas en el diccionario.
 
-## Teclas rápidas de hardware
+## Atajos de teclas físicas
 
 Todas las teclas de acceso rápido se pueden reconfigurar o deshabilitar desde Configuración → Teclado → Seleccionar Teclas de Acceso Rápido.
 
@@ -121,7 +121,7 @@ Borrar el filtro de sugerencias, si está aplicado.
 
 _**Nota:** Cada aplicación decide por sí misma qué hacer cuando se presiona OK y TT9 no tiene control sobre esto._
 
-_**Nota 2:** Para enviar mensajes con OK en aplicaciones de mensajería, debes habilitar la opción "Enviar con ENTER" o una opción con un nombre similar. Si la aplicación no tiene esta opción, probablemente no sea compatible con el envío de mensajes de esta forma. En este caso, usa la aplicación KeyMapper desde [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) o desde [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). KeyMapper puede detectar aplicaciones de chat y simular un toque en el botón de enviar mensaje al presionar o mantener una tecla de hardware. Consulta la [guía de inicio rápido](https://docs.keymapper.club/quick-start/) para más información._
+_**Nota 2:** Para enviar mensajes con OK en aplicaciones de mensajería, debes habilitar la opción "Enviar con ENTER" o una opción con un nombre similar. Si la aplicación no tiene esta opción, probablemente no sea compatible con el envío de mensajes de esta forma. En este caso, usa la aplicación KeyMapper desde [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) o desde [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). KeyMapper puede detectar aplicaciones de chat y simular un toque en el botón de enviar mensaje al presionar o mantener pulsada una tecla física. Consulta la [guía de inicio rápido](https://docs.keymapper.club/quick-start/) para más información._
 
 #### Tecla 0:
 - **En modo 123:**

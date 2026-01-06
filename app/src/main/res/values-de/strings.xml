@@ -81,7 +81,7 @@
 	<string name="pref_category_hacks">Kompatibilität</string>
 	<string name="dictionary_loading_indeterminate">Lade Wörterbuch</string>
 	<string name="pref_category_appearance">Erscheinungsbild</string>
-	<string name="pref_category_keypad_hardware">Hardwaretasten</string>
+	<string name="pref_category_keypad_hardware">Physische Tasten</string>
 	<string name="pref_category_keypad_onscreen">Bildschirmtasten</string>
 	<string name="pref_category_predictive_mode">Textvorerkennung</string>
 	<string name="pref_category_function_keys">Tastenkürzel</string>

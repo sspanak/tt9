@@ -50,7 +50,7 @@ Click on the Traditional T9 launcher icon.
 - Press the 2-key.
 
 ### Navigating Around the Settings
-If you have a device with a hardware keypad, there are two ways of navigating around the Settings.
+If you have a device with a physical keypad, there are two ways of navigating around the Settings.
 
 1. Use the Up/Down keys for scrolling and OK for opening or activating an option.
 2. Press the 1-9 keys to select the respective option and double-press them to open/activate it. Double-pressing will work no matter where you are on the screen. For example, even if you are at the top double-pressing the 3-key will activate the third option. Finally, the 0-key is a convenient shortcut for scrolling to the end but does not open the last option.
@@ -88,7 +88,7 @@ With "Import", you can import a previously exported CSV. However, there are some
 
 Using "Delete", you can search for and delete misspelled words or others that you don't want in the dictionary.
 
-## Hardware Hotkeys
+## Physical Hotkeys
 
 All hotkeys can be reconfigured or disabled from Settings → Keypad → Select Hotkeys.
 
@@ -121,7 +121,7 @@ Clear the suggestion filter, if applied.
 
 _**Note:** Every application decides on its own what to do when OK is pressed and TT9 has no control over this._
 
-_**Note 2:** To send messages with OK in messaging applications, you must enable their "Send with ENTER" or similarly named setting. If the application has no such setting, it probably does not support sending messages this way. If so, use the KeyMapper app from the [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) or from [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). It can detect chat apps and simulate a touch on the send message button upon pressing or holding a hardware key. Check out the [quick-start guide](https://docs.keymapper.club/quick-start/) for more info._
+_**Note 2:** To send messages with OK in messaging applications, you must enable their "Send with ENTER" or similarly named setting. If the application has no such setting, it probably does not support sending messages this way. If so, use the KeyMapper app from the [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) or from [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). It can detect chat apps and simulate a touch on the send message button upon pressing or holding a physical key. Check out the [quick-start guide](https://docs.keymapper.club/quick-start/) for more info._
 
 #### 0-key:
 - **In 123 mode:**
@@ -231,9 +231,9 @@ _This key does not do anything when the Screen Layout is set to "Virtual Keypad"
 ## On-screen Keypad
 On touchscreen-only devices, a fully functional on-screen keypad is available and enabled automatically. If the device is not detected as having a touchscreen, enable it manually from Settings → Appearance → On-Screen Layout by selecting "Virtual Numpad".
 
-On devices with both a touchscreen and a hardware keypad, the on-screen keys can be disabled to free up screen space. This option is available under Settings → Appearance.
+On devices with both a touchscreen and a physical keypad, the on-screen keys can be disabled to free up screen space. This option is available under Settings → Appearance.
 
-It is also recommended to disable the special behavior that maps the "Back" key to "Backspace", as this is useful only when using a hardware keypad. This is usually handled automatically. If not, go to Settings → Keypad → Select Hotkeys → Backspace key and select the "--" option.
+It is also recommended to disable the special behavior that maps the "Back" key to "Backspace", as this is useful only when using a physical keypad. This is usually handled automatically. If not, go to Settings → Keypad → Select Hotkeys → Backspace key and select the "--" option.
 
 ### Retro and Modern On-Screen Layouts
 Two virtual keypad layouts are available: Retro and Modern.
@@ -243,7 +243,7 @@ The Retro layout includes a D-pad with a central OK key at the top and number ke
 The Modern layout preserves the standard Android look and feel while using a 12-key typing layout. It features a central block of number keys (0–9) for text input, with function keys such as Shift, Backspace, language switch, and OK (Enter) arranged in columns on the left and right.
 
 ### Virtual Keys Overview
-The on-screen keypad works the same way as a hardware phone keypad. Keys with a single function display a central label or icon. Keys with an additional long-press function show a secondary label or icon in the top-right corner.
+The on-screen keypad works the same way as a physical phone keypad. Keys with a single function display a central label or icon. Keys with an additional long-press function show a secondary label or icon in the top-right corner.
 
 #### 0-9 Keys
 Number keys are used for typing words and entering digits. The Retro layout also allows for swipe left and swipe right gestures on some keys. When available, these functions are indicated by icons in the bottom-left or bottom-right corner of the key.
@@ -458,7 +458,7 @@ Over time, it began losing focus on the most important—typing. Ads were introd
 
 By contrast, TT9's [philosophy](https://github.com/sspanak/tt9/?tab=readme-ov-file#-philosophy) is based on the open-source principles. Its source code and dictionaries are publicly available and can be reviewed. User privacy is respected by design. Contributions from the community have helped improve the project, including bug fixes, new languages, and translations. Users are also free to create their own modified versions.
 
-TT9 does not offer things like customizable key shapes, but instead provides a clean and readable layout focused on efficient typing. It does not replicate TouchPal’s visual style, but it works on modern Android 16 smartphones, on nostalgia-inspired devices with hardware keypads such as Qin F21, Cat S22 Flip, Sonim XP3800, and even TV remote controls.
+TT9 does not offer things like customizable key shapes, but instead provides a clean and readable layout focused on efficient typing. It does not replicate TouchPal’s visual style, but it works on modern Android 16 smartphones, on nostalgia-inspired devices with physical keypads such as Qin F21, Cat S22 Flip, Sonim XP3800, and even TV remote controls.
 
 If you disagree or would like to explain your point of view, join [the open discussion](https://github.com/sspanak/tt9/issues/647) on GitHub. Just remember to be respectful to the others. Hate posts will not be tolerated.
 

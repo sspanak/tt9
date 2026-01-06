@@ -88,7 +88,7 @@ Com "Importar", você pode importar um CSV exportado anteriormente. No entanto, 
 
 Usando "Excluir", você pode buscar e deletar palavras com erros ortográficos ou outras que não deseja no dicionário.
 
-## Teclas de atalho de hardware
+## Teclas de atalho físicas
 
 Todos os atalhos de teclado podem ser reconfigurados ou desativados em Configurações → Teclado → Selecionar Atalhos.
 

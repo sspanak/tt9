@@ -15,7 +15,7 @@ Afin d’éviter ce type de situation, le correcteur orthographique du système 
 
 Si cette étape est nécessaire, l’élément « Correcteur orthographique du système » sera actif sur l’écran de configuration initiale. Appuyez dessus pour désactiver le composant système. Si l’élément est désactivé, aucune action n’est requise.
 
-Une fois la configuration initiale terminée, consultez la section [Clavier à l’écran](#pavé-numérique-à-l-écran) pour découvrir d’autres conseils et astuces.
+Une fois la configuration initiale terminée, consultez la section [Pavé numérique à l’écran](#pavé-numérique-à-l-écran) pour découvrir d’autres conseils et astuces.
 
 ### Activation du Mode Prédictif
 Le Mode Prédictif nécessite le chargement d’un dictionnaire linguistique pour proposer des suggestions de mots. Vous pouvez activer les langues et charger leurs dictionnaires depuis Écran de Paramètres → [Langues](#options-de-langue). Si vous oubliez de charger un dictionnaire, Traditional T9 le fera automatiquement au début de la saisie. Pour plus d'informations, [voir ci-dessous](#options-de-langue).

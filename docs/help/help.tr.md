@@ -44,13 +44,13 @@ Traditional T9 kısayol simgesine tıklayın.
 - TT9'u uyandırmak için bir metin veya sayı alanına dokunun.
 - Ekrandaki ayar simgesine dokunun.
 
-#### Yöntem 3 (donanım klavyesi kullanarak)
+#### Yöntem 3 (fiziksel klavye kullanarak)
 - Bir metin veya sayı alanında yazmaya başlayarak TT9'u uyandırın.
 - Ekran üzerindeki araçlar tușuna veya atanmış kısayola basarak komut listesini açın [Varsayılan: ✱ basılı tutun].
 - 2-tușuna basın.
 
 ### Ayarlarda Gezinme
-Donanım tuș takımına sahip bir cihazınız varsa, Ayarlar’da gezinmenin iki yolu vardır.
+Fiziksel tuş takımına sahip bir cihazınız varsa, Ayarlar’da gezinmenin iki yolu vardır.
 
 1. Kaydırma için Yukarı/Așağı tușlarını kullanın ve bir seçenek açmak veya etkinleştirmek için Tamam tușuna basın.
 2. İlgili seçeneği seçmek için 1-9 tușlarına basın ve açmak/etkinleştirmek için iki kez basın. Nerede olursanız olun çift basış işe yarayacaktır. Örneğin, ekranın en üstündeyken bile 3-tușuna iki kez basarsanız üçüncü seçenek etkinleșir. Son olarak, 0-tușu sona kaydırma için bir kısayol işlevi görür ancak son seçeneği açmaz.
@@ -88,7 +88,7 @@ Her durumda, eklediğiniz özel kelimeler korunacak ve ilgili sözlüğü yenide
 
 "Delete" seçeneğini kullanarak yanlış yazılmış veya sözlükte bulunmasını istemediğiniz kelimeleri arayıp silebilirsiniz.
 
-## Donanım kısayol tuşları
+## Fiziksel kısayol tuşları
 
 Tüm kısayol tuşları, Ayarlar → Tuş Takımı → Kısayol Tuşlarını Seç bölümünden yeniden yapılandırılabilir veya devre dışı bırakılabilir.
 
@@ -121,7 +121,7 @@ Uygulanan öneri filtresini temizleyin.
 
 _**Not:** Her uygulama, OK tuşuna basıldığında ne yapılacağını kendisi belirler ve TT9'un üzerinde kontrolü yoktur._
 
-_**Not 2:** Mesajlaşma uygulamalarında OK ile mesaj göndermek için, uygulamanın "ENTER ile Gönder" veya benzer isimli ayarını etkinleştirmeniz gerekir. Uygulamada böyle bir ayar yoksa, muhtemelen bu şekilde mesaj göndermeyi desteklemiyordur. Bu durumda, [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) veya [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/) üzerinden KeyMapper uygulamasını kullanın. KeyMapper, sohbet uygulamalarını algılayabilir ve bir donanım tuşuna basıldığında veya basılı tutulduğunda mesaj gönderme butonuna dokunmayı simüle edebilir. Daha fazla bilgi için [hızlı başlangıç kılavuzuna](https://docs.keymapper.club/quick-start/) göz atın._
+_**Not 2:** Mesajlaşma uygulamalarında OK ile mesaj göndermek için, uygulamanın "ENTER ile Gönder" veya benzer isimli ayarını etkinleştirmeniz gerekir. Uygulamada böyle bir ayar yoksa, muhtemelen bu şekilde mesaj göndermeyi desteklemiyordur. Bu durumda, [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) veya [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/) üzerinden KeyMapper uygulamasını kullanın. KeyMapper, sohbet uygulamalarını algılayabilir ve bir fiziksel tuşa basıldığında veya basılı tutulduğunda mesaj gönderme butonuna dokunmayı simüle edebilir. Daha fazla bilgi için [hızlı başlangıç kılavuzuna](https://docs.keymapper.club/quick-start/) göz atın._
 
 #### 0-tușu:
 - **123 modunda:**
@@ -231,9 +231,9 @@ _Ekran Düzeni "Sanal Tuș Takımı" olarak ayarlandığında bu tuș hiçbir ş
 ## Ekran Üzeri Tuş Takımı
 Yalnızca dokunmatik ekrana sahip cihazlarda, tam işlevli bir ekran üzeri tuş takımı mevcuttur ve otomatik olarak etkinleştirilir. Cihaz dokunmatik ekranlı olarak algılanmazsa, Ayarlar → Görünüm → Ekran Üzeri Düzen bölümünden “Sanal Sayısal Tuş Takımı” seçilerek manuel olarak etkinleştirin.
 
-Hem dokunmatik ekrana hem de donanım tuş takımına sahip cihazlarda, ekran üzeri tuşlar ekran alanını boşaltmak için devre dışı bırakılabilir. Bu seçenek Ayarlar → Görünüm altında bulunur.
+Hem dokunmatik ekrana hem de fiziksel tuş takımına sahip cihazlarda, ekran üzeri tuşlar ekran alanını boşaltmak için devre dışı bırakılabilir. Bu seçenek Ayarlar → Görünüm altında bulunur.
 
-Ayrıca, “Geri” tuşunun “Backspace” olarak eşlenmesine neden olan özel davranışın devre dışı bırakılması önerilir; bu davranış yalnızca donanım tuş takımı kullanıldığında faydalıdır. Bu işlem genellikle otomatik olarak yapılır. Aksi takdirde Ayarlar → Tuş Takımı → Kısayol Tuşlarını Seç → Backspace Tuşu yolunu izleyin ve “--” seçeneğini seçin.
+Ayrıca, “Geri” tuşunun “Backspace” olarak eşlenmesine neden olan özel davranışın devre dışı bırakılması önerilir; bu davranış yalnızca fiziksel tuş takımı kullanıldığında faydalıdır. Bu işlem genellikle otomatik olarak yapılır. Aksi takdirde Ayarlar → Tuş Takımı → Kısayol Tuşlarını Seç → Backspace Tuşu yolunu izleyin ve “--” seçeneğini seçin.
 
 ### Retro ve Modern Ekran Üzeri Düzenler
 İki sanal tuş takımı düzeni mevcuttur: Retro ve Modern.
@@ -243,7 +243,7 @@ Retro düzen, üst kısımda ortasında OK tuşu bulunan bir yön tuşu (D-pad) 
 Modern düzen, 12 tuşlu bir yazım düzeni kullanırken Android’in standart görünümünü ve hissini korur. Metin girişi için ortada 0–9 rakam tuşlarından oluşan bir blok bulunur; Shift, Backspace, dil değiştirme ve OK (Enter) gibi işlev tuşları ise sol ve sağ sütunlara yerleştirilmiştir.
 
 ### Sanal Tuşlara Genel Bakış
-Ekran üzeri tuş takımı, donanım telefon tuş takımıyla aynı şekilde çalışır. Tek işlevli tuşlar ortada bir etiket veya simge gösterir. Uzun basma ile ek işlevi olan tuşlar, sağ üst köşede ikincil bir etiket veya simge gösterir.
+Ekran üzeri tuş takımı, fiziksel telefon tuş takımıyla aynı şekilde çalışır. Tek işlevli tuşlar ortada bir etiket veya simge gösterir. Uzun basma ile ek işlevi olan tuşlar, sağ üst köşede ikincil bir etiket veya simge gösterir.
 
 #### 0–9 Tuşları
 Sayı tuşları kelime yazmak ve rakam girmek için kullanılır. Retro düzende bazı tuşlarda sola ve sağa kaydırma hareketleri de kullanılabilir. Bu işlevler mevcut olduğunda, tuşun sol alt veya sağ alt köşesindeki simgelerle belirtilir.
@@ -456,7 +456,7 @@ Zamanla en önemli unsur olan yazma deneyiminden uzaklaşmaya başladı. Reklaml
 
 Buna karşılık, TT9’un [felsefesi](https://github.com/sspanak/tt9/?tab=readme-ov-file#-philosophy) açık kaynak ilkelerine dayanmaktadır. Kaynak kodu ve sözlükleri herkese açıktır ve incelenebilir. Kullanıcı gizliliği tasarım aşamasından itibaren gözetilmektedir. Topluluk katkıları, hata düzeltmeleri, yeni diller ve çeviriler dahil olmak üzere projenin gelişmesine yardımcı olmuştur. Kullanıcılar ayrıca kendi değiştirilmiş sürümlerini oluşturmakta özgürdür.
 
-TT9, özelleştirilebilir tuş şekilleri gibi özellikler sunmaz; bunun yerine verimli yazmaya odaklanan temiz ve okunabilir bir düzen sağlar. TouchPal’in görsel stilini taklit etmez, ancak Android 16 çalıştıran modern akıllı telefonlarda, Qin F21, Cat S22 Flip ve Sonim XP3800 gibi donanım tuş takımlı nostaljik cihazlarda ve hatta TV uzaktan kumandalarında çalışır.
+TT9, özelleştirilebilir tuş şekilleri gibi özellikler sunmaz; bunun yerine verimli yazmaya odaklanan temiz ve okunabilir bir düzen sağlar. TouchPal’in görsel stilini taklit etmez, ancak Android 16 çalıştıran modern akıllı telefonlarda, Qin F21, Cat S22 Flip ve Sonim XP3800 gibi fiziksel tuş takımlı nostaljik cihazlarda ve hatta TV uzaktan kumandalarında çalışır.
 
 Katılmıyorsanız veya görüşünüzü açıklamak istiyorsanız, GitHub’daki [açık tartışmaya](https://github.com/sspanak/tt9/issues/647) katılabilirsiniz. Lütfen diğer kullanıcılara karşı saygılı olun. Nefret içerikli paylaşımlara izin verilmez.
 
