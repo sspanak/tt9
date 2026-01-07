@@ -7,13 +7,15 @@ Após a instalação, primeiro é necessário ativar o Traditional T9 como tecla
 _Se o ícone não aparecer imediatamente após a instalação, reinicie seu telefone e ele deverá aparecer. Isso ocorre porque o Android tenta economizar energia não atualizando a lista de aplicativos recém-instalados._
 
 ### Uso em um telefone apenas com tela sensível ao toque
-Em dispositivos com tela sensível ao toque, recomenda-se desativar o corretor ortográfico do sistema. Ele não pode ser usado durante a digitação com as teclas numéricas, o que permite prolongar a vida útil da bateria ao desativá-lo.
+Em dispositivos com tela sensível ao toque, também é altamente recomendável desativar o corretor ortográfico do sistema. Quando ativado, ele sublinha em vermelho algumas ou todas as palavras digitadas.
 
-Outro problema é que o corretor ortográfico pode exibir uma janela pop-up “Adicionar uma palavra” que adiciona palavras ao teclado padrão do sistema (geralmente o Gboard) e não ao dicionário do Traditional T9. Para evitar isso, o corretor ortográfico do sistema deve ser desativado.
+Outro problema é que o corretor ortográfico pode exibir uma janela pop-up confusa de “Adicionar palavra”. Essa janela adicionará novas palavras ao teclado padrão do sistema (geralmente o Gboard), e não ao dicionário do Traditional T9.
 
-Se você precisar realizar essa etapa, o item “Corretor ortográfico do sistema” na tela de configuração inicial será ativado. Clique nele para desativar o componente do sistema. Se este item não for visível, não há mais nada a ser feito.
+Para evitar essas situações, o corretor ortográfico do sistema deve ser desativado.
 
-Após concluir a configuração, consulte a seção [Teclado na Tela](#teclado-na-tela) para obter mais dicas.
+Se for necessário realizar esta etapa, o item “Corretor Ortográfico do Sistema” estará ativo na tela de configuração inicial. Toque nele para desativar o componente do sistema. Se o item estiver desativado, nenhuma ação adicional é necessária.
+
+Após concluir a configuração inicial, consulte a seção [Teclado na Tela](#teclado-na-tela) para obter mais dicas e truques.
 
 ### Ativação do Modo Preditivo
 O Modo Preditivo requer o carregamento de um dicionário de idioma para sugerir palavras. Você pode ativar idiomas e carregar seus dicionários acessando Tela de Configurações → [Idiomas](#opções-de-idioma). Se esquecer de carregar um dicionário, o Traditional T9 o fará automaticamente ao iniciar a digitação. Para mais informações, [veja abaixo](#opções-de-idioma).
@@ -86,7 +88,7 @@ Com "Importar", você pode importar um CSV exportado anteriormente. No entanto, 
 
 Usando "Excluir", você pode buscar e deletar palavras com erros ortográficos ou outras que não deseja no dicionário.
 
-## Teclas de atalho de hardware
+## Teclas de atalho físicas
 
 Todos os atalhos de teclado podem ser reconfigurados ou desativados em Configurações → Teclado → Selecionar Atalhos.
 
@@ -269,7 +271,7 @@ _No layout Moderno, é a tecla no canto inferior esquerdo._
 Remove caracteres quando pressionada. Quando Configurações → Teclado → Exclusão Rápida está ativado, é possível deslizar para trás para excluir a palavra anterior.
 
 #### Tecla de Filtro
-- **Pressionar:** Filtra a lista de sugestões. Consulte [acima](#filter-suggestions-key-default-d-pad-up) como funciona a filtragem de palavras.
+- **Pressionar:** Filtra a lista de sugestões. Consulte [acima](#tecla-de-filtro-de-sugestões-padrão-seta-para-cima) como funciona a filtragem de palavras.
 - **Manter pressionado:** Limpa o filtro, se estiver ativo.
 
 _A tecla está disponível apenas no layout Moderno. Localização: segunda tecla a partir do topo._
@@ -289,7 +291,7 @@ O layout Retrô permite ainda ativar gestos de deslizar em Configurações → A
 
 - **Deslizar para cima sem sugestões:** Move o cursor para cima (igual ao D-PAD para cima).
 - **Deslizar para baixo sem sugestões:** Move o cursor para baixo (igual ao D-PAD para baixo).
-- **Deslizar para cima com sugestões:** Filtra a lista de sugestões. Consulte [acima](#filter-suggestions-key-default-d-pad-up).
+- **Deslizar para cima com sugestões:** Filtra a lista de sugestões. Consulte [acima](#tecla-de-filtro-de-sugestões-padrão-seta-para-cima).
 - **Deslizar para baixo com sugestões:** Limpa o filtro de sugestões.
 
 ### Redimensionar o Painel do Teclado Durante a Digitação
