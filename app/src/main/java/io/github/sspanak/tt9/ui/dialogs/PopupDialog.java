@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
@@ -23,6 +24,8 @@ abstract public class PopupDialog implements DialogInterface.OnKeyListener {
 	protected Dialog popup;
 	protected String title;
 	protected String message;
+	protected String cancelLabel;
+	protected String neutralLabel;
 	protected String OKLabel;
 
 	PopupDialog(@NonNull TraditionalT9 tt9, int theme) {
@@ -50,8 +53,11 @@ abstract public class PopupDialog implements DialogInterface.OnKeyListener {
 		return false;
 	}
 
-	protected boolean render(Runnable onOK, Runnable onCancel, View customView) {
+	protected boolean render(@Nullable Runnable onOK, @Nullable Runnable onCancel, @Nullable Runnable onNeutral, View customView) {
 		PopupBuilder popupBuilder = new PopupBuilder(context);
+		if (onNeutral != null) {
+			popupBuilder.setNeutralButton(neutralLabel, onNeutral);
+		}
 		if (onOK != null) {
 			popupBuilder.setPositiveButton(OKLabel, onOK);
 		}
@@ -59,11 +65,16 @@ abstract public class PopupDialog implements DialogInterface.OnKeyListener {
 			popupBuilder.setView(customView);
 		}
 
+		if (cancelLabel != null) {
+			popupBuilder.setNegativeButton(cancelLabel, onCancel);
+		} else {
+			popupBuilder.setNegativeButton(true, onCancel);
+		}
+
 		popup = popupBuilder
 			.setCancelable(cancelable)
 			.setTitle(title)
 			.setMessage(message)
-			.setNegativeButton(true, onCancel)
 			.setOnKeyListener(this)
 			.showFromIme(mainView);
 

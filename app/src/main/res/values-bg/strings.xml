@@ -259,4 +259,5 @@
 	<string name="tutorial_classic_add_word">Плъзнете наляво, за да добавите дума.</string>
 	<string name="pref_hack_auto_disable_composing">Автоматично скриване на въвеждания текст</string>
 	<string name="pref_hardware_key_visual_feedback">Визуализиране на натисканията</string>
+	<string name="add_word_edit">Редактирай</string>
 </resources>

@@ -268,4 +268,5 @@
 	<string name="tutorial_classic_OK_swipe">Kai nėra pasiūlymų, braukite aukštyn/žemyn, kad perkeltumėte žymeklį.\n\nKai yra pasiūlymų, braukite aukštyn, kad juos filtruotumėte, arba žemyn, kad išvalytumėte filtrą.</string>
 	<string name="tutorial_classic_add_word">Braukite kairėn, kad pridėtumėte žodį.</string>
 	<string name="pref_hack_auto_disable_composing">Automatiškai išjungti teksto komponavimą</string>
+	<string name="add_word_edit">Redaguoti</string>
 </resources>
