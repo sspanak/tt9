@@ -75,7 +75,7 @@
 	<string name="pref_category_fn_key_order">Ordine dei tasti funzione</string>
 	<string name="pref_category_hacks">Compatibilità</string>
 	<string name="pref_category_appearance">Aspetto</string>
-	<string name="pref_category_keypad_hardware">Tasti hardware</string>
+	<string name="pref_category_keypad_hardware">Tasti fisici</string>
 	<string name="pref_category_keypad_onscreen">Tasti sullo schermo</string>
 	<string name="pref_category_predictive_mode">Scrittura facilitata</string>
 	<string name="pref_category_function_keys">Scorciatoie da tastiera</string>
@@ -97,7 +97,7 @@
 	<string name="setup_tt9_off">%1$s è disabilitato</string>
 	<string name="setup_click_here_to_enable">Clicca qui per abilitare TT9 dalle impostazioni di Android.</string>
 	<string name="setup_spell_checker">Controllo ortografico di sistema</string>
-	<string name="setup_spell_checker_on">Il controllo ortografico di sistema può interferire con l\'aggiunta di parole. Clicca qui per disabilitarlo.</string>
+	<string name="setup_spell_checker_on">Il correttore ortografico di sistema sottolinea il testo in rosso e può impedire l’aggiunta di nuove parole. Tocca per disattivare.</string>
 	<string name="setup_spell_checker_off">Disabilitato</string>
 	<string name="key_back">Indietro</string>
 	<string name="key_call">Chiamata</string>

@@ -122,7 +122,7 @@
 	<string name="setup_tt9_off">%1$s está deshabilitado</string>
 	<string name="setup_click_here_to_enable">Pulse aquí para habilitar TT9 en la configuración de Android</string>
 	<string name="setup_spell_checker">Corrector ortográfico del sistema</string>
-	<string name="setup_spell_checker_on">El corrector ortográfico del sistema puede interferir con la adición de palabras. Haga clic aquí para desactivarlo.</string>
+	<string name="setup_spell_checker_on">El corrector ortográfico del sistema subraya el texto en rojo y puede impedir añadir nuevas palabras. Toca para desactivar.</string>
 	<string name="setup_spell_checker_off">Desactivado</string>
 	<string name="key_key">Tecla</string>
 	<string name="key_hold_key">(еspera)</string>

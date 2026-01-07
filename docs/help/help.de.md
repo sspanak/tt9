@@ -7,13 +7,15 @@ Nach der Installation müssen Sie Traditional T9 als Android-Tastatur aktivieren
 _Wenn das Symbol direkt nach der Installation nicht angezeigt wird, starten Sie Ihr Telefon neu. Dies ist eine Energiesparmaßnahme von Android, um die Liste neu installierter Apps nicht sofort zu aktualisieren._
 
 ### Verwendung auf einem reinen Touchscreen-Handy
-Auf Touchscreen-Geräten wird ebenfalls empfohlen, den System-Rechtschreibprüfer zu deaktivieren. Dieser kann nicht verwendet werden, wenn Sie mit den Nummerntasten tippen, sodass Sie durch das Deaktivieren etwas Akkulaufzeit sparen können.
+Auf Geräten mit Touchscreen wird außerdem dringend empfohlen, die systemweite Rechtschreibprüfung zu deaktivieren. Ist sie aktiviert, werden einige oder alle eingegebenen Wörter rot unterstrichen.
 
-Ein weiteres Problem ist, dass möglicherweise ein verwirrender Dialog "Wort hinzufügen" angezeigt wird, der Wörter zur Standardtastatur des Systems (meistens Gboard) und nicht zum Wörterbuch von Traditional T9 hinzufügt. Um solche Situationen zu vermeiden, muss der System-Rechtschreibprüfer deaktiviert sein.
+Ein weiteres Problem besteht darin, dass die Rechtschreibprüfung ein verwirrendes Pop-up-Fenster „Wort hinzufügen“ anzeigen kann. Dieses Dialogfeld fügt neue Wörter zur standardmäßigen Systemtastatur (in der Regel Gboard) hinzu und nicht zum Wörterbuch von Traditional T9.
 
-Falls Sie diesen Schritt ausführen müssen, wird das Element „System-Rechtschreibprüfer“ im Bildschirm für die Ersteinrichtung aktiv sein. Klicken Sie darauf, um die Systemkomponente zu deaktivieren. Wenn kein solches Element vorhanden ist, müssen Sie nichts weiter tun.
+Um solche Situationen zu vermeiden, muss die systemweite Rechtschreibprüfung deaktiviert werden.
 
-Wenn die Einrichtung abgeschlossen ist, schauen Sie sich den Abschnitt [Bildschirmtastatur](#bildschirmtastatur) für weitere Tipps und Tricks an.
+Falls dieser Schritt erforderlich ist, ist der Eintrag „System-Rechtschreibprüfung“ auf dem Bildschirm der Ersteinrichtung aktiv. Tippen Sie darauf, um die Systemkomponente zu deaktivieren. Ist der Eintrag deaktiviert, ist keine weitere Aktion erforderlich.
+
+Nach Abschluss der Ersteinrichtung lesen Sie bitte den Abschnitt [Bildschirmtastatur](#bildschirmtastatur) für weitere Tipps und Hinweise.
 
 ### Aktivierung des Prädiktiven Modus
 Der Prädiktive Modus erfordert das Laden eines Sprachwörterbuchs, um Wortvorschläge zu bieten. Sie können die aktivierten Sprachen wechseln und ihre Wörterbücher laden unter Einstellungen → [Sprachen](#sprachoptionen). Falls Sie das Laden eines Wörterbuchs vergessen haben, erledigt Traditional T9 dies automatisch, wenn Sie mit dem Tippen beginnen. Weitere Informationen finden Sie [unten](#sprachoptionen).
@@ -48,7 +50,7 @@ Tippen Sie auf das Traditional T9-Symbol.
 - Drücken Sie die 2-Taste.
 
 ### Navigation in den Einstellungen
-Wenn Sie ein Gerät mit Hardwaretastatur haben, gibt es zwei Möglichkeiten zur Navigation in den Einstellungen.
+Wenn Sie ein Gerät mit physischer Tastatur haben, gibt es zwei Möglichkeiten zur Navigation in den Einstellungen.
 
 1. Verwenden Sie die Hoch-/Runter-Tasten zum Scrollen und OK zum Öffnen oder Aktivieren einer Option.
 2. Drücken Sie die Tasten 1–9, um die jeweilige Option auszuwählen, und doppeltippen Sie darauf, um sie zu öffnen/aktivieren. Doppeltippen funktioniert überall auf dem Bildschirm. Beispielsweise wird durch Doppeltippen der 3-Taste die dritte Option aktiviert. Die 0-Taste ist eine praktische Abkürzung zum Scrollen ans Ende, öffnet jedoch nicht die letzte Option.
@@ -86,7 +88,7 @@ Mit „Importieren“ können Sie eine zuvor exportierte CSV-Datei importieren. 
 
 Mit „Löschen“ können Sie nach falsch geschriebenen Wörtern suchen und diese oder andere unerwünschte Wörter aus dem Wörterbuch entfernen.
 
-## Hardware-Tastenkürzel
+## Physische Tastenkürzel
 
 Alle Tastenkürzel können in den Einstellungen → Tastatur → Tastenkürzel auswählen konfiguriert oder deaktiviert werden.
 
@@ -119,7 +121,7 @@ Entfernt den Vorschlagsfilter, falls aktiviert.
 
 _**Hinweis:** Jede Anwendung entscheidet selbst, was passiert, wenn OK gedrückt wird, und TT9 hat darauf keinen Einfluss._
 
-_**Hinweis 2:** Um Nachrichten mit OK in Nachrichtenanwendungen zu senden, müssen Sie deren Einstellung „Mit ENTER senden“ oder eine ähnlich benannte Option aktivieren. Wenn die Anwendung keine solche Einstellung hat, unterstützt sie möglicherweise nicht das Senden von Nachrichten auf diese Weise. Verwenden Sie in diesem Fall die App KeyMapper aus dem [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) oder aus [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). Diese erkennt Chat-Apps und simuliert beim Drücken oder Halten einer Hardwaretaste einen Tastendruck auf die Senden-Taste. Weitere Informationen finden Sie im [Schnellstart-Handbuch](https://docs.keymapper.club/quick-start/)._
+_**Hinweis 2:** Um Nachrichten mit OK in Nachrichtenanwendungen zu senden, müssen Sie deren Einstellung „Mit ENTER senden“ oder eine ähnlich benannte Option aktivieren. Wenn die Anwendung keine solche Einstellung hat, unterstützt sie möglicherweise nicht das Senden von Nachrichten auf diese Weise. Verwenden Sie in diesem Fall die App KeyMapper aus dem [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) oder aus [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). Diese erkennt Chat-Apps und simuliert beim Drücken oder Halten einer physischer Taste einen Tastendruck auf die Senden-Taste. Weitere Informationen finden Sie im [Schnellstart-Handbuch](https://docs.keymapper.club/quick-start/)._
 
 #### 0-Taste:
 - **Im 123 Modus:**
@@ -229,9 +231,9 @@ _Diese Taste hat keine Funktion, wenn das Bildschirm-Layout auf „Virtuelle Tas
 ## Bildschirmtastatur
 Auf Geräten mit ausschließlich Touchscreen steht eine vollständig funktionsfähige Bildschirmtastatur zur Verfügung, die automatisch aktiviert wird. Wird das Gerät nicht als Touchscreen erkannt, kann sie manuell unter Einstellungen → Erscheinungsbild → Bildschirm-Layout durch Auswahl von „Virtuelles Ziffernfeld“ aktiviert werden.
 
-Auf Geräten mit Touchscreen und Hardware-Tastatur können die Bildschirmtasten deaktiviert werden, um Platz auf dem Bildschirm zu schaffen. Diese Option finden Sie unter Einstellungen → Erscheinungsbild.
+Auf Geräten mit Touchscreen und physischer Tastatur können die Bildschirmtasten deaktiviert werden, um Platz auf dem Bildschirm zu schaffen. Diese Option finden Sie unter Einstellungen → Erscheinungsbild.
 
-Es wird außerdem empfohlen, das spezielle Verhalten zu deaktivieren, bei dem die „Zurück“-Taste der Funktion „Rücktaste“ zugeordnet ist, da dies nur bei Verwendung einer Hardware-Tastatur sinnvoll ist. Dies wird in der Regel automatisch gehandhabt. Falls nicht, gehen Sie zu Einstellungen → Tastenfeld → Tastenkombinationen auswählen → Rücktaste und wählen Sie die Option „--“.
+Es wird außerdem empfohlen, das spezielle Verhalten zu deaktivieren, bei dem die „Zurück“-Taste der Funktion „Rücktaste“ zugeordnet ist, da dies nur bei Verwendung einer physischen Tastatur sinnvoll ist. Dies wird in der Regel automatisch gehandhabt. Falls nicht, gehen Sie zu Einstellungen → Tastenfeld → Tastenkombinationen auswählen → Rücktaste und wählen Sie die Option „--“.
 
 ### Retro- und moderne Bildschirm-Layouts
 Es stehen zwei virtuelle Tastenfeld-Layouts zur Verfügung: Retro und Modern.
@@ -269,7 +271,7 @@ _Im Modern-Layout befindet sich die Taste unten links._
 Löscht Zeichen bei Betätigung. Wenn Einstellungen → Tastenfeld → Schnelles Löschen aktiviert ist, können Sie durch Zurückwischen das vorherige Wort löschen.
 
 #### Filtertaste
-- **Drücken:** Filtert die Vorschlagsliste. Siehe [oben](#filter-suggestions-key-default-d-pad-up) zur Funktionsweise der Wortfilterung.
+- **Drücken:** Filtert die Vorschlagsliste. Siehe [oben](#vorschläge-filtern-taste-standard-steuerkreuz-oben) zur Funktionsweise der Wortfilterung.
 - **Gedrückt halten:** Löscht den Filter, sofern aktiv.
 
 _Diese Taste ist nur im Modern-Layout verfügbar. Position: zweite Taste von oben._
@@ -289,7 +291,7 @@ Im Retro-Layout können zusätzlich Wischgesten über Einstellungen → Erschein
 
 - **Nach oben wischen ohne Vorschläge:** Cursor nach oben bewegen (entspricht D-PAD nach oben).
 - **Nach unten wischen ohne Vorschläge:** Cursor nach unten bewegen (entspricht D-PAD nach unten).
-- **Nach oben wischen bei vorhandenen Vorschlägen:** Vorschlagsliste filtern. Siehe [oben](#filter-suggestions-key-default-d-pad-up).
+- **Nach oben wischen bei vorhandenen Vorschlägen:** Vorschlagsliste filtern. Siehe [oben](#vorschläge-filtern-taste-standard-steuerkreuz-oben).
 - **Nach unten wischen bei vorhandenen Vorschlägen:** Vorschlagsfilter löschen.
 
 ### Tastaturfeld beim Tippen anpassen
@@ -454,7 +456,7 @@ Im Laufe der Zeit verlagerte sich der Fokus weg vom Wesentlichen – dem Tippen.
 
 Im Gegensatz dazu basiert die [Philosophie](https://github.com/sspanak/tt9/?tab=readme-ov-file#-philosophy) von TT9 auf Open-Source-Prinzipien. Der Quellcode und die Wörterbücher sind öffentlich zugänglich und überprüfbar. Der Schutz der Privatsphäre der Nutzer ist von Anfang an berücksichtigt. Beiträge aus der Community haben zur Verbesserung des Projekts beigetragen, darunter Fehlerbehebungen, neue Sprachen und Übersetzungen. Nutzer können zudem eigene modifizierte Versionen erstellen.
 
-TT9 bietet keine anpassbaren Tastenformen, sondern ein klares und gut lesbares Layout mit Fokus auf effizientes Tippen. Es ahmt den visuellen Stil von TouchPal nicht nach, funktioniert jedoch auf modernen Android-16-Smartphones, auf nostalgisch inspirierten Geräten mit Hardware-Tastaturen wie dem Qin F21, Cat S22 Flip, Sonim XP3800 sowie sogar auf TV-Fernbedienungen.
+TT9 bietet keine anpassbaren Tastenformen, sondern ein klares und gut lesbares Layout mit Fokus auf effizientes Tippen. Es ahmt den visuellen Stil von TouchPal nicht nach, funktioniert jedoch auf modernen Android-16-Smartphones, auf nostalgisch inspirierten Geräten mit physischen Tastaturen wie dem Qin F21, Cat S22 Flip, Sonim XP3800 sowie sogar auf TV-Fernbedienungen.
 
 Wenn Sie anderer Meinung sind oder Ihren Standpunkt erläutern möchten, beteiligen Sie sich an der [offenen Diskussion](https://github.com/sspanak/tt9/issues/647) auf GitHub. Bitte bleiben Sie dabei respektvoll. Hassbeiträge werden nicht toleriert.
 

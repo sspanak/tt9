@@ -1,6 +1,6 @@
 # Traditional T9 ![GitHub Downloads (latest release)](https://img.shields.io/github/downloads/sspanak/tt9/latest/total)
 
-TT9 is a Nokia-style 12-key T9 keyboard for Android. It provides predictive text input in [40+ languages](app/languages/definitions), configurable hotkeys, clipboard, undo/redo, and extensive customization. It works on touchscreens, hardware keypads, and TV remote controls. And best of all, it [doesn't spy](docs/privacy.md) on you!
+TT9 is a Nokia-style 12-key T9 keyboard for Android. It provides predictive text input in [40+ languages](app/languages/definitions), configurable hotkeys, clipboard, undo/redo, and extensive customization. It works on touchscreens, physical keypads, and TV remote controls. And best of all, it [doesn't spy](docs/privacy.md) on you!
 
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 

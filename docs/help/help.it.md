@@ -7,13 +7,15 @@ Dopo l’installazione, per prima cosa bisogna abilitare Traditional T9 come tas
 _Se l'icona non appare subito dopo l’installazione, riavviare il telefono, e dovrebbe apparire. Ciò è dovuto al tentativo di Android di risparmiare batteria non aggiornando la lista delle app appena installate._
 
 ### Utilizzo su telefoni solo touchscreen
-Sui dispositivi touchscreen, si consiglia vivamente di disabilitare il correttore ortografico di sistema. Non può essere usato quando si digita con i tasti numerici, quindi è possibile risparmiare batteria disabilitandolo.
+Sui dispositivi con touchscreen si consiglia inoltre vivamente di disattivare il correttore ortografico di sistema. Quando è attivo, sottolinea in rosso alcune o tutte le parole digitate.
 
-Un altro problema è che potrebbe mostrare un fastidioso popup "Aggiungi Parola", che aggiunge parole alla tastiera di sistema predefinita (solitamente, Gboard) e non al dizionario di Traditional T9. Di nuovo, per evitare tali situazioni, il correttore ortografico di sistema deve essere disabilitato.
+Un altro problema è che il correttore ortografico può mostrare una finestra pop-up confusa con la voce “Aggiungi parola”. Questa finestra aggiungerà nuove parole alla tastiera di sistema predefinita (di solito Gboard) e non al dizionario di Traditional T9.
 
-Se è necessario eseguire questo passaggio, l'opzione "Correttore ortografico di sistema" nella schermata Configurazione Iniziale sarà attiva. Cliccarci per disabilitare il componente di sistema. Se tale opzione non è presente, non è necessario fare altro.
+Per evitare tali situazioni, il correttore ortografico di sistema deve essere disattivato.
 
-Dopo aver completato la configurazione, dare un'occhiata alla sezione [Tastierino su Schermo](#tastierino-su-schermo) per ulteriori suggerimenti e trucchi.
+Se è necessario eseguire questo passaggio, la voce “Correttore ortografico di sistema” nella schermata di configurazione iniziale sarà attiva. Toccarla per disattivare il componente di sistema. Se la voce è disattivata, non è richiesta alcuna azione.
+
+Dopo aver completato la configurazione iniziale, consultare la sezione [Tastiera a schermo](#tastierino-a-schermo) per ulteriori suggerimenti e consigli.
 
 ### Abilitare la Modalità Predittiva
 La Modalità Predittiva richiede che venga caricato un dizionario di lingua per fornire suggerimenti di parole. È possibile attivare le lingue abilitate e caricare i loro dizionari da Schermata Impostazioni → [Lingue](#opzioni-di-lingua). In caso di dimenticanza, Traditional T9 caricherà automaticamente il dizionario quando si inizia a digitare. Per ulteriori informazioni, [vedi sotto](#opzioni-di-lingua).
@@ -86,7 +88,7 @@ Con "Importa", puoi importare un CSV precedentemente esportato. Tuttavia, ci son
 
 Con "Elimina", puoi cercare e cancellare parole errate o altre che non vuoi nel dizionario.
 
-## Tasti Rapidi Hardware
+## Scorciatoie da Tasti Fisici
 
 Tutti i tasti rapidi possono essere riconfigurati o disabilitati da Impostazioni → Tastierino → Seleziona Tasti Rapidi.
 
@@ -119,7 +121,7 @@ Cancella il filtro di suggerimento, se applicato.
 
 _**Nota:** Ogni applicazione decide autonomamente cosa fare quando si preme OK e TT9 non ha alcun controllo su questo._
 
-_**Nota 2:** Per inviare messaggi con OK nelle applicazioni di messaggistica, è necessario abilitare l'impostazione "Invia con INVIO" o una simile. Se l'applicazione non dispone di questa impostazione, probabilmente non supporta l'invio dei messaggi in questo modo. In tal caso, utilizzare l'app KeyMapper dal [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) o da [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). KeyMapper può rilevare le app di chat e simulare un tocco sul pulsante di invio del messaggio premendo o tenendo premuto un tasto hardware. Consultare la [guida rapida](https://docs.keymapper.club/quick-start/) per ulteriori informazioni._
+_**Nota 2:** Per inviare messaggi con OK nelle applicazioni di messaggistica, è necessario abilitare l'impostazione "Invia con INVIO" o una simile. Se l'applicazione non dispone di questa impostazione, probabilmente non supporta l'invio dei messaggi in questo modo. In tal caso, utilizzare l'app KeyMapper dal [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) o da [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). KeyMapper può rilevare le app di chat e simulare un tocco sul pulsante di invio del messaggio premendo o tenendo premuto un tasto fisico. Consultare la [guida rapida](https://docs.keymapper.club/quick-start/) per ulteriori informazioni._
 
 #### Tasto 0:
 - **In modalità 123:**
@@ -229,9 +231,9 @@ _Questo tasto non fa nulla quando il Layout dello Schermo è impostato su "Tasti
 ## Tastierino a Schermo
 Sui dispositivi dotati esclusivamente di touchscreen è disponibile un tastierino a schermo completamente funzionale, attivato automaticamente. Se il dispositivo non viene rilevato come touchscreen, è possibile abilitarlo manualmente da Impostazioni → Aspetto → Layout a schermo selezionando «Tastierino numerico virtuale».
 
-Sui dispositivi con touchscreen e tastiera hardware, i tasti a schermo possono essere disattivati per liberare spazio sullo schermo. Questa opzione è disponibile in Impostazioni → Aspetto.
+Sui dispositivi con touchscreen e tastiera fisica, i tasti a schermo possono essere disattivati per liberare spazio sullo schermo. Questa opzione è disponibile in Impostazioni → Aspetto.
 
-Si consiglia inoltre di disattivare il comportamento speciale che associa il tasto «Indietro» alla funzione «Backspace», poiché risulta utile solo quando si utilizza una tastiera hardware. Questa impostazione viene solitamente gestita automaticamente. In caso contrario, accedere a Impostazioni → Tastierino → Seleziona tasti di scelta rapida → Tasto Backspace e selezionare l’opzione «--».
+Si consiglia inoltre di disattivare il comportamento speciale che associa il tasto «Indietro» alla funzione «Backspace», poiché risulta utile solo quando si utilizza una tastiera fisica. Questa impostazione viene solitamente gestita automaticamente. In caso contrario, accedere a Impostazioni → Tastierino → Seleziona tasti di scelta rapida → Tasto Backspace e selezionare l’opzione «--».
 
 ### Layout a schermo Retro e Modern
 Sono disponibili due layout di tastierino virtuale: Retro e Modern.
@@ -269,7 +271,7 @@ _Nel layout Modern, si trova in basso a sinistra._
 Elimina i caratteri quando viene premuto. Quando Impostazioni → Tastierino → Eliminazione rapida è attivato, è possibile scorrere all’indietro per eliminare la parola precedente.
 
 #### Tasto filtro
-- **Pressione:** Filtra l’elenco dei suggerimenti. Vedere [sopra](#filter-suggestions-key-default-d-pad-up) per il funzionamento del filtro delle parole.
+- **Pressione:** Filtra l’elenco dei suggerimenti. Vedere [sopra](#tasto-filtro-suggerimenti-default-d-pad-su) per il funzionamento del filtro delle parole.
 - **Pressione prolungata:** Cancella il filtro, se attivo.
 
 _Il tasto è disponibile solo nel layout Modern. Posizione: secondo tasto dall’alto._
@@ -289,7 +291,7 @@ Il layout Retro consente inoltre di abilitare i gesti di scorrimento da Impostaz
 
 - **Scorrimento verso l’alto senza suggerimenti:** Sposta il cursore verso l’alto (equivalente a D-PAD su).
 - **Scorrimento verso il basso senza suggerimenti:** Sposta il cursore verso il basso (equivalente a D-PAD giù).
-- **Scorrimento verso l’alto con suggerimenti:** Filtra l’elenco dei suggerimenti. Vedere [sopra](#filter-suggestions-key-default-d-pad-up).
+- **Scorrimento verso l’alto con suggerimenti:** Filtra l’elenco dei suggerimenti. Vedere [sopra](#tasto-filtro-suggerimenti-default-d-pad-su).
 - **Scorrimento verso il basso con suggerimenti:** Cancella il filtro dei suggerimenti.
 
 ### Ridimensionamento del Pannello Tastiera Durante la Digitazione
@@ -454,7 +456,7 @@ Con il tempo, ha iniziato a perdere l’attenzione sull’aspetto più important
 
 Al contrario, la [filosofia](https://github.com/sspanak/tt9/?tab=readme-ov-file#-philosophy) di TT9 si basa sui principi dell’open source. Il codice sorgente e i dizionari sono disponibili pubblicamente e possono essere esaminati. La privacy degli utenti è rispettata fin dalla progettazione. I contributi della comunità hanno migliorato il progetto, includendo correzioni di bug, nuove lingue e traduzioni. Gli utenti possono inoltre creare le proprie versioni modificate.
 
-TT9 non offre funzionalità come forme dei tasti personalizzabili, ma propone un layout pulito e leggibile, focalizzato su una digitazione efficiente. Non replica lo stile visivo di TouchPal, ma funziona su smartphone moderni con Android 16, su dispositivi con tastiera hardware di ispirazione nostalgica come Qin F21, Cat S22 Flip e Sonim XP3800, e persino su telecomandi TV.
+TT9 non offre funzionalità come forme dei tasti personalizzabili, ma propone un layout pulito e leggibile, focalizzato su una digitazione efficiente. Non replica lo stile visivo di TouchPal, ma funziona su smartphone moderni con Android 16, su dispositivi con tastiera fisica di ispirazione nostalgica come Qin F21, Cat S22 Flip e Sonim XP3800, e persino su telecomandi TV.
 
 Se non sei d’accordo o desideri spiegare il tuo punto di vista, partecipa alla [discussione aperta](https://github.com/sspanak/tt9/issues/647) su GitHub. Ricorda di mantenere un atteggiamento rispettoso. I messaggi d’odio non saranno tollerati.
 

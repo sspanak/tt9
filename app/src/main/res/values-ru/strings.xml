@@ -114,7 +114,7 @@
 	<string name="setup_tt9_off">%1$s отключен</string>
 	<string name="setup_click_here_to_enable">Нажмите здесь, чтобы включить TT9 в настройках Android.</string>
 	<string name="setup_spell_checker">Системная проверка орфографии</string>
-	<string name="setup_spell_checker_on">Системная проверка орфографии может мешать добавлению слов. Нажмите здесь, чтобы отключить.</string>
+	<string name="setup_spell_checker_on">Системная проверка орфографии подчёркивает текст красным и может мешать добавлению новых слов. Нажмите, чтобы отключить.</string>
 	<string name="setup_spell_checker_off">Отключена</string>
 	<string name="key_key">Клавиш</string>
 	<string name="key_hold_key">(зажать)</string>

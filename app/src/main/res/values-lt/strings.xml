@@ -126,7 +126,7 @@
 	<string name="setup_click_here_to_enable">Spauskite čia norėdami įjungti „TT9“ per „Android“ nustatymus.</string>
 
 	<string name="setup_spell_checker">Sistemos rašybos tikrintuvas</string>
-	<string name="setup_spell_checker_on">Sistemos rašybos tikrintuvas gali trukdyti pridėti žodžius. Spustelėkite čia, kad išjungtumėte.</string>
+	<string name="setup_spell_checker_on">Sistemos rašybos tikrintuvas pabraukia tekstą raudonai ir gali neleisti pridėti naujų žodžių. Palieskite, kad išjungtumėte.</string>
 	<string name="setup_spell_checker_off">Išjungtas</string>
 	<string name="key_key">Klavišas</string>
 	<string name="key_hold_key">(laikyti nuspaudus)</string>

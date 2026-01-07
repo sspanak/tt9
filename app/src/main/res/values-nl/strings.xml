@@ -101,7 +101,7 @@
 	<string name="setup_tt9_off">%1$s is uitgeschakeld</string>
 	<string name="setup_click_here_to_enable">Klik hier om TT9 in te schakelen vanuit de Android-instellingen.</string>
 	<string name="setup_spell_checker">Systeemspellingscontrole</string>
-	<string name="setup_spell_checker_on">De systeemspellingscontrole kan het toevoegen van woorden verstoren. Klik hier om uit te schakelen.</string>
+	<string name="setup_spell_checker_on">De systeemspellingscontrole onderstreept tekst in rood en kan het toevoegen van nieuwe woorden verhinderen. Tik om uit te schakelen.</string>
 	<string name="setup_spell_checker_off">Uitgeschakeld</string>
 	<string name="key_back">Terug</string>
 	<string name="key_call">Oproep</string>

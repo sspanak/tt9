@@ -81,7 +81,7 @@
 	<string name="pref_category_hacks">Kompatibilität</string>
 	<string name="dictionary_loading_indeterminate">Lade Wörterbuch</string>
 	<string name="pref_category_appearance">Erscheinungsbild</string>
-	<string name="pref_category_keypad_hardware">Hardwaretasten</string>
+	<string name="pref_category_keypad_hardware">Physische Tasten</string>
 	<string name="pref_category_keypad_onscreen">Bildschirmtasten</string>
 	<string name="pref_category_predictive_mode">Textvorerkennung</string>
 	<string name="pref_category_function_keys">Tastenkürzel</string>
@@ -98,7 +98,7 @@
 	<string name="setup_tt9_off">%1$s ist deaktiviert</string>
 	<string name="setup_click_here_to_enable">Klicken Sie hier, um TT9 in den Android-Einstellungen zu aktivieren.</string>
 	<string name="setup_spell_checker">Systemrechtschreibprüfung</string>
-	<string name="setup_spell_checker_on">Die Systemrechtschreibprüfung kann das Hinzufügen von Wörtern beeinträchtigen. Klicken Sie hier, um sie zu deaktivieren.</string>
+	<string name="setup_spell_checker_on">Die System-Rechtschreibprüfung unterstreicht Text rot und kann das Hinzufügen neuer Wörter verhindern. Tippen zum Deaktivieren.</string>
 	<string name="setup_spell_checker_off">Deaktiviert</string>
 	<string name="key_back">Zurück</string>
 	<string name="key_call">Anruf</string>

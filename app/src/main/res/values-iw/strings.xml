@@ -118,7 +118,7 @@
 	<string name="setup_tt9_off">%1$s מושבת</string>
 	<string name="setup_click_here_to_enable">לחץ כאן כדי להפעיל את TT9 מהגדרות Android.</string>
 	<string name="setup_spell_checker">בודק איות מערכת</string>
-	<string name="setup_spell_checker_on">בודק האיות של המערכת עלול להפריע להוספת מילים. לחץ כאן כדי להשבית.</string>
+	<string name="setup_spell_checker_on">בודק האיות של המערכת מדגיש טקסט בקו אדום ועלול למנוע הוספת מילים חדשות. הקש כדי להשבית.</string>
 	<string name="setup_spell_checker_off">מנוטרל</string>
 	<string name="key_key">לחצן</string>
 	<string name="key_hold_key">(החזק)</string>

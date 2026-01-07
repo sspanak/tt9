@@ -108,7 +108,7 @@
 	<string name="setup_tt9_off">%1$s е изключен</string>
 	<string name="setup_click_here_to_enable">Натиснете тук, за да включите TT9 от настройките на Андроид.</string>
 	<string name="setup_spell_checker">Системна проверка на правописа</string>
-	<string name="setup_spell_checker_on">Системната проверка на правописа може да попречи на добавянето на думи. Натиснете тук, за да я изключите.</string>
+	<string name="setup_spell_checker_on">Системната проверка на правописа подчертава текста в червено и може да попречи на добавянето на нови думи. Докоснете, за да изключите.</string>
 	<string name="setup_spell_checker_off">Изключена</string>
 	<string name="key_key">Бутон</string>
 	<string name="key_hold_key">(задръж)</string>
@@ -132,7 +132,7 @@
 	<string name="pref_auto_space_summary">Добавяй автоматично интервал след препинателни знаци и думи.</string>
 	<string name="pref_auto_text_case">Автоматични главни букви</string>
 	<string name="pref_auto_text_case_summary">Автоматично започвайте изречения с главна буква. (Не е възможно на всички езици)</string>
-	<string name="pref_category_keypad_hardware">Хардуерни клавиши</string>
+	<string name="pref_category_keypad_hardware">Физически клавиши</string>
 	<string name="pref_category_keypad_onscreen">Екранни клавиши</string>
 	<string name="pref_category_predictive_mode">Подсказващ режим</string>
 	<string name="pref_category_key_appearance">Клавиши</string>
