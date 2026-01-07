@@ -42,7 +42,9 @@ public class AddWordDialog extends PopupDialog {
 
 
 	private void editWord() {
-		Logger.d("AddWordDialog", "========+> click neutral");
+		if (popup != null) {
+			UI.sendCommandToMain(popup.getContext(), UI.COMMAND_EDIT_WORD);
+		}
 	}
 
 
