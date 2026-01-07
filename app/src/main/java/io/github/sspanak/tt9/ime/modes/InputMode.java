@@ -24,6 +24,7 @@ abstract public class InputMode {
 	public static final int MODE_PASSTHROUGH = 4;
 	public static final int MODE_HIRAGANA = 5;
 	public static final int MODE_KATAKANA = 6;
+	public static final int MODE_RECOMPOSING = 7;
 
 	// text case
 	public static final int CASE_UNDEFINED = -1;
@@ -74,6 +75,8 @@ abstract public class InputMode {
 				return new ModeABC(settings, language, inputType);
 			case MODE_ABC:
 				return new ModeABC(settings, language, inputType);
+			case MODE_RECOMPOSING:
+				return new ModeRecomposing(settings, language, inputType);
 			case MODE_PASSTHROUGH:
 				return new ModePassthrough(settings, inputType);
 			default:

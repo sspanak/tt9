@@ -103,7 +103,7 @@ public class TraditionalT9 extends PremiumHandler {
 		switch (command == null ? "" : command) {
 			case UI.COMMAND_EDIT_WORD -> {
 				if (InputModeKind.isPassthrough(mInputMode)) {
-					lastStartCommand = command;
+					Logger.d("MAIN", "CANNOT EDIT WORD IN PASSTHROUGH MODE");
 				} else {
 					editWord();
 				}

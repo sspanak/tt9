@@ -119,7 +119,28 @@ abstract public class CommandHandler extends TextEditingHandler {
 			return;
 		}
 
-		Logger.d(getClass().getSimpleName(), "===+> Editing word: " + word);
+		mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, InputMode.MODE_RECOMPOSING);
+		if (mInputMode.setWordStem(word, false) && textField.recompose(word)) {
+			getSuggestions("", null);
+		} else {
+			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
+			Logger.e(getClass().getSimpleName(), "Could not edit word: " + word);
+		}
+	}
+
+
+	protected boolean finishWordEditing() {
+		if (!InputModeKind.isRecomposing(mInputMode) || mInputMode.isTyping()) {
+			return false;
+		}
+
+		final boolean isProcessCompleted = suggestionOps.acceptCurrent().isEmpty();
+		setInputMode(determineInputModeId());
+		if (isProcessCompleted) {
+			addWord();
+		}
+
+		return true;
 	}
 
 
@@ -147,22 +168,44 @@ abstract public class CommandHandler extends TextEditingHandler {
 	}
 
 
-	protected void nextInputMode() {
+	protected int nextInputMode() {
 		if (InputModeKind.isPassthrough(mInputMode) || voiceInputOps.isListening()) {
-			return;
-		} else if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123)) {
-			mInputMode = !InputModeKind.is123(mInputMode) ? InputMode.getInstance(settings, mLanguage, inputType, textField, InputMode.MODE_123) : mInputMode;
-		} else {
-			suggestionOps.cancelDelayedAccept();
-			mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
-			resetKeyRepeat();
-
-			int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
-			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, allowedInputModes.get(nextModeIndex));
-			determineTextCase();
+			return mInputMode.getId();
 		}
 
+		if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123) && !InputModeKind.is123(mInputMode)) {
+			return InputMode.MODE_123;
+		} else {
+			final int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
+			return allowedInputModes.get(nextModeIndex);
+		}
+	}
+
+
+	protected void setInputMode(int modeId) {
+		if (!allowedInputModes.contains(modeId)) {
+			return;
+		}
+
+		suggestionOps.cancelDelayedAccept();
+		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		resetKeyRepeat();
+
+		int nextModeIndex = allowedInputModes.indexOf(modeId) % allowedInputModes.size();
+		mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, allowedInputModes.get(nextModeIndex));
+		determineTextCase();
+
 		settings.saveInputMode(mInputMode.getId());
+
+		// update the UI
+		getDisplayTextCase(mLanguage, mInputMode.getTextCase());
+		setStatusIcon(mInputMode, mLanguage);
+		statusBar.setText(mInputMode);
+		mainView.render();
+
+		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {
+			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
+		}
 	}
 
 

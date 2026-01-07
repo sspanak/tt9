@@ -535,9 +535,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		final ArrayList<String> suggestions = mInputMode.getSuggestions();
 		suggestionOps.set(suggestions, mInputMode.containsGeneratedSuggestions());
 
-		// either accept the first one automatically (when switching from punctuation to text
-		// or vice versa), or schedule auto-accept in N seconds (in ABC mode)
-		if (suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout())) {
+		if (finishWordEditing() || suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout())) {
 			return;
 		}
 
