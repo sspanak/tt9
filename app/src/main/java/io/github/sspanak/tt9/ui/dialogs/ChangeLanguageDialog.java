@@ -144,6 +144,6 @@ public class ChangeLanguageDialog extends PopupDialog {
 
 
 	public boolean show() {
-		return render(null, this::close, generateRadioButtons());
+		return render(null, this::close, null, generateRadioButtons());
 	}
 }
