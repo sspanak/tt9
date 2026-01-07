@@ -264,5 +264,6 @@
 	<string name="tutorial_classic_OK_swipe">Quando non ci sono suggerimenti, scorri verso l’alto/il basso per spostare il cursore.\n\nQuando ci sono suggerimenti, scorri verso l’alto per filtrarli o verso il basso per rimuovere il filtro.</string>
 	<string name="tutorial_classic_add_word">Scorri verso sinistra per aggiungere una parola.</string>
 	<string name="pref_hack_auto_disable_composing">Disattivare automaticamente la composizione del testo</string>
+	<string name="add_word_edit">Modifica</string>
 </resources>
 

@@ -261,4 +261,5 @@
 	<string name="tutorial_classic_OK_swipe">Когда нет подсказок, свайп вверх/вниз перемещает курсор.\n\nКогда есть подсказки, свайп вверх фильтрует их, а свайп вниз очищает фильтр.</string>
 	<string name="tutorial_classic_add_word">Свайп влево — добавить слово.</string>
 	<string name="pref_hack_auto_disable_composing">Автоматически скрывать вводимый текст</string>
+	<string name="add_word_edit">Редактировать</string>
 </resources>

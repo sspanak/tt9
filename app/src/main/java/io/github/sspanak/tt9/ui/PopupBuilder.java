@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import io.github.sspanak.tt9.ui.main.MainView;
@@ -53,16 +56,37 @@ public class PopupBuilder {
 	}
 
 
-	public PopupBuilder setNegativeButton(boolean yes, Runnable action) {
+	public PopupBuilder setNegativeButton(boolean yes, @Nullable Runnable action) {
+		return setNegativeButton(yes ? context.getString(android.R.string.cancel) : null, action);
+	}
+
+
+	public PopupBuilder setNegativeButton(@Nullable String text, @Nullable Runnable action) {
 		if (DeviceInfo.AT_LEAST_ANDROID_12) {
 			builder12.setNegativeButton(
-				yes ? context.getString(android.R.string.cancel) : null,
+				text,
 				(dialog, whichButton) -> { if (action != null) action.run(); }
 			);
 		} else {
 			builderLegacy.setNegativeButton(
-				yes ? context.getString(android.R.string.cancel) : null,
+				text,
 				(dialog, whichButton) -> { if (action != null) action.run(); }
+			);
+		}
+		return this;
+	}
+
+
+	public PopupBuilder setNeutralButton(@Nullable String text, @NonNull Runnable action) {
+		if (DeviceInfo.AT_LEAST_ANDROID_12) {
+			builder12.setNeutralButton(
+				text,
+				(dialog, whichButton) -> action.run()
+			);
+		} else {
+			builderLegacy.setNeutralButton(
+				text,
+				(dialog, whichButton) -> action.run()
 			);
 		}
 		return this;
@@ -79,7 +103,7 @@ public class PopupBuilder {
 	}
 
 
-	public PopupBuilder setPositiveButton(String text, Runnable action) {
+	public PopupBuilder setPositiveButton(@Nullable String text, @NonNull Runnable action) {
 		if (DeviceInfo.AT_LEAST_ANDROID_12) {
 			builder12.setPositiveButton(
 				text,

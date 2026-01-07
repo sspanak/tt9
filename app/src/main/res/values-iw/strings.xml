@@ -268,4 +268,5 @@
 	<string name="tutorial_classic_OK_swipe">כאשר אין הצעות, החלקה למעלה/למטה להזזת הסמן.\n\nכאשר יש הצעות, החלקה למעלה לסינון ההצעות או למטה לניקוי הסינון.</string>
 	<string name="tutorial_classic_add_word">החלקה שמאלה כדי להוסיף מילה.</string>
 	<string name="pref_hack_auto_disable_composing">השבתת חיבור טקסט אוטומטית</string>
+	<string name="add_word_edit">עריכה</string>
 </resources>
