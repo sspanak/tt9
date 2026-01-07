@@ -7,13 +7,15 @@ Kurulumu yaptıktan sonra, ilk olarak Traditional T9'u bir Android klavyesi olar
 _Yüklemeden hemen sonra simgeyi görmüyorsanız, telefonunuzu yeniden başlatın, simge görünmelidir. Bu, Android'in yeni yüklenen uygulamalar listesini yenilemeyerek biraz pil tasarrufu sağlamaya çalışmasından kaynaklanmaktadır._
 
 ### Sadece Dokunmatik Ekranlı Telefonlarda Kullanım
-Dokunmatik ekran cihazlarında, sistemin yazım denetleyicisini devre dışı bırakmak da önemle tavsiye edilir. Yazarken numara tuşları kullanıldığında işlev göremez, bu nedenle devre dışı bırakarak pil tasarrufu yapabilirsiniz.
+Dokunmatik ekranlı cihazlarda, sistem yazım denetleyicisinin kapatılması da şiddetle tavsiye edilir. Etkin olduğunda, yazdığınız kelimelerin bir kısmını veya tamamını kırmızıyla altı çizili olarak gösterir.
 
-Bir başka sorun da, karışıklığa neden olabilecek "Kelime Ekle" açılır iletişim kutusunu göstermesidir. Bu iletişim kutusu varsayılan sistem klavyesine (genellikle Gboard) ve değil, Traditional T9'un sözlüğüne kelimeler ekler. Bu tür durumları önlemek için sistem yazım denetleyicisi devre dışı bırakılmalıdır.
+Bir diğer sorun ise yazım denetleyicisinin kafa karıştırıcı bir “Kelime Ekle” açılır penceresi gösterebilmesidir. Bu pencere, yeni kelimeleri Traditional T9 sözlüğüne değil, varsayılan sistem klavyesine (genellikle Gboard) ekler.
 
-Bu adımı yapmanız gerekiyorsa, İlk Kurulum ekranında "Sistem Yazım Denetleyicisi" öğesi etkin olacaktır. Sistem bileşenini devre dışı bırakmak için üzerine tıklayın. Böyle bir öğe yoksa başka bir şey yapmanıza gerek yoktur.
+Bu tür durumları önlemek için sistem yazım denetleyicisi devre dışı bırakılmalıdır.
 
-Kurulumu tamamladıktan sonra daha fazla ipucu ve püf noktası için [Ekran Üzerindeki Tuş Takımı bölümüne](#ekran-üzeri-tuș-takımı) göz atın.
+Bu adımı gerçekleştirmeniz gerekiyorsa, İlk Kurulum ekranındaki “Sistem Yazım Denetleyicisi” öğesi etkin olacaktır. Sistem bileşenini kapatmak için üzerine dokunun. Öğe devre dışıysa, herhangi bir işlem yapmanıza gerek yoktur.
+
+İlk kurulumu tamamladıktan sonra, daha fazla ipucu ve püf noktası için [Ekran Üzeri Tuş Takımı](#ekran-üzeri-tuş-takımı) bölümüne göz atın.
 
 ### Tahmin Modunu Etkinleştirme
 Tahmin Modu, kelime önerileri sağlamak için bir dil sözlüğünün yüklenmesini gerektirir. Etkin dilleri değiştirebilir ve Ayarlar Ekranı → [Diller](#dil-seçenekleri) bölümünden sözlüklerini yükleyebilirsiniz. Sözlüklerden bazılarını yüklemeyi unutursanız, Traditional T9 yazmaya başladığınızda otomatik olarak yükleyecektir. Daha fazla bilgi için [aşağıya bakın](#dil-seçenekleri).
@@ -42,13 +44,13 @@ Traditional T9 kısayol simgesine tıklayın.
 - TT9'u uyandırmak için bir metin veya sayı alanına dokunun.
 - Ekrandaki ayar simgesine dokunun.
 
-#### Yöntem 3 (donanım klavyesi kullanarak)
+#### Yöntem 3 (fiziksel klavye kullanarak)
 - Bir metin veya sayı alanında yazmaya başlayarak TT9'u uyandırın.
 - Ekran üzerindeki araçlar tușuna veya atanmış kısayola basarak komut listesini açın [Varsayılan: ✱ basılı tutun].
 - 2-tușuna basın.
 
 ### Ayarlarda Gezinme
-Donanım tuș takımına sahip bir cihazınız varsa, Ayarlar’da gezinmenin iki yolu vardır.
+Fiziksel tuş takımına sahip bir cihazınız varsa, Ayarlar’da gezinmenin iki yolu vardır.
 
 1. Kaydırma için Yukarı/Așağı tușlarını kullanın ve bir seçenek açmak veya etkinleştirmek için Tamam tușuna basın.
 2. İlgili seçeneği seçmek için 1-9 tușlarına basın ve açmak/etkinleştirmek için iki kez basın. Nerede olursanız olun çift basış işe yarayacaktır. Örneğin, ekranın en üstündeyken bile 3-tușuna iki kez basarsanız üçüncü seçenek etkinleșir. Son olarak, 0-tușu sona kaydırma için bir kısayol işlevi görür ancak son seçeneği açmaz.
@@ -86,7 +88,7 @@ Her durumda, eklediğiniz özel kelimeler korunacak ve ilgili sözlüğü yenide
 
 "Delete" seçeneğini kullanarak yanlış yazılmış veya sözlükte bulunmasını istemediğiniz kelimeleri arayıp silebilirsiniz.
 
-## Donanım kısayol tuşları
+## Fiziksel kısayol tuşları
 
 Tüm kısayol tuşları, Ayarlar → Tuş Takımı → Kısayol Tuşlarını Seç bölümünden yeniden yapılandırılabilir veya devre dışı bırakılabilir.
 
@@ -119,7 +121,7 @@ Uygulanan öneri filtresini temizleyin.
 
 _**Not:** Her uygulama, OK tuşuna basıldığında ne yapılacağını kendisi belirler ve TT9'un üzerinde kontrolü yoktur._
 
-_**Not 2:** Mesajlaşma uygulamalarında OK ile mesaj göndermek için, uygulamanın "ENTER ile Gönder" veya benzer isimli ayarını etkinleştirmeniz gerekir. Uygulamada böyle bir ayar yoksa, muhtemelen bu şekilde mesaj göndermeyi desteklemiyordur. Bu durumda, [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) veya [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/) üzerinden KeyMapper uygulamasını kullanın. KeyMapper, sohbet uygulamalarını algılayabilir ve bir donanım tuşuna basıldığında veya basılı tutulduğunda mesaj gönderme butonuna dokunmayı simüle edebilir. Daha fazla bilgi için [hızlı başlangıç kılavuzuna](https://docs.keymapper.club/quick-start/) göz atın._
+_**Not 2:** Mesajlaşma uygulamalarında OK ile mesaj göndermek için, uygulamanın "ENTER ile Gönder" veya benzer isimli ayarını etkinleştirmeniz gerekir. Uygulamada böyle bir ayar yoksa, muhtemelen bu şekilde mesaj göndermeyi desteklemiyordur. Bu durumda, [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) veya [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/) üzerinden KeyMapper uygulamasını kullanın. KeyMapper, sohbet uygulamalarını algılayabilir ve bir fiziksel tuşa basıldığında veya basılı tutulduğunda mesaj gönderme butonuna dokunmayı simüle edebilir. Daha fazla bilgi için [hızlı başlangıç kılavuzuna](https://docs.keymapper.club/quick-start/) göz atın._
 
 #### 0-tușu:
 - **123 modunda:**
@@ -229,9 +231,9 @@ _Ekran Düzeni "Sanal Tuș Takımı" olarak ayarlandığında bu tuș hiçbir ş
 ## Ekran Üzeri Tuş Takımı
 Yalnızca dokunmatik ekrana sahip cihazlarda, tam işlevli bir ekran üzeri tuş takımı mevcuttur ve otomatik olarak etkinleştirilir. Cihaz dokunmatik ekranlı olarak algılanmazsa, Ayarlar → Görünüm → Ekran Üzeri Düzen bölümünden “Sanal Sayısal Tuş Takımı” seçilerek manuel olarak etkinleştirin.
 
-Hem dokunmatik ekrana hem de donanım tuş takımına sahip cihazlarda, ekran üzeri tuşlar ekran alanını boşaltmak için devre dışı bırakılabilir. Bu seçenek Ayarlar → Görünüm altında bulunur.
+Hem dokunmatik ekrana hem de fiziksel tuş takımına sahip cihazlarda, ekran üzeri tuşlar ekran alanını boşaltmak için devre dışı bırakılabilir. Bu seçenek Ayarlar → Görünüm altında bulunur.
 
-Ayrıca, “Geri” tuşunun “Backspace” olarak eşlenmesine neden olan özel davranışın devre dışı bırakılması önerilir; bu davranış yalnızca donanım tuş takımı kullanıldığında faydalıdır. Bu işlem genellikle otomatik olarak yapılır. Aksi takdirde Ayarlar → Tuş Takımı → Kısayol Tuşlarını Seç → Backspace Tuşu yolunu izleyin ve “--” seçeneğini seçin.
+Ayrıca, “Geri” tuşunun “Backspace” olarak eşlenmesine neden olan özel davranışın devre dışı bırakılması önerilir; bu davranış yalnızca fiziksel tuş takımı kullanıldığında faydalıdır. Bu işlem genellikle otomatik olarak yapılır. Aksi takdirde Ayarlar → Tuş Takımı → Kısayol Tuşlarını Seç → Backspace Tuşu yolunu izleyin ve “--” seçeneğini seçin.
 
 ### Retro ve Modern Ekran Üzeri Düzenler
 İki sanal tuş takımı düzeni mevcuttur: Retro ve Modern.
@@ -241,7 +243,7 @@ Retro düzen, üst kısımda ortasında OK tuşu bulunan bir yön tuşu (D-pad) 
 Modern düzen, 12 tuşlu bir yazım düzeni kullanırken Android’in standart görünümünü ve hissini korur. Metin girişi için ortada 0–9 rakam tuşlarından oluşan bir blok bulunur; Shift, Backspace, dil değiştirme ve OK (Enter) gibi işlev tuşları ise sol ve sağ sütunlara yerleştirilmiştir.
 
 ### Sanal Tuşlara Genel Bakış
-Ekran üzeri tuş takımı, donanım telefon tuş takımıyla aynı şekilde çalışır. Tek işlevli tuşlar ortada bir etiket veya simge gösterir. Uzun basma ile ek işlevi olan tuşlar, sağ üst köşede ikincil bir etiket veya simge gösterir.
+Ekran üzeri tuş takımı, fiziksel telefon tuş takımıyla aynı şekilde çalışır. Tek işlevli tuşlar ortada bir etiket veya simge gösterir. Uzun basma ile ek işlevi olan tuşlar, sağ üst köşede ikincil bir etiket veya simge gösterir.
 
 #### 0–9 Tuşları
 Sayı tuşları kelime yazmak ve rakam girmek için kullanılır. Retro düzende bazı tuşlarda sola ve sağa kaydırma hareketleri de kullanılabilir. Bu işlevler mevcut olduğunda, tuşun sol alt veya sağ alt köşesindeki simgelerle belirtilir.
@@ -269,7 +271,7 @@ _Modern düzende, sol alt köşedeki tuştur._
 Basılıp bırakıldığında karakterleri siler. Ayarlar → Tuş Takımı → Hızlı Silme etkinleştirildiğinde, geri kaydırarak önceki kelime silinebilir.
 
 #### Filtre Tuşu
-- **Bas:** Öneri listesini filtreler. Kelime filtrelemenin nasıl çalıştığı için [yukarıya](#filter-suggestions-key-default-d-pad-up) bakın.
+- **Bas:** Öneri listesini filtreler. Kelime filtrelemenin nasıl çalıştığı için [yukarıya](#öneri-filtreleme-tuşu-varsayılan-d-pad-yukarı) bakın.
 - **Basılı tut:** Etkinse filtreyi temizler.
 
 _Tuş yalnızca Modern düzende mevcuttur. Konum: üstten ikinci tuş._
@@ -289,7 +291,7 @@ Retro düzende ayrıca Ayarlar → Görünüm → Tuşlar bölümünden kaydırm
 
 - **Öneri yokken yukarı kaydırma:** İmleci yukarı taşır (D-PAD yukarı ile aynı).
 - **Öneri yokken aşağı kaydırma:** İmleci aşağı taşır (D-PAD aşağı ile aynı).
-- **Öneri varken yukarı kaydırma:** Öneri listesini filtreler. [Yukarıya](#filter-suggestions-key-default-d-pad-up) bakın.
+- **Öneri varken yukarı kaydırma:** Öneri listesini filtreler. [Yukarıya](#öneri-filtreleme-tuşu-varsayılan-d-pad-yukarı) bakın.
 - **Öneri varken aşağı kaydırma:** Öneri filtresini temizler.
 
 ### Yazarken Klavye Panelini Yeniden Boyutlandırma
@@ -454,7 +456,7 @@ Zamanla en önemli unsur olan yazma deneyiminden uzaklaşmaya başladı. Reklaml
 
 Buna karşılık, TT9’un [felsefesi](https://github.com/sspanak/tt9/?tab=readme-ov-file#-philosophy) açık kaynak ilkelerine dayanmaktadır. Kaynak kodu ve sözlükleri herkese açıktır ve incelenebilir. Kullanıcı gizliliği tasarım aşamasından itibaren gözetilmektedir. Topluluk katkıları, hata düzeltmeleri, yeni diller ve çeviriler dahil olmak üzere projenin gelişmesine yardımcı olmuştur. Kullanıcılar ayrıca kendi değiştirilmiş sürümlerini oluşturmakta özgürdür.
 
-TT9, özelleştirilebilir tuş şekilleri gibi özellikler sunmaz; bunun yerine verimli yazmaya odaklanan temiz ve okunabilir bir düzen sağlar. TouchPal’in görsel stilini taklit etmez, ancak Android 16 çalıştıran modern akıllı telefonlarda, Qin F21, Cat S22 Flip ve Sonim XP3800 gibi donanım tuş takımlı nostaljik cihazlarda ve hatta TV uzaktan kumandalarında çalışır.
+TT9, özelleştirilebilir tuş şekilleri gibi özellikler sunmaz; bunun yerine verimli yazmaya odaklanan temiz ve okunabilir bir düzen sağlar. TouchPal’in görsel stilini taklit etmez, ancak Android 16 çalıştıran modern akıllı telefonlarda, Qin F21, Cat S22 Flip ve Sonim XP3800 gibi fiziksel tuş takımlı nostaljik cihazlarda ve hatta TV uzaktan kumandalarında çalışır.
 
 Katılmıyorsanız veya görüşünüzü açıklamak istiyorsanız, GitHub’daki [açık tartışmaya](https://github.com/sspanak/tt9/issues/647) katılabilirsiniz. Lütfen diğer kullanıcılara karşı saygılı olun. Nefret içerikli paylaşımlara izin verilmez.
 
@@ -466,7 +468,7 @@ _Hâlâ herhangi bir endişeniz varsa, lütfen uygulamanın Gizlilik Politikası
 ### QWERTY Düzeni Kullanmak İstiyorum (yalnızca dokunmatik ekran cihazları)
 Traditional T9, bir T9 klavyesidir ve bu nedenle QWERTY benzeri bir düzen sağlamaz.
 
-T9 kullanmayı öğreniyorsanız ve ara sıra geri dönmeniz gerekiyorsa veya yeni kelimeleri QWERTY ile yazmak daha uygun geliyorsa, farklı bir klavyeye geçmek için giriş modu tuşuna yukarı kaydırabilirsiniz. Daha fazla bilgi için [sanal tuşlar genel bakışına](#sanal-tușlara-genel-bakış) bakın.
+T9 kullanmayı öğreniyorsanız ve ara sıra geri dönmeniz gerekiyorsa veya yeni kelimeleri QWERTY ile yazmak daha uygun geliyorsa, farklı bir klavyeye geçmek için giriş modu tuşuna yukarı kaydırabilirsiniz. Daha fazla bilgi için [sanal tuşlar genel bakışına](#sanal-tuşlara-genel-bakış) bakın.
 
 Çoğu diğer klavye, space tuşuna veya "dil değiştirme" tuşuna basılı tutarak tekrar Traditional T9'a geçiş yapmanıza izin verir. İlgili kılavuz veya kullanım kılavuzuna göz atın.
 
