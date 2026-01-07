@@ -354,15 +354,9 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout()); // restart the timer
-		nextInputMode();
-
-		getDisplayTextCase(mLanguage, mInputMode.getTextCase());
-		setStatusIcon(mInputMode, mLanguage);
-		statusBar.setText(mInputMode);
-		mainView.render();
-
-		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {
-			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
+		final int nextModeId = nextInputMode();
+		if (nextModeId != mInputMode.getId()) {
+			setInputMode(nextModeId);
 		}
 
 		forceShowWindow();
