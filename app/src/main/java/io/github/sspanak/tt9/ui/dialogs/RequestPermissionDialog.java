@@ -36,7 +36,7 @@ public class RequestPermissionDialog extends AppCompatActivity {
 	@Override
 	public void finish() {
 		super.finish();
-		reviveMain();
+		UI.sendCommandToMain(this, UI.COMMAND_WAKEUP_MAIN);
 	}
 
 	@Override
@@ -46,12 +46,6 @@ public class RequestPermissionDialog extends AppCompatActivity {
 		finish();
 	}
 
-
-	private void reviveMain() {
-		Intent intent = new Intent(this, TraditionalT9.class);
-		intent.putExtra(UI.COMMAND, UI.COMMAND_WAKEUP_MAIN);
-		startService(intent);
-	}
 
 	private void showPermissionRequiredMessage(@NonNull String[] permissions, @NonNull int[] grantResults) {
 		if (permissions.length == 0) {

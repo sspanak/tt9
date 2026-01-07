@@ -109,6 +109,20 @@ abstract public class CommandHandler extends TextEditingHandler {
 	}
 
 
+	protected void editWord() {
+		if (voiceInputOps.isListening()) {
+			return;
+		}
+
+		String word = textField.getSurroundingWord(mLanguage);
+		if (word.isEmpty()) {
+			return;
+		}
+
+		Logger.d(getClass().getSimpleName(), "===+> Editing word: " + word);
+	}
+
+
 	public void selectKeyboard() {
 		suggestionOps.cancelDelayedAccept();
 		stopVoiceInput();

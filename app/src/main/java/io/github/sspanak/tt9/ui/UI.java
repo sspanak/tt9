@@ -13,14 +13,23 @@ import androidx.annotation.Nullable;
 
 import java.util.HashMap;
 
+import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class UI {
 	public static final String COMMAND = "tt9.command";
+	public static final String COMMAND_EDIT_WORD = "tt9.command.edit_word";
 	public static final String COMMAND_PRINT_VOICE_INPUT = "tt9.command.print_voice_input";
 	public static final String COMMAND_PRINT_VOICE_INPUT_TEXT = "tt9.command.print_voice_input.text";
 	public static final String COMMAND_WAKEUP_MAIN = "tt9.command.wakeup";
 	private static final HashMap<String, Toast> singleToasts = new HashMap<>();
+
+
+	public static void sendCommandToMain(@NonNull Context context, @NonNull String command) {
+		Intent intent = new Intent(context, TraditionalT9.class);
+		intent.putExtra(COMMAND, command);
+		context.startService(intent);
+	}
 
 
 	public static void showChangeKeyboardDialog(Context context) {

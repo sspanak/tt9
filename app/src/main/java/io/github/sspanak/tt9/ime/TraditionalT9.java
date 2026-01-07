@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
@@ -35,6 +36,7 @@ public class TraditionalT9 extends PremiumHandler {
 
 	// A String to be committed after successfully starting in an input field.
 	@NonNull private final StringBuffer onAfterStartText = new StringBuffer();
+	@Nullable private String lastStartCommand = null;
 
 
 	@Override
@@ -99,13 +101,20 @@ public class TraditionalT9 extends PremiumHandler {
 		final String command = intent != null ? intent.getStringExtra(UI.COMMAND) : null;
 
 		switch (command == null ? "" : command) {
-			case UI.COMMAND_WAKEUP_MAIN -> forceShowWindow();
+			case UI.COMMAND_EDIT_WORD -> {
+				if (InputModeKind.isPassthrough(mInputMode)) {
+					lastStartCommand = command;
+				} else {
+					editWord();
+				}
+			}
 			case UI.COMMAND_PRINT_VOICE_INPUT -> {
 				final String text = intent.getStringExtra(UI.COMMAND_PRINT_VOICE_INPUT_TEXT);
 				if (text != null) {
 					onAfterStartText.append(text);
 				}
 			}
+			case UI.COMMAND_WAKEUP_MAIN -> forceShowWindow();
 		}
 
 		return result;
@@ -176,11 +185,9 @@ public class TraditionalT9 extends PremiumHandler {
 			DictionaryLoader.autoLoad(this, mLanguage);
 		}
 
-		askForNotifications();
-
-		if (onAfterStartText.length() > 0) {
-			onText(onAfterStartText.toString(), false);
-			onAfterStartText.setLength(0);
+		if (!InputModeKind.isPassthrough(mInputMode)) {
+			askForNotifications();
+			runStartupCommands();
 		}
 
 		return true;
@@ -225,6 +232,17 @@ public class TraditionalT9 extends PremiumHandler {
 			settings.setNotificationsApproved(false);
 			RequestPermissionDialog.show(this, Manifest.permission.POST_NOTIFICATIONS);
 		}
+	}
+
+
+	private void runStartupCommands() {
+		if (UI.COMMAND_EDIT_WORD.equals(lastStartCommand)) {
+			editWord();
+		} else if (onAfterStartText.length() > 0) {
+			onText(onAfterStartText.toString(), false);
+			onAfterStartText.setLength(0);
+		}
+		lastStartCommand = null;
 	}
 
 
