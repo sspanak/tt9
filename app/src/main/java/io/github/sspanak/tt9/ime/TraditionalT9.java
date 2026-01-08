@@ -76,6 +76,10 @@ public class TraditionalT9 extends PremiumHandler {
 
 	@Override
 	public void onStartInputView(EditorInfo inputField, boolean restarting) {
+		Logger.i(
+			LOG_TAG,
+			"===> start input view"
+		);
 		onStart(inputField, restarting);
 	}
 
@@ -102,8 +106,8 @@ public class TraditionalT9 extends PremiumHandler {
 
 		switch (command == null ? "" : command) {
 			case UI.COMMAND_EDIT_WORD -> {
-				if (InputModeKind.isPassthrough(mInputMode)) {
-					Logger.d("MAIN", "CANNOT EDIT WORD IN PASSTHROUGH MODE");
+				if (startId == 1) {
+					lastStartCommand = command;
 				} else {
 					editWord();
 				}
@@ -187,7 +191,7 @@ public class TraditionalT9 extends PremiumHandler {
 
 		if (!InputModeKind.isPassthrough(mInputMode)) {
 			askForNotifications();
-			runStartupCommands();
+			runStartCommands();
 		}
 
 		return true;
@@ -235,7 +239,7 @@ public class TraditionalT9 extends PremiumHandler {
 	}
 
 
-	private void runStartupCommands() {
+	private void runStartCommands() {
 		if (UI.COMMAND_EDIT_WORD.equals(lastStartCommand)) {
 			editWord();
 		} else if (onAfterStartText.length() > 0) {
