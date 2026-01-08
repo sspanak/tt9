@@ -9,12 +9,12 @@ import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
-import io.github.sspanak.tt9.util.Logger;
 
 public class AddWordDialog extends PopupDialog {
 	@NonNull private final Language language;
 	@NonNull private final SettingsStore settings;
 	@Nullable private final String word;
+	private final boolean isWordTooShort;
 
 
 	public AddWordDialog(@NonNull TraditionalT9 tt9, @NonNull Language language, @Nullable String word) {
@@ -29,7 +29,9 @@ public class AddWordDialog extends PopupDialog {
 
 		this.language = language;
 		this.word = word;
+		this.isWordTooShort = word == null || word.length() < SettingsStore.ADD_WORD_MIN_LENGTH;
 	}
+
 
 	private void addWord() {
 		close();
@@ -49,7 +51,7 @@ public class AddWordDialog extends PopupDialog {
 
 
 	public void show() {
-		if (word == null || word.isEmpty()) {
+		if (isWordTooShort) {
 			UI.toastLong(context, R.string.add_word_no_selection);
 			close();
 			return;
