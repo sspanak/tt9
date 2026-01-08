@@ -12,6 +12,7 @@ import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 import io.github.sspanak.tt9.ui.dialogs.ChangeLanguageDialog;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Ternary;
+import io.github.sspanak.tt9.util.chars.Characters;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
@@ -124,11 +125,12 @@ abstract public class CommandHandler extends TextEditingHandler {
 			return;
 		}
 
-		mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, InputMode.MODE_RECOMPOSING);
+		setInputMode(InputMode.MODE_RECOMPOSING);
+		Logger.d(getClass().getSimpleName(), "=======> selected new input mode: " + mInputMode);
 		if (mInputMode.setWordStem(word, false) && textField.recompose(word)) {
 			getSuggestions("", null);
 		} else {
-			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
+			setInputMode(determineInputModeId());
 			Logger.e(getClass().getSimpleName(), "Could not edit word: " + word);
 		}
 	}
@@ -136,6 +138,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 	protected boolean finishWordEditing() {
 		if (!InputModeKind.isRecomposing(mInputMode) || mInputMode.isTyping()) {
+			Logger.d(getClass().getSimpleName(), "=======> do not finish. inputMode: " + mInputMode + ", isTyping: " + mInputMode.isTyping());
 			return false;
 		}
 
@@ -145,6 +148,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			addWord();
 		}
 
+		Logger.d(getClass().getSimpleName(), "=======> selected new input mode: " + mInputMode);
 		return true;
 	}
 
@@ -188,7 +192,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 
 	protected void setInputMode(int modeId) {
-		if (!allowedInputModes.contains(modeId)) {
+		if (!allowedInputModes.contains(modeId) && modeId != InputMode.MODE_RECOMPOSING) {
 			return;
 		}
 
@@ -196,8 +200,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 		resetKeyRepeat();
 
-		int nextModeIndex = allowedInputModes.indexOf(modeId) % allowedInputModes.size();
-		mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, allowedInputModes.get(nextModeIndex));
+		mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, modeId);
 		determineTextCase();
 
 		settings.saveInputMode(mInputMode.getId());
