@@ -7,6 +7,7 @@
 	<string name="add_word_add">Hinzufügen</string>
 	<string name="add_word_confirm">Wort \"%1$s\" zu %2$s hinzufügen?</string>
 	<string name="add_word_no_selection">Bewegen Sie den Cursor innerhalb eines Wortes, um es hinzuzufügen.</string>
+	<string name="add_word_not_available_without_predictive_mode">Das Hinzufügen von Wörtern ist nicht möglich, wenn die Textvorerkennung deaktiviert ist.</string>
 	<string name="add_word_blank">Leeres Wort nicht hinzugefügt.</string>
 	<string name="add_word_exist">Das Wort \"%1$s\" ist bereits in Wörterbuch.</string>
 	<string name="add_word_success">\"%1$s\" hinzugefügt.</string>
@@ -90,7 +91,7 @@
 	<string name="pref_category_keypad">Tastenfeld</string>
 	<string name="char_space">Leerzeichen</string>
 	<string name="function_add_word">Wort hinzufügen</string>
-	<string name="function_add_word_not_available">Das Hinzufügen von Wörtern ist in dieser Sprache nicht möglich.</string>
+	<string name="add_word_not_available_in_language">Das Hinzufügen von Wörtern ist in dieser Sprache nicht möglich.</string>
 	<string name="function_backspace">Rücktaste</string>
 	<string name="punctuation_order_after_group">Nach der Gruppe (optional)</string>
 	<string name="setup_keyboard_status">Status</string>

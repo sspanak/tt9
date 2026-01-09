@@ -10,6 +10,7 @@
 	<string name="add_word_add">Додати</string>
 	<string name="add_word_confirm">Додати слово \"%1$s\" в %2$s?</string>
 	<string name="add_word_no_selection">Перемістіть курсор у слово, щоб додати його.</string>
+	<string name="add_word_not_available_without_predictive_mode">Додавання слів неможливе, коли предиктивний режим вимкнено.</string>
 	<string name="add_word_blank">Пусте слово не додано.</string>
 	<string name="add_word_exist">Слово \"%1$s\" вже існує у словнику.</string>
 	<string name="add_word_success">\"%1$s\" додано.</string>
@@ -133,7 +134,7 @@
 	<string name="donate_title">Підтримати</string>
 	<string name="donate_summary">Якщо вам подобається %1$s, ви можете пригостити мене пивом.</string>
 
-	<string name="function_add_word_not_available">Додавання слів неможливе цією мовою.</string>
+	<string name="add_word_not_available_in_language">Додавання слів неможливе цією мовою.</string>
 	<string name="function_backspace">Стерти</string>
 	<string name="function_show_command_palette">Список команд</string>
 	<string name="function_filter_clear">Очистити фільтр</string>

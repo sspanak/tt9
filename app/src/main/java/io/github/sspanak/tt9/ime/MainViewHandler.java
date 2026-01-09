@@ -96,11 +96,6 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 
-	public boolean isAddingWordsSupported() {
-		return mLanguage == null || !mLanguage.isTranscribed();
-	}
-
-
 	public boolean isDragResizeOn() {
 		return dragResize;
 	}
