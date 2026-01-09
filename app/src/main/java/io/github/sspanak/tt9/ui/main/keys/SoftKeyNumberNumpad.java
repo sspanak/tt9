@@ -137,7 +137,7 @@ public class SoftKeyNumberNumpad extends BaseSwipeableKey {
 	@Override
 	protected float getCornerElementScale(int position) {
 		if (position == ICON_POSITION_TOP_RIGHT && tt9 != null && LanguageKind.isArabicBased(tt9.getLanguage())) {
-			return super.getCornerElementScale(ICON_POSITION_TOP_RIGHT) * 1.25f;
+			return super.getCornerElementScale(ICON_POSITION_TOP_RIGHT) * 1.25f * getScreenSizeScale();
 		}
 
 		return super.getCornerElementScale(position);

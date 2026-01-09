@@ -26,8 +26,7 @@ import io.github.sspanak.tt9.util.chars.Characters;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class SoftKey extends BaseClickableKey {
-	private static float screenScaleX = 0;
-	private static float screenScaleY = 0;
+	private static float screenSizeScale = 0;
 
 	protected RelativeLayout overlay = null;
 
@@ -79,37 +78,30 @@ public class SoftKey extends BaseClickableKey {
 
 
 	/**
-	 * Returns a scale factor for the screen width, used to adjust the key size and text size. Mostly,
+	 * Returns a scale factor for the screen size, used to adjust the key size and text size. Mostly,
 	 * useful for tablets or larger devices, where the keys are too big but the text remains small.
 	 */
-	protected float getScreenScaleX() {
-		if (screenScaleX == 0) {
-			boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9);
-			float width = isLandscape ? DeviceInfo.getScreenWidthDp(getContext()) : DeviceInfo.getScreenHeightDp(getContext());
-
-			screenScaleX = Math.min(
-				width / SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_WIDTH,
-				SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_MAX
-			);
+	protected float getScreenSizeScale() {
+		if (screenSizeScale > 0) {
+			return screenSizeScale;
 		}
-		return screenScaleX;
-	}
 
+		final boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9);
+		final float width = isLandscape ? DeviceInfo.getScreenWidthDp(getContext()) : DeviceInfo.getScreenHeightDp(getContext());
+		final float height = isLandscape ? DeviceInfo.getScreenHeightDp(getContext()) : DeviceInfo.getScreenWidthDp(getContext());
 
-	/**
-	 * Same as getScreenScaleX(), but used for the key height.
-	 */
-	protected float getScreenScaleY() {
-		if (screenScaleY == 0) {
-			boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9);
-			float height = isLandscape ? DeviceInfo.getScreenHeightDp(getContext()) : DeviceInfo.getScreenWidthDp(getContext());
+		final float screenScaleX = Math.min(
+			width / SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_SIZE,
+			SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_MAX
+		);
 
-			screenScaleY = Math.min(
-				height / SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_HEIGHT,
-				SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_MAX
-			);
-		}
-		return screenScaleY;
+		final float screenScaleY = Math.min(
+			height / SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_SIZE,
+			SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_MAX
+		);
+
+		screenSizeScale = Math.min(screenScaleX, screenScaleY);
+		return screenSizeScale;
 	}
 
 
@@ -216,9 +208,8 @@ public class SoftKey extends BaseClickableKey {
 	 */
 	protected float getTitleScale() {
 		float keyboardSizeScale = Math.max(0.7f, Math.min(getTT9Width(), getTT9Height()));
-		float screenSizeScale = Math.min(getScreenScaleX(), getScreenScaleY());
 		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent() / 100f : 1;
-		return keyboardSizeScale * screenSizeScale * settingsScale;
+		return keyboardSizeScale * getScreenSizeScale() * settingsScale;
 	}
 
 

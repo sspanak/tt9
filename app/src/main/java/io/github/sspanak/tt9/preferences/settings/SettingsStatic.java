@@ -29,8 +29,7 @@ public class SettingsStatic extends SettingsColors {
 	public final static int SOFT_KEY_REPEAT_DELAY = 40; // ms
 	public static final String SOFT_KEY_TEXT_LEFT_DEFAULT = "!";
 	public static final String SOFT_KEY_TEXT_RIGHT_DEFAULT = "?";
-	public final static float SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_HEIGHT = 360; // dp
-	public final static float SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_WIDTH = 640; // dp
+	public final static float SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_SIZE = 360; // dp
 	public final static float SOFT_KEY_SCALE_SCREEN_COMPENSATION_MAX = 1.4f;
 	public final static int SOFT_KEY_TITLE_MAX_CHARS = 5;
 	public final static int SOFT_KEY_TITLE_MAX_CHARS_INDIC = 3;
