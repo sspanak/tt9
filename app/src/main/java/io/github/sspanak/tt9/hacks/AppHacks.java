@@ -43,7 +43,8 @@ public class AppHacks {
 	/**
 	 * Perform hacks to prepare the state for our onStart().
 	 */
-	public void onBeforeStart(@NonNull InputMethodService ims, @NonNull SettingsStore settings, @Nullable Language language, @Nullable EditorInfo field, boolean restarting) {
+	public void onBeforeStart(@NonNull InputMethodService ims, @NonNull SettingsStore settings, @Nullable Language language, @Nullable EditorInfo field, @NonNull InputMode inputMode, @NonNull SuggestionOps suggestionOps, boolean restarting) {
+		acceptComposingTextOnCursorReset(inputMode, suggestionOps, new TextField(ims, settings, field));
 		mitigateRestartOnKeypressComposingTextCorruption(ims, settings, language, field, restarting);
 		resetMessengerPadding(ims, settings, field);
 	}
@@ -179,12 +180,6 @@ public class AppHacks {
 	/**
 	 * Performs extra operations when the cursor moves and returns "true" if the selection was handled,
 	 * "false" otherwise.
-	 * CURSOR RESET
-	 * When sending messages using the Viber or the SMS app SEND button, it does so and clears the text
-	 * field, but without notifying the keyboard. This means, after sending the message, the InputMode
-	 * still holds the old text, while the text field is empty. Attempting to type a new word then
-	 * results in appending to the old word. We use this hack to detect Viber and reset the InputMode
-	 * upon sending a message.
 	 */
 	public boolean onUpdateSelection(
 		@NonNull InputMode inputMode,
@@ -196,13 +191,9 @@ public class AppHacks {
 		int candidatesStart,
 		int candidatesEnd
 	) {
-		if (textField != null && !isComposingCausingRestarts() && CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd) && textField.isEmpty()) {
-			inputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
-			inputMode.reset();
-			return true;
-		}
-
-		return false;
+		return
+			CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)
+			&& acceptComposingTextOnCursorReset(inputMode, suggestionOps, textField);
 	}
 
 
@@ -233,6 +224,23 @@ public class AppHacks {
 
 	private boolean isComposingCausingRestarts() {
 		return composingTextToRestartTime <= SettingsStore.COMPOSING_TEXT_RESTART_THRESHOLD;
+	}
+
+	/**
+	 * When sending messages in Signal, Viber or Google SMS, using their own send button, these apps
+	 * clear the text field, but without notifying the keyboard. This results in the InputMode still
+	 * holding the old composing text, after the text field has been cleared. Attempting to type a new
+	 * word then causes the previous word to pop back up. We use this hack to detect such situations
+	 * and reset the InputMode upon sending a message.
+	 */
+	private boolean acceptComposingTextOnCursorReset(@NonNull InputMode inputMode, @NonNull SuggestionOps suggestionOps, @Nullable TextField textField) {
+		if (!isComposingCausingRestarts() && textField != null && textField.isEmpty() && !inputMode.getSuggestions().isEmpty()) {
+			inputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+			inputMode.reset();
+			return true;
+		}
+
+		return false;
 	}
 
 

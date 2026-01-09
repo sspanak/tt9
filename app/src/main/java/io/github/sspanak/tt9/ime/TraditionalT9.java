@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
-import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -150,7 +149,7 @@ public class TraditionalT9 extends PremiumHandler {
 			asyncInitThread = null;
 		}
 
-		appHacks.onBeforeStart(this, settings, mLanguage, field, restarting);
+		appHacks.onBeforeStart(this, settings, mLanguage, field, mInputMode, suggestionOps, restarting);
 
 		if (isDead || !super.onStart(field, restarting)) {
 			getDisplayTextCase();
@@ -166,24 +165,27 @@ public class TraditionalT9 extends PremiumHandler {
 			initUi(mInputMode);
 		}
 
-		InputType newInputType = new InputType(this, field);
+		onAfterStart();
 
-		if (newInputType.isText()) {
+		return true;
+	}
+
+
+	private void onAfterStart() {
+		if (inputType.isText()) {
 			DataStore.loadWordPairs(DictionaryLoader.getInstance(this), LanguageCollection.getAll(settings.getEnabledLanguageIds()));
 		}
 
-		if (!newInputType.isUs()) {
+		if (!inputType.isUs()) {
 			DictionaryLoader.autoLoad(this, mLanguage);
 		}
-
-		askForNotifications();
 
 		if (onAfterStartText.length() > 0) {
 			onText(onAfterStartText.toString(), false);
 			onAfterStartText.setLength(0);
 		}
 
-		return true;
+		askForNotifications();
 	}
 
 
