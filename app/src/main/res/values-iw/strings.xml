@@ -9,6 +9,7 @@
 	<string name="add_word_add">הוסף</string>
 	<string name="add_word_confirm">האם להוסיף את המילה \"%1$s\" ל-%2$s?</string>
 	<string name="add_word_no_selection">הזיזו את הסמן בתוך מילה כדי להוסיף אותה.</string>
+	<string name="add_word_not_available_without_predictive_mode">לא ניתן להוסיף מילים כאשר מצב חיזוי מושבת.</string>
 	<string name="add_word_blank">מילה ריקה לא נוספה</string>
 	<string name="add_word_exist">המילה \"%1$s\" כבר קיימת במילון.</string>
 	<string name="add_word_success">%1$s נוסף.</string>
@@ -102,7 +103,7 @@
 	<string name="dictionary_truncated">המילון נמחק בהצלחה.</string>
 
 	<string name="dictionary_truncating">המחיקה מתבצעת…</string>
-	<string name="function_add_word_not_available">אין אפשרות להוסיף מילים בשפה זו.</string>
+	<string name="add_word_not_available_in_language">אין אפשרות להוסיף מילים בשפה זו.</string>
 	<string name="function_backspace">לחצן מחיקה</string>
 	<string name="function_next_suggestion">ההצעה הבאה</string>
 	<string name="function_next_language">לחצן למעבר לשפה הבאה</string>

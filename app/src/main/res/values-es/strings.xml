@@ -4,6 +4,7 @@
 	<string name="add_word_add">Agregar</string>
 	<string name="add_word_confirm">¿Agregar la palabra \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Mueve el cursor dentro de una palabra para añadirla.</string>
+	<string name="add_word_not_available_without_predictive_mode">No es posible añadir palabras cuando el texto predictivo está desactivado.</string>
 	<string name="add_word_blank">Palabra en blanco no agregada.</string>
 	<string name="pref_hold_to_type_summary">Permite escribir números o activar funciones de la app manteniendo pulsadas las teclas numéricas. Desactive si el dispositivo detecta erróneamente pulsaciones cortas como mantenidas.</string>
 	<string name="pref_key_shadows">Sombras bajo las teclas</string>
@@ -44,7 +45,7 @@
 	<string name="pref_choose_languages">Idiomas</string>
 	<string name="char_space">Espacio</string>
 	<string name="dictionary_truncating">Borrando…</string>
-	<string name="function_add_word_not_available">No es posible agregar palabras en este idioma.</string>
+	<string name="add_word_not_available_in_language">No es posible agregar palabras en este idioma.</string>
 	<string name="function_backspace">Retroceso</string>
 	<string name="punctuation_order_after_group">Después del grupo (opcional)</string>
 	<string name="setup_keyboard_status">Estado</string>

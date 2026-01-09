@@ -7,6 +7,7 @@
 	<string name="error_unexpected">Възникна неочаквана грешка.</string>
 	<string name="add_word_add">Добави</string>
 	<string name="add_word_no_selection">Преместете показалеца върху дума, за да я добавите към речника.</string>
+	<string name="add_word_not_available_without_predictive_mode">Добавянето на думи не е възможно, когато Подсказващият режим е изключен.</string>
 	<string name="add_word_blank">Не може да се въведе празна дума.</string>
 	<string name="add_word_exist">Думата „%1$s“ вече съществува в речника.</string>
 	<string name="add_word_success">„%1$s“ е добавена.</string>
@@ -87,7 +88,7 @@
 	<string name="donate_title">Дарете</string>
 	<string name="donate_summary">Ако харесвате %1$s, черпете една бира.</string>
 	<string name="function_edit_text">Редактиране на текст</string>
-	<string name="function_add_word_not_available">Добавянето на думи не е възможно на този език.</string>
+	<string name="add_word_not_available_in_language">Добавянето на думи не е възможно на този език.</string>
 	<string name="function_backspace">Триене на текст</string>
 	<string name="function_reassign">Задай нов</string>
 	<string name="function_add_word">Добавяне на дума</string>

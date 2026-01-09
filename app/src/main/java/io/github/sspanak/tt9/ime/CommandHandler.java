@@ -90,8 +90,13 @@ abstract public class CommandHandler extends TextEditingHandler {
 			return;
 		}
 
+		if (!settings.getPredictiveMode()) {
+			UI.toastShortSingle(this, R.string.add_word_not_available_without_predictive_mode);
+			return;
+		}
+
 		if (mLanguage.isTranscribed()) {
-			UI.toastShortSingle(this, R.string.function_add_word_not_available);
+			UI.toastShortSingle(this, R.string.add_word_not_available_in_language);
 			return;
 		}
 

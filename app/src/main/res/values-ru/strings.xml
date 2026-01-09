@@ -7,6 +7,7 @@
 	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
 	<string name="add_word_add">Добавить</string>
 	<string name="add_word_no_selection">Переместите курсор внутрь слова, чтобы добавить его.</string>
+	<string name="add_word_not_available_without_predictive_mode">Добавление слов невозможно, когда режим подсказки отключён.</string>
 	<string name="add_word_blank">Невозможно добавить слово.</string>
 	<string name="add_word_exist">Слово «%1$s» уже есть в словаре.</string>
 	<string name="add_word_success">«%1$s» добавлено</string>
@@ -90,7 +91,7 @@
 	<string name="pref_double_tap_resize_summary">Дважды коснуться строки состояния, чтобы увеличить или уменьшить клавиатуру, когда нет подсказок.</string>
 	<string name="pref_double_zero_char">Символ при двойном нажатии клавиши 0</string>
 	<string name="dictionary_load_bad_char">Не удалось загрузить словарь. Проблема в слове в строке %1$d для языка «%2$s».</string>
-	<string name="function_add_word_not_available">Добавление слов невозможно на этом языке.</string>
+	<string name="add_word_not_available_in_language">Добавление слов невозможно на этом языке.</string>
 	<string name="function_backspace">Стереть</string>
 	<string name="function_show_command_palette">Список команд</string>
 	<string name="function_filter_clear">Удалить фильтр</string>
