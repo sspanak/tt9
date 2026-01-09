@@ -15,6 +15,7 @@
 	<string name="add_word_success">\"%1$s\" додано.</string>
 	<string name="add_word_title">Додати слово</string>
 
+	<string name="commands_clipboard_is_empty">Буфер обміну порожній.</string>
 	<string name="commands_select_command">Вибрати команду</string>
 	<string name="pref_category_about">Про програму</string>
 	<string name="pref_category_abc_mode">Режим АБВ</string>

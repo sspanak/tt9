@@ -55,6 +55,7 @@
 	<string name="dictionary_load_title">Cargar los seleccionados</string>
 	<string name="dictionary_loading_indeterminate">Cargando diccionario</string>
 	<string name="dictionary_loading">Cargando diccionario (%1$s)…</string>
+	<string name="commands_clipboard_is_empty">El portapapeles está vacío.</string>
 	<string name="commands_select_command">Seleccionar un comando</string>
 	<string name="pref_category_about">Acerca de esta aplicación</string>
 	<string name="dictionary_not_found">Falló al cargar. No se encontró el diccionario para \"%1$s\".</string>
