@@ -56,7 +56,7 @@ public class SoftKeyNumber1 extends SoftKeyNumberSwipeable {
 			return super.getHoldText();
 		}
 
-		if (tt9 == null || !isHoldEnabled() || getHoldCommand() != null || (tt9.isNumericModeStrict() && !tt9.isNumericModeDecimal())) {
+		if (tt9 == null || !isHoldEnabled() || getHoldCommand() != null || (tt9.isInputTypeNumeric() && !tt9.isInputTypeDecimal() && !tt9.isInputTypePhone())) {
 			return null;
 		}
 

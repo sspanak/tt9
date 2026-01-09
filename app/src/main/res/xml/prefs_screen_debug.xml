@@ -7,6 +7,15 @@
 		app:title="Device Info" />
 
 	<Preference
+		app:key="screen_test_input"
+		app:title="Test Input">
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:targetPackage="io.github.sspanak.tt9"
+			android:targetClass="io.github.sspanak.tt9.preferences.screens.debug.TestInputActivity" />
+	</Preference>
+
+	<Preference
 		android:fragment="io.github.sspanak.tt9.preferences.screens.UsageStatsScreen"
 		android:key="pref_slow_queries"
 		android:title="@string/pref_category_usage_stats" />

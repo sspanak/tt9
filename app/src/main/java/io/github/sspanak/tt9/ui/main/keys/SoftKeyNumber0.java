@@ -59,11 +59,11 @@ public class SoftKeyNumber0 extends SoftKeyNumberSwipeable {
 
 		if (tt9.isTextEditingActive()) {
 			return "";
-		} else if (tt9.isNumericModeSigned()) {
+		} else if (tt9.isInputTypeSigned()) {
 			return "+/-";
-		} else if (tt9.isInputModePhone()) {
+		} else if (tt9.isInputTypePhone()) {
 			return "+";
-		} else if (tt9.isNumericModeStrict()) {
+		} else if (tt9.isInputTypeNumeric() && !tt9.isInputTypeSigned() && !tt9.isInputTypePhone()) {
 			return "";
 		} else if (tt9.isInputModeNumeric() || hasLettersOnAllKeys()) {
 			return CHARS_NUMERIC_MODE;
