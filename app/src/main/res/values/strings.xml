@@ -21,6 +21,8 @@
 	<string name="add_word_confirm">Add word \"%1$s\" to %2$s?</string>
 	<string name="add_word_no_confirmation">Add Without Confirmation</string>
 	<string name="add_word_no_selection">Move the cursor inside a word to add it.</string>
+	<string name="add_word_not_available_in_language">Adding words is not possible in this language.</string>
+	<string name="add_word_not_available_without_predictive_mode">Adding words is not possible when Predictive mode is disabled.</string>
 	<string name="add_word_blank">Blank word not added.</string>
 	<string name="add_word_exist">Word \"%1$s\" is already in the dictionary.</string>
 	<string name="add_word_invalid_language" translatable="false">Cannot add a word when no language is selected.</string>
@@ -204,7 +206,6 @@
 	<string name="function_reassign">Reassign</string>
 
 	<string name="function_add_word">Add Word</string>
-	<string name="function_add_word_not_available">Adding words is not possible in this language.</string>
 	<string name="function_backspace">Backspace</string>
 	<string name="function_show_command_palette">Show Command List</string>
 	<string name="function_filter_clear">Clear Filter</string>

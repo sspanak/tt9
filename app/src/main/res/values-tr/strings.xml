@@ -7,6 +7,7 @@
 	<string name="add_word_add">Ekle</string>
 	<string name="add_word_confirm">\"%1$s\" kelimesi %2$s sözlüğe eklensin mi?</string>
 	<string name="add_word_no_selection">Ekleme yapmak için imleci eklemek istediğiniz kelimeye götürün.</string>
+	<string name="add_word_not_available_without_predictive_mode">Tahminli mod devre dışıyken kelime eklemek mümkün değildir.</string>
 	<string name="add_word_blank">Boşluk eklenemedi.</string>
 	<string name="add_word_exist">\"%1$s\" kelimesi zaten kelime listesinde mevcut.</string>
 	<string name="add_word_success">\"%1$s\" başarıyla eklendi.</string>
@@ -86,7 +87,7 @@
 	<string name="pref_category_key_appearance">Tuşlar</string>
 	<string name="pref_category_keypad">Tuş Takımı</string>
 	<string name="char_space">Boşluk</string>
-	<string name="function_add_word_not_available">Bu dilde kelime eklemek mümkün değil.</string>
+	<string name="add_word_not_available_in_language">Bu dilde kelime eklemek mümkün değil.</string>
 	<string name="function_backspace">Geri Tuşu</string>
 	<string name="punctuation_order_after_group">Gruptan sonra (isteğe bağlı)</string>
 	<string name="setup_keyboard_status">Durum</string>
