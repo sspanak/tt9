@@ -38,7 +38,7 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 
 	@Override public boolean isDynamic() { return true; }
 	@Override protected String getTitle() { return hasLettersOnAllKeys() ? Characters.SPACE : ""; }
-	@Override protected float getTitleScale() { return hasLettersOnAllKeys() ? 1.3f * Math.min(1, getTT9Height()) * getScreenScaleY() : super.getTitleScale(); }
+	@Override protected float getTitleScale() { return hasLettersOnAllKeys() ? 1.3f * Math.min(1, getTT9Height()) * getScreenSizeScale() : super.getTitleScale(); }
 
 	@Override protected int getCentralIcon() {
 		if (hasLettersOnAllKeys()) {

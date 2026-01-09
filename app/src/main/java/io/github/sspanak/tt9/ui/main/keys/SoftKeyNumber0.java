@@ -99,7 +99,7 @@ public class SoftKeyNumber0 extends SoftKeyNumberSwipeable {
 
 		// scale up the space character, because it is too small
 		if (Characters.SPACE.equals(getTitle())) {
-			return 1.3f * Math.min(1, getTT9Height()) * getScreenScaleY();
+			return 1.3f * Math.min(1, getTT9Height()) * getScreenSizeScale();
 		}
 
 		return super.getTitleScale();
