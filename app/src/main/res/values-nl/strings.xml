@@ -11,6 +11,7 @@
 	<string name="add_word_exist">Woord \"%1$s\" staat al in het woordenboek.</string>
 	<string name="add_word_success">\"%1$s\" toegevoegd.</string>
 	<string name="add_word_title">Woord toevoegen</string>
+	<string name="commands_clipboard_is_empty">Het klembord is leeg.</string>
 	<string name="commands_select_command">Een commando selecteren</string>
 	<string name="pref_category_about">Over de applicatie</string>
 	<string name="pref_hold_to_type_summary">Sta toe cijfers te typen of app-functies te activeren door cijfertoetsen ingedrukt te houden. Schakel uit als het apparaat korte drukken ten onrechte als vasthouden detecteert.</string>

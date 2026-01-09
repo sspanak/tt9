@@ -27,6 +27,7 @@
 	<string name="add_word_success">\"%1$s\" added.</string>
 	<string name="add_word_title">Add Word</string>
 
+	<string name="commands_clipboard_is_empty">Clipboard is empty.</string>
 	<string name="commands_select_command">Select a Command</string>
 
 	<string name="pref_category_about">About</string>

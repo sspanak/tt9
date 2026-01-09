@@ -11,6 +11,7 @@
 	<string name="add_word_exist">Le mot «%1$s» est déjà dans le dictionnaire.</string>
 	<string name="add_word_success">« %1$s » est ajouté</string>
 	<string name="add_word_title">Ajouter un mot</string>
+	<string name="commands_clipboard_is_empty">Le presse-papiers est vide.</string>
 	<string name="commands_select_command">Sélectionner une commande</string>
 	<string name="pref_category_about">À propos de l\'application</string>
 	<string name="pref_hold_to_type_summary">Permet de taper des chiffres ou d’activer des fonctions en maintenant les touches numériques. Désactivez si l’appareil détecte à tort les pressions courtes comme des maintiens.</string>
