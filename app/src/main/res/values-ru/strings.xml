@@ -11,6 +11,7 @@
 	<string name="add_word_exist">Слово «%1$s» уже есть в словаре.</string>
 	<string name="add_word_success">«%1$s» добавлено</string>
 	<string name="add_word_title">Добавить слово</string>
+	<string name="commands_clipboard_is_empty">Буфер обмена пуст.</string>
 	<string name="commands_select_command">Выбрать команду</string>
 	<string name="pref_category_about">О приложении</string>
 	<string name="pref_hold_to_type_summary">Позволяет вводить цифры или запускать функции приложения при удержании цифровых клавиш. Отключите, если устройство ошибочно распознаёт короткие нажатия как удержание.</string>

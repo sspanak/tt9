@@ -11,6 +11,7 @@
 	<string name="add_word_exist">Думата „%1$s“ вече съществува в речника.</string>
 	<string name="add_word_success">„%1$s“ е добавена.</string>
 	<string name="add_word_title">Добавяне на дума</string>
+	<string name="commands_clipboard_is_empty">Клипбордът е празен.</string>
 	<string name="commands_select_command">Изберете команда</string>
 	<string name="pref_category_about">За приложението</string>
 	<string name="pref_hold_to_type_summary">Позволява писане на числа или активиране на функции при задържане на цифровите клавиши. Изключете, ако устройството разпознава неправилно кратки натискания като задържане.</string>

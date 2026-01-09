@@ -12,6 +12,7 @@
 	<string name="add_word_success">\"%1$s\" hinzugefügt.</string>
 	<string name="add_word_title">Wort hinzufügen</string>
 
+	<string name="commands_clipboard_is_empty">Die Zwischenablage ist leer.</string>
 	<string name="commands_select_command">Einen Befehl auswählen</string>
 	<string name="pref_category_about">Über die Anwendung</string>
 	<string name="pref_hold_to_type_summary">Ermöglicht, Zahlen zu tippen oder App-Funktionen zu starten, indem die Zahlentasten gehalten werden. Deaktivieren, wenn das Gerät kurze Tastendrücke fälschlicherweise als Halten erkennt.</string>

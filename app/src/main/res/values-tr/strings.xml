@@ -12,6 +12,7 @@
 	<string name="add_word_success">\"%1$s\" başarıyla eklendi.</string>
 	<string name="add_word_title">Kelime Ekle</string>
 
+	<string name="commands_clipboard_is_empty">Pano boş.</string>
 	<string name="commands_select_command">Bir komut seç</string>
 	<string name="pref_category_about">Hakkında</string>
 	<string name="pref_hold_to_type_summary">Sayı tuşlarını basılı tutarak rakam yazmaya veya uygulama işlevlerini etkinleştirmeye izin verir. Cihaz kısa basışları yanlışlıkla basılı tutma olarak algılıyorsa kapatın.</string>
