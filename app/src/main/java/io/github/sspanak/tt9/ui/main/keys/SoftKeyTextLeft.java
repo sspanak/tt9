@@ -15,7 +15,7 @@ public class SoftKeyTextLeft extends SoftKeyText {
 	@Override
 	protected String getKeyChar() {
 		if (tt9 == null) return "";
-		if (tt9.isInputModePhone()) return "*";
+		if (tt9.isInputTypePhone()) return "*";
 		if (tt9.isInputModeNumeric()) return ",";
 		if (tt9.isTextEditingActive()) return CmdUndo.iconTxt;
 

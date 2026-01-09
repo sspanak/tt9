@@ -34,7 +34,9 @@ class Mode123 extends ModePassthrough {
 		if (inputType.isPhoneNumber()) {
 			setSpecificSpecialCharacters(Characters.Phone, false);
 		} else if (inputType.isNumeric()) {
-			setSpecificSpecialCharacters(Characters.getAllForDecimal(inputType.isDecimal(), inputType.isSignedNumber()), false);
+			final boolean isDecimal = inputType.isDecimal() || inputType.isUnspecifiedNumber();
+			final boolean isSigned = inputType.isSignedNumber() || inputType.isUnspecifiedNumber();
+			setSpecificSpecialCharacters(Characters.getAllForDecimal(isDecimal, isSigned), false);
 		} else if (isEmailMode) {
 			setSpecificSpecialCharacters(Characters.Email, true);
 		} else {

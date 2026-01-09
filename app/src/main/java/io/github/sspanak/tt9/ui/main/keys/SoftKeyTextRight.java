@@ -14,7 +14,7 @@ public class SoftKeyTextRight extends SoftKeyText {
 
 	protected String getKeyChar() {
 		if (tt9 == null) return "";
-		if (tt9.isInputModePhone()) return "#";
+		if (tt9.isInputTypePhone()) return "#";
 		if (tt9.isInputModeNumeric()) return ".";
 		if (tt9.isTextEditingActive()) return CmdRedo.iconTxt;
 
