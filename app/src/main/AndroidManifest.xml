@@ -65,6 +65,17 @@
 		</activity>
 
 		<activity
+			android:label="Input Test"
+			android:name="io.github.sspanak.tt9.preferences.screens.debug.TestInputActivity"
+			android:exported="true"
+			android:theme="@style/TTheme.Preferences">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+
+		<activity
 			android:label="Log Messages"
 			android:name="io.github.sspanak.tt9.preferences.LogsActivity"
 			android:exported="true"

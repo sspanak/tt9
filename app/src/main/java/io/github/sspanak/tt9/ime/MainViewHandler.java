@@ -138,26 +138,25 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		return InputModeKind.isNumeric(mInputMode);
 	}
 
-
-	public boolean isNumericModeStrict() {
-		return InputModeKind.is123(mInputMode) && inputType.isNumeric() && !inputType.isPhoneNumber();
+	public boolean isInputTypeNumeric() {
+		return inputType.isNumeric();
 	}
 
-
-	public boolean isNumericModeDecimal() {
-		return InputModeKind.is123(mInputMode) && inputType.isDecimal();
+	public boolean isInputTypeDecimal() {
+		return (inputType.isDecimal() || inputType.isUnspecifiedNumber());
 	}
 
-
-	public boolean isNumericModeSigned() {
-		return InputModeKind.is123(mInputMode) && inputType.isSignedNumber();
+	public boolean isInputTypePositiveInteger() {
+		return inputType.isPasswordNumeric();
 	}
 
-
-	public boolean isInputModePhone() {
-		return InputModeKind.is123(mInputMode) && inputType.isPhoneNumber();
+	public boolean isInputTypeSigned() {
+		return (inputType.isSignedNumber() || inputType.isUnspecifiedNumber());
 	}
 
+	public boolean isInputTypePhone() {
+		return inputType.isPhoneNumber();
+	}
 
 	public boolean isTextEditingActive() {
 		return mainView != null && mainView.isTextEditingPaletteShown();

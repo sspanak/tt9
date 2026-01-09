@@ -77,6 +77,11 @@ abstract public class StandardInputType {
 	}
 
 
+	public boolean isUnspecifiedNumber() {
+		return isNumeric() && !isDecimal() && !isSignedNumber() && !isPasswordNumeric();
+	}
+
+
 	abstract protected boolean isSpecialNumeric(Context context);
 
 
@@ -104,6 +109,11 @@ abstract public class StandardInputType {
 			variation == InputType.TYPE_TEXT_VARIATION_PASSWORD
 			|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
 			|| variation == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD;
+	}
+
+
+	public boolean isPasswordNumeric() {
+		return isNumeric() && (field.inputType & InputType.TYPE_NUMBER_VARIATION_PASSWORD) == InputType.TYPE_NUMBER_VARIATION_PASSWORD;
 	}
 
 
