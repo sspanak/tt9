@@ -14,15 +14,12 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class Clipboard {
 	@NonNull private static final LinkedList<CharSequence> clips = new LinkedList<>();
-	private static Runnable externalChangeListener;
-	private static boolean ignoreNextChange = false;
 
 
 	public static void copy(@NonNull Context context, @NonNull CharSequence label, @NonNull CharSequence text) {
 		ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 		clipboard.setPrimaryClip(ClipData.newPlainText(label, text));
 		addClip(text);
-		ignoreNextChange = true;
 	}
 
 
@@ -80,33 +77,6 @@ public class Clipboard {
 		}
 
 		return formatted;
-	}
-
-
-	public static void setOnChangeListener(@NonNull Context context, @Nullable Runnable newListener) {
-		ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-
-		if (newListener != null) {
-			clipboard.addPrimaryClipChangedListener(Clipboard::changeListener);
-		} else if (externalChangeListener != null) {
-			clipboard.removePrimaryClipChangedListener(Clipboard::changeListener);
-		}
-
-		externalChangeListener = newListener;
-	}
-
-
-	public static void clearListener(@NonNull Context context) {
-		setOnChangeListener(context, null);
-	}
-
-
-	private static void changeListener() {
-		if (ignoreNextChange) {
-			ignoreNextChange = false;
-		} else if (externalChangeListener != null) {
-			externalChangeListener.run();
-		}
 	}
 
 

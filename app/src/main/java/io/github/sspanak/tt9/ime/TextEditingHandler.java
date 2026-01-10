@@ -153,7 +153,6 @@ abstract public class TextEditingHandler extends VoiceHandler {
 		stopVoiceInput();
 
 		mainView.showTextEditingPalette();
-		Clipboard.setOnChangeListener(this, this::resetStatus);
 		resetStatus();
 	}
 
@@ -162,8 +161,6 @@ abstract public class TextEditingHandler extends VoiceHandler {
 		if (!mainView.isTextEditingPaletteShown()) {
 			return false;
 		}
-
-		Clipboard.clearListener(this);
 
 		// paste any selected clipboard item and change its priority
 		String word = suggestionOps.acceptCurrent();
