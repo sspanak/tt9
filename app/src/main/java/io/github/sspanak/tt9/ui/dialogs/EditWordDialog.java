@@ -3,7 +3,6 @@ package io.github.sspanak.tt9.ui.dialogs;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +24,7 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 
 	private TextView stringALabel;
 	private TextView stringBLabel;
-	private EditText currentLetterInput;
+	private EditWordLetterEditor currentLetterInput;
 
 	private boolean isWordTooShort;
 	@Nullable private Language language;
@@ -69,26 +68,13 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 	}
 
 
-	//	public EditWordDialog(@NonNull TraditionalT9 tt9, @NonNull Language language, @Nullable String word) {
-//		super(tt9, language, word);
-//		originalWord = word;
-//		position = 0;
-//	}
-//
-//
-//	@Override
-//	protected void setStrings() {
-//		cancelLabel = tt9.getString(android.R.string.cancel);
-//		OKLabel = tt9.getString(R.string.add_word_add);
-//	}
-
-
 	private void createView() {
+		// @todo: styles
 		setContentView(R.layout.popup_edit_word);
 
 		final View title = findViewById(R.id.edit_word_title);
 		if (title instanceof TextView) {
-			((TextView) title).setText("Editing \"" + word + "\"");
+			((TextView) title).setText("Editing \"" + word + "\""); // @todo: localize
 		}
 
 		final View cancel = findViewById(R.id.edit_word_cancel_button);
@@ -104,64 +90,40 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 		stringALabel = findViewById(R.id.edit_word_string_a);
 		stringBLabel = findViewById(R.id.edit_word_string_b);
 		currentLetterInput = findViewById(R.id.edit_word_current_letter);
+
+		if (currentLetterInput != null) {
+			currentLetterInput
+				.setOnBackspaceListener(this::onBackspace)
+				.setOnOKListener(this::onOK);
+		}
 	}
 
 
-	//	@Override
-//	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-//		if (Key.isArrow(keyCode)) {
-//			return super.onKey(dialog, keyCode, event);
-//		}
-//
-//		if (event.getAction() == KeyEvent.ACTION_DOWN) {
-//			return true;
-//		}
-//
-//		if (Key.isBack(keyCode)) {
-//			close();
-//			return true;
-//		}
-//
-//		if (Key.isBackspace(tt9.getSettings(), keyCode)) {
-//			if (position > 0) {
-//				position--;
-//				edit(position, getWordLetter(position));
-//			}
-//			return true;
-//		}
-//
-//		if (Key.isOK(keyCode)) {
-//			if (word != null && currentLetterInput != null && position < word.length()) {
-//				edit(position, getCurrentLetter());
-//				edit(++position, getWordLetter(position));
-//			}
-//			return true;
-//		}
-//
-//
-//		if (Key.isNumber(keyCode)) {
-//			if (currentLetterInput != null) {
-//				currentLetterInput.setSelection(0, currentLetterInput.getText().length());
-////				currentLetterInput.setText("" + Key.codeToNumber(tt9.getSettings(), keyCode));
-//
-//				tt9.onKeyDown(keyCode, event);
-//				tt9.onKeyUp(keyCode, event);
-//			}
-//
-//		}
-//
-//		return true;
-//	}
-//
-//
-	private void edit(int position, @NonNull String newLetter) {
+	private void onBackspace() {
+		// @todo: handle soft backspace
+		if (word != null && currentLetterInput != null && position > 0) {
+			edit(--position, getWordLetter(position));
+		}
+	}
+
+
+	private void onOK() {
+		// @todo: handle soft OK
+		if (word != null && currentLetterInput != null && position < word.length() - 1) {
+			edit(position, getCurrentLetter());
+			edit(++position, getWordLetter(position));
+		}
+	}
+
+
+	private void edit(int editPosition, @NonNull String newLetter) {
 		if (word == null || isWordTooShort) {
 			Logger.d(LOG_TAG, "Word '" + word + "' is too short to edit.");
 			return;
 		}
 
-		if (position < 0 || position >= word.length()) {
-			Logger.d(LOG_TAG, "Position " + position + " is out of bounds for word '" + word + "'.");
+		if (editPosition < 0 || editPosition >= word.length()) {
+			Logger.d(LOG_TAG, "Position " + editPosition + " is out of bounds for word '" + word + "'.");
 			return;
 		}
 
@@ -170,16 +132,15 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 			return;
 		}
 
-		String stringA = word.substring(0, position);
-		String stringB = word.substring(position + 1);
+		String stringA = word.substring(0, editPosition);
+		String stringB = word.substring(editPosition + 1);
 
 		if (stringALabel != null) {
 			stringALabel.setText(stringA.isEmpty() ? null : stringA + " + ");
 		}
 
 		if (currentLetterInput != null) {
-			currentLetterInput.setText(newLetter);
-			currentLetterInput.setSelection(currentLetterInput.getText().length());
+			currentLetterInput.setTextSilent(newLetter);
 		}
 
 		if (stringBLabel != null) {
@@ -194,7 +155,9 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 		if (currentLetterInput == null) {
 			return "";
 		}
-		return currentLetterInput.getText().toString();
+
+		final CharSequence text = currentLetterInput.getText();
+		return text == null ? "" : text.toString();
 	}
 
 
@@ -212,23 +175,9 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 
 
 	private void showAddDialog(View v) {
-		// @todo: set command to main to add word
+		// @todo: send command to main and open the dialog
 		finish();
 	}
-
-
-//	public void show() {
-//		if (isWordTooShort) {
-//			UI.toastLong(context, R.string.add_word_no_selection);
-//			close();
-//			return;
-//		}
-//
-//		createView();
-//		edit(position, getWordLetter(position));
-//		render(this::showAddDialog, this::close, null, body);
-//	}
-
 
 
 	public static Intent generateShowIntent(@NonNull TraditionalT9 tt9, @NonNull Language language, @Nullable String word) {
