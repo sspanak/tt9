@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
+import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -165,18 +166,20 @@ public class TraditionalT9 extends PremiumHandler {
 			initUi(mInputMode);
 		}
 
-		onAfterStart();
+		onAfterStart(field);
 
 		return true;
 	}
 
 
-	private void onAfterStart() {
-		if (inputType.isText()) {
+	private void onAfterStart(EditorInfo field) {
+		final InputType newInputType = new InputType(this, field);
+
+		if (newInputType.isText()) {
 			DataStore.loadWordPairs(DictionaryLoader.getInstance(this), LanguageCollection.getAll(settings.getEnabledLanguageIds()));
 		}
 
-		if (!inputType.isUs()) {
+		if (!newInputType.isUs()) {
 			DictionaryLoader.autoLoad(this, mLanguage);
 		}
 
