@@ -28,6 +28,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
+import io.github.sspanak.tt9.util.sys.Clipboard;
 
 public abstract class TypingHandler extends KeyPadHandler {
 	// internal settings/data
@@ -460,6 +461,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	protected void onAcceptSuggestionManually(String word, int fromKey) {
 		mInputMode.onAcceptSuggestion(word);
+		if (Clipboard.contains(word)) {
+			Clipboard.copy(this, word);
+		}
+
 		if (!word.isEmpty()) {
 			String beforeCursor = autoCorrectSpace(
 				word,

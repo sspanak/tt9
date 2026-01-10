@@ -164,7 +164,13 @@ abstract public class TextEditingHandler extends VoiceHandler {
 		}
 
 		Clipboard.clearListener(this);
-		suggestionOps.acceptCurrent();
+
+		// paste any selected clipboard item and change its priority
+		String word = suggestionOps.acceptCurrent();
+		if (Clipboard.contains(word)) {
+			Clipboard.copy(this, word);
+		}
+
 		mainView.showKeyboard();
 		resetStatus();
 		return true;

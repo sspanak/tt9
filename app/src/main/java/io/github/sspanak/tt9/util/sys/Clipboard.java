@@ -26,6 +26,11 @@ public class Clipboard {
 	}
 
 
+	public static boolean contains(@NonNull String text) {
+		return indexOf(text) != -1;
+	}
+
+
 	public static void copy(@NonNull Context context, @NonNull CharSequence text) {
 		String label = context.getString(R.string.app_name_short) + " / text";
 		copy(context, label, text);
@@ -122,6 +127,10 @@ public class Clipboard {
 
 
 	private static int indexOf(@NonNull CharSequence text) {
+		if (text.length() == 0) {
+			return -1;
+		}
+
 		// indexOf on CharSequence compares references, so we have to search manually
 		for (int i = clips.size() - 1; i >= 0 ; i--) {
 			if (clips.get(i).toString().contentEquals(text)) {
