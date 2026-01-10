@@ -146,6 +146,7 @@ public class WordPairStore extends BaseSyncStore {
 				wordPairs = new HashMap<>();
 				pairs.put(language.getId(), wordPairs);
 			} else if (!wordPairs.isEmpty()) {
+				Logger.d(LOG_TAG, "Reusing " + wordPairs.size() + " word pairs for language: " + language.getId());
 				continue;
 			}
 
@@ -160,7 +161,7 @@ public class WordPairStore extends BaseSyncStore {
 
 		long currentTime = Timer.stop(LOAD_TIMER_NAME);
 		slowestLoadTime = Math.max(slowestLoadTime, currentTime);
-		Logger.d(LOG_TAG, "Loaded " + totalPairs + " word pairs in " + currentTime + " ms");
+		Logger.d(LOG_TAG, "Total " + totalPairs + " word pairs loaded in " + currentTime + " ms");
 	}
 
 
