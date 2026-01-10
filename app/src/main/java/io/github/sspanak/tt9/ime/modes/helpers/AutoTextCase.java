@@ -74,8 +74,12 @@ public class AutoTextCase {
 	public int determineNextLetterTextCase(@NonNull Language language, int textFieldTextCase, int modeTextCase, @Nullable String beforeCursor) {
 		final int settingsTextCase = settings.getTextCase();
 
-		if (isSpecialized || settingsTextCase == InputMode.CASE_UPPER || !language.hasUpperCase()) {
+		if (settingsTextCase == InputMode.CASE_UPPER || !language.hasUpperCase()) {
 			return settingsTextCase;
+		}
+
+		if (isSpecialized) {
+			return textFieldTextCase;
 		}
 
 		if (skipNext) {
