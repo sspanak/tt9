@@ -52,7 +52,7 @@ public class AddWordDialog extends PopupDialog {
 
 	private void showEditDialog() {
 		close();
-		new EditWordDialog(tt9, language, word).show();
+		tt9.startActivity(EditWordDialog.generateShowIntent(tt9, language, word));
 	}
 
 

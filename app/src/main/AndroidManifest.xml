@@ -114,5 +114,11 @@
 			android:label=""
 			android:name="io.github.sspanak.tt9.ime.voice.VoiceInputPickerActivity"
 			android:theme="@style/TTheme.AddWord" />
+
+		<activity
+			android:excludeFromRecents="true"
+			android:label=""
+			android:name="io.github.sspanak.tt9.ui.dialogs.EditWordDialog"
+			android:theme="@style/TTheme.AddWord" />
 	</application>
 </manifest>

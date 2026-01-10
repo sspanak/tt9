@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:padding="16dp">
+
+	<TextView
+		android:id="@+id/edit_word_title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:paddingVertical="16dp"
+		android:orientation="horizontal">
+		<TextView
+			android:id="@+id/edit_word_string_a"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="@dimen/numpad_suggestion_text_size" />
+
+		<EditText
+			android:id="@+id/edit_word_current_letter"
+			android:inputType="textVisiblePassword"
+			android:maxLength="1"
+			android:focusable="true"
+			android:focusableInTouchMode="true"
+			android:focusedByDefault="true"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:minWidth="16dp"
+			android:textSize="@dimen/numpad_suggestion_text_size"/>
+
+		<TextView
+			android:id="@+id/edit_word_string_b"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="@dimen/numpad_suggestion_text_size" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="end">
+		<TextView style="@style/TTheme.ColorPicker.Popup.ActionButton"
+			android:id="@+id/edit_word_cancel_button"
+			android:focusable="true"
+			android:text="@android:string/cancel" />
+		<TextView style="@style/TTheme.ColorPicker.Popup.ActionButton"
+			android:id="@+id/edit_word_ok_button"
+			android:focusable="true"
+			android:text="@string/add_word_add" />
+	</LinearLayout>
+</LinearLayout>
