@@ -11,25 +11,32 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 
 public class AddWordDialog extends PopupDialog {
-	@NonNull private final Language language;
-	@NonNull private final SettingsStore settings;
-	@Nullable private final String word;
-	private final boolean isWordTooShort;
+	protected final boolean isWordTooShort;
+	@NonNull protected final Language language;
+	@NonNull protected final SettingsStore settings;
+	@NonNull protected final TraditionalT9 tt9;
+	@Nullable protected String word;
 
 
 	public AddWordDialog(@NonNull TraditionalT9 tt9, @NonNull Language language, @Nullable String word) {
 		super(tt9, R.style.TTheme_AddWord);
 
-		title = tt9.getResources().getString(R.string.add_word_title);
+		this.isWordTooShort = word == null || word.length() < SettingsStore.ADD_WORD_MIN_LENGTH;
+		this.language = language;
+		this.settings = tt9.getSettings();
+		this.tt9 = tt9;
+		this.word = word;
+
+		setStrings();
+	}
+
+
+	protected void setStrings() {
+		title = tt9.getString(R.string.add_word_title);
 		cancelLabel = tt9.getString(R.string.add_word_edit);
 		neutralLabel = tt9.getString(android.R.string.cancel);
-		OKLabel = tt9.getResources().getString(R.string.add_word_add);
+		OKLabel = tt9.getString(R.string.add_word_add);
 		message = tt9.getString(R.string.add_word_confirm, word, language.getName());
-		settings = tt9.getSettings();
-
-		this.language = language;
-		this.word = word;
-		this.isWordTooShort = word == null || word.length() < SettingsStore.ADD_WORD_MIN_LENGTH;
 	}
 
 
@@ -43,8 +50,9 @@ public class AddWordDialog extends PopupDialog {
 	}
 
 
-	private void editWord() {
-		Logger.d("AddWordDialog", "========+> click neutral");
+	private void showEditDialog() {
+		close();
+		new EditWordDialog(tt9, language, word).show();
 	}
 
 
@@ -60,7 +68,7 @@ public class AddWordDialog extends PopupDialog {
 			return;
 		}
 
-		if (!render(this::addWord, this::editWord, this::close, null)) {
+		if (!render(this::addWord, this::showEditDialog, this::close, null)) {
 			addWord();
 		}
 	}
