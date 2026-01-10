@@ -19,12 +19,13 @@ public class SpeechRecognizerSupportLegacy {
 	SpeechRecognizerSupportLegacy setLanguage(@Nullable Language l) { return this; }
 
 	boolean isAlternativeAvailable(@NonNull Context context) {
-		final List<ResolveInfo> resolveInfo = context.getPackageManager().queryIntentActivities(
-			VoiceInputOps.createIntent(null),
-			PackageManager.MATCH_DEFAULT_ONLY
-		);
-
-		return resolveInfo.size() > 1;
+//		final List<ResolveInfo> resolveInfo = context.getPackageManager().queryIntentActivities(
+//			VoiceInputOps.createIntent(null),
+//			PackageManager.MATCH_DEFAULT_ONLY
+//		);
+//
+//		return resolveInfo.size() > 1;
+		return false;
 	}
 
 	boolean isGoogleOfflineRecognitionAvailable(@NonNull Context context) {
