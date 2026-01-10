@@ -108,7 +108,6 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 
 
 	private void onOK() {
-		// @todo: handle soft OK
 		if (word != null && currentLetterInput != null && position < word.length() - 1) {
 			edit(position, getCurrentLetter());
 			edit(++position, getWordLetter(position));
@@ -140,7 +139,7 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 		}
 
 		if (currentLetterInput != null) {
-			currentLetterInput.setTextSilent(newLetter);
+			currentLetterInput.setText(newLetter);
 		}
 
 		if (stringBLabel != null) {
@@ -175,8 +174,9 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 
 
 	private void showAddDialog(View v) {
-		// @todo: send command to main and open the dialog
 		finish();
+		Logger.d(LOG_TAG, "=======> Showing add word dialog for word: " + word);
+		// @todo: send command to main and open the dialog
 	}
 
 
