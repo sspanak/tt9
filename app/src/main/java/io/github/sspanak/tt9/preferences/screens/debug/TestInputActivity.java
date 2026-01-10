@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.preferences.screens.debug;
 
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -28,8 +27,11 @@ public class TestInputActivity extends EdgeToEdgeActivity {
 
 		root = new LinearLayout(this);
 		root.setOrientation(LinearLayout.VERTICAL);
-		preventEdgeToEdge(root);
-		root.setGravity(Gravity.TOP);
+		root.setFitsSystemWindows(true);
+		root.setLayoutParams(new LinearLayout.LayoutParams(
+			ViewGroup.LayoutParams.MATCH_PARENT,
+			ViewGroup.LayoutParams.MATCH_PARENT
+		));
 
 		// Root ScrollView (useful when testing focus & keyboard behavior)
 		ScrollView scrollView = new ScrollView(this);
