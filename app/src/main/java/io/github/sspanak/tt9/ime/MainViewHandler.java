@@ -141,10 +141,6 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		return (inputType.isDecimal() || inputType.isUnspecifiedNumber());
 	}
 
-	public boolean isInputTypePositiveInteger() {
-		return inputType.isPasswordNumeric();
-	}
-
 	public boolean isInputTypeSigned() {
 		return (inputType.isSignedNumber() || inputType.isUnspecifiedNumber());
 	}
