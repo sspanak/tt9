@@ -108,9 +108,16 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 
 
 	private void onOK() {
-		if (word != null && currentLetterInput != null && position < word.length() - 1) {
+		if (word == null || currentLetterInput == null) {
+			return;
+		}
+
+		if (position < word.length() - 1) {
 			edit(position, getCurrentLetter());
 			edit(++position, getWordLetter(position));
+		} else if (position == word.length() - 1) {
+			edit(position, getCurrentLetter());
+			showAddDialog(currentLetterInput);
 		}
 	}
 
