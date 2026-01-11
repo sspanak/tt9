@@ -14,6 +14,7 @@
 	<string name="add_word_title">Добавяне на дума</string>
 	<string name="commands_clipboard_is_empty">Клипбордът е празен.</string>
 	<string name="commands_select_command">Изберете команда</string>
+	<string name="edit_word_instructions">* Въведете нова буква. \n\n* Натиснете OK или Надясно, за да преминете към следващата. \n\n* Натиснете Backspace или Наляво, за да се върнете с една буква назад.</string>
 	<string name="pref_category_about">За приложението</string>
 	<string name="pref_hold_to_type_summary">Позволява писане на числа или активиране на функции при задържане на цифровите клавиши. Изключете, ако устройството разпознава неправилно кратки натискания като задържане.</string>
 	<string name="pref_key_shadows">Сенки под клавишите</string>
@@ -261,5 +262,6 @@
 	<string name="tutorial_classic_add_word">Плъзнете наляво, за да добавите дума.</string>
 	<string name="pref_hack_auto_disable_composing">Автоматично скриване на въвеждания текст</string>
 	<string name="pref_hardware_key_visual_feedback">Визуализиране на натисканията</string>
-	<string name="add_word_edit">Редактирай</string>
+	<string name="edit_word_edit">Редактирай</string>
+	<string name="edit_word_title">Редактиране на „%1$s“</string>
 </resources>

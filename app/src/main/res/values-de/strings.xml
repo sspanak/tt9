@@ -15,6 +15,7 @@
 
 	<string name="commands_clipboard_is_empty">Die Zwischenablage ist leer.</string>
 	<string name="commands_select_command">Einen Befehl auswählen</string>
+	<string name="edit_word_instructions">* Neuen Buchstaben eingeben. \n\n* OK oder Rechts drücken, um zum nächsten zu wechseln. \n\n* Rücktaste oder Links drücken, um einen Buchstaben zurückzugehen.</string>
 	<string name="pref_category_about">Über die Anwendung</string>
 	<string name="pref_hold_to_type_summary">Ermöglicht, Zahlen zu tippen oder App-Funktionen zu starten, indem die Zahlentasten gehalten werden. Deaktivieren, wenn das Gerät kurze Tastendrücke fälschlicherweise als Halten erkennt.</string>
 	<string name="pref_key_shadows">Schatten unter den Tasten</string>
@@ -263,5 +264,6 @@
 	<string name="tutorial_classic_OK_swipe">Wenn es keine Vorschläge gibt, nach oben/unten wischen, um den Cursor zu bewegen.\n\nWenn Vorschläge vorhanden sind, nach oben wischen, um sie zu filtern, oder nach unten, um den Filter zu entfernen.</string>
 	<string name="tutorial_classic_add_word">Nach links wischen, um ein Wort hinzuzufügen.</string>
 	<string name="pref_hack_auto_disable_composing">Texterstellung automatisch deaktivieren</string>
-	<string name="add_word_edit">Bearbeiten</string>
+	<string name="edit_word_edit">Bearbeiten</string>
+	<string name="edit_word_title">„%1$s“ bearbeiten</string>
 </resources>

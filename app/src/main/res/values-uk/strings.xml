@@ -18,6 +18,7 @@
 
 	<string name="commands_clipboard_is_empty">Буфер обміну порожній.</string>
 	<string name="commands_select_command">Вибрати команду</string>
+	<string name="edit_word_instructions">* Введіть нову літеру. \n\n* Натисніть OK або Вправо, щоб перейти до наступної. \n\n* Натисніть Backspace або Вліво, щоб повернутися на одну літеру назад.</string>
 	<string name="pref_category_about">Про програму</string>
 	<string name="pref_category_abc_mode">Режим АБВ</string>
 	<string name="pref_category_colors">Кольори</string>
@@ -272,5 +273,6 @@
 	<string name="tutorial_classic_OK_swipe">Коли немає пропозицій, свайп вгору/вниз переміщує курсор.\n\nКоли є пропозиції, свайп вгору фільтрує їх, а свайп вниз очищає фільтр.</string>
 	<string name="tutorial_classic_add_word">Свайп вліво — додати слово.</string>
 	<string name="pref_hack_auto_disable_composing">Автоматично приховувати введений текст</string>
-	<string name="add_word_edit">Редагувати</string>
+	<string name="edit_word_edit">Редагувати</string>
+	<string name="edit_word_title">Редагування «%1$s»</string>
 </resources>

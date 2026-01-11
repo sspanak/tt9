@@ -58,6 +58,7 @@
 	<string name="dictionary_loading">Cargando diccionario (%1$s)…</string>
 	<string name="commands_clipboard_is_empty">El portapapeles está vacío.</string>
 	<string name="commands_select_command">Seleccionar un comando</string>
+	<string name="edit_word_instructions">* Escribe una nueva letra. \n\n* Pulsa OK o Derecha para pasar a la siguiente. \n\n* Pulsa Retroceso o Izquierda para volver una letra atrás.</string>
 	<string name="pref_category_about">Acerca de esta aplicación</string>
 	<string name="dictionary_not_found">Falló al cargar. No se encontró el diccionario para \"%1$s\".</string>
 	<string name="dictionary_truncate_title">Borrar todos</string>
@@ -261,5 +262,6 @@
 	<string name="tutorial_classic_OK_swipe">Cuando no hay sugerencias, desliza hacia arriba/abajo para mover el cursor.\n\nCuando hay sugerencias, desliza hacia arriba para filtrarlas o hacia abajo para borrar el filtro.</string>
 	<string name="tutorial_classic_add_word">Desliza hacia la izquierda para añadir una palabra.</string>
 	<string name="pref_hack_auto_disable_composing">Desactivar automáticamente la composición de texto</string>
-	<string name="add_word_edit">Editar</string>
+	<string name="edit_word_edit">Editar</string>
+	<string name="edit_word_title">Editando \"%1$s\"</string>
 </resources>

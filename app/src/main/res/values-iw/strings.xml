@@ -17,6 +17,7 @@
 
 	<string name="commands_clipboard_is_empty">לוח הגזירים ריק.</string>
 	<string name="commands_select_command">לבחור פקודה</string>
+	<string name="edit_word_instructions">* הקלידו אות חדשה. \n\n* לחצו OK או ימינה כדי לעבור לאות הבאה. \n\n* לחצו Backspace או שמאלה כדי לחזור אות אחת אחורה.</string>
 	<string name="pref_category_about">אודות</string>
 	<string name="pref_category_abc_mode">מצב אבג</string>
 	<string name="pref_category_colors">צבעים</string>
@@ -268,5 +269,6 @@
 	<string name="tutorial_classic_OK_swipe">כאשר אין הצעות, החלקה למעלה/למטה להזזת הסמן.\n\nכאשר יש הצעות, החלקה למעלה לסינון ההצעות או למטה לניקוי הסינון.</string>
 	<string name="tutorial_classic_add_word">החלקה שמאלה כדי להוסיף מילה.</string>
 	<string name="pref_hack_auto_disable_composing">השבתת חיבור טקסט אוטומטית</string>
-	<string name="add_word_edit">עריכה</string>
+	<string name="edit_word_edit">עריכה</string>
+	<string name="edit_word_title">עריכת \"%1$s\"</string>
 </resources>

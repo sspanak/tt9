@@ -14,6 +14,7 @@
 	<string name="add_word_title">Woord toevoegen</string>
 	<string name="commands_clipboard_is_empty">Het klembord is leeg.</string>
 	<string name="commands_select_command">Een commando selecteren</string>
+	<string name="edit_word_instructions">* Typ een nieuwe letter. \n\n* Druk op OK of Rechts om naar de volgende te gaan. \n\n* Druk op Backspace of Links om één letter terug te gaan.</string>
 	<string name="pref_category_about">Over de applicatie</string>
 	<string name="pref_hold_to_type_summary">Sta toe cijfers te typen of app-functies te activeren door cijfertoetsen ingedrukt te houden. Schakel uit als het apparaat korte drukken ten onrechte als vasthouden detecteert.</string>
 	<string name="pref_key_shadows">Schaduwen onder toetsen</string>
@@ -262,5 +263,6 @@
 	<string name="tutorial_classic_OK_swipe">Wanneer er geen suggesties zijn, veeg omhoog/omlaag om de cursor te verplaatsen.\n\nWanneer er suggesties zijn, veeg omhoog om ze te filteren of omlaag om het filter te wissen.</string>
 	<string name="tutorial_classic_add_word">Veeg naar links om een woord toe te voegen.</string>
 	<string name="pref_hack_auto_disable_composing">Samenstellen van tekst automatisch uitschakelen</string>
-	<string name="add_word_edit">Bewerken</string>
+	<string name="edit_word_edit">Bewerken</string>
+	<string name="edit_word_title">\"%1$s\" bewerken</string>
 </resources>

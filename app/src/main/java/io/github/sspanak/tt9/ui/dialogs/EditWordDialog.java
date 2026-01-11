@@ -7,17 +7,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.ui.EdgeToEdgeActivity;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Logger;
 
-public class EditWordDialog extends EdgeToEdgeActivity {
+public class EditWordDialog extends AppCompatActivity {
 	private static final String LOG_TAG = EditWordDialog.class.getSimpleName();
 
 	public static final String PARAMETER_LANGUAGE = "language";
@@ -43,13 +43,6 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 	}
 
 
-	@Override
-	public void onAttachedToWindow() {
-		super.onAttachedToWindow();
-		preventEdgeToEdge(findViewById(R.id.tutorial_popup_container));
-	}
-
-
 	private void processIntent(@NonNull Intent intent) {
 		LanguageCollection.init(this);
 		final int languageId = intent.getIntExtra(PARAMETER_LANGUAGE, -1);
@@ -70,12 +63,13 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 
 
 	private void createView() {
-		// @todo: styles
+		// @todo: styles; ensure the "pre + L + post" look fine in RTL languages
 		setContentView(R.layout.popup_edit_word);
 
 		final View title = findViewById(R.id.edit_word_title);
 		if (title instanceof TextView) {
-			((TextView) title).setText("Editing \"" + word + "\""); // @todo: localize + add instructions
+			final String windowTitle = getApplicationContext().getString(R.string.edit_word_title, word);
+			((TextView) title).setText(windowTitle);
 		}
 
 		final View cancel = findViewById(R.id.edit_word_cancel_button);

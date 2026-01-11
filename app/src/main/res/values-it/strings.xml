@@ -17,6 +17,7 @@
 
 	<string name="commands_clipboard_is_empty">Gli appunti sono vuoti.</string>
 	<string name="commands_select_command">Selezionare un comando</string>
+	<string name="edit_word_instructions">* Inserisci una nuova lettera. \n\n* Premi OK o Destra per passare alla successiva. \n\n* Premi Backspace o Sinistra per tornare indietro di una lettera.</string>
 	<string name="pref_category_about">Sull\'applicazione</string>
 	<string name="pref_hold_to_type_summary">Consente di digitare numeri o attivare funzioni dell’app tenendo premuti i tasti numerici. Disattivare se il dispositivo rileva per errore pressioni brevi come pressioni prolungate.</string>
 	<string name="pref_key_shadows">Ombre sotto i tasti</string>
@@ -264,6 +265,7 @@
 	<string name="tutorial_classic_OK_swipe">Quando non ci sono suggerimenti, scorri verso l’alto/il basso per spostare il cursore.\n\nQuando ci sono suggerimenti, scorri verso l’alto per filtrarli o verso il basso per rimuovere il filtro.</string>
 	<string name="tutorial_classic_add_word">Scorri verso sinistra per aggiungere una parola.</string>
 	<string name="pref_hack_auto_disable_composing">Disattivare automaticamente la composizione del testo</string>
-	<string name="add_word_edit">Modifica</string>
+	<string name="edit_word_edit">Modifica</string>
+	<string name="edit_word_title">Modifica di \"%1$s\"</string>
 </resources>
 

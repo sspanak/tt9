@@ -14,6 +14,7 @@
 	<string name="add_word_title">Добавить слово</string>
 	<string name="commands_clipboard_is_empty">Буфер обмена пуст.</string>
 	<string name="commands_select_command">Выбрать команду</string>
+	<string name="edit_word_instructions">* Введите новую букву. \n\n* Нажмите OK или Вправо, чтобы перейти к следующей. \n\n* Нажмите Backspace или Влево, чтобы вернуться на одну букву назад.</string>
 	<string name="pref_category_about">О приложении</string>
 	<string name="pref_hold_to_type_summary">Позволяет вводить цифры или запускать функции приложения при удержании цифровых клавиш. Отключите, если устройство ошибочно распознаёт короткие нажатия как удержание.</string>
 	<string name="pref_key_shadows">Тени под клавишами</string>
@@ -261,5 +262,6 @@
 	<string name="tutorial_classic_OK_swipe">Когда нет подсказок, свайп вверх/вниз перемещает курсор.\n\nКогда есть подсказки, свайп вверх фильтрует их, а свайп вниз очищает фильтр.</string>
 	<string name="tutorial_classic_add_word">Свайп влево — добавить слово.</string>
 	<string name="pref_hack_auto_disable_composing">Автоматически скрывать вводимый текст</string>
-	<string name="add_word_edit">Редактировать</string>
+	<string name="edit_word_edit">Редактировать</string>
+	<string name="edit_word_title">Редактирование «%1$s»</string>
 </resources>

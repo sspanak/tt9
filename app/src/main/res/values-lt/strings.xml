@@ -18,6 +18,7 @@
 
 	<string name="commands_clipboard_is_empty">Iškarpinė tuščia.</string>
 	<string name="commands_select_command">Pasirinkti komandą</string>
+	<string name="edit_word_instructions">* Įveskite naują raidę. \n\n* Paspauskite OK arba Dešinėn, kad pereitumėte prie kitos. \n\n* Paspauskite Backspace arba Kairėn, kad grįžtumėte viena raide atgal.</string>
 	<string name="pref_category_about">Apie programėlę</string>
 	<string name="pref_category_abc_mode">ABC metodas</string>
 	<string name="pref_category_fn_key_order">Funkcinių klavišų tvarka</string>
@@ -270,5 +271,6 @@
 	<string name="tutorial_classic_OK_swipe">Kai nėra pasiūlymų, braukite aukštyn/žemyn, kad perkeltumėte žymeklį.\n\nKai yra pasiūlymų, braukite aukštyn, kad juos filtruotumėte, arba žemyn, kad išvalytumėte filtrą.</string>
 	<string name="tutorial_classic_add_word">Braukite kairėn, kad pridėtumėte žodį.</string>
 	<string name="pref_hack_auto_disable_composing">Automatiškai išjungti teksto komponavimą</string>
-	<string name="add_word_edit">Redaguoti</string>
+	<string name="edit_word_edit">Redaguoti</string>
+	<string name="edit_word_title">Redaguojama „%1$s“</string>
 </resources>

@@ -46,7 +46,7 @@ public class AddWordDialog extends PopupDialog {
 
 	protected void setStrings() {
 		title = tt9.getString(R.string.add_word_title);
-		cancelLabel = tt9.getString(R.string.add_word_edit);
+		cancelLabel = tt9.getString(R.string.edit_word_edit);
 		neutralLabel = tt9.getString(android.R.string.cancel);
 		OKLabel = tt9.getString(R.string.add_word_add);
 		message = tt9.getString(R.string.add_word_confirm, word, language.getName());

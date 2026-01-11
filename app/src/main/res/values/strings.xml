@@ -4,7 +4,7 @@
 	<string name="app_name" translatable="false">Traditional T9</string>
 	<string name="app_name_short" translatable="false">TT9</string>
 	<string name="system_night_mode" translatable="false">n</string>
-	<string name="edit_word_letter_editor_ime_option">edit_word_letter_editor_ime_option</string>
+	<string name="edit_word_letter_editor_ime_option" translatable="false">edit_word_letter_editor_ime_option</string>
 
 	<string name="app_settings">TT9 Settings</string>
 	<string name="click_here_for_preview">Click here for preview</string>
@@ -21,7 +21,6 @@
 
 	<string name="add_word_add">Add</string>
 	<string name="add_word_confirm">Add word \"%1$s\" to %2$s?</string>
-	<string name="add_word_edit">Edit</string>
 	<string name="add_word_no_confirmation">Add Without Confirmation</string>
 	<string name="add_word_no_selection">Move the cursor inside a word to add it.</string>
 	<string name="add_word_not_available_in_language">Adding words is not possible in this language.</string>
@@ -34,6 +33,10 @@
 
 	<string name="commands_clipboard_is_empty">Clipboard is empty.</string>
 	<string name="commands_select_command">Select a Command</string>
+
+	<string name="edit_word_edit">Edit</string>
+	<string name="edit_word_title">Editing \"%1$s\"</string>
+	<string name="edit_word_instructions">* Type a new letter.\n\n* Press OK or Right to move to the next one.\n\n* Press Backspace or Left to go back one letter.</string>
 
 	<string name="pref_category_about">About</string>
 	<string name="pref_category_abc_mode">ABC Mode</string>

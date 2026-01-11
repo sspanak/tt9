@@ -17,6 +17,7 @@
 
 	<string name="commands_clipboard_is_empty">A área de transferência está vazia.</string>
 	<string name="commands_select_command">Selecionar um comando</string>
+	<string name="edit_word_instructions">* Digite uma nova letra. \n\n* Pressione OK ou Direita para ir para a próxima. \n\n* Pressione Backspace ou Esquerda para voltar uma letra.</string>
 	<string name="pref_category_about">Sobre</string>
 	<string name="pref_category_abc_mode">Modo ABC</string>
 	<string name="pref_category_colors">Cores</string>
@@ -268,5 +269,6 @@
 	<string name="tutorial_classic_OK_swipe">Quando não houver sugestões, deslize para cima/baixo para mover o cursor.\n\nQuando houver sugestões, deslize para cima para filtrá-las ou para baixo para limpar o filtro.</string>
 	<string name="tutorial_classic_add_word">Deslize para a esquerda para adicionar uma palavra.</string>
 	<string name="pref_hack_auto_disable_composing">Desativar automaticamente a composição de texto</string>
-	<string name="add_word_edit">Editar</string>
+	<string name="edit_word_edit">Editar</string>
+	<string name="edit_word_title">Editando \"%1$s\"</string>
 </resources>

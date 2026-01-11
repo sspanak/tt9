@@ -14,6 +14,7 @@
 	<string name="add_word_title">Ajouter un mot</string>
 	<string name="commands_clipboard_is_empty">Le presse-papiers est vide.</string>
 	<string name="commands_select_command">Sélectionner une commande</string>
+	<string name="edit_word_instructions">* Saisissez une nouvelle lettre. \n\n* Appuyez sur OK ou Droite pour passer à la suivante. \n\n* Appuyez sur Retour arrière ou Gauche pour revenir d’une lettre.</string>
 	<string name="pref_category_about">À propos de l\'application</string>
 	<string name="pref_hold_to_type_summary">Permet de taper des chiffres ou d’activer des fonctions en maintenant les touches numériques. Désactivez si l’appareil détecte à tort les pressions courtes comme des maintiens.</string>
 	<string name="pref_key_shadows">Ombres sous les touches</string>
@@ -261,5 +262,6 @@
 	<string name="tutorial_classic_OK_swipe">Lorsqu’il n’y a pas de suggestions, balayer vers le haut/bas pour déplacer le curseur.\n\nLorsqu’il y a des suggestions, balayer vers le haut pour les filtrer ou vers le bas pour effacer le filtre.</string>
 	<string name="tutorial_classic_add_word">Balayer vers la gauche pour ajouter un mot.</string>
 	<string name="pref_hack_auto_disable_composing">Désactiver automatiquement la composition de texte</string>
-	<string name="add_word_edit">Modifier</string>
+	<string name="edit_word_edit">Modifier</string>
+	<string name="edit_word_title">Modification de « %1$s »</string>
 </resources>
