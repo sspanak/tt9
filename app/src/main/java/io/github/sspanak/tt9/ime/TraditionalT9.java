@@ -99,7 +99,10 @@ public class TraditionalT9 extends PremiumHandler {
 		final String command = intent != null ? intent.getStringExtra(UI.COMMAND) : null;
 
 		switch (command == null ? "" : command) {
-			case UI.COMMAND_ADD_WORD -> new AddWordDialog(getFinalContext(), intent).show();
+			case UI.COMMAND_ADD_WORD -> {
+				forceShowWindow();
+				new AddWordDialog(getFinalContext(), intent).show();
+			}
 			case UI.COMMAND_WAKEUP_MAIN -> forceShowWindow();
 			case UI.COMMAND_PRINT_VOICE_INPUT -> {
 				final String text = intent.getStringExtra(UI.COMMAND_PRINT_VOICE_INPUT_TEXT);
