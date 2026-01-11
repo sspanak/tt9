@@ -94,20 +94,22 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 
 		if (currentLetterInput != null) {
 			currentLetterInput
-				.setOnBackspaceListener(this::onBackspace)
+				.setOnArrowLeftListener(this::onLeft)
+				.setOnArrowRightListener(this::onRightArrow)
+				.setOnBackspaceListener(this::onLeft)
 				.setOnOKListener(this::onOK);
 		}
 	}
 
 
-	private void onBackspace() {
+	private void onLeft() {
 		if (word != null && currentLetterInput != null && position > 0) {
 			edit(--position, getWordLetter(position));
 		}
 	}
 
 
-	private void onOK() {
+	private void onRight(boolean fromOK) {
 		if (word == null || currentLetterInput == null) {
 			return;
 		}
@@ -115,10 +117,20 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 		if (position < word.length() - 1) {
 			edit(position, getCurrentLetter());
 			edit(++position, getWordLetter(position));
-		} else if (position == word.length() - 1) {
+		} else if (fromOK && position == word.length() - 1) {
 			edit(position, getCurrentLetter());
 			showAddDialog(currentLetterInput);
 		}
+	}
+
+
+	private void onRightArrow() {
+		onRight(false);
+	}
+
+
+	private void onOK() {
+		onRight(true);
 	}
 
 

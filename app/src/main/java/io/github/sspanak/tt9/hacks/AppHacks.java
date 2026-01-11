@@ -172,7 +172,7 @@ public class AppHacks {
 			default -> KeyEvent.KEYCODE_UNKNOWN;
 		};
 
-		if (inputType.isRustDesk() || inputType.isTermux()) {
+		if (inputType.isRustDesk() || inputType.isTermux() || inputType.isOurEditWordLetterEditor()) {
 			return textField.sendDownUpKeyEvents(keyCode);
 		}
 

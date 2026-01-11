@@ -16,6 +16,8 @@ public class EditWordDialogLetterEditor extends androidx.appcompat.widget.AppCom
 	private SettingsStore settings;
 	private TextChangeWatcher changeWatcher;
 
+	@Nullable private Runnable onArrowLeft;
+	@Nullable private Runnable onArrowRight;
 	@Nullable private Runnable onBackspace;
 	@Nullable private Runnable onOK;
 
@@ -38,6 +40,30 @@ public class EditWordDialogLetterEditor extends androidx.appcompat.widget.AppCom
 			String letter = text.toString().substring(text.toString().length() - 2, text.toString().length() - 1);
 			setText(letter);
 		}
+	}
+
+
+	private boolean onArrowLeft(int keyCode, KeyEvent event) {
+		if (Key.isArrowLeft(keyCode)) {
+			if (isKeyDown(event) && onArrowLeft != null) {
+				onArrowLeft.run();
+			}
+			return true;
+		}
+
+		return false;
+	}
+
+
+	private boolean onArrowRight(int keyCode, KeyEvent event) {
+		if (Key.isArrowRight(keyCode)) {
+			if (isKeyDown(event) && onArrowRight != null) {
+				onArrowRight.run();
+			}
+			return true;
+		}
+
+		return false;
 	}
 
 
@@ -70,13 +96,15 @@ public class EditWordDialogLetterEditor extends androidx.appcompat.widget.AppCom
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (event.getScanCode() == 0 && event.getEventTime() == 0) {
+		if (event.getScanCode() == 0 && event.getEventTime() == 0 && Key.isBackspace(settings, keyCode)) {
 			return false;
 		}
 
 		return
-			onOK(keyCode, event)
+			onArrowLeft(keyCode, event)
+			|| onArrowRight(keyCode, event)
 			|| onBackspace(keyCode, event)
+			|| onOK(keyCode, event)
 			|| super.onKeyDown(keyCode, event);
 	}
 
@@ -86,13 +114,15 @@ public class EditWordDialogLetterEditor extends androidx.appcompat.widget.AppCom
 	 */
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		if (event.getScanCode() == 0 && event.getEventTime() == 0) {
+		if (event.getScanCode() == 0 && event.getEventTime() == 0 && Key.isBackspace(settings, keyCode)) {
 			return false;
 		}
 
 		return
-			Key.isOK(keyCode)
+			Key.isArrowLeft(keyCode)
+			|| Key.isArrowRight(keyCode)
 			|| Key.isBackspace(settings, keyCode)
+			|| Key.isOK(keyCode)
 			|| super.onKeyUp(keyCode, event);
 	}
 
@@ -103,14 +133,30 @@ public class EditWordDialogLetterEditor extends androidx.appcompat.widget.AppCom
 	@Override
 	public boolean onKeyPreIme(int keyCode, KeyEvent event) {
 		return
-			onOK(keyCode, event)
+			onArrowLeft(keyCode, event)
+			|| onArrowRight(keyCode, event)
 			|| onBackspace(keyCode, event)
+			|| onOK(keyCode, event)
 			|| super.onKeyPreIme(keyCode, event);
 	}
 
 
 	private boolean isKeyDown(KeyEvent event) {
 		return event.getAction() == KeyEvent.ACTION_DOWN;
+	}
+
+
+	@NonNull
+	public EditWordDialogLetterEditor setOnArrowLeftListener(@Nullable Runnable listener) {
+		onArrowLeft = listener;
+		return this;
+	}
+
+
+	@NonNull
+	public EditWordDialogLetterEditor setOnArrowRightListener(@Nullable Runnable listener) {
+		onArrowRight = listener;
+		return this;
 	}
 
 
