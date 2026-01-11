@@ -65,7 +65,7 @@ class ModeABC extends InputMode {
 			digitSequence = String.valueOf(number);
 			shouldSelectNextLetter = false;
 			suggestions.add(language.getKeyNumeral(number));
-		} else if (repeat > 0) {
+		} else if (repeat > 0 && !suggestions.isEmpty()) {
 			autoAcceptTimeout = settings.getAutoAcceptTimeoutAbc();
 			shouldSelectNextLetter = true;
 		} else {
