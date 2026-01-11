@@ -14,13 +14,14 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.EdgeToEdgeActivity;
+import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Logger;
 
 public class EditWordDialog extends EdgeToEdgeActivity {
 	private static final String LOG_TAG = EditWordDialog.class.getSimpleName();
 
-	private static final String PARAMETER_LANGUAGE = "language";
-	private static final String PARAMETER_WORD = "word";
+	public static final String PARAMETER_LANGUAGE = "language";
+	public static final String PARAMETER_WORD = "word";
 
 	private TextView stringALabel;
 	private TextView stringBLabel;
@@ -74,7 +75,7 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 
 		final View title = findViewById(R.id.edit_word_title);
 		if (title instanceof TextView) {
-			((TextView) title).setText("Editing \"" + word + "\""); // @todo: localize
+			((TextView) title).setText("Editing \"" + word + "\""); // @todo: localize + add instructions
 		}
 
 		final View cancel = findViewById(R.id.edit_word_cancel_button);
@@ -173,9 +174,13 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 
 
 	private void showAddDialog(View v) {
+		Intent intent = new Intent(this, TraditionalT9.class);
+		intent.putExtra(UI.COMMAND, UI.COMMAND_ADD_WORD);
+		intent.putExtra(PARAMETER_LANGUAGE, language != null ? language.getId() : -1);
+		intent.putExtra(PARAMETER_WORD, word);
+		startService(intent);
+
 		finish();
-		Logger.d(LOG_TAG, "=======> Showing add word dialog for word: " + word);
-		// @todo: send command to main and open the dialog
 	}
 
 

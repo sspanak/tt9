@@ -17,6 +17,7 @@ import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class UI {
 	public static final String COMMAND = "tt9.command";
+	public static final String COMMAND_ADD_WORD = "tt9.command.add_word";
 	public static final String COMMAND_PRINT_VOICE_INPUT = "tt9.command.print_voice_input";
 	public static final String COMMAND_PRINT_VOICE_INPUT_TEXT = "tt9.command.print_voice_input.text";
 	public static final String COMMAND_WAKEUP_MAIN = "tt9.command.wakeup";

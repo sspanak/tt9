@@ -16,6 +16,7 @@ import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 import io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -98,6 +99,7 @@ public class TraditionalT9 extends PremiumHandler {
 		final String command = intent != null ? intent.getStringExtra(UI.COMMAND) : null;
 
 		switch (command == null ? "" : command) {
+			case UI.COMMAND_ADD_WORD -> new AddWordDialog(getFinalContext(), intent).show();
 			case UI.COMMAND_WAKEUP_MAIN -> forceShowWindow();
 			case UI.COMMAND_PRINT_VOICE_INPUT -> {
 				final String text = intent.getStringExtra(UI.COMMAND_PRINT_VOICE_INPUT_TEXT);

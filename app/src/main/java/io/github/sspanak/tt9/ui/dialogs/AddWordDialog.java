@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ui.dialogs;
 
+import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -7,6 +9,8 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 
@@ -18,16 +22,25 @@ public class AddWordDialog extends PopupDialog {
 	@Nullable protected String word;
 
 
-	public AddWordDialog(@NonNull TraditionalT9 tt9, @NonNull Language language, @Nullable String word) {
+	public AddWordDialog(@NonNull TraditionalT9 tt9, @Nullable Language language, @Nullable String word) {
 		super(tt9, R.style.TTheme_AddWord);
 
 		this.isWordTooShort = word == null || word.length() < SettingsStore.ADD_WORD_MIN_LENGTH;
-		this.language = language;
+		this.language = language == null ? new NullLanguage() : language;
 		this.settings = tt9.getSettings();
 		this.tt9 = tt9;
 		this.word = word;
 
 		setStrings();
+	}
+
+
+	public AddWordDialog(@NonNull TraditionalT9 tt9, @NonNull Intent addWordIntent) {
+		this(
+			tt9,
+			LanguageCollection.getLanguage(addWordIntent.getIntExtra(EditWordDialog.PARAMETER_LANGUAGE, -1)),
+			addWordIntent.getStringExtra(EditWordDialog.PARAMETER_WORD)
+		);
 	}
 
 
@@ -57,6 +70,13 @@ public class AddWordDialog extends PopupDialog {
 
 
 	public void show() {
+		if (language instanceof NullLanguage) {
+			UI.toastShortSingle(context, R.string.add_word_invalid_language);
+			close();
+			return;
+		}
+
+
 		if (isWordTooShort) {
 			UI.toastLong(context, R.string.add_word_no_selection);
 			close();
