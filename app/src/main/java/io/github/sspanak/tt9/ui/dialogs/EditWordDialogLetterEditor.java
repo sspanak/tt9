@@ -12,7 +12,7 @@ import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.TextChangeWatcher;
 
-public class EditWordLetterEditor extends androidx.appcompat.widget.AppCompatEditText {
+public class EditWordDialogLetterEditor extends androidx.appcompat.widget.AppCompatEditText {
 	private SettingsStore settings;
 	private TextChangeWatcher changeWatcher;
 
@@ -20,9 +20,9 @@ public class EditWordLetterEditor extends androidx.appcompat.widget.AppCompatEdi
 	@Nullable private Runnable onOK;
 
 
-	public EditWordLetterEditor(Context context) { super(context); init(context); }
-	public EditWordLetterEditor(Context context, AttributeSet attrs) { super(context, attrs); init(context); }
-	public EditWordLetterEditor(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); init(context); }
+	public EditWordDialogLetterEditor(Context context) { super(context); init(context); }
+	public EditWordDialogLetterEditor(Context context, AttributeSet attrs) { super(context, attrs); init(context); }
+	public EditWordDialogLetterEditor(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); init(context); }
 
 
 	private void init(@NonNull Context context) {
@@ -70,6 +70,10 @@ public class EditWordLetterEditor extends androidx.appcompat.widget.AppCompatEdi
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (event.getScanCode() == 0 && event.getEventTime() == 0) {
+			return false;
+		}
+
 		return
 			onOK(keyCode, event)
 			|| onBackspace(keyCode, event)
@@ -82,6 +86,10 @@ public class EditWordLetterEditor extends androidx.appcompat.widget.AppCompatEdi
 	 */
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		if (event.getScanCode() == 0 && event.getEventTime() == 0) {
+			return false;
+		}
+
 		return
 			Key.isOK(keyCode)
 			|| Key.isBackspace(settings, keyCode)
@@ -107,7 +115,7 @@ public class EditWordLetterEditor extends androidx.appcompat.widget.AppCompatEdi
 
 
 	@NonNull
-	public EditWordLetterEditor setOnBackspaceListener(@Nullable Runnable listener) {
+	public EditWordDialogLetterEditor setOnBackspaceListener(@Nullable Runnable listener) {
 		onBackspace = listener;
 		return this;
 	}

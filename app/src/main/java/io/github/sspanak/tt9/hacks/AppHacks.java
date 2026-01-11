@@ -125,6 +125,9 @@ public class AppHacks {
 			inputMode.clearWordStem();
 		} else if (inputType.isTermux()) {
 			return false;
+		} else if (inputType.isOurEditWordLetterEditor()) {
+			textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+			return true;
 		}
 
 		// When Backspace function is assigned to a different key (not hardware Backspace), we must

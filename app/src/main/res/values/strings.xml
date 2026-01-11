@@ -3,6 +3,9 @@
 	<string name="dictionary_url" translatable="false">https://raw.githubusercontent.com/sspanak/tt9/%1$s/downloads/%2$s</string>
 	<string name="app_name" translatable="false">Traditional T9</string>
 	<string name="app_name_short" translatable="false">TT9</string>
+	<string name="system_night_mode" translatable="false">n</string>
+	<string name="edit_word_letter_editor_ime_option">edit_word_letter_editor_ime_option</string>
+
 	<string name="app_settings">TT9 Settings</string>
 	<string name="click_here_for_preview">Click here for preview</string>
 	<string name="completed">Completed</string>
@@ -13,7 +16,6 @@
 	<string name="loading">Loading…</string>
 	<string name="search_results">Search Results</string>
 	<string name="search_results_void">No results.</string>
-	<string name="system_night_mode" translatable="false">n</string>
 
 	<string name="error_unexpected">Unexpected error occurred.</string>
 

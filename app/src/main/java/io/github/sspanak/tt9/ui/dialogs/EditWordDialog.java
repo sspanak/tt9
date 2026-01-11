@@ -24,7 +24,7 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 
 	private TextView stringALabel;
 	private TextView stringBLabel;
-	private EditWordLetterEditor currentLetterInput;
+	private EditWordDialogLetterEditor currentLetterInput;
 
 	private boolean isWordTooShort;
 	@Nullable private Language language;
@@ -100,7 +100,6 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 
 
 	private void onBackspace() {
-		// @todo: handle soft backspace
 		if (word != null && currentLetterInput != null && position > 0) {
 			edit(--position, getWordLetter(position));
 		}

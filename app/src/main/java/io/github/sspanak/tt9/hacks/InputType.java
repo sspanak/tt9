@@ -6,15 +6,21 @@ import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.helpers.StandardInputType;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class InputType extends StandardInputType {
 	private final boolean isUs;
+	private final boolean isOurEditWordLetterEditor;
 
 	public InputType(@Nullable InputMethodService ims, EditorInfo inputField) {
 		super(ims, inputField);
 		isUs = isAppField(ims != null ? ims.getPackageName() : null, EditorInfo.TYPE_NULL);
+		isOurEditWordLetterEditor =
+			field != null
+			&& ims != null
+			&& ims.getString(R.string.edit_word_letter_editor_ime_option).equals(field.privateImeOptions);
 	}
 
 
@@ -224,6 +230,11 @@ public class InputType extends StandardInputType {
 
 	public boolean isUs() {
 		return isUs;
+	}
+
+
+	public boolean isOurEditWordLetterEditor() {
+		return isOurEditWordLetterEditor;
 	}
 
 

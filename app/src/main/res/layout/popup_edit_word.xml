@@ -21,10 +21,11 @@
 			android:layout_height="wrap_content"
 			android:textSize="@dimen/numpad_suggestion_text_size" />
 
-		<io.github.sspanak.tt9.ui.dialogs.EditWordLetterEditor
+		<io.github.sspanak.tt9.ui.dialogs.EditWordDialogLetterEditor
 			android:id="@+id/edit_word_current_letter"
 			android:inputType="textVisiblePassword"
 			android:imeOptions="actionNone"
+			android:privateImeOptions="@string/edit_word_letter_editor_ime_option"
 			android:focusable="true"
 			android:focusableInTouchMode="true"
 			android:focusedByDefault="true"
