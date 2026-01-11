@@ -97,7 +97,8 @@ public class EditWordDialog extends EdgeToEdgeActivity {
 				.setOnArrowLeftListener(this::onLeft)
 				.setOnArrowRightListener(this::onRightArrow)
 				.setOnBackspaceListener(this::onLeft)
-				.setOnOKListener(this::onOK);
+				.setOnOKListener(this::onOK)
+				.setLanguage(language);
 		}
 	}
 

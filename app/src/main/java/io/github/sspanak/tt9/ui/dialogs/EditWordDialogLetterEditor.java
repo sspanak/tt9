@@ -9,12 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.ime.helpers.Key;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextChangeWatcher;
 
 public class EditWordDialogLetterEditor extends androidx.appcompat.widget.AppCompatEditText {
-	private SettingsStore settings;
-	private TextChangeWatcher changeWatcher;
+	@Nullable private TextChangeWatcher changeWatcher;
+	@Nullable private Language language;
+	@NonNull private String lastText;
+	@Nullable private SettingsStore settings;
 
 	@Nullable private Runnable onArrowLeft;
 	@Nullable private Runnable onArrowRight;
@@ -29,16 +33,46 @@ public class EditWordDialogLetterEditor extends androidx.appcompat.widget.AppCom
 
 	private void init(@NonNull Context context) {
 		settings = new SettingsStore(context);
+		lastText = "";
 
 		changeWatcher = new TextChangeWatcher(this::onTextChange);
 		addTextChangedListener(changeWatcher);
 	}
 
 
-	private void onTextChange(Editable text) {
-		if (text != null && text.length() > 1) {
-			String letter = text.toString().substring(text.toString().length() - 2, text.toString().length() - 1);
-			setText(letter);
+	private void onTextChange(Editable ed) {
+		if (ed == null || ed.length() == 0) {
+			if (!lastText.isEmpty()) {
+				setText(lastText);
+			}
+			return;
+		}
+
+		Text newText = new Text(
+			language,
+			lastText.isEmpty() ? ed.toString() : ed.toString().replaceFirst(lastText, "")
+		);
+
+		if (newText.isEmpty()) {
+			return;
+		}
+
+		// in case the user managed to type more than one letter, keep only the last one
+		final int lastGraphemeLength = newText.lastGraphemeLength();
+		if (lastGraphemeLength < newText.length()) {
+			newText = new Text(
+				language,
+				newText.toString().substring(0, newText.length() - lastGraphemeLength)
+			);
+		}
+
+
+		// allow only letters and numbers, or else revert to last text
+		if (newText.isWord() || newText.isNumeric()) {
+			setText(newText.toString());
+			lastText = newText.toString();
+		} else {
+			setText(lastText);
 		}
 	}
 
@@ -105,6 +139,7 @@ public class EditWordDialogLetterEditor extends androidx.appcompat.widget.AppCom
 			|| onArrowRight(keyCode, event)
 			|| onBackspace(keyCode, event)
 			|| onOK(keyCode, event)
+			|| keyCode == KeyEvent.KEYCODE_0
 			|| super.onKeyDown(keyCode, event);
 	}
 
@@ -123,6 +158,7 @@ public class EditWordDialogLetterEditor extends androidx.appcompat.widget.AppCom
 			|| Key.isArrowRight(keyCode)
 			|| Key.isBackspace(settings, keyCode)
 			|| Key.isOK(keyCode)
+			|| keyCode == KeyEvent.KEYCODE_0
 			|| super.onKeyUp(keyCode, event);
 	}
 
@@ -137,6 +173,7 @@ public class EditWordDialogLetterEditor extends androidx.appcompat.widget.AppCom
 			|| onArrowRight(keyCode, event)
 			|| onBackspace(keyCode, event)
 			|| onOK(keyCode, event)
+			|| keyCode == KeyEvent.KEYCODE_0
 			|| super.onKeyPreIme(keyCode, event);
 	}
 
@@ -167,13 +204,21 @@ public class EditWordDialogLetterEditor extends androidx.appcompat.widget.AppCom
 	}
 
 
-	public void setOnOKListener(@Nullable Runnable listener) {
+	public EditWordDialogLetterEditor setOnOKListener(@Nullable Runnable listener) {
 		onOK = listener;
+		return this;
 	}
 
 
 	public void setText(@NonNull String text) {
-		changeWatcher.ignoreNextChange();
+		if (changeWatcher != null) changeWatcher.ignoreNextChange();
+		lastText = text;
 		super.setText(text);
+		setSelection(text.length() - 1 >= 0 ? text.length() : 0);
+	}
+
+
+	public void setLanguage(@Nullable Language language) {
+		this.language = language;
 	}
 }

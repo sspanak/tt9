@@ -94,6 +94,19 @@ public class Text extends TextTools {
 
 
 	@NonNull
+	public String getLastGrapheme() {
+		if (text == null || text.isEmpty()) {
+			return "";
+		}
+
+		BreakIterator bi = BreakIterator.getCharacterInstance(language != null ? language.getLocale() : Locale.getDefault());
+		bi.setText(text);
+		final int end = bi.last();
+		return text.substring(bi.preceding(end), end);
+	}
+
+
+	@NonNull
 	public String getPreviousWord(boolean skipOne, boolean includeApostrophes, boolean allowFinalComma) {
 		if (text == null || text.isEmpty()) {
 			return "";
