@@ -42,7 +42,7 @@ public class SettingsUI extends SettingsTyping {
 	SettingsUI(Context context) {
 		super(context);
 
-		DEFAULT_LARGE_LAYOUT = LAYOUT_CLASSIC;
+		DEFAULT_LARGE_LAYOUT = LAYOUT_NUMPAD;
 
 		if (DeviceInfo.noKeyboard(context)) {
 			DEFAULT_LAYOUT = DEFAULT_LARGE_LAYOUT;

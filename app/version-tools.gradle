@@ -44,11 +44,11 @@ ext.getVersionCode = { ->
 }
 
 ext.getDebugVersion = { ->
-	return "git-${getCurrentGitHash()} (debug)"
+	return "debug (build: ${getVersionCode()}, git: ${getCurrentGitHash()})"
 }
 
 ext.getReleaseVersion = { ->
-	return "${generateVersionName()} (${getCurrentGitHash()})"
+	return "${generateVersionName()} (build: ${getVersionCode()}, git: ${getCurrentGitHash()})"
 }
 
 ext.updateManifestVersion = { versionCode, versionName ->
