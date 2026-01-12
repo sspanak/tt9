@@ -23,7 +23,7 @@ public class SwitchUpsideDownKeys extends SwitchPreferenceCompat {
 		setKey(NAME);
 		setTitle(R.string.pref_upside_down_keys);
 		setSummary(R.string.pref_upside_down_keys_summary);
-		setDefaultValue(HardwareInfo.IS_EMULATOR);
-		setChecked(HardwareInfo.IS_EMULATOR);
+		setDefaultValue(DEFAULT);
+		setChecked(getPersistedBoolean(DEFAULT));
 	}
 }
