@@ -7,11 +7,11 @@ import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
+import io.github.sspanak.tt9.preferences.screens.keypad.SwitchUpsideDownKeys;
 import io.github.sspanak.tt9.preferences.screens.modeAbc.DropDownAbcAutoAcceptTime;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownOneKeyEmoji;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownZeroKeyCharacter;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.OneKeyEmojiOptions;
-import io.github.sspanak.tt9.util.sys.HardwareInfo;
 
 class SettingsTyping extends SettingsPunctuation {
 	SettingsTyping(Context context) { super(context); }
@@ -75,5 +75,5 @@ class SettingsTyping extends SettingsPunctuation {
 		return prefs.getBoolean("pref_predict_word_pairs", true);
 	}
 
-	public boolean getUpsideDownKeys() { return prefs.getBoolean("pref_upside_down_keys", HardwareInfo.IS_EMULATOR); }
+	public boolean getUpsideDownKeys() { return prefs.getBoolean(SwitchUpsideDownKeys.NAME, SwitchUpsideDownKeys.DEFAULT); }
 }
