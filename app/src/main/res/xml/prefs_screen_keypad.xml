@@ -47,11 +47,7 @@
 			android:summary="@string/pref_hardware_key_visual_feedback_summary"
 			android:title="@string/pref_hardware_key_visual_feedback" />
 
-		<SwitchPreferenceCompat
-			android:defaultValue="false"
-			android:key="pref_upside_down_keys"
-			android:summary="@string/pref_upside_down_keys_summary"
-			android:title="@string/pref_upside_down_keys" />
+		<io.github.sspanak.tt9.preferences.screens.keypad.SwitchUpsideDownKeys />
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/pref_category_hacks">
