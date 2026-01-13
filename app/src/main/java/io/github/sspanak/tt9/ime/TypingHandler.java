@@ -350,9 +350,13 @@ public abstract class TypingHandler extends KeyPadHandler {
 		allowedInputModes = new ArrayList<>(inputType.determineInputModes(getApplicationContext()));
 		if (LanguageKind.isJapanese(mLanguage)) {
 			determineJapaneseInputModes();
-		} else if (!mLanguage.hasABC()) {
+		}
+
+		if (!mLanguage.hasABC()) {
 			allowedInputModes.remove((Integer) InputMode.MODE_ABC);
-		} else if (!settings.getPredictiveMode()) {
+		}
+
+		if (!settings.getPredictiveMode()) {
 			allowedInputModes.remove((Integer) InputMode.MODE_PREDICTIVE);
 		}
 
@@ -361,16 +365,13 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	/**
-	 * Since Japanese is unique with its 3 alphabets, we need to setup the input modes separately.
+	 * In Japanese, Hiragana and Katakana modes are the equivalents of ABC mode in other languages.
+	 * So when typing letters is possible (ABC mode allowed), we replace ABC with these two modes.
 	 */
 	private void determineJapaneseInputModes() {
 		if (allowedInputModes.contains(InputMode.MODE_ABC)) {
-			allowedInputModes.remove((Integer) InputMode.MODE_ABC);
 			allowedInputModes.add(InputMode.MODE_HIRAGANA);
 			allowedInputModes.add(InputMode.MODE_KATAKANA);
-		}
-		if (!settings.getPredictiveMode()) {
-			allowedInputModes.remove((Integer) InputMode.MODE_PREDICTIVE);
 		}
 	}
 
