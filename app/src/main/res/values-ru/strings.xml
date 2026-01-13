@@ -40,6 +40,7 @@
 	<string name="pref_predict_word_pairs_summary">Запоминать часто используемые фразы для улучшения предложений слов.</string>
 	<string name="pref_privacy_policy">Политика конфиденциальности</string>
 	<string name="pref_quick_switch_language_summary">Нажатие клавиши языка автоматически переключает на следующий язык вместо отображения всплывающего окна со всеми включенными языками.</string>
+	<string name="pref_show_suggestions_abc_summary">Показывать возможные буквы в строке подсказок при нажатии клавиши.</string>
 	<string name="pref_status_icon">Иконка состояния</string>
 	<string name="pref_status_icon_summary">Показывать иконку, когда активен режим ввода с клавиатуры.</string>
 	<string name="pref_color_scheme_device_light">Системный светлый</string>
@@ -261,4 +262,5 @@
 	<string name="tutorial_classic_OK_swipe">Когда нет подсказок, свайп вверх/вниз перемещает курсор.\n\nКогда есть подсказки, свайп вверх фильтрует их, а свайп вниз очищает фильтр.</string>
 	<string name="tutorial_classic_add_word">Свайп влево — добавить слово.</string>
 	<string name="pref_hack_auto_disable_composing">Автоматически скрывать вводимый текст</string>
+	<string name="pref_show_suggestions_abc">Показывать подсказки букв</string>
 </resources>

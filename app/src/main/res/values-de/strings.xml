@@ -57,6 +57,7 @@
 	<string name="pref_predict_word_pairs_summary">Häufig verwendete Phrasen merken, um die Genauigkeit der Vorschläge zu verbessern.</string>
 	<string name="pref_privacy_policy">Datenschutzerklärung</string>
 	<string name="pref_quick_switch_language_summary">Durch Drücken der Sprachentaste wird automatisch zur nächsten Sprache gewechselt, anstatt ein Popup mit allen aktivierten Sprachen anzuzeigen.</string>
+	<string name="pref_show_suggestions_abc_summary">Mögliche Buchstaben in der Vorschlagsleiste anzeigen, wenn eine Taste gedrückt wird.</string>
 	<string name="pref_status_icon">Statusicon</string>
 	<string name="pref_status_icon_summary">Ein Icon anzeigen, wenn die Tastatureingabe aktiv ist.</string>
 	<string name="pref_suggestion_font_size">Schriftgröße der Vorschläge</string>
@@ -263,4 +264,5 @@
 	<string name="tutorial_classic_OK_swipe">Wenn es keine Vorschläge gibt, nach oben/unten wischen, um den Cursor zu bewegen.\n\nWenn Vorschläge vorhanden sind, nach oben wischen, um sie zu filtern, oder nach unten, um den Filter zu entfernen.</string>
 	<string name="tutorial_classic_add_word">Nach links wischen, um ein Wort hinzuzufügen.</string>
 	<string name="pref_hack_auto_disable_composing">Texterstellung automatisch deaktivieren</string>
+	<string name="pref_show_suggestions_abc">Buchstabenvorschläge anzeigen</string>
 </resources>

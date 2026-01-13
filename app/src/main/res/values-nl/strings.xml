@@ -57,6 +57,7 @@
 	<string name="pref_predict_word_pairs_summary">Veelgebruikte zinnen onthouden om de nauwkeurigheid van suggesties te verbeteren.</string>
 	<string name="pref_privacy_policy">Privacybeleid</string>
 	<string name="pref_quick_switch_language_summary">Door op de taaltoets te drukken, schakelt u automatisch naar de volgende taal in plaats van een pop-up met alle ingeschakelde talen weer te geven.</string>
+	<string name="pref_show_suggestions_abc_summary">Toon mogelijke letters in de suggestiebalk wanneer een toets wordt ingedrukt.</string>
 	<string name="pref_status_icon">Statusicoon</string>
 	<string name="pref_status_icon_summary">Een icoon tonen wanneer toetsenbordinvoer actief is.</string>
 	<string name="pref_suggestion_font_size">Lettergrootte van suggesties</string>
@@ -262,4 +263,5 @@
 	<string name="tutorial_classic_OK_swipe">Wanneer er geen suggesties zijn, veeg omhoog/omlaag om de cursor te verplaatsen.\n\nWanneer er suggesties zijn, veeg omhoog om ze te filteren of omlaag om het filter te wissen.</string>
 	<string name="tutorial_classic_add_word">Veeg naar links om een woord toe te voegen.</string>
 	<string name="pref_hack_auto_disable_composing">Samenstellen van tekst automatisch uitschakelen</string>
+	<string name="pref_show_suggestions_abc">Lettersuggesties tonen</string>
 </resources>

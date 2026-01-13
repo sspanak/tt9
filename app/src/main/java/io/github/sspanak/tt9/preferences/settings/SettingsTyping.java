@@ -75,5 +75,12 @@ class SettingsTyping extends SettingsPunctuation {
 		return prefs.getBoolean("pref_predict_word_pairs", true);
 	}
 
+	public boolean getShowSuggestions() {
+		final int inputMode = getInputMode();
+		final boolean showInAbc = prefs.getBoolean("show_suggestions_abc", false);
+
+		return inputMode != InputMode.MODE_ABC || showInAbc;
+	}
+
 	public boolean getUpsideDownKeys() { return prefs.getBoolean(SwitchUpsideDownKeys.NAME, SwitchUpsideDownKeys.DEFAULT); }
 }
