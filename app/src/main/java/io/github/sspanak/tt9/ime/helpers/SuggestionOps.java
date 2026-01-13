@@ -29,6 +29,7 @@ public class SuggestionOps {
 	@Nullable protected SuggestionsBar suggestionBar;
 	@Nullable private AppHacks appHacks;
 	@NonNull private TextField textField;
+	@Nullable private final SettingsStore settings;
 	@Nullable private StatusBar statusBar;
 
 
@@ -37,6 +38,7 @@ public class SuggestionOps {
 		this.onDelayedAccept = onDelayedAccept != null ? onDelayedAccept : s -> {};
 
 		this.appHacks = appHacks;
+		this.settings = settings;
 		this.statusBar = statusBar;
 		this.textField = textField != null ? textField : new TextField(ims, settings, null);
 
@@ -44,6 +46,7 @@ public class SuggestionOps {
 			suggestionBar = new SuggestionsBar(settings, mainView, onSuggestionClick);
 		}
 	}
+
 
 	public void setLanguage(@Nullable Language newLanguage) {
 		if (suggestionBar != null) {
@@ -87,30 +90,19 @@ public class SuggestionOps {
 
 
 	public void set(ArrayList<String> suggestions) {
-		if (suggestionBar != null) {
-			suggestionBar.setMany(suggestions, 0, false);
-		}
-		if (statusBar != null) {
-			statusBar.setShown(suggestions == null || suggestions.isEmpty());
-		}
+		set(suggestions, 0, false);
 	}
 
+
 	public void set(ArrayList<String> suggestions, boolean containsGenerated) {
-		if (suggestionBar != null) {
-			suggestionBar.setMany(suggestions, 0, containsGenerated);
-		}
-		if (statusBar != null) {
-			statusBar.setShown(suggestions == null || suggestions.isEmpty());
-		}
+		set(suggestions, 0, containsGenerated);
 	}
 
 
 	public void set(ArrayList<String> suggestions, int selectIndex, boolean containsGenerated) {
+		setVisibility(settings, suggestions, false);
 		if (suggestionBar != null) {
 			suggestionBar.setMany(suggestions, selectIndex, containsGenerated);
-		}
-		if (statusBar != null) {
-			statusBar.setShown(suggestions == null || suggestions.isEmpty());
 		}
 	}
 
@@ -124,7 +116,10 @@ public class SuggestionOps {
 			}
 		}
 
-		set(clipStrings);
+		setVisibility(settings, clipStrings, true);
+		if (suggestionBar != null) {
+			suggestionBar.setMany(clipStrings, 0, false);
+		}
 	}
 
 
@@ -245,6 +240,19 @@ public class SuggestionOps {
 	public void setColorScheme() {
 		if (suggestionBar != null) {
 			suggestionBar.setColorScheme();
+		}
+	}
+
+
+	private void setVisibility(@Nullable SettingsStore settings, @Nullable ArrayList<String> newSuggestions, boolean clipboardSuggestions) {
+		final boolean areSuggestionsVisible = (settings != null && settings.getShowSuggestions()) || clipboardSuggestions;
+
+		if (suggestionBar != null) {
+			suggestionBar.setVisible(areSuggestionsVisible);
+		}
+
+		if (statusBar != null) {
+			statusBar.setShown(newSuggestions == null || newSuggestions.isEmpty() || !areSuggestionsVisible);
 		}
 	}
 }

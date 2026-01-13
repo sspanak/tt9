@@ -13,4 +13,10 @@
 		android:key="auto_text_case_abc_v2"
 		android:summary="@string/pref_auto_text_case_summary"
 		android:title="@string/pref_auto_text_case" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="false"
+		android:key="show_suggestions_abc"
+		android:summary="@string/pref_show_suggestions_abc_summary"
+		android:title="@string/pref_show_suggestions_abc" />
 </androidx.preference.PreferenceScreen>

@@ -68,7 +68,7 @@ abstract class UiHandler extends AbstractHandler {
 	}
 
 
-	public void initUi(InputMode inputMode) {
+	protected void initUi(InputMode inputMode) {
 		if (mainView.create()) {
 			initTray();
 			setCurrentView();

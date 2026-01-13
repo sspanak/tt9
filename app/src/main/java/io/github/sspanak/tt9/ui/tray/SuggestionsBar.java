@@ -76,6 +76,7 @@ public class SuggestionsBar {
 			initDataAdapter(context);
 			initSeparator(context);
 			configureAnimation();
+			setVisible(settings.getShowSuggestions());
 			vibration = new Vibration(settings, mView);
 		}
 	}
@@ -145,6 +146,13 @@ public class SuggestionsBar {
 			mView.removeItemDecorationAt(decorations - 1);
 		}
 		mView.addItemDecoration(separator);
+	}
+
+
+	public void setVisible(boolean yes) {
+		if (mView != null) {
+			mView.setVisibility(yes ? View.VISIBLE : View.GONE);
+		}
 	}
 
 
@@ -317,14 +325,18 @@ public class SuggestionsBar {
 			return;
 		}
 
-		setBackground(false);
-		mSuggestionsAdapter.setTextSize(settings.getSuggestionFontScale());
+		final boolean isVisible = mView.getVisibility() == View.VISIBLE;
 
-		boolean smooth = settings.getSuggestionSmoothScroll() && visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX + 1;
-		mView.setItemAnimator(smooth ? animator : null);
+		if (isVisible) {
+			setBackground(false);
+			mSuggestionsAdapter.setTextSize(settings.getSuggestionFontScale());
+
+			boolean smooth = settings.getSuggestionSmoothScroll() && visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX + 1;
+			mView.setItemAnimator(smooth ? animator : null);
+		}
 
 		mSuggestionsAdapter.resetItems(selectedIndex);
-		if (selectedIndex > 0) {
+		if (isVisible && selectedIndex > 0) {
 			mView.scrollToPosition(selectedIndex);
 		}
 	}
@@ -416,7 +428,7 @@ public class SuggestionsBar {
 	 * to set the selected index in the adapter.
 	 */
 	private void renderScroll() {
-		if (mView == null) {
+		if (mView == null || mView.getVisibility() != View.VISIBLE) {
 			return;
 		}
 

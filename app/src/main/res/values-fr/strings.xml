@@ -40,6 +40,7 @@
 	<string name="pref_predict_word_pairs_summary">Apprendre des phrases couramment utilisées pour améliorer les suggestions.</string>
 	<string name="pref_privacy_policy">Politique de confidentialité</string>
 	<string name="pref_quick_switch_language_summary">Appuyer sur la touche de langue passe automatiquement à la langue suivante au lieu d\'afficher une fenêtre contextuelle avec toutes les langues activées.</string>
+	<string name="pref_show_suggestions_abc_summary">Afficher les lettres possibles dans la barre de suggestions lorsqu’une touche est pressée.</string>
 	<string name="pref_status_icon">Icône d\'état</string>
 	<string name="pref_status_icon_summary">Afficher une icône lorsque la saisie au clavier est active</string>
 	<string name="pref_color_scheme_device_light">Clair du système</string>
@@ -261,4 +262,5 @@
 	<string name="tutorial_classic_OK_swipe">Lorsqu’il n’y a pas de suggestions, balayer vers le haut/bas pour déplacer le curseur.\n\nLorsqu’il y a des suggestions, balayer vers le haut pour les filtrer ou vers le bas pour effacer le filtre.</string>
 	<string name="tutorial_classic_add_word">Balayer vers la gauche pour ajouter un mot.</string>
 	<string name="pref_hack_auto_disable_composing">Désactiver automatiquement la composition de texte</string>
+	<string name="pref_show_suggestions_abc">Afficher les suggestions de lettres</string>
 </resources>

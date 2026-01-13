@@ -70,6 +70,7 @@
 	<string name="pref_predict_word_pairs_summary">Recordar frases de uso común para mejorar las sugerencias de palabras.</string>
 	<string name="pref_privacy_policy">Política de privacidad</string>
 	<string name="pref_quick_switch_language_summary">Al presionar la tecla de idioma, se cambia automáticamente al siguiente idioma en lugar de mostrar una ventana emergente con todos los idiomas habilitados.</string>
+	<string name="pref_show_suggestions_abc_summary">Mostrar letras posibles en la barra de sugerencias al pulsar una tecla.</string>
 	<string name="pref_status_icon">Icono de estado</string>
 	<string name="pref_status_icon_summary">Mostrar un icono cuando la escritura esté activa.</string>
 	<string name="pref_color_scheme_device_light">Claro del sistema</string>
@@ -261,4 +262,5 @@
 	<string name="tutorial_classic_OK_swipe">Cuando no hay sugerencias, desliza hacia arriba/abajo para mover el cursor.\n\nCuando hay sugerencias, desliza hacia arriba para filtrarlas o hacia abajo para borrar el filtro.</string>
 	<string name="tutorial_classic_add_word">Desliza hacia la izquierda para añadir una palabra.</string>
 	<string name="pref_hack_auto_disable_composing">Desactivar automáticamente la composición de texto</string>
+	<string name="pref_show_suggestions_abc">Mostrar sugerencias de letras</string>
 </resources>
