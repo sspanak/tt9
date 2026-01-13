@@ -105,8 +105,8 @@ public class DictionaryLoader {
 	}
 
 
-	public static boolean autoLoad(InputMethodService context, Language language) {
-		if (getInstance(context).isRunning()) {
+	public static boolean autoLoad(@NonNull InputMethodService context, @NonNull SettingsStore settings, @NonNull Language language) {
+		if (getInstance(context).isRunning() || !settings.getPredictiveMode()) {
 			return false;
 		}
 
