@@ -197,7 +197,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		}
 
 		if (InputModeKind.isPredictive(mInputMode)) {
-			DictionaryLoader.autoLoad(this, mLanguage);
+			DictionaryLoader.autoLoad(this, settings, mLanguage);
 		}
 
 		forceShowWindow();

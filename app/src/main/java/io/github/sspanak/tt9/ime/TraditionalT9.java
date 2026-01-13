@@ -179,7 +179,7 @@ public class TraditionalT9 extends PremiumHandler {
 		}
 
 		if (!newInputType.isUs()) {
-			DictionaryLoader.autoLoad(this, mLanguage);
+			DictionaryLoader.autoLoad(this, settings, mLanguage);
 		}
 
 		if (onAfterStartText.length() > 0) {
@@ -329,7 +329,7 @@ public class TraditionalT9 extends PremiumHandler {
 
 	@Override
 	protected boolean onNumber(int key, boolean hold, int repeat) {
-		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.autoLoad(this, mLanguage)) {
+		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.autoLoad(this, settings, mLanguage)) {
 			return true;
 		}
 		return super.onNumber(key, hold, repeat);
