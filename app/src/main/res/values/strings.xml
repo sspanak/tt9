@@ -127,6 +127,8 @@
 	<string name="pref_privacy_policy">Privacy Policy</string>
 	<string name="pref_quick_switch_language">Quick Switch Languages</string>
 	<string name="pref_quick_switch_language_summary">Pressing the Language key switches to the next language automatically, instead of showing a popup with all enabled languages.</string>
+	<string name="pref_show_suggestions_abc">Show Letter Suggestions</string>
+	<string name="pref_show_suggestions_abc_summary">Show possible letters in the suggestion bar when a key is pressed.</string>
 	<string name="pref_status_icon">Status Icon</string>
 	<string name="pref_status_icon_summary">Show an icon when keyboard input is active.</string>
 	<string name="pref_suggestion_font_size">Suggestion Font Size</string>

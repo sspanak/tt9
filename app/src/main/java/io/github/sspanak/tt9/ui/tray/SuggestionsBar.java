@@ -42,6 +42,7 @@ public class SuggestionsBar {
 
 	private int defaultBackgroundColor = Color.TRANSPARENT;
 	private int backgroundColor;
+	private boolean isVisible;
 	private int suggestionSeparatorColor;
 
 	private double lastClickTime = 0;
@@ -76,6 +77,7 @@ public class SuggestionsBar {
 			initDataAdapter(context);
 			initSeparator(context);
 			configureAnimation();
+			setVisible(settings.getShowSuggestions());
 			vibration = new Vibration(settings, mView);
 		}
 	}
@@ -145,6 +147,11 @@ public class SuggestionsBar {
 			mView.removeItemDecorationAt(decorations - 1);
 		}
 		mView.addItemDecoration(separator);
+	}
+
+
+	public void setVisible(boolean yes) {
+		isVisible = yes;
 	}
 
 
@@ -313,7 +320,7 @@ public class SuggestionsBar {
 
 
 	private void render() {
-		if (mView == null) {
+		if (mView == null || !isVisible) {
 			return;
 		}
 
@@ -416,7 +423,7 @@ public class SuggestionsBar {
 	 * to set the selected index in the adapter.
 	 */
 	private void renderScroll() {
-		if (mView == null) {
+		if (mView == null || !isVisible) {
 			return;
 		}
 

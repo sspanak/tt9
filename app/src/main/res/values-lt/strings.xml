@@ -82,6 +82,7 @@
 	<string name="pref_predict_word_pairs_summary">Įsiminti dažnai naudojamas frazes, kad pagerintumėte žodžių pasiūlymus.</string>
 	<string name="pref_privacy_policy">Privatumo politika</string>
 	<string name="pref_quick_switch_language_summary">Paspaudus kalbos klavišą, automatiškai perjungiama į kitą kalbą, užuot rodžius iškylantį langą su visomis įjungtomis kalbomis.</string>
+	<string name="pref_show_suggestions_abc_summary">Paspaudus klavišą, rodyti galimas raides pasiūlymų juostoje.</string>
 	<string name="pref_status_icon">Būsenos piktograma</string>
 	<string name="pref_status_icon_summary">Rodyti piktogramą, kai aktyvus klaviatūros įvedimas</string>
 	<string name="pref_color_scheme_device_light">Sisteminė šviesi</string>
@@ -270,4 +271,5 @@
 	<string name="tutorial_classic_OK_swipe">Kai nėra pasiūlymų, braukite aukštyn/žemyn, kad perkeltumėte žymeklį.\n\nKai yra pasiūlymų, braukite aukštyn, kad juos filtruotumėte, arba žemyn, kad išvalytumėte filtrą.</string>
 	<string name="tutorial_classic_add_word">Braukite kairėn, kad pridėtumėte žodį.</string>
 	<string name="pref_hack_auto_disable_composing">Automatiškai išjungti teksto komponavimą</string>
+	<string name="pref_show_suggestions_abc">Rodyti raidžių pasiūlymus</string>
 </resources>

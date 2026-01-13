@@ -29,6 +29,7 @@ public class SuggestionOps {
 	@Nullable protected SuggestionsBar suggestionBar;
 	@Nullable private AppHacks appHacks;
 	@NonNull private TextField textField;
+	@Nullable private final SettingsStore settings;
 	@Nullable private StatusBar statusBar;
 
 
@@ -37,6 +38,7 @@ public class SuggestionOps {
 		this.onDelayedAccept = onDelayedAccept != null ? onDelayedAccept : s -> {};
 
 		this.appHacks = appHacks;
+		this.settings = settings;
 		this.statusBar = statusBar;
 		this.textField = textField != null ? textField : new TextField(ims, settings, null);
 
@@ -44,6 +46,14 @@ public class SuggestionOps {
 			suggestionBar = new SuggestionsBar(settings, mainView, onSuggestionClick);
 		}
 	}
+
+
+	public void onInputModeChanged() {
+		if (suggestionBar != null && settings != null) {
+			suggestionBar.setVisible(settings.getShowSuggestions());
+		}
+	}
+
 
 	public void setLanguage(@Nullable Language newLanguage) {
 		if (suggestionBar != null) {
@@ -90,18 +100,14 @@ public class SuggestionOps {
 		if (suggestionBar != null) {
 			suggestionBar.setMany(suggestions, 0, false);
 		}
-		if (statusBar != null) {
-			statusBar.setShown(suggestions == null || suggestions.isEmpty());
-		}
+		setStatusBarVisible(settings, suggestions);
 	}
 
 	public void set(ArrayList<String> suggestions, boolean containsGenerated) {
 		if (suggestionBar != null) {
 			suggestionBar.setMany(suggestions, 0, containsGenerated);
 		}
-		if (statusBar != null) {
-			statusBar.setShown(suggestions == null || suggestions.isEmpty());
-		}
+		setStatusBarVisible(settings, suggestions);
 	}
 
 
@@ -109,9 +115,7 @@ public class SuggestionOps {
 		if (suggestionBar != null) {
 			suggestionBar.setMany(suggestions, selectIndex, containsGenerated);
 		}
-		if (statusBar != null) {
-			statusBar.setShown(suggestions == null || suggestions.isEmpty());
-		}
+		setStatusBarVisible(settings, suggestions);
 	}
 
 
@@ -245,6 +249,17 @@ public class SuggestionOps {
 	public void setColorScheme() {
 		if (suggestionBar != null) {
 			suggestionBar.setColorScheme();
+		}
+	}
+
+
+	private void setStatusBarVisible(@Nullable SettingsStore settings, @Nullable ArrayList<String> suggestions) {
+		if (statusBar != null) {
+			statusBar.setShown(
+				suggestions == null
+				|| suggestions.isEmpty()
+				|| (settings != null && !settings.getShowSuggestions())
+			);
 		}
 	}
 }
