@@ -9,8 +9,7 @@ import android.view.inputmethod.InputConnection;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedHashSet;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
 
@@ -150,12 +149,13 @@ abstract public class StandardInputType {
 
 	/**
 	 * determineInputModes
-	 * Determine the typing mode based on the input field being edited. Returns an ArrayList of the allowed modes.
+	 * Determine the typing mode based on the input field being edited. Returns an ordered list of
+	 * the allowed modes.
 	 *
-	 * @return Set<InputMode.MODE_PASSTHROUGH | InputMode.MODE_ABC | InputMode.MODE_123 | InputMode.MODE_PREDICTIVE>
+	 * @return LinkedHashSet<InputMode.MODE_PASSTHROUGH | InputMode.MODE_ABC | InputMode.MODE_123 | InputMode.MODE_PREDICTIVE>
 	 */
-	public Set<Integer> determineInputModes(@NonNull Context context) {
-		Set<Integer> allowedModes = new HashSet<>();
+	public LinkedHashSet<Integer> determineInputModes(@NonNull Context context) {
+		LinkedHashSet<Integer> allowedModes = new LinkedHashSet<>();
 
 		if (field == null) {
 			allowedModes.add(InputMode.MODE_PASSTHROUGH);
