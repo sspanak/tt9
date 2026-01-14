@@ -1,11 +1,6 @@
 package io.github.sspanak.tt9.ime.helpers;
 
-import android.graphics.Typeface;
 import android.inputmethodservice.InputMethodService;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -13,13 +8,11 @@ import android.view.inputmethod.InputConnection;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import io.github.sspanak.tt9.commands.CmdMoveCursor;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 
 public class TextField extends InputField {
@@ -117,6 +110,18 @@ public class TextField extends InputField {
 	 * Returns the word next or around the cursor. Scanning length is up to 50 chars in each direction.
 	 */
 	@NonNull public String getSurroundingWord(Language language) {
+		final String[] parts = getSurroundingWordParts(language);
+		return parts[0] + parts[1];
+	}
+
+
+	/**
+	 * getSurroundingWord
+	 * Detects the word next to or around the cursor and returns its parts: [0] = before cursor,
+	 * [1] = after cursor. Scanning length is up to 50 chars in each direction.
+	 */
+	@NonNull
+	public String[] getSurroundingWordParts(@Nullable Language language) {
 		// Hebrew and Ukrainian use the respective special characters as letters
 		boolean keepApostrophe = LanguageKind.isHebrew(language) || LanguageKind.isUkrainian(language);
 		boolean keepQuote = LanguageKind.isHebrew(language);
@@ -127,7 +132,7 @@ public class TextField extends InputField {
 		final String wordBefore = textBefore.subStringEndingAlphanumeric(keepApostrophe, keepQuote);
 		final String wordAfter = textAfter.subStringStartingAlphanumeric(keepApostrophe, keepQuote);
 
-		return wordBefore + wordAfter;
+		return new String[] { wordBefore,  wordAfter };
 	}
 
 
@@ -258,6 +263,27 @@ public class TextField extends InputField {
 	}
 
 
+	@NonNull
+	public String recomposeSurroundingWord(@Nullable Language language) {
+		InputConnection connection = getConnection();
+		if (connection == null || !isComposingSupported) {
+			return "";
+		}
+
+		connection.beginBatchEdit();
+		final String[] parts = getSurroundingWordParts(language);
+		final String word = parts[0] + parts[1];
+		final boolean success = connection.deleteSurroundingText(parts[0].length(), parts[1].length()) && connection.setComposingText(word, 1);
+		connection.endBatchEdit();
+
+		if (success) {
+			composingText = word;
+		}
+
+		return success ? word : "";
+	}
+
+
 	/**
 	 * setText
 	 * A fail-safe setter that appends text to the field, ignoring NULL input.
@@ -292,19 +318,6 @@ public class TextField extends InputField {
 
 
 	/**
-	 * setComposingTextWithHighlightedStem
-	 * <p>
-	 * Sets the composing text, but makes the "stem" substring bold. If "isStemFilterFuzzy" is true,
-	 * the "stem" part will be in bold and italic for additional highlighting.
-	 */
-	public void setComposingTextWithHighlightedStem(@NonNull CharSequence word, @Nullable String stem, boolean isStemFilterFuzzy) {
-		setComposingText(
-			stem == null || stem.isEmpty() ? word : highlightText(word, 0, stem.length(), isStemFilterFuzzy)
-		);
-	}
-
-
-	/**
 	 * finishComposingText
 	 * Finish composing text or do nothing if the text field is invalid.
 	 */
@@ -320,92 +333,5 @@ public class TextField extends InputField {
 			connection.commitText(composingText, 1);
 			composingText = "";
 		}
-	}
-
-
-	/**
-	 * highlightText
-	 * Makes the characters from "start" to "end" bold. If "highlightMore" is true,
-	 * the text will be in bold and italic.
-	 */
-	private CharSequence highlightText(CharSequence word, int start, int end, boolean highlightMore) {
-		if (end <= start || start < 0) {
-			Logger.w("tt9.util.highlightComposingText", "Cannot highlight invalid composing text range: [" + start + ", " + end + "]");
-			return word;
-		}
-
-		// nothing to highlight in: an empty string; after the last letter; in special characters or emoji, because it breaks them
-		if (word == null || word.length() == 0 || word.length() <= start || !Character.isLetterOrDigit(word.charAt(0))) {
-			return word;
-		}
-
-		SpannableString styledWord = new SpannableString(word);
-
-		// default underline style
-		styledWord.setSpan(new UnderlineSpan(), 0, word.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-
-		// highlight the requested range
-		styledWord.setSpan(
-			new StyleSpan(Typeface.BOLD),
-			start,
-			Math.min(word.length(), end),
-			Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-		);
-
-		if (highlightMore) {
-			styledWord.setSpan(
-				new StyleSpan(Typeface.BOLD_ITALIC),
-				start,
-				Math.min(word.length(), end),
-				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-			);
-		}
-
-		return styledWord;
-	}
-
-
-	public boolean moveCursor(int direction) {
-		final boolean backward = direction == CmdMoveCursor.CURSOR_MOVE_LEFT;
-		final boolean forward = direction == CmdMoveCursor.CURSOR_MOVE_RIGHT;
-
-		if (
-			(backward && getTextBeforeCursor(null, 1).isEmpty())
-			|| (forward && getTextAfterCursor(null, 1).isEmpty())
-		) {
-			return false;
-		}
-
-		final int keyCode = switch (direction) {
-			case CmdMoveCursor.CURSOR_MOVE_UP -> KeyEvent.KEYCODE_DPAD_UP;
-			case CmdMoveCursor.CURSOR_MOVE_DOWN -> KeyEvent.KEYCODE_DPAD_DOWN;
-			case CmdMoveCursor.CURSOR_MOVE_LEFT -> KeyEvent.KEYCODE_DPAD_LEFT;
-			case CmdMoveCursor.CURSOR_MOVE_RIGHT -> KeyEvent.KEYCODE_DPAD_RIGHT;
-			default -> KeyEvent.KEYCODE_UNKNOWN;
-		};
-
-
-		sendDownUpKeyEvents(keyCode);
-
-		return true;
-	}
-
-
-	public boolean sendDownUpKeyEvents(int keyCode) {
-		return sendDownUpKeyEvents(keyCode, false, false);
-	}
-
-
-	public boolean sendDownUpKeyEvents(int keyCode, boolean shift, boolean ctrl) {
-		InputConnection connection = getConnection();
-		if (connection != null) {
-			int metaState = shift ? KeyEvent.META_SHIFT_ON : 0;
-			metaState |= ctrl ? KeyEvent.META_CTRL_ON : 0;
-			KeyEvent downEvent = new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyCode, 0, metaState);
-			KeyEvent upEvent = new KeyEvent(0, 0, KeyEvent.ACTION_UP, keyCode, 0, metaState);
-			return connection.sendKeyEvent(downEvent) && connection.sendKeyEvent(upEvent);
-		}
-
-		return false;
 	}
 }

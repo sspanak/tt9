@@ -16,6 +16,7 @@ import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.HighlightedText;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.Timer;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -79,23 +80,40 @@ public class AppHacks {
 	}
 
 
+
+	public void setComposingTextWithHighlightedStem(@NonNull String word, @Nullable String stem, boolean isStemFilterFuzzy) {
+		final HighlightedText highText =
+			new HighlightedText(word, true, false)
+			.setRegion(0, stem != null ? stem.length() : 0, true, isStemFilterFuzzy, false);
+
+		setComposingText(highText);
+	}
+
+
+	public void setComposingTextPartsWithHighlightedJoining(@NonNull String word, @NonNull String suffix) {
+		final HighlightedText highText = new HighlightedText(word + suffix, false, false)
+			.setRegion(word.length() - 1, word.length(), true, false, true);
+
+		setComposingText(highText);
+	}
+
+
 	/**
-	 * setComposingTextWithHighlightedStem
 	 * A compatibility function for text fields that do not properly support composing text.
 	 */
-	public void setComposingTextWithHighlightedStem(@NonNull String word, @Nullable String stem, boolean isStemFilterFuzzy) {
+	private void setComposingText(@NonNull HighlightedText word) {
 		if (inputType == null || textField == null) {
 			return;
 		}
 
 		// use composing text but do not highlight it with SpannableString
 		if (inputType.isKindleInvertedTextField()) {
-			textField.setComposingText(word);
+			textField.setComposingText(word.toString());
 			return;
 		}
 
 		// if the composing text starts with an emoji, reset to empty before settings new composing text
-		if (inputType.isWhatsApp() && Text.isGraphic(word)) {
+		if (inputType.isWhatsApp() && Text.isGraphic(word.toString())) {
 			textField.setComposingText("");
 		}
 
@@ -107,7 +125,7 @@ public class AppHacks {
 		Timer.start(COMPOSING_TEXT_TO_RESTART_TIMER);
 
 		// set the composing text in the app
-		textField.setComposingTextWithHighlightedStem(word, stem, isStemFilterFuzzy);
+		textField.setComposingText(word.highlight());
 	}
 
 

@@ -54,13 +54,18 @@ public class Key {
 	}
 
 
-	public static boolean isArrowLeft(int keyCode) {
-		return keyCode == KeyEvent.KEYCODE_DPAD_LEFT;
+	public static boolean isArrowUp(int keyCode) {
+		return keyCode == KeyEvent.KEYCODE_DPAD_UP;
 	}
 
 
 	public static boolean isArrowRight(int keyCode) {
 		return keyCode == KeyEvent.KEYCODE_DPAD_RIGHT;
+	}
+
+
+	public static boolean isArrowLeft(int keyCode) {
+		return keyCode == KeyEvent.KEYCODE_DPAD_LEFT;
 	}
 
 

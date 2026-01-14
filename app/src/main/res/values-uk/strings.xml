@@ -10,12 +10,12 @@
 	<string name="add_word_add">Додати</string>
 	<string name="add_word_confirm">Додати слово \"%1$s\" в %2$s?</string>
 	<string name="add_word_no_selection">Перемістіть курсор у слово, щоб додати його.</string>
-	<string name="add_word_not_available_without_predictive_mode">Додавання слів неможливе, коли предиктивний режим вимкнено.</string>
 	<string name="add_word_blank">Пусте слово не додано.</string>
 	<string name="add_word_exist">Слово \"%1$s\" вже існує у словнику.</string>
 	<string name="add_word_success">\"%1$s\" додано.</string>
 	<string name="add_word_title">Додати слово</string>
 
+	<string name="edit_word_no_selection">Перемістіть курсор усередину слова, щоб відредагувати його.</string>
 	<string name="commands_clipboard_is_empty">Буфер обміну порожній.</string>
 	<string name="commands_select_command">Вибрати команду</string>
 	<string name="pref_category_about">Про програму</string>
@@ -141,6 +141,7 @@
 	<string name="function_show_command_palette">Список команд</string>
 	<string name="function_filter_clear">Очистити фільтр</string>
 	<string name="function_edit_text">Інструменти буфера обміну</string>
+	<string name="function_edit_word">Редагувати слово</string>
 	<string name="function_filter_suggestions">Фільтрувати пропозиції</string>
 	<string name="function_filter_suggestions_not_available">Фільтрація неможлива цією мовою.</string>
 	<string name="function_previous_suggestion">Попередня пропозиція</string>
@@ -277,4 +278,6 @@
 	<string name="pref_hack_auto_disable_composing">Автоматично приховувати введений текст</string>
 	<string name="pref_show_suggestions_abc">Показувати підказки літер</string>
 	<string name="pref_auto_trim_trailing_space">Автоматично видаляти кінцеві пробіли</string>
+	<string name="edit_word_invalid_characters">Неможливо редагувати «%1$s», коли мова — «%2$s».</string>
+	<string name="edit_word_not_available_in_language">Редагування слів цією мовою неможливе.</string>
 </resources>
