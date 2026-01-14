@@ -68,6 +68,7 @@ public class CommandCollection {
 	public static ArrayList<Command> getHotkeyCommands() {
 		if (hotkeys.isEmpty()) {
 			hotkeys.add(new CmdAddWord());
+			hotkeys.add(new CmdEditWord());
 			hotkeys.add(new CmdBackspace());
 			hotkeys.add(new CmdCommandPalette());
 			hotkeys.add(new CmdEditText());
@@ -93,13 +94,14 @@ public class CommandCollection {
 	@NonNull
 	private static LinkedHashMap<Integer, Command> getPaletteCommands() {
 		if (palette.isEmpty()) {
-			palette.put(R.id.soft_key_1, new CmdShowSettings());
-			palette.put(R.id.soft_key_2, new CmdAddWord());
+			palette.put(R.id.soft_key_1, new CmdAddWord());
+			palette.put(R.id.soft_key_2, new CmdEditWord());
 			palette.put(R.id.soft_key_3, new CmdVoiceInput());
 			palette.put(R.id.soft_key_4, new CmdUndo());
 			palette.put(R.id.soft_key_5, new CmdEditText());
 			palette.put(R.id.soft_key_6, new CmdRedo());
 			palette.put(R.id.soft_key_8, new CmdSelectKeyboard());
+			palette.put(R.id.soft_key_9, new CmdShowSettings());
 		}
 
 		return palette;

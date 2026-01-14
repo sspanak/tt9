@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdEditDuplicateLetter;
 import io.github.sspanak.tt9.commands.CmdFilterClear;
 import io.github.sspanak.tt9.commands.CmdFilterSuggestions;
 import io.github.sspanak.tt9.commands.CmdMoveCursor;
@@ -15,6 +16,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 public class SoftKeyOkClassic extends SoftKeyOk {
 	@NonNull private final CmdFilterClear clear = new CmdFilterClear();
 	@NonNull private final CmdFilterSuggestions filter = new CmdFilterSuggestions();
+	@NonNull private final CmdEditDuplicateLetter duplicateLetter = new CmdEditDuplicateLetter();
 	@NonNull private final CmdMoveCursor moveCursor = new CmdMoveCursor();
 
 	public SoftKeyOkClassic(Context context) { super(context); }
@@ -38,18 +40,9 @@ public class SoftKeyOkClassic extends SoftKeyOk {
 
 	@Override
 	protected void handleEndSwipeY(float position, float delta) {
-		if (!isSwipeable) {
-			return;
-		}
-
-		if (delta < 0) {
-			if (!filter.run(tt9, getLastPressedKey() == getId())) {
-				moveCursor.run(tt9, CmdMoveCursor.CURSOR_MOVE_UP);
-			}
-		} else {
-			if (!clear.run(tt9)) {
-				moveCursor.run(tt9, CmdMoveCursor.CURSOR_MOVE_DOWN);
-			}
+		if (isSwipeable) {
+			if (delta < 0) onUp();
+			else onDown();
 		}
 	}
 
@@ -69,5 +62,21 @@ public class SoftKeyOkClassic extends SoftKeyOk {
 	@Override
 	protected String getBottomText() {
 		return isSwipeable ? getContext().getString(R.string.key_dpad_down) : "";
+	}
+
+
+	private void onUp() {
+		if (duplicateLetter.run(tt9) || filter.run(tt9, getLastPressedKey() == getId())) {
+			return;
+		}
+
+		moveCursor.run(tt9, CmdMoveCursor.CURSOR_MOVE_UP);
+	}
+
+
+	private void onDown() {
+		if (!clear.run(tt9)) {
+			moveCursor.run(tt9, CmdMoveCursor.CURSOR_MOVE_DOWN);
+		}
 	}
 }

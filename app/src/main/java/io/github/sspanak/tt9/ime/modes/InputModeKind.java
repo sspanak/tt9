@@ -32,4 +32,8 @@ public class InputModeKind {
 			mode.getId() == InputMode.MODE_KATAKANA
 		);
 	}
+
+	public static boolean isRecomposing(InputMode mode) {
+		return mode instanceof ModeRecomposing;
+	}
 }

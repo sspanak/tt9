@@ -7,11 +7,11 @@
 	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
 	<string name="add_word_add">Добавить</string>
 	<string name="add_word_no_selection">Переместите курсор внутрь слова, чтобы добавить его.</string>
-	<string name="add_word_not_available_without_predictive_mode">Добавление слов невозможно, когда режим подсказки отключён.</string>
 	<string name="add_word_blank">Невозможно добавить слово.</string>
 	<string name="add_word_exist">Слово «%1$s» уже есть в словаре.</string>
 	<string name="add_word_success">«%1$s» добавлено</string>
 	<string name="add_word_title">Добавить слово</string>
+	<string name="edit_word_no_selection">Переместите курсор внутрь слова, чтобы отредактировать его.</string>
 	<string name="commands_clipboard_is_empty">Буфер обмена пуст.</string>
 	<string name="commands_select_command">Выбрать команду</string>
 	<string name="pref_category_about">О приложении</string>
@@ -98,6 +98,7 @@
 	<string name="function_show_command_palette">Список команд</string>
 	<string name="function_filter_clear">Удалить фильтр</string>
 	<string name="function_edit_text">Инструменты буфера обмена</string>
+	<string name="function_edit_word">Редактировать слово</string>
 	<string name="function_filter_suggestions">Фильтровать слова</string>
 	<string name="function_filter_suggestions_not_available">Фильтрация невозможна на этом языке.</string>
 	<string name="function_previous_suggestion">Предыдущее слово</string>
@@ -266,4 +267,6 @@
 	<string name="pref_hack_auto_disable_composing">Автоматически скрывать вводимый текст</string>
 	<string name="pref_show_suggestions_abc">Показывать подсказки букв</string>
 	<string name="pref_auto_trim_trailing_space">Автоматически удалять конечные пробелы</string>
+	<string name="edit_word_invalid_characters">Невозможно редактировать «%1$s», когда язык — «%2$s».</string>
+	<string name="edit_word_not_available_in_language">Редактирование слов в этом языке невозможно.</string>
 </resources>

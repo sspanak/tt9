@@ -47,7 +47,7 @@ public class StatusIcon {
 			return R.drawable.ic_lang_katakana;
 		} else if (InputModeKind.is123(mode)) {
 			return R.drawable.ic_lang_123;
-		} else if (InputModeKind.isABC(mode)) {
+		} else if (InputModeKind.isABC(mode) || InputModeKind.isRecomposing(mode)) {
 			return getResourceId(getResourceName(mode, language, textCase), R.drawable.ic_keyboard);
 		} else if (InputModeKind.isPredictive(mode)) {
 			return getResourceId(getResourceName(mode, language, textCase), R.drawable.ic_keyboard);
@@ -64,7 +64,7 @@ public class StatusIcon {
 		}
 
 		final StringBuilder key = new StringBuilder();
-		key.append(InputModeKind.isABC(mode) ? language.getIconABC() : language.getIconT9());
+		key.append(InputModeKind.isABC(mode) || InputModeKind.isRecomposing(mode) ? language.getIconABC() : language.getIconT9());
 
 		switch (textCase) {
 			case InputMode.CASE_UPPER:

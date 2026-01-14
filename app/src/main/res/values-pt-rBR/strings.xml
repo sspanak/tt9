@@ -9,12 +9,12 @@
 	<string name="add_word_add">Adicionar</string>
 	<string name="add_word_confirm">Adicionar a palavra \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Mova o cursor dentro de uma palavra para adicioná-la.</string>
-	<string name="add_word_not_available_without_predictive_mode">Não é possível adicionar palavras quando o modo preditivo está desativado.</string>
 	<string name="add_word_blank">Palavra em branco, impossível adicionar.</string>
 	<string name="add_word_exist">Palavra \"%1$s\" já está registrada.</string>
 	<string name="add_word_success">\"%1$s\" adicionada.</string>
 	<string name="add_word_title">Adicionar Palavra</string>
 
+	<string name="edit_word_no_selection">Mova o cursor para dentro de uma palavra para editá-la.</string>
 	<string name="commands_clipboard_is_empty">A área de transferência está vazia.</string>
 	<string name="commands_select_command">Selecionar um comando</string>
 	<string name="pref_category_about">Sobre</string>
@@ -231,6 +231,7 @@
 	<string name="punctuation_order_save">Salvar a ordem para %1$s</string>
 	<string name="punctuation_order_forbidden_char">Caractere proibido:%1$s</string>
 	<string name="punctuation_order_forbidden_chars">Caracteres proibidos:%1$s</string>
+	<string name="function_edit_word">Editar palavra</string>
 	<string name="function_filter_suggestions">Filtrar de Sugestões</string>
 	<string name="function_filter_suggestions_not_available">Não é possível filtrar neste idioma.</string>
 	<string name="pref_category_geometry">Geometria</string>
@@ -273,4 +274,6 @@
 	<string name="pref_hack_auto_disable_composing">Desativar automaticamente a composição de texto</string>
 	<string name="pref_show_suggestions_abc">Mostrar sugestões de letras</string>
 	<string name="pref_auto_trim_trailing_space">Remover automaticamente espaços finais</string>
+	<string name="edit_word_invalid_characters">Não é possível editar \"%1$s\" quando o idioma é \"%2$s\".</string>
+	<string name="edit_word_not_available_in_language">Não é possível editar palavras neste idioma.</string>
 </resources>
