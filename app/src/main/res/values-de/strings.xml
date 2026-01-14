@@ -7,12 +7,12 @@
 	<string name="add_word_add">Hinzufügen</string>
 	<string name="add_word_confirm">Wort \"%1$s\" zu %2$s hinzufügen?</string>
 	<string name="add_word_no_selection">Bewegen Sie den Cursor innerhalb eines Wortes, um es hinzuzufügen.</string>
-	<string name="add_word_not_available_without_predictive_mode">Das Hinzufügen von Wörtern ist nicht möglich, wenn die Textvorerkennung deaktiviert ist.</string>
 	<string name="add_word_blank">Leeres Wort nicht hinzugefügt.</string>
 	<string name="add_word_exist">Das Wort \"%1$s\" ist bereits in Wörterbuch.</string>
 	<string name="add_word_success">\"%1$s\" hinzugefügt.</string>
 	<string name="add_word_title">Wort hinzufügen</string>
 
+	<string name="edit_word_no_selection">Bewegen Sie den Cursor in ein Wort, um es zu bearbeiten.</string>
 	<string name="commands_clipboard_is_empty">Die Zwischenablage ist leer.</string>
 	<string name="commands_select_command">Einen Befehl auswählen</string>
 	<string name="pref_category_about">Über die Anwendung</string>
@@ -219,6 +219,7 @@
 	<string name="punctuation_order_forbidden_char">Verbotenes Zeichen:%1$s</string>
 	<string name="punctuation_order_forbidden_chars">Verbotene Zeichen:%1$s</string>
 	<string name="function_edit_text">Zwischenablage-Werkzeuge</string>
+	<string name="function_edit_word">Wort bearbeiten</string>
 	<string name="function_filter_suggestions">Vorschläge filtern</string>
 	<string name="function_filter_suggestions_not_available">Das Filtern ist in dieser Sprache nicht möglich.</string>
 	<string name="pref_category_geometry">Geometrie</string>
@@ -268,4 +269,6 @@
 	<string name="pref_hack_auto_disable_composing">Texterstellung automatisch deaktivieren</string>
 	<string name="pref_show_suggestions_abc">Buchstabenvorschläge anzeigen</string>
 	<string name="pref_auto_trim_trailing_space">Nachfolgende Leerzeichen automatisch entfernen</string>
+	<string name="edit_word_invalid_characters">„%1$s“ kann nicht bearbeitet werden, wenn die Sprache „%2$s“ ist.</string>
+	<string name="edit_word_not_available_in_language">Das Bearbeiten von Wörtern ist in dieser Sprache nicht möglich.</string>
 </resources>

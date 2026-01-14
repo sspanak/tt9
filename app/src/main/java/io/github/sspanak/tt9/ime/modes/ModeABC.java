@@ -235,11 +235,6 @@ class ModeABC extends InputMode {
 			modeString += " / " + language.getCode();
 		}
 
-		final Text formattedModeString = new Text(language, modeString);
-		return switch (textCase) {
-			case CASE_UPPER -> formattedModeString.toUpperCase();
-			case CASE_CAPITALIZE -> formattedModeString.capitalize();
-			default -> formattedModeString.toLowerCase();
-		};
+		return new Text(language, modeString).toTextCase(textCase);
 	}
 }

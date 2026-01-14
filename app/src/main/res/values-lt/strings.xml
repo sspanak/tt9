@@ -10,12 +10,12 @@
 	<string name="add_word_add">Pridėti</string>
 	<string name="add_word_confirm">Pridėti žodį \"%1$s\" į \"%2$s\" žodyną?</string>
 	<string name="add_word_no_selection">Perkelkite žymeklį prie žodžio kurį norite pridėti.</string>
-	<string name="add_word_not_available_without_predictive_mode">Žodžių pridėti negalima, kai nuspėjamumas yra išjungtas.</string>
 	<string name="add_word_blank">Negalima pridėti tuščio žodžio.</string>
 	<string name="add_word_exist">Žodis \"%1$s\" jau yra žodyne.</string>
 	<string name="add_word_success">Žodis \"%1$s\" pridėtas.</string>
 	<string name="add_word_title">Pridėti žodį</string>
 
+	<string name="edit_word_no_selection">Perkelkite žymeklį į žodžio vidų, kad galėtumėte jį redaguoti.</string>
 	<string name="commands_clipboard_is_empty">Iškarpinė tuščia.</string>
 	<string name="commands_select_command">Pasirinkti komandą</string>
 	<string name="pref_category_about">Apie programėlę</string>
@@ -108,6 +108,7 @@
 	<string name="function_show_command_palette">Rodyti komandų sąrašą</string>
 	<string name="function_filter_clear">Panaikinti filtrą</string>
 	<string name="function_edit_text">Iškarpinės įrankiai</string>
+	<string name="function_edit_word">Redaguoti žodį</string>
 	<string name="function_filter_suggestions">Filtruoti pasiūlymus</string>
 	<string name="function_filter_suggestions_not_available">Filtravimas šia kalba nėra galimas.</string>
 	<string name="function_previous_suggestion">Ankstesnis pasiūlytas žodis</string>
@@ -275,4 +276,6 @@
 	<string name="pref_hack_auto_disable_composing">Automatiškai išjungti teksto komponavimą</string>
 	<string name="pref_show_suggestions_abc">Rodyti raidžių pasiūlymus</string>
 	<string name="pref_auto_trim_trailing_space">Automatiškai šalinti pabaigos tarpus</string>
+	<string name="edit_word_invalid_characters">Negalima redaguoti „%1$s“, kai kalba yra „%2$s“.</string>
+	<string name="edit_word_not_available_in_language">Žodžių redagavimas šia kalba negalimas.</string>
 </resources>

@@ -7,11 +7,11 @@
 	<string name="error_unexpected">Възникна неочаквана грешка.</string>
 	<string name="add_word_add">Добави</string>
 	<string name="add_word_no_selection">Преместете показалеца върху дума, за да я добавите към речника.</string>
-	<string name="add_word_not_available_without_predictive_mode">Добавянето на думи не е възможно, когато Подсказващият режим е изключен.</string>
 	<string name="add_word_blank">Не може да се въведе празна дума.</string>
 	<string name="add_word_exist">Думата „%1$s“ вече съществува в речника.</string>
 	<string name="add_word_success">„%1$s“ е добавена.</string>
 	<string name="add_word_title">Добавяне на дума</string>
+	<string name="edit_word_no_selection">Преместете курсора вътре в дума, за да я редактирате.</string>
 	<string name="commands_clipboard_is_empty">Клипбордът е празен.</string>
 	<string name="commands_select_command">Изберете команда</string>
 	<string name="pref_category_about">За приложението</string>
@@ -96,6 +96,7 @@
 	<string name="function_add_word">Добавяне на дума</string>
 	<string name="function_show_command_palette">Списък с команди</string>
 	<string name="function_filter_clear">Изчистване на филтър</string>
+	<string name="function_edit_word">Редактиране на дума</string>
 	<string name="function_filter_suggestions">Филтриране на думи</string>
 	<string name="function_filter_suggestions_not_available">Филтрирането не е възможно на този език.</string>
 	<string name="function_previous_suggestion">Предишна дума</string>
@@ -266,4 +267,6 @@
 	<string name="pref_hardware_key_visual_feedback">Визуализиране на натисканията</string>
 	<string name="pref_show_suggestions_abc">Показване на предложения за букви</string>
 	<string name="pref_auto_trim_trailing_space">Автоматично премахване на крайните интервали</string>
+	<string name="edit_word_invalid_characters">Не може да се редактира „%1$s“, когато езикът е „%2$s“.</string>
+	<string name="edit_word_not_available_in_language">Редактирането на думи не е възможно за този език.</string>
 </resources>

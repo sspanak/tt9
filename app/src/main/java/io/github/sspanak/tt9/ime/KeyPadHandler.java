@@ -72,7 +72,7 @@ abstract class KeyPadHandler extends UiHandler {
 			event.startTracking();
 			return true;
 		}
-		else if (Key.isHotkey(settings, -keyCode)) {
+		else if (getFinalContext().isHoldHotkey(-keyCode)) {
 			event.startTracking();
 		}
 

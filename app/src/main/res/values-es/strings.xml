@@ -4,7 +4,6 @@
 	<string name="add_word_add">Agregar</string>
 	<string name="add_word_confirm">¿Agregar la palabra \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Mueve el cursor dentro de una palabra para añadirla.</string>
-	<string name="add_word_not_available_without_predictive_mode">No es posible añadir palabras cuando el texto predictivo está desactivado.</string>
 	<string name="add_word_blank">Palabra en blanco no agregada.</string>
 	<string name="pref_hold_to_type_summary">Permite escribir números o activar funciones de la app manteniendo pulsadas las teclas numéricas. Desactive si el dispositivo detecta erróneamente pulsaciones cortas como mantenidas.</string>
 	<string name="pref_key_shadows">Sombras bajo las teclas</string>
@@ -56,6 +55,7 @@
 	<string name="dictionary_load_title">Cargar los seleccionados</string>
 	<string name="dictionary_loading_indeterminate">Cargando diccionario</string>
 	<string name="dictionary_loading">Cargando diccionario (%1$s)…</string>
+	<string name="edit_word_no_selection">Mueve el cursor dentro de una palabra para editarla.</string>
 	<string name="commands_clipboard_is_empty">El portapapeles está vacío.</string>
 	<string name="commands_select_command">Seleccionar un comando</string>
 	<string name="pref_category_about">Acerca de esta aplicación</string>
@@ -109,6 +109,7 @@
 	<string name="function_show_command_palette">Lista de comandos</string>
 	<string name="function_filter_clear">Limpiar el filtro</string>
 	<string name="function_edit_text">Herramientas del portapapeles</string>
+	<string name="function_edit_word">Editar palabra</string>
 	<string name="function_filter_suggestions">Filtrar sugerencias</string>
 	<string name="function_filter_suggestions_not_available">No es posible filtrar en este idioma.</string>
 	<string name="function_previous_suggestion">Sugerencia previa</string>
@@ -266,4 +267,6 @@
 	<string name="pref_hack_auto_disable_composing">Desactivar automáticamente la composición de texto</string>
 	<string name="pref_show_suggestions_abc">Mostrar sugerencias de letras</string>
 	<string name="pref_auto_trim_trailing_space">Eliminar automáticamente los espacios finales</string>
+	<string name="edit_word_invalid_characters">No se puede editar \"%1$s\" cuando el idioma es \"%2$s\".</string>
+	<string name="edit_word_not_available_in_language">No es posible editar palabras en este idioma.</string>
 </resources>

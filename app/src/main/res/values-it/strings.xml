@@ -9,12 +9,12 @@
 	<string name="add_word_add">Aggiungere</string>
 	<string name="add_word_confirm">Aggiungi la parola \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Sposta il cursore dentro un parola per aggiungerla.</string>
-	<string name="add_word_not_available_without_predictive_mode">L’aggiunta di parole non è possibile quando la scrittura facilitata è disattivata.</string>
 	<string name="add_word_blank">Nessuna parola da aggiungere.</string>
 	<string name="add_word_exist">Parola “%1$s” già nel dizionario.</string>
 	<string name="add_word_success">\"%1$s\" aggiunta.</string>
 	<string name="add_word_title">Aggiungi parola</string>
 
+	<string name="edit_word_no_selection">Sposta il cursore all’interno di una parola per modificarla.</string>
 	<string name="commands_clipboard_is_empty">Gli appunti sono vuoti.</string>
 	<string name="commands_select_command">Selezionare un comando</string>
 	<string name="pref_category_about">Sull\'applicazione</string>
@@ -217,6 +217,7 @@
 	<string name="punctuation_order_forbidden_char">Carattere vietato:%1$s</string>
 	<string name="punctuation_order_forbidden_chars">Caratteri vietati:%1$s</string>
 	<string name="function_edit_text">Strumenti degli appunti</string>
+	<string name="function_edit_word">Modifica parola</string>
 	<string name="function_filter_suggestions">Filtrare suggerimenti</string>
 	<string name="function_filter_suggestions_not_available">Il filtraggio non è possibile in questa lingua.</string>
 	<string name="pref_category_geometry">Geometria</string>
@@ -269,5 +270,7 @@
 	<string name="pref_hack_auto_disable_composing">Disattivare automaticamente la composizione del testo</string>
 	<string name="pref_show_suggestions_abc">Mostra suggerimenti di lettere</string>
 	<string name="pref_auto_trim_trailing_space">Rimuovere automaticamente gli spazi finali</string>
+	<string name="edit_word_invalid_characters">Impossibile modificare \"%1$s\" quando la lingua è \"%2$s\".</string>
+	<string name="edit_word_not_available_in_language">La modifica delle parole non è possibile in questa lingua.</string>
 </resources>
 

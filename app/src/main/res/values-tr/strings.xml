@@ -7,12 +7,12 @@
 	<string name="add_word_add">Ekle</string>
 	<string name="add_word_confirm">\"%1$s\" kelimesi %2$s sözlüğe eklensin mi?</string>
 	<string name="add_word_no_selection">Ekleme yapmak için imleci eklemek istediğiniz kelimeye götürün.</string>
-	<string name="add_word_not_available_without_predictive_mode">Tahminli mod devre dışıyken kelime eklemek mümkün değildir.</string>
 	<string name="add_word_blank">Boşluk eklenemedi.</string>
 	<string name="add_word_exist">\"%1$s\" kelimesi zaten kelime listesinde mevcut.</string>
 	<string name="add_word_success">\"%1$s\" başarıyla eklendi.</string>
 	<string name="add_word_title">Kelime Ekle</string>
 
+	<string name="edit_word_no_selection">Düzenlemek için imleci kelimenin içine taşıyın.</string>
 	<string name="commands_clipboard_is_empty">Pano boş.</string>
 	<string name="commands_select_command">Bir komut seç</string>
 	<string name="pref_category_about">Hakkında</string>
@@ -165,6 +165,7 @@
 	<string name="function_show_command_palette">Komut listesini göster</string>
 	<string name="function_filter_clear">Filtre temizle</string>
 	<string name="function_edit_text">Pano araçları</string>
+	<string name="function_edit_word">Kelimeyi düzenle</string>
 	<string name="function_filter_suggestions">Tahminleri filtrele</string>
 	<string name="function_filter_suggestions_not_available">Bu dilde filtreleme mümkün değil.</string>
 	<string name="function_previous_suggestion">Önceki tahmin</string>
@@ -271,4 +272,6 @@
 	<string name="pref_hack_auto_disable_composing">Otomatik olarak metin girişini gizle</string>
 	<string name="pref_show_suggestions_abc">Harf önerilerini göster</string>
 	<string name="pref_auto_trim_trailing_space">Sondaki boşlukları otomatik olarak kaldır</string>
+	<string name="edit_word_invalid_characters">Dil \"%2$s\" iken \"%1$s\" düzenlenemez.</string>
+	<string name="edit_word_not_available_in_language">Bu dilde kelime düzenleme mümkün değildir.</string>
 </resources>

@@ -9,12 +9,12 @@
 	<string name="add_word_add">הוסף</string>
 	<string name="add_word_confirm">האם להוסיף את המילה \"%1$s\" ל-%2$s?</string>
 	<string name="add_word_no_selection">הזיזו את הסמן בתוך מילה כדי להוסיף אותה.</string>
-	<string name="add_word_not_available_without_predictive_mode">לא ניתן להוסיף מילים כאשר מצב חיזוי מושבת.</string>
 	<string name="add_word_blank">מילה ריקה לא נוספה</string>
 	<string name="add_word_exist">המילה \"%1$s\" כבר קיימת במילון.</string>
 	<string name="add_word_success">%1$s נוסף.</string>
 	<string name="add_word_title">הוסף מילה</string>
 
+	<string name="edit_word_no_selection">הזז את הסמן לתוך מילה כדי לערוך אותה.</string>
 	<string name="commands_clipboard_is_empty">לוח הגזירים ריק.</string>
 	<string name="commands_select_command">לבחור פקודה</string>
 	<string name="pref_category_about">אודות</string>
@@ -229,6 +229,7 @@
 	<string name="punctuation_order_save">שמור את הסדר עבור ‎%1$s</string>
 	<string name="punctuation_order_forbidden_char">תו אסור:%1$s</string>
 	<string name="punctuation_order_forbidden_chars">תווים אסורים:%1$s</string>
+	<string name="function_edit_word">עריכת מילה</string>
 	<string name="function_filter_suggestions">סינון הצעות</string>
 	<string name="function_filter_suggestions_not_available">לא ניתן לסנן בשפה זו.</string>
 	<string name="pref_category_geometry">גיאומטריה</string>
@@ -273,4 +274,6 @@
 	<string name="pref_hack_auto_disable_composing">השבתת חיבור טקסט אוטומטית</string>
 	<string name="pref_show_suggestions_abc">הצגת הצעות לאותיות</string>
 	<string name="pref_auto_trim_trailing_space">הסרה אוטומטית של רווחים בסוף</string>
+	<string name="edit_word_invalid_characters">לא ניתן לערוך \"%1$s\" כאשר השפה היא \"%2$s\".</string>
+	<string name="edit_word_not_available_in_language">עריכת מילים אינה אפשרית בשפה זו.</string>
 </resources>
