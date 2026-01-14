@@ -111,6 +111,10 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return onKeyEditText(validateOnly);
 		}
 
+		if (keyCode == settings.getKeyEditWord()) {
+			return onKeyEditWord(validateOnly);
+		}
+
 		if (keyCode == settings.getKeyFilterClear()) {
 			return onKeyFilterClear(validateOnly);
 		}
@@ -198,6 +202,20 @@ public abstract class HotkeyHandler extends CommandHandler {
 		} else {
 			showCommandPalette();
 			forceShowWindow();
+		}
+
+		return true;
+	}
+
+
+	public boolean onKeyEditWord(boolean validateOnly) {
+		if (shouldBeOff()) {
+			return false;
+		}
+
+		if (!validateOnly) {
+			forceShowWindow();
+			editWord();
 		}
 
 		return true;
@@ -354,15 +372,9 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout()); // restart the timer
-		nextInputMode();
-
-		getDisplayTextCase(mLanguage, mInputMode.getTextCase());
-		setStatusIcon(mInputMode, mLanguage);
-		statusBar.setText(mInputMode);
-		mainView.render();
-
-		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {
-			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
+		final int nextModeId = nextInputMode();
+		if (nextModeId != mInputMode.getId()) {
+			setInputMode(nextModeId);
 		}
 
 		forceShowWindow();
