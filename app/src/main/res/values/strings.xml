@@ -22,12 +22,15 @@
 	<string name="add_word_no_confirmation">Add Without Confirmation</string>
 	<string name="add_word_no_selection">Move the cursor inside a word to add it.</string>
 	<string name="add_word_not_available_in_language">Adding words is not possible in this language.</string>
-	<string name="add_word_not_available_without_predictive_mode">Adding words is not possible when Predictive mode is disabled.</string>
 	<string name="add_word_blank">Blank word not added.</string>
 	<string name="add_word_exist">Word \"%1$s\" is already in the dictionary.</string>
 	<string name="add_word_invalid_language" translatable="false">Cannot add a word when no language is selected.</string>
 	<string name="add_word_success">\"%1$s\" added.</string>
 	<string name="add_word_title">Add Word</string>
+
+	<string name="edit_word_invalid_characters">Can not edit \"%1$s\" when language is \"%2$s\".</string>
+	<string name="edit_word_not_available_in_language">Editing words is not possible in this language.</string>
+	<string name="edit_word_no_selection">Move the cursor inside a word to edit it.</string>
 
 	<string name="commands_clipboard_is_empty">Clipboard is empty.</string>
 	<string name="commands_select_command">Select a Command</string>
@@ -215,6 +218,7 @@
 	<string name="function_show_command_palette">Show Command List</string>
 	<string name="function_filter_clear">Clear Filter</string>
 	<string name="function_edit_text">Show Clipboard Tools</string>
+	<string name="function_edit_word">Edit Word</string>
 	<string name="function_filter_suggestions">Filter Suggestions</string>
 	<string name="function_filter_suggestions_not_available">Filtering is not possible in this language.</string>
 	<string name="function_previous_suggestion">Previous Suggestion</string>

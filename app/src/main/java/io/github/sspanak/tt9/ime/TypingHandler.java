@@ -157,7 +157,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		// load new words only if there is no selected text, because it would be confusing
 		if (repeat == 0 && mInputMode.onBackspace() && textSelection.isEmpty()) {
-			getSuggestions(null, () -> recompose(repeat, false));
+			final Runnable onLoad = InputModeKind.isRecomposing(mInputMode) ? null : () -> recompose(repeat, false);
+			getSuggestions(null, onLoad);
 		} else {
 			suggestionOps.commitCurrent(false, true);
 			mInputMode.reset();
@@ -543,7 +544,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		final ArrayList<String> suggestions = mInputMode.getSuggestions();
-		suggestionOps.set(suggestions, mInputMode.containsGeneratedSuggestions());
+		suggestionOps.set(suggestions, mInputMode.getRecommendedSuggestionIdx(), mInputMode.containsGeneratedSuggestions());
 
 		// either accept the first one automatically (when switching from punctuation to text
 		// or vice versa), or schedule auto-accept in N seconds (in ABC mode)
@@ -554,8 +555,17 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// We have not accepted anything yet, which means the user is composing a word.
 		// put the first suggestion in the text field, but cut it off to the length of the sequence
 		// (the count of key presses), for a more intuitive experience.
-		String trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
-		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
+		String trimmedWord;
+
+		if (InputModeKind.isRecomposing(mInputMode)) {
+			// highlight the current letter, when editing a word
+			trimmedWord = mInputMode.getWordStem() + suggestionOps.getCurrent();
+			appHacks.setComposingTextPartsWithHighlightedJoining(trimmedWord, mInputMode.getRecomposingSuffix());
+		} else {
+			// or highlight the stem, when filtering
+			trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
+			appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
+		}
 
 		beforeCursor = beforeCursor != null ? beforeCursor + trimmedWord : trimmedWord;
 		if (suggestions.isEmpty()) {
@@ -572,7 +582,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 		suggestionOps.cancelDelayedAccept();
 		suggestionOps.scrollTo(backward ? -1 : 1);
 		mInputMode.setWordStem(suggestionOps.getCurrent(), true);
-		appHacks.setComposingTextWithHighlightedStem(suggestionOps.getCurrent(), mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
+		if (InputModeKind.isRecomposing(mInputMode)) {
+			appHacks.setComposingTextPartsWithHighlightedJoining(mInputMode.getWordStem() + suggestionOps.getCurrent(), mInputMode.getRecomposingSuffix());
+		} else {
+			appHacks.setComposingTextWithHighlightedStem(suggestionOps.getCurrent(), mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
+		}
 	}
 
 

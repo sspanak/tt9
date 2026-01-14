@@ -48,6 +48,11 @@ public class Text extends TextTools {
 	}
 
 
+	public Text(@Nullable Language language, char text) {
+		this(language, text == 0 ? null : String.valueOf(text));
+	}
+
+
 	public Text(@Nullable String text) {
 		this(null, text);
 	}
@@ -234,6 +239,43 @@ public class Text extends TextTools {
 	}
 
 
+	@NonNull
+	public String deleteCharAt(int index) {
+		if (text == null) {
+			return "";
+		}
+
+		if (index < 0 || index >= text.length()) {
+			return text;
+		}
+
+		StringBuilder sb = new StringBuilder(text);
+		sb.deleteCharAt(index);
+		return sb.toString();
+	}
+
+
+	@NonNull
+	public String duplicateCharAt(int position) {
+		if (text == null) {
+			return "";
+		}
+
+		if (position < 0 || position >= text.length()) {
+			return text;
+		}
+
+		final int length = text.length();
+		final char[] oldText = text.toCharArray();
+		final char[] newText = new char[length + 1];
+
+		System.arraycopy(oldText, 0, newText, 0, position);
+		newText[position] = oldText[position];
+		System.arraycopy(oldText, position, newText, position + 1, length - position);
+		return new String(newText);
+	}
+
+
 	/**
 	 * Returns the length of the last grapheme (a user-perceived character). This allows for correctly
 	 * deleting graphemes consisting of multiple Java chars. Example: 🏴‍☠️ (pirate flag) = 5 chars.
@@ -400,6 +442,16 @@ public class Text extends TextTools {
 		} else {
 			return text.toUpperCase(language != null ? language.getLocale() : Locale.getDefault());
 		}
+	}
+
+
+	public String toTextCase(int textCase) {
+		return switch (textCase) {
+			case InputMode.CASE_LOWER -> toLowerCase();
+			case InputMode.CASE_UPPER -> toUpperCase();
+			case InputMode.CASE_CAPITALIZE -> capitalize();
+			default -> text == null ? "" : text;
+		};
 	}
 
 

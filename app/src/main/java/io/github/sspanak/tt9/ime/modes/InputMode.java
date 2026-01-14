@@ -24,6 +24,7 @@ abstract public class InputMode {
 	public static final int MODE_PASSTHROUGH = 4;
 	public static final int MODE_HIRAGANA = 5;
 	public static final int MODE_KATAKANA = 6;
+	public static final int MODE_RECOMPOSING = 7;
 
 	// text case
 	public static final int CASE_UNDEFINED = -1;
@@ -74,6 +75,8 @@ abstract public class InputMode {
 				return new ModeABC(settings, language, inputType);
 			case MODE_ABC:
 				return new ModeABC(settings, language, inputType);
+			case MODE_RECOMPOSING:
+				return new ModeRecomposing(settings, language, inputType, textField);
 			case MODE_PASSTHROUGH:
 				return new ModePassthrough(settings, inputType);
 			default:
@@ -149,6 +152,12 @@ abstract public class InputMode {
 		return suggestions.isEmpty();
 	}
 
+	/**
+	 * Returns the index of the most appropriate suggestion to be pre-selected. If the mode does not
+	 * support recommendation, it should return 0, meaning the first suggestion.
+	 */
+	public int getRecommendedSuggestionIdx() { return 0; }
+
 	public InputMode setOnSuggestionsUpdated(@NonNull Runnable onSuggestionsUpdated) {
 		this.onSuggestionsUpdated = onSuggestionsUpdated;
 		return this;
@@ -186,13 +195,16 @@ abstract public class InputMode {
 	public boolean shouldIgnoreText(String text) { return text == null || text.isEmpty(); }
 	public boolean shouldSelectNextSuggestion() { return false; }
 
-	public void beforeDeleteText() {}
-	public String recompose() { return null; }
-
 	public void reset() {
 		autoAcceptTimeout = -1;
 		suggestions.clear();
 	}
+
+	// recomposing
+	public void beforeDeleteText() {}
+	public String recompose() { return null; }
+	@NonNull public String getRecomposingSuffix() { return ""; }
+
 
 	// Text case
 	public int getTextCase() { return textCase; }
