@@ -359,7 +359,6 @@ public abstract class HotkeyHandler extends CommandHandler {
 		getDisplayTextCase(mLanguage, mInputMode.getTextCase());
 		setStatusIcon(mInputMode, mLanguage);
 		statusBar.setText(mInputMode);
-		suggestionOps.onInputModeChanged();
 		mainView.render();
 
 		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {

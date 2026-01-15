@@ -81,7 +81,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 		determineTextCase();
 		updateShiftState(null, true, false); // don't use beforeCursor cache on start up
 		suggestionOps.set(null);
-		suggestionOps.onInputModeChanged();
 
 		return true;
 	}

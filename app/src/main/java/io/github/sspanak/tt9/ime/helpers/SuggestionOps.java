@@ -48,13 +48,6 @@ public class SuggestionOps {
 	}
 
 
-	public void onInputModeChanged() {
-		if (suggestionBar != null && settings != null) {
-			suggestionBar.setVisible(settings.getShowSuggestions());
-		}
-	}
-
-
 	public void setLanguage(@Nullable Language newLanguage) {
 		if (suggestionBar != null) {
 			suggestionBar.setRTL(LanguageKind.isRTL(newLanguage));
@@ -97,25 +90,20 @@ public class SuggestionOps {
 
 
 	public void set(ArrayList<String> suggestions) {
-		if (suggestionBar != null) {
-			suggestionBar.setMany(suggestions, 0, false);
-		}
-		setStatusBarVisible(settings, suggestions);
+		set(suggestions, 0, false);
 	}
 
+
 	public void set(ArrayList<String> suggestions, boolean containsGenerated) {
-		if (suggestionBar != null) {
-			suggestionBar.setMany(suggestions, 0, containsGenerated);
-		}
-		setStatusBarVisible(settings, suggestions);
+		set(suggestions, 0, containsGenerated);
 	}
 
 
 	public void set(ArrayList<String> suggestions, int selectIndex, boolean containsGenerated) {
+		setVisibility(settings, suggestions, false);
 		if (suggestionBar != null) {
 			suggestionBar.setMany(suggestions, selectIndex, containsGenerated);
 		}
-		setStatusBarVisible(settings, suggestions);
 	}
 
 
@@ -128,7 +116,10 @@ public class SuggestionOps {
 			}
 		}
 
-		set(clipStrings);
+		setVisibility(settings, clipStrings, true);
+		if (suggestionBar != null) {
+			suggestionBar.setMany(clipStrings, 0, false);
+		}
 	}
 
 
@@ -253,13 +244,15 @@ public class SuggestionOps {
 	}
 
 
-	private void setStatusBarVisible(@Nullable SettingsStore settings, @Nullable ArrayList<String> suggestions) {
+	private void setVisibility(@Nullable SettingsStore settings, @Nullable ArrayList<String> newSuggestions, boolean clipboardSuggestions) {
+		final boolean areSuggestionsVisible = (settings != null && settings.getShowSuggestions()) || clipboardSuggestions;
+
+		if (suggestionBar != null) {
+			suggestionBar.setVisible(areSuggestionsVisible);
+		}
+
 		if (statusBar != null) {
-			statusBar.setShown(
-				suggestions == null
-				|| suggestions.isEmpty()
-				|| (settings != null && !settings.getShowSuggestions())
-			);
+			statusBar.setShown(newSuggestions == null || newSuggestions.isEmpty() || !areSuggestionsVisible);
 		}
 	}
 }

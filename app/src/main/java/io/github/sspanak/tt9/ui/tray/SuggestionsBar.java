@@ -42,7 +42,6 @@ public class SuggestionsBar {
 
 	private int defaultBackgroundColor = Color.TRANSPARENT;
 	private int backgroundColor;
-	private boolean isVisible;
 	private int suggestionSeparatorColor;
 
 	private double lastClickTime = 0;
@@ -151,7 +150,9 @@ public class SuggestionsBar {
 
 
 	public void setVisible(boolean yes) {
-		isVisible = yes;
+		if (mView != null) {
+			mView.setVisibility(yes ? View.VISIBLE : View.GONE);
+		}
 	}
 
 
@@ -320,18 +321,22 @@ public class SuggestionsBar {
 
 
 	private void render() {
-		if (mView == null || !isVisible) {
+		if (mView == null) {
 			return;
 		}
 
-		setBackground(false);
-		mSuggestionsAdapter.setTextSize(settings.getSuggestionFontScale());
+		final boolean isVisible = mView.getVisibility() == View.VISIBLE;
 
-		boolean smooth = settings.getSuggestionSmoothScroll() && visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX + 1;
-		mView.setItemAnimator(smooth ? animator : null);
+		if (isVisible) {
+			setBackground(false);
+			mSuggestionsAdapter.setTextSize(settings.getSuggestionFontScale());
+
+			boolean smooth = settings.getSuggestionSmoothScroll() && visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX + 1;
+			mView.setItemAnimator(smooth ? animator : null);
+		}
 
 		mSuggestionsAdapter.resetItems(selectedIndex);
-		if (selectedIndex > 0) {
+		if (isVisible && selectedIndex > 0) {
 			mView.scrollToPosition(selectedIndex);
 		}
 	}
@@ -423,7 +428,7 @@ public class SuggestionsBar {
 	 * to set the selected index in the adapter.
 	 */
 	private void renderScroll() {
-		if (mView == null || !isVisible) {
+		if (mView == null || mView.getVisibility() != View.VISIBLE) {
 			return;
 		}
 
