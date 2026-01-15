@@ -22,6 +22,6 @@ public class SoftKeyTextEditingSmall extends SoftKeyFnSmall {
 			return super.getBottomIconId();
 		}
 
-		return CommandCollection.getByKeyId(CommandCollection.COLLECTION_TEXT_EDITING, getId()).getIcon();
+		return CommandCollection.getBySoftKey(CommandCollection.COLLECTION_TEXT_EDITING, getId()).getIcon();
 	}
 }
