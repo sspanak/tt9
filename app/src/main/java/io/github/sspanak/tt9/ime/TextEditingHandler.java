@@ -5,11 +5,13 @@ import android.view.inputmethod.EditorInfo;
 import java.util.LinkedList;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CommandCollection;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Ternary;
+import io.github.sspanak.tt9.util.chars.Characters;
 import io.github.sspanak.tt9.util.sys.Clipboard;
 
 abstract public class TextEditingHandler extends VoiceHandler {
@@ -56,39 +58,12 @@ abstract public class TextEditingHandler extends VoiceHandler {
 			suggestionOps.acceptCurrent();
 		}
 
-		switch (key) {
-			case 0:
-				if (!InputModeKind.isNumeric(mInputMode)) {
-					onText(" ", false);
-				}
-				break;
-			case 1:
-				textSelection.selectNextChar(!isLanguageRTL);
-				break;
-			case 2:
-				textSelection.clear();
-				break;
-			case 3:
-				textSelection.selectNextChar(isLanguageRTL);
-				break;
-			case 4:
-				textSelection.selectNextWord(!isLanguageRTL);
-				break;
-			case 5:
-				textSelection.selectAll();
-				break;
-			case 6:
-				textSelection.selectNextWord(isLanguageRTL);
-				break;
-			case 7:
-				cut();
-				break;
-			case 8:
-				copy();
-				break;
-			case 9:
-				paste();
-				break;
+		if (key == 0) {
+			if (!InputModeKind.isNumeric(mInputMode)) {
+				onText(Characters.getSpace(mLanguage), false);
+			}
+		} else {
+			CommandCollection.getByHardKey(CommandCollection.COLLECTION_TEXT_EDITING, key).run(getFinalContext());
 		}
 	}
 
@@ -106,14 +81,14 @@ abstract public class TextEditingHandler extends VoiceHandler {
 	}
 
 
-	private void cut() {
+	public void cut() {
 		if (copy()) {
 			suggestionOps.clear();
 		}
 	}
 
 
-	private boolean copy() {
+	public boolean copy() {
 		CharSequence selectedText = textSelection.getSelectedText();
 		if (selectedText.length() == 0) {
 			return false;
@@ -124,7 +99,7 @@ abstract public class TextEditingHandler extends VoiceHandler {
 	}
 
 
-	private void paste() {
+	public void paste() {
 		if (!suggestionOps.isEmpty()) {
 			suggestionOps.clear();
 			return;
