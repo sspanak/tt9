@@ -218,7 +218,7 @@ public class NaturalLanguage extends TranscribedLanguage {
 			return new ArrayList<>();
 		}
 
-		return layout.get(key);
+		return new ArrayList<>(layout.get(key));
 	}
 
 
