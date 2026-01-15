@@ -8,8 +8,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import io.github.sspanak.tt9.R;
-
 public class CommandCollection {
 	public static final int COLLECTION_HOTKEYS = 1;
 	public static final int COLLECTION_PALETTE = 2;
@@ -48,9 +46,21 @@ public class CommandCollection {
 
 
 	@NonNull
-	public static Command getByKeyId(int collectionType, int keyId) {
+	public static Command getBySoftKey(int collectionType, int keyId) {
 		Command cmd = getAll(collectionType).get(keyId);
 		return cmd != null ? cmd : new NullCommand();
+	}
+
+
+	@NonNull
+	public static Command getByHardKey(int collectionType, int keyCode) {
+		for (Command cmd : getAll(collectionType).values()) {
+			if (cmd.getHardKey() == keyCode) {
+				return cmd;
+			}
+		}
+
+		return new NullCommand();
 	}
 
 
@@ -91,34 +101,44 @@ public class CommandCollection {
 	}
 
 
+	private static void addPaletteCommand(@NonNull Command cmd) {
+		palette.put(cmd.getPaletteKey(), cmd);
+	}
+
+
 	@NonNull
 	private static LinkedHashMap<Integer, Command> getPaletteCommands() {
 		if (palette.isEmpty()) {
-			palette.put(R.id.soft_key_1, new CmdAddWord());
-			palette.put(R.id.soft_key_2, new CmdEditWord());
-			palette.put(R.id.soft_key_3, new CmdVoiceInput());
-			palette.put(R.id.soft_key_4, new CmdUndo());
-			palette.put(R.id.soft_key_5, new CmdEditText());
-			palette.put(R.id.soft_key_6, new CmdRedo());
-			palette.put(R.id.soft_key_8, new CmdSelectKeyboard());
-			palette.put(R.id.soft_key_9, new CmdShowSettings());
+			addPaletteCommand(new CmdAddWord());
+			addPaletteCommand(new CmdEditWord());
+			addPaletteCommand(new CmdVoiceInput());
+			addPaletteCommand(new CmdUndo());
+			addPaletteCommand(new CmdEditText());
+			addPaletteCommand(new CmdRedo());
+			addPaletteCommand(new CmdSelectKeyboard());
+			addPaletteCommand(new CmdShowSettings());
 		}
 
 		return palette;
 	}
 
 
+	private static void addTextEditingCommand(@NonNull Command cmd) {
+		textEditing.put(cmd.getPaletteKey(), cmd);
+	}
+
+
 	private static LinkedHashMap<Integer, Command> getTextEditingCommands() {
 		if (textEditing.isEmpty()) {
-			textEditing.put(R.id.soft_key_1, new CmdTxtSelectPreviousChar());
-			textEditing.put(R.id.soft_key_2, new CmdTxtSelectNone());
-			textEditing.put(R.id.soft_key_3, new CmdTxtSelectNextChar());
-			textEditing.put(R.id.soft_key_4, new CmdTxtSelectPreviousWord());
-			textEditing.put(R.id.soft_key_5, new CmdTxtSelectAll());
-			textEditing.put(R.id.soft_key_6, new CmdTxtSelectNextWord());
-			textEditing.put(R.id.soft_key_7, new CmdTxtCut());
-			textEditing.put(R.id.soft_key_8, new CmdTxtCopy());
-			textEditing.put(R.id.soft_key_9, new CmdTxtPaste());
+			addTextEditingCommand(new CmdTxtSelectPreviousChar());
+			addTextEditingCommand(new CmdTxtSelectNone());
+			addTextEditingCommand(new CmdTxtSelectNextChar());
+			addTextEditingCommand(new CmdTxtSelectPreviousWord());
+			addTextEditingCommand(new CmdTxtSelectAll());
+			addTextEditingCommand(new CmdTxtSelectNextWord());
+			addTextEditingCommand(new CmdTxtCut());
+			addTextEditingCommand(new CmdTxtCopy());
+			addTextEditingCommand(new CmdTxtPaste());
 		}
 
 		return textEditing;
