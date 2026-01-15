@@ -2,16 +2,20 @@ package io.github.sspanak.tt9.commands;
 
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 
 public class CmdVoiceInput implements Command {
 	public static final String ID = "key_voice_input";
-	public String getId() { return ID; }
-	public int getIcon() { return io.github.sspanak.tt9.R.drawable.ic_fn_voice; }
-	public int getIconOff() { return io.github.sspanak.tt9.R.drawable.ic_fn_voice_off; }
-	public int getName() { return io.github.sspanak.tt9.R.string.function_voice_input; }
+	@Override public String getId() { return ID; }
+	@Override public int getIcon() { return R.drawable.ic_fn_voice; }
+	public int getIconOff() { return R.drawable.ic_fn_voice_off; }
+	@Override public int getName() { return R.string.function_voice_input; }
+	@Override public int getHardKey() { return 3; }
+	@Override public int getPaletteKey() { return R.id.soft_key_3; }
 
-	public boolean run(io.github.sspanak.tt9.ime.TraditionalT9 tt9) {
+	@Override
+	public boolean run(TraditionalT9 tt9) {
 		if (tt9 != null) {
 			tt9.toggleVoiceInput();
 			return true;

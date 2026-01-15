@@ -27,12 +27,12 @@ public class SoftKeyFnSmall extends SoftKeyNumberNumpad {
 		if (isNOOP()) {
 			return false;
 		} else {
-			return CommandCollection.getByKeyId(CommandCollection.COLLECTION_PALETTE, getId()).isAvailable(tt9);
+			return CommandCollection.getBySoftKey(CommandCollection.COLLECTION_PALETTE, getId()).isAvailable(tt9);
 		}
 	}
 
 	protected int getBottomIconId() {
-		return CommandCollection.getByKeyId(CommandCollection.COLLECTION_PALETTE, getId()).getIcon();
+		return CommandCollection.getBySoftKey(CommandCollection.COLLECTION_PALETTE, getId()).getIcon();
 	}
 
 	private void setBottomIcon() {
