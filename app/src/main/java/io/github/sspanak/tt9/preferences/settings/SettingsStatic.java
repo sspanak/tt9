@@ -51,4 +51,5 @@ public class SettingsStatic extends SettingsColors {
 
 	/************* hacks *************/
 	public final static int PREFERENCES_CLICK_DEBOUNCE_TIME = 250; // ms
+	public final static int VOICE_INPUT_START_FAILURE_TIMEOUT = 5000; // ms
 }

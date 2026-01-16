@@ -24,6 +24,7 @@ public class VoiceInputOps {
 
 	@NonNull private final Context ims;
 	@NonNull private final HashMap<Integer, Boolean> isOfflineModeDisabled;
+	private boolean forceAlternativeInput = false;
 	@Nullable private Language language;
 	@NonNull private final VoiceListener listener;
 	@NonNull private final SpeechRecognizerSupportLegacy recognizerSupport;
@@ -103,7 +104,7 @@ public class VoiceInputOps {
 
 	public void listen(@Nullable Language language) {
 		this.language = language;
-		if (recognizerSupport.isAlternativeAvailable(ims)) {
+		if (forceAlternativeInput || recognizerSupport.isAlternativeAvailable(ims)) {
 			ims.startActivity(VoiceInputPickerActivity.generateShowIntent(ims));
 		} else {
 			recognizerSupport.setLanguage(language).checkOfflineSupport(
@@ -134,6 +135,7 @@ public class VoiceInputOps {
 		String locale = getLocale(language);
 
 		try {
+			listener.onBeforeStart();
 			speechRecognizer.startListening(createIntent(locale));
 			Logger.d(LOG_TAG, "SpeechRecognizer started for locale: " + locale);
 		} catch (SecurityException e) {
@@ -191,6 +193,12 @@ public class VoiceInputOps {
 		}
 
 		Logger.d(LOG_TAG, "Re-enabled offline voice input for all languages");
+	}
+
+
+	public VoiceInputOps forceAlternativeInput(boolean yes) {
+		forceAlternativeInput = yes;
+		return this;
 	}
 
 

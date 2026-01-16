@@ -6,12 +6,14 @@ import android.speech.SpeechRecognizer;
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class VoiceInputError {
 	public final static int ERROR_NOT_AVAILABLE = 101;
 	public final static int ERROR_INVALID_LANGUAGE = 102;
 	public final static int ERROR_CANNOT_BIND_TO_VOICE_SERVICE = 103;
+	public final static int ERROR_START_FAILURE = 104;
 
 	public final int code;
 	public final String message;
@@ -43,6 +45,11 @@ public class VoiceInputError {
 
 	public boolean isLanguageMissing() {
 		return DeviceInfo.AT_LEAST_ANDROID_12 && code == SpeechRecognizer.ERROR_LANGUAGE_UNAVAILABLE;
+	}
+
+
+	public boolean isStartTimeout() {
+		return code == ERROR_START_FAILURE;
 	}
 
 
@@ -112,6 +119,7 @@ public class VoiceInputError {
 			case ERROR_NOT_AVAILABLE -> "Voice input is not available.";
 			case ERROR_INVALID_LANGUAGE -> "Invalid language for voice input.";
 			case ERROR_CANNOT_BIND_TO_VOICE_SERVICE -> "Cannot bind to the current voice input service.";
+			case ERROR_START_FAILURE -> "Timed out waiting for SpeechRecognition service to start after " + SettingsStatic.VOICE_INPUT_START_FAILURE_TIMEOUT + " ms.";
 			default -> null;
 		};
 	}
