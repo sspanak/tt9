@@ -8,8 +8,7 @@ import java.util.HashMap;
 
 import io.github.sspanak.tt9.commands.CmdAddWord;
 import io.github.sspanak.tt9.commands.CmdEditText;
-import io.github.sspanak.tt9.commands.CmdRedo;
-import io.github.sspanak.tt9.commands.CmdUndo;
+import io.github.sspanak.tt9.commands.CmdEditWord;
 import io.github.sspanak.tt9.commands.CmdVoiceInput;
 import io.github.sspanak.tt9.commands.NullCommand;
 
@@ -26,6 +25,7 @@ public class SettingsCustomKeyActions extends SettingsUI {
 
 	protected static final HashMap<String, String> classicLayoutDefaultsSwipeLeft = new HashMap<>() {{
 		put(CUSTOM_ACTION_KEY_1, CmdAddWord.ID);
+		put(CUSTOM_ACTION_KEY_2, CmdEditWord.ID);
 		put(CUSTOM_ACTION_KEY_5, CmdEditText.ID);
 	}};
 

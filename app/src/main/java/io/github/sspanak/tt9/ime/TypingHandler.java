@@ -539,7 +539,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		final ArrayList<String> suggestions = mInputMode.getSuggestions();
-		suggestionOps.set(suggestions, mInputMode.containsGeneratedSuggestions());
+		suggestionOps.set(suggestions, mInputMode.getRecommendedSuggestionIdx(), mInputMode.containsGeneratedSuggestions());
 
 		// either accept the first one automatically (when switching from punctuation to text
 		// or vice versa), or schedule auto-accept in N seconds (in ABC mode)
@@ -550,8 +550,15 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// We have not accepted anything yet, which means the user is composing a word.
 		// put the first suggestion in the text field, but cut it off to the length of the sequence
 		// (the count of key presses), for a more intuitive experience.
-		String trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
-		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
+		final String trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
+
+		if (InputModeKind.isRecomposing(mInputMode)) {
+			// highlight the current letter, when editing a word
+			appHacks.setComposingTextPartsWithHighlightedJoining(trimmedWord, mInputMode.getRecomposingSuffix());
+		} else {
+			// or highlight the stem, when filtering
+			appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
+		}
 
 		beforeCursor = beforeCursor != null ? beforeCursor + trimmedWord : trimmedWord;
 		if (suggestions.isEmpty()) {
@@ -568,7 +575,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 		suggestionOps.cancelDelayedAccept();
 		suggestionOps.scrollTo(backward ? -1 : 1);
 		mInputMode.setWordStem(suggestionOps.getCurrent(), true);
-		appHacks.setComposingTextWithHighlightedStem(suggestionOps.getCurrent(), mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
+		if (InputModeKind.isRecomposing(mInputMode)) {
+			appHacks.setComposingTextPartsWithHighlightedJoining(suggestionOps.getCurrent(), mInputMode.getRecomposingSuffix());
+		} else {
+			appHacks.setComposingTextWithHighlightedStem(suggestionOps.getCurrent(), mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
+		}
 	}
 
 

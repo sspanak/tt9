@@ -6,6 +6,7 @@ public class SettingsStatic extends SettingsColors {
 	protected SettingsStatic(Context context) { super(context); }
 
 	/************* internal settings *************/
+	public static final int ADD_WORD_MIN_LENGTH = 2;
 	public static final int BACKSPACE_ACCELERATION_MAX_CHARS = 20; // maximum chars to be deleted at once in very long words
 	public static final int BACKSPACE_ACCELERATION_MAX_CHARS_NO_SPACE = 4; // maximum chars to be deleted at once for languages with no spaces
 	public static final int BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE = 5;

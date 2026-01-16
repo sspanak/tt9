@@ -79,11 +79,23 @@ public class AppHacks {
 	}
 
 
+
+	public void setComposingTextWithHighlightedStem(@NonNull String word, @Nullable String stem, boolean isStemFilterFuzzy) {
+		setComposingTextWithHighlight(word, 0, stem != null ? stem.length() : 0, isStemFilterFuzzy);
+	}
+
+
+	public void setComposingTextPartsWithHighlightedJoining(@NonNull String word, @NonNull String suffix) {
+		final int highlightStart = word.length() - 1;
+		final int highlightEnd = highlightStart + 1;
+		setComposingTextWithHighlight(word + suffix, highlightStart, highlightEnd, true);
+	}
+
+
 	/**
-	 * setComposingTextWithHighlightedStem
 	 * A compatibility function for text fields that do not properly support composing text.
 	 */
-	public void setComposingTextWithHighlightedStem(@NonNull String word, @Nullable String stem, boolean isStemFilterFuzzy) {
+	public void setComposingTextWithHighlight(@NonNull String word, int highlightStart, int highlightEnd, boolean highlightMode) {
 		if (inputType == null || textField == null) {
 			return;
 		}
@@ -107,7 +119,7 @@ public class AppHacks {
 		Timer.start(COMPOSING_TEXT_TO_RESTART_TIMER);
 
 		// set the composing text in the app
-		textField.setComposingTextWithHighlightedStem(word, stem, isStemFilterFuzzy);
+		textField.setComposingTextWithHighlight(word, highlightStart, highlightEnd, highlightMode);
 	}
 
 
