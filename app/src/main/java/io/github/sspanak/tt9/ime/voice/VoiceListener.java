@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.ime.voice;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.speech.RecognitionListener;
 import android.speech.SpeechRecognizer;
 
@@ -10,16 +12,19 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 
 class VoiceListener implements RecognitionListener {
 	private boolean listening = false;
+	private volatile boolean startSuccess = false;
 
 	@NonNull private final Context context;
 	@NonNull private final Runnable onStart;
 	@NonNull private final ConsumerCompat<ArrayList<String>> onStop;
 	@NonNull private final ConsumerCompat<ArrayList<String>> onPartial;
 	@NonNull private final ConsumerCompat<VoiceInputError> onError;
+	@NonNull private final Handler startFailureHandler;
 
 	VoiceListener(
 		@NonNull Context context,
@@ -30,6 +35,7 @@ class VoiceListener implements RecognitionListener {
 	) {
 		this.context = context;
 		this.onStart = onStart != null ? onStart : () -> {};
+		this.startFailureHandler = new Handler(Looper.getMainLooper());
 		this.onStop = onStop != null ? onStop : (t) -> {};
 		this.onPartial = onPartial != null ? onPartial : (t) -> {};
 		this.onError = onError != null ? onError : (e) -> {};
@@ -39,20 +45,37 @@ class VoiceListener implements RecognitionListener {
 		return listening;
 	}
 
+	public void onBeforeStart() {
+		startSuccess = false;
+
+		startFailureHandler.removeCallbacksAndMessages(null);
+		startFailureHandler.postDelayed(this::onStartFailure, SettingsStatic.VOICE_INPUT_START_FAILURE_TIMEOUT);
+	}
+
 	@Override
 	public void onReadyForSpeech(Bundle params) {
+		startFailureHandler.removeCallbacksAndMessages(null);
+		startSuccess = true;
 		listening = true;
 		onStart.run();
 	}
 
 	@Override
 	public void onError(int error) {
+		startFailureHandler.removeCallbacksAndMessages(null);
 		listening = false;
 		onError.accept(new VoiceInputError(context, error));
 	}
 
+	public void onStartFailure() {
+		if (!startSuccess) {
+			onError.accept(new VoiceInputError(context, VoiceInputError.ERROR_START_FAILURE));
+		}
+	}
+
 	@Override
 	public void onResults(Bundle resultsRaw) {
+		startFailureHandler.removeCallbacksAndMessages(null);
 		listening = false;
 
 		ArrayList<String> results = resultsRaw.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
@@ -61,6 +84,7 @@ class VoiceListener implements RecognitionListener {
 
 	@Override
 	public void onPartialResults(Bundle resultsRaw) {
+		startFailureHandler.removeCallbacksAndMessages(null);
 		ArrayList<String> results = resultsRaw.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
 		onPartial.accept(results == null ? new ArrayList<>() : results);
 	}
