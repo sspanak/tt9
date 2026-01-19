@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import io.github.sspanak.tt9.hacks.AppHacks;
+import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -28,16 +29,18 @@ public class SuggestionOps {
 
 	@Nullable protected SuggestionsBar suggestionBar;
 	@Nullable private AppHacks appHacks;
+	private boolean isInputLimited;
 	@NonNull private TextField textField;
 	@Nullable private final SettingsStore settings;
 	@Nullable private StatusBar statusBar;
 
 
-	public SuggestionOps(@Nullable InputMethodService ims, @Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable AppHacks appHacks, @Nullable TextField textField, @Nullable StatusBar statusBar, @Nullable ConsumerCompat<String> onDelayedAccept, @Nullable Runnable onSuggestionClick) {
+	public SuggestionOps(@Nullable InputMethodService ims, @Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable AppHacks appHacks, @Nullable InputType inputType, @Nullable TextField textField, @Nullable StatusBar statusBar, @Nullable ConsumerCompat<String> onDelayedAccept, @Nullable Runnable onSuggestionClick) {
 		delayedAcceptHandler = new Handler(Looper.getMainLooper());
 		this.onDelayedAccept = onDelayedAccept != null ? onDelayedAccept : s -> {};
 
 		this.appHacks = appHacks;
+		this.isInputLimited = inputType == null || inputType.isLimited();
 		this.settings = settings;
 		this.statusBar = statusBar;
 		this.textField = textField != null ? textField : new TextField(ims, settings, null);
@@ -55,8 +58,9 @@ public class SuggestionOps {
 	}
 
 
-	public void setDependencies(@NonNull AppHacks appHacks, @NonNull TextField textField, @NonNull StatusBar statusBar) {
+	public void setDependencies(@NonNull AppHacks appHacks, @NonNull InputType inputType, @NonNull TextField textField, @NonNull StatusBar statusBar) {
 		this.appHacks = appHacks;
+		this.isInputLimited = inputType.isLimited();
 		this.textField = textField;
 		this.statusBar = statusBar;
 	}
@@ -245,7 +249,7 @@ public class SuggestionOps {
 
 
 	private void setVisibility(@Nullable SettingsStore settings, @Nullable ArrayList<String> newSuggestions, boolean clipboardSuggestions) {
-		final boolean areSuggestionsVisible = (settings != null && settings.getShowSuggestions()) || clipboardSuggestions;
+		final boolean areSuggestionsVisible = isInputLimited || clipboardSuggestions || (settings != null && settings.getShowSuggestions());
 
 		if (suggestionBar != null) {
 			suggestionBar.setVisible(areSuggestionsVisible);
