@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ui.tray;
 import android.content.Context;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,11 +14,15 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.main.ResizableMainView;
 import io.github.sspanak.tt9.ui.notifications.DictionaryLoadingBar;
 import io.github.sspanak.tt9.util.Logger;
 
 public class StatusBar {
 	private boolean isShown = true;
+	private double lastClickTime = 0;
+
+	@NonNull private final ResizableMainView mainView;
 	@Nullable private final TextView statusView;
 	@NonNull private final SettingsStore settings;
 	@Nullable private String statusText;
@@ -26,13 +31,53 @@ public class StatusBar {
 	@NonNull private final Runnable onLoadingFinished;
 
 
-	public StatusBar(@NonNull Context context, @NonNull SettingsStore settings, @Nullable View mainView, @NonNull Runnable onDictionaryLoadingFinished) {
+	public StatusBar(@NonNull Context context, @NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull Runnable onDictionaryLoadingFinished) {
+		this.mainView = mainView;
 		this.settings = settings;
-		statusView = mainView != null ? mainView.findViewById(R.id.status_bar) : null;
+		statusView = mainView.getView() != null ? mainView.getView().findViewById(R.id.status_bar) : null;
+		if (statusView != null) {
+			statusView.setOnTouchListener(this::onTouch);
+		}
 
 		loadingBar = DictionaryLoadingBar.getInstance(context);
 		loadingBar.setOnStatusChange2(this::onLoading);
 		onLoadingFinished = onDictionaryLoadingFinished;
+	}
+
+
+	/**
+	 * Handle double-click and drag resizing
+	 */
+	private boolean onTouch(View v, MotionEvent event) {
+		if (!isShown) {
+			return false;
+		}
+
+		int action = event.getAction();
+
+		switch (action) {
+			case MotionEvent.ACTION_DOWN:
+				mainView.onResizeStart(event.getRawY());
+				return true;
+			case MotionEvent.ACTION_MOVE:
+				if (settings.getDragResize()) {
+					mainView.onResizeThrottled(event.getRawY());
+				}
+				return true;
+			case MotionEvent.ACTION_UP:
+				long now = System.currentTimeMillis();
+				if (settings.getDoubleTapResize() && now - lastClickTime < SettingsStore.SOFT_KEY_DOUBLE_CLICK_DELAY) {
+					mainView.onSnap();
+				} else if (settings.getDragResize()) {
+					mainView.onResize(event.getRawY());
+				}
+
+				lastClickTime = now;
+
+				return true;
+		}
+
+		return false;
 	}
 
 
