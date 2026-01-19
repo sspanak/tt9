@@ -53,17 +53,17 @@ public class SoftKeyNumberSwipeable extends SoftKeyNumber {
 
 	@Override
 	protected int getCornerIcon(int position) {
-		return switch (position) {
-			case ICON_POSITION_BOTTOM_LEFT -> {
-				Command cmd = getSwipeCommand(true);
-				yield cmd != null ? cmd.getIcon() : -1;
-			}
-			case ICON_POSITION_BOTTOM_RIGHT -> {
-				Command cmd = getSwipeCommand(false);
-				yield cmd != null ? cmd.getIcon() : -1;
-			}
-			default -> -1;
+		final Command cmd = switch (position) {
+			case ICON_POSITION_BOTTOM_LEFT -> getSwipeCommand(true);
+			case ICON_POSITION_BOTTOM_RIGHT -> getSwipeCommand(false);
+			default -> null;
 		};
+
+		if (cmd instanceof CmdNextInputMode) {
+			((CmdNextInputMode) cmd).invalidateIcon(tt9);
+		}
+
+		return cmd != null ? cmd.getIcon() : super.getCornerIcon(position);
 	}
 
 

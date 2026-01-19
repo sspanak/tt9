@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.ime.helpers.OrientationListener;
+import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.languages.Language;
@@ -171,6 +172,11 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 	public int getDisplayTextCase() {
 		return getDisplayTextCase(mLanguage, mInputMode.getTextCase());
+	}
+
+
+	public InputMode getInputMode() {
+		return mInputMode;
 	}
 
 
