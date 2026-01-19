@@ -6,7 +6,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -44,14 +43,13 @@ public class SuggestionsBar {
 	private int backgroundColor;
 	private int suggestionSeparatorColor;
 
-	private double lastClickTime = 0;
+
 	private int lastScrollIndex = 0;
 	private int selectedIndex = 0;
 	@Nullable private List<String> suggestions = new ArrayList<>();
 	@NonNull private final List<String> visibleSuggestions = new ArrayList<>();
 
 	private final DefaultItemAnimator animator = new DefaultItemAnimator();
-	private final ResizableMainView mainView;
 	private final Runnable onItemClick;
 	@Nullable private final RecyclerView mView;
 	private final SettingsStore settings;
@@ -65,13 +63,11 @@ public class SuggestionsBar {
 		this.onItemClick = onItemClick;
 		this.settings = settings;
 
-		this.mainView = mainView;
 		mView = mainView.getView() != null ? mainView.getView().findViewById(R.id.suggestions_bar) : null;
 		if (mView != null) {
 			Context context = mainView.getView().getContext();
 
 			mView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-			mView.setOnTouchListener(this::onTouch);
 
 			initDataAdapter(context);
 			initSeparator(context);
@@ -151,7 +147,7 @@ public class SuggestionsBar {
 
 	public void setVisible(boolean yes) {
 		if (mView != null) {
-			mView.setVisibility(yes ? View.VISIBLE : View.GONE);
+			mView.setVisibility(yes ? View.VISIBLE : View.INVISIBLE);
 		}
 	}
 
@@ -493,38 +489,5 @@ public class SuggestionsBar {
 		} else {
 			onItemClick.run();
 		}
-	}
-
-
-	private boolean onTouch(View v, MotionEvent event) {
-		if (!isEmpty()) {
-			return false;
-		}
-
-		int action = event.getAction();
-
-		switch (action) {
-			case MotionEvent.ACTION_DOWN:
-				mainView.onResizeStart(event.getRawY());
-				return true;
-			case MotionEvent.ACTION_MOVE:
-				if (settings.getDragResize()) {
-					mainView.onResizeThrottled(event.getRawY());
-				}
-				return true;
-			case MotionEvent.ACTION_UP:
-				long now = System.currentTimeMillis();
-				if (settings.getDoubleTapResize() && now - lastClickTime < SettingsStore.SOFT_KEY_DOUBLE_CLICK_DELAY) {
-					mainView.onSnap();
-				} else if (settings.getDragResize()) {
-					mainView.onResize(event.getRawY());
-				}
-
-				lastClickTime = now;
-
-				return true;
-		}
-
-		return false;
 	}
 }
