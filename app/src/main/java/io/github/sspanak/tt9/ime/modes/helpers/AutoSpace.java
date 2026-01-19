@@ -63,8 +63,7 @@ public class AutoSpace {
 			|| nextKey == 0
 			|| inputType == null
 			|| isOff()
-			|| inputType.isSpecialized()
-			|| inputType.isUs()
+			|| inputType.isLimited() || inputType.isSpecialized() || inputType.isUs()
 		) {
 			return false;
 		}
@@ -95,8 +94,7 @@ public class AutoSpace {
 			!isLanguageWithSpaceBetweenWords
 			|| inputType == null
 			|| isOff()
-			|| inputType.isSpecialized()
-			|| inputType.isUs()
+			|| inputType.isLimited() || inputType.isSpecialized() || inputType.isUs()
 		) {
 			return false;
 		}
@@ -178,8 +176,7 @@ public class AutoSpace {
 			!isLanguageWithSpaceBetweenWords
 			|| inputType == null
 			|| isOff()
-			|| inputType.isSpecialized()
-			|| inputType.isUs()
+			|| inputType.isLimited() || inputType.isSpecialized() || inputType.isUs()
 		) {
 			return false;
 		}

@@ -95,7 +95,7 @@ class ModeABC extends InputMode {
 	@Override
 	public void determineNextWordTextCase(@Nullable String beforeCursor, int nextDigit) {
 		if (settings.getAutoTextCaseAbc()) {
-			textCase = autoTextCase.determineNextLetterTextCase(language, textFieldTextCase, textCase, beforeCursor);
+			textCase = autoTextCase.determineNextLetterTextCase(language, textFieldTextCase, beforeCursor);
 		}
 	}
 

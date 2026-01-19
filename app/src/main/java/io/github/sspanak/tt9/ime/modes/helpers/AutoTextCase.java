@@ -20,7 +20,7 @@ public class AutoTextCase {
 	public AutoTextCase(@NonNull SettingsStore settingsStore, @NonNull Sequences sequences, @Nullable InputType inputType) {
 		this.sequences = sequences;
 		settings = settingsStore;
-		isSpecialized = inputType != null && (inputType.isSpecialized() || inputType.isUs());
+		isSpecialized = inputType != null && (inputType.isSpecialized() || inputType.isUs() || inputType.isLimited());
 		skipNext = false;
 	}
 
@@ -71,7 +71,7 @@ public class AutoTextCase {
 	 * one. We use very similar, but not exactly the same logic, due to the lack of real words, and
 	 * dictionary context.
 	 */
-	public int determineNextLetterTextCase(@NonNull Language language, int textFieldTextCase, int modeTextCase, @Nullable String beforeCursor) {
+	public int determineNextLetterTextCase(@NonNull Language language, int textFieldTextCase, @Nullable String beforeCursor) {
 		final int settingsTextCase = settings.getTextCase();
 
 		if (settingsTextCase == InputMode.CASE_UPPER || !language.hasUpperCase()) {
@@ -79,7 +79,7 @@ public class AutoTextCase {
 		}
 
 		if (isSpecialized) {
-			return textFieldTextCase;
+			return textFieldTextCase != InputMode.CASE_UNDEFINED ? textFieldTextCase : settingsTextCase;
 		}
 
 		if (skipNext) {
