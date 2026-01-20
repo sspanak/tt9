@@ -101,11 +101,6 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		return dragResize;
 	}
 
-
-	public boolean isFilteringSupported() {
-		return mInputMode.supportsFiltering();
-	}
-
 	public boolean isFilteringFuzzy() {
 		return mInputMode.isStemFilterFuzzy();
 	}

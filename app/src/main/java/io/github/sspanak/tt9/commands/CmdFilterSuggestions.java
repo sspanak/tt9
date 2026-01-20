@@ -17,9 +17,7 @@ public class CmdFilterSuggestions implements Command {
 	public boolean isAvailable(@Nullable TraditionalT9 tt9) {
 		return
 			tt9 != null
-			&& tt9.isFilteringSupported()
-			&& !tt9.isInputModeABC()
-			&& !tt9.isInputModeNumeric()
+			&& tt9.getInputMode().supportsFiltering()
 			&& !tt9.isVoiceInputActive()
 			&& !tt9.isFnPanelVisible();
 	}
