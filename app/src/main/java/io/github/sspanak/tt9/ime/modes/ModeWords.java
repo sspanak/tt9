@@ -103,19 +103,19 @@ class ModeWords extends ModeCheonjiin {
 			ignoreNextSpace = false;
 			return;
 		}
-
 		ignoreNextSpace = false;
 
-		if (!language.isTranscribed() && containsGeneratedSuggestions() && digitSequence.length() - 1 == stem.length() && !predictions.getList().isEmpty() && predictions.getList().get(0).startsWith(stem)) {
-			// For alphabet-based languages, in case we are currently showing:
-			// > word + ... | ... a | ... b | ... c |
-			// where "a" appeared as pre-selected because it was the first in the list, do auto-select
-			// "worda" before processing the next keypress, to prevent any potential database "wordb" or "wordc"
-			// matches unexpectedly overriding the current choice.
-			// See the video in: https://github.com/sspanak/tt9/issues/854 for more info.
+		// For alphabet-based languages, in case we are currently showing:
+		// > Guel + ... | ... d | ... e | ... f | ... (in Italian)
+		// where "d" appeared as pre-selected because it was the first in the list, do auto-select
+		// "Gueld" before processing the next keypress, to prevent the database result "Guelf" from
+		// overriding the current choice.
+		// Illustration video in: https://github.com/sspanak/tt9/issues/854#issuecomment-3223797384
+		if (isStemFuzzy && !language.isTranscribed() && containsGeneratedSuggestions() && digitSequence.length() - 1 == stem.length()) {
 			final String newStem = predictions.getList().get(0);
 			Logger.d(LOG_TAG, "Extending stem: " + stem + " -> " + newStem);
 			stem = newStem;
+			isStemFuzzy = false;
 		}
 
 		super.onNumberPress(nextNumber);
