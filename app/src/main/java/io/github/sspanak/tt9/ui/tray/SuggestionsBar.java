@@ -486,7 +486,7 @@ public class SuggestionsBar {
 		selectedIndex = position;
 		if (appendHiddenSuggestionsIfNeeded(false)) {
 			render();
-		} else {
+		} else if (!containsStem() || position > 0) {
 			onItemClick.run();
 		}
 	}
