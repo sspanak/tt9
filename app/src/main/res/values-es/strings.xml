@@ -209,6 +209,7 @@
 	<string name="language_selection_language_loaded">(cargado)</string>
 	<string name="language_selection_title">Habilitar idiomas</string>
 	<string name="language_selection_words">palabras</string>
+	<string name="pref_auto_trim_trailing_space_summary">Eliminar automáticamente los espacios adicionales al mover el cursor hacia atrás.</string>
 	<string name="pref_backspace_acceleration">Eliminación rápida</string>
 	<string name="pref_backspace_acceleration_summary">Borrar palabras completas manteniendo pulsado o deslizando Retroceso. (No compatible con algunas aplicaciones)</string>
 	<string name="pref_category_punctuation_order">Orden de puntuación</string>
@@ -264,4 +265,5 @@
 	<string name="tutorial_classic_add_word">Desliza hacia la izquierda para añadir una palabra.</string>
 	<string name="pref_hack_auto_disable_composing">Desactivar automáticamente la composición de texto</string>
 	<string name="pref_show_suggestions_abc">Mostrar sugerencias de letras</string>
+	<string name="pref_auto_trim_trailing_space">Eliminar automáticamente los espacios finales</string>
 </resources>
