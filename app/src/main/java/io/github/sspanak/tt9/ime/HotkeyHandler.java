@@ -503,7 +503,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 	}
 
 	private boolean onTrimTrailingSpace(boolean validateOnly) {
-		if (!waitingForSpaceTrim || !settings.getAutoSpacePredictive() || !suggestionOps.isEmpty()) {
+		if (!waitingForSpaceTrim || !settings.getAutoTrimTrailingSpace() || !suggestionOps.isEmpty()) {
 			return false;
 		}
 

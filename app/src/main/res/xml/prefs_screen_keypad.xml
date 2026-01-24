@@ -24,6 +24,12 @@
 			android:key="backspace_acceleration"
 			android:title="@string/pref_backspace_acceleration"
 			android:summary="@string/pref_backspace_acceleration_summary" />
+
+		<SwitchPreferenceCompat
+			android:defaultValue="true"
+			android:key="auto_trim_trailing_space"
+			android:title="@string/pref_auto_trim_trailing_space"
+			android:summary="@string/pref_auto_trim_trailing_space_summary" />
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/pref_category_keypad_onscreen" android:key="category_virtual_keys">
