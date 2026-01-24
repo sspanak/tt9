@@ -74,6 +74,7 @@
 	<string name="pref_one_key_emoji_simple">רשימה קצרה</string>
 	<string name="pref_predict_word_pairs">ללמוד צמדי מילים</string>
 	<string name="pref_predict_word_pairs_summary">לזכור ביטויים נפוצים כדי לשפר את דיוק ההצעות.</string>
+	<string name="pref_predictive_auto_accept">בחירת מילים אוטומטית</string>
 	<string name="pref_privacy_policy">מדיניות פרטיות</string>
 	<string name="pref_quick_switch_language_summary">לחיצה על מקש השפה תעביר אוטומטית לשפה הבאה במקום להציג חלון קופץ עם כל השפות הפעילות.</string>
 	<string name="pref_show_suggestions_abc_summary">הצגת אותיות אפשריות בסרגל ההצעות בעת לחיצה על מקש.</string>

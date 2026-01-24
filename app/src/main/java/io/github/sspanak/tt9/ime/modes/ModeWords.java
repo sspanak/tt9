@@ -203,6 +203,13 @@ class ModeWords extends ModeCheonjiin {
 	}
 
 
+	@Override
+	protected void basicReset() {
+		super.basicReset();
+		autoAcceptTimeout = settings.getAutoAcceptTimeoutPredictive();
+	}
+
+
 	/**
 	 * clearLastAcceptedWord
 	 * Removes the last accepted word from the suggestions list and the "digitSequence"
@@ -340,9 +347,10 @@ class ModeWords extends ModeCheonjiin {
 		String preferredChar = getPreferredChar();
 		if (preferredChar == null || preferredChar.isEmpty()) {
 			digitSequence = seq.CHARS_0_SEQUENCE;
-			autoAcceptTimeout = -1;
+			autoAcceptTimeout = settings.getAutoAcceptTimeoutPredictive();
 			return false;
 		}
+
 
 		suggestions.clear();
 		suggestions.add(getPreferredChar());
