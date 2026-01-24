@@ -80,6 +80,7 @@
 	<string name="pref_one_key_emoji_simple">Trumpas sąrašas</string>
 	<string name="pref_predict_word_pairs">Išmokti žodžių poras</string>
 	<string name="pref_predict_word_pairs_summary">Įsiminti dažnai naudojamas frazes, kad pagerintumėte žodžių pasiūlymus.</string>
+	<string name="pref_predictive_auto_accept">Automatinis žodžių pasirinkimas</string>
 	<string name="pref_privacy_policy">Privatumo politika</string>
 	<string name="pref_quick_switch_language_summary">Paspaudus kalbos klavišą, automatiškai perjungiama į kitą kalbą, užuot rodžius iškylantį langą su visomis įjungtomis kalbomis.</string>
 	<string name="pref_show_suggestions_abc_summary">Paspaudus klavišą, rodyti galimas raides pasiūlymų juostoje.</string>

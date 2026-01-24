@@ -58,6 +58,7 @@
 	<string name="pref_one_key_emoji_simple">Elenco breve</string>
 	<string name="pref_predict_word_pairs">Memorizzare coppie di parole</string>
 	<string name="pref_predict_word_pairs_summary">Ricordare frasi comunemente usate per migliorare i suggerimenti di parole.</string>
+	<string name="pref_predictive_auto_accept">Selezione automatica delle parole</string>
 	<string name="pref_privacy_policy">Informativa sulla privacy</string>
 	<string name="pref_quick_switch_language_summary">Premendo il tasto della lingua si passa automaticamente alla lingua successiva invece di mostrare un popup con tutte le lingue abilitate.</string>
 	<string name="pref_show_suggestions_abc_summary">Mostra le lettere possibili nella barra dei suggerimenti quando viene premuto un tasto.</string>

@@ -68,6 +68,7 @@
 	<string name="pref_one_key_emoji_simple">Lista breve</string>
 	<string name="pref_predict_word_pairs">Aprender pares de palabras</string>
 	<string name="pref_predict_word_pairs_summary">Recordar frases de uso común para mejorar las sugerencias de palabras.</string>
+	<string name="pref_predictive_auto_accept">Selección automática de palabras</string>
 	<string name="pref_privacy_policy">Política de privacidad</string>
 	<string name="pref_quick_switch_language_summary">Al presionar la tecla de idioma, se cambia automáticamente al siguiente idioma en lugar de mostrar una ventana emergente con todos los idiomas habilitados.</string>
 	<string name="pref_show_suggestions_abc_summary">Mostrar letras posibles en la barra de sugerencias al pulsar una tecla.</string>

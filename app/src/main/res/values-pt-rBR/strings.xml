@@ -76,6 +76,7 @@
 	<string name="pref_one_key_emoji_simple">Lista breve</string>
 	<string name="pref_predict_word_pairs">Aprender pares de palavras</string>
 	<string name="pref_predict_word_pairs_summary">Lembrar de frases comumente usadas para melhorar as sugestões de palavras.</string>
+	<string name="pref_predictive_auto_accept">Seleção automática de palavras</string>
 	<string name="pref_privacy_policy">Política de privacidade</string>
 	<string name="pref_quick_switch_language_summary">Pressionar a tecla de idioma alterna automaticamente para o próximo idioma, em vez de mostrar um pop-up com todos os idiomas habilitados.</string>
 	<string name="pref_show_suggestions_abc_summary">Mostrar letras possíveis na barra de sugestões ao pressionar uma tecla.</string>

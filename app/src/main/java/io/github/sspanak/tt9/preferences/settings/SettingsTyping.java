@@ -10,6 +10,7 @@ import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.preferences.screens.keypad.SwitchUpsideDownKeys;
 import io.github.sspanak.tt9.preferences.screens.modeAbc.DropDownAbcAutoAcceptTime;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownOneKeyEmoji;
+import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownPredictiveAutoAcceptTime;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownZeroKeyCharacter;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.OneKeyEmojiOptions;
 
@@ -27,6 +28,10 @@ class SettingsTyping extends SettingsPunctuation {
 		return prefs.getBoolean("auto_text_case_abc_v2", true);
 	}
 
+	public int getAutoAcceptTimeoutPredictive() {
+		int time = getStringifiedInt(DropDownPredictiveAutoAcceptTime.NAME, DropDownPredictiveAutoAcceptTime.DEFAULT);
+		return time > 0 ? time + getKeyPadDebounceTime() : time;
+	}
 	public boolean getAutoSpacePredictive() { return prefs.getBoolean("auto_space_predictive", true); }
 	public boolean getAutoTextCasePredictive() { return prefs.getBoolean("auto_text_case_predictive", true); }
 	public boolean getAutoCapitalsAfterNewline() {
