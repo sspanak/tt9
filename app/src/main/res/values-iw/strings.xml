@@ -208,6 +208,7 @@
 	<string name="language_selection_language_loaded">(נטען)</string>
 	<string name="language_selection_title">הפעל שפות</string>
 	<string name="language_selection_words">מילים</string>
+	<string name="pref_auto_trim_trailing_space_summary">הסרה אוטומטית של רווחים מיותרים בעת הזזת הסמן לאחור.</string>
 	<string name="pref_backspace_acceleration">מחיקה מהירה</string>
 	<string name="pref_backspace_acceleration_summary">למחוק מילים שלמות על ידי החזקת Backspace או החלקה עליו. (לא נתמך בחלק מהאפליקציות)</string>
 	<string name="pref_category_punctuation_order">סדר סימני פיסוק</string>
@@ -270,4 +271,5 @@
 	<string name="tutorial_classic_add_word">החלקה שמאלה כדי להוסיף מילה.</string>
 	<string name="pref_hack_auto_disable_composing">השבתת חיבור טקסט אוטומטית</string>
 	<string name="pref_show_suggestions_abc">הצגת הצעות לאותיות</string>
+	<string name="pref_auto_trim_trailing_space">הסרה אוטומטית של רווחים בסוף</string>
 </resources>

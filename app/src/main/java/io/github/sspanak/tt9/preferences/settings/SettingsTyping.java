@@ -33,6 +33,10 @@ class SettingsTyping extends SettingsPunctuation {
 		return getAutoTextCasePredictive() && prefs.getBoolean("auto_capitals_after_newline", false);
 	}
 
+	public boolean getAutoTrimTrailingSpace() {
+		return prefs.getBoolean("auto_trim_trailing_space", true);
+	}
+
 	public boolean isAutoAssistanceOn(@Nullable InputMode mode) {
 		return
 			(InputModeKind.isPredictive(mode) && (getAutoSpacePredictive() || getAutoTextCasePredictive() || getPredictWordPairs())) ||

@@ -219,6 +219,7 @@
 	<string name="language_selection_language_loaded">(завантажено)</string>
 	<string name="language_selection_title">Увімкнути мови</string>
 	<string name="language_selection_words">слів</string>
+	<string name="pref_auto_trim_trailing_space_summary">Автоматично видаляти зайві пробіли під час переміщення курсора назад.</string>
 	<string name="pref_backspace_acceleration">Швидке видалення</string>
 	<string name="pref_backspace_acceleration_summary">Видалити цілі слова, утримуючи або провівши клавішею Backspace. (Не підтримується в деяких додатках)</string>
 	<string name="pref_category_punctuation_order">Порядок пунктуації</string>
@@ -274,4 +275,5 @@
 	<string name="tutorial_classic_add_word">Свайп вліво — додати слово.</string>
 	<string name="pref_hack_auto_disable_composing">Автоматично приховувати введений текст</string>
 	<string name="pref_show_suggestions_abc">Показувати підказки літер</string>
+	<string name="pref_auto_trim_trailing_space">Автоматично видаляти кінцеві пробіли</string>
 </resources>

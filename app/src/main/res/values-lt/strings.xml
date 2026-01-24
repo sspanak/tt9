@@ -217,6 +217,7 @@
 	<string name="language_selection_language_loaded">(įkelta)</string>
 	<string name="language_selection_title">Įjungti kalbas</string>
 	<string name="language_selection_words">žodžių</string>
+	<string name="pref_auto_trim_trailing_space_summary">Automatiškai pašalinti papildomus tarpus, kai žymeklis perkeliamas atgal.</string>
 	<string name="pref_backspace_acceleration">Greitas ištrynimas</string>
 	<string name="pref_backspace_acceleration_summary">Ištrinti visus žodžius laikant arba perbraukiant Backspace. (Nepalaikoma kai kuriose programėlėse)</string>
 	<string name="pref_category_punctuation_order">Skyrybos ženklų tvarka</string>
@@ -272,4 +273,5 @@
 	<string name="tutorial_classic_add_word">Braukite kairėn, kad pridėtumėte žodį.</string>
 	<string name="pref_hack_auto_disable_composing">Automatiškai išjungti teksto komponavimą</string>
 	<string name="pref_show_suggestions_abc">Rodyti raidžių pasiūlymus</string>
+	<string name="pref_auto_trim_trailing_space">Automatiškai šalinti pabaigos tarpus</string>
 </resources>
