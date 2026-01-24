@@ -249,6 +249,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 		surroundingChars[0] += text;
 		String beforeCursor = autoCorrectSpace(text, surroundingChars, true, -1)[0];
 
+		if (beforeCursor.endsWith(Characters.getSpace(mLanguage))) {
+			waitForSpaceTrimKey();
+		}
+
 		forceShowWindow();
 		updateShiftState(beforeCursor, true, false);
 
