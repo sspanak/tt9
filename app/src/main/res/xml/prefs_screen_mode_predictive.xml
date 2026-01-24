@@ -40,6 +40,10 @@
 		android:summary="@string/pref_backspace_recomposing_summary"
 		android:title="@string/pref_backspace_recomposing" />
 
+	<io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownPredictiveAutoAcceptTime
+		android:dependency="pref_predictive_mode"
+		android:title="@string/pref_predictive_auto_accept" />
+
 	<io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownZeroKeyCharacter
 		android:dependency="pref_predictive_mode"
 		android:title="@string/pref_double_zero_char" />

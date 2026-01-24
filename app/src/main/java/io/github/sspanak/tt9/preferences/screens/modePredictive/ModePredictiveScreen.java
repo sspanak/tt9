@@ -22,6 +22,7 @@ public class ModePredictiveScreen extends BaseScreenFragment {
 		EnhancedDropDownPreference[] dropdowns = {
 			findPreference(DropDownOneKeyEmoji.NAME),
 			findPreference(DropDownZeroKeyCharacter.NAME),
+			findPreference(DropDownPredictiveAutoAcceptTime.NAME),
 		};
 
 		for (EnhancedDropDownPreference dropdown : dropdowns) {

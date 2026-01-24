@@ -55,6 +55,7 @@
 	<string name="pref_one_key_emoji_simple">Kurze Liste</string>
 	<string name="pref_predict_word_pairs">Wortpaare lernen</string>
 	<string name="pref_predict_word_pairs_summary">Häufig verwendete Phrasen merken, um die Genauigkeit der Vorschläge zu verbessern.</string>
+	<string name="pref_predictive_auto_accept">Automatische Wortauswahl</string>
 	<string name="pref_privacy_policy">Datenschutzerklärung</string>
 	<string name="pref_quick_switch_language_summary">Durch Drücken der Sprachentaste wird automatisch zur nächsten Sprache gewechselt, anstatt ein Popup mit allen aktivierten Sprachen anzuzeigen.</string>
 	<string name="pref_show_suggestions_abc_summary">Mögliche Buchstaben in der Vorschlagsleiste anzeigen, wenn eine Taste gedrückt wird.</string>
