@@ -7,7 +7,7 @@ layout:
   - [SPECIAL] # 0
   - [PUNCTUATION_FR] # 1
   - [a, b, c, æ, å] # 2
-  - [d, e, f, é, è] # 3
+  - [d, e, f, é, è, ê] # 3
   - [g, h, i] # 4
   - [j, k, l] # 5
   - [m, n, o, ø, ó, ò, ô] # 6
