@@ -55,6 +55,7 @@
 	<string name="pref_one_key_emoji_simple">Korte lijst</string>
 	<string name="pref_predict_word_pairs">Woordenparen leren</string>
 	<string name="pref_predict_word_pairs_summary">Veelgebruikte zinnen onthouden om de nauwkeurigheid van suggesties te verbeteren.</string>
+	<string name="pref_predictive_auto_accept">Automatische woordselectie</string>
 	<string name="pref_privacy_policy">Privacybeleid</string>
 	<string name="pref_quick_switch_language_summary">Door op de taaltoets te drukken, schakelt u automatisch naar de volgende taal in plaats van een pop-up met alle ingeschakelde talen weer te geven.</string>
 	<string name="pref_show_suggestions_abc_summary">Toon mogelijke letters in de suggestiebalk wanneer een toets wordt ingedrukt.</string>

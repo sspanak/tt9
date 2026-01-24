@@ -38,6 +38,7 @@
 	<string name="pref_one_key_emoji_simple">Краткий список</string>
 	<string name="pref_predict_word_pairs">Запоминать пары слов</string>
 	<string name="pref_predict_word_pairs_summary">Запоминать часто используемые фразы для улучшения предложений слов.</string>
+	<string name="pref_predictive_auto_accept">Автоматический выбор слов</string>
 	<string name="pref_privacy_policy">Политика конфиденциальности</string>
 	<string name="pref_quick_switch_language_summary">Нажатие клавиши языка автоматически переключает на следующий язык вместо отображения всплывающего окна со всеми включенными языками.</string>
 	<string name="pref_show_suggestions_abc_summary">Показывать возможные буквы в строке подсказок при нажатии клавиши.</string>

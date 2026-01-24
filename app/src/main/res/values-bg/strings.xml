@@ -36,6 +36,7 @@
 	<string name="pref_one_key_emoji_simple">Кратък списък</string>
 	<string name="pref_predict_word_pairs">Запомняне на двойки думи</string>
 	<string name="pref_predict_word_pairs_summary">Запомняй често ползвани фрази, за по-точно подсказване на думи.</string>
+	<string name="pref_predictive_auto_accept">Автоматичен избор на думи</string>
 	<string name="pref_privacy_policy">Политика за поверителност</string>
 	<string name="pref_quick_switch_language">Бързо превключване на езиците</string>
 	<string name="pref_quick_switch_language_summary">Натискането на клавиша за език автоматично превключва към следващия език, вместо да показва изскачащ списък с всички активирани езици.</string>

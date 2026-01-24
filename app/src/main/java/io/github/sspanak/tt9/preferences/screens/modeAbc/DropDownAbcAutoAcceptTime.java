@@ -22,20 +22,32 @@ public class DropDownAbcAutoAcceptTime extends EnhancedDropDownPreference {
 
 	@Override
 	public EnhancedDropDownPreference populate(@NonNull SettingsStore settings) {
+		setKey(getName());
+		setOptions();
+		setDefaultValue(getStringifiedDefault());
+
+		String currentValue = getPersistedString(getStringifiedDefault());
+		currentValue = values.containsKey(currentValue) ? currentValue : getStringifiedDefault();
+		setValue(currentValue);
+
+		return this;
+	}
+
+	private void setOptions() {
 		add("-1", R.string.pref_abc_auto_accept_off);
 		add("350", R.string.pref_abc_auto_accept_fastest);
 		add("500", R.string.pref_abc_auto_accept_fast);
-		add(DEFAULT, R.string.pref_abc_auto_accept_normal);
+		add("800", R.string.pref_abc_auto_accept_normal);
 		add("1200", R.string.pref_abc_auto_accept_slow);
 		commitOptions();
-		setValue(String.valueOf(settings.getAutoAcceptTimeoutAbc()));
-		setDefaultValue(String.valueOf(DEFAULT));
-
-		return this;
 	}
 
 	@Override
 	protected String getName() {
 		return NAME;
+	}
+
+	protected String getStringifiedDefault() {
+		return String.valueOf(DEFAULT);
 	}
 }
