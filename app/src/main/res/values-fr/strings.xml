@@ -38,6 +38,7 @@
 	<string name="pref_one_key_emoji_simple">Liste courte</string>
 	<string name="pref_predict_word_pairs">Mémoriser les paires de mots</string>
 	<string name="pref_predict_word_pairs_summary">Apprendre des phrases couramment utilisées pour améliorer les suggestions.</string>
+	<string name="pref_predictive_auto_accept">Sélection automatique des mots</string>
 	<string name="pref_privacy_policy">Politique de confidentialité</string>
 	<string name="pref_quick_switch_language_summary">Appuyer sur la touche de langue passe automatiquement à la langue suivante au lieu d\'afficher une fenêtre contextuelle avec toutes les langues activées.</string>
 	<string name="pref_show_suggestions_abc_summary">Afficher les lettres possibles dans la barre de suggestions lorsqu’une touche est pressée.</string>

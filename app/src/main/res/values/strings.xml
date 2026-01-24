@@ -124,6 +124,7 @@
 	<string name="pref_one_key_emoji_simple">Brief list</string>
 	<string name="pref_predict_word_pairs">Learn Word Pairs</string>
 	<string name="pref_predict_word_pairs_summary">Remember commonly used phrases to improve the suggestions accuracy.</string>
+	<string name="pref_predictive_auto_accept">Automatic Word Selection</string>
 	<string name="pref_privacy_policy">Privacy Policy</string>
 	<string name="pref_quick_switch_language">Quick Switch Languages</string>
 	<string name="pref_quick_switch_language_summary">Pressing the Language key switches to the next language automatically, instead of showing a popup with all enabled languages.</string>
