@@ -8,20 +8,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.entities.CustomWord;
 import io.github.sspanak.tt9.preferences.items.SearchPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
 
 public class PreferenceSearchWords extends SearchPreference {
 	public static final String NAME = "dictionary_delete_words_search";
 	private static final String LOG_TAG = PreferenceSearchWords.class.getSimpleName();
 
-	private ConsumerCompat<ArrayList<CustomWord>> onWords;
-	private ConsumerCompat<Long> onTotalWords;
+	private Consumer<ArrayList<CustomWord>> onWords;
+	private Consumer<Long> onTotalWords;
 
 	@NonNull private String lastSearchTerm = "";
 
@@ -56,11 +56,11 @@ public class PreferenceSearchWords extends SearchPreference {
 		}
 	}
 
-	void setOnWordsHandler(@NonNull Activity activity, ConsumerCompat<ArrayList<CustomWord>> onWords) {
+	void setOnWordsHandler(@NonNull Activity activity, Consumer<ArrayList<CustomWord>> onWords) {
 		this.onWords = (words) -> activity.runOnUiThread(() -> onWords.accept(words));
 	}
 
-	void setOnTotalWordsHandler(@NonNull Activity activity, ConsumerCompat<Long> onTotalWords) {
+	void setOnTotalWordsHandler(@NonNull Activity activity, Consumer<Long> onTotalWords) {
 		this.onTotalWords = (total) -> activity.runOnUiThread(() -> onTotalWords.accept(total));
 	}
 }

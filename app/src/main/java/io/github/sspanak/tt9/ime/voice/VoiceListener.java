@@ -11,9 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
-import io.github.sspanak.tt9.util.ConsumerCompat;
 
 class VoiceListener implements RecognitionListener {
 	private boolean listening = false;
@@ -21,17 +21,17 @@ class VoiceListener implements RecognitionListener {
 
 	@NonNull private final Context context;
 	@NonNull private final Runnable onStart;
-	@NonNull private final ConsumerCompat<ArrayList<String>> onStop;
-	@NonNull private final ConsumerCompat<ArrayList<String>> onPartial;
-	@NonNull private final ConsumerCompat<VoiceInputError> onError;
+	@NonNull private final Consumer<ArrayList<String>> onStop;
+	@NonNull private final Consumer<ArrayList<String>> onPartial;
+	@NonNull private final Consumer<VoiceInputError> onError;
 	@NonNull private final Handler startFailureHandler;
 
 	VoiceListener(
 		@NonNull Context context,
 		@Nullable Runnable onStart,
-		@Nullable ConsumerCompat<ArrayList<String>> onStop,
-		@Nullable ConsumerCompat<ArrayList<String>> onPartial,
-		@Nullable ConsumerCompat<VoiceInputError> onError
+		@Nullable Consumer<ArrayList<String>> onStop,
+		@Nullable Consumer<ArrayList<String>> onPartial,
+		@Nullable Consumer<VoiceInputError> onError
 	) {
 		this.context = context;
 		this.onStart = onStart != null ? onStart : () -> {};
