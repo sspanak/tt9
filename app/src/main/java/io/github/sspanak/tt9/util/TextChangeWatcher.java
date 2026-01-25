@@ -5,9 +5,7 @@ import android.text.TextWatcher;
 
 import androidx.annotation.Nullable;
 
-public class TextChangeWatcher implements TextWatcher {
-	private final ConsumerCompat<Editable> onChange;
-
+public record TextChangeWatcher(ConsumerCompat<Editable> onChange) implements TextWatcher {
 	public TextChangeWatcher(@Nullable ConsumerCompat<Editable> onChange) {
 		this.onChange = onChange;
 	}
