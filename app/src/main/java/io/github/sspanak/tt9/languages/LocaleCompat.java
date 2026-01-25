@@ -7,13 +7,7 @@ import java.util.Locale;
 /**
  * Deals with inconsistencies between Java and Android language codes.
  */
-class LocaleCompat {
-	private final Locale locale;
-
-	LocaleCompat(Locale locale) {
-		this.locale = locale;
-	}
-
+record LocaleCompat(Locale locale) {
 	private String getCountry() {
 		String country = locale != null ? locale.getCountry() : "";
 		return country.equals("YI") ? "JI" : country;
