@@ -101,7 +101,7 @@ android {
 	defaultConfig {
 		applicationId = PACKAGE_NAME
 		buildFeatures.buildConfig = true
-		minSdk = 21
+		minSdk = 24
 		targetSdk = 36
 		versionCode = getVerCode()
 		versionName = getVerName()
@@ -193,5 +193,5 @@ android {
 dependencies {
 	implementation 'androidx.preference:preference:1.2.1'
 	implementation 'com.google.android.material:material:1.13.0'
-	premiumImplementation 'com.android.billingclient:billing:8.0.0'
+	premiumImplementation 'com.android.billingclient:billing:8.3.0'
 }
