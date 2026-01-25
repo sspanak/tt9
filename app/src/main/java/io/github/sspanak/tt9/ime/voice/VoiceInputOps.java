@@ -188,9 +188,7 @@ public class VoiceInputOps {
 
 
 	public void enableOfflineMode() {
-		for (Integer langId : isOfflineModeDisabled.keySet()) {
-			isOfflineModeDisabled.put(langId, false);
-		}
+		isOfflineModeDisabled.replaceAll((i, v) -> false);
 
 		Logger.d(LOG_TAG, "Re-enabled offline voice input for all languages");
 	}
