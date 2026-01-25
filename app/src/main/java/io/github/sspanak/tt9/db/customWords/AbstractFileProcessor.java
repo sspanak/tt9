@@ -4,12 +4,12 @@ import android.app.Activity;
 
 import androidx.annotation.NonNull;
 
-import io.github.sspanak.tt9.util.ConsumerCompat;
+import java.util.function.Consumer;
 
 abstract public class AbstractFileProcessor {
 	protected Runnable failureHandler;
 	protected Runnable startHandler;
-	protected ConsumerCompat<String> successHandler;
+	protected Consumer<String> successHandler;
 
 	private Thread processThread;
 	protected String statusMessage = "";
@@ -43,7 +43,7 @@ abstract public class AbstractFileProcessor {
 		startHandler = handler;
 	}
 
-	public void setSuccessHandler(ConsumerCompat<String> handler) {
+	public void setSuccessHandler(Consumer<String> handler) {
 		successHandler = handler;
 	}
 
