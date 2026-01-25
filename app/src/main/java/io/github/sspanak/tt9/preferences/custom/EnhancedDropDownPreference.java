@@ -13,7 +13,6 @@ import java.util.LinkedHashMap;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
-import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 abstract public class EnhancedDropDownPreference extends DropDownPreference {
 	@NonNull protected final LinkedHashMap<String, String> values = new LinkedHashMap<>();
@@ -139,7 +138,7 @@ abstract public class EnhancedDropDownPreference extends DropDownPreference {
 
 
 	public EnhancedDropDownPreference sort() {
-		if (!DeviceInfo.AT_LEAST_ANDROID_7 || values.size() <= 1) {
+		if (values.size() <= 1) {
 			return this;
 		}
 
