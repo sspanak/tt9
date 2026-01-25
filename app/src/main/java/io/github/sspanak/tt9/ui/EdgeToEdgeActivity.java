@@ -48,10 +48,6 @@ public class EdgeToEdgeActivity extends AppCompatActivity {
 
 
 	private WindowInsets getInsets(View view) {
-		if (!DeviceInfo.AT_LEAST_ANDROID_6) {
-			return null;
-		}
-
 		WindowInsets newInsets = view != null ? view.getRootWindowInsets() : null;
 		return newInsets == null ? getWindow().getDecorView().getRootWindowInsets() : newInsets;
 	}
