@@ -482,11 +482,15 @@ public class SuggestionsBar {
 	 * Passes through suggestion selected using the touchscreen.
 	 */
 	private void handleItemClick(int position) {
+		if (containsStem() && position == 0) {
+			return;
+		}
+
 		vibration.vibrate();
 		selectedIndex = position;
 		if (appendHiddenSuggestionsIfNeeded(false)) {
 			render();
-		} else if (!containsStem() || position > 0) {
+		} else {
 			onItemClick.run();
 		}
 	}
