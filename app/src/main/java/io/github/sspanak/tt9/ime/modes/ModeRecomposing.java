@@ -19,7 +19,7 @@ public class ModeRecomposing extends InputMode {
 	private final static int END_OF_WORD = -1;
 
 	@Nullable private Runnable onFinishListener = null;
-	@Nullable TextField textField;
+	@Nullable private final TextField textField;
 
 
 	private int numberAtPosition = END_OF_WORD;

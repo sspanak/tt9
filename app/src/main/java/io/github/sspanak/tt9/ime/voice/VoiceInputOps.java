@@ -44,7 +44,7 @@ public class VoiceInputOps {
 	) {
 		isOfflineModeDisabled = new HashMap<>();
 		listener = new VoiceListener(ims, onStart, this::onStop, this::onPartial, this::onError);
-		recognizerSupport = DeviceInfo.AT_LEAST_ANDROID_13 ? new SpeechRecognizerSupportModern(ims) : new SpeechRecognizerSupportLegacy(ims);
+		recognizerSupport = DeviceInfo.AT_LEAST_ANDROID_13 ? new SpeechRecognizerSupportModern(ims) : new SpeechRecognizerSupportLegacy();
 
 		onStopListening = onStop != null ? onStop : result -> {};
 		onPartialResult = onPartial != null ? onPartial : result -> {};
