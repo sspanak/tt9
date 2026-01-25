@@ -29,7 +29,7 @@ public interface Command {
 	default String getName(@NonNull Context context) { return context.getString(getName()); }
 
 	/**
-	 * The hard key code (KeyEvent.KEYCODE_*) that triggers this command, or -1 if none.
+	 * The hard key number (0-9) that triggers this command, or -1 if none.
 	 */
 	default int getHardKey() { return -1; }
 
