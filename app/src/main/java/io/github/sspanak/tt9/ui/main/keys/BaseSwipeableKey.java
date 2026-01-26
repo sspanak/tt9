@@ -1,18 +1,19 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Timer;
 
 abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
-	private static final String LOG_TAG = BaseSwipeableKey.class.getSimpleName();
-
-	protected boolean isSwipeable = false;
+	private final String TIMER_ID = BaseSwipeableKey.class.getSimpleName() + System.identityHashCode(this);
 
 	private float HOLD_DURATION_THRESHOLD;
 	protected float SWIPE_X_THRESHOLD;
@@ -22,14 +23,16 @@ abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 	private boolean isSwipingX = false;
 	private boolean isSwipingY = false;
 	private boolean notSwiped = true;
+	protected boolean isSwipeable = false;
 
 	private float startX;
 	private float startY;
-	private long startTime;
 
 	private int swipeCount = 0;
 	private long swipeProcessingTime = 0;
 	private long swipeProcessingTimeAverage = 50;
+
+	private final Handler longClickWaitHandler = new Handler(Looper.getMainLooper());
 
 
 	public BaseSwipeableKey(Context context) {
@@ -44,6 +47,20 @@ abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 
 	public BaseSwipeableKey(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+	}
+
+
+	@Override
+	protected void onDetachedFromWindow() {
+		cancelLongClick();
+		super.onDetachedFromWindow();
+	}
+
+
+	private void initTimeThreshold() {
+		if (HOLD_DURATION_THRESHOLD == 0) {
+			HOLD_DURATION_THRESHOLD = getHoldDurationThreshold();
+		}
 	}
 
 
@@ -69,7 +86,7 @@ abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 	}
 
 
-	protected float getHoldDurationThreshold() { return SettingsStore.SOFT_KEY_REPEAT_DELAY * 9; }
+	protected float getHoldDurationThreshold() { return ViewConfiguration.getLongPressTimeout(); }
 	protected float getSwipeYThreshold() { return getResources().getDimensionPixelSize(R.dimen.numpad_key_height) * SettingsStore.SOFT_KEY_AMOUNT_OF_KEY_SIZE_FOR_SWIPE; }
 
 
@@ -79,17 +96,18 @@ abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 	 */
 	protected float getSwipeXThreshold() {
 		// If the key width is not available, use the old method. It's better than nothing.
-		if (tt9 == null || tt9.getWidth() == 0) {
+		final int widthPx = getWidth();
+		if (tt9 == null || widthPx == 0) {
 			return getSwipeYThreshold();
 		}
 
-		float keyWidth = tt9.getWidth() / 5f * tt9.getSettings().getNumpadFnKeyDefaultScale();
+		float keyWidth = widthPx * tt9.getSettings().getNumpadFnKeyDefaultScale();
 		return keyWidth * SettingsStore.SOFT_KEY_AMOUNT_OF_KEY_SIZE_FOR_SWIPE;
 	}
 
 
 	private void updateSwipeTimingStats() {
-		long time = Timer.get(LOG_TAG);
+		long time = Timer.get(TIMER_ID);
 
 		long deltaT = time - swipeProcessingTimeAverage;
 		if (deltaT < -swipeProcessingTimeAverage || deltaT > 5) {
@@ -110,18 +128,21 @@ abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		if (!isSwipeable) {
+		if (isSwipeable) {
+			setOnLongClickListener(null);
+		} else {
+			setOnLongClickListener(this);
 			return super.onTouch(v, event);
 		}
 
 		switch(event.getAction() & MotionEvent.ACTION_MASK) {
 			case MotionEvent.ACTION_DOWN:
-				Timer.start(LOG_TAG);
+				initTimeThreshold();
 				initSwipeThresholds();
 				onPress(event);
 				break;
 			case MotionEvent.ACTION_MOVE:
-				onMove(v, event);
+				onMove(event);
 				break;
 			case MotionEvent.ACTION_UP:
 				onRelease(event);
@@ -138,27 +159,29 @@ abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 			return super.onLongClick(view);
 		}
 
-		if (System.currentTimeMillis() - startTime < HOLD_DURATION_THRESHOLD) {
-			return false;
-		}
-
 		isHolding = !isSwipingY && !isSwipingX;
 		return !isHolding || super.onLongClick(view);
 	}
 
 
 	private void onPress(MotionEvent event) {
-		startTime = System.currentTimeMillis();
+		Timer.start(TIMER_ID);
+
 		startX = event.getRawX();
 		startY = event.getRawY();
 
 		isHolding = false;
 		isSwipingX = false;
 		isSwipingY = false;
+
+		if (HOLD_DURATION_THRESHOLD < Float.MAX_VALUE) {
+			cancelLongClick();
+			longClickWaitHandler.postDelayed(() -> onLongClick(this), Math.round(HOLD_DURATION_THRESHOLD));
+		}
 	}
 
 
-	private void onMove(View v, MotionEvent event) {
+	private void onMove(MotionEvent event) {
 		if (isHolding) {
 			return;
 		}
@@ -172,19 +195,22 @@ abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 			handleSwipeX(event.getRawX(), deltaX);
 		} else if (Math.abs(deltaY) >= SWIPE_Y_THRESHOLD) {
 			isSwipingY = true;
+			cancelLongClick();
 			updateSwipeTimingStats();
 			handleStartSwipeY(event.getRawY(), deltaY);
 		} else if (Math.abs(deltaX) >= SWIPE_X_THRESHOLD) {
 			isSwipingX = true;
+			cancelLongClick();
 			updateSwipeTimingStats();
 			handleStartSwipeX(event.getRawX(), deltaX);
-		} else if (!isHolding && Math.abs(deltaX) < SWIPE_X_THRESHOLD && Math.abs(deltaY) < SWIPE_Y_THRESHOLD) {
-			onLongClick(v);
 		}
 	}
 
 
 	private void onRelease(MotionEvent event) {
+		cancelLongClick();
+		Timer.stop(TIMER_ID);
+
 		notSwiped = !isSwipingY && !isSwipingX;
 
 		if (isSwipingY) {
@@ -194,6 +220,11 @@ abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 			isSwipingX = false;
 			handleEndSwipeX(event.getRawX(), event.getRawX() - startX);
 		}
+	}
+
+
+	private void cancelLongClick() {
+		longClickWaitHandler.removeCallbacksAndMessages(null);
 	}
 
 
