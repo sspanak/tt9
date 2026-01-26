@@ -14,7 +14,6 @@ import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.commands.CommandCollection;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class SoftKeyNumberSwipeable extends SoftKeyNumber {
 	private float previousX;
@@ -74,12 +73,6 @@ public class SoftKeyNumberSwipeable extends SoftKeyNumber {
 		}
 
 		return super.getCornerElementScale(position);
-	}
-
-
-	@Override
-	protected float getHoldDurationThreshold() {
-		return SettingsStore.SOFT_KEY_REPEAT_DELAY * 10;
 	}
 
 

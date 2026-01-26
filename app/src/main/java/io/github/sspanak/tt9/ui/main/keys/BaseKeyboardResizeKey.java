@@ -25,7 +25,7 @@ public class BaseKeyboardResizeKey extends BaseSwipeableKey {
 		this.mainView = mainView;
 	}
 
-	@Override protected float getHoldDurationThreshold() { return 1000; } // prevent holding
+	@Override protected float getHoldDurationThreshold() { return Float.MAX_VALUE; } // prevent holding
 	@Override protected float getSwipeXThreshold() { return isSwipeable ? getResources().getDimensionPixelSize(R.dimen.numpad_key_height) * 0.75f : Integer.MAX_VALUE; }
 	@Override protected float getSwipeYThreshold() { return isSwipeable ? getResources().getDimensionPixelSize(R.dimen.numpad_key_height) / 4.0f : Integer.MAX_VALUE; }
 
