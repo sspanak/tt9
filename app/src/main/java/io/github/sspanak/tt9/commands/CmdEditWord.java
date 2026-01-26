@@ -15,6 +15,8 @@ public class CmdEditWord implements Command {
 	@Override public String getId() { return ID; }
 	@Override public int getIcon() { return R.drawable.ic_fn_edit_word; }
 	@Override public int getName() { return R.string.function_edit_word; }
+	@Override public int getHardKey() { return 2; }
+	@Override public int getPaletteKey() { return R.id.soft_key_2; }
 
 
 	@Override

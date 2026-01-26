@@ -42,7 +42,7 @@ public class SoftKeyTextEditingNumpad extends SoftKeyNumberNumpad {
 			return super.getCentralIcon();
 		}
 
-		return CommandCollection.getByKeyId(CommandCollection.COLLECTION_TEXT_EDITING, getId()).getIcon();
+		return CommandCollection.getBySoftKey(CommandCollection.COLLECTION_TEXT_EDITING, getId()).getIcon();
 	}
 
 	private boolean isTextEditingActive() {

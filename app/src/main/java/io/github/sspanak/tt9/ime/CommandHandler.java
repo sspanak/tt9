@@ -5,6 +5,7 @@ import android.view.KeyEvent;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.commands.CmdAddWord;
 import io.github.sspanak.tt9.commands.CmdEditWord;
+import io.github.sspanak.tt9.commands.CommandCollection;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
@@ -36,41 +37,11 @@ abstract public class CommandHandler extends TextEditingHandler {
 		}
 
 		if (!shouldBeOff() && mainView.isCommandPaletteShown()) {
-			onCommand(key);
+			CommandCollection.getByHardKey(CommandCollection.COLLECTION_PALETTE, key).run(getFinalContext());
 			return true;
 		}
 
 		return super.onNumber(key, hold, repeat);
-	}
-
-
-	private void onCommand(int key) {
-		switch (key) {
-			case 1:
-				addWord();
-				break;
-			case 2:
-				editWord();
-				break;
-			case 3:
-				toggleVoiceInput();
-				break;
-			case 4:
-				undo();
-				break;
-			case 5:
-				showTextEditingPalette();
-				break;
-			case 6:
-				redo();
-				break;
-			case 8:
-				selectKeyboard();
-				break;
-			case 9:
-				showSettings();
-				break;
-		}
 	}
 
 

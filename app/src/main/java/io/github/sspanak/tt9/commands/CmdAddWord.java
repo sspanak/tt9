@@ -13,8 +13,10 @@ import io.github.sspanak.tt9.ui.UI;
 public class CmdAddWord implements Command {
 	public static final String ID = "key_add_word";
 	@Override public String getId() { return ID; }
-	@Override public int getIcon() { return io.github.sspanak.tt9.R.drawable.ic_fn_add_word; }
-	@Override public int getName() { return io.github.sspanak.tt9.R.string.function_add_word; }
+	@Override public int getIcon() { return R.drawable.ic_fn_add_word; }
+	@Override public int getName() { return R.string.function_add_word; }
+	@Override public int getHardKey() { return 1; }
+	@Override public int getPaletteKey() { return R.id.soft_key_1; }
 
 
 	@Override
