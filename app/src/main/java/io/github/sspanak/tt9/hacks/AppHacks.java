@@ -234,7 +234,7 @@ public class AppHacks {
 	 * and reset the InputMode upon sending a message.
 	 */
 	private boolean acceptComposingTextOnCursorReset(@NonNull InputMode inputMode, @NonNull SuggestionOps suggestionOps, @Nullable TextField textField) {
-		if (!isComposingCausingRestarts() && textField != null && textField.isEmpty() && !inputMode.getSuggestions().isEmpty()) {
+		if (!isComposingCausingRestarts() && textField != null && textField.isEmpty() && !(inputMode.getSuggestions().isEmpty() && suggestionOps.isEmpty())) {
 			inputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 			inputMode.reset();
 			return true;
