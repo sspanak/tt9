@@ -167,6 +167,8 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 		}
 
 		SwitchPreferenceCompat[] switches = {
+			findPreference(SwitchDragResize.NAME),
+			findPreference(SwitchDoubleTapResize.NAME),
 			findPreference(SwitchKeyShadows.NAME),
 			findPreference(SwitchLeftRightArrows.NAME),
 			findPreference(SwitchShowArrowsUpDown.NAME),
