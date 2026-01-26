@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,7 +45,7 @@ class LocaleWordsSorter {
 		}
 
 		ArrayList<String> wordsCopy = new ArrayList<>(words);
-		Collections.sort(wordsCopy, (a, b) -> reduceLength(a) - reduceLength(b));
+		wordsCopy.sort((a, b) -> reduceLength(a) - reduceLength(b));
 
 		return wordsCopy;
 	}

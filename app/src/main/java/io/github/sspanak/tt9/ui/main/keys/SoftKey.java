@@ -22,7 +22,6 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsColors;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
-import io.github.sspanak.tt9.util.chars.Characters;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class SoftKey extends BaseClickableKey {
@@ -190,10 +189,8 @@ public class SoftKey extends BaseClickableKey {
 	private String getTitleCompat() {
 		if (
 			getNoEmojiTitle() > 0
-			&& (
-				Characters.NO_EMOJI_SUPPORT
-				|| (new Text(getText().toString()).startsWithGraphic() && !new Paint().hasGlyph(getText().toString()))
-			)
+			&& new Text(getText().toString()).startsWithGraphic()
+			&& !new Paint().hasGlyph(getText().toString())
 		) {
 			return getContext().getString(getNoEmojiTitle());
 		} else {

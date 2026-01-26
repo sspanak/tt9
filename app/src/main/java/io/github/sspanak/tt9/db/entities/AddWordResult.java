@@ -6,38 +6,20 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.R;
 
-public class AddWordResult {
+public record AddWordResult(int statusCode, String word) {
 	public static final int CODE_SUCCESS = 0;
 	public static final int CODE_BLANK_WORD = 1;
 	public static final int CODE_INVALID_LANGUAGE = 2;
 	public static final int CODE_WORD_EXISTS = 3;
 	public static final int CODE_GENERAL_ERROR = 666;
 
-	private final int statusCode;
-	private final String word;
-
-	public AddWordResult(int statusCode, String word) {
-		this.statusCode = statusCode;
-		this.word = word;
-	}
-
 	public String toHumanFriendlyString(Context context) {
 		return switch (statusCode) {
-			case CODE_SUCCESS
-				-> context.getString(R.string.add_word_success, word);
-
-			case CODE_WORD_EXISTS
-				-> context.getResources().getString(R.string.add_word_exist, word);
-
-			case CODE_BLANK_WORD
-				-> context.getString(R.string.add_word_blank);
-
-			case CODE_INVALID_LANGUAGE
-				-> context.getResources().getString(R.string.add_word_invalid_language);
-
-			default
-				-> context.getString(R.string.error_unexpected);
-
+			case CODE_SUCCESS -> context.getString(R.string.add_word_success, word);
+			case CODE_WORD_EXISTS -> context.getResources().getString(R.string.add_word_exist, word);
+			case CODE_BLANK_WORD -> context.getString(R.string.add_word_blank);
+			case CODE_INVALID_LANGUAGE -> context.getResources().getString(R.string.add_word_invalid_language);
+			default -> context.getString(R.string.error_unexpected);
 		};
 	}
 

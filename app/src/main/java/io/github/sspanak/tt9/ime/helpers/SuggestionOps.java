@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.function.Consumer;
 
 import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.hacks.InputType;
@@ -18,14 +19,13 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
 import io.github.sspanak.tt9.ui.tray.StatusBar;
 import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
-import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
 import io.github.sspanak.tt9.util.sys.Clipboard;
 
 public class SuggestionOps {
 	@NonNull private final Handler delayedAcceptHandler;
-	@NonNull private final ConsumerCompat<String> onDelayedAccept;
+	@NonNull private final Consumer<String> onDelayedAccept;
 
 	@Nullable protected SuggestionsBar suggestionBar;
 	@Nullable private AppHacks appHacks;
@@ -35,7 +35,7 @@ public class SuggestionOps {
 	@Nullable private StatusBar statusBar;
 
 
-	public SuggestionOps(@Nullable InputMethodService ims, @Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable AppHacks appHacks, @Nullable InputType inputType, @Nullable TextField textField, @Nullable StatusBar statusBar, @Nullable ConsumerCompat<String> onDelayedAccept, @Nullable Runnable onSuggestionClick) {
+	public SuggestionOps(@Nullable InputMethodService ims, @Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable AppHacks appHacks, @Nullable InputType inputType, @Nullable TextField textField, @Nullable StatusBar statusBar, @Nullable Consumer<String> onDelayedAccept, @Nullable Runnable onSuggestionClick) {
 		delayedAcceptHandler = new Handler(Looper.getMainLooper());
 		this.onDelayedAccept = onDelayedAccept != null ? onDelayedAccept : s -> {};
 

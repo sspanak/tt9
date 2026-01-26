@@ -58,7 +58,7 @@ public class SystemSettings {
 
 	@NonNull
 	public static String getLocale() {
-		Locale locale = DeviceInfo.AT_LEAST_ANDROID_7 ? LocaleList.getDefault().get(0) : Locale.getDefault();
+		Locale locale = LocaleList.getDefault().get(0);
 		String country = locale.getCountry();
 		String language = locale.getLanguage();
 

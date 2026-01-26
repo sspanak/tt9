@@ -35,7 +35,7 @@ public class Permissions {
 	}
 
 	public boolean noRecordAudio() {
-		return DeviceInfo.AT_LEAST_ANDROID_6 && isRefused(Manifest.permission.RECORD_AUDIO);
+		return isRefused(Manifest.permission.RECORD_AUDIO);
 	}
 
 	public void requestRecordAudio() {
@@ -55,14 +55,10 @@ public class Permissions {
 	}
 
 	protected void requestPermission(String permission) {
-		if (DeviceInfo.AT_LEAST_ANDROID_6) {
-			activity.requestPermissions(new String[] { permission }, 0);
-		}
+		activity.requestPermissions(new String[] { permission }, 0);
 	}
 
 	protected boolean isRefused(String permission) {
-		return
-			DeviceInfo.AT_LEAST_ANDROID_6
-			&& activity.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED;
+		return activity.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED;
 	}
 }

@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 class Punctuation {
 	public static final String AR_QUESTION_MARK = "؟";
@@ -17,7 +16,7 @@ class Punctuation {
 	public static final String ZH_QUESTION_MARK = "？";
 	public static final String ZH_EXCLAMATION_MARK = "！";
 
-	public static final String NEW_LINE = DeviceInfo.AT_LEAST_ANDROID_6 && new Paint().hasGlyph("⏎") ? "⏎" : "\\n";
+	public static final String NEW_LINE = new Paint().hasGlyph("⏎") ? "⏎" : "\\n";
 	public static final String ZWJ = "\u200D";
 	public static final String ZWJ_GRAPHIC = "ZWJ";
 	public static final String ZWNJ = "\u200C";

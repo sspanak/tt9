@@ -14,7 +14,6 @@ import io.github.sspanak.tt9.commands.CmdMoveCursor;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.util.Text;
-import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 abstract class InputField {
 	public static final int IME_ACTION_ENTER = EditorInfo.IME_MASK_ACTION + 1;
@@ -109,7 +108,7 @@ abstract class InputField {
 	 */
 	@Nullable
 	public Language getLanguage(ArrayList<Integer> allowedLanguageIds) {
-		if (!DeviceInfo.AT_LEAST_ANDROID_7 || field == null || field.hintLocales == null) {
+		if (field == null || field.hintLocales == null) {
 			return null;
 		}
 

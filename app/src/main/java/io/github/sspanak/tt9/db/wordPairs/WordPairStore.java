@@ -47,11 +47,7 @@ public class WordPairStore extends BaseSyncStore {
 			return;
 		}
 
-		HashMap<WordPair, WordPair> languagePairs = pairs.get(language.getId());
-		if (languagePairs == null) {
-			languagePairs = new HashMap<>();
-			pairs.put(language.getId(), languagePairs);
-		}
+		HashMap<WordPair, WordPair> languagePairs = pairs.computeIfAbsent(language.getId(), k -> new HashMap<>());
 
 		if (languagePairs.size() >= SettingsStore.WORD_PAIR_MAX) {
 			languagePairs.remove(languagePairs.keySet().iterator().next());

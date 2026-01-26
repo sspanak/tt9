@@ -13,8 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class DeviceInfo extends HardwareInfo {
-	public static final boolean AT_LEAST_ANDROID_6 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
-	public static final boolean AT_LEAST_ANDROID_7 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
 	public static final boolean AT_LEAST_ANDROID_8 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
 	public static final boolean AT_LEAST_ANDROID_8_1 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1;
 	public static final boolean AT_LEAST_ANDROID_9 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P;
@@ -55,7 +53,7 @@ public class DeviceInfo extends HardwareInfo {
 
 
 	public static boolean isZenMode(Context context) {
-		if (context == null || !AT_LEAST_ANDROID_6) {
+		if (context == null) {
 			return false;
 		}
 
@@ -65,7 +63,7 @@ public class DeviceInfo extends HardwareInfo {
 
 
 	public static boolean isMuted(Context context) {
-		if (context == null || !AT_LEAST_ANDROID_6) {
+		if (context == null) {
 			return false;
 		}
 

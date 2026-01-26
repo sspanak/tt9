@@ -96,7 +96,7 @@ public class NaturalLanguage extends TranscribedLanguage {
 
 		ArrayList<String> keyChars = new ArrayList<>();
 		for (String defChar : definitionChars) {
-			List<String> keySpecialChars = specialChars.containsKey(defChar) ? specialChars.get(defChar) : null;
+			List<String> keySpecialChars = specialChars.getOrDefault(defChar, null);
 			if (keySpecialChars != null) {
 				keyChars.addAll(keySpecialChars);
 			} else {
@@ -224,7 +224,7 @@ public class NaturalLanguage extends TranscribedLanguage {
 
 	@NonNull
 	public String getKeyNumeral(int key) {
-		String digit = numerals.containsKey(key) ? numerals.get(key) : null;
+		String digit = numerals.getOrDefault(key, null);
 		return  digit != null ? digit : super.getKeyNumeral(key);
 	}
 

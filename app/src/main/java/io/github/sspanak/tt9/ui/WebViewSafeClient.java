@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -21,9 +22,11 @@ public class WebViewSafeClient extends WebViewClient {
 	}
 
 	@Override
-	public boolean shouldOverrideUrlLoading(WebView view, String url) {
+	public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+		final String url = request.getUrl().toString();
+
 		if (!url.startsWith("http")) {
-			return super.shouldOverrideUrlLoading(view, url);
+			return super.shouldOverrideUrlLoading(view, request);
 		}
 
 		if (!DeviceInfo.AT_LEAST_ANDROID_10 || !shareLink(url)) {

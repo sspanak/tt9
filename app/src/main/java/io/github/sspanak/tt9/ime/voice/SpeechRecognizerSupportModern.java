@@ -29,7 +29,7 @@ class SpeechRecognizerSupportModern extends SpeechRecognizerSupportLegacy implem
 
 
 	SpeechRecognizerSupportModern(@NonNull Context ims) {
-		super(ims);
+		super();
 		this.ims = ims;
 	}
 

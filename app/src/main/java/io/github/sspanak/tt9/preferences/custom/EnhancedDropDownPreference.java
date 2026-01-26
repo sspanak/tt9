@@ -10,14 +10,13 @@ import androidx.preference.Preference;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.function.Consumer;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.ConsumerCompat;
-import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 abstract public class EnhancedDropDownPreference extends DropDownPreference {
 	@NonNull protected final LinkedHashMap<String, String> values = new LinkedHashMap<>();
-	@Nullable private ConsumerCompat<String> externalChangeListener = null;
+	@Nullable private Consumer<String> externalChangeListener = null;
 
 	public EnhancedDropDownPreference(@NonNull Context context) { super(context); init(context); }
 	public EnhancedDropDownPreference(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); init(context); }
@@ -74,7 +73,7 @@ abstract public class EnhancedDropDownPreference extends DropDownPreference {
 	/**
 	 * Set an external listener to be called when the preference value changes.
 	 */
-	public void setOnChangeListener(@Nullable ConsumerCompat<String> listener) {
+	public void setOnChangeListener(@Nullable Consumer<String> listener) {
 		externalChangeListener = listener;
 	}
 
@@ -139,7 +138,7 @@ abstract public class EnhancedDropDownPreference extends DropDownPreference {
 
 
 	public EnhancedDropDownPreference sort() {
-		if (!DeviceInfo.AT_LEAST_ANDROID_7 || values.size() <= 1) {
+		if (values.size() <= 1) {
 			return this;
 		}
 
