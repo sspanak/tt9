@@ -18,7 +18,7 @@ public class BaseKeyboardResizeKey extends BaseSwipeableKey {
 	}
 
 	private boolean isDragResizeOn() {
-		return tt9 != null && tt9.isDragResizeOn();
+		return tt9 != null && tt9.getSettings().getDragResize();
 	}
 
 	public void setMainView(ResizableMainView mainView) {
