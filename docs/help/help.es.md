@@ -324,21 +324,29 @@ A continuación, se muestra una lista de los posibles comandos de texto:
 
 Para facilitar la edición, las teclas de retroceso, espacio y OK también están activas.
 
-## Entrada por Voz
-La función de entrada por voz permite convertir el habla en texto, similar a Gboard. Como todos los demás teclados, Traditional T9 no realiza el reconocimiento de voz por sí mismo; en su lugar, solicita al teléfono que lo haga.
+## Entrada por voz
+La entrada por voz permite convertir el habla en texto, de forma similar a Gboard. Al igual que otros teclados, Traditional T9 no realiza el reconocimiento de voz por sí mismo, sino que utiliza los servicios de entrada por voz de Android.
 
-_El botón de entrada por voz se oculta en los dispositivos que no la admiten._
+_El botón de entrada por voz en pantalla está oculto en dispositivos que no admiten esta función._
 
-### Dispositivos con Google
+### Dispositivos con servicios de Google
 En dispositivos con Servicios de Google, TT9 utiliza la infraestructura de Google para convertir sus palabras en texto. En Android 12 o anterior, debe conectarse a una red Wi-Fi o activar los datos móviles para que este método funcione. En Android 13 o superior, TT9 puede realizar el reconocimiento de voz tanto en línea como fuera de línea utilizando los paquetes de idioma del dispositivo. Para el uso sin conexión, asegúrese de descargar todos los idiomas deseados desde: Configuración de Android → Sistema → Reconocimiento en el dispositivo → Agregar un idioma.
 
 _Los paquetes de idioma instalados para Google Voice, otros asistentes de voz o teclados no están garantizados para funcionar con Traditional T9. Se recomienda instalar los paquetes globales desde la pantalla "Reconocimiento en el dispositivo"._
 
-### Dispositivos sin Google
-En dispositivos sin Google, si hay una app de asistente de voz o el teclado nativo admite entrada por voz, se usará lo que esté disponible para el reconocimiento de voz. Tenga en cuenta que este método es mucho menos eficaz que el de Google. No funcionará en ambientes ruidosos y generalmente solo reconocerá frases simples como "abrir calendario" o "reproducir música".
+### Dispositivos sin servicios de Google
+Para usar el reconocimiento de voz de Google en dispositivos sin servicios de Google:
 
-### Otros dispositivos
-Otros teléfonos sin Google generalmente no admiten la entrada por voz. Los teléfonos chinos no tienen capacidades de reconocimiento de voz debido a las políticas de seguridad chinas. En estos teléfonos, es posible habilitar la entrada por voz instalando la aplicación de Google, nombre del paquete: "com.google.android.googlequicksearchbox". Alternativamente, puede probar instalando la aplicación Google Go: "com.google.android.apps.searchlite".
+1. Instale la aplicación de Google:
+   - **Android Go:** Google Go (_com.<wbr>google.<wbr>android.<wbr>apps.<wbr>searchlite_)
+   - **Android estándar:** Google (_com.<wbr>google.<wbr>android.<wbr>googlequicksearchbox_)
+2. Conceda manualmente permisos de micrófono e Internet a la aplicación Google o Google Go.
+3. Conceda permiso de micrófono a TT9.
+
+_Algunos dispositivos pueden requerir un reinicio para completar la configuración, incluso si no lo solicitan._
+
+### Uso de alternativas de entrada por voz no basadas en Google
+TT9 también admite métodos de entrada por voz no basados en Google, como Futo Voice o Sayboard. Si hay varios métodos disponibles, TT9 le pedirá que elija uno. Si solo hay instalado un método no basado en Google, TT9 lo utilizará automáticamente.
 
 ## Solución de problemas
 Para varias aplicaciones o dispositivos, es posible habilitar opciones especiales que harán que Traditional T9 funcione mejor con ellos. Puedes encontrarlas al final de cada pantalla de configuración, en la sección Compatibilidad.

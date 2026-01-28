@@ -325,20 +325,28 @@ Below is a list of the possible text commands:
 For easier editing, backspace, space, and OK keys are also active.
 
 ## Voice Input
-The voice input function allows for speech-to-text input, similar to Gboard. Like all other keyboards, Traditional T9 does not perform speech recognition by itself; instead, it asks your phone to do it.
+Voice Input enables speech-to-text typing, similar to Gboard. Like other keyboards, Traditional T9 does not perform speech recognition itself; it relies on Android’s voice input services.
 
-_The Voice Input button is hidden on devices that do not support it._
+_The Voice Input on-screen button is hidden on devices that do not support voice input._
 
-### Devices with Google
+### Devices with Google Services
 On devices with Google Services, TT9 will use the Google infrastructure to convert your words to text. On Android 12 or earlier, you must connect to a Wi-Fi network or enable mobile data for this method to work. On Android 13 or higher, TT9 can perform speech recognition both online and offline, using the device's language packages. For offline usage, make sure to download all desired languages from: Android Settings → System → On-device recognition → Add a Language.
 
 _The language packages installed for Google Voice, other voice assistants, or keyboards are not guaranteed to work with Traditional T9. Installing the global packages on the "On-device recognition" screen is the recommended way._
 
-### Devices without Google
-On devices without Google, if the device has a voice assistant app or the native keyboard supports voice input, whichever is available will be used for speech recognition. Note that this method is considerably less capable than Google. It will not work in a noisy environment, and it will usually recognize only simple phrases, such as "open calendar" or "play music" and similar.
+### Devices without Google Services
+To use Google speech recognition on devices without Google Services:
 
-### Other devices
-Other phones without Google will generally not support voice input. Chinese phones do not have speech recognition capabilities due to Chinese security policies. On these phones, it may be possible to enable voice input support by installing the Google application, package name: "com.google.android.googlequicksearchbox". Alternatively, you can try installing the Google Go application: "com.google.android.apps.searchlite".
+1. Install the Google app:
+  - **Android Go:** Google Go (_com.<wbr>google.<wbr>android.<wbr>apps.<wbr>searchlite_)
+  - **Standard Android:** Google app (_com.<wbr>google.<wbr>android.<wbr>googlequicksearchbox_)
+2. Manually grant microphone and Internet permissions to the Google or Google Go app.
+3. Grant microphone permission to TT9.
+
+_Some devices may require a reboot to complete setup, even if they don't prompt to do so._
+
+### Using non-Google voice input alternatives
+TT9 also supports non-Google voice input methods, such as Futo Voice or Sayboard. If multiple voice input methods are available, TT9 will prompt you to choose one. If only a non-Google voice input method is installed, TT9 will use it automatically.
 
 ## Troubleshooting
 For several applications or devices, it is possible to enable special options, which will make Traditional T9 work better with them. You can find them at the end of each settings screen, under the Compatibility section.
