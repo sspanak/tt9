@@ -324,21 +324,30 @@ Di seguito è riportato un elenco dei possibili comandi di testo:
 
 Per facilitare la modifica, sono attivi anche i tasti backspace, spazio e OK.
 
-## Input Vocale
-La funzione di inserimento vocale consente la conversione del parlato in testo, simile a Gboard. Come tutte le altre tastiere, Traditional T9 non esegue il riconoscimento vocale da solo, ma chiede al telefono di farlo.
+## Input vocale
+L’inserimento vocale consente di convertire il parlato in testo, in modo simile a Gboard. Come le altre tastiere, Traditional T9 non esegue il riconoscimento vocale direttamente, ma si affida ai servizi di inserimento vocale di Android.
 
-_Il pulsante di inserimento vocale è nascosto sui dispositivi che non lo supportano._
+_Il pulsante di inserimento vocale sullo schermo è nascosto sui dispositivi che non supportano questa funzione._
 
-### Dispositivi con Google
+
+### Dispositivi con servizi Google
 Nei dispositivi con i Servizi Google, TT9 utilizza l’infrastruttura di Google per convertire la voce in testo. Su Android 12 o versioni precedenti, è necessario essere connessi a una rete Wi-Fi o attivare i dati mobili affinché funzioni. Su Android 13 o versioni successive, TT9 può eseguire il riconoscimento vocale sia online che offline utilizzando i pacchetti lingua del dispositivo. Per l’uso offline, assicurati di scaricare tutte le lingue desiderate da: Impostazioni Android → Sistema → Riconoscimento sul dispositivo → Aggiungi una lingua.
 
 _I pacchetti installati per Google Voice, altri assistenti vocali o tastiere potrebbero non funzionare con Traditional T9. È consigliato installare i pacchetti globali dallo schermo "Riconoscimento sul dispositivo"._
 
-### Dispositivi senza Google
-Nei dispositivi senza Google, se è presente un'app di assistente vocale o se la tastiera nativa supporta l’inserimento vocale, verrà utilizzata l’opzione disponibile. Tieni presente che questo metodo è molto meno efficace rispetto a Google. Non funziona in ambienti rumorosi e di solito riconosce solo frasi semplici come "apri calendario" o "riproduci musica".
+### Dispositivi senza servizi Google
+Per utilizzare il riconoscimento vocale di Google su dispositivi senza servizi Google:
 
-### Altri dispositivi
-Altri telefoni senza Google generalmente non supportano l’inserimento vocale. I telefoni cinesi non hanno capacità di riconoscimento vocale a causa delle politiche di sicurezza cinesi. Su questi dispositivi, è possibile abilitare il supporto vocale installando l’app di Google con nome pacchetto: "com.google.android.googlequicksearchbox". In alternativa, puoi provare a installare Google Go: "com.google.android.apps.searchlite".
+1. Installare l’app Google:
+   - **Android Go:** Google Go (_com.<wbr>google.<wbr>android.<wbr>apps.<wbr>searchlite_)
+   - **Android standard:** Google (_com.<wbr>google.<wbr>android.<wbr>googlequicksearchbox_)
+2. Concedere manualmente i permessi per microfono e Internet all’app Google o Google Go.
+3. Concedere il permesso del microfono a TT9.
+
+_Alcuni dispositivi potrebbero richiedere un riavvio per completare la configurazione, anche se non viene richiesto._
+
+### Utilizzo di alternative di inserimento vocale non Google
+TT9 supporta anche metodi di inserimento vocale non Google, come Futo Voice o Sayboard. Se sono disponibili più metodi, TT9 chiederà di sceglierne uno. Se è installato solo un metodo non Google, verrà utilizzato automaticamente.
 
 ## Risoluzione dei problemi
 Per alcune applicazioni o dispositivi, è possibile abilitare opzioni speciali, che miglioreranno la compatibilità con Traditional T9. Puoi trovarle alla fine di ciascuna schermata di impostazioni, nella sezione Compatibilità.

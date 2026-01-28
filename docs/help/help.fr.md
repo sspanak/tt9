@@ -325,20 +325,28 @@ Voici une liste des commandes de texte possibles :
 Pour faciliter l'édition, les touches d'effacement, d'espace et de validation sont également actives.
 
 ## Saisie vocale
-La fonction de saisie vocale permet de convertir la parole en texte, comme sur Gboard. Comme tous les autres claviers, Traditional T9 ne réalise pas la reconnaissance vocale lui-même ; il demande à votre téléphone de le faire.
+La saisie vocale permet de convertir la parole en texte, de manière similaire à Gboard. Comme les autres claviers, Traditional T9 n’effectue pas lui-même la reconnaissance vocale ; il s’appuie sur les services de saisie vocale d’Android.
 
-_Le bouton de saisie vocale est masqué sur les appareils qui ne la prennent pas en charge._
+_Le bouton de saisie vocale à l’écran est masqué sur les appareils qui ne prennent pas en charge cette fonctionnalité._
 
-### Appareils avec Google
+### Appareils avec les services Google
 Sur les appareils dotés des services Google, TT9 utilise l'infrastructure Google pour convertir votre voix en texte. Sous Android 12 ou version antérieure, vous devez être connecté à un réseau Wi-Fi ou activer les données mobiles pour que cela fonctionne. À partir d’Android 13, TT9 peut effectuer la reconnaissance vocale en ligne et hors ligne à l’aide des paquets linguistiques du système. Pour une utilisation hors ligne, veillez à télécharger les langues souhaitées via : Paramètres Android → Système → Reconnaissance sur l'appareil → Ajouter une langue.
 
 _Les paquets installés pour Google Voice, d'autres assistants vocaux ou claviers ne sont pas garantis pour fonctionner avec Traditional T9. Il est recommandé d’installer les paquets globaux via l’écran "Reconnaissance sur l’appareil"._
 
-### Appareils sans Google
-Sur les appareils sans Google, si une application d’assistant vocal est présente ou si le clavier natif prend en charge la saisie vocale, la reconnaissance vocale utilisera ce qui est disponible. Notez que cette méthode est bien moins performante que celle de Google. Elle ne fonctionne pas dans un environnement bruyant et ne reconnaît en général que des phrases simples comme "ouvrir calendrier" ou "jouer musique".
+### Appareils sans services Google
+Pour utiliser la reconnaissance vocale de Google sur des appareils sans services Google :
 
-### Autres appareils
-Les autres téléphones sans Google ne prennent généralement pas en charge la saisie vocale. Les téléphones chinois n’ont pas de capacités de reconnaissance vocale en raison des politiques de sécurité chinoises. Sur ces téléphones, vous pouvez essayer d’activer la saisie vocale en installant l’application Google, nom du paquet : « com.google.android.googlequicksearchbox ». Vous pouvez aussi essayer d’installer Google Go : « com.google.android.apps.searchlite ».
+1. Installez l’application Google :
+   - **Android Go :** Google Go (_com.<wbr>google.<wbr>android.<wbr>apps.<wbr>searchlite_)
+   - **Android standard :** Google (_com.<wbr>google.<wbr>android.<wbr>googlequicksearchbox_)
+2. Accordez manuellement les autorisations Microphone et Internet à l’application Google ou Google Go.
+3. Accordez l’autorisation Microphone à TT9.
+
+_Certains appareils peuvent nécessiter un redémarrage pour finaliser la configuration, même s’ils ne le demandent pas._
+
+### Utilisation d’alternatives de saisie vocale non Google
+TT9 prend également en charge des méthodes de saisie vocale non Google, telles que Futo Voice ou Sayboard. Si plusieurs méthodes sont disponibles, TT9 vous demandera d’en sélectionner une. Si une seule méthode non Google est installée, elle sera utilisée automatiquement.
 
 ## Dépannage
 Pour certaines applications ou appareils, il est possible d'activer des options spéciales, qui permettront à Traditional T9 de mieux fonctionner avec eux. Vous les trouverez à la fin de chaque écran de paramètres, dans la section Compatibilité.

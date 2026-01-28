@@ -325,20 +325,28 @@ Nachfolgend eine Liste der möglichen Textbefehle:
 Für eine einfachere Bearbeitung sind auch Rückschritt-, Leer- und OK-Tasten aktiv.
 
 ## Spracheingabe
-Die Spracheingabefunktion ermöglicht eine Sprache-zu-Text-Eingabe, ähnlich wie bei Gboard. Wie alle anderen Tastaturen führt Traditional T9 selbst keine Spracherkennung durch, sondern bittet Ihr Telefon, dies zu übernehmen.
+Die Spracheingabe ermöglicht die Umwandlung von Sprache in Text, ähnlich wie bei Gboard. Wie andere Tastaturen führt Traditional T9 keine eigene Spracherkennung durch, sondern nutzt die Sprachdienste von Android.
 
-_Die Spracheingabetaste ist auf Geräten, die sie nicht unterstützen, ausgeblendet._
+_Die Schaltfläche für die Spracheingabe auf dem Bildschirm ist auf Geräten ohne Unterstützung für Spracheingabe ausgeblendet._
 
-### Geräte mit Google
+### Geräte mit Google-Diensten
 Auf Geräten mit Google-Diensten nutzt TT9 die Google-Infrastruktur, um Ihre gesprochenen Worte in Text umzuwandeln. Unter Android 12 oder älter müssen Sie mit einem WLAN-Netzwerk verbunden sein oder mobile Daten aktivieren, damit diese Methode funktioniert. Ab Android 13 kann TT9 die Spracherkennung sowohl online als auch offline durchführen, unter Verwendung der Sprachpakete des Geräts. Für die Offline-Nutzung stellen Sie sicher, dass Sie alle gewünschten Sprachen herunterladen: Android-Einstellungen → System → Spracherkennung auf dem Gerät → Sprache hinzufügen.
 
 _Die für Google Voice, andere Sprachassistenten oder Tastaturen installierten Sprachpakete funktionieren möglicherweise nicht mit Traditional T9. Es wird empfohlen, die globalen Pakete über den Bildschirm „Spracherkennung auf dem Gerät“ zu installieren._
 
-### Geräte ohne Google
-Auf Geräten ohne Google wird, sofern eine Sprachassistent-App oder die native Tastatur eine Spracheingabe unterstützt, die jeweils verfügbare Option für die Spracherkennung verwendet. Beachten Sie, dass diese Methode deutlich weniger leistungsfähig ist als Google. Sie funktioniert nicht in lauter Umgebung und erkennt meist nur einfache Ausdrücke wie „Kalender öffnen“ oder „Musik abspielen“.
+### Geräte ohne Google-Dienste
+So verwenden Sie die Google-Spracherkennung auf Geräten ohne Google-Dienste:
 
-### Andere Geräte
-Andere Telefone ohne Google unterstützen in der Regel keine Spracheingabe. Chinesische Telefone verfügen aufgrund der chinesischen Sicherheitsrichtlinien nicht über Spracherkennungsfunktionen. Auf diesen Geräten kann die Unterstützung für Spracheingabe möglicherweise durch die Installation der Google-Anwendung mit dem Paketnamen "com.google.android.googlequicksearchbox" aktiviert werden. Alternativ können Sie versuchen, die Google Go-Anwendung zu installieren: "com.google.android.apps.searchlite".
+1. Installieren Sie die Google-App:
+  - **Android Go:** Google Go (_com.<wbr>google.<wbr>android.<wbr>apps.<wbr>searchlite_)
+  - **Standard-Android:** Google-App (_com.<wbr>google.<wbr>android.<wbr>googlequicksearchbox_)
+2. Erteilen Sie der Google- bzw. Google-Go-App manuell die Berechtigungen für Mikrofon und Internet.
+3. Erteilen Sie TT9 die Mikrofonberechtigung.
+
+_Einige Geräte müssen möglicherweise neu gestartet werden, um die Einrichtung abzuschließen, auch wenn kein Neustart angefordert wird._
+
+### Verwendung nicht von Google stammender Spracheingabe
+TT9 unterstützt auch nicht von Google stammende Spracheingabemethoden, z. B. Futo Voice oder Sayboard. Wenn mehrere Spracheingabemethoden verfügbar sind, werden Sie von TT9 zur Auswahl aufgefordert. Ist nur eine nicht von Google stammende Methode installiert, wird sie automatisch verwendet.
 
 ## Fehlerbehebung
 Für verschiedene Anwendungen oder Geräte ist es möglich, spezielle Optionen zu aktivieren, die Traditional T9 besser kompatibel machen. Diese finden Sie am Ende jeder Einstellungsseite unter dem Abschnitt Kompatibilität.

@@ -325,20 +325,28 @@ Așağıda olası metin komutlarının bir listesi bulunmaktadır:
 Daha kolay düzenleme için geri sil, boşluk ve Tamam tușları da aktiftir.
 
 ## Sesli Giriş
-Sesli giriş özelliği, Gboard’a benzer şekilde konuşmayı metne dönüştürmenizi sağlar. Diğer tüm klavyeler gibi Traditional T9 da kendi başına ses tanıma yapmaz; bunun yerine telefonunuza bu görevi verir.
+Sesli giriş, konuşmayı metne dönüştürmeyi sağlar ve Gboard’a benzer şekilde çalışır. Diğer klavyelerde olduğu gibi, Traditional T9 ses tanımayı kendisi yapmaz; Android’in sesli giriş hizmetlerini kullanır.
 
-_Sesli Giriş düğmesi, bu özelliği desteklemeyen cihazlarda gizlenir._
+_Sesli giriş ekran düğmesi, bu özelliği desteklemeyen cihazlarda gizlidir._
 
-### Google'lı Cihazlar
+### Google Hizmetleri Olan Cihazlar
 Google Servisleri olan cihazlarda, TT9 kelimelerinizi metne dönüştürmek için Google altyapısını kullanır. Android 12 veya daha önceki sürümlerde bu yöntemin çalışması için Wi-Fi bağlantınızın olması veya mobil verinin açık olması gerekir. Android 13 veya üzeri sürümlerde TT9, cihazın dil paketlerini kullanarak hem çevrimiçi hem de çevrimdışı ses tanıma gerçekleştirebilir. Çevrimdışı kullanım için, şu adımlardan gerekli dilleri indirdiğinizden emin olun: Android Ayarları → Sistem → Cihaz üzerindeki tanıma → Dil Ekle.
 
 _Google Voice, diğer sesli asistanlar veya klavyeler için yüklenen dil paketleri Traditional T9 ile uyumlu çalışmayabilir. "Cihaz üzerindeki tanıma" ekranından global paketleri yüklemeniz tavsiye edilir._
 
-### Google Olmayan Cihazlar
-Google olmayan cihazlarda, eğer bir sesli asistan uygulaması varsa veya yerel klavye sesli girişi destekliyorsa, ses tanıma için mevcut olan bu seçenekler kullanılır. Ancak bu yöntem, Google kadar güçlü değildir. Gürültülü ortamlarda çalışmaz ve genellikle yalnızca “takvimi aç” veya “müzik çal” gibi basit ifadeleri tanır.
+### Google Hizmetleri Olmayan Cihazlar
+Google ses tanımayı Google Hizmetleri olmayan cihazlarda kullanmak için:
 
-### Diğer Cihazlar
-Google olmayan diğer telefonlar genellikle sesli girişi desteklemez. Çinli telefonlar, Çin güvenlik politikaları nedeniyle ses tanıma özelliğine sahip değildir. Bu cihazlarda, "com.google.android.googlequicksearchbox" paket adına sahip Google uygulamasını yükleyerek sesli girişi etkinleştirmek mümkün olabilir. Alternatif olarak, "com.google.android.apps.searchlite" uygulaması olan Google Go’yu da deneyebilirsiniz.
+1. Google uygulamasını yükleyin:
+   - **Android Go:** Google Go (_com.<wbr>google.<wbr>android.<wbr>apps.<wbr>searchlite_)
+   - **Standart Android:** Google (_com.<wbr>google.<wbr>android.<wbr>googlequicksearchbox_)
+2. Google veya Google Go uygulamasına mikrofon ve İnternet izinlerini manuel olarak verin.
+3. TT9 için mikrofon iznini verin.
+
+_Bazı cihazlarda kurulumu tamamlamak için yeniden başlatma gerekebilir; sistem bunu istemese bile._
+
+### Google Dışı Sesli Giriş Alternatiflerinin Kullanımı
+TT9, Futo Voice veya Sayboard gibi Google dışı sesli giriş yöntemlerini de destekler. Birden fazla yöntem varsa, TT9 seçim yapmanızı ister. Yalnızca bir Google dışı yöntem yüklüyse, otomatik olarak kullanılır.
 
 ## Sorun giderme
 Bazı uygulama veya cihazlar için, Traditional T9'un bunlarla daha iyi çalışmasını sağlayacak özel seçenekleri etkinleştirmek mümkündür. Her ayar ekranının sonunda Uyumluluk bölümünde bulabilirsiniz.
