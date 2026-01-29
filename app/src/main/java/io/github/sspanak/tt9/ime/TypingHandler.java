@@ -140,7 +140,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return false;
 		}
 
-		if (appHacks.onBackspace(settings, mInputMode)) {
+		String[] surroundingChars = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
+
+		if (appHacks.onBackspace(settings, mInputMode, surroundingChars[0])) {
 			mInputMode.reset();
 			mainView.renderDynamicKeys();
 			return false;
@@ -153,18 +155,18 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return true;
 		}
 
-		mInputMode.beforeDeleteText();
+		mInputMode.beforeDeleteText(surroundingChars[0]);
 
 		// load new words only if there is no selected text, because it would be confusing
 		if (repeat == 0 && mInputMode.onBackspace() && textSelection.isEmpty()) {
-			final Runnable onLoad = InputModeKind.isRecomposing(mInputMode) ? null : () -> recompose(repeat, false);
+			final Runnable onLoad = InputModeKind.isRecomposing(mInputMode) ? null : () -> recomposeAfterDeletingWord(surroundingChars);
 			getSuggestions(null, onLoad);
 		} else {
 			suggestionOps.commitCurrent(false, true);
 			mInputMode.reset();
-			deleteText(settings.getBackspaceAcceleration() && repeat > 0);
-			updateShiftStateDebounced(null, mInputMode.noSuggestions(), false); // backspace may change the text too much, so no beforeCursor cache for now
-			recompose(repeat, !textSelection.isEmpty());
+			surroundingChars[0] = deleteText(surroundingChars, settings.getBackspaceAcceleration() && repeat > 0);
+			updateShiftStateDebounced(surroundingChars[0], mInputMode.noSuggestions(), false);
+			recompose(surroundingChars, repeat, !textSelection.isEmpty());
 		}
 
 		return true;
@@ -295,7 +297,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
-	private void deleteText(boolean deleteMany) {
+	private String deleteText(@NonNull String[] surroundingChars, boolean deleteMany) {
 		int charsToDelete = 1;
 
 		if (!textSelection.isEmpty()) {
@@ -303,10 +305,16 @@ public abstract class TypingHandler extends KeyPadHandler {
 			textSelection.clear(false);
 		} else if (deleteMany) {
 			charsToDelete = textField.getComposingText().length();
-			charsToDelete = charsToDelete > 0 ? charsToDelete : Math.max(textField.getPaddedWordBeforeCursorLength(), 1);
+			charsToDelete = charsToDelete > 0 ? charsToDelete : Math.max(TextField.calculatePaddedWordBeforeCursorLength(surroundingChars[0], surroundingChars[1]), 1);
 		}
 
-		textField.deleteChars(mLanguage, charsToDelete);
+		textField.deleteChars(mLanguage, surroundingChars[0], charsToDelete);
+
+		if (charsToDelete >= surroundingChars[0].length()) {
+			return "";
+		} else {
+			return surroundingChars[0].substring(0, surroundingChars[0].length() - charsToDelete);
+		}
 	}
 
 
@@ -394,17 +402,23 @@ public abstract class TypingHandler extends KeyPadHandler {
 	 * Try to recompose the current word after a backspace operation. If successful, load new
 	 * suggestions. Otherwise, reset the InputMode.
 	 */
-	private void recompose(int backspaceRepeat, boolean isTextSelected) {
+	private void recompose(@NonNull String[] surroundingChars, int backspaceRepeat, boolean isTextSelected) {
 		if (!settings.getBackspaceRecomposing() || backspaceRepeat > 0 || isFnPanelVisible() || isTextSelected || !suggestionOps.isEmpty() || DictionaryLoader.getInstance(this).isRunning()) {
 			return;
 		}
 
-		final String previousWord = mInputMode.recompose();
+		final String previousWord = mInputMode.recompose(surroundingChars);
 		if (textField.recompose(previousWord)) {
 			getSuggestions(previousWord, null);
 		} else {
 			mInputMode.reset();
 		}
+	}
+
+
+	private void recomposeAfterDeletingWord(@NonNull String[] surroundingChars) {
+		surroundingChars[0] = (!surroundingChars[0].isEmpty() && !mInputMode.isTyping()) ? surroundingChars[0].substring(0, surroundingChars[0].length() - 1) : surroundingChars[0];
+		recompose(surroundingChars, 0, false);
 	}
 
 

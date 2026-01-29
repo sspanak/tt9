@@ -134,7 +134,7 @@ public class AppHacks {
 	 * Performs extra Backspace operations and returns "false", or completely replaces Backspace and returns "true". When "true" is
 	 * returned, you must not attempt to delete text. This function has already done everything necessary.
 	 */
-	public boolean onBackspace(@NonNull SettingsStore settings, @NonNull InputMode inputMode) {
+	public boolean onBackspace(@NonNull SettingsStore settings, @NonNull InputMode inputMode, @NonNull String beforeCursor) {
 		if (inputType == null || textField == null || textSelection == null) {
 			return false;
 		}
@@ -152,7 +152,7 @@ public class AppHacks {
 			&& !Key.isHardwareBackspace(settings.getKeyBackspace())
 			&& inputMode.noSuggestions()
 			&& textSelection.isEmpty()
-			&& textField.getTextBeforeCursor(null, 1).isEmpty();
+			&& beforeCursor.isEmpty();
 	}
 
 
@@ -286,7 +286,7 @@ public class AppHacks {
 			// delete the corrupted character that went out of control
 			// the surrounding if ensures we do it once
 			TextField corruptedField = textField == null ? new TextField(ims, settings, field) : textField;
-			corruptedField.deleteChars(language, 1);
+			corruptedField.deleteChars(language, corruptedField.getStringBeforeCursor(50), 1);
 		}
 	}
 

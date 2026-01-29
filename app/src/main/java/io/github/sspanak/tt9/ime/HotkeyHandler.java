@@ -583,20 +583,23 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
-		String after = textField.getStringAfterCursor(1);
+		final String after = textField.getStringAfterCursor(1);
 		if (!after.isEmpty() && after.charAt(0) != '\n') {
 			stopWaitingForSpaceTrimKey();
 			return false;
 		}
 
-		String before = textField.getStringBeforeCursor(2);
-		if (before.equals(InputConnectionAsync.TIMEOUT_SENTINEL) || before.length() != 2 || Character.isWhitespace(before.charAt(0)) || before.charAt(1) != Characters.getSpace(mLanguage).charAt(0)) {
+		final String before = textField.getStringBeforeCursor(50);
+		final char lastChar = before.isEmpty() ? 0 : before.charAt(before.length() - 1);
+		final char penultimateChar = before.length() < 2 ? 0 : before.charAt(before.length() - 2);
+
+		if (before.equals(InputConnectionAsync.TIMEOUT_SENTINEL) || before.length() < 2 || Character.isWhitespace(penultimateChar) || lastChar != Characters.getSpace(mLanguage).charAt(0)) {
 			stopWaitingForSpaceTrimKey();
 			return false;
 		}
 
 		if (!validateOnly) {
-			textField.deleteChars(mLanguage, 1);
+			textField.deleteChars(mLanguage, before, 1);
 			stopWaitingForSpaceTrimKey();
 		}
 

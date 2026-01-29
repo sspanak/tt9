@@ -75,31 +75,41 @@ public class ModeIdeograms extends ModeWords {
 
 
 	@Override
-	public void beforeDeleteText() {
+	public void beforeDeleteText(@NonNull String beforeCursor) {
 		if (textField == null) {
 			lastTextBeforeDelete = "";
 			return;
 		}
 
-		final String textBefore = textField.getComposingText();
-		lastTextBeforeDelete = textBefore.isEmpty() ? textField.getTextBeforeCursor(language, 1).toString() : textBefore;
+		lastTextBeforeDelete = textField.getComposingText();
+		if (lastTextBeforeDelete.isEmpty() && !beforeCursor.isEmpty()) {
+			lastTextBeforeDelete = String.valueOf(beforeCursor.charAt(0));
+		}
 	}
 
 
 	@Override
-	public String recompose() {
+	public String recompose(@NonNull String[] surroundingChars) {
 		if (textField == null || lastAcceptedWord.isEmpty()) {
 			return null;
 		}
 
-		Text before = textField.getTextBeforeCursor(language, lastAcceptedWord.length());
-		char after = lastTextBeforeDelete.isEmpty() ? 0 : lastTextBeforeDelete.charAt(0);
-		if (lastAcceptedWord.equals(before.toString()) && Character.isWhitespace(after)) {
+		Text before;
+		if (surroundingChars[0].length() <= lastAcceptedWord.length()) {
+			before = new Text(language, surroundingChars[0]);
+		} else {
+			before = new Text(
+				language,
+				surroundingChars[0].substring(0, surroundingChars[0].length() - lastAcceptedWord.length())
+			);
+		}
+
+		if (lastAcceptedWord.equals(before.toString())) {
 			reset();
 			digitSequence = lastAcceptedSequence;
 			return lastAcceptedWord;
 		} else {
-			Logger.d(LOG_TAG, "Not recomposing word: '" + before + "' != last word: '" + lastAcceptedWord + "' and followed by: '" + after + "'");
+			Logger.d(LOG_TAG, "Not recomposing word: '" + before + "' != last word: '" + lastAcceptedWord + "'");
 			return null;
 		}
 	}

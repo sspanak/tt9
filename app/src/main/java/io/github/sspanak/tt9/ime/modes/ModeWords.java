@@ -154,19 +154,18 @@ class ModeWords extends ModeCheonjiin {
 
 
 	@Override
-	public String recompose() {
+	public String recompose(@NonNull String[] surroundingChars) {
 		isRecomposing = false;
 		if (textField == null || !language.hasSpaceBetweenWords() || language.isTranscribed()) {
 			return null;
 		}
 
-		String after = textField.getStringAfterCursor(1);
-		if (!after.isEmpty() && !Character.isWhitespace(after.codePointAt(0))) {
+		if (!surroundingChars[1].isEmpty() && !Character.isWhitespace(surroundingChars[1].codePointAt(0))) {
 			return null;
 		}
 
 		boolean includeApostrophes = LanguageKind.isUkrainian(language) || LanguageKind.isHebrew(language);
-		String previousWord = textField.getTextBeforeCursor(language, 50).getPreviousWord(false, includeApostrophes, false);
+		String previousWord = new Text(language, surroundingChars[0]).getPreviousWord(false, includeApostrophes, false);
 		if (previousWord.length() < 2 || previousWord.contains(" ")) {
 			Logger.d(LOG_TAG, "Not recomposing invalid word: '" + previousWord + "'");
 			textCase = settings.getTextCase();

@@ -141,12 +141,12 @@ public class TextField extends InputField {
 	 * If the cursor is inside a word, 0 is returned, because there is no full word before it.
 	 * The scanning length is up to the maximum returned by getTextBeforeCursor().
 	 */
-	public int getPaddedWordBeforeCursorLength() {
-		if (getTextAfterCursor(null, 1).startsWithWord()) {
+	public static int calculatePaddedWordBeforeCursorLength(@NonNull String beforeCursor, @NonNull String afterCursor) {
+		if (new Text(null, afterCursor).startsWithWord()) {
 			return 0;
 		}
 
-		Text before = getTextBeforeCursor(null, 50);
+		Text before = new Text(null, beforeCursor);
 		if (before.isEmpty()) {
 			return 0;
 		}
@@ -161,7 +161,7 @@ public class TextField extends InputField {
 	 * It can either send a delete key event to delete a single character or use the faster
 	 * "deleteSurroundingText()" to delete a region of text or a Unicode character.
 	 */
-	public void deleteChars(Language language, int numberOfChars) {
+	public void deleteChars(Language language, @NonNull String beforeCursor, int numberOfChars) {
 		InputConnection connection = getConnection();
 		if (numberOfChars <= 0 || connection == null) {
 			return;
@@ -176,8 +176,7 @@ public class TextField extends InputField {
 		if (numberOfChars == 1) {
 			// Make sure we don't break complex letters or emojis. (for example, 🏴󠁧󠁢󠁷󠁬󠁳󠁿 = 14 chars!)
 			// However, if the connection lags, we still delete at least one char as a last resort.
-			String before = getStringBeforeCursor(30);
-			numberOfChars = before.equals(InputConnectionAsync.TIMEOUT_SENTINEL) ? 1 : new Text(language, before).lastGraphemeLength();
+			numberOfChars = beforeCursor.equals(InputConnectionAsync.TIMEOUT_SENTINEL) ? 1 : new Text(language, beforeCursor).lastGraphemeLength();
 		}
 
 		composingText = composingText.length() > numberOfChars ? composingText.subSequence(0, composingText.length() - numberOfChars) : "";

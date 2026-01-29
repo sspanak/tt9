@@ -201,8 +201,8 @@ abstract public class InputMode {
 	}
 
 	// recomposing
-	public void beforeDeleteText() {}
-	public String recompose() { return null; }
+	public void beforeDeleteText(@NonNull String beforeCursor) {}
+	public String recompose(@NonNull String[] surroundingChars) { return null; }
 	@NonNull public String getRecomposingSuffix() { return ""; }
 
 
