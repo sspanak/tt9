@@ -170,6 +170,7 @@
 	<string name="dictionary_import_error_malformed_line">Nenumatytas žodžio formatas: „%1$s“ eilutėje %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Pridėtų žodžių saugykla yra pilna. Daugiau žodžių importuoti negalite.</string>
 	<string name="delete">Ištrinti</string>
+	<string name="dictionary_import_raise_import_limits_summary">Padidinti maksimalų žodžių skaičių faile nuo %1$d iki %2$d ir bendrą žodžių skaičių nuo %3$d iki %4$d.\nĮspėjimas! Importavus per daug žodžių, gali sulėtėti rašymas.</string>
 	<string name="delete_words_link_summary">Raskite ir ištrinkite neteisingai parašytus arba nereikalingus žodžius.</string>
 	<string name="search_results">Paieškos rezultatai</string>
 	<string name="search_results_void">Jokių rezultatų.</string>
@@ -278,4 +279,5 @@
 	<string name="pref_auto_trim_trailing_space">Automatiškai šalinti pabaigos tarpus</string>
 	<string name="edit_word_invalid_characters">Negalima redaguoti „%1$s“, kai kalba yra „%2$s“.</string>
 	<string name="edit_word_not_available_in_language">Žodžių redagavimas šia kalba negalimas.</string>
+	<string name="dictionary_import_raise_import_limits">Padidinti importo apribojimus</string>
 </resources>

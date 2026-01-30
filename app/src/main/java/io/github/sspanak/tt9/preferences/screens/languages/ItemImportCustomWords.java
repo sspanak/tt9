@@ -46,13 +46,13 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 	@Override
 	protected boolean onStartProcessing() {
 		lastError = "";
-		lastProgress = -1;
+		lastProgress = 0;
 		return false;
 	}
 
 	private void onProgress(float progress) {
-		final String formattedProgress = (lastProgress - progress) < 2 ? String.format(Locale.getDefault(), "%1.3f%%", progress) : progress + "%";
-		final String loadingMsg = activity.getString(R.string.dictionary_import_progress, formattedProgress);
+		final String numberFormat = (progress - lastProgress) < 2 ? "%1.3f%%" : "%1.0f%%";
+		final String loadingMsg = activity.getString(R.string.dictionary_import_progress, String.format(Locale.getDefault(), numberFormat, progress));
 		lastProgress = progress;
 
 		DictionaryProgressNotification.getInstance(activity).showLoadingMessage(loadingMsg, "", Math.round(progress), 100);
@@ -128,6 +128,6 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 			return;
 		}
 
-		getProcessor().run(activity, file);
+		getProcessor().run(activity, activity.getSettings(), file);
 	}
 }
