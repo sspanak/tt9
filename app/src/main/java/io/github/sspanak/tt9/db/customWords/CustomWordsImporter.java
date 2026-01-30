@@ -51,6 +51,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 
 
 	public void clearAllHandlers() {
+		cancelHandler = null;
 		failureHandler = null;
 		progressHandler = null;
 		successHandler = null;
@@ -107,8 +108,13 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 
 		sendStart(resources.getString(R.string.dictionary_import_running));
 		if (isFileValid() && isThereRoomForMoreWords(activity) && isLineCountValid() && insertWords()) {
-			sendSuccess();
-			Logger.i(getClass().getSimpleName(), "Imported " + file.getName() + " in " + Timer.get(getClass().getSimpleName()) + " ms");
+			if (isCanceled()) {
+				sendCancel();
+				Logger.i(getClass().getSimpleName(), "Importing cancelled after " + Timer.get(getClass().getSimpleName()) + " ms");
+			} else {
+				sendSuccess();
+				Logger.i(getClass().getSimpleName(), "Imported " + file.getName() + " in " + Timer.get(getClass().getSimpleName()) + " ms");
+			}
 		} else {
 			Logger.e(getClass().getSimpleName(), "Failed to import " + file.getName());
 		}
@@ -136,6 +142,11 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 			sqlite.beginTransaction();
 
 			for (String line; (line = reader.readLine()) != null; lineCount++) {
+				if (isCanceled()) {
+					sqlite.failTransaction();
+					return true;
+				}
+
 				CustomWord customWord = createCustomWord(line, lineCount);
 				if (customWord == null) {
 					sqlite.failTransaction();

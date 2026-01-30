@@ -203,6 +203,7 @@
 	<string name="virtual_numpad_alignment_right">A la derecha</string>
 	<string name="function_select_keyboard">Cambiar el teclado</string>
 	<string name="add_word_no_confirmation">Añadir sin confirmación</string>
+	<string name="dictionary_import_canceled">Importación cancelada.</string>
 	<string name="dictionary_import_custom_words">Importar</string>
 	<string name="dictionary_import_custom_words_summary">Importar palabras de un CSV previamente exportado.</string>
 	<string name="dictionary_import_progress">Importando CSV (%1$s)…</string>
@@ -271,4 +272,5 @@
 	<string name="edit_word_invalid_characters">No se puede editar \"%1$s\" cuando el idioma es \"%2$s\".</string>
 	<string name="edit_word_not_available_in_language">No es posible editar palabras en este idioma.</string>
 	<string name="dictionary_import_raise_import_limits">Aumentar restricciones de importación</string>
+	<string name="dictionary_import_cancel">Cancelar importación</string>
 </resources>
