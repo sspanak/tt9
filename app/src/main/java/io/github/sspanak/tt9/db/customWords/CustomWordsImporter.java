@@ -23,7 +23,7 @@ import io.github.sspanak.tt9.util.Timer;
 public class CustomWordsImporter extends AbstractFileProcessor {
 	private static CustomWordsImporter self;
 
-	private Consumer<Integer> progressHandler;
+	private Consumer<Float> progressHandler;
 	private Consumer<String> failureHandler;
 
 	private CustomWordFile file;
@@ -55,7 +55,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
-	public void setProgressHandler(Consumer<Integer> handler) {
+	public void setProgressHandler(Consumer<Float> handler) {
 		progressHandler = handler;
 	}
 
@@ -65,7 +65,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
-	private void sendProgress(int progress) {
+	private void sendProgress(float progress) {
 		long now = System.currentTimeMillis();
 		if (lastProgressUpdate + SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME < now) {
 			progressHandler.accept(progress);
@@ -150,7 +150,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 				}
 
 				if (file.getSize() > 20) {
-					sendProgress(lineCount * 100 / file.getSize());
+					sendProgress(lineCount * 100f / file.getSize());
 				}
 			}
 
