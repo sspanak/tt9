@@ -205,6 +205,7 @@
 	<string name="virtual_numpad_alignment_right">Sağa</string>
 	<string name="function_select_keyboard">Klavye seçimi</string>
 	<string name="add_word_no_confirmation">Onay olmadan ekle</string>
+	<string name="dictionary_import_canceled">İçe aktarma iptal edildi.</string>
 	<string name="dictionary_import_custom_words">İçe Aktar</string>
 	<string name="dictionary_import_custom_words_summary">Daha önce dışa aktarılan bir CSV\'den kelimeleri içe aktar.</string>
 	<string name="dictionary_import_progress">CSV İçe aktarılıyor (%1$s)…</string>
@@ -276,4 +277,5 @@
 	<string name="edit_word_invalid_characters">Dil \"%2$s\" iken \"%1$s\" düzenlenemez.</string>
 	<string name="edit_word_not_available_in_language">Bu dilde kelime düzenleme mümkün değildir.</string>
 	<string name="dictionary_import_raise_import_limits">İçe aktarma kısıtlamalarını artır</string>
+	<string name="dictionary_import_cancel">İçe aktarmayı iptal et</string>
 </resources>

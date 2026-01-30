@@ -212,6 +212,7 @@
 	<string name="virtual_numpad_alignment_right">Dešinėje</string>
 	<string name="function_select_keyboard">Keisti klaviatūrą</string>
 	<string name="add_word_no_confirmation">Pridėti be patvirtinimo</string>
+	<string name="dictionary_import_canceled">Importavimas atšauktas.</string>
 	<string name="dictionary_import_custom_words">Importuoti</string>
 	<string name="dictionary_import_custom_words_summary">Importuoti žodžius iš anksčiau eksportuoto CSV.</string>
 	<string name="dictionary_import_progress">Importuojamas CSV (%1$s)…</string>
@@ -280,4 +281,5 @@
 	<string name="edit_word_invalid_characters">Negalima redaguoti „%1$s“, kai kalba yra „%2$s“.</string>
 	<string name="edit_word_not_available_in_language">Žodžių redagavimas šia kalba negalimas.</string>
 	<string name="dictionary_import_raise_import_limits">Padidinti importo apribojimus</string>
+	<string name="dictionary_import_cancel">Atšaukti importavimą</string>
 </resources>

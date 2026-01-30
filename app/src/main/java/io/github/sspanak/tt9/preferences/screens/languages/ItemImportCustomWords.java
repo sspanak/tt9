@@ -37,9 +37,15 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 	@Override
 	protected boolean onClick(Preference p) {
 		setDefaultHandlers();
+		getProcessor().setCancelHandler(this::onCancel);
 		getProcessor().setFailureHandler(this::onFailure);
 		getProcessor().setProgressHandler(this::onProgress);
-		browseFiles();
+
+		if (getProcessor().isRunning()) {
+			getProcessor().cancel();
+		} else {
+			browseFiles();
+		}
 		return true;
 	}
 
@@ -48,6 +54,18 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 		lastError = "";
 		lastProgress = 0;
 		return false;
+	}
+
+	private void onCancel() {
+		activity.runOnUiThread(() -> {
+			final String statusMsg = activity.getString(R.string.dictionary_import_canceled);
+
+			setAndNotifyReady();
+			DictionaryProgressNotification.getInstance(activity).showMessage("", statusMsg, statusMsg);
+
+			item.setTitle(R.string.dictionary_import_custom_words);
+			item.setSummary(statusMsg);
+		});
 	}
 
 	private void onProgress(float progress) {
@@ -88,6 +106,15 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 	public void enable() {
 		item.setSummary(R.string.dictionary_import_custom_words_summary);
 		super.enable();
+	}
+
+	@Override
+	public void disable() {
+		if (getProcessor().isRunning()) {
+			item.setTitle(R.string.dictionary_import_cancel);
+		} else {
+			super.disable();
+		}
 	}
 
 	void setBrowseFilesLauncher(ActivityResultLauncher<Intent> launcher) {

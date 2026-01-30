@@ -175,6 +175,8 @@
 	<string name="dictionary_export_generating_csv">Exporting CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exporting CSV (%1$s)…</string>
 
+	<string name="dictionary_import_cancel">Cancel Importing</string>
+	<string name="dictionary_import_canceled">Importing cancelled.</string>
 	<string name="dictionary_import_custom_words">Import</string>
 	<string name="dictionary_import_custom_words_summary">Import words from a previously exported CSV.</string>
 	<string name="dictionary_import_failed">Importing failed.</string>

@@ -188,6 +188,7 @@
 	<string name="virtual_numpad_alignment_left">A sinistra</string>
 	<string name="virtual_numpad_alignment_right">A destra</string>
 	<string name="add_word_no_confirmation">Aggiungere senza conferma</string>
+	<string name="dictionary_import_canceled">Importazione annullata.</string>
 	<string name="dictionary_import_custom_words">Importare</string>
 	<string name="dictionary_import_custom_words_summary">Importare parole da un CSV precedentemente esportato.</string>
 	<string name="dictionary_import_progress">Importazione CSV (%1$s)…</string>
@@ -274,5 +275,6 @@
 	<string name="edit_word_invalid_characters">Impossibile modificare \"%1$s\" quando la lingua è \"%2$s\".</string>
 	<string name="edit_word_not_available_in_language">La modifica delle parole non è possibile in questa lingua.</string>
 	<string name="dictionary_import_raise_import_limits">Aumentare le restrizioni di importazione</string>
+	<string name="dictionary_import_cancel">Annulla importazione</string>
 </resources>
 

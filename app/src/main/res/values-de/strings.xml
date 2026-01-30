@@ -190,6 +190,7 @@
 	<string name="function_next_mode">Nächster Eingabemodus</string>
 	<string name="function_select_keyboard">Tastaturauswahl</string>
 	<string name="add_word_no_confirmation">Ohne Bestätigung hinzufügen</string>
+	<string name="dictionary_import_canceled">Import abgebrochen.</string>
 	<string name="dictionary_import_custom_words">Importieren</string>
 	<string name="dictionary_import_custom_words_summary">Wörter aus einer zuvor exportierten CSV-Datei importieren.</string>
 	<string name="dictionary_import_progress">CSV importieren (%1$s)…</string>
@@ -273,4 +274,5 @@
 	<string name="edit_word_invalid_characters">„%1$s“ kann nicht bearbeitet werden, wenn die Sprache „%2$s“ ist.</string>
 	<string name="edit_word_not_available_in_language">Das Bearbeiten von Wörtern ist in dieser Sprache nicht möglich.</string>
 	<string name="dictionary_import_raise_import_limits">Importbeschränkungen erhöhen</string>
+	<string name="dictionary_import_cancel">Import abbrechen</string>
 </resources>
