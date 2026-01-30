@@ -7,6 +7,8 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.preference.Preference;
 
+import java.util.Locale;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.customWords.CustomWordsImporter;
 import io.github.sspanak.tt9.db.entities.CustomWordFile;
@@ -20,6 +22,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 	private ActivityResultLauncher<Intent> importCustomWordsLauncher;
 	private String lastError;
+	private float lastProgress;
 
 	public ItemImportCustomWords(Preference item, PreferencesActivity activity, Runnable onStart, Runnable onFinish) {
 		super(item, activity, onStart, onFinish);
@@ -43,13 +46,16 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 	@Override
 	protected boolean onStartProcessing() {
 		lastError = "";
+		lastProgress = -1;
 		return false;
 	}
 
-	private void onProgress(int progress) {
-		String loadingMsg = activity.getString(R.string.dictionary_import_progress, progress + "%");
+	private void onProgress(float progress) {
+		final String formattedProgress = (lastProgress - progress) < 2 ? String.format(Locale.getDefault(), "%1.3f%%", progress) : progress + "%";
+		final String loadingMsg = activity.getString(R.string.dictionary_import_progress, formattedProgress);
+		lastProgress = progress;
 
-		DictionaryProgressNotification.getInstance(activity).showLoadingMessage(loadingMsg, "", progress, 100);
+		DictionaryProgressNotification.getInstance(activity).showLoadingMessage(loadingMsg, "", Math.round(progress), 100);
 		activity.runOnUiThread(() -> item.setSummary(loadingMsg));
 	}
 
