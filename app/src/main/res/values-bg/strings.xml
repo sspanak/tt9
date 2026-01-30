@@ -203,6 +203,7 @@
 	<string name="function_redo">Повторение (Redo)</string>
 	<string name="function_voice_input">Гласово въвеждане</string>
 	<string name="add_word_no_confirmation">Добавяне без потвърждение</string>
+	<string name="dictionary_import_canceled">Импортирането е отменено.</string>
 	<string name="dictionary_import_custom_words">Импортирай</string>
 	<string name="dictionary_import_custom_words_summary">Импортиране на думи от по-рано експортирано CSV.</string>
 	<string name="dictionary_import_progress">Импортиране на CSV (%1$s)…</string>
@@ -271,4 +272,5 @@
 	<string name="edit_word_invalid_characters">Не може да се редактира „%1$s“, когато езикът е „%2$s“.</string>
 	<string name="edit_word_not_available_in_language">Редактирането на думи не е възможно за този език.</string>
 	<string name="dictionary_import_raise_import_limits">Повишаване на ограниченията за импорт</string>
+	<string name="dictionary_import_cancel">Отмяна на импортирането</string>
 </resources>

@@ -191,6 +191,7 @@
 	<string name="function_next_mode">Volgende invoermodus</string>
 	<string name="function_select_keyboard">Toetsenbordkeuze</string>
 	<string name="add_word_no_confirmation">Toevoegen zonder bevestiging</string>
+	<string name="dictionary_import_canceled">Importeren geannuleerd.</string>
 	<string name="dictionary_import_custom_words">Importeren</string>
 	<string name="dictionary_import_custom_words_summary">Woorden importeren uit een eerder geëxporteerde CSV.</string>
 	<string name="dictionary_import_progress">CSV importeren (%1$s)…</string>
@@ -272,4 +273,5 @@
 	<string name="edit_word_invalid_characters">Kan \"%1$s\" niet bewerken wanneer de taal \"%2$s\" is.</string>
 	<string name="edit_word_not_available_in_language">Woorden bewerken is niet mogelijk in deze taal.</string>
 	<string name="dictionary_import_raise_import_limits">Importbeperkingen verhogen</string>
+	<string name="dictionary_import_cancel">Importeren annuleren</string>
 </resources>
