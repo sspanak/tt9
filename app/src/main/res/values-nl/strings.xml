@@ -133,6 +133,7 @@
 	<string name="dictionary_import_error_malformed_line">Onverwacht woordformaat: \"%1$s\" op regel %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">De opslag voor toegevoegde woorden is vol. U kunt geen woorden meer importeren.</string>
 	<string name="delete">Verwijderen</string>
+	<string name="dictionary_import_raise_import_limits_summary">Verhoog het maximum aantal woorden per bestand van %1$d naar %2$d en het totale aantal woorden van %3$d naar %4$d.\nWaarschuwing! Het importeren van te veel woorden kan het typen vertragen.</string>
 	<string name="delete_words_link_summary">Zoek en verwijder verkeerd gespelde of onnodige woorden.</string>
 	<string name="search_results">Zoekresultaten</string>
 	<string name="search_results_void">Geen resultaten.</string>
@@ -270,4 +271,5 @@
 	<string name="pref_auto_trim_trailing_space">Automatisch afsluitende spaties verwijderen</string>
 	<string name="edit_word_invalid_characters">Kan \"%1$s\" niet bewerken wanneer de taal \"%2$s\" is.</string>
 	<string name="edit_word_not_available_in_language">Woorden bewerken is niet mogelijk in deze taal.</string>
+	<string name="dictionary_import_raise_import_limits">Importbeperkingen verhogen</string>
 </resources>

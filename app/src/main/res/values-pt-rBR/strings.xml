@@ -152,6 +152,7 @@
 	<string name="dictionary_import_error_malformed_line">Formato de palavra inesperado: \"%1$s\" na linha %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">O armazenamento de palavras adicionadas está cheio. Você não pode importar mais palavras.</string>
 	<string name="delete">Excluir</string>
+	<string name="dictionary_import_raise_import_limits_summary">Aumentar o número máximo de palavras por arquivo de %1$d para %2$d e o total de palavras de %3$d para %4$d.\nAtenção! Importar palavras demais pode causar lentidão na digitação.</string>
 	<string name="delete_words_link_summary">Encontrar e excluir palavras escritas incorretamente ou desnecessárias.</string>
 	<string name="search_results">Palavras encontradas</string>
 	<string name="search_results_void">Sem resultados.</string>
@@ -276,4 +277,5 @@
 	<string name="pref_auto_trim_trailing_space">Remover automaticamente espaços finais</string>
 	<string name="edit_word_invalid_characters">Não é possível editar \"%1$s\" quando o idioma é \"%2$s\".</string>
 	<string name="edit_word_not_available_in_language">Não é possível editar palavras neste idioma.</string>
+	<string name="dictionary_import_raise_import_limits">Aumentar restrições de importação</string>
 </resources>

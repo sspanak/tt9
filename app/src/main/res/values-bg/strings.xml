@@ -79,6 +79,7 @@
 	<string name="dictionary_import_error_malformed_line">Неочакван формат на дума: „%1$s“ на ред %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Хранилището за добавени думи е пълно. Не можете да импортирате повече думи.</string>
 	<string name="delete">Изтрий</string>
+	<string name="dictionary_import_raise_import_limits_summary">Увеличаване на максималния брой думи на файл от %1$d на %2$d и общия брой думи от %3$d на %4$d.\nВнимание! Импортирането на твърде много думи може да забави писането.</string>
 	<string name="delete_words_link_summary">Намери и изтрий на неправилно написани или ненужни думи.</string>
 	<string name="search_results">Намерени думи</string>
 	<string name="search_results_void">Няма резултати.</string>
@@ -269,4 +270,5 @@
 	<string name="pref_auto_trim_trailing_space">Автоматично премахване на крайните интервали</string>
 	<string name="edit_word_invalid_characters">Не може да се редактира „%1$s“, когато езикът е „%2$s“.</string>
 	<string name="edit_word_not_available_in_language">Редактирането на думи не е възможно за този език.</string>
+	<string name="dictionary_import_raise_import_limits">Повишаване на ограниченията за импорт</string>
 </resources>

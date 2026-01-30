@@ -14,7 +14,6 @@ import io.github.sspanak.tt9.preferences.screens.appearance.DropDownWidth;
 import io.github.sspanak.tt9.preferences.screens.appearance.SwitchDoubleTapResize;
 import io.github.sspanak.tt9.preferences.screens.appearance.SwitchDragResize;
 import io.github.sspanak.tt9.preferences.screens.appearance.SwitchKeyShadows;
-import io.github.sspanak.tt9.preferences.screens.languages.AddWordsWithoutConfirmationSwitch;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
@@ -51,10 +50,6 @@ public class SettingsUI extends SettingsTyping {
 		} else {
 			DEFAULT_LAYOUT = LAYOUT_TRAY;
 		}
-	}
-
-	public boolean getAddWordsNoConfirmation() {
-		return prefs.getBoolean(AddWordsWithoutConfirmationSwitch.NAME, false);
 	}
 
 	public boolean getNotificationsApproved() {
