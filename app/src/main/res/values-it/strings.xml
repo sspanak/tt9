@@ -134,6 +134,7 @@
 	<string name="dictionary_import_error_malformed_line">Formato di parola imprevisto: \"%1$s\" alla linea %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Lo spazio di archiviazione delle parole aggiunte è pieno. Non è possibile importare altre parole.</string>
 	<string name="delete">Elimina</string>
+	<string name="dictionary_import_raise_import_limits_summary">Aumentare il numero massimo di parole per file da %1$d a %2$d e il numero totale di parole da %3$d a %4$d.\nAttenzione! L’importazione di troppe parole può rallentare la digitazione.</string>
 	<string name="delete_words_link_summary">Trova ed elimina parole errate o non necessarie.</string>
 	<string name="search_results">Parole trovate</string>
 	<string name="search_results_void">Nessun risultato.</string>
@@ -272,5 +273,6 @@
 	<string name="pref_auto_trim_trailing_space">Rimuovere automaticamente gli spazi finali</string>
 	<string name="edit_word_invalid_characters">Impossibile modificare \"%1$s\" quando la lingua è \"%2$s\".</string>
 	<string name="edit_word_not_available_in_language">La modifica delle parole non è possibile in questa lingua.</string>
+	<string name="dictionary_import_raise_import_limits">Aumentare le restrizioni di importazione</string>
 </resources>
 

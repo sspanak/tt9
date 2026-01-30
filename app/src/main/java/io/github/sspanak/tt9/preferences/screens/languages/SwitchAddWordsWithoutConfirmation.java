@@ -10,25 +10,25 @@ import androidx.preference.SwitchPreferenceCompat;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class AddWordsWithoutConfirmationSwitch extends SwitchPreferenceCompat {
+public class SwitchAddWordsWithoutConfirmation extends SwitchPreferenceCompat {
 	public static final String NAME = "add_word_no_confirmation";
 
-	public AddWordsWithoutConfirmationSwitch(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	public SwitchAddWordsWithoutConfirmation(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		init(context);
 	}
 
-	public AddWordsWithoutConfirmationSwitch(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+	public SwitchAddWordsWithoutConfirmation(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(context);
 	}
 
-	public AddWordsWithoutConfirmationSwitch(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SwitchAddWordsWithoutConfirmation(@NonNull Context context, @Nullable AttributeSet attrs) {
 		super(context, attrs);
 		init(context);
 	}
 
-	public AddWordsWithoutConfirmationSwitch(@NonNull Context context) {
+	public SwitchAddWordsWithoutConfirmation(@NonNull Context context) {
 		super(context);
 		init(context);
 	}

@@ -30,12 +30,14 @@
 		app:title="@string/pref_category_custom_words"
 		app:singleLineTitle="true">
 
-		<io.github.sspanak.tt9.preferences.screens.languages.AddWordsWithoutConfirmationSwitch />
+		<io.github.sspanak.tt9.preferences.screens.languages.SwitchAddWordsWithoutConfirmation />
 
 		<Preference
 			app:key="dictionary_import_custom"
 			app:title="@string/dictionary_import_custom_words"
 			app:enabled="false"/>
+
+		<io.github.sspanak.tt9.preferences.screens.languages.SwitchRaiseImportLimits />
 
 		<Preference
 			app:key="dictionary_export_custom"

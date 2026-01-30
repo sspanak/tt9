@@ -186,6 +186,8 @@
 	<string name="dictionary_import_error_too_many_words">The added word storage is full. You can not import any more words.</string>
 	<string name="dictionary_import_progress">Importing CSV (%1$s)…</string>
 	<string name="dictionary_import_running">Importing CSV…</string>
+	<string name="dictionary_import_raise_import_limits">Increase Import Limit</string>
+	<string name="dictionary_import_raise_import_limits_summary">Increase the maximum words per file from %1$d to %2$d, and the total word count from %3$d to %4$d.\nWarning! Importing too many words may cause typing lag.</string>
 
 	<string name="delete_words_link_summary">Find and delete misspelled or unneeded words.</string>
 	<string name="delete_words_deleted_confirm_deletion_title">Confirm Deletion</string>

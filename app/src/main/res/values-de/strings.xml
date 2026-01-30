@@ -133,6 +133,7 @@
 	<string name="dictionary_import_error_malformed_line">Unerwartetes Wortformat: \"%1$s\" in Zeile %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Der Speicher für hinzugefügte Wörter ist voll. Sie können keine weiteren Wörter importieren.</string>
 	<string name="delete">Löschen</string>
+	<string name="dictionary_import_raise_import_limits_summary">Maximale Anzahl von Wörtern pro Datei von %1$d auf %2$d und die Gesamtzahl der Wörter von %3$d auf %4$d erhöhen.\nWarnung! Das Importieren zu vieler Wörter kann die Eingabe verlangsamen.</string>
 	<string name="delete_words_link_summary">Finde und lösche falsch geschriebene oder überflüssige Wörter.</string>
 	<string name="search_results">Suchergebnisse</string>
 	<string name="search_results_void">Keine Ergebnisse.</string>
@@ -271,4 +272,5 @@
 	<string name="pref_auto_trim_trailing_space">Nachfolgende Leerzeichen automatisch entfernen</string>
 	<string name="edit_word_invalid_characters">„%1$s“ kann nicht bearbeitet werden, wenn die Sprache „%2$s“ ist.</string>
 	<string name="edit_word_not_available_in_language">Das Bearbeiten von Wörtern ist in dieser Sprache nicht möglich.</string>
+	<string name="dictionary_import_raise_import_limits">Importbeschränkungen erhöhen</string>
 </resources>

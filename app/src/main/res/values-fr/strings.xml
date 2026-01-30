@@ -152,6 +152,7 @@
 	<string name="dictionary_import_error_malformed_line">Format de mot inattendu : « %1$s » à la ligne %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Le stockage des mots ajoutés est plein. Vous ne pouvez plus importer de mots.</string>
 	<string name="delete">Supprimer</string>
+	<string name="dictionary_import_raise_import_limits_summary">Augmenter le nombre maximal de mots par fichier de %1$d à %2$d et le nombre total de mots de %3$d à %4$d.\nAttention ! L’importation d’un trop grand nombre de mots peut ralentir la saisie.</string>
 	<string name="delete_words_link_summary">Trouver et supprimer des mots mal orthographiés ou inutiles.</string>
 	<string name="search_results">Mots trouvés</string>
 	<string name="search_results_void">Aucun résultat.</string>
@@ -269,4 +270,5 @@
 	<string name="pref_auto_trim_trailing_space">Supprimer automatiquement les espaces de fin</string>
 	<string name="edit_word_invalid_characters">Impossible de modifier « %1$s » lorsque la langue est « %2$s ».</string>
 	<string name="edit_word_not_available_in_language">La modification des mots n’est pas possible dans cette langue.</string>
+	<string name="dictionary_import_raise_import_limits">Augmenter les restrictions d’importation</string>
 </resources>
