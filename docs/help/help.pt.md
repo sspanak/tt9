@@ -483,11 +483,42 @@ A maioria dos outros teclados permite alternar de volta para o Traditional T9 se
 ### Não consigo mudar o idioma em um telefone com tela sensível ao toque
 Primeiro, certifique-se de que ativou todos os idiomas desejados em Configurações → Idiomas. Em seguida, pressione e segure a [Tecla de Modo de Entrada](#tecla-de-modo-de-entrada) para mudar o idioma.
 
-### Como adicionar contrações como “I've” ou “don't” ao dicionário?
-Todas as contrações em todos os idiomas já estão disponíveis como palavras separadas, então você não precisa adicionar nada. Isso proporciona máxima flexibilidade — permite combinar qualquer palavra com qualquer contração e ainda economiza bastante espaço de armazenamento.
+### Como digitar contrações e palavras com apóstrofos ou hífens?
+Pressione **1** no local onde o apóstrofo ou o hífen deve aparecer. Mesmo que vários sinais de pontuação sejam sugeridos, não é necessário selecionar um manualmente. O mais apropriado será inserido automaticamente quando você digitar a próxima letra ou um espaço.
 
-Por exemplo, você pode digitar 've pressionando: 183; ou 'll usando: 155. Isso significa que "I'll" = 4155 e "we've" = 93183. Você também pode digitar coisas como "google.com", pressionando: 466453 (google) 1266 (.com).
+Abaixo estão alguns exemplos práticos.
 
-Um exemplo mais complexo em francês: "Qu'est-ce que c'est" = 781 (qu'), 378123 (est-ce), 783 (que), 21378 (c'est).
+#### Inglês
+As contrações estão disponíveis como “palavras” separadas, o que permite combiná-las livremente com outras palavras.
 
-_Exceções notáveis à regra são "can't" e "don't" em inglês. Aqui, 't não é uma palavra separada, mas ainda assim você pode digitá-las como explicado acima._
+- **Apóstrofos:** I'll → 4155, onde: 4 (I) + 155 ('ll)
+- **Hífens:** check-in → 24325146, onde: 24325 (check) + 146 (-in)
+- **Múltiplos apóstrofos:** rock'n'roll → 7625 (rock) + 161 ('n') + 7655 (roll)
+- **Formas negativas (sempre palavras completas):**
+  - can't → 22618
+  - don't → 46618
+  - e assim por diante...
+
+#### Holandês
+Todas as contrações em holandês também estão disponíveis para combinação com outras palavras. Nesse caso, os sinais de pontuação podem aparecer no início, no fim ou em ambos.
+
+- ’s-Hertogenbosch → 171 ('s-) + 4372643626724 (Hertogenbosch)
+
+#### Outras línguas com alfabeto latino
+De forma semelhante, é possível digitar contrações e expressões complexas em francês, italiano e em outras línguas que utilizam o alfabeto latino.
+
+- **Italiano:** dov'è → 3681 (dov') + 3 (è)
+- **Francês, apóstrofos:** j'ai → 51 (j') + 24 (ai)
+- **Francês, expressão complexa:** qu'est-ce que c'est → 781 (qu') + 378123 (est-ce) + 783 (que) + 21378 (c'est)
+- **Turco:** Antalya'da → 2682592 (Antalya) + 132 ('da)
+
+#### Palavras completas (ucraniano e hebraico)
+Em ucraniano e hebraico, os apóstrofos sempre fazem parte da palavra.
+
+- **Ucraniano:** пам'ять → 525196
+- **Hebraico:** צ'ארלס → 813759
+
+#### Sites
+As extensões de domínio mais comuns estão disponíveis como “palavras” separadas nas línguas que utilizam o alfabeto latino, permitindo digitar endereços de sites de forma rápida e fácil.
+
+- google.com → 466453 (google) + 1266 (.com)

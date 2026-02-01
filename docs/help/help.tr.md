@@ -483,11 +483,42 @@ T9 kullanmayı öğreniyorsanız ve ara sıra geri dönmeniz gerekiyorsa veya ye
 ### Dokunmatik ekranlı bir telefonda dili değiştiremiyorum
 Öncelikle Ayarlar → Diller kısmından tüm istediğiniz dilleri etkinleştirdiğinizden emin olun. Ardından, dili değiştirmek için [giriş modu tuşunu](#giriş-modu-tuşu) basılı tutun.
 
-### “I've” veya “don't” gibi kısaltmalar sözlüğe nasıl eklenir?
-Tüm dillerdeki kısaltmalar zaten ayrı kelimeler olarak mevcut, bu yüzden herhangi bir şey eklemenize gerek yok. Bu maksimum esneklik sağlar — istediğiniz herhangi bir kelimeyi herhangi bir kısaltma ile birleştirebilir ve aynı zamanda önemli miktarda depolama alanı tasarrufu elde edersiniz.
+### Kısaltmalar ve kesme işareti veya tire içeren kelimeler nasıl yazılır?
+Kesme işareti veya tire işaretinin görünmesi gereken yerde **1** tuşuna basın. Birden fazla noktalama işareti önerilse bile, bunlardan birini manuel olarak seçmeniz gerekmez. En uygun olan, bir sonraki harfi veya boşluk karakterini yazdığınızda otomatik olarak eklenir.
 
-Örneğin, 've yazmak için: 183 tuşlayın; veya 'll için: 155. Bu, "I'll" = 4155 ve "we've" = 93183 anlamına gelir. Ayrıca "google.com" yazmak için: 466453 (google) 1266 (.com) tuşlayabilirsiniz.
+Aşağıda pratik örnekler yer almaktadır.
 
-Fransızca daha karmaşık bir örnek: "Qu'est-ce que c'est" = 781 (qu'), 378123 (est-ce), 783 (que), 21378 (c'est).
+#### İngilizce
+Kısaltmalar ayrı “kelimeler” olarak mevcuttur, bu da onları diğer kelimelerle serbestçe birleştirmenizi sağlar.
 
-_Bu kuralın dikkate değer istisnaları İngilizcedeki "can't" ve "don't" kelimeleridir. Burada 't ayrı bir kelime değildir, ancak yukarıda açıklandığı şekilde yazabilirsiniz._
+- **Kesme işaretleri:** I'll → 4155, burada: 4 (I) + 155 ('ll)
+- **Tireler:** check-in → 24325146, burada: 24325 (check) + 146 (-in)
+- **Birden fazla kesme işareti:** rock'n'roll → 7625 (rock) + 161 ('n') + 7655 (roll)
+- **Olumsuz biçimler (her zaman tam kelimeler):**
+  - can't → 22618
+  - don't → 46618
+  - vb.
+
+#### Hollandaca
+Tüm Hollandaca kısaltmalar da diğer kelimelerle birleştirilmeye hazırdır. Bu durumda noktalama işaretleri başta, sonda veya her iki yerde bulunabilir.
+
+- ’s-Hertogenbosch → 171 ('s-) + 4372643626724 (Hertogenbosch)
+
+#### Latin alfabesi kullanan diğer diller
+Benzer şekilde, Fransızca, İtalyanca ve Latin alfabesi kullanan diğer dillerde kısaltmaları ve karmaşık ifadeleri yazabilirsiniz.
+
+- **İtalyanca:** dov'è → 3681 (dov') + 3 (è)
+- **Fransızca, kesme işaretleri:** j'ai → 51 (j') + 24 (ai)
+- **Fransızca, karmaşık ifade:** qu'est-ce que c'est → 781 (qu') + 378123 (est-ce) + 783 (que) + 21378 (c'est)
+- **Türkçe:** Antalya'da → 2682592 (Antalya) + 132 ('da)
+
+#### Tam kelimeler (Ukraynaca ve İbranice)
+Ukraynaca ve İbranice’de kesme işaretleri her zaman kelimenin bir parçasıdır.
+
+- **Ukraynaca:** пам'ять → 525196
+- **İbranice:** צ'ארלס → 813759
+
+#### Web siteleri
+En yaygın alan adı uzantıları, Latin alfabesi kullanan dillerde ayrı “kelimeler” olarak mevcuttur ve web adreslerini hızlı ve kolay bir şekilde yazmanıza olanak tanır.
+
+- google.com → 466453 (google) + 1266 (.com)
