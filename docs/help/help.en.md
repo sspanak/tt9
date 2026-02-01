@@ -485,11 +485,42 @@ Most other keyboards allow switching back to Traditional T9 by holding the space
 ### I can't change the language on a touchscreen phone
 First, ensure you have enabled all desired languages from Settings → Languages. Then hold the [Input Mode key](#input-mode-key) to change the language.
 
-### How to add contractions like "I've" or "don't" to the dictionary?
-All contractions in all languages are available as separate words, so you do not need to add anything. This provides maximum flexibility—it allows you to combine any word with any contraction, and saves a significant amount of storage space.
+### How to type contractions, and words with apostrophes or hyphens?
+Press **1** where the apostrophe or hyphen should appear. Even if multiple punctuation marks are suggested, you do not need to select one manually. The most appropriate one will be inserted automatically when you type the next letter or a space.
 
-For example, you can type: 've by pressing: 183; or: 'll, using: 155. This means, "I'll" = 4155 and "we've" = 93183. You can also type things like "google.com", by pressing: 466453 (google) 1266 (.com).
+Below are practical examples.
 
-A more complex example in French: "Qu'est-ce que c'est" = 781 (qu'), 378123 (est-ce), 783 (que), 21378 (c'est).
+#### English
+Contractions are available as separate “words”, which allows you to combine them with other words freely.
 
-_Notable exceptions to the rule are "can't" and "don't" in English. Here, 't is not a separate word, but nevertheless you can still type them as described above._
+- **Apostrophes:** I'll → 4155, where: 4 (I) + 155 ('ll)
+- **Hyphens:** check-in → 24325146, where: 24325 (check) + 146 (-in)
+- **Multiple apostrophes:** rock'n'roll → 7625 (rock) + 161 ('n') + 7655 (roll)
+- **Negative forms (always complete words):**
+  - can't → 22618
+  - don't → 46618
+  - and so on...
+
+#### Dutch
+All Dutch contractions are also readily available for combining with other words. Here, the punctuation marks may appear at the beginning, at the end, or both.
+
+- ’s-Hertogenbosch → 171 ('s-) + 4372643626724 (Hertogenbosch)
+
+#### Others with the Latin alphabet
+Similar to the above, you can type contractions and complex phrases in French, Italian, and other languages that use the Latin alphabet.
+
+- **Italian:** dov'è → 3681 (dov') + 3 (è)
+- **French, apostrophes:** j'ai → 51 (j') + 24 (ai)
+- **French, complex phrase:** qu'est-ce que c'est → 781 (qu') + 378123 (est-ce) + 783 (que) + 21378 (c'est)
+- **Turkish:** Antalya'da → 2682592 (Antalya) + 132 ('da)
+
+#### Complete words (Ukrainian and Hebrew)
+In Ukrainian and Hebrew, apostrophes are always part of the word.
+
+- **Ukrainian:** пам'ять → 525196
+- **Hebrew:** צ'ארלס → 813759
+
+#### Websites
+The most popular domain extensions are available as separate "words" in the languages that use the Latin alphabet, allowing you to type website addresses quickly and easily.
+
+- google.com → 466453 (google) + 1266 (.com)

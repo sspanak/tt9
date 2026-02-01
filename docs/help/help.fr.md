@@ -483,11 +483,42 @@ La plupart des autres claviers permettent de revenir à Traditional T9 en mainte
 ### Je ne peux pas changer de langue sur un téléphone tactile
 Tout d'abord, assurez-vous d'avoir activé toutes les langues souhaitées dans Paramètres → Langues. Ensuite, maintenez la [touche de mode de saisie](#touche-de-mode-de-saisie) pour changer de langue.
 
-### Comment ajouter des contractions telles que « I've » ou « don't » au dictionnaire ?
-Toutes les contractions dans toutes les langues sont déjà disponibles sous forme de mots séparés, donc vous n'avez rien à ajouter. Cela offre une flexibilité maximale : vous pouvez combiner n'importe quel mot avec n'importe quelle contraction, et cela permet également de gagner beaucoup d'espace de stockage.
+### Comment saisir les contractions et les mots avec apostrophes ou traits d’union?
+Appuyez sur **1** à l’endroit où l’apostrophe ou le trait d’union doit apparaître. Même si plusieurs signes de ponctuation sont suggérés, il n’est pas nécessaire d’en sélectionner un manuellement. Le plus approprié sera inséré automatiquement lorsque vous tapez la lettre suivante ou un espace.
 
-Par exemple, vous pouvez taper 've en appuyant sur : 183 ; ou 'll avec : 155. Cela signifie que "I'll" = 4155 et "we've" = 93183. Vous pouvez également taper des choses comme "google.com" en appuyant sur : 466453 (google) 1266 (.com).
+Voici quelques exemples pratiques.
 
-Un exemple plus complexe en français : "Qu'est-ce que c'est" = 781 (qu'), 378123 (est-ce), 783 (que), 21378 (c'est).
+#### Anglais
+Les contractions sont disponibles comme des « mots » distincts, ce qui permet de les combiner librement avec d’autres mots.
 
-_Les exceptions notables à cette règle sont "can't" et "don't" en anglais. Ici, 't n'est pas un mot séparé, mais vous pouvez tout de même les taper comme expliqué ci-dessus._
+- **Apostrophes :** I'll → 4155, où : 4 (I) + 155 ('ll)
+- **Traits d’union :** check-in → 24325146, où : 24325 (check) + 146 (-in)
+- **Apostrophes multiples :** rock'n'roll → 7625 (rock) + 161 ('n') + 7655 (roll)
+- **Formes négatives (toujours des mots complets) :**
+  - can't → 22618
+  - don't → 46618
+  - etc.
+
+#### Néerlandais
+Toutes les contractions néerlandaises sont également disponibles pour être combinées avec d’autres mots. Ici, la ponctuation peut apparaître au début, à la fin ou aux deux endroits.
+
+- ’s-Hertogenbosch → 171 ('s-) + 4372643626724 (Hertogenbosch)
+
+#### Autres langues utilisant l’alphabet latin
+De la même manière, vous pouvez saisir des contractions et des expressions complexes en français, en italien et dans d’autres langues utilisant l’alphabet latin.
+
+- **Italien :** dov'è → 3681 (dov') + 3 (è)
+- **Français, apostrophes :** j'ai → 51 (j') + 24 (ai)
+- **Français, expression complexe :** qu'est-ce que c'est → 781 (qu') + 378123 (est-ce) + 783 (que) + 21378 (c'est)
+- **Turc :** Antalya'da → 2682592 (Antalya) + 132 ('da)
+
+#### Mots complets (ukrainien et hébreu)
+En ukrainien et en hébreu, les apostrophes font toujours partie du mot.
+
+- **Ukrainien :** пам'ять → 525196
+- **Hébreu :** צ'ארלס → 813759
+
+#### Sites web
+Les extensions de domaine les plus courantes sont disponibles sous forme de « mots » distincts dans les langues utilisant l’alphabet latin, ce qui permet de saisir rapidement et facilement des adresses web.
+
+- google.com → 466453 (google) + 1266 (.com)

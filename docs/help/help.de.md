@@ -483,11 +483,42 @@ Die meisten anderen Tastaturen erlauben das Zurückwechseln zu Traditional T9, i
 ### Ich kann die Sprache auf einem Touchscreen-Telefon nicht ändern
 Stellen Sie zuerst sicher, dass Sie alle gewünschten Sprachen unter Einstellungen → Sprachen aktiviert haben. Halten Sie dann die [Eingabemodus-Taste](#eingabemodus-taste), um die Sprache zu ändern.
 
-### Wie fügt man Kontraktionen wie „I've“ oder „don't“ zum Wörterbuch hinzu?
-Alle Kontraktionen in allen Sprachen sind bereits als separate Wörter verfügbar, daher müssen Sie nichts hinzufügen. Dies bietet maximale Flexibilität – Sie können jedes Wort mit jeder Kontraktion kombinieren und gleichzeitig erheblich Speicherplatz sparen.
+### Wie man Kontraktionen sowie Wörter mit Apostrophen oder Bindestrichen eingibt?
+Drücken Sie **1** an der Stelle, an der der Apostroph oder der Bindestrich erscheinen soll. Auch wenn mehrere Satzzeichen vorgeschlagen werden, müssen Sie keines manuell auswählen. Das passendste wird automatisch eingefügt, sobald Sie den nächsten Buchstaben oder ein Leerzeichen eingeben.
 
-Zum Beispiel können Sie 've eingeben, indem Sie: 183 drücken; oder 'll mit: 155. Das bedeutet: "I'll" = 4155 und "we've" = 93183. Sie können auch Begriffe wie "google.com" eingeben, indem Sie: 466453 (google) 1266 (.com) drücken.
+Nachfolgend finden Sie praktische Beispiele.
 
-Ein komplexeres Beispiel auf Französisch: "Qu'est-ce que c'est" = 781 (qu'), 378123 (est-ce), 783 (que), 21378 (c'est).
+#### Englisch
+Kontraktionen sind als separate „Wörter“ verfügbar, sodass Sie sie frei mit anderen Wörtern kombinieren können.
 
-_Besondere Ausnahmen sind "can't" und "don't" im Englischen. Hier ist 't kein separates Wort, aber Sie können sie trotzdem wie oben beschrieben eingeben._
+- **Apostrophe:** I'll → 4155, wobei: 4 (I) + 155 ('ll)
+- **Bindestriche:** check-in → 24325146, wobei: 24325 (check) + 146 (-in)
+- **Mehrere Apostrophe:** rock'n'roll → 7625 (rock) + 161 ('n') + 7655 (roll)
+- **Negativformen (immer vollständige Wörter):**
+  - can't → 22618
+  - don't → 46618
+  - usw.
+
+#### Niederländisch
+Alle niederländischen Kontraktionen sind ebenfalls als separate Einheiten verfügbar und können mit anderen Wörtern kombiniert werden. Hier können Satzzeichen am Anfang, am Ende oder an beiden Stellen erscheinen.
+
+- ’s-Hertogenbosch → 171 ('s-) + 4372643626724 (Hertogenbosch)
+
+#### Andere Sprachen mit lateinischem Alphabet
+Ähnlich wie oben können Sie Kontraktionen und komplexe Ausdrücke in Französisch, Italienisch und anderen Sprachen mit lateinischem Alphabet eingeben.
+
+- **Italienisch:** dov'è → 3681 (dov') + 3 (è)
+- **Französisch, Apostrophe:** j'ai → 51 (j') + 24 (ai)
+- **Französisch, komplexer Ausdruck:** qu'est-ce que c'est → 781 (qu') + 378123 (est-ce) + 783 (que) + 21378 (c'est)
+- **Türkisch:** Antalya'da → 2682592 (Antalya) + 132 ('da)
+
+#### Vollständige Wörter (Ukrainisch und Hebräisch)
+Im Ukrainischen und Hebräischen sind Apostrophe immer Teil des Wortes.
+
+- **Ukrainisch:** пам'ять → 525196
+- **Hebräisch:** צ'ארלס → 813759
+
+#### Websites
+Die gängigsten Domain-Endungen sind in Sprachen mit lateinischem Alphabet als separate „Wörter“ verfügbar, sodass Sie Webadressen schnell und einfach eingeben können.
+
+- google.com → 466453 (google) + 1266 (.com)

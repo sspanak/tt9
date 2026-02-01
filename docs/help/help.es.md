@@ -483,11 +483,42 @@ La mayoría de los otros teclados permiten cambiar de nuevo a Traditional T9 man
 ### No puedo cambiar el idioma en un teléfono con pantalla táctil
 Primero, asegúrese de haber habilitado todos los idiomas deseados desde Configuración → Idiomas. Luego mantenga pulsada la [tecla de modo de entrada](#tecla-de-modo-de-entrada) para cambiar el idioma.
 
-### ¿Cómo añadir contracciones como «I've» o «don't» al diccionario?
-Todas las contracciones en todos los idiomas ya están disponibles como palabras separadas, por lo que no es necesario añadir nada. Esto proporciona la máxima flexibilidad: le permite combinar cualquier palabra con cualquier contracción y ahorra una cantidad significativa de espacio de almacenamiento.
+### ¿Cómo escribir contracciones y palabras con apóstrofes o guiones?
+Pulse **1** en el lugar donde deba aparecer el apóstrofo o el guion. Incluso si se sugieren varios signos de puntuación, no es necesario seleccionar uno manualmente. El más apropiado se insertará automáticamente cuando escriba la siguiente letra o un espacio.
 
-Por ejemplo, puede escribir 've presionando: 183; o 'll usando: 155. Esto significa que "I'll" = 4155 y "we've" = 93183. También puede escribir cosas como "google.com" presionando: 466453 (google) 1266 (.com).
+A continuación se muestran ejemplos prácticos.
 
-Un ejemplo más complejo en francés: "Qu'est-ce que c'est" = 781 (qu'), 378123 (est-ce), 783 (que), 21378 (c'est).
+#### Inglés
+Las contracciones están disponibles como “palabras” independientes, lo que permite combinarlas libremente con otras palabras.
 
-_Las excepciones notables son "can't" y "don't" en inglés. Aquí, 't no es una palabra separada, pero igualmente puede escribirlas como se describe arriba._
+- **Apóstrofes:** I'll → 4155, donde: 4 (I) + 155 ('ll)
+- **Guiones:** check-in → 24325146, donde: 24325 (check) + 146 (-in)
+- **Múltiples apóstrofes:** rock'n'roll → 7625 (rock) + 161 ('n') + 7655 (roll)
+- **Formas negativas (siempre palabras completas):**
+  - can't → 22618
+  - don't → 46618
+  - etc.
+
+#### Neerlandés
+Todas las contracciones en neerlandés también están disponibles para combinarse con otras palabras. En este caso, los signos de puntuación pueden aparecer al principio, al final o en ambos lugares.
+
+- ’s-Hertogenbosch → 171 ('s-) + 4372643626724 (Hertogenbosch)
+
+#### Otros idiomas con alfabeto latino
+De forma similar a lo anterior, puede escribir contracciones y expresiones complejas en francés, italiano y otros idiomas que utilizan el alfabeto latino.
+
+- **Italiano:** dov'è → 3681 (dov') + 3 (è)
+- **Francés, apóstrofes:** j'ai → 51 (j') + 24 (ai)
+- **Francés, expresión compleja:** qu'est-ce que c'est → 781 (qu') + 378123 (est-ce) + 783 (que) + 21378 (c'est)
+- **Turco:** Antalya'da → 2682592 (Antalya) + 132 ('da)
+
+#### Palabras completas (ucraniano y hebreo)
+En ucraniano y hebreo, los apóstrofes siempre forman parte de la palabra.
+
+- **Ucraniano:** пам'ять → 525196
+- **Hebreo:** צ'ארלס → 813759
+
+#### Sitios web
+Las extensiones de dominio más comunes están disponibles como “palabras” independientes en idiomas con alfabeto latino, lo que permite escribir direcciones web de forma rápida y sencilla.
+
+- google.com → 466453 (google) + 1266 (.com)

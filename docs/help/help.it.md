@@ -484,11 +484,42 @@ La maggior parte delle altre tastiere permette di tornare a Traditional T9 tenen
 ### Non riesco a cambiare lingua su un telefono touchscreen
 Innanzitutto, assicurati di aver abilitato tutte le lingue desiderate in Impostazioni → Lingue. Poi tieni premuto il [tasto modalità di input](#tasto-modalità-di-input) per cambiare lingua.
 
-### Come aggiungere contrazioni come «I've» o «don't» al dizionario?
-Tutte le contrazioni in tutte le lingue sono già disponibili come parole separate, quindi non è necessario aggiungere nulla. Questo garantisce la massima flessibilità: puoi combinare qualsiasi parola con qualsiasi contrazione e risparmiare molto spazio di archiviazione.
+### Come digitare contrazioni e parole con apostrofi o trattini?
+Premere **1** nel punto in cui deve apparire l’apostrofo o il trattino. Anche se vengono suggeriti più segni di punteggiatura, non è necessario selezionarne uno manualmente. Quello più appropriato verrà inserito automaticamente quando si digita la lettera successiva o uno spazio.
 
-Ad esempio, puoi digitare 've premendo: 183; oppure 'll con: 155. Questo significa che "I'll" = 4155 e "we've" = 93183. Puoi anche scrivere termini come "google.com" premendo: 466453 (google) 1266 (.com).
+Di seguito alcuni esempi pratici.
 
-Un esempio più complesso in francese: "Qu'est-ce que c'est" = 781 (qu'), 378123 (est-ce), 783 (que), 21378 (c'est).
+#### Inglese
+Le contrazioni sono disponibili come “parole” separate, il che consente di combinarle liberamente con altre parole.
 
-_Un'eccezione importante alla regola sono "can't" e "don't" in inglese. In questi casi, 't non è una parola separata, ma puoi comunque digitarli come spiegato sopra._
+- **Apostrofi:** I'll → 4155, dove: 4 (I) + 155 ('ll)
+- **Trattini:** check-in → 24325146, dove: 24325 (check) + 146 (-in)
+- **Apostrofi multipli:** rock'n'roll → 7625 (rock) + 161 ('n') + 7655 (roll)
+- **Forme negative (sempre parole complete):**
+  - can't → 22618
+  - don't → 46618
+  - e così via...
+
+#### Olandese
+Tutte le contrazioni olandesi sono anch’esse disponibili per essere combinate con altre parole. In questo caso, i segni di punteggiatura possono apparire all’inizio, alla fine o in entrambe le posizioni.
+
+- ’s-Hertogenbosch → 171 ('s-) + 4372643626724 (Hertogenbosch)
+
+#### Altre lingue con alfabeto latino
+In modo analogo, è possibile digitare contrazioni ed espressioni complesse in francese, italiano e in altre lingue che utilizzano l’alfabeto latino.
+
+- **Italiano:** dov'è → 3681 (dov') + 3 (è)
+- **Francese, apostrofi:** j'ai → 51 (j') + 24 (ai)
+- **Francese, espressione complessa:** qu'est-ce que c'est → 781 (qu') + 378123 (est-ce) + 783 (que) + 21378 (c'est)
+- **Turco:** Antalya'da → 2682592 (Antalya) + 132 ('da)
+
+#### Parole complete (ucraino ed ebraico)
+In ucraino ed ebraico, gli apostrofi fanno sempre parte della parola.
+
+- **Ucraino:** пам'ять → 525196
+- **Ebraico:** צ'ארלס → 813759
+
+#### Siti web
+Le estensioni di dominio più comuni sono disponibili come “parole” separate nelle lingue che utilizzano l’alfabeto latino, consentendo di digitare indirizzi web in modo rapido e semplice.
+
+- google.com → 466453 (google) + 1266 (.com)
