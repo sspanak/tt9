@@ -42,7 +42,7 @@ class MindReaderContext {
 	}
 
 
-	void process() {
+	void processText() {
 		final String[] newTokens = filterUnpopularTokens(tokenize());
 		dictionary.addMany(newTokens);
 		setTokenContext(newTokens);
