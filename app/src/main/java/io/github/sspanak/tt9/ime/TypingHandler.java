@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
@@ -79,8 +80,12 @@ public abstract class TypingHandler extends KeyPadHandler {
 		resetKeyRepeat();
 		mInputMode = determineInputMode();
 		determineTextCase();
-		updateShiftState(null, true, false); // don't use beforeCursor cache on start up
 		suggestionOps.set(null);
+
+		// don't use beforeCursor cache on start up
+		final String beforeCursor = textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0];
+		updateShiftState(beforeCursor, true, false);
+		DataStore.setMindReaderContext(beforeCursor);
 
 		return true;
 	}
@@ -138,6 +143,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// otherwise, keyDown race condition occur for all keys.
 		if (InputModeKind.isPassthrough(mInputMode)) {
 			return false;
+		}
+
+		if (DataStore.setMindReaderContext(null)) {
+			return true;
 		}
 
 		if (appHacks.onBackspace(settings, mInputMode)) {
@@ -256,6 +265,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		forceShowWindow();
 		updateShiftState(beforeCursor, true, false);
+		DataStore.setMindReaderContext(beforeCursor);
 
 		return true;
 	}
@@ -480,6 +490,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			)[0];
 			updateShiftState(beforeCursor, true, false);
 			resetKeyRepeat();
+			DataStore.setMindReaderContext(beforeCursor);
 		}
 
 		if (!Characters.getSpace(mLanguage).equals(word)) {
@@ -525,16 +536,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 		} else {
 			suggestionHandler.removeCallbacksAndMessages(null);
 		}
-		suggestionHandler.post(() -> {
-			handleSuggestions();
-			if (onComplete != null) {
-				onComplete.run();
-			}
-		});
+		suggestionHandler.post(() -> handleSuggestions(onComplete));
 	}
 
 
-	protected void handleSuggestions() {
+	protected void handleSuggestions(@Nullable Runnable onComplete) {
 		// Second pass, analyze the available suggestions and decide if combining them with the
 		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
 		// just the end of a sentence, like: "word." or "another?"
@@ -567,14 +573,29 @@ public abstract class TypingHandler extends KeyPadHandler {
 			appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
 		}
 
-		beforeCursor = beforeCursor != null ? beforeCursor + trimmedWord : trimmedWord;
-		if (suggestions.isEmpty()) {
-			updateShiftStateDebounced(beforeCursor, true, false);
+		onAfterSuggestionsHandled(onComplete, beforeCursor, trimmedWord, suggestions.isEmpty());
+	}
+
+
+	private void onAfterSuggestionsHandled(@Nullable Runnable callback, @Nullable String beforeCursor, @Nullable String trimmedWord, boolean noSuggestions) {
+		final String shiftStateContext = beforeCursor != null ? beforeCursor + trimmedWord : trimmedWord;
+		if (noSuggestions) {
+			updateShiftStateDebounced(shiftStateContext, true, false);
 		} else {
-			updateShiftStateDebounced(beforeCursor, false, true);
+			updateShiftStateDebounced(shiftStateContext, false, true);
 		}
 
 		forceShowWindow();
+
+		if (mInputMode.getSequenceLength() < 2 && !mInputMode.containsSpecialChars()) {
+			DataStore.setMindReaderContext(
+				beforeCursor == null ? textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0] : beforeCursor + trimmedWord
+			);
+		}
+
+		if (callback != null) {
+			callback.run();
+		}
 	}
 
 

@@ -4,6 +4,7 @@ import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.commands.CmdMoveCursor;
+import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -355,7 +356,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyFilterSuggestions(boolean validateOnly, boolean repeat) {
-		if (suggestionOps.isEmpty()) {
+		if (suggestionOps.isEmpty() && !settings.getAutoMindReading()) {
 			return false;
 		}
 
@@ -379,6 +380,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		if (filter.isEmpty()) {
 			mInputMode.reset();
+			DataStore.setMindReaderContext(textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0]);
 		} else if (mInputMode.setWordStem(filter, repeat)) {
 			mInputMode
 				.setOnSuggestionsUpdated(super::handleSuggestionsFromThread)

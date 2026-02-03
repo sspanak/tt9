@@ -329,6 +329,12 @@ class ModeCheonjiin extends InputMode {
 	}
 
 
+	@Override
+	public boolean containsSpecialChars() {
+		return seq.isAnySpecialCharSequence(digitSequence);
+	}
+
+
 	private void replaceLastLetter() {
 		previousJamoSequence = Cheonjiin.stripRepeatingEndingDigits(digitSequence);
 		if (previousJamoSequence.isEmpty() || previousJamoSequence.length() == digitSequence.length()) {

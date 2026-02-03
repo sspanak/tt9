@@ -344,7 +344,7 @@ public class TraditionalT9 extends PremiumHandler {
 
 	private void runHeavyInitTasks() {
 		LanguageCollection.init(getApplicationContext());
-		DataStore.init(getApplicationContext());
+		DataStore.init(getApplicationContext(), settings);
 		Logger.d(LOG_TAG, "Heavy initialization tasks completed successfully");
 	}
 
