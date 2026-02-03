@@ -1,0 +1,83 @@
+package io.github.sspanak.tt9.db.mindReading;
+
+import androidx.annotation.NonNull;
+
+import io.github.sspanak.tt9.util.chars.Characters;
+
+class ContextTokenizer {
+	private enum TokenType {SPACE, WORD, PUNCTUATION, GARBAGE}
+
+	static String[] tokenize(@NonNull String text, int maxTokens, boolean allowApostrophe, boolean allowQuote) {
+		final StringBuilder current = new StringBuilder();
+		final String[] tokens = new String[maxTokens];
+
+		TokenType previousType = TokenType.SPACE;
+
+		for (int i = 0, len = text.length(); i < len; ) {
+			final int cp = text.codePointAt(i);
+			final int step = Character.charCount(cp);
+
+			TokenType type;
+			if (Character.isWhitespace(cp)) {
+				type = TokenType.SPACE;
+			} else if (isWordChar(cp, allowApostrophe, allowQuote)) {
+				type = TokenType.WORD;
+			} else if (isPunctuationChar(cp)) {
+				type = TokenType.PUNCTUATION;
+			} else {
+				type = TokenType.GARBAGE;
+			}
+
+			if (type != previousType && current.length() > 0) {
+				addToken(tokens, maxTokens, current.toString());
+				current.setLength(0);
+			}
+
+			if (type == TokenType.GARBAGE) {
+				if (current.length() == 0) current.append(MindReaderDictionary.NULL_WORD);
+			} else if (type != TokenType.SPACE) {
+				current.appendCodePoint(cp);
+			}
+
+			previousType = type;
+			i += step;
+		}
+
+		if (current.length() > 0) {
+			addToken(tokens, maxTokens, current.toString());
+		}
+
+		return tokens;
+	}
+
+	private static void addToken(String[] tokens, int maxTokens, String newToken) {
+		for (int i = 1; i < maxTokens; i++) {
+			tokens[i - 1] = tokens[i];
+		}
+		tokens[maxTokens - 1] = newToken;
+	}
+
+	private static boolean isWordChar(int cp, boolean allowApostrophe, boolean allowQuote) {
+		return
+			cp == 0x200C  // ZWNJ
+			|| cp == 0x200D // ZWJ
+			|| (allowApostrophe && cp == '\'')
+			|| (allowQuote && cp == '"')
+			|| Character.isLetter(cp)
+			|| Character.getType(cp) == Character.NON_SPACING_MARK
+			|| Character.getType(cp) == Character.COMBINING_SPACING_MARK;
+	}
+
+	private static boolean isPunctuationChar(int cp) {
+		return
+			cp == Characters.AR_QUESTION_MARK.codePointAt(0) ||
+			cp == Characters.GR_QUESTION_MARK.codePointAt(0) ||
+			cp == Characters.ZH_QUESTION_MARK.codePointAt(0) ||
+			cp == Characters.ZH_EXCLAMATION_MARK.codePointAt(0) ||
+			cp == Characters.ZH_FULL_STOP.codePointAt(0) ||
+			cp == '!' ||
+			cp == '?' ||
+			cp == ',' ||
+			cp == '.';
+	}
+}
