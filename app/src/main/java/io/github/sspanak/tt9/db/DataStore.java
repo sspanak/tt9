@@ -37,7 +37,7 @@ public class DataStore {
 
 
 	public static void init(@NonNull Context context, @NonNull SettingsStore settings) {
-		mindReader = mindReader == null ? new MindReaderStore(context.getApplicationContext(), settings) : mindReader;
+		mindReader = mindReader == null ? new MindReaderStore(context.getApplicationContext(), executor, settings) : mindReader;
 		pairs = pairs == null ? new WordPairStore(context.getApplicationContext()) : pairs;
 		words = words == null ? new WordStore(context.getApplicationContext()) : words;
 	}
@@ -172,7 +172,7 @@ public class DataStore {
 	}
 
 
-	public static boolean setMindReaderContext(@Nullable String beforeCursor) {
-		return mindReader.setContext(beforeCursor);
+	public static boolean setMindReaderContext(@NonNull Language language, @Nullable String beforeCursor) {
+		return mindReader.setContext(language, beforeCursor);
 	}
 }

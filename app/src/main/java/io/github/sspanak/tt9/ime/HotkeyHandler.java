@@ -380,7 +380,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		if (filter.isEmpty()) {
 			mInputMode.reset();
-			DataStore.setMindReaderContext(textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0]);
+			DataStore.setMindReaderContext(mLanguage, textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0]);
 		} else if (mInputMode.setWordStem(filter, repeat)) {
 			mInputMode
 				.setOnSuggestionsUpdated(super::handleSuggestionsFromThread)
