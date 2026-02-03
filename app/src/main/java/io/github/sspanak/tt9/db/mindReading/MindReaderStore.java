@@ -13,6 +13,8 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 
 public class MindReaderStore extends BaseSyncStore {
+	private static final String LOG_TAG = MindReaderStore.class.getSimpleName();
+
 	private static final int MAX_TOKENS = 4;
 	private static final int MAX_DICTIONARY_WORDS = 65536;
 
@@ -31,6 +33,11 @@ public class MindReaderStore extends BaseSyncStore {
 		this.settings = settings;
 	}
 
+	public boolean clearContext() {
+		Logger.d(LOG_TAG, "Mind reader context cleared");
+		return wordContext.setText(null);
+	}
+
 	public boolean setContext(@NonNull Language language, @Nullable String beforeCursor) {
 		if (!isOn() || !wordContext.setText(beforeCursor)) {
 			return false;
@@ -39,7 +46,7 @@ public class MindReaderStore extends BaseSyncStore {
 //		executor.submit(() -> {
 			changeLanguage(language);
 			wordContext.process();
-			Logger.d(MindReaderStore.class.getSimpleName(), "==============+> " + wordContext);
+			Logger.d(LOG_TAG, "Mind reader context is now: " + wordContext);
 //		});
 
 		return true;

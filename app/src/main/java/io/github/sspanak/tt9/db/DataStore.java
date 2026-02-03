@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.CancellationSignal;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -172,7 +171,11 @@ public class DataStore {
 	}
 
 
-	public static boolean setMindReaderContext(@NonNull Language language, @Nullable String beforeCursor) {
+	public static boolean setMindReaderContext(@NonNull Language language, @NonNull String beforeCursor) {
 		return mindReader.setContext(language, beforeCursor);
+	}
+
+	public static boolean clearMindReaderContext() {
+		return mindReader.clearContext();
 	}
 }

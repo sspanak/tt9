@@ -145,7 +145,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return false;
 		}
 
-		if (DataStore.setMindReaderContext(mLanguage, null)) {
+		if (DataStore.clearMindReaderContext()) {
 			return true;
 		}
 
@@ -444,6 +444,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// location. This prevents undesired deletion of the space, in the middle of the text.
 		if (CursorOps.isMovedFar(newSelStart, newSelEnd, oldSelStart, oldSelEnd)) {
 			stopWaitingForSpaceTrimKey();
+			if (settings.getAutoMindReading()) {
+				DataStore.clearMindReaderContext();
+			}
 		}
 	}
 

@@ -118,6 +118,10 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	private boolean onHardcodedKey(int keyCode, boolean validateOnly) {
+		if (!validateOnly && Key.isArrow(keyCode)) {
+			DataStore.clearMindReaderContext();
+		}
+
 		if (Key.isArrowUp(keyCode) && onKeyEditDuplicateLetter(validateOnly)) {
 			return true;
 		}
@@ -304,6 +308,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		suggestionOps.cancelDelayedAccept();
 		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 		resetKeyRepeat();
+		DataStore.clearMindReaderContext();
 
 		final boolean backward = direction == CmdMoveCursor.CURSOR_MOVE_LEFT;
 
