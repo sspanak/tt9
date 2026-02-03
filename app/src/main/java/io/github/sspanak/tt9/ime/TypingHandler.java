@@ -145,7 +145,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return false;
 		}
 
-		if (DataStore.clearMindReaderContext()) {
+		if (DataStore.clearMindReaderContext()) { // @todo: ... and if suggestionOps contains only suggestions from mind reader
 			return true;
 		}
 
@@ -553,6 +553,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		final ArrayList<String> suggestions = mInputMode.getSuggestions();
+		final boolean noSuggestionsBefore = suggestionOps.isEmpty();
 		suggestionOps.set(suggestions, mInputMode.getRecommendedSuggestionIdx(), mInputMode.containsGeneratedSuggestions());
 
 		// either accept the first one automatically (when switching from punctuation to text
@@ -576,11 +577,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 			appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
 		}
 
-		onAfterSuggestionsHandled(onComplete, beforeCursor, trimmedWord, suggestions.isEmpty());
+		onAfterSuggestionsHandled(onComplete, beforeCursor, trimmedWord, suggestions.isEmpty(), noSuggestionsBefore);
 	}
 
 
-	private void onAfterSuggestionsHandled(@Nullable Runnable callback, @Nullable String beforeCursor, @Nullable String trimmedWord, boolean noSuggestions) {
+	private void onAfterSuggestionsHandled(@Nullable Runnable callback, @Nullable String beforeCursor, @Nullable String trimmedWord, boolean noSuggestions, boolean noSuggestionsBefore) {
 		final String shiftStateContext = beforeCursor != null ? beforeCursor + trimmedWord : trimmedWord;
 		if (noSuggestions) {
 			updateShiftStateDebounced(shiftStateContext, true, false);
@@ -590,7 +591,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		forceShowWindow();
 
-		if (mInputMode.getSequenceLength() < 2 && !mInputMode.containsSpecialChars()) {
+		if (noSuggestionsBefore && !noSuggestions && !mInputMode.containsSpecialChars()) {
 			DataStore.setMindReaderContext(
 				mLanguage,
 				beforeCursor == null ? textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0] : beforeCursor + trimmedWord
