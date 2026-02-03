@@ -14,17 +14,14 @@ import io.github.sspanak.tt9.util.Logger;
 
 public class MindReaderStore extends BaseSyncStore {
 	private static final String LOG_TAG = MindReaderStore.class.getSimpleName();
-
-	private static final int MAX_TOKENS = 4;
+	private static final int MAX_NGRAM_SIZE = 4;
 	private static final int MAX_DICTIONARY_WORDS = 65536;
-
 
 	@NonNull private final ExecutorService executor;
 	@NonNull private final SettingsStore settings;
 
-
 	@NonNull MindReaderDictionary dictionary = new MindReaderDictionary(MAX_DICTIONARY_WORDS);
-	@NonNull private final MindReaderContext wordContext = new MindReaderContext(dictionary, MAX_TOKENS);
+	@NonNull private final MindReaderContext wordContext = new MindReaderContext(dictionary, MAX_NGRAM_SIZE);
 
 
 	public MindReaderStore(@NonNull Context context, @NonNull ExecutorService executor, @NonNull SettingsStore settings) {
@@ -33,10 +30,12 @@ public class MindReaderStore extends BaseSyncStore {
 		this.settings = settings;
 	}
 
+
 	public boolean clearContext() {
 		Logger.d(LOG_TAG, "Mind reader context cleared");
 		return wordContext.setText(null);
 	}
+
 
 	public boolean setContext(@NonNull Language language, @Nullable String beforeCursor) {
 		if (!isOn() || !wordContext.setText(beforeCursor)) {
@@ -45,7 +44,9 @@ public class MindReaderStore extends BaseSyncStore {
 
 //		executor.submit(() -> {
 			changeLanguage(language);
-			wordContext.process();
+			wordContext.processText();
+			// @todo: save new N-grams for this language
+			// @todo: search for predictions using the current N-grams in wordContext
 			Logger.d(LOG_TAG, "Mind reader context is now: " + wordContext);
 //		});
 
@@ -55,14 +56,13 @@ public class MindReaderStore extends BaseSyncStore {
 
 	private void changeLanguage(@NonNull Language language) {
 		if (!language.equals(wordContext.language)) {
-			// @todo: save the current dictionary
+			// @todo: save the current dictionary for the previous language
 			// @todo: load the dictionary for the new language
 			dictionary = new MindReaderDictionary(MAX_DICTIONARY_WORDS);
 		}
 
 		wordContext.setLanguage(language, dictionary);
 	}
-
 
 
 	private boolean isOn() {
