@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.languages;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -133,4 +134,9 @@ abstract public class Language {
 	 * For example: "food" -> "3663"
 	 */
 	@NonNull abstract public String getDigitSequenceForWord(String word) throws InvalidLanguageCharactersException;
+
+
+	public boolean equals(@Nullable Object obj) {
+		return obj instanceof Language && ((Language) obj).getId() == getId();
+	}
 }
