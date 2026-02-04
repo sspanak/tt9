@@ -41,11 +41,11 @@ class ContextTokenizer {
 			}
 
 			if (type == TokenType.GARBAGE) {
-				if (current.length() == 0) current.append(MindReaderDictionary.NULL_WORD);
+				if (current.length() == 0) current.append(MindReaderDictionary.GARBAGE);
 			} else if (type == TokenType.EMOJI) {
-				if (current.length() == 0) current.append(MindReaderDictionary.EMOJI_WORD);
+				if (current.length() == 0) current.append(MindReaderDictionary.EMOJI);
 			} else if (type == TokenType.NUMBER) {
-				if (current.length() == 0) current.append(MindReaderDictionary.NUMBER_WORD);
+				if (current.length() == 0) current.append(MindReaderDictionary.NUMBER);
 			} else if (type != TokenType.SPACE) {
 				current.appendCodePoint(cp);
 			}
@@ -76,16 +76,12 @@ class ContextTokenizer {
 	}
 
 	private static boolean isPunctuationChar(int cp) {
-		return
-			cp == Characters.AR_QUESTION_MARK.codePointAt(0) ||
-			cp == Characters.GR_QUESTION_MARK.codePointAt(0) ||
-			cp == Characters.ZH_QUESTION_MARK.codePointAt(0) ||
-			cp == Characters.ZH_EXCLAMATION_MARK.codePointAt(0) ||
-			cp == Characters.ZH_FULL_STOP.codePointAt(0) ||
-			cp == '!' ||
-			cp == '?' ||
-			cp == ',' ||
-			cp == '.';
+		for (int punctuationChar : MindReaderDictionary.PUNCTUATION) {
+			if (cp == punctuationChar) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private static boolean isWordChar(int cp, boolean allowApostrophe, boolean allowQuote) {

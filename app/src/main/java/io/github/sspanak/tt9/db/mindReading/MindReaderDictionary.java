@@ -5,12 +5,25 @@ import androidx.annotation.Nullable;
 
 import java.util.Arrays;
 
-class MindReaderDictionary {
-	static final String NULL_WORD = "∅";
-	static final String EMOJI_WORD = ":)";
-	static final String NUMBER_WORD = "\\d";
+import io.github.sspanak.tt9.util.chars.Characters;
 
-	private String[] words = { NULL_WORD };
+class MindReaderDictionary {
+	static final String EMOJI = ":)";
+	static final String GARBAGE = "∅";
+	static final String NUMBER = "\\d";
+	static final int[] PUNCTUATION = {
+		Characters.AR_QUESTION_MARK.codePointAt(0),
+		Characters.GR_QUESTION_MARK.codePointAt(0),
+		Characters.ZH_QUESTION_MARK.codePointAt(0),
+		Characters.ZH_EXCLAMATION_MARK.codePointAt(0),
+		Characters.ZH_FULL_STOP.codePointAt(0),
+		'!',
+		'?',
+		',',
+		'.'
+	};
+
+	private String[] words = new String[0];
 	private final int capacity;
 
 
@@ -20,9 +33,27 @@ class MindReaderDictionary {
 
 
 	MindReaderDictionary(@NonNull String[] words, int capacity) {
+		init();
 		this.capacity = capacity;
 		addMany(words);
 	}
+
+
+	private void init() {
+		words = new String[3 + PUNCTUATION.length + words.length];
+		words[0] = GARBAGE;
+		words[1] = EMOJI;
+		words[2] = NUMBER;
+		for (int i = 0; i < PUNCTUATION.length; i++) {
+			words[3 + i] = new String(Character.toChars(PUNCTUATION[i]));
+		}
+	}
+
+
+	static boolean isGarbage(int tokenId) { return tokenId == 0; }
+	static boolean isEmoji(int tokenId) { return tokenId == 1; }
+	static boolean isNumber(int tokenId) { return tokenId == 2; }
+	static boolean isPunctuation(int tokenId) { return tokenId >= 3 && tokenId < 3 + PUNCTUATION.length; }
 
 
 	void add(@Nullable String word) {
