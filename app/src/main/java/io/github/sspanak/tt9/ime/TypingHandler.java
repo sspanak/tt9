@@ -145,7 +145,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return false;
 		}
 
-		if (DataStore.clearMindReaderContext()) { // @todo: ... and if suggestionOps contains only suggestions from mind reader
+		if (DataStore.clearMindReaderContext()) { // @todo: instead: if suggestionOps contains only suggestions from mind reader
 			return true;
 		}
 

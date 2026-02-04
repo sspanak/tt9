@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 
 import io.github.sspanak.tt9.db.BaseSyncStore;
@@ -25,6 +26,7 @@ public class MindReaderStore extends BaseSyncStore {
 
 	@NonNull MindReaderNgramList ngrams = new MindReaderNgramList(NGRAMS_INITIAL_CAPACITY);
 	@NonNull MindReaderDictionary dictionary = new MindReaderDictionary(MAX_DICTIONARY_WORDS);
+	@NonNull Set<String> predictions = Set.of();
 	@NonNull private final MindReaderContext wordContext = new MindReaderContext(dictionary, MAX_NGRAM_SIZE);
 
 
@@ -46,18 +48,17 @@ public class MindReaderStore extends BaseSyncStore {
 			return false;
 		}
 
-//		executor.submit(() -> {
+		executor.submit(() -> {
 			if (Logger.isDebugLevel()) Timer.start(LOG_TAG);
 
 			changeLanguage(language);
 			wordContext.parseText();
-			wordContext.getNgrams();
-			ngrams.addMany(wordContext.getNgrams());
-
-			// @todo: search for predictions using the current N-grams in wordContext
+			wordContext.getEndingNgrams();
+			ngrams.addMany(wordContext.getEndingNgrams());
+			predictions = dictionary.getAll(ngrams.getAllNextTokens(wordContext));
 
 			if (Logger.isDebugLevel()) logState(Timer.stop(LOG_TAG));
-//		});
+		});
 
 		return true;
 	}
@@ -84,6 +85,7 @@ public class MindReaderStore extends BaseSyncStore {
 	private void logState(long processingTime) {
 		Logger.d(LOG_TAG, "Mind reader context: " + wordContext);
 		Logger.d(LOG_TAG, "Mind reader N-grams: " + ngrams);
+		Logger.d(LOG_TAG, "Mind reader predictions: " + predictions);
 		if (processingTime >= 0) {
 			Logger.d(LOG_TAG, "Mind reader context processed in: " + processingTime + " ms");
 		}

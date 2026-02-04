@@ -30,7 +30,7 @@ class MindReaderContext {
 	}
 
 
-	MindReaderNgram[] getNgrams() {
+	MindReaderNgram[] getEndingNgrams() {
 		final int nGramsCount = Math.max(0, tokenContext.length - 1);
 		final MindReaderNgram[] ngrams = new MindReaderNgram[nGramsCount];
 
@@ -63,7 +63,7 @@ class MindReaderContext {
 
 	void parseText() {
 		final String[] newTokens = filterUnpopularTokens(tokenize());
-		dictionary.addMany(newTokens);
+		dictionary.addAll(newTokens);
 		setTokenContext(newTokens);
 	}
 

@@ -3,16 +3,19 @@ package io.github.sspanak.tt9.db.mindReading;
 class MindReaderNgram {
 	final long before;
 	final int next;
+	final long complete;
 	final boolean isValid;
 
 	MindReaderNgram(int[] tokens) {
 		if (tokens.length < 2) {
 			before = -1;
 			next = -1;
+			complete = -1;
 			isValid = false;
 		} else {
 			before = compressBefore(tokens);
 			next = tokens[tokens.length - 1];
+			complete = compressComplete(tokens);
 			isValid = validate(tokens);
 		}
 	}
@@ -20,6 +23,14 @@ class MindReaderNgram {
 	private long compressBefore(int[] tokens) {
 		long compressed = 0;
 		for (int i = tokens.length - 2; i >= 0; i--) {
+			compressed = compressed | ((long) tokens[i] << i * MindReaderStore.DICTIONARY_WORD_SIZE);
+		}
+		return compressed;
+	}
+
+	private long compressComplete(int[] tokens) {
+		long compressed = 0;
+		for (int i = tokens.length - 1; i >= 0; i--) {
 			compressed = compressed | ((long) tokens[i] << i * MindReaderStore.DICTIONARY_WORD_SIZE);
 		}
 		return compressed;
