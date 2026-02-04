@@ -7,6 +7,8 @@ import java.util.Arrays;
 
 class MindReaderDictionary {
 	static final String NULL_WORD = "∅";
+	static final String EMOJI_WORD = ":)";
+	static final String NUMBER_WORD = "\\d";
 
 	private String[] words = { NULL_WORD };
 	private final int capacity;
