@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -23,7 +25,7 @@ class MindReaderDictionary {
 		'.'
 	};
 
-	private String[] words = new String[0];
+	private String[] tokens = new String[0];
 	private final int capacity;
 
 
@@ -32,20 +34,20 @@ class MindReaderDictionary {
 	}
 
 
-	MindReaderDictionary(@NonNull String[] words, int capacity) {
+	MindReaderDictionary(@NonNull String[] tokens, int capacity) {
 		init();
 		this.capacity = capacity;
-		addMany(words);
+		addAll(tokens);
 	}
 
 
 	private void init() {
-		words = new String[3 + PUNCTUATION.length + words.length];
-		words[0] = GARBAGE;
-		words[1] = EMOJI;
-		words[2] = NUMBER;
+		tokens = new String[3 + PUNCTUATION.length + tokens.length];
+		tokens[0] = GARBAGE;
+		tokens[1] = EMOJI;
+		tokens[2] = NUMBER;
 		for (int i = 0; i < PUNCTUATION.length; i++) {
-			words[3 + i] = new String(Character.toChars(PUNCTUATION[i]));
+			tokens[3 + i] = new String(Character.toChars(PUNCTUATION[i]));
 		}
 	}
 
@@ -56,44 +58,55 @@ class MindReaderDictionary {
 	static boolean isPunctuation(int tokenId) { return tokenId >= 3 && tokenId < 3 + PUNCTUATION.length; }
 
 
-	void add(@Nullable String word) {
-		if (word == null || word.isEmpty()) {
+	void add(@Nullable String token) {
+		if (token == null || token.isEmpty()) {
 			return;
 		}
 
-		for (String w : words) {
-			if (word.equals(w)) {
+		for (String w : tokens) {
+			if (token.equals(w)) {
 				return;
 			}
 		}
 
-		String[] newWords;
-		if (words.length >= capacity) {
-			newWords = new String[capacity];
-			System.arraycopy(words, 1, newWords, 0, capacity - 1);
+		String[] newTokens;
+		if (tokens.length >= capacity) {
+			newTokens = new String[capacity];
+			System.arraycopy(tokens, 1, newTokens, 0, capacity - 1);
 		} else {
-			newWords = new String[words.length + 1];
-			System.arraycopy(words, 0, newWords, 0, words.length);
+			newTokens = new String[tokens.length + 1];
+			System.arraycopy(tokens, 0, newTokens, 0, tokens.length);
 		}
-		newWords[words.length] = word;
-		words = newWords;
+		newTokens[tokens.length] = token;
+		tokens = newTokens;
 	}
 
 
-	void addMany(@NonNull String[] words) {
-		for (String word : words) {
-			add(word);
+	void addAll(@NonNull String[] tokens) {
+		for (String token : tokens) {
+			add(token);
 		}
 	}
 
 
-	int indexOf(@Nullable String word) {
-		if (word == null || word.isEmpty()) {
+	public HashSet<String> getAll(Set<Integer> tokenIds) {
+		final HashSet<String> results = new HashSet<>();
+		for (Integer id : tokenIds) {
+			if (id >= 0 && id < tokens.length) {
+				results.add(tokens[id]);
+			}
+		}
+		return results;
+	}
+
+
+	int indexOf(@Nullable String token) {
+		if (token == null || token.isEmpty()) {
 			return -1;
 		}
 
-		for (int i = 0; i < words.length; i++) {
-			if (word.equals(words[i])) {
+		for (int i = 0; i < tokens.length; i++) {
+			if (token.equals(tokens[i])) {
 				return i;
 			}
 		}
@@ -105,6 +118,6 @@ class MindReaderDictionary {
 	@NonNull
 	@Override
 	public String toString() {
-		return Arrays.toString(words);
+		return Arrays.toString(tokens);
 	}
 }

@@ -2,6 +2,9 @@ package io.github.sspanak.tt9.db.mindReading;
 
 import androidx.annotation.NonNull;
 
+import java.util.HashSet;
+import java.util.Set;
+
 class MindReaderNgramList {
 	private long[] before;
 	private int[] next;
@@ -18,6 +21,8 @@ class MindReaderNgramList {
 
 
 	void add(@NonNull MindReaderNgram ngram) {
+		// @todo: also allow at most next variations per before. New variations override oldest ones.
+		// @todo: come up with a frequency count mechanism
 		if (!ngram.isValid || contains(ngram)) {
 			return;
 		}
@@ -64,6 +69,24 @@ class MindReaderNgramList {
 
 		before = newBeforeStorage;
 		next = newNextStorage;
+	}
+
+
+	Set<Integer> getAllNextTokens(MindReaderContext current) {
+		final Set<Integer> results = new HashSet<>();
+
+		for (int i = 0; i < size; i++) {
+			for (MindReaderNgram currentNgram : current.getEndingNgrams()) {
+				if (currentNgram.complete == before[i]) {
+					results.add(next[i]);
+				}
+			}
+		}
+
+		// @todo: sort by before length descending
+		// @todo: sort by frequency if we implement that
+
+		return results;
 	}
 
 
