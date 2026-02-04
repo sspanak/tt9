@@ -31,7 +31,7 @@ class MindReaderContext {
 
 
 	MindReaderNgram[] getNgrams() {
-		final int nGramsCount = tokenContext.length - 1;
+		final int nGramsCount = Math.max(0, tokenContext.length - 1);
 		final MindReaderNgram[] ngrams = new MindReaderNgram[nGramsCount];
 
 		for (int i = nGramsCount - 1, j = 0; i >= 0; i--) {
