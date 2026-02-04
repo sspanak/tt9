@@ -2,11 +2,10 @@ package io.github.sspanak.tt9.db.mindReading;
 
 import androidx.annotation.NonNull;
 
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 class ContextTokenizer {
-	private enum TokenType {SPACE, WORD, PUNCTUATION, GARBAGE}
+	private enum TokenType {SPACE, WORD, PUNCTUATION, NUMBER, EMOJI, GARBAGE}
 
 	private static int tokensCount;
 
@@ -28,6 +27,10 @@ class ContextTokenizer {
 				type = TokenType.WORD;
 			} else if (isPunctuationChar(cp)) {
 				type = TokenType.PUNCTUATION;
+			} else if (isNumberChar(cp)) {
+				type = TokenType.NUMBER;
+			} else if (Characters.isGraphic(cp)) {
+				type = TokenType.EMOJI;
 			} else {
 				type = TokenType.GARBAGE;
 			}
@@ -39,6 +42,10 @@ class ContextTokenizer {
 
 			if (type == TokenType.GARBAGE) {
 				if (current.length() == 0) current.append(MindReaderDictionary.NULL_WORD);
+			} else if (type == TokenType.EMOJI) {
+				if (current.length() == 0) current.append(MindReaderDictionary.EMOJI_WORD);
+			} else if (type == TokenType.NUMBER) {
+				if (current.length() == 0) current.append(MindReaderDictionary.NUMBER_WORD);
 			} else if (type != TokenType.SPACE) {
 				current.appendCodePoint(cp);
 			}
@@ -64,15 +71,8 @@ class ContextTokenizer {
 		tokens[maxTokens - 1] = newToken;
 	}
 
-	private static boolean isWordChar(int cp, boolean allowApostrophe, boolean allowQuote) {
-		return
-			cp == 0x200C  // ZWNJ
-			|| cp == 0x200D // ZWJ
-			|| (allowApostrophe && cp == '\'')
-			|| (allowQuote && cp == '"')
-			|| Character.isLetter(cp)
-			|| Character.getType(cp) == Character.NON_SPACING_MARK
-			|| Character.getType(cp) == Character.COMBINING_SPACING_MARK;
+	private static boolean isNumberChar(int cp) {
+		return Character.isDigit(cp);
 	}
 
 	private static boolean isPunctuationChar(int cp) {
@@ -86,5 +86,16 @@ class ContextTokenizer {
 			cp == '?' ||
 			cp == ',' ||
 			cp == '.';
+	}
+
+	private static boolean isWordChar(int cp, boolean allowApostrophe, boolean allowQuote) {
+		return
+			cp == 0x200C  // ZWNJ
+			|| cp == 0x200D // ZWJ
+			|| (allowApostrophe && cp == '\'')
+			|| (allowQuote && cp == '"')
+			|| Character.isLetter(cp)
+			|| Character.getType(cp) == Character.NON_SPACING_MARK
+			|| Character.getType(cp) == Character.COMBINING_SPACING_MARK;
 	}
 }
