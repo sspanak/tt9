@@ -8,17 +8,20 @@ import java.util.Arrays;
 class MindReaderDictionary {
 	static final String NULL_WORD = "∅";
 
-	private String[] words;
+	private String[] words = { NULL_WORD };
 	private final int capacity;
+
 
 	MindReaderDictionary(int capacity) {
 		this(new String[0], capacity);
 	}
 
+
 	MindReaderDictionary(@NonNull String[] words, int capacity) {
 		this.capacity = capacity;
-		this.words = words;
+		addMany(words);
 	}
+
 
 	void add(@Nullable String word) {
 		if (word == null || word.isEmpty()) {
