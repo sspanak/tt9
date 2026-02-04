@@ -2,15 +2,19 @@ package io.github.sspanak.tt9.db.mindReading;
 
 import androidx.annotation.NonNull;
 
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 class ContextTokenizer {
 	private enum TokenType {SPACE, WORD, PUNCTUATION, GARBAGE}
 
+	private static int tokensCount;
+
 	static String[] tokenize(@NonNull String text, int maxTokens, boolean allowApostrophe, boolean allowQuote) {
 		final StringBuilder current = new StringBuilder();
 		final String[] tokens = new String[maxTokens];
 
+		tokensCount = 0;
 		TokenType previousType = TokenType.SPACE;
 
 		for (int i = 0, len = text.length(); i < len; ) {
@@ -47,10 +51,13 @@ class ContextTokenizer {
 			addToken(tokens, maxTokens, current.toString());
 		}
 
-		return tokens;
+		String[] validTokens = new String[Math.min(tokensCount, maxTokens)];
+		System.arraycopy(tokens, Math.max(0, maxTokens - tokensCount), validTokens, 0, Math.min(tokensCount, maxTokens));
+		return validTokens;
 	}
 
 	private static void addToken(String[] tokens, int maxTokens, String newToken) {
+		tokensCount++;
 		for (int i = 1; i < maxTokens; i++) {
 			tokens[i - 1] = tokens[i];
 		}

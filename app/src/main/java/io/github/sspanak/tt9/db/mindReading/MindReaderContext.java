@@ -30,6 +30,25 @@ class MindReaderContext {
 	}
 
 
+	MindReaderNgram[] getNgrams() {
+		final int nGramsCount = tokenContext.length - 1;
+		final MindReaderNgram[] ngrams = new MindReaderNgram[nGramsCount];
+
+		for (int i = nGramsCount - 1, j = 0; i >= 0; i--) {
+			final int ngramSize = tokenContext.length - i;
+			if (ngramSize < 2 || ngramSize > maxTokens) {
+				continue;
+			}
+
+			final int[] ngramTokens = new int[ngramSize];
+			System.arraycopy(tokenContext, i, ngramTokens, 0, ngramSize);
+			ngrams[j++] = new MindReaderNgram(ngramTokens);
+		}
+
+		return ngrams;
+	}
+
+
 	boolean setText(@Nullable String beforeCursor) {
 		final boolean isBeforeEmpty = beforeCursor == null || beforeCursor.isEmpty();
 		if (rawContext.isEmpty() && isBeforeEmpty) {
@@ -42,7 +61,7 @@ class MindReaderContext {
 	}
 
 
-	void processText() {
+	void parseText() {
 		final String[] newTokens = filterUnpopularTokens(tokenize());
 		dictionary.addMany(newTokens);
 		setTokenContext(newTokens);

@@ -15,7 +15,8 @@ import io.github.sspanak.tt9.util.Logger;
 public class MindReaderStore extends BaseSyncStore {
 	private static final String LOG_TAG = MindReaderStore.class.getSimpleName();
 	private static final int MAX_NGRAM_SIZE = 4;
-	private static final int MAX_DICTIONARY_WORDS = 65536;
+	static final int DICTIONARY_WORD_SIZE = 16; // in bytes
+	private static final int MAX_DICTIONARY_WORDS = (int) Math.pow(2, DICTIONARY_WORD_SIZE);
 
 	@NonNull private final ExecutorService executor;
 	@NonNull private final SettingsStore settings;
@@ -44,7 +45,11 @@ public class MindReaderStore extends BaseSyncStore {
 
 //		executor.submit(() -> {
 			changeLanguage(language);
-			wordContext.processText();
+			wordContext.parseText();
+			wordContext.getNgrams();
+			for (MindReaderNgram ngram : wordContext.getNgrams()) {
+				Logger.d(LOG_TAG, "==========> Found N-gram: before=" + ngram.before + ", next=" + ngram.next);
+			}
 			// @todo: save new N-grams for this language
 			// @todo: search for predictions using the current N-grams in wordContext
 			Logger.d(LOG_TAG, "Mind reader context is now: " + wordContext);
