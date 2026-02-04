@@ -3,20 +3,59 @@ package io.github.sspanak.tt9.db.mindReading;
 class MindReaderNgram {
 	final long before;
 	final int next;
+	final boolean isValid;
 
 	MindReaderNgram(int[] tokens) {
 		if (tokens.length < 2) {
 			before = -1;
 			next = -1;
+			isValid = false;
 		} else {
+			before = compressBefore(tokens);
 			next = tokens[tokens.length - 1];
-
-			long compactedBefore = 0;
-			for (int i = tokens.length - 2; i >= 0; i--) {
-				compactedBefore = compactedBefore | ((long) tokens[i] << i * MindReaderStore.DICTIONARY_WORD_SIZE);
-			}
-
-			before = compactedBefore;
+			isValid = validate(tokens);
 		}
+	}
+
+	private long compressBefore(int[] tokens) {
+		long compressed = 0;
+		for (int i = tokens.length - 2; i >= 0; i--) {
+			compressed = compressed | ((long) tokens[i] << i * MindReaderStore.DICTIONARY_WORD_SIZE);
+		}
+		return compressed;
+	}
+
+	private boolean validate(int[] tokens) {
+		if (tokens.length == 0 || MindReaderDictionary.isNumber(tokens[0])) {
+			return false;
+		}
+
+		final int HALF_SIZE = Math.round((float) tokens.length / 2);
+		int garbage = 0;
+		int emojis = 0;
+		int numbers = 0;
+		int punctuation = 0;
+		int words = 0;
+
+		for (int token : tokens) {
+			if (MindReaderDictionary.isEmoji(token)) {
+				emojis++;
+			} else if (MindReaderDictionary.isGarbage(token)) {
+				garbage++;
+			} else if (MindReaderDictionary.isNumber(token)) {
+				numbers++;
+			} else if (MindReaderDictionary.isPunctuation(token)) {
+				punctuation++;
+			} else {
+				words++;
+			}
+		}
+
+		return
+			garbage < HALF_SIZE
+			&& emojis < HALF_SIZE
+			&& numbers < HALF_SIZE
+			&& punctuation <= HALF_SIZE
+			&& words >= (numbers + emojis);
 	}
 }
