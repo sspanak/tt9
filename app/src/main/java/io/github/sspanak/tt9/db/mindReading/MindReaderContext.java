@@ -96,6 +96,6 @@ class MindReaderContext {
 	@Override
 	@NonNull
 	public String toString() {
-		return "raw=\"" + rawContext + "\" + tokens=" + Arrays.toString(tokenContext) + " in dict=" + dictionary;
+		return "raw=\"" + rawContext + "\", tokens=" + Arrays.toString(tokenContext) + " in dict=" + dictionary;
 	}
 }
