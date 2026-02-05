@@ -12,7 +12,7 @@ import io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Ternary;
 
-abstract class VoiceHandler extends TypingHandler {
+abstract class VoiceHandler extends SuggestionHandler {
 	private final static String LOG_TAG = VoiceHandler.class.getSimpleName();
 	private AutoTextCase autoTextCase;
 	protected VoiceInputOps voiceInputOps;
