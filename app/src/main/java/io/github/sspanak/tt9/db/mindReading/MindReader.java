@@ -14,8 +14,8 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
-public class MindReaderStore extends BaseSyncStore {
-	private static final String LOG_TAG = MindReaderStore.class.getSimpleName();
+public class MindReader extends BaseSyncStore {
+	private static final String LOG_TAG = MindReader.class.getSimpleName();
 	private static final int MAX_NGRAM_SIZE = 4;
 	private static final int NGRAMS_INITIAL_CAPACITY = 1000;
 	static final int DICTIONARY_WORD_SIZE = 16; // in bytes
@@ -30,7 +30,7 @@ public class MindReaderStore extends BaseSyncStore {
 	@NonNull private final MindReaderContext wordContext = new MindReaderContext(dictionary, MAX_NGRAM_SIZE);
 
 
-	public MindReaderStore(@NonNull Context context, @NonNull ExecutorService executor, @NonNull SettingsStore settings) {
+	public MindReader(@NonNull Context context, @NonNull ExecutorService executor, @NonNull SettingsStore settings) {
 		super(context);
 		this.executor = executor;
 		this.settings = settings;
@@ -39,12 +39,12 @@ public class MindReaderStore extends BaseSyncStore {
 
 	public boolean clearContext() {
 		Logger.d(LOG_TAG, "Mind reader context cleared");
-		return wordContext.setText(null);
+		return wordContext.setText("", null);
 	}
 
 
-	public boolean setContext(@NonNull Language language, @Nullable String beforeCursor) {
-		if (!isOn() || !wordContext.setText(beforeCursor)) {
+	public boolean setContext(@NonNull Language language, @NonNull String beforeCursor, @Nullable String endingWord) {
+		if (!isOn() || !wordContext.setText(beforeCursor, endingWord)) {
 			return false;
 		}
 
