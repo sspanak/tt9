@@ -2,7 +2,9 @@ package io.github.sspanak.tt9.db.mindReading;
 
 import androidx.annotation.NonNull;
 
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 class MindReaderNgramList {
@@ -21,9 +23,16 @@ class MindReaderNgramList {
 
 
 	void add(@NonNull MindReaderNgram ngram) {
-		// @todo: also allow at most 4 next variations per before. New variations override oldest ones.
-		// @todo: come up with a frequency count mechanism
-		if (!ngram.isValid || ngram.isUnigram || contains(ngram)) {
+		if (!ngram.isValid || ngram.isUnigram) {
+			return;
+		}
+
+		// @todo: if there are more than N variations of "before", remove the oldest one. N = 5? for bigrams, 4 for trigrams, 3 for 4-grams
+
+		// if we re-insert an N-gram, move it to the end to mark it as most recently used
+		final int index = indexOf(ngram);
+		if (index != -1) {
+			moveToEnd(index);
 			return;
 		}
 
@@ -41,11 +50,6 @@ class MindReaderNgramList {
 		for (MindReaderNgram ngram : ngrams) {
 			add(ngram);
 		}
-	}
-
-
-	boolean contains(@NonNull MindReaderNgram ngram) {
-		return indexOf(ngram) != -1;
 	}
 
 
@@ -72,21 +76,39 @@ class MindReaderNgramList {
 	}
 
 
-	Set<Integer> getAllNextTokens(MindReaderContext current) {
-		final Set<Integer> results = new HashSet<>();
+	int[] getAllNextTokens(MindReaderContext current) {
+		final Set<Integer> results = new LinkedHashSet<>(); // @todo: make this a simple array of size 5, 4 or 3
 
-		for (int i = 0; i < size; i++) {
-			for (MindReaderNgram currentNgram : current.getEndingNgrams()) {
+		// Longer N-gram means more specific context, so we want to show those predictions first.
+		final MindReaderNgram[] currentNgrams = current.getEndingNgrams();
+		Arrays.sort(currentNgrams, Collections.reverseOrder());
+
+		for (MindReaderNgram currentNgram : currentNgrams) {
+			// We want to show more recent first, so we loop from the end to the beginning.
+			for (int i = size; i >= 0; i--) {
 				if (currentNgram.complete == before[i]) {
 					results.add(next[i]);
 				}
 			}
 		}
 
-		// @todo: sort by before length descending
-		// @todo: sort by frequency if we implement that
+		return results.stream().mapToInt(Integer::intValue).toArray();
+	}
 
-		return results;
+
+	private void moveToEnd(int index) {
+		if (index < 0 || index >= size) {
+			return;
+		}
+
+		long beforeValue = before[index];
+		int nextValue = next[index];
+
+		System.arraycopy(before, index + 1, before, index, size - index - 1);
+		System.arraycopy(next, index + 1, next, index, size - index - 1);
+
+		before[size - 1] = beforeValue;
+		next[size - 1] = nextValue;
 	}
 
 

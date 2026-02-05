@@ -178,10 +178,10 @@ public class DataStore {
 
 	public static void getMindReaderWords(@NonNull Language language, @NonNull String beforeCursor, boolean saveContext) {
 		if (mindReader.setContext(beforeCursor)) {
-			runInThread(() -> {
+//			runInThread(() -> {
 				mindReader.processContext(language, saveContext);
 				Logger.d("MindReader", " =======> " + mindReader.getPredictions());
-			});
+//			});
 		}
 	}
 
