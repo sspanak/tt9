@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.CancellationSignal;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -37,7 +36,7 @@ public class DataStore {
 
 
 	public static void init(@NonNull Context context, @NonNull SettingsStore settings) {
-		mindReader = mindReader == null ? new MindReader(context.getApplicationContext(), executor, settings) : mindReader;
+		mindReader = mindReader == null ? new MindReader(context.getApplicationContext(), settings) : mindReader;
 		pairs = pairs == null ? new WordPairStore(context.getApplicationContext()) : pairs;
 		words = words == null ? new WordStore(context.getApplicationContext()) : words;
 	}
@@ -172,11 +171,24 @@ public class DataStore {
 	}
 
 
-	public static boolean setMindReaderContext(@NonNull Language language, @NonNull String beforeCursor, @Nullable String endingWord) {
-		return mindReader.setContext(language, beforeCursor, endingWord);
-	}
-
 	public static boolean clearMindReaderContext() {
 		return mindReader.clearContext();
+	}
+
+
+	public static void getMindReaderWords(@NonNull Language language, @NonNull String beforeCursor, boolean saveContext) {
+		if (mindReader.setContext(beforeCursor)) {
+			runInThread(() -> {
+				mindReader.processContext(language, saveContext);
+				Logger.d("MindReader", " =======> " + mindReader.getPredictions());
+			});
+		}
+	}
+
+
+	public static void setMindReaderContext(@NonNull Language language, @NonNull String beforeCursor) {
+		if (mindReader.setContext(beforeCursor)) {
+			runInThread(() -> mindReader.processContext(language, true));
+		}
 	}
 }
