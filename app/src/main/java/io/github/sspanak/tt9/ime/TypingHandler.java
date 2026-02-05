@@ -85,7 +85,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// don't use beforeCursor cache on start up
 		final String beforeCursor = textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0];
 		updateShiftState(beforeCursor, true, false);
-		DataStore.setMindReaderContext(mLanguage, beforeCursor, null);
+		DataStore.getMindReaderWords(mLanguage, beforeCursor, false);
 
 		return true;
 	}
@@ -134,6 +134,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		suggestionOps.cancelDelayedAccept();
 		mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
 		setInputField(null);
+		DataStore.clearMindReaderContext();
 	}
 
 
@@ -205,6 +206,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			String lastWord = suggestionOps.acceptIncompleteAndKeepList();
 			mInputMode.onAcceptSuggestion(lastWord);
 			surroundingChars = autoCorrectSpace(lastWord, surroundingChars, false, key);
+			DataStore.setMindReaderContext(mLanguage, surroundingChars[0]);
 		}
 
 		// Auto-adjust the text case before each word/char, if the InputMode supports it.
@@ -265,7 +267,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		forceShowWindow();
 		updateShiftState(beforeCursor, true, false);
-		DataStore.setMindReaderContext(mLanguage, beforeCursor, text);
+		DataStore.getMindReaderWords(mLanguage, beforeCursor, true);
 
 		return true;
 	}
@@ -467,6 +469,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			mInputMode.getFirstKey()
 		)[0];
 		mInputMode.determineNextWordTextCase(beforeCursor, -1);
+		DataStore.setMindReaderContext(mLanguage, beforeCursor);
 
 		return beforeCursor;
 	}
@@ -493,7 +496,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			)[0];
 			updateShiftState(beforeCursor, true, false);
 			resetKeyRepeat();
-			DataStore.setMindReaderContext(mLanguage, beforeCursor, word);
+			DataStore.getMindReaderWords(mLanguage, beforeCursor, true);
 		}
 
 		if (!Characters.getSpace(mLanguage).equals(word)) {
@@ -592,10 +595,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 		forceShowWindow();
 
 		if (noSuggestionsBefore && !noSuggestions && !mInputMode.containsSpecialChars()) {
-			DataStore.setMindReaderContext(
+			DataStore.getMindReaderWords(
 				mLanguage,
 				beforeCursor == null ? textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0] : beforeCursor + trimmedWord,
-				trimmedWord
+				false
 			);
 		}
 
