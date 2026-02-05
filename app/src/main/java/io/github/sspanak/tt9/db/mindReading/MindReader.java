@@ -14,14 +14,19 @@ import io.github.sspanak.tt9.util.Timer;
 
 public class MindReader extends BaseSyncStore {
 	private static final String LOG_TAG = MindReader.class.getSimpleName();
+
+	// @todo: move these constants to SettingsStatic
 	private static final int MAX_NGRAM_SIZE = 4;
+	private static final int MAX_BIGRAM_SUGGESTIONS = 5;
+	private static final int MAX_TRIGRAM_SUGGESTIONS = 4;
+	private static final int MAX_TETRAGRAM_SUGGESTIONS = 4;
 	private static final int NGRAMS_INITIAL_CAPACITY = 1000;
 	static final int DICTIONARY_WORD_SIZE = 16; // in bytes
 	private static final int MAX_DICTIONARY_WORDS = (int) Math.pow(2, DICTIONARY_WORD_SIZE);
 
 	@NonNull private final SettingsStore settings;
 
-	@NonNull MindReaderNgramList ngrams = new MindReaderNgramList(NGRAMS_INITIAL_CAPACITY);
+	@NonNull MindReaderNgramList ngrams = new MindReaderNgramList(NGRAMS_INITIAL_CAPACITY, MAX_BIGRAM_SUGGESTIONS, MAX_TRIGRAM_SUGGESTIONS, MAX_TETRAGRAM_SUGGESTIONS);
 	@NonNull MindReaderDictionary dictionary = new MindReaderDictionary(MAX_DICTIONARY_WORDS);
 	@NonNull private final MindReaderContext wordContext = new MindReaderContext(dictionary, MAX_NGRAM_SIZE);
 
@@ -50,7 +55,7 @@ public class MindReader extends BaseSyncStore {
 			return;
 		}
 		changeLanguage(language);
-		wordContext.parseText();
+		wordContext.parseText(); // @todo: make this case-insensitive
 		if (saveContext) {
 			ngrams.addMany(wordContext.getEndingNgrams());
 		}
