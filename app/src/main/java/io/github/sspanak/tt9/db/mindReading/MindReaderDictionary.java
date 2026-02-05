@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.db.mindReading;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -89,14 +90,14 @@ class MindReaderDictionary {
 	}
 
 
-	public HashSet<String> getAll(Set<Integer> tokenIds) {
+	public ArrayList<String> getAll(Set<Integer> tokenIds) {
 		final HashSet<String> results = new HashSet<>();
 		for (Integer id : tokenIds) {
 			if (id >= 0 && id < tokens.length) {
 				results.add(tokens[id]);
 			}
 		}
-		return results;
+		return new ArrayList<>(results);
 	}
 
 

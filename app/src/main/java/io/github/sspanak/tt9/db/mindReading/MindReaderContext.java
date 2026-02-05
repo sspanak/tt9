@@ -14,7 +14,6 @@ class MindReaderContext {
 
 	private final int maxTokens;
 	@NonNull private String rawContext;
-	@Nullable private String rawContextEndingWord;
 	@NonNull private int[] tokenContext = new int[0];
 
 
@@ -50,13 +49,12 @@ class MindReaderContext {
 	}
 
 
-	boolean setText(@NonNull String beforeCursor, @Nullable String endingWord) {
+	boolean setText(@NonNull String beforeCursor) {
 		if (rawContext.isEmpty() && beforeCursor.isEmpty()) {
 			return false;
 		}
 
 		rawContext = beforeCursor.trim();
-		rawContextEndingWord = endingWord != null ? endingWord.trim() : null;
 
 		return true;
 	}
@@ -87,7 +85,6 @@ class MindReaderContext {
 		final boolean isLanguageHebrew = LanguageKind.isHebrew(language);
 		return ContextTokenizer.tokenize(
 			rawContext,
-			rawContextEndingWord,
 			maxTokens,
 			LanguageKind.isUkrainian(language) || isLanguageHebrew,
 			isLanguageHebrew

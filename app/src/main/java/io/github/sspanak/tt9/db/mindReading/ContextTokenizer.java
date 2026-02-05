@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.db.mindReading;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -10,16 +9,14 @@ class ContextTokenizer {
 
 	private static int tokensCount;
 
-	static String[] tokenize(@NonNull String text, @Nullable String endingWord, int maxTokens, boolean allowApostrophe, boolean allowQuote) {
+	static String[] tokenize(@NonNull String text, int maxTokens, boolean allowApostrophe, boolean allowQuote) {
 		final StringBuilder current = new StringBuilder();
 		final String[] tokens = new String[maxTokens];
-		final boolean textContainsEndingWord = endingWord != null && !endingWord.isEmpty() && text.endsWith(endingWord);
 
 		tokensCount = 0;
 		TokenType previousType = TokenType.SPACE;
 
-		final int end = textContainsEndingWord ? text.length() - endingWord.length() : text.length();
-		for (int i = 0; i < end; ) {
+		for (int i = 0, len = text.length(); i < len; ) {
 			final int cp = text.codePointAt(i);
 			final int step = Character.charCount(cp);
 
@@ -59,10 +56,6 @@ class ContextTokenizer {
 
 		if (current.length() > 0) {
 			addToken(tokens, maxTokens, current.toString());
-		}
-
-		if (textContainsEndingWord) {
-			addToken(tokens, maxTokens, endingWord);
 		}
 
 		String[] validTokens = new String[Math.min(tokensCount, maxTokens)];
