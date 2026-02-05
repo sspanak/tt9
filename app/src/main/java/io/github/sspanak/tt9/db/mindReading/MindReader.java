@@ -55,7 +55,7 @@ public class MindReader extends BaseSyncStore {
 			return;
 		}
 		changeLanguage(language);
-		wordContext.parseText(); // @todo: make this case-insensitive
+		wordContext.parseText();
 		if (saveContext) {
 			ngrams.addMany(wordContext.getEndingNgrams());
 		}
@@ -64,6 +64,7 @@ public class MindReader extends BaseSyncStore {
 	}
 
 
+	@NonNull
 	public ArrayList<String> getPredictions() {
 		if (!isOn()) {
 			return new ArrayList<>();
@@ -84,7 +85,7 @@ public class MindReader extends BaseSyncStore {
 			// @todo: save new N-grams for this language
 
 			// @todo: load the dictionary for the new language
-			dictionary = new MindReaderDictionary(MAX_DICTIONARY_WORDS);
+			dictionary = new MindReaderDictionary(language, MAX_DICTIONARY_WORDS);
 		}
 
 		wordContext.setLanguage(language, dictionary);

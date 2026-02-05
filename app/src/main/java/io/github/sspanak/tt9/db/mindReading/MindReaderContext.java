@@ -62,13 +62,14 @@ class MindReaderContext {
 	}
 
 
-	private String[] filterUnpopularTokens(String[] tokens) {
+	@NonNull
+	private String[] filterUnpopularTokens(@NonNull String[] tokens) {
 		// @todo: filter using the database
 		return tokens;
 	}
 
 
-	private void setTokenContext(String[] newTokens) {
+	private void setTokenContext(@NonNull String[] newTokens) {
 		tokenContext = new int[newTokens.length];
 		for (int i = 0; i < newTokens.length; i++) {
 			tokenContext[i] = dictionary.indexOf(newTokens[i]);

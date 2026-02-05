@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 class MindReaderDictionary {
@@ -24,19 +26,20 @@ class MindReaderDictionary {
 		'.'
 	};
 
-	private String[] tokens = new String[0];
+	@NonNull private final Locale locale;
+	@NonNull private String[] tokens = new String[0];
 	private final int capacity;
 
 
 	MindReaderDictionary(int capacity) {
-		this(new String[0], capacity);
+		this(null, capacity);
 	}
 
 
-	MindReaderDictionary(@NonNull String[] tokens, int capacity) {
+	MindReaderDictionary(@Nullable Language language, int capacity) {
 		init();
 		this.capacity = capacity;
-		addAll(tokens);
+		this.locale = language == null ? Locale.getDefault() : language.getLocale();
 	}
 
 
@@ -64,7 +67,7 @@ class MindReaderDictionary {
 		}
 
 		for (String w : tokens) {
-			if (token.equals(w)) {
+			if (token.toLowerCase(locale).equals(w.toLowerCase(locale))) {
 				return;
 			}
 		}
@@ -89,6 +92,7 @@ class MindReaderDictionary {
 	}
 
 
+	@NonNull
 	public ArrayList<String> getAll(int[] tokenIds) {
 		final ArrayList<String> results = new ArrayList<>(tokenIds.length);
 
@@ -108,7 +112,7 @@ class MindReaderDictionary {
 		}
 
 		for (int i = 0; i < tokens.length; i++) {
-			if (token.equals(tokens[i])) {
+			if (token.toLowerCase(locale).equals(tokens[i].toLowerCase(locale))) {
 				return i;
 			}
 		}
