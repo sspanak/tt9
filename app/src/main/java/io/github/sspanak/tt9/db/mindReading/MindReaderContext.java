@@ -10,87 +10,80 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 
 class MindReaderContext {
 	@Nullable Language language;
-	@NonNull MindReaderDictionary dictionary;
 
 	private final int maxTokens;
-	@NonNull private String rawContext;
-	@NonNull private int[] tokenContext = new int[0];
+	@NonNull private String raw = "";
+	@NonNull private String[] tokens = new String[0];
+	@Nullable private MindReaderNgram[] endingNgrams = null;
 
 
-	MindReaderContext(@NonNull MindReaderDictionary dictionary, int maxTokens) {
-		this.dictionary = dictionary;
+	MindReaderContext(int maxTokens) {
 		this.maxTokens = Math.max(maxTokens, 0);
-		rawContext = "";
 	}
 
 
-	void setLanguage(@NonNull Language language, @NonNull MindReaderDictionary dictionary) {
-		this.dictionary = dictionary;
+	void setLanguage(@NonNull Language language) {
 		this.language = language;
 	}
 
 
-	MindReaderNgram[] getEndingNgrams() {
-		final int nGramsCount = Math.min(maxTokens, tokenContext.length);
-		final MindReaderNgram[] ngrams = new MindReaderNgram[nGramsCount];
+	@NonNull
+	MindReaderNgram[] getEndingNgrams(@NonNull MindReaderDictionary dictionary) {
+		if (endingNgrams != null) {
+			return endingNgrams;
+		}
+
+		final int[] dictionaryIds =  dictionary.indexOf(tokens);
+		final int nGramsCount = Math.min(maxTokens, dictionaryIds.length);
+
+		endingNgrams = new MindReaderNgram[nGramsCount];
+
 		for (int i = 0; i < nGramsCount; i++) {
 			final int ngramSize = i + 1;
 			final int[] ngramTokens = new int[ngramSize];
-			System.arraycopy(tokenContext, tokenContext.length - ngramSize, ngramTokens, 0, ngramSize);
-			ngrams[i] = new MindReaderNgram(ngramTokens);
+			System.arraycopy(dictionaryIds, dictionaryIds.length - ngramSize, ngramTokens, 0, ngramSize);
+			endingNgrams[i] = new MindReaderNgram(ngramTokens);
 		}
 
-		return ngrams;
+		return endingNgrams;
 	}
 
 
 	boolean setText(@NonNull String beforeCursor) {
-		if (rawContext.isEmpty() && beforeCursor.isEmpty()) {
+		if (raw.isEmpty() && beforeCursor.isEmpty()) {
 			return false;
 		}
 
-		rawContext = beforeCursor.trim();
+		raw = beforeCursor.trim();
+		tokens = new String[0];
+		endingNgrams = null;
 
 		return true;
 	}
 
 
-	void parseText() {
-		final String[] newTokens = filterUnpopularTokens(tokenize());
-		dictionary.addAll(newTokens);
-		setTokenContext(newTokens);
-	}
-
 
 	@NonNull
-	private String[] filterUnpopularTokens(@NonNull String[] tokens) {
-		// @todo: filter using the database
+	String[] tokenize() {
+		final boolean isLanguageHebrew = LanguageKind.isHebrew(language);
+		final boolean allowApostrophesInWords = LanguageKind.isUkrainian(language) || isLanguageHebrew;
+		tokens = filterInvalidTokens(
+			ContextTokenizer.tokenize(raw, maxTokens, allowApostrophesInWords, isLanguageHebrew)
+		);
+
 		return tokens;
 	}
 
 
-	private void setTokenContext(@NonNull String[] newTokens) {
-		tokenContext = new int[newTokens.length];
-		for (int i = 0; i < newTokens.length; i++) {
-			tokenContext[i] = dictionary.indexOf(newTokens[i]);
-		}
-	}
-
-
-	private String[] tokenize() {
-		final boolean isLanguageHebrew = LanguageKind.isHebrew(language);
-		return ContextTokenizer.tokenize(
-			rawContext,
-			maxTokens,
-			LanguageKind.isUkrainian(language) || isLanguageHebrew,
-			isLanguageHebrew
-		);
+	private String[] filterInvalidTokens(@NonNull String[] tokens) {
+		// @todo: filter using the database
+		return tokens;
 	}
 
 
 	@Override
 	@NonNull
 	public String toString() {
-		return "raw=\"" + rawContext + "\", tokens=" + Arrays.toString(tokenContext) + " in dict=" + dictionary;
+		return "raw=\"" + raw + "\", tokens=" + Arrays.toString(tokens);
 	}
 }
