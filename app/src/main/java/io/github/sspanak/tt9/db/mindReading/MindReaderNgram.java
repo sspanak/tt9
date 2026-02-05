@@ -1,6 +1,8 @@
 package io.github.sspanak.tt9.db.mindReading;
 
-class MindReaderNgram {
+import androidx.annotation.NonNull;
+
+class MindReaderNgram implements Comparable<MindReaderNgram> {
 	final long before;
 	final int next;
 	final long complete;
@@ -77,5 +79,30 @@ class MindReaderNgram {
 			&& numbers < HALF_SIZE
 			&& punctuation <= HALF_SIZE
 			&& words >= (numbers + emojis);
+	}
+
+
+	@Override
+	public int compareTo(MindReaderNgram other) {
+		if (other == null || other.before < before) {
+			return 1;
+		} else if (other.before > before) {
+			return -1;
+		} else {
+			return 0;
+		}
+	}
+
+
+	@NonNull
+	@Override
+	public String toString() {
+		return "MindReaderNgram{" +
+			"before=" + before +
+			", next=" + next +
+			", complete=" + complete +
+			", isValid=" + isValid +
+			", isUnigram=" + isUnigram +
+			'}';
 	}
 }
