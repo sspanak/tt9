@@ -28,7 +28,7 @@ public class MindReader extends BaseSyncStore {
 
 	@NonNull MindReaderNgramList ngrams = new MindReaderNgramList(NGRAMS_INITIAL_CAPACITY, MAX_BIGRAM_SUGGESTIONS, MAX_TRIGRAM_SUGGESTIONS, MAX_TETRAGRAM_SUGGESTIONS);
 	@NonNull MindReaderDictionary dictionary = new MindReaderDictionary(MAX_DICTIONARY_WORDS);
-	@NonNull private final MindReaderContext wordContext = new MindReaderContext(dictionary, MAX_NGRAM_SIZE);
+	@NonNull private final MindReaderContext wordContext = new MindReaderContext(MAX_NGRAM_SIZE);
 
 
 	public MindReader(@NonNull Context context, @NonNull SettingsStore settings) {
@@ -43,6 +43,7 @@ public class MindReader extends BaseSyncStore {
 	}
 
 
+	// @todo: create an addContext() method for languages without spaces between words
 	public boolean setContext(@NonNull String beforeCursor) {
 		return isOn() && wordContext.setText(beforeCursor);
 	}
@@ -54,10 +55,11 @@ public class MindReader extends BaseSyncStore {
 		if (!isOn()) {
 			return;
 		}
+
 		changeLanguage(language);
-		wordContext.parseText();
+		dictionary.addAll(wordContext.tokenize());
 		if (saveContext) {
-			ngrams.addMany(wordContext.getEndingNgrams());
+			ngrams.addMany(wordContext.getEndingNgrams(dictionary));
 		}
 
 		if (Logger.isDebugLevel()) logState(Timer.stop(LOG_TAG));
@@ -72,7 +74,7 @@ public class MindReader extends BaseSyncStore {
 
 		final String TIMER_TAG = LOG_TAG + "predictions";
 		Timer.start(TIMER_TAG);
-		ArrayList<String> predictions = dictionary.getAll(ngrams.getAllNextTokens(wordContext));
+		ArrayList<String> predictions = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext));
 		Logger.d(LOG_TAG, "Mind reader predictions retrieved in: " + Timer.stop(TIMER_TAG) + " ms");
 
 		return predictions;
@@ -85,10 +87,11 @@ public class MindReader extends BaseSyncStore {
 			// @todo: save new N-grams for this language
 
 			// @todo: load the dictionary for the new language
+			// @todo: load N-grams for the new language
 			dictionary = new MindReaderDictionary(language, MAX_DICTIONARY_WORDS);
 		}
 
-		wordContext.setLanguage(language, dictionary);
+		wordContext.setLanguage(language);
 	}
 
 

@@ -9,6 +9,7 @@ class ContextTokenizer {
 
 	private static int tokensCount;
 
+	@NonNull
 	static String[] tokenize(@NonNull String text, int maxTokens, boolean allowApostrophe, boolean allowQuote) {
 		final StringBuilder current = new StringBuilder();
 		final String[] tokens = new String[maxTokens];
@@ -63,7 +64,7 @@ class ContextTokenizer {
 		return validTokens;
 	}
 
-	private static void addToken(String[] tokens, int maxTokens, String newToken) {
+	private static void addToken(@NonNull String[] tokens, int maxTokens, @NonNull String newToken) {
 		tokensCount++;
 		for (int i = 1; i < maxTokens; i++) {
 			tokens[i - 1] = tokens[i];
