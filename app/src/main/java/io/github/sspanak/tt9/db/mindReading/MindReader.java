@@ -43,6 +43,7 @@ public class MindReader extends BaseSyncStore {
 	}
 
 
+	// @todo: ensure proper operation in ABC mode
 	// @todo: create an addContext() method for languages without spaces between words
 	public boolean setContext(@NonNull String beforeCursor) {
 		return isOn() && wordContext.setText(beforeCursor);
