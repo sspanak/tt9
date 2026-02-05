@@ -19,7 +19,7 @@ class MindReaderContext {
 
 	MindReaderContext(@NonNull MindReaderDictionary dictionary, int maxTokens) {
 		this.dictionary = dictionary;
-		this.maxTokens = maxTokens;
+		this.maxTokens = Math.max(maxTokens, 0);
 		rawContext = "";
 	}
 
@@ -31,26 +31,13 @@ class MindReaderContext {
 
 
 	MindReaderNgram[] getEndingNgrams() {
-		if (tokenContext.length == 0) {
-			return new MindReaderNgram[0];
-		}
-
-		if (tokenContext.length == 1) {
-			return new MindReaderNgram[] { new MindReaderNgram(new int[] { tokenContext[0] }) };
-		}
-
-		final int nGramsCount = Math.max(0, tokenContext.length - 1);
+		final int nGramsCount = Math.min(maxTokens, tokenContext.length);
 		final MindReaderNgram[] ngrams = new MindReaderNgram[nGramsCount];
-
-		for (int i = nGramsCount - 1, j = 0; i >= 0; i--) {
-			final int ngramSize = tokenContext.length - i;
-			if (ngramSize < 2 || ngramSize > maxTokens) {
-				continue;
-			}
-
+		for (int i = 0; i < nGramsCount; i++) {
+			final int ngramSize = i + 1;
 			final int[] ngramTokens = new int[ngramSize];
-			System.arraycopy(tokenContext, i, ngramTokens, 0, ngramSize);
-			ngrams[j++] = new MindReaderNgram(ngramTokens);
+			System.arraycopy(tokenContext, tokenContext.length - ngramSize, ngramTokens, 0, ngramSize);
+			ngrams[i] = new MindReaderNgram(ngramTokens);
 		}
 
 		return ngrams;

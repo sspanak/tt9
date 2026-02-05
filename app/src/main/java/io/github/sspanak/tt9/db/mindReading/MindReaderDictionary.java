@@ -5,8 +5,6 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -57,6 +55,7 @@ class MindReaderDictionary {
 	static boolean isEmoji(int tokenId) { return tokenId == 1; }
 	static boolean isNumber(int tokenId) { return tokenId == 2; }
 	static boolean isPunctuation(int tokenId) { return tokenId >= 3 && tokenId < 3 + PUNCTUATION.length; }
+	static boolean isWord(int tokenId) { return tokenId >= 3 + PUNCTUATION.length; }
 
 
 	void add(@Nullable String token) {
@@ -90,14 +89,16 @@ class MindReaderDictionary {
 	}
 
 
-	public ArrayList<String> getAll(Set<Integer> tokenIds) {
-		final HashSet<String> results = new HashSet<>();
-		for (Integer id : tokenIds) {
-			if (id >= 0 && id < tokens.length) {
-				results.add(tokens[id]);
+	public ArrayList<String> getAll(int[] tokenIds) {
+		final ArrayList<String> results = new ArrayList<>(tokenIds.length);
+
+		for (final int tokenId : tokenIds) {
+			if (isWord(tokenId) && tokenId < tokens.length) {
+				results.add(tokens[tokenId]);
 			}
 		}
-		return new ArrayList<>(results);
+
+		return results;
 	}
 
 
