@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.CancellationSignal;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -14,7 +15,7 @@ import java.util.function.Consumer;
 
 import io.github.sspanak.tt9.db.entities.AddWordResult;
 import io.github.sspanak.tt9.db.entities.CustomWord;
-import io.github.sspanak.tt9.db.mindReading.MindReaderStore;
+import io.github.sspanak.tt9.db.mindReading.MindReader;
 import io.github.sspanak.tt9.db.wordPairs.WordPairStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.db.words.WordStore;
@@ -30,13 +31,13 @@ public class DataStore {
 	private static Future<?> getWordsTask;
 	private static CancellationSignal getWordsCancellationSignal = new CancellationSignal();
 
-	private static MindReaderStore mindReader;
+	private static MindReader mindReader;
 	private static WordPairStore pairs;
 	private static WordStore words;
 
 
 	public static void init(@NonNull Context context, @NonNull SettingsStore settings) {
-		mindReader = mindReader == null ? new MindReaderStore(context.getApplicationContext(), executor, settings) : mindReader;
+		mindReader = mindReader == null ? new MindReader(context.getApplicationContext(), executor, settings) : mindReader;
 		pairs = pairs == null ? new WordPairStore(context.getApplicationContext()) : pairs;
 		words = words == null ? new WordStore(context.getApplicationContext()) : words;
 	}
@@ -171,8 +172,8 @@ public class DataStore {
 	}
 
 
-	public static boolean setMindReaderContext(@NonNull Language language, @NonNull String beforeCursor) {
-		return mindReader.setContext(language, beforeCursor);
+	public static boolean setMindReaderContext(@NonNull Language language, @NonNull String beforeCursor, @Nullable String endingWord) {
+		return mindReader.setContext(language, beforeCursor, endingWord);
 	}
 
 	public static boolean clearMindReaderContext() {
