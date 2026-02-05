@@ -31,6 +31,14 @@ class MindReaderContext {
 
 
 	MindReaderNgram[] getEndingNgrams() {
+		if (tokenContext.length == 0) {
+			return new MindReaderNgram[0];
+		}
+
+		if (tokenContext.length == 1) {
+			return new MindReaderNgram[] { new MindReaderNgram(new int[] { tokenContext[0] }) };
+		}
+
 		final int nGramsCount = Math.max(0, tokenContext.length - 1);
 		final MindReaderNgram[] ngrams = new MindReaderNgram[nGramsCount];
 

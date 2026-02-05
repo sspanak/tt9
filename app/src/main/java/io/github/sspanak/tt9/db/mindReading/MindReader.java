@@ -51,7 +51,6 @@ public class MindReader extends BaseSyncStore {
 		}
 		changeLanguage(language);
 		wordContext.parseText();
-		wordContext.getEndingNgrams();
 		if (saveContext) {
 			ngrams.addMany(wordContext.getEndingNgrams());
 		}

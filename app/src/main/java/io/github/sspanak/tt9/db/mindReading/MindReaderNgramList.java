@@ -21,9 +21,9 @@ class MindReaderNgramList {
 
 
 	void add(@NonNull MindReaderNgram ngram) {
-		// @todo: also allow at most next variations per before. New variations override oldest ones.
+		// @todo: also allow at most 4 next variations per before. New variations override oldest ones.
 		// @todo: come up with a frequency count mechanism
-		if (!ngram.isValid || contains(ngram)) {
+		if (!ngram.isValid || ngram.isUnigram || contains(ngram)) {
 			return;
 		}
 
