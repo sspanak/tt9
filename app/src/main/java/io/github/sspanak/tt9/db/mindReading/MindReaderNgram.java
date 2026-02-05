@@ -7,27 +7,26 @@ class MindReaderNgram implements Comparable<MindReaderNgram> {
 	final int next;
 	final long complete;
 	final boolean isValid;
-	final boolean isUnigram;
+	final int size;
 
 	MindReaderNgram(int[] tokens) {
+		size = tokens.length;
+
 		if (tokens.length == 0) {
 			before = -1;
 			next = -1;
 			complete = -1;
 			isValid = false;
-			isUnigram = true;
 		} else if (tokens.length == 1) {
 			before = tokens[0];
 			next = -1;
 			complete = tokens[0];
 			isValid = validate(tokens);
-			isUnigram = true;
 		} else {
 			before = compressBefore(tokens);
 			next = tokens[tokens.length - 1];
 			complete = compressComplete(tokens);
 			isValid = validate(tokens);
-			isUnigram = false;
 		}
 	}
 
@@ -102,7 +101,7 @@ class MindReaderNgram implements Comparable<MindReaderNgram> {
 			", next=" + next +
 			", complete=" + complete +
 			", isValid=" + isValid +
-			", isUnigram=" + isUnigram +
+			", size=" + size +
 			'}';
 	}
 }

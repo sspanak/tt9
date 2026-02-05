@@ -8,13 +8,17 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 class MindReaderNgramList {
+	private final int[] MAX_NGRAM_VARIATIONS;
+
 	private long[] before;
 	private int[] next;
 	private final int initialCapacity;
 	private int size;
 
 
-	MindReaderNgramList(int capacity) {
+	MindReaderNgramList(int capacity, int maxBigramVariations, int maxTrigramVariations, int maxTetragramVariations) {
+		MAX_NGRAM_VARIATIONS = new int[] {maxBigramVariations, maxTrigramVariations, maxTetragramVariations};
+
 		before = new long[capacity];
 		next = new int[capacity];
 		initialCapacity = capacity;
@@ -23,11 +27,9 @@ class MindReaderNgramList {
 
 
 	void add(@NonNull MindReaderNgram ngram) {
-		if (!ngram.isValid || ngram.isUnigram) {
+		if (!ngram.isValid || ngram.size < 2) {
 			return;
 		}
-
-		// @todo: if there are more than N variations of "before", remove the oldest one. N = 5? for bigrams, 4 for trigrams, 3 for 4-grams
 
 		// if we re-insert an N-gram, move it to the end to mark it as most recently used
 		final int index = indexOf(ngram);
@@ -43,6 +45,10 @@ class MindReaderNgramList {
 		before[size] = ngram.before;
 		next[size] = ngram.next;
 		size++;
+
+		// keep only the most recent N-gram variations for a given context,
+		// to prevent the list from growing indefinitely and to keep the predictions relevant
+		removeOldestVariations(ngram, MAX_NGRAM_VARIATIONS[Math.min(4, ngram.size - 2)]);
 	}
 
 
@@ -109,6 +115,31 @@ class MindReaderNgramList {
 
 		before[size - 1] = beforeValue;
 		next[size - 1] = nextValue;
+	}
+
+
+	private void removeAt(int index) {
+		if (index < 0 || index >= size) {
+			return;
+		}
+
+		System.arraycopy(before, index + 1, before, index, size - index - 1);
+		System.arraycopy(next, index + 1, next, index, size - index - 1);
+
+		size--;
+	}
+
+
+	private void removeOldestVariations(@NonNull MindReaderNgram ngram, int maxVariations) {
+		for (int i = size - 1, variations = 0; i >= 0; i--) {
+			if (before[i] == ngram.before) {
+				if (variations < maxVariations) {
+					variations++;
+				} else {
+					removeAt(i);
+				}
+			}
+		}
 	}
 
 
