@@ -83,12 +83,12 @@ class MindReaderNgramList {
 
 
 	@NonNull
-	int[] getAllNextTokens(MindReaderContext current) {
+	int[] getAllNextTokens(@NonNull MindReaderDictionary dictionary, @NonNull MindReaderContext current) {
 		final int maxResults = Math.max(Math.max(MAX_NGRAM_VARIATIONS[0], MAX_NGRAM_VARIATIONS[1]), MAX_NGRAM_VARIATIONS[2]);
 		final Set<Integer> results = new LinkedHashSet<>(maxResults);
 
 		// Longer N-gram means more specific context, so we want to show those predictions first.
-		final MindReaderNgram[] currentNgrams = current.getEndingNgrams();
+		final MindReaderNgram[] currentNgrams = current.getEndingNgrams(dictionary);
 		Arrays.sort(currentNgrams, Collections.reverseOrder());
 
 		for (MindReaderNgram currentNgram : currentNgrams) {

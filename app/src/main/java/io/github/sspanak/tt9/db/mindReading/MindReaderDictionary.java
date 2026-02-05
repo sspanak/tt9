@@ -121,6 +121,15 @@ class MindReaderDictionary {
 	}
 
 
+	int[] indexOf(@NonNull String[] tokens) {
+		final int[] indices = new int[tokens.length];
+		for (int i = 0; i < tokens.length; i++) {
+			indices[i] = indexOf(tokens[i]);
+		}
+		return indices;
+	}
+
+
 	@NonNull
 	@Override
 	public String toString() {

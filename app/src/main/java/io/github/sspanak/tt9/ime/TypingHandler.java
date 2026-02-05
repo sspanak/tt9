@@ -595,11 +595,13 @@ public abstract class TypingHandler extends KeyPadHandler {
 		forceShowWindow();
 
 		if (noSuggestionsBefore && !noSuggestions && !mInputMode.containsSpecialChars()) {
-			DataStore.getMindReaderWords(
-				mLanguage,
-				beforeCursor == null ? textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0] : beforeCursor + trimmedWord,
-				false
-			);
+			// @todo: here get completions for the current word, instead of the next words for it.
+
+//			DataStore.getMindReaderWords(
+//				mLanguage,
+//				beforeCursor == null ? textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0] : beforeCursor + trimmedWord,
+//				false
+//			);
 		}
 
 		if (callback != null) {
