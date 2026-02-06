@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.CancellationSignal;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -15,11 +14,9 @@ import java.util.function.Consumer;
 
 import io.github.sspanak.tt9.db.entities.AddWordResult;
 import io.github.sspanak.tt9.db.entities.CustomWord;
-import io.github.sspanak.tt9.db.mindReading.MindReader;
 import io.github.sspanak.tt9.db.wordPairs.WordPairStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.db.words.WordStore;
-import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
@@ -32,13 +29,11 @@ public class DataStore {
 	private static Future<?> getWordsTask;
 	private static CancellationSignal getWordsCancellationSignal = new CancellationSignal();
 
-	private static MindReader mindReader;
 	private static WordPairStore pairs;
 	private static WordStore words;
 
 
-	public static void init(@NonNull Context context, @NonNull SettingsStore settings) {
-		mindReader = mindReader == null ? new MindReader(context.getApplicationContext(), settings) : mindReader;
+	public static void init(@NonNull Context context) {
 		pairs = pairs == null ? new WordPairStore(context.getApplicationContext()) : pairs;
 		words = words == null ? new WordStore(context.getApplicationContext()) : words;
 	}
@@ -170,30 +165,5 @@ public class DataStore {
 
 	public static String getWordPairStats() {
 		return pairs.toString();
-	}
-
-
-	public static boolean clearMindReaderContext() {
-		return mindReader.clearContext();
-	}
-
-
-	public static void getMindReaderPredictions(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord, boolean saveContext) {
-		if (mindReader.setContext(inputMode, language, beforeCursor, lastWord)) {
-			// @todo: ensure runInThread() logs exceptions properly, otherwise this will fail silently
-//			runInThread(() -> {
-				mindReader.processContext(inputMode, language, saveContext);
-				Logger.d("MindReader", " =======> " + mindReader.getPredictions());
-//			});
-		}
-	}
-
-
-	public static void setMindReaderContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord) {
-		if (mindReader.setContext(inputMode, language, beforeCursor, lastWord)) {
-//			runInThread(() ->
-				 mindReader.processContext(inputMode, language, true);
-//			);
-		}
 	}
 }
