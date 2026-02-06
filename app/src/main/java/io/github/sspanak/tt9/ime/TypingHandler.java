@@ -85,7 +85,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// don't use beforeCursor cache on start up
 		final String beforeCursor = textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0];
 		updateShiftState(beforeCursor, true, false);
-		DataStore.getMindReaderWords(mLanguage, beforeCursor, false);
+		DataStore.getMindReaderPredictions(mLanguage, beforeCursor, null, false);
 
 		return true;
 	}
@@ -202,7 +202,12 @@ public abstract class TypingHandler extends KeyPadHandler {
 			String lastWord = suggestionOps.acceptIncompleteAndKeepList();
 			mInputMode.onAcceptSuggestion(lastWord);
 			surroundingChars = autoCorrectSpace(lastWord, surroundingChars, false, key);
-			DataStore.setMindReaderContext(mLanguage, surroundingChars[0]);
+
+			if (mLanguage.hasSpaceBetweenWords()) {
+				DataStore.setMindReaderContext(mLanguage, surroundingChars[0], lastWord);
+			} else {
+				DataStore.getMindReaderPredictions(mLanguage, surroundingChars[0], lastWord, true);
+			}
 		}
 
 		// Auto-adjust the text case before each word/char, if the InputMode supports it.
@@ -263,7 +268,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		forceShowWindow();
 		updateShiftState(beforeCursor, true, false);
-		DataStore.getMindReaderWords(mLanguage, beforeCursor, true);
+		DataStore.getMindReaderPredictions(mLanguage, beforeCursor, lastWord, true);
 
 		return true;
 	}

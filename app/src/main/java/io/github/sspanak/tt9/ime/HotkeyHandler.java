@@ -385,9 +385,10 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		if (filter.isEmpty()) {
 			mInputMode.reset();
-			DataStore.getMindReaderWords(
+			DataStore.getMindReaderPredictions(
 				mLanguage,
 				textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0],
+				null,
 				true
 			);
 		} else if (mInputMode.setWordStem(filter, repeat)) {

@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.db.mindReading;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -44,16 +45,23 @@ public class MindReader extends BaseSyncStore {
 
 
 	// @todo: ensure proper operation in ABC mode
-	// @todo: create an addContext() method for languages without spaces between words
-	public boolean setContext(@NonNull String beforeCursor) {
-		return isOn() && wordContext.setText(beforeCursor);
+	public boolean setContext(@NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord) {
+		if (isOff()) {
+			return false;
+		}
+
+		if (language.hasSpaceBetweenWords()) {
+			return wordContext.setText(beforeCursor);
+		} else {
+			return wordContext.appendText(lastWord, true);
+		}
 	}
 
 
 	public void processContext(@NonNull Language language, boolean saveContext) {
 		if (Logger.isDebugLevel()) Timer.start(LOG_TAG);
 
-		if (!isOn()) {
+		if (isOff()) {
 			return;
 		}
 
@@ -69,7 +77,7 @@ public class MindReader extends BaseSyncStore {
 
 	@NonNull
 	public ArrayList<String> getPredictions() {
-		if (!isOn()) {
+		if (isOff()) {
 			return new ArrayList<>();
 		}
 
@@ -96,8 +104,8 @@ public class MindReader extends BaseSyncStore {
 	}
 
 
-	private boolean isOn() {
-		return settings.getAutoMindReading() && !settings.isMainLayoutStealth();
+	private boolean isOff() {
+		return !settings.getAutoMindReading() || settings.isMainLayoutStealth();
 	}
 
 
