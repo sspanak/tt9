@@ -46,7 +46,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			mInputMode.getFirstKey()
 		)[0];
 		mInputMode.determineNextWordTextCase(beforeCursor, -1);
-		DataStore.setMindReaderContext(mLanguage, beforeCursor);
+		DataStore.setMindReaderContext(mLanguage, beforeCursor, lastWord);
 
 		return beforeCursor;
 	}
@@ -74,7 +74,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			)[0];
 			updateShiftState(beforeCursor, true, false);
 			resetKeyRepeat();
-			DataStore.getMindReaderWords(mLanguage, beforeCursor, true);
+			DataStore.getMindReaderPredictions(mLanguage, beforeCursor, word, true);
 		}
 
 		if (!Characters.getSpace(mLanguage).equals(word)) {
@@ -176,7 +176,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			// @todo: here get completions for the current word, instead of the next words for it.
 //		if (noSuggestionsBefore && !noSuggestions && !mInputMode.containsSpecialChars()) {
 
-//			DataStore.getMindReaderWords(
+//			DataStore.getMindReaderPredictions(
 //				mLanguage,
 //				beforeCursor == null ? textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0] : beforeCursor + trimmedWord,
 //				false

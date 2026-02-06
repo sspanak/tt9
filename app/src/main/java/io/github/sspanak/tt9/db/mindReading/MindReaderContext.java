@@ -49,6 +49,22 @@ class MindReaderContext {
 	}
 
 
+	boolean appendText(@Nullable String lastWord, boolean addTrailingSpace) {
+		if (lastWord == null || lastWord.isEmpty()) {
+			return false;
+		}
+
+		if (addTrailingSpace && !raw.isEmpty()) {
+			raw += " ";
+		}
+		raw += lastWord.trim();
+		tokens = new String[0];
+		endingNgrams = null;
+
+		return true;
+	}
+
+
 	boolean setText(@NonNull String beforeCursor) {
 		if (raw.isEmpty() && beforeCursor.isEmpty()) {
 			return false;
