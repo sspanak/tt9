@@ -8,9 +8,12 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.BaseSyncStore;
+import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.Timer;
 
 public class MindReader extends BaseSyncStore {
@@ -44,13 +47,18 @@ public class MindReader extends BaseSyncStore {
 	}
 
 
-	// @todo: ensure proper operation in ABC mode
-	public boolean setContext(@NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord) {
+	public boolean setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord) {
 		if (isOff()) {
 			return false;
 		}
 
-		if (language.hasSpaceBetweenWords()) {
+		if (InputModeKind.isABC(inputMode)) {
+			return
+				TextTools.isSingleCodePoint(lastWord)
+				&& Character.isWhitespace(lastWord.codePointAt(0))
+				&& wordContext.setText(beforeCursor)
+				&& wordContext.appendText(lastWord, false);
+		} else if (language.hasSpaceBetweenWords()) {
 			return wordContext.setText(beforeCursor);
 		} else {
 			return wordContext.appendText(lastWord, true);
@@ -58,7 +66,7 @@ public class MindReader extends BaseSyncStore {
 	}
 
 
-	public void processContext(@NonNull Language language, boolean saveContext) {
+	public void processContext(@Nullable InputMode inputMode, @NonNull Language language, boolean saveContext) {
 		if (Logger.isDebugLevel()) Timer.start(LOG_TAG);
 
 		if (isOff()) {
@@ -67,7 +75,7 @@ public class MindReader extends BaseSyncStore {
 
 		changeLanguage(language);
 		dictionary.addAll(wordContext.tokenize());
-		if (saveContext) {
+		if (saveContext && wordContext.shouldSave(inputMode)) {
 			ngrams.addMany(wordContext.getEndingNgrams(dictionary));
 		}
 

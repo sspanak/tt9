@@ -5,12 +5,16 @@ import androidx.annotation.Nullable;
 
 import java.util.Arrays;
 
+import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.util.TextTools;
 
 class MindReaderContext {
 	@Nullable Language language;
 
+	@Nullable private String lastAppendedWord = null;
 	private final int maxTokens;
 	@NonNull private String raw = "";
 	@NonNull private String[] tokens = new String[0];
@@ -58,6 +62,7 @@ class MindReaderContext {
 			raw += " ";
 		}
 		raw += lastWord.trim();
+		lastAppendedWord = lastWord;
 		tokens = new String[0];
 		endingNgrams = null;
 
@@ -71,12 +76,26 @@ class MindReaderContext {
 		}
 
 		raw = beforeCursor.trim();
+		lastAppendedWord = null;
 		tokens = new String[0];
 		endingNgrams = null;
 
 		return true;
 	}
 
+
+	boolean shouldSave(@Nullable InputMode inputMode) {
+		if (!InputModeKind.isABC(inputMode)) {
+			return true;
+		}
+
+		if (!TextTools.isSingleCodePoint(lastAppendedWord)) {
+			return false;
+		}
+
+		final int cp = lastAppendedWord.codePointAt(0);
+		return Character.isWhitespace(cp) || ContextTokenizer.isPunctuationChar(cp);
+	}
 
 
 	@NonNull

@@ -76,7 +76,7 @@ class ContextTokenizer {
 		return Character.isDigit(cp);
 	}
 
-	private static boolean isPunctuationChar(int cp) {
+	static boolean isPunctuationChar(int cp) {
 		for (int punctuationChar : MindReaderDictionary.PUNCTUATION) {
 			if (cp == punctuationChar) {
 				return true;
