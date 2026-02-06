@@ -46,7 +46,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			mInputMode.getFirstKey()
 		)[0];
 		mInputMode.determineNextWordTextCase(beforeCursor, -1);
-		DataStore.setMindReaderContext(mLanguage, beforeCursor, lastWord);
+		DataStore.setMindReaderContext(mInputMode, mLanguage, beforeCursor, lastWord);
 
 		return beforeCursor;
 	}
@@ -74,7 +74,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			)[0];
 			updateShiftState(beforeCursor, true, false);
 			resetKeyRepeat();
-			DataStore.getMindReaderPredictions(mLanguage, beforeCursor, word, true);
+			DataStore.getMindReaderPredictions(mInputMode, mLanguage, beforeCursor, word, true);
 		}
 
 		if (!Characters.getSpace(mLanguage).equals(word)) {
