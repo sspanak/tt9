@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
@@ -46,7 +45,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			mInputMode.getFirstKey()
 		)[0];
 		mInputMode.determineNextWordTextCase(beforeCursor, -1);
-		DataStore.setMindReaderContext(mInputMode, mLanguage, beforeCursor, lastWord);
+		mindReader.setContext(mInputMode, mLanguage, beforeCursor, lastWord);
 
 		return beforeCursor;
 	}
@@ -74,7 +73,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			)[0];
 			updateShiftState(beforeCursor, true, false);
 			resetKeyRepeat();
-			DataStore.getMindReaderPredictions(mInputMode, mLanguage, beforeCursor, word, true);
+			mindReader.guess(mInputMode, mLanguage, beforeCursor, word, true);
 		}
 
 		if (!Characters.getSpace(mLanguage).equals(word)) {
@@ -176,7 +175,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			// @todo: here get completions for the current word, instead of the next words for it.
 //		if (noSuggestionsBefore && !noSuggestions && !mInputMode.containsSpecialChars()) {
 
-//			DataStore.getMindReaderPredictions(
+//			mindReader.guess(
 //				mLanguage,
 //				beforeCursor == null ? textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0] : beforeCursor + trimmedWord,
 //				false
