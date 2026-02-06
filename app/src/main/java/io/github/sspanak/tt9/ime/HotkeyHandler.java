@@ -4,7 +4,6 @@ import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.commands.CmdMoveCursor;
-import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -119,7 +118,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 	private boolean onHardcodedKey(int keyCode, boolean validateOnly) {
 		if (!validateOnly && Key.isArrow(keyCode)) {
-			DataStore.clearMindReaderContext();
+			mindReader.clearContext();
 		}
 
 		if (Key.isArrowUp(keyCode) && onKeyEditDuplicateLetter(validateOnly)) {
@@ -307,8 +306,8 @@ public abstract class HotkeyHandler extends CommandHandler {
 	public boolean onKeyMoveCursor(int direction) {
 		suggestionOps.cancelDelayedAccept();
 		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		mindReader.clearContext();
 		resetKeyRepeat();
-		DataStore.clearMindReaderContext();
 
 		final boolean backward = direction == CmdMoveCursor.CURSOR_MOVE_LEFT;
 
@@ -385,7 +384,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		if (filter.isEmpty()) {
 			mInputMode.reset();
-			DataStore.getMindReaderPredictions(
+			mindReader.guess(
 				mInputMode,
 				mLanguage,
 				textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0],

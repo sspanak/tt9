@@ -1,13 +1,10 @@
 package io.github.sspanak.tt9.db.mindReading;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.BaseSyncStore;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
@@ -16,7 +13,7 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.Timer;
 
-public class MindReader extends BaseSyncStore {
+public class MindReader {
 	private static final String LOG_TAG = MindReader.class.getSimpleName();
 
 	// @todo: move these constants to SettingsStatic
@@ -28,26 +25,46 @@ public class MindReader extends BaseSyncStore {
 	static final int DICTIONARY_WORD_SIZE = 16; // in bytes
 	private static final int MAX_DICTIONARY_WORDS = (int) Math.pow(2, DICTIONARY_WORD_SIZE);
 
-	@NonNull private final SettingsStore settings;
+	@Nullable private final SettingsStore settings;
 
 	@NonNull MindReaderNgramList ngrams = new MindReaderNgramList(NGRAMS_INITIAL_CAPACITY, MAX_BIGRAM_SUGGESTIONS, MAX_TRIGRAM_SUGGESTIONS, MAX_TETRAGRAM_SUGGESTIONS);
 	@NonNull MindReaderDictionary dictionary = new MindReaderDictionary(MAX_DICTIONARY_WORDS);
 	@NonNull private final MindReaderContext wordContext = new MindReaderContext(MAX_NGRAM_SIZE);
 
 
-	public MindReader(@NonNull Context context, @NonNull SettingsStore settings) {
-		super(context);
+	public MindReader(@Nullable SettingsStore settings) {
 		this.settings = settings;
 	}
 
 
 	public boolean clearContext() {
 		Logger.d(LOG_TAG, "Mind reader context cleared");
-		return wordContext.setText("");
+		return !isOff() && wordContext.setText("");
 	}
 
 
-	public boolean setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord) {
+	public void guess(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord, boolean saveContext) {
+		if (setContextSync(inputMode, language, beforeCursor, lastWord)) {
+			// @todo: run in thread, and ensure exceptions produce error logs, instead of failing silently
+//			runInThread(() -> {
+				processContext(inputMode, language, saveContext);
+				// @todo: send to SuggestionHandler. Possibly merge with getPredictions().
+				Logger.d("MindReader", " =======> " + getPredictions());
+//			});
+		}
+	}
+
+
+	public void setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord) {
+		if (setContextSync(inputMode, language, beforeCursor, lastWord)) {
+//			runInThread(() ->
+			processContext(inputMode, language, true);
+//			);
+		}
+	}
+
+
+	private boolean setContextSync(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord) {
 		if (isOff()) {
 			return false;
 		}
@@ -84,7 +101,7 @@ public class MindReader extends BaseSyncStore {
 
 
 	@NonNull
-	public ArrayList<String> getPredictions() {
+	private ArrayList<String> getPredictions() {
 		if (isOff()) {
 			return new ArrayList<>();
 		}
@@ -113,7 +130,7 @@ public class MindReader extends BaseSyncStore {
 
 
 	private boolean isOff() {
-		return !settings.getAutoMindReading() || settings.isMainLayoutStealth();
+		return settings == null || !settings.getAutoMindReading() || settings.isMainLayoutStealth();
 	}
 
 

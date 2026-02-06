@@ -55,7 +55,7 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 	private void initSecondaryTasks() {
 		LanguageCollection.init(this);
 		try (LegacyDb db = new LegacyDb(this)) { db.clear(); }
-		DataStore.init(this, getSettings());
+		DataStore.init(this);
 
 		InputModeValidator.validateEnabledLanguages(settings.getEnabledLanguageIds());
 		validateFunctionKeys();
