@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.CancellationSignal;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -176,8 +177,8 @@ public class DataStore {
 	}
 
 
-	public static void getMindReaderWords(@NonNull Language language, @NonNull String beforeCursor, boolean saveContext) {
-		if (mindReader.setContext(beforeCursor)) {
+	public static void getMindReaderPredictions(@NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord, boolean saveContext) {
+		if (mindReader.setContext(language, beforeCursor, lastWord)) {
 //			runInThread(() -> {
 				mindReader.processContext(language, saveContext);
 				Logger.d("MindReader", " =======> " + mindReader.getPredictions());
@@ -186,8 +187,8 @@ public class DataStore {
 	}
 
 
-	public static void setMindReaderContext(@NonNull Language language, @NonNull String beforeCursor) {
-		if (mindReader.setContext(beforeCursor)) {
+	public static void setMindReaderContext(@NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord) {
+		if (mindReader.setContext(language, beforeCursor, lastWord)) {
 			runInThread(() -> mindReader.processContext(language, true));
 		}
 	}
