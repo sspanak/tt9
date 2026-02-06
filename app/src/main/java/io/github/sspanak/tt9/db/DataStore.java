@@ -19,6 +19,7 @@ import io.github.sspanak.tt9.db.mindReading.MindReader;
 import io.github.sspanak.tt9.db.wordPairs.WordPairStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.db.words.WordStore;
+import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
@@ -177,19 +178,22 @@ public class DataStore {
 	}
 
 
-	public static void getMindReaderPredictions(@NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord, boolean saveContext) {
-		if (mindReader.setContext(language, beforeCursor, lastWord)) {
+	public static void getMindReaderPredictions(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord, boolean saveContext) {
+		if (mindReader.setContext(inputMode, language, beforeCursor, lastWord)) {
+			// @todo: ensure runInThread() logs exceptions properly, otherwise this will fail silently
 //			runInThread(() -> {
-				mindReader.processContext(language, saveContext);
+				mindReader.processContext(inputMode, language, saveContext);
 				Logger.d("MindReader", " =======> " + mindReader.getPredictions());
 //			});
 		}
 	}
 
 
-	public static void setMindReaderContext(@NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord) {
-		if (mindReader.setContext(language, beforeCursor, lastWord)) {
-			runInThread(() -> mindReader.processContext(language, true));
+	public static void setMindReaderContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord) {
+		if (mindReader.setContext(inputMode, language, beforeCursor, lastWord)) {
+//			runInThread(() ->
+				 mindReader.processContext(inputMode, language, true);
+//			);
 		}
 	}
 }

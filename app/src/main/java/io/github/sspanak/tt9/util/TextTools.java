@@ -27,6 +27,14 @@ public class TextTools {
 	private static final Pattern START_OF_SENTENCE = Pattern.compile("(?<!\\.)(^|[.?!؟¿¡])\\s+$");
 
 
+	public static boolean isSingleCodePoint(String str) {
+		return
+			str != null
+			&& !str.isEmpty()
+			&& str.offsetByCodePoints(0, 1) == str.length();
+	}
+
+
 	public static boolean containsPunctuation(String str) {
 		return str != null && !str.isEmpty() && CONTAINS_PUNCTUATION.matcher(str).find();
 	}
