@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.mindReading.MindReader;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
@@ -31,7 +30,6 @@ import io.github.sspanak.tt9.util.chars.Characters;
 public abstract class TypingHandler extends KeyPadHandler {
 	// internal settings/data
 	@NonNull protected InputType inputType = new InputType(null, null);
-	@NonNull protected MindReader mindReader = new MindReader(null);
 	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(null, null);
 	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null, null, null);
@@ -47,8 +45,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected Language mLanguage;
 
 
-	abstract protected void getSuggestions(@Nullable String currentWord, @Nullable Runnable onComplete);
 	abstract protected void onAcceptSuggestionsDelayed(String s);
+	abstract protected void getSuggestions(@Nullable String currentWord, @Nullable Runnable onComplete);
+	abstract protected void getMagicSuggestions(@NonNull String beforeCurso, @Nullable String currentWord, boolean saveContext);
+	abstract protected boolean clearMagicContext();
+	abstract protected void setMagicContext(@NonNull String beforeCursor, @Nullable String currentWord);
 
 
 	protected void createSuggestionBar() {
@@ -58,13 +59,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	protected boolean shouldBeOff() {
 		return getCurrentInputConnection() == null || InputModeKind.isPassthrough(mInputMode);
-	}
-
-
-	@Override
-	protected void onInit() {
-		super.onInit();
-		mindReader = new MindReader(settings);
 	}
 
 
@@ -93,7 +87,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// don't use beforeCursor cache on start up
 		final String beforeCursor = textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0];
 		updateShiftState(beforeCursor, true, false);
-		mindReader.guess(mInputMode, mLanguage, beforeCursor, null, false);
+		getMagicSuggestions(beforeCursor, null, false);
 
 		return true;
 	}
@@ -137,7 +131,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 		suggestionOps.cancelDelayedAccept();
 		mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
-		mindReader.clearContext();
 		setInputField(null);
 	}
 
@@ -150,7 +143,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return false;
 		}
 
-		if (mindReader.clearContext()) { // @todo: instead: if (suggestionOps contains only suggestions from mind reader)
+		if (clearMagicContext()) { // @todo: instead: if (suggestionOps contains only suggestions from mind reader)
 			return true;
 		}
 
@@ -212,9 +205,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 			surroundingChars = autoCorrectSpace(lastWord, surroundingChars, false, key);
 
 			if (mLanguage.hasSpaceBetweenWords()) {
-				mindReader.setContext(mInputMode, mLanguage, surroundingChars[0], lastWord);
+				setMagicContext(surroundingChars[0], lastWord);
 			} else {
-				mindReader.guess(mInputMode, mLanguage, surroundingChars[0], lastWord, true);
+				getMagicSuggestions(surroundingChars[0], lastWord, true);
 			}
 		}
 
@@ -276,7 +269,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		forceShowWindow();
 		updateShiftState(beforeCursor, true, false);
-		mindReader.guess(mInputMode, mLanguage, beforeCursor, lastWord, true);
+		getMagicSuggestions(beforeCursor, lastWord, true);
 
 		return true;
 	}
@@ -455,7 +448,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// location. This prevents undesired deletion of the space, in the middle of the text.
 		if (CursorOps.isMovedFar(newSelStart, newSelEnd, oldSelStart, oldSelEnd)) {
 			stopWaitingForSpaceTrimKey();
-			mindReader.clearContext();
+			clearMagicContext();
 		}
 	}
 

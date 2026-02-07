@@ -9,15 +9,26 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.db.mindReading.MindReader;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.chars.Characters;
 import io.github.sspanak.tt9.util.sys.Clipboard;
 
 abstract public class SuggestionHandler extends TypingHandler {
 	@Nullable private Handler suggestionHandler;
+	@NonNull protected MindReader mindReader = new MindReader();
+
+
+	@Override
+	protected void onInit() {
+		super.onInit();
+		mindReader = new MindReader(settings, executor);
+	}
+
 
 	@Override
 	protected void onFinishTyping() {
@@ -26,8 +37,10 @@ abstract public class SuggestionHandler extends TypingHandler {
 			suggestionHandler = null;
 		}
 
+		mindReader.clearContext();
 		super.onFinishTyping();
 	}
+
 
 	private String onAcceptPreviousSuggestion() {
 		final int lastWordLength = InputModeKind.isABC(mInputMode) ? 1 : mInputMode.getSequenceLength() - 1;
@@ -73,7 +86,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			)[0];
 			updateShiftState(beforeCursor, true, false);
 			resetKeyRepeat();
-			mindReader.guess(mInputMode, mLanguage, beforeCursor, word, true);
+			getMagicSuggestions(beforeCursor, word, true);
 		}
 
 		if (!Characters.getSpace(mLanguage).equals(word)) {
@@ -185,5 +198,28 @@ abstract public class SuggestionHandler extends TypingHandler {
 		if (callback != null) {
 			callback.run();
 		}
+	}
+
+
+	@Override
+	protected boolean clearMagicContext() {
+		return mindReader.clearContext();
+	}
+
+
+	@Override
+	protected void setMagicContext(@NonNull String beforeCursor, @Nullable String lastWord) {
+		mindReader.setContext(mInputMode, mLanguage, beforeCursor, lastWord);
+	}
+
+
+	@Override
+	protected void getMagicSuggestions(@NonNull String beforeCursor, @Nullable String lastWord, boolean saveContext) {
+		mindReader.guess(mInputMode, mLanguage, beforeCursor, lastWord, saveContext, this::handleMagicSuggestions);
+	}
+
+
+	private void handleMagicSuggestions(ArrayList<String> suggestions) {
+		Logger.d("LOG", "=========> " + suggestions);
 	}
 }
