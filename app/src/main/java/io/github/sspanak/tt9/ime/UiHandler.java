@@ -5,6 +5,9 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
@@ -21,6 +24,7 @@ abstract class UiHandler extends AbstractHandler {
 	private final static String LOG_TAG = "UiHandler";
 
 	@NonNull protected final AppHacks appHacks = new AppHacks();
+	public final ExecutorService executor = Executors.newCachedThreadPool();
 	protected SettingsStore settings;
 
 	protected int displayTextCase = InputMode.CASE_UNDEFINED;

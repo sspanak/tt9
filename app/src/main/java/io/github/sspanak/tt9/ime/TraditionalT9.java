@@ -9,6 +9,9 @@ import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
@@ -24,7 +27,7 @@ import io.github.sspanak.tt9.util.sys.SystemSettings;
 public class TraditionalT9 extends PremiumHandler {
 	private static final String LOG_TAG = "MAIN";
 
-	private Thread asyncInitThread;
+	private Future<?> asyncInitThread;
 
 	@NonNull private final Handler backgroundTasks = new Handler(Looper.getMainLooper());
 	@NonNull private final Handler zombieDetector = new Handler(Looper.getMainLooper());
@@ -118,8 +121,7 @@ public class TraditionalT9 extends PremiumHandler {
 		settings.setDemoMode(false);
 		Logger.setLevel(settings.getLogLevel());
 
-		asyncInitThread = asyncInitThread == null ? new Thread(this::runHeavyInitTasks) : asyncInitThread;
-		asyncInitThread.start();
+		asyncInitThread = asyncInitThread == null ? executor.submit(this::runHeavyInitTasks) : asyncInitThread;
 
 		super.onInit();
 	}
@@ -139,10 +141,10 @@ public class TraditionalT9 extends PremiumHandler {
 		}
 
 		try {
-			if (asyncInitThread != null && asyncInitThread.isAlive()) {
-				asyncInitThread.join();
+			if (asyncInitThread != null && !asyncInitThread.isCancelled() && !asyncInitThread.isDone()) {
+				asyncInitThread.get();
 			}
-		} catch (InterruptedException e) {
+		} catch (InterruptedException | ExecutionException e) {
 			Logger.w(LOG_TAG, "Async initialization failed. " + e.getMessage() + ". Retrying on main thread.");
 			runHeavyInitTasks();
 		} finally {
@@ -344,18 +346,18 @@ public class TraditionalT9 extends PremiumHandler {
 
 	private void runHeavyInitTasks() {
 		LanguageCollection.init(getApplicationContext());
-		DataStore.init(getApplicationContext());
+		DataStore.init(getApplicationContext(), executor);
 		Logger.d(LOG_TAG, "Heavy initialization tasks completed successfully");
 	}
 
 
 	private void runBackgroundTasks() {
-		new Thread(() -> {
+		executor.submit(() -> {
 			voiceInputOps.forceAlternativeInput(false).enableOfflineMode();
 			if (!DictionaryLoader.getInstance(this).isRunning()) {
 				DataStore.saveWordPairs();
 				DataStore.normalizeNext();
 			}
-		}).start();
+		});
 	}
 }
