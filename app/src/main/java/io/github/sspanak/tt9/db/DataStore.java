@@ -4,10 +4,10 @@ import android.content.Context;
 import android.os.CancellationSignal;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
@@ -24,23 +24,30 @@ import io.github.sspanak.tt9.util.Logger;
 public class DataStore {
 	private final static String LOG_TAG = DataStore.class.getSimpleName();
 
-	private static final ExecutorService executor = Executors.newCachedThreadPool();
+	private static ExecutorService executor;
 
-	private static Future<?> getWordsTask;
-	private static CancellationSignal getWordsCancellationSignal = new CancellationSignal();
+	@Nullable private static Future<?> getWordsTask;
+	@NonNull private static CancellationSignal getWordsCancellationSignal = new CancellationSignal();
 
 	private static WordPairStore pairs;
 	private static WordStore words;
 
 
-	public static void init(@NonNull Context context) {
+	public static void init(@NonNull Context context, @NonNull ExecutorService executorService) {
+		executor = executor == null ? executorService : executor;
 		pairs = pairs == null ? new WordPairStore(context.getApplicationContext()) : pairs;
 		words = words == null ? new WordStore(context.getApplicationContext()) : words;
 	}
 
 
-	private static void runInThread(@NonNull Runnable action) {
-		executor.submit(action);
+	@Nullable
+	private static Future<?> runInThread(@NonNull Runnable action) {
+		if (executor != null) {
+			return executor.submit(action);
+		} else {
+			Logger.e(LOG_TAG, "Cannot run a datastore task without an ExecutorService.");
+			return null;
+		}
 	}
 
 
@@ -93,8 +100,8 @@ public class DataStore {
 		}
 
 		getWordsCancellationSignal = new CancellationSignal();
-		getWordsTask = executor.submit(() -> getWordsSync(dataHandler, language, sequence, onlyExactSequence, filter, orderByLength, minWords, maxWords));
-		executor.submit(DataStore::setGetWordsTimeout);
+		getWordsTask = runInThread(() -> getWordsSync(dataHandler, language, sequence, onlyExactSequence, filter, orderByLength, minWords, maxWords));
+		runInThread(DataStore::setGetWordsTimeout);
 	}
 
 
@@ -109,6 +116,10 @@ public class DataStore {
 
 
 	private static void setGetWordsTimeout() {
+		if (getWordsTask == null) {
+			return;
+		}
+
 		try {
 			getWordsTask.get(SettingsStore.SLOW_QUERY_TIMEOUT, TimeUnit.MILLISECONDS);
 		} catch (Exception e) {

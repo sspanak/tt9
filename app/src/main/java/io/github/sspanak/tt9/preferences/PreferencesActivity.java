@@ -13,6 +13,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
+import java.util.concurrent.Executors;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.LegacyDb;
@@ -55,7 +57,7 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 	private void initSecondaryTasks() {
 		LanguageCollection.init(this);
 		try (LegacyDb db = new LegacyDb(this)) { db.clear(); }
-		DataStore.init(this);
+		DataStore.init(this, Executors.newCachedThreadPool());
 
 		InputModeValidator.validateEnabledLanguages(settings.getEnabledLanguageIds());
 		validateFunctionKeys();
