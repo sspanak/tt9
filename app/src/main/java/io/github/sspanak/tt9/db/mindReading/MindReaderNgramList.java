@@ -83,7 +83,7 @@ class MindReaderNgramList {
 
 
 	@NonNull
-	int[] getAllNextTokens(@NonNull MindReaderDictionary dictionary, @NonNull MindReaderContext current) {
+	Set<Integer> getAllNextTokens(@NonNull MindReaderDictionary dictionary, @NonNull MindReaderContext current) {
 		final int maxResults = Math.max(Math.max(MAX_NGRAM_VARIATIONS[0], MAX_NGRAM_VARIATIONS[1]), MAX_NGRAM_VARIATIONS[2]);
 		final Set<Integer> results = new LinkedHashSet<>(maxResults);
 
@@ -104,7 +104,7 @@ class MindReaderNgramList {
 			}
 		}
 
-		return results.stream().mapToInt(Integer::intValue).toArray();
+		return results;
 	}
 
 

@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.function.Consumer;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
@@ -25,6 +28,7 @@ public class MindReader {
 	static final int DICTIONARY_WORD_SIZE = 16; // in bytes
 	private static final int MAX_DICTIONARY_WORDS = (int) Math.pow(2, DICTIONARY_WORD_SIZE);
 
+	@Nullable private final ExecutorService executor;
 	@Nullable private final SettingsStore settings;
 
 	@NonNull MindReaderNgramList ngrams = new MindReaderNgramList(NGRAMS_INITIAL_CAPACITY, MAX_BIGRAM_SUGGESTIONS, MAX_TRIGRAM_SUGGESTIONS, MAX_TETRAGRAM_SUGGESTIONS);
@@ -32,7 +36,13 @@ public class MindReader {
 	@NonNull private final MindReaderContext wordContext = new MindReaderContext(MAX_NGRAM_SIZE);
 
 
-	public MindReader(@Nullable SettingsStore settings) {
+	public MindReader() {
+		this(null, null);
+	}
+
+
+	public MindReader(@Nullable SettingsStore settings, @Nullable ExecutorService executor) {
+		this.executor = executor;
 		this.settings = settings;
 	}
 
@@ -43,23 +53,20 @@ public class MindReader {
 	}
 
 
-	public void guess(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord, boolean saveContext) {
+	public void guess(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord, boolean saveContext, Consumer<ArrayList<String>> onComplete) {
 		if (setContextSync(inputMode, language, beforeCursor, lastWord)) {
-			// @todo: run in thread, and ensure exceptions produce error logs, instead of failing silently
-//			runInThread(() -> {
+			runInThread(() -> {
 				processContext(inputMode, language, saveContext);
-				// @todo: send to SuggestionHandler. Possibly merge with getPredictions().
-				Logger.d("MindReader", " =======> " + getPredictions());
-//			});
+				ArrayList<String> predictions = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext));
+				onComplete.accept(predictions);
+			});
 		}
 	}
 
 
 	public void setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord) {
 		if (setContextSync(inputMode, language, beforeCursor, lastWord)) {
-//			runInThread(() ->
-			processContext(inputMode, language, true);
-//			);
+			runInThread(() -> processContext(inputMode, language, true));
 		}
 	}
 
@@ -100,21 +107,6 @@ public class MindReader {
 	}
 
 
-	@NonNull
-	private ArrayList<String> getPredictions() {
-		if (isOff()) {
-			return new ArrayList<>();
-		}
-
-		final String TIMER_TAG = LOG_TAG + "predictions";
-		Timer.start(TIMER_TAG);
-		ArrayList<String> predictions = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext));
-		Logger.d(LOG_TAG, "Mind reader predictions retrieved in: " + Timer.stop(TIMER_TAG) + " ms");
-
-		return predictions;
-	}
-
-
 	private void changeLanguage(@NonNull Language language) {
 		if (!language.equals(wordContext.language)) {
 			// @todo: save the current dictionary for the previous language
@@ -139,6 +131,20 @@ public class MindReader {
 		Logger.d(LOG_TAG, "Mind reader N-grams: " + ngrams);
 		if (processingTime >= 0) {
 			Logger.d(LOG_TAG, "Mind reader context processed in: " + processingTime + " ms");
+		}
+	}
+
+
+	private void runInThread(@NonNull Runnable runnable) {
+		if (executor == null) {
+			Logger.e(LOG_TAG, "MindReader can not be used without an ExecutorService");
+			return;
+		}
+
+		try {
+			executor.submit(runnable);
+		} catch (RejectedExecutionException e) {
+			Logger.e(LOG_TAG, "Failed running async MindReader task. " + e);
 		}
 	}
 }

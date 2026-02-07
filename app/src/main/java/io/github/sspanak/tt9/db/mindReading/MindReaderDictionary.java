@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Set;
 
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.util.chars.Characters;
@@ -93,8 +94,8 @@ class MindReaderDictionary {
 
 
 	@NonNull
-	public ArrayList<String> getAll(int[] tokenIds) {
-		final ArrayList<String> results = new ArrayList<>(tokenIds.length);
+	public ArrayList<String> getAll(Set<Integer> tokenIds) {
+		final ArrayList<String> results = new ArrayList<>(tokenIds.size());
 
 		for (final int tokenId : tokenIds) {
 			if (isWord(tokenId) && tokenId < tokens.length) {
