@@ -54,19 +54,31 @@ public class MindReader {
 
 
 	public void guess(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord, boolean saveContext, Consumer<ArrayList<String>> onComplete) {
+		final String TIMER_TAG = LOG_TAG + Math.random();
+		Timer.start(TIMER_TAG);
+
 		if (setContextSync(inputMode, language, beforeCursor, lastWord)) {
 			runInThread(() -> {
 				processContext(inputMode, language, saveContext);
-				ArrayList<String> predictions = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext));
-				onComplete.accept(predictions);
+				ArrayList<String> words = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext));
+
+				logState(Timer.stop(TIMER_TAG), words);
+
+				onComplete.accept(words);
 			});
 		}
 	}
 
 
 	public void setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord) {
+		final String TIMER_TAG = LOG_TAG + Math.random();
+		Timer.start(TIMER_TAG);
+
 		if (setContextSync(inputMode, language, beforeCursor, lastWord)) {
-			runInThread(() -> processContext(inputMode, language, true));
+			runInThread(() -> {
+				processContext(inputMode, language, true);
+				logState(Timer.stop(TIMER_TAG), null);
+			});
 		}
 	}
 
@@ -91,8 +103,6 @@ public class MindReader {
 
 
 	public void processContext(@Nullable InputMode inputMode, @NonNull Language language, boolean saveContext) {
-		if (Logger.isDebugLevel()) Timer.start(LOG_TAG);
-
 		if (isOff()) {
 			return;
 		}
@@ -102,8 +112,6 @@ public class MindReader {
 		if (saveContext && wordContext.shouldSave(inputMode)) {
 			ngrams.addMany(wordContext.getEndingNgrams(dictionary));
 		}
-
-		if (Logger.isDebugLevel()) logState(Timer.stop(LOG_TAG));
 	}
 
 
@@ -126,12 +134,25 @@ public class MindReader {
 	}
 
 
-	private void logState(long processingTime) {
-		Logger.d(LOG_TAG, "Mind reader context: " + wordContext);
-		Logger.d(LOG_TAG, "Mind reader N-grams: " + ngrams);
-		if (processingTime >= 0) {
-			Logger.d(LOG_TAG, "Mind reader context processed in: " + processingTime + " ms");
+	private void logState(long processingTime, @Nullable ArrayList<String> words) {
+		StringBuilder log = new StringBuilder();
+		log.append("===== Mind Reading Summary =====");
+
+		if (Logger.isDebugLevel()) {
+			log
+				.append("\ncontext: ").append(wordContext)
+				.append("\nN-grams: ").append(ngrams);
 		}
+
+		log.append("\nMagic Word Count: ").append(words != null ? words.size() : 0);
+
+		if (processingTime >= 0) {
+			log.append("\nTime: ").append(processingTime).append(" ms");
+		}
+
+		log.append('\n').append(words == null ? "No words" : words);
+
+		Logger.d(LOG_TAG, log.toString());
 	}
 
 
