@@ -47,9 +47,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	abstract protected void onAcceptSuggestionsDelayed(String s);
 	abstract protected void getSuggestions(@Nullable String currentWord, @Nullable Runnable onComplete);
-	abstract protected void getMagicSuggestions(@NonNull String beforeCurso, @Nullable String currentWord, boolean saveContext);
-	abstract protected boolean clearMagicContext();
-	abstract protected void setMagicContext(@NonNull String beforeCursor, @Nullable String currentWord);
+	abstract protected void guessNextWord(@NonNull String beforeCurso, @Nullable String currentWord, boolean saveContext);
+	abstract protected boolean clearGuessingContext();
+	abstract protected void setGuessingContext(@NonNull String beforeCursor, @Nullable String currentWord);
 
 
 	protected void createSuggestionBar() {
@@ -87,7 +87,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// don't use beforeCursor cache on start up
 		final String beforeCursor = textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0];
 		updateShiftState(beforeCursor, true, false);
-		getMagicSuggestions(beforeCursor, null, false);
+		guessNextWord(beforeCursor, null, false);
 
 		return true;
 	}
@@ -143,7 +143,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return false;
 		}
 
-		if (clearMagicContext()) { // @todo: instead: if (suggestionOps contains only suggestions from mind reader)
+		if (clearGuessingContext()) { // @todo: instead: if (suggestionOps contains only suggestions from mind reader)
 			return true;
 		}
 
@@ -205,9 +205,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 			surroundingChars = autoCorrectSpace(lastWord, surroundingChars, false, key);
 
 			if (mLanguage.hasSpaceBetweenWords()) {
-				setMagicContext(surroundingChars[0], lastWord);
+				setGuessingContext(surroundingChars[0], lastWord);
 			} else {
-				getMagicSuggestions(surroundingChars[0], lastWord, true);
+				guessNextWord(surroundingChars[0], lastWord, true);
 			}
 		}
 
@@ -269,7 +269,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		forceShowWindow();
 		updateShiftState(beforeCursor, true, false);
-		getMagicSuggestions(beforeCursor, lastWord, true);
+		guessNextWord(beforeCursor, lastWord, true);
 
 		return true;
 	}
@@ -448,7 +448,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// location. This prevents undesired deletion of the space, in the middle of the text.
 		if (CursorOps.isMovedFar(newSelStart, newSelEnd, oldSelStart, oldSelEnd)) {
 			stopWaitingForSpaceTrimKey();
-			clearMagicContext();
+			clearGuessingContext();
 		}
 	}
 
