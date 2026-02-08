@@ -53,17 +53,38 @@ public class MindReader {
 	}
 
 
-	public void guess(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord, boolean saveContext, Consumer<ArrayList<String>> onComplete) {
+	public void guessNext(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @Nullable String lastWord, boolean saveContext, Consumer<ArrayList<String>> onComplete) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
+		// @todo: if the context contains a new line, consider only the text after the last new line
+		// @todo: do not guess anything if the text after is not empty and starts with a letter (e.g. the user is in the middle of a word)
 		if (setContextSync(inputMode, language, beforeCursor, lastWord)) {
 			runInThread(() -> {
 				processContext(inputMode, language, saveContext);
-				ArrayList<String> words = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext));
+				final ArrayList<String> words = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext), null);
 
 				logState(Timer.stop(TIMER_TAG), words);
+				onComplete.accept(words);
+			});
+		}
+	}
 
+
+	/**
+	 * Given the current context, and that the next words starts with firstLetter, guess what the word
+	 * might be.
+	 */
+	public void guessCurrent(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String beforeCursor, @NonNull String firstLetter, Consumer<ArrayList<String>> onComplete) {
+		final String TIMER_TAG = LOG_TAG + Math.random();
+		Timer.start(TIMER_TAG);
+
+		if (setContextSync(inputMode, language, beforeCursor, null)) {
+			runInThread(() -> {
+				processContext(inputMode, language, false);
+				final ArrayList<String> words = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext), firstLetter);
+
+				logState(Timer.stop(TIMER_TAG), words);
 				onComplete.accept(words);
 			});
 		}
@@ -135,14 +156,16 @@ public class MindReader {
 
 
 	private void logState(long processingTime, @Nullable ArrayList<String> words) {
+		if (!Logger.isDebugLevel()) {
+			return;
+		}
+
 		StringBuilder log = new StringBuilder();
 		log.append("===== Mind Reading Summary =====");
 
-		if (Logger.isDebugLevel()) {
-			log
-				.append("\ncontext: ").append(wordContext)
-				.append("\nN-grams: ").append(ngrams);
-		}
+		log
+			.append("\ncontext: ").append(wordContext)
+			.append("\nN-grams: ").append(ngrams);
 
 		log.append("\nMagic Word Count: ").append(words != null ? words.size() : 0);
 
