@@ -8,7 +8,7 @@ import io.github.sspanak.tt9.preferences.screens.keypad.DropDownKeyPadDebounceTi
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
-class SettingsHacks extends BaseSettings {
+class SettingsHacks extends SettingsAddedWords {
 	public static final int COMPOSING_TEXT_RESTART_THRESHOLD = 150; // ms
 
 	private boolean demoMode = false;

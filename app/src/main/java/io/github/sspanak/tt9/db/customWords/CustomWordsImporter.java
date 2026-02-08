@@ -23,7 +23,7 @@ import io.github.sspanak.tt9.util.Timer;
 public class CustomWordsImporter extends AbstractFileProcessor {
 	private static CustomWordsImporter self;
 
-	private Consumer<Integer> progressHandler;
+	private Consumer<Float> progressHandler;
 	private Consumer<String> failureHandler;
 
 	private CustomWordFile file;
@@ -31,6 +31,8 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	private SQLiteOpener sqlite;
 
 	private long lastProgressUpdate = 0;
+	private int maxFileLines;
+	private int maxWords;
 
 
 	public static CustomWordsImporter getInstance(Context context) {
@@ -49,13 +51,14 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 
 
 	public void clearAllHandlers() {
+		cancelHandler = null;
 		failureHandler = null;
 		progressHandler = null;
 		successHandler = null;
 	}
 
 
-	public void setProgressHandler(Consumer<Integer> handler) {
+	public void setProgressHandler(Consumer<Float> handler) {
 		progressHandler = handler;
 	}
 
@@ -65,7 +68,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
-	private void sendProgress(int progress) {
+	private void sendProgress(float progress) {
 		long now = System.currentTimeMillis();
 		if (lastProgressUpdate + SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME < now) {
 			progressHandler.accept(progress);
@@ -91,8 +94,10 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
-	public void run(@NonNull Activity activity, @NonNull CustomWordFile file) {
+	public void run(@NonNull Activity activity, @NonNull SettingsStore settings, @NonNull CustomWordFile file) {
 		this.file = file;
+		this.maxFileLines = settings.getImportWordsMaxFileLines();
+		this.maxWords = settings.getImportWordsMaxWords();
 		super.run(activity);
 	}
 
@@ -102,9 +107,14 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 		Timer.start(getClass().getSimpleName());
 
 		sendStart(resources.getString(R.string.dictionary_import_running));
-		if (isFileValid() && isThereRoomForMoreWords(activity) && insertWords()) {
-			sendSuccess();
-			Logger.i(getClass().getSimpleName(), "Imported " + file.getName() + " in " + Timer.get(getClass().getSimpleName()) + " ms");
+		if (isFileValid() && isThereRoomForMoreWords(activity) && isLineCountValid() && insertWords()) {
+			if (isCanceled()) {
+				sendCancel();
+				Logger.i(getClass().getSimpleName(), "Importing cancelled after " + Timer.get(getClass().getSimpleName()) + " ms");
+			} else {
+				sendSuccess();
+				Logger.i(getClass().getSimpleName(), "Imported " + file.getName() + " in " + Timer.get(getClass().getSimpleName()) + " ms");
+			}
 		} else {
 			Logger.e(getClass().getSimpleName(), "Failed to import " + file.getName());
 		}
@@ -132,9 +142,9 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 			sqlite.beginTransaction();
 
 			for (String line; (line = reader.readLine()) != null; lineCount++) {
-				if (!isLineCountValid(lineCount)) {
+				if (isCanceled()) {
 					sqlite.failTransaction();
-					return false;
+					return true;
 				}
 
 				CustomWord customWord = createCustomWord(line, lineCount);
@@ -150,7 +160,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 				}
 
 				if (file.getSize() > 20) {
-					sendProgress(lineCount * 100 / file.getSize());
+					sendProgress(lineCount * 100f / file.getSize());
 				}
 			}
 
@@ -189,7 +199,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 			return false;
 		}
 
-		if ((new ReadOps()).countCustomWords(sqlite.getDb()) > SettingsStore.CUSTOM_WORDS_MAX) {
+		if ((new ReadOps()).countCustomWords(sqlite.getDb()) > maxWords) {
 			sendFailure(resources.getString(R.string.dictionary_import_error_too_many_words));
 			return false;
 		}
@@ -198,13 +208,20 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
-	private boolean isLineCountValid(int lineCount) {
-		if (lineCount <= SettingsStore.CUSTOM_WORDS_IMPORT_MAX_LINES) {
-			return true;
+	private boolean isLineCountValid() {
+		final int lines = file.getSize();
+
+		if (lines < 0) {
+			sendFailure(resources.getString(R.string.dictionary_import_error_cannot_read_file));
+			return false;
 		}
 
-		sendFailure(resources.getString(R.string.dictionary_import_error_file_too_long, SettingsStore.CUSTOM_WORDS_IMPORT_MAX_LINES));
-		return false;
+		if (lines > maxFileLines) {
+			sendFailure(resources.getString(R.string.dictionary_import_error_file_too_long, maxFileLines));
+			return false;
+		}
+
+		return true;
 	}
 
 
