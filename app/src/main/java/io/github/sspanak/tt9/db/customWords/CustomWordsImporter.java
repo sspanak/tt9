@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.function.Consumer;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.entities.CustomWord;
@@ -16,15 +17,14 @@ import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
 public class CustomWordsImporter extends AbstractFileProcessor {
 	private static CustomWordsImporter self;
 
-	private ConsumerCompat<Integer> progressHandler;
-	private ConsumerCompat<String> failureHandler;
+	private Consumer<Integer> progressHandler;
+	private Consumer<String> failureHandler;
 
 	private CustomWordFile file;
 	private final Resources resources;
@@ -55,12 +55,12 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
-	public void setProgressHandler(ConsumerCompat<Integer> handler) {
+	public void setProgressHandler(Consumer<Integer> handler) {
 		progressHandler = handler;
 	}
 
 
-	public void setFailureHandler(ConsumerCompat<String> handler) {
+	public void setFailureHandler(Consumer<String> handler) {
 		failureHandler = handler;
 	}
 

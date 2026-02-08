@@ -1,11 +1,8 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.chars.Characters;
 
 public class ActionKey {
 	@NonNull

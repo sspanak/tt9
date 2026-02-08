@@ -11,6 +11,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceViewHolder;
 
 import io.github.sspanak.tt9.R;
@@ -145,7 +146,7 @@ public class TextInputPreference extends ScreenPreference {
 		final Context context = getContext();
 		final Drawable searchIcon = AppCompatResources.getDrawable(context, icon);
 		if (searchIcon != null) {
-			searchIcon.setTint(context.getResources().getColor(R.color.keyboard_text));
+			searchIcon.setTint(ContextCompat.getColor(context, R.color.keyboard_text));
 		}
 
 		if (LanguageKind.isRTL(LanguageCollection.getDefault())) {

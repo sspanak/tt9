@@ -12,10 +12,10 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.function.Consumer;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
@@ -30,21 +30,21 @@ public class VoiceInputOps {
 	@NonNull private final SpeechRecognizerSupportLegacy recognizerSupport;
 	@Nullable private SpeechRecognizer speechRecognizer;
 
-	@NonNull private final ConsumerCompat<String> onStopListening;
-	@NonNull private final ConsumerCompat<String> onPartialResult;
-	@NonNull private final ConsumerCompat<VoiceInputError> onListeningError;
+	@NonNull private final Consumer<String> onStopListening;
+	@NonNull private final Consumer<String> onPartialResult;
+	@NonNull private final Consumer<VoiceInputError> onListeningError;
 
 
 	public VoiceInputOps(
 		@NonNull Context ims,
 		@Nullable Runnable onStart,
-		@Nullable ConsumerCompat<String> onStop,
-		@Nullable ConsumerCompat<String> onPartial,
-		@Nullable ConsumerCompat<VoiceInputError> onError
+		@Nullable Consumer<String> onStop,
+		@Nullable Consumer<String> onPartial,
+		@Nullable Consumer<VoiceInputError> onError
 	) {
 		isOfflineModeDisabled = new HashMap<>();
 		listener = new VoiceListener(ims, onStart, this::onStop, this::onPartial, this::onError);
-		recognizerSupport = DeviceInfo.AT_LEAST_ANDROID_13 ? new SpeechRecognizerSupportModern(ims) : new SpeechRecognizerSupportLegacy(ims);
+		recognizerSupport = DeviceInfo.AT_LEAST_ANDROID_13 ? new SpeechRecognizerSupportModern(ims) : new SpeechRecognizerSupportLegacy();
 
 		onStopListening = onStop != null ? onStop : result -> {};
 		onPartialResult = onPartial != null ? onPartial : result -> {};
@@ -188,9 +188,7 @@ public class VoiceInputOps {
 
 
 	public void enableOfflineMode() {
-		for (Integer langId : isOfflineModeDisabled.keySet()) {
-			isOfflineModeDisabled.put(langId, false);
-		}
+		isOfflineModeDisabled.replaceAll((i, v) -> false);
 
 		Logger.d(LOG_TAG, "Re-enabled offline voice input for all languages");
 	}

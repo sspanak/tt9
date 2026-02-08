@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
@@ -17,18 +18,17 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.LanguageRadioButton;
-import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class ChangeLanguageDialog extends PopupDialog {
 	private final ArrayList<Language> languages;
 	private final SettingsStore settings;
 
-	private final ConsumerCompat<Integer> onLanguageChanged;
+	private final Consumer<Integer> onLanguageChanged;
 	private final ArrayList<LanguageRadioButton> radioButtonsCache = new ArrayList<>();
 
 
-	public ChangeLanguageDialog(@NonNull TraditionalT9 tt9, @Nullable ConsumerCompat<Integer> changeHandler) {
+	public ChangeLanguageDialog(@NonNull TraditionalT9 tt9, @Nullable Consumer<Integer> changeHandler) {
 		super(tt9, R.style.TTheme_AddWord);
 
 		title = tt9.getResources().getString(R.string.language_popup_title);
