@@ -360,7 +360,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyFilterSuggestions(boolean validateOnly, boolean repeat) {
-		if (suggestionOps.isEmpty() && !settings.getAutoMindReading()) {
+		if (suggestionOps.isEmpty()) {
 			return false;
 		}
 
@@ -384,7 +384,6 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		if (filter.isEmpty()) {
 			mInputMode.reset();
-			getMagicSuggestions(textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0], null, true);
 		} else if (mInputMode.setWordStem(filter, repeat)) {
 			mInputMode
 				.setOnSuggestionsUpdated(super::handleSuggestionsFromThread)

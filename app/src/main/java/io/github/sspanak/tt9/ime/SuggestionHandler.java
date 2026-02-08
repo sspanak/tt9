@@ -86,7 +86,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			)[0];
 			updateShiftState(beforeCursor, true, false);
 			resetKeyRepeat();
-			getMagicSuggestions(beforeCursor, word, true);
+			guessNextWord(beforeCursor, word, true);
 		}
 
 		if (!Characters.getSpace(mLanguage).equals(word)) {
@@ -147,7 +147,6 @@ abstract public class SuggestionHandler extends TypingHandler {
 		}
 
 		final ArrayList<String> suggestions = mInputMode.getSuggestions();
-		final boolean noSuggestionsBefore = suggestionOps.isEmpty();
 		suggestionOps.set(suggestions, mInputMode.getRecommendedSuggestionIdx(), mInputMode.containsGeneratedSuggestions());
 
 		// either accept the first one automatically (when switching from punctuation to text
@@ -171,11 +170,11 @@ abstract public class SuggestionHandler extends TypingHandler {
 			appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
 		}
 
-		onAfterSuggestionsHandled(onComplete, beforeCursor, trimmedWord, suggestions.isEmpty(), noSuggestionsBefore);
+		onAfterSuggestionsHandled(onComplete, beforeCursor, trimmedWord, suggestions.isEmpty());
 	}
 
 
-	private void onAfterSuggestionsHandled(@Nullable Runnable callback, @Nullable String beforeCursor, @Nullable String trimmedWord, boolean noSuggestions, boolean noSuggestionsBefore) {
+	private void onAfterSuggestionsHandled(@Nullable Runnable callback, @Nullable String beforeCursor, @Nullable String trimmedWord, boolean noSuggestions) {
 		final String shiftStateContext = beforeCursor != null ? beforeCursor + trimmedWord : trimmedWord;
 		if (noSuggestions) {
 			updateShiftStateDebounced(shiftStateContext, true, false);
@@ -185,15 +184,12 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 		forceShowWindow();
 
-			// @todo: here get completions for the current word, instead of the next words for it.
-//		if (noSuggestionsBefore && !noSuggestions && !mInputMode.containsSpecialChars()) {
-
-//			mindReader.guess(
-//				mLanguage,
-//				beforeCursor == null ? textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0] : beforeCursor + trimmedWord,
-//				false
-//			);
-//		}
+		// if this is the first letter of a word, and not punctuation, guess what the word might be
+		// @todo: don't do this after backspace
+		// @todo: this should instead run when before ends with space, and the trimmedWord is one code point long, and not punctuation.
+		if (!noSuggestions && mInputMode.getSequenceLength() == 1 && !mInputMode.containsSpecialChars()) {
+			guessCurrentWord(beforeCursor, trimmedWord);
+		}
 
 		if (callback != null) {
 			callback.run();
@@ -202,24 +198,42 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 
 	@Override
-	protected boolean clearMagicContext() {
+	protected boolean clearGuessingContext() {
 		return mindReader.clearContext();
 	}
 
 
 	@Override
-	protected void setMagicContext(@NonNull String beforeCursor, @Nullable String lastWord) {
+	protected void setGuessingContext(@NonNull String beforeCursor, @Nullable String lastWord) {
 		mindReader.setContext(mInputMode, mLanguage, beforeCursor, lastWord);
 	}
 
 
-	@Override
-	protected void getMagicSuggestions(@NonNull String beforeCursor, @Nullable String lastWord, boolean saveContext) {
-		mindReader.guess(mInputMode, mLanguage, beforeCursor, lastWord, saveContext, this::handleMagicSuggestions);
+	private void guessCurrentWord(@Nullable String beforeCursor, @Nullable String trimmedWord) {
+		if (trimmedWord == null || settings.getAutoMindReading()) {
+			return;
+		}
+
+		String beforeWithoutTrimmed = beforeCursor;
+		if (beforeWithoutTrimmed == null) {
+			beforeWithoutTrimmed = textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0];
+			if (beforeWithoutTrimmed.endsWith(" " + trimmedWord)) {
+				beforeWithoutTrimmed = beforeWithoutTrimmed.substring(0, beforeWithoutTrimmed.length() - trimmedWord.length() - 1);
+			}
+		}
+
+		mindReader.guessCurrent(mInputMode, mLanguage, beforeWithoutTrimmed, trimmedWord, this::handleGuesses);
 	}
 
 
-	private void handleMagicSuggestions(ArrayList<String> suggestions) {
+	@Override
+	protected void guessNextWord(@NonNull String beforeCursor, @Nullable String lastWord, boolean saveContext) {
+		mindReader.guessNext(mInputMode, mLanguage, beforeCursor, lastWord, saveContext, this::handleGuesses);
+	}
+
+
+	private void handleGuesses(ArrayList<String> suggestions) {
+		// @todo: suggestionOps.addGuesses(suggestions);
 		Logger.d("LOG", "=========> " + suggestions);
 	}
 }

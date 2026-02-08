@@ -94,11 +94,11 @@ class MindReaderDictionary {
 
 
 	@NonNull
-	public ArrayList<String> getAll(Set<Integer> tokenIds) {
+	public ArrayList<String> getAll(@NonNull Set<Integer> tokenIds, @Nullable String startsWith) {
 		final ArrayList<String> results = new ArrayList<>(tokenIds.size());
 
 		for (final int tokenId : tokenIds) {
-			if (isWord(tokenId) && tokenId < tokens.length) {
+			if (isWord(tokenId) && tokenId < tokens.length && (startsWith == null || tokens[tokenId].toLowerCase(locale).startsWith(startsWith.toLowerCase(locale)))) {
 				results.add(tokens[tokenId]);
 			}
 		}
