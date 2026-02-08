@@ -143,6 +143,10 @@ public class DataStore {
 		runInThread(() -> dataHandler.accept(words.exists(languages)));
 	}
 
+	public static boolean exists(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
+		return words.exists(language, word, sequence);
+	}
+
 
 	public static void addWordPair(Language language, String word1, String word2, String sequence2) {
 		pairs.add(language, word1, word2, sequence2);
