@@ -57,6 +57,15 @@ public class WordStore extends BaseSyncStore {
 
 
 	/**
+	 * Checks if the given word exists in the factory dictionary for the specified language
+	 * (case-insensitive).
+	 */
+	public boolean exists(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
+		return checkOrNotify() && readOps.exists(sqlite.getDb(), language, word, sequence);
+	}
+
+
+	/**
 	 * Loads words matching and similar to a given digit sequence
 	 * For example: "7655" -> "roll" (exact match), but also: "rolled", "roller", "rolling", ...
 	 * and other similar. When "onlyExactSequence" is TRUE, the word list is constrained only to
@@ -143,11 +152,11 @@ public class WordStore extends BaseSyncStore {
 		}
 
 		try {
-			if (readOps.exists(sqlite.getDb(), language, word)) {
+			final String sequence = language.getDigitSequenceForWord(word);
+
+			if (readOps.exists(sqlite.getDb(), language, word, sequence)) {
 				return new AddWordResult(AddWordResult.CODE_WORD_EXISTS, word);
 			}
-
-			String sequence = language.getDigitSequenceForWord(word);
 
 			if (InsertOps.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
 				makeTopWord(language, word, sequence);

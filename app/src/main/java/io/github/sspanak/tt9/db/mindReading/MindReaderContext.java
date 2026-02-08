@@ -5,10 +5,13 @@ import androidx.annotation.Nullable;
 
 import java.util.Arrays;
 
+import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.TextTools;
 
 class MindReaderContext {
@@ -31,6 +34,10 @@ class MindReaderContext {
 	}
 
 
+	/**
+	 * Get all possible ending n-grams for the current context text, starting with the longest one.
+	 * The n-grams are generated from the tokens produced by the tokenize() method.
+	 */
 	@NonNull
 	MindReaderNgram[] getEndingNgrams(@NonNull MindReaderDictionary dictionary) {
 		if (endingNgrams != null) {
@@ -53,6 +60,10 @@ class MindReaderContext {
 	}
 
 
+	/**
+	 * Appends the given word to the current context text, separating it with a space if needed.
+	 * The word is trimmed before appending.
+	 */
 	boolean appendText(@Nullable String lastWord, boolean addTrailingSpace) {
 		if (lastWord == null || lastWord.isEmpty()) {
 			return false;
@@ -70,6 +81,9 @@ class MindReaderContext {
 	}
 
 
+	/**
+	 * Set new context text, replacing the old one.
+	 */
 	boolean setText(@NonNull String beforeCursor) {
 		if (raw.isEmpty() && beforeCursor.isEmpty()) {
 			return false;
@@ -84,6 +98,9 @@ class MindReaderContext {
 	}
 
 
+	/**
+	 * Determines whether the current context should be saved to the database.
+	 */
 	boolean shouldSave(@Nullable InputMode inputMode) {
 		if (!InputModeKind.isABC(inputMode)) {
 			return true;
@@ -98,21 +115,42 @@ class MindReaderContext {
 	}
 
 
+	/**
+	 * Splits the raw text into valid tokens and returns them as an array. Validation is performed by
+	 * checking the factory words in the database.
+	 */
 	@NonNull
 	String[] tokenize() {
 		final boolean isLanguageHebrew = LanguageKind.isHebrew(language);
 		final boolean allowApostrophesInWords = LanguageKind.isUkrainian(language) || isLanguageHebrew;
-		tokens = filterInvalidTokens(
-			ContextTokenizer.tokenize(raw, maxTokens, allowApostrophesInWords, isLanguageHebrew)
-		);
+		tokens = ContextTokenizer.tokenize(raw, maxTokens, allowApostrophesInWords, isLanguageHebrew);
+		filterInvalidTokens();
 
 		return tokens;
 	}
 
 
-	private String[] filterInvalidTokens(@NonNull String[] tokens) {
-		// @todo: filter using the database
-		return tokens;
+	/**
+	 * Checks which tokens are available as words in the database and returns an array of valid tokens
+	 * only. The invalid ones are replaced with MindReaderDictionary.GARBAGE.
+	 */
+	private void filterInvalidTokens() {
+		if (language == null) {
+			return;
+		}
+
+		for (int i = 0; i < tokens.length; i++) {
+			try {
+				if (!DataStore.exists(language, tokens[i], language.getDigitSequenceForWord(tokens[i]))) {
+					tokens[i] = MindReaderDictionary.GARBAGE;
+				}
+			} catch (Exception e) {
+				if (!(e instanceof InvalidLanguageCharactersException)) {
+					Logger.w(getClass().getSimpleName(), "Failed to filter token \"" + tokens[i] + "\" for language " + language.getName() + ": " + e.getMessage());
+				}
+				tokens[i] = MindReaderDictionary.GARBAGE;
+			}
+		}
 	}
 
 

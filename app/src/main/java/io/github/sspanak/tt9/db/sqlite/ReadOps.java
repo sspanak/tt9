@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,19 +27,33 @@ import io.github.sspanak.tt9.util.Logger;
 
 public class ReadOps {
 	private final String LOG_TAG = "ReadOperations";
+	private final HashMap<String, String> sqlCache = new HashMap<>();
 
 
 	/**
 	 * Checks if a word exists in the database for the given language (case-insensitive).
+	 * Sequence is used for faster lookup.
 	 */
-	public boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word) {
-		String lowercaseWord = word.toLowerCase(language.getLocale());
-		String uppercaseWord = word.toUpperCase(language.getLocale());
+	public boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word, @NonNull String sequence) {
+		if (sequence.isEmpty() || word.isEmpty()) {
+			return false;
+		}
 
-		SQLiteStatement query = CompiledQueryCache.get(db, "SELECT COUNT(*) FROM " + Tables.getWords(language.getId()) + " WHERE word IN(?, ?, ?)");
-		query.bindString(1, word);
-		query.bindString(2, lowercaseWord);
-		query.bindString(3, uppercaseWord);
+		final String sql = sqlCache.computeIfAbsent(
+			"exists_fast_" + language.getId(),
+			k ->
+				"SELECT COUNT(*)" +
+				" FROM " + Tables.getWordPositions(language.getId()) + " AS wp" +
+				" JOIN " + Tables.getWords(language.getId()) + " AS w ON w.position >= wp.start AND w.position <= wp.`end`" +
+				" WHERE sequence = ? AND w.word IN(?,?,?)"
+		);
+
+		final SQLiteStatement query = CompiledQueryCache.get(db, sql);
+		query.bindString(1, sequence);
+		query.bindString(2, word);
+		query.bindString(3, word.toLowerCase(language.getLocale()));
+		query.bindString(4, word.toUpperCase(language.getLocale()));
+
 		try {
 			return query.simpleQueryForLong() > 0;
 		} catch (SQLiteDoneException e) {
