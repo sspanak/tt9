@@ -48,7 +48,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	abstract protected void onAcceptSuggestionsDelayed(String s);
 	abstract protected void getSuggestions(@Nullable String currentWord, @Nullable Runnable onComplete);
 	abstract protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String currentWord, boolean saveContext);
-	abstract protected boolean clearGuessingContext();
+	abstract protected void clearGuessingContext();
 	abstract protected void setGuessingContext(@NonNull String[] surroundingText, @Nullable String currentWord);
 
 
@@ -143,9 +143,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return false;
 		}
 
-		if (clearGuessingContext()) {
-			suggestionOps.clear(); // @todo: this may not be necessary?
-		}
+		clearGuessingContext();
 
 		if (appHacks.onBackspace(settings, mInputMode)) {
 			mInputMode.reset();

@@ -17,12 +17,13 @@ import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.chars.Characters;
 import io.github.sspanak.tt9.util.sys.Clipboard;
 
 abstract public class SuggestionHandler extends TypingHandler {
 	@Nullable private Handler suggestionHandler;
-	@NonNull protected MindReader mindReader = new MindReader();
+	@NonNull private MindReader mindReader = new MindReader();
 
 
 	@Override
@@ -50,7 +51,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			suggestionHandler = null;
 		}
 
-		mindReader.clearContext();
+		clearGuessingContext();
 		super.onFinishTyping();
 	}
 
@@ -193,14 +194,14 @@ abstract public class SuggestionHandler extends TypingHandler {
 			updateShiftStateDebounced(shiftStateContext, false, true);
 		}
 
-		forceShowWindow();
 
 		// if this is the first letter of a word, and not punctuation, guess what the word might be
 		// @todo: don't do this after backspace
-		// @todo: this should instead run when before ends with space, and the trimmedWord is one code point long, and not punctuation.
 		if (!noSuggestions && mInputMode.getSequenceLength() == 1 && !mInputMode.containsSpecialChars()) {
 			guessCurrentWord(surroundingText, trimmedWord);
 		}
+
+		forceShowWindow();
 
 		if (callback != null) {
 			callback.run();
@@ -209,8 +210,8 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 
 	@Override
-	protected boolean clearGuessingContext() {
-		return mindReader.clearContext();
+	protected void clearGuessingContext() {
+		mindReader.clearContext();
 	}
 
 
@@ -231,6 +232,9 @@ abstract public class SuggestionHandler extends TypingHandler {
 			if (surrounding[0].endsWith(" " + trimmedWord)) {
 				surrounding[0] = surrounding[0].substring(0, surrounding[0].length() - trimmedWord.length() - 1);
 			}
+		} else if (!surrounding[0].endsWith(" " + trimmedWord)) {
+			Logger.d(getClass().getSimpleName(), "Not trying to guess the current word, because the text before does not end with a space + letter: '" + surrounding[0] + "' / '" + trimmedWord + "'");
+			return;
 		}
 
 		mindReader.guessCurrent(mInputMode, (NaturalLanguage) mLanguage, surrounding, trimmedWord, this::handleGuessesAsync);
