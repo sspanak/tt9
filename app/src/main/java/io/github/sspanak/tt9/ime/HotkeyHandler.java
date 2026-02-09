@@ -67,9 +67,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		suggestionOps.cancelDelayedAccept();
 		stopWaitingForSpaceTrimKey();
 
-		if (suggestionOps.containsOnlyGuesses()) {
-			// @todo: commit current and load new guesses
-		} else if (!suggestionOps.isEmpty()) {
+		if (!suggestionOps.isEmpty() && !suggestionOps.containsOnlyGuesses()) {
 			if (mInputMode.shouldReplacePreviousSuggestion(suggestionOps.getCurrent())) {
 				mInputMode.onReplaceSuggestion(suggestionOps.getCurrentRaw());
 			} else if (InputModeKind.isRecomposing(mInputMode)) {
