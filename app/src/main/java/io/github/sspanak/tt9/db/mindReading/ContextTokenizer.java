@@ -7,14 +7,11 @@ import io.github.sspanak.tt9.util.chars.Characters;
 class ContextTokenizer {
 	private enum TokenType {SPACE, WORD, PUNCTUATION, NUMBER, EMOJI, GARBAGE}
 
-	private static int tokensCount;
-
 	@NonNull
 	static String[] tokenize(@NonNull String text, int maxTokens, boolean allowApostrophe, boolean allowQuote) {
 		final StringBuilder current = new StringBuilder();
-		final String[] tokens = new String[maxTokens];
-
-		tokensCount = 0;
+		String[] tokens = new String[maxTokens];
+		int tokensCount = 0;
 		TokenType previousType = TokenType.SPACE;
 
 		for (int i = 0, len = text.length(); i < len; ) {
@@ -22,7 +19,12 @@ class ContextTokenizer {
 			final int step = Character.charCount(cp);
 
 			TokenType type;
-			if (Character.isWhitespace(cp)) {
+			if (cp == '\n' || cp == '\r') {
+				current.setLength(0);
+				tokens = new String[maxTokens];
+				tokensCount = 0;
+				type = TokenType.SPACE;
+			} else if (Character.isWhitespace(cp)) {
 				type = TokenType.SPACE;
 			} else if (isWordChar(cp, allowApostrophe, allowQuote)) {
 				type = TokenType.WORD;
@@ -38,6 +40,7 @@ class ContextTokenizer {
 
 			if (type != previousType && current.length() > 0) {
 				addToken(tokens, maxTokens, current.toString());
+				tokensCount++;
 				current.setLength(0);
 			}
 
@@ -57,6 +60,7 @@ class ContextTokenizer {
 
 		if (current.length() > 0) {
 			addToken(tokens, maxTokens, current.toString());
+			tokensCount++;
 		}
 
 		String[] validTokens = new String[Math.min(tokensCount, maxTokens)];
@@ -65,7 +69,6 @@ class ContextTokenizer {
 	}
 
 	private static void addToken(@NonNull String[] tokens, int maxTokens, @NonNull String newToken) {
-		tokensCount++;
 		for (int i = 1; i < maxTokens; i++) {
 			tokens[i - 1] = tokens[i];
 		}
