@@ -259,10 +259,16 @@ public class SuggestionsBar {
 
 		final ArrayList<String> combined = new ArrayList<>(guesses.size() + suggestions.size());
 		final ArrayList<String> formatted = new ArrayList<>(guesses);
+
 		formatted.replaceAll(s -> s + GUESSES_SUFFIX);
-		// @todo: remove duplicates
 		combined.addAll(formatted);
-		combined.addAll(suggestions);
+
+		for (String old : suggestions) {
+			if (!guesses.contains(old)) {
+				combined.add(old);
+			}
+		}
+
 		setMany(combined, 0, false);
 	}
 
