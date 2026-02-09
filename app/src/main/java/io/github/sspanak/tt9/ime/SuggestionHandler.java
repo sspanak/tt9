@@ -16,7 +16,6 @@ import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.ui.UI;
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.chars.Characters;
 import io.github.sspanak.tt9.util.sys.Clipboard;
 
