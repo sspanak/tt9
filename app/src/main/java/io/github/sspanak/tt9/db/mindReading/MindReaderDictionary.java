@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 class MindReaderDictionary {
@@ -60,6 +61,25 @@ class MindReaderDictionary {
 	static boolean isNumber(int tokenId) { return tokenId == 2; }
 	static boolean isPunctuation(int tokenId) { return tokenId >= 3 && tokenId < 3 + PUNCTUATION.length; }
 	static boolean isWord(int tokenId) { return tokenId >= 3 + PUNCTUATION.length; }
+
+
+	static boolean isSpecialChar(@Nullable String token) {
+		if (token == null || token.isEmpty()) {
+			return false;
+		}
+
+		if (token.equals(EMOJI) || token.equals(NUMBER)) {
+			return true;
+		}
+
+		for (int p : PUNCTUATION) {
+			if (token.codePointAt(0) == p && TextTools.isSingleCodePoint(token)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 
 	void add(@Nullable String token) {
