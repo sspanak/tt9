@@ -30,6 +30,7 @@ import io.github.sspanak.tt9.util.sys.Clipboard;
 
 public class SuggestionsBar {
 	public static final String CLIPBOARD_SUGGESTION_SUFFIX = "\u200B...\u200B";
+	private static final String GUESSES_SUFFIX = "\u200B\u200B";
 	public static final String SHOW_GROUP_0_SUGGESTION = "(…\u200A)";
 	public static final String SHOW_GROUP_1_SUGGESTION = "(…\u200B)";
 
@@ -157,6 +158,21 @@ public class SuggestionsBar {
 	}
 
 
+	public boolean containsOnlyGuesses() {
+		if (suggestions == null) {
+			return false;
+		}
+
+		for (String suggestion : suggestions) {
+			if (!suggestion.endsWith(GUESSES_SUFFIX)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+
 	public boolean containsStem() {
 		return !stem.isEmpty();
 	}
@@ -185,6 +201,7 @@ public class SuggestionsBar {
 		if (suggestion.equals(Characters.NEW_LINE)) return "\n";
 		if (suggestion.equals(Characters.TAB)) return "\t";
 
+		suggestion = suggestion.replace(GUESSES_SUFFIX, "");
 		suggestion = suggestion.replace(Characters.ZWNJ_GRAPHIC, Characters.ZWNJ);
 		suggestion = suggestion.replace(Characters.ZWJ_GRAPHIC, Characters.ZWJ);
 		if (suggestion.length() == 1) return suggestion;
@@ -227,6 +244,26 @@ public class SuggestionsBar {
 		if (mView != null) {
 			mView.setLayoutDirection(yes ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
 		}
+	}
+
+
+	public void prependGuesses(@NonNull List<String> guesses) {
+		if (guesses.isEmpty()) {
+			return;
+		}
+
+		if (suggestions == null || suggestions.isEmpty()) {
+			setMany(guesses, 0, false);
+			return;
+		}
+
+		final ArrayList<String> combined = new ArrayList<>(guesses.size() + suggestions.size());
+		final ArrayList<String> formatted = new ArrayList<>(guesses);
+		formatted.replaceAll(s -> s + GUESSES_SUFFIX);
+		// @todo: remove duplicates
+		combined.addAll(formatted);
+		combined.addAll(suggestions);
+		setMany(combined, 0, false);
 	}
 
 

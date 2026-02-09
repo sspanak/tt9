@@ -3,8 +3,10 @@ package io.github.sspanak.tt9.ime;
 import android.os.Handler;
 import android.os.Looper;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,17 @@ abstract public class SuggestionHandler extends TypingHandler {
 	protected void onInit() {
 		super.onInit();
 		mindReader = new MindReader(settings, executor);
+	}
+
+
+	private Handler getAsyncHandler() {
+		if (suggestionHandler == null) {
+			suggestionHandler = new Handler(Looper.getMainLooper());
+		} else {
+			suggestionHandler.removeCallbacksAndMessages(null);
+		}
+
+		return suggestionHandler;
 	}
 
 
@@ -116,27 +129,25 @@ abstract public class SuggestionHandler extends TypingHandler {
 			}
 		} else {
 			mInputMode
-				.setOnSuggestionsUpdated(() -> handleSuggestionsFromThread(onComplete))
+				.setOnSuggestionsUpdated(() -> handleSuggestionsAsync(onComplete))
 				.loadSuggestions(currentWord == null ? suggestionOps.getCurrent() : currentWord);
 		}
 	}
 
 
-	protected void handleSuggestionsFromThread() {
-		handleSuggestionsFromThread(null);
+	@WorkerThread
+	protected void handleSuggestionsAsync() {
+		handleSuggestionsAsync(null);
 	}
 
 
-	protected void handleSuggestionsFromThread(@Nullable Runnable onComplete) {
-		if (suggestionHandler == null) {
-			suggestionHandler = new Handler(Looper.getMainLooper());
-		} else {
-			suggestionHandler.removeCallbacksAndMessages(null);
-		}
-		suggestionHandler.post(() -> handleSuggestions(onComplete));
+	@WorkerThread
+	protected void handleSuggestionsAsync(@Nullable Runnable onComplete) {
+		getAsyncHandler().post(() -> handleSuggestions(onComplete));
 	}
 
 
+	@MainThread
 	protected void handleSuggestions(@Nullable Runnable onComplete) {
 		// Second pass, analyze the available suggestions and decide if combining them with the
 		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
@@ -210,7 +221,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 
 	private void guessCurrentWord(@Nullable String[] surroundingText, @Nullable String trimmedWord) {
-		if (trimmedWord == null || settings.getAutoMindReading()) {
+		if (trimmedWord == null || !settings.getAutoMindReading()) {
 			return;
 		}
 
@@ -222,18 +233,28 @@ abstract public class SuggestionHandler extends TypingHandler {
 			}
 		}
 
-		mindReader.guessCurrent(mInputMode, mLanguage, surrounding, trimmedWord, this::handleGuesses);
+		mindReader.guessCurrent(mInputMode, mLanguage, surrounding, trimmedWord, this::handleGuessesAsync);
 	}
 
 
 	@Override
 	protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext) {
-		mindReader.guessNext(mInputMode, mLanguage, surroundingText, lastWord, saveContext, this::handleGuesses);
+		// @todo: use all alternatives for the letter, not only the current one
+		mindReader.guessNext(mInputMode, mLanguage, surroundingText, lastWord, saveContext, this::handleGuessesAsync);
 	}
 
 
-	private void handleGuesses(ArrayList<String> suggestions) {
-		// @todo: suggestionOps.addGuesses(suggestions);
-		Logger.d("LOG", "=========> " + suggestions);
+	@WorkerThread
+	private void handleGuessesAsync(@Nullable ArrayList<String> guesses) {
+		if (guesses != null && !guesses.isEmpty()) {
+			getAsyncHandler().post(() -> handleGuesses(guesses));
+		}
+	}
+
+
+	@MainThread
+	private void handleGuesses(@NonNull ArrayList<String> guesses) {
+		textField.setComposingText(guesses.get(0));
+		suggestionOps.addGuesses(guesses);
 	}
 }

@@ -113,7 +113,7 @@ public class MindReader {
 			return false;
 		}
 
-		if (surroundingText.length < 2 || surroundingText[1].isEmpty()) {
+		if (surroundingText.length < 2 || !surroundingText[1].isEmpty()) {
 			wordContext.setText("");
 			return false;
 		} else if (InputModeKind.isABC(inputMode)) {
