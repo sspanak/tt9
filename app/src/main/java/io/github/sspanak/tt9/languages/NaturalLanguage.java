@@ -179,6 +179,21 @@ public class NaturalLanguage extends TranscribedLanguage {
 
 
 	@NonNull
+	public ArrayList<String> getAlternativesForLetter(@NonNull String letter) {
+		final String strKey = characterKeyMap.getOrDefault(Character.toLowerCase(letter.charAt(0)), null);
+		if (strKey == null) {
+			return new ArrayList<>();
+		}
+
+		try {
+			return getKeyCharacters(Integer.parseInt(strKey));
+		} catch (NumberFormatException e) {
+			return new ArrayList<>();
+		}
+	}
+
+
+	@NonNull
 	@Override
 	public String getCode() {
 		if (code == null) {

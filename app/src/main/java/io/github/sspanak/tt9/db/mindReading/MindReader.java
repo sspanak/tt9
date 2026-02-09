@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.function.Consumer;
@@ -11,6 +12,7 @@ import java.util.function.Consumer;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.TextTools;
@@ -75,14 +77,24 @@ public class MindReader {
 	 * Given the current context, and that the next words starts with firstLetter, guess what the word
 	 * might be.
 	 */
-	public void guessCurrent(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @NonNull String firstLetter, Consumer<ArrayList<String>> onComplete) {
+	public void guessCurrent(@NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, @NonNull String firstLetter, Consumer<ArrayList<String>> onComplete) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
 		if (setContextSync(inputMode, language, surroundingText, null)) {
 			runInThread(() -> {
 				processContext(inputMode, language, false);
-				final ArrayList<String> words = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext), firstLetter);
+
+				final ArrayList<String> alternativeLetters = language.getAlternativesForLetter(firstLetter);
+				if (alternativeLetters.isEmpty()) {
+					alternativeLetters.add(firstLetter);
+				}
+
+				final Set<Integer> nextTokens = ngrams.getAllNextTokens(dictionary, wordContext);
+				final ArrayList<String> words = new ArrayList<>();
+				for (String letter : alternativeLetters) {
+					words.addAll(dictionary.getAll(nextTokens, letter));
+				}
 
 				logState(Timer.stop(TIMER_TAG), words);
 				onComplete.accept(words);
