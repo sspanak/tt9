@@ -81,8 +81,8 @@ public class SuggestionOps {
 	}
 
 
-	public boolean containsWords() {
-		return isEmpty() && !containsOnlyGuesses();
+	public boolean containsNoOrdinaryWords() {
+		return isEmpty() || containsOnlyGuesses();
 	}
 
 

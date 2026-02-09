@@ -326,7 +326,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyFilterClear(boolean validateOnly) {
-		if (suggestionOps.containsWords()) {
+		if (suggestionOps.containsNoOrdinaryWords()) {
 			return false;
 		}
 
@@ -362,7 +362,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyFilterSuggestions(boolean validateOnly, boolean repeat) {
-		if (suggestionOps.containsWords()) {
+		if (suggestionOps.containsNoOrdinaryWords()) {
 			return false;
 		}
 

@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.db.mindReading.MindReader;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
+import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.chars.Characters;
 import io.github.sspanak.tt9.util.sys.Clipboard;
@@ -232,13 +233,12 @@ abstract public class SuggestionHandler extends TypingHandler {
 			}
 		}
 
-		mindReader.guessCurrent(mInputMode, mLanguage, surrounding, trimmedWord, this::handleGuessesAsync);
+		mindReader.guessCurrent(mInputMode, (NaturalLanguage) mLanguage, surrounding, trimmedWord, this::handleGuessesAsync);
 	}
 
 
 	@Override
 	protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext) {
-		// @todo: use all alternatives for the letter, not only the current one
 		mindReader.guessNext(mInputMode, mLanguage, surroundingText, lastWord, saveContext, this::handleGuessesAsync);
 	}
 
