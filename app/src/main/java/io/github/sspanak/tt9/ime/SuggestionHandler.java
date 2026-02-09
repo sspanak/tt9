@@ -42,7 +42,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 	}
 
 
-	private String onAcceptPreviousSuggestion() {
+	private String[] onAcceptPreviousSuggestion() {
 		final int lastWordLength = InputModeKind.isABC(mInputMode) ? 1 : mInputMode.getSequenceLength() - 1;
 		String lastWord = suggestionOps.getCurrent(mLanguage, lastWordLength);
 		if (Characters.PLACEHOLDER.equals(lastWord)) {
@@ -51,16 +51,16 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 		suggestionOps.commitCurrent(false, true);
 		mInputMode.onAcceptSuggestion(lastWord, true);
-		final String beforeCursor = autoCorrectSpace(
+		final String[] surroundingText = autoCorrectSpace(
 			lastWord,
 			textField.getSurroundingStringForAutoAssistance(settings, mInputMode),
 			false,
 			mInputMode.getFirstKey()
-		)[0];
-		mInputMode.determineNextWordTextCase(beforeCursor, -1);
-		mindReader.setContext(mInputMode, mLanguage, beforeCursor, lastWord);
+		);
+		mInputMode.determineNextWordTextCase(surroundingText[0], -1);
+		mindReader.setContext(mInputMode, mLanguage, surroundingText, lastWord);
 
-		return beforeCursor;
+		return surroundingText;
 	}
 
 
@@ -78,15 +78,15 @@ abstract public class SuggestionHandler extends TypingHandler {
 		}
 
 		if (!word.isEmpty()) {
-			String beforeCursor = autoCorrectSpace(
+			String[] surroundingText = autoCorrectSpace(
 				word,
 				textField.getSurroundingStringForAutoAssistance(settings, mInputMode),
 				true,
 				fromKey
-			)[0];
-			updateShiftState(beforeCursor, true, false);
+			);
+			updateShiftState(surroundingText[0], true, false);
 			resetKeyRepeat();
-			guessNextWord(beforeCursor, word, true);
+			guessNextWord(surroundingText, word, true);
 		}
 
 		if (!Characters.getSpace(mLanguage).equals(word)) {
@@ -141,9 +141,9 @@ abstract public class SuggestionHandler extends TypingHandler {
 		// Second pass, analyze the available suggestions and decide if combining them with the
 		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
 		// just the end of a sentence, like: "word." or "another?"
-		String beforeCursor = null;
+		String[] surroundingText = null;
 		if (mInputMode.shouldAcceptPreviousSuggestion(suggestionOps.getCurrent())) {
-			beforeCursor = onAcceptPreviousSuggestion();
+			surroundingText = onAcceptPreviousSuggestion();
 		}
 
 		final ArrayList<String> suggestions = mInputMode.getSuggestions();
@@ -170,12 +170,12 @@ abstract public class SuggestionHandler extends TypingHandler {
 			appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
 		}
 
-		onAfterSuggestionsHandled(onComplete, beforeCursor, trimmedWord, suggestions.isEmpty());
+		onAfterSuggestionsHandled(onComplete, surroundingText, trimmedWord, suggestions.isEmpty());
 	}
 
 
-	private void onAfterSuggestionsHandled(@Nullable Runnable callback, @Nullable String beforeCursor, @Nullable String trimmedWord, boolean noSuggestions) {
-		final String shiftStateContext = beforeCursor != null ? beforeCursor + trimmedWord : trimmedWord;
+	private void onAfterSuggestionsHandled(@Nullable Runnable callback, @Nullable String[] surroundingText, @Nullable String trimmedWord, boolean noSuggestions) {
+		final String shiftStateContext = surroundingText != null ? surroundingText[0] + trimmedWord : trimmedWord;
 		if (noSuggestions) {
 			updateShiftStateDebounced(shiftStateContext, true, false);
 		} else {
@@ -188,7 +188,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 		// @todo: don't do this after backspace
 		// @todo: this should instead run when before ends with space, and the trimmedWord is one code point long, and not punctuation.
 		if (!noSuggestions && mInputMode.getSequenceLength() == 1 && !mInputMode.containsSpecialChars()) {
-			guessCurrentWord(beforeCursor, trimmedWord);
+			guessCurrentWord(surroundingText, trimmedWord);
 		}
 
 		if (callback != null) {
@@ -204,31 +204,31 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 
 	@Override
-	protected void setGuessingContext(@NonNull String beforeCursor, @Nullable String lastWord) {
-		mindReader.setContext(mInputMode, mLanguage, beforeCursor, lastWord);
+	protected void setGuessingContext(@NonNull String[] surroundingText, @Nullable String lastWord) {
+		mindReader.setContext(mInputMode, mLanguage, surroundingText, lastWord);
 	}
 
 
-	private void guessCurrentWord(@Nullable String beforeCursor, @Nullable String trimmedWord) {
+	private void guessCurrentWord(@Nullable String[] surroundingText, @Nullable String trimmedWord) {
 		if (trimmedWord == null || settings.getAutoMindReading()) {
 			return;
 		}
 
-		String beforeWithoutTrimmed = beforeCursor;
-		if (beforeWithoutTrimmed == null) {
-			beforeWithoutTrimmed = textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0];
-			if (beforeWithoutTrimmed.endsWith(" " + trimmedWord)) {
-				beforeWithoutTrimmed = beforeWithoutTrimmed.substring(0, beforeWithoutTrimmed.length() - trimmedWord.length() - 1);
+		String[] surrounding = surroundingText;
+		if (surrounding == null) {
+			surrounding = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
+			if (surrounding[0].endsWith(" " + trimmedWord)) {
+				surrounding[0] = surrounding[0].substring(0, surrounding[0].length() - trimmedWord.length() - 1);
 			}
 		}
 
-		mindReader.guessCurrent(mInputMode, mLanguage, beforeWithoutTrimmed, trimmedWord, this::handleGuesses);
+		mindReader.guessCurrent(mInputMode, mLanguage, surrounding, trimmedWord, this::handleGuesses);
 	}
 
 
 	@Override
-	protected void guessNextWord(@NonNull String beforeCursor, @Nullable String lastWord, boolean saveContext) {
-		mindReader.guessNext(mInputMode, mLanguage, beforeCursor, lastWord, saveContext, this::handleGuesses);
+	protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext) {
+		mindReader.guessNext(mInputMode, mLanguage, surroundingText, lastWord, saveContext, this::handleGuesses);
 	}
 
 

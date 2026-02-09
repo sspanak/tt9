@@ -47,9 +47,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	abstract protected void onAcceptSuggestionsDelayed(String s);
 	abstract protected void getSuggestions(@Nullable String currentWord, @Nullable Runnable onComplete);
-	abstract protected void guessNextWord(@NonNull String beforeCurso, @Nullable String currentWord, boolean saveContext);
+	abstract protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String currentWord, boolean saveContext);
 	abstract protected boolean clearGuessingContext();
-	abstract protected void setGuessingContext(@NonNull String beforeCursor, @Nullable String currentWord);
+	abstract protected void setGuessingContext(@NonNull String[] surroundingText, @Nullable String currentWord);
 
 
 	protected void createSuggestionBar() {
@@ -84,10 +84,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 		determineTextCase();
 		suggestionOps.set(null);
 
-		// don't use beforeCursor cache on start up
-		final String beforeCursor = textField.getSurroundingStringForAutoAssistance(settings, mInputMode)[0];
-		updateShiftState(beforeCursor, true, false);
-		guessNextWord(beforeCursor, null, false);
+		// don't use surroundingText cache on start up
+		final String[] surroundingText = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
+		updateShiftState(surroundingText[0], true, false);
+		guessNextWord(surroundingText, null, false);
 
 		return true;
 	}
@@ -205,9 +205,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 			surroundingChars = autoCorrectSpace(lastWord, surroundingChars, false, key);
 
 			if (mLanguage.hasSpaceBetweenWords()) {
-				setGuessingContext(surroundingChars[0], lastWord);
+				setGuessingContext(surroundingChars, lastWord);
 			} else {
-				guessNextWord(surroundingChars[0], lastWord, true);
+				guessNextWord(surroundingChars, lastWord, true);
 			}
 		}
 
@@ -261,15 +261,15 @@ public abstract class TypingHandler extends KeyPadHandler {
 		mInputMode.onAcceptSuggestion(text);
 		textField.setText(text);
 		surroundingChars[0] += text;
-		String beforeCursor = autoCorrectSpace(text, surroundingChars, true, -1)[0];
+		surroundingChars = autoCorrectSpace(text, surroundingChars, true, -1);
 
-		if (beforeCursor.endsWith(Characters.getSpace(mLanguage))) {
+		if (surroundingChars[0].endsWith(Characters.getSpace(mLanguage))) {
 			waitForSpaceTrimKey();
 		}
 
 		forceShowWindow();
-		updateShiftState(beforeCursor, true, false);
-		guessNextWord(beforeCursor, lastWord, true);
+		updateShiftState(surroundingChars[0], true, false);
+		guessNextWord(surroundingChars, lastWord, true);
 
 		return true;
 	}
