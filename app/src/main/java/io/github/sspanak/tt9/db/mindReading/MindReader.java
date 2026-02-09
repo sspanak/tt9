@@ -49,9 +49,10 @@ public class MindReader {
 	}
 
 
-	public boolean clearContext() {
-		Logger.d(LOG_TAG, "Mind reader context cleared");
-		return !isOff() && wordContext.setText("");
+	public void clearContext() {
+		if (!isOff() && wordContext.setText("")) {
+			Logger.d(LOG_TAG, "Mind reader context cleared");
+		}
 	}
 
 
@@ -137,6 +138,7 @@ public class MindReader {
 		} else if (language.hasSpaceBetweenWords()) {
 			return wordContext.setText(surroundingText[0]);
 		} else {
+		// @todo: Can't remember more than one word per context. Fix it!
 			return wordContext.appendText(lastWord, true);
 		}
 	}
