@@ -57,7 +57,6 @@ public class MindReader {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
-		// @todo: if the context contains a new line, consider only the text after the last new line
 		// @todo: do not guess anything if the text after is not empty and starts with a letter (e.g. the user is in the middle of a word)
 		if (setContextSync(inputMode, language, beforeCursor, lastWord)) {
 			runInThread(() -> {
