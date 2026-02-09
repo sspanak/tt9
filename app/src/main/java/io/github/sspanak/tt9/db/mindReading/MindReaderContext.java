@@ -141,7 +141,7 @@ class MindReaderContext {
 
 		for (int i = 0; i < tokens.length; i++) {
 			try {
-				if (!DataStore.exists(language, tokens[i], language.getDigitSequenceForWord(tokens[i]))) {
+				if (!MindReaderDictionary.isSpecialChar(tokens[i]) && !DataStore.exists(language, tokens[i], language.getDigitSequenceForWord(tokens[i]))) {
 					tokens[i] = MindReaderDictionary.GARBAGE;
 				}
 			} catch (Exception e) {
