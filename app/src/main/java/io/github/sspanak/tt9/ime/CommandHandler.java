@@ -241,6 +241,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 
 	protected boolean nextTextCase() {
+		// @todo: figure out next text case for guesses
 		final String currentWord = !suggestionOps.isEmpty() && mInputMode.isTyping() ? suggestionOps.getCurrent() : "";
 
 		if (!mInputMode.nextTextCase(currentWord, displayTextCase)) {

@@ -71,8 +71,18 @@ public class SuggestionOps {
 	}
 
 
+	public boolean containsOnlyGuesses() {
+		return suggestionBar != null && suggestionBar.containsOnlyGuesses();
+	}
+
+
 	public boolean containsStem() {
 		return suggestionBar != null && suggestionBar.containsStem();
+	}
+
+
+	public boolean containsWords() {
+		return isEmpty() && !containsOnlyGuesses();
 	}
 
 
@@ -90,6 +100,14 @@ public class SuggestionOps {
 			appHacks.setComposingText("");
 		}
 		textField.finishComposingText();
+	}
+
+
+	public void addGuesses(@NonNull ArrayList<String> guesses) {
+		setVisibility(settings, guesses, false);
+		if (suggestionBar != null) {
+			suggestionBar.prependGuesses(guesses);
+		}
 	}
 
 
@@ -271,8 +289,8 @@ public class SuggestionOps {
 	}
 
 
-	private void setVisibility(@Nullable SettingsStore settings, @Nullable ArrayList<String> newSuggestions, boolean clipboardSuggestions) {
-		final boolean areSuggestionsVisible = isInputLimited || clipboardSuggestions || (settings != null && settings.getShowSuggestions());
+	private void setVisibility(@Nullable SettingsStore settings, @Nullable ArrayList<String> newSuggestions, boolean forceVisible) {
+		final boolean areSuggestionsVisible = isInputLimited || forceVisible || (settings != null && settings.getShowSuggestions());
 
 		if (suggestionBar != null) {
 			suggestionBar.setVisible(areSuggestionsVisible);

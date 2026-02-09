@@ -87,7 +87,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// don't use surroundingText cache on start up
 		final String[] surroundingText = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
 		updateShiftState(surroundingText[0], true, false);
-		guessNextWord(surroundingText, null, false);
+		setGuessingContext(surroundingText, null);
 
 		return true;
 	}
@@ -143,8 +143,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return false;
 		}
 
-		if (clearGuessingContext()) { // @todo: instead: if (suggestionOps contains only suggestions from mind reader)
-			return true;
+		if (clearGuessingContext()) {
+			suggestionOps.clear(); // @todo: this may not be necessary?
 		}
 
 		if (appHacks.onBackspace(settings, mInputMode)) {
