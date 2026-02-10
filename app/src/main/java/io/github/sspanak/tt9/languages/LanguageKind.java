@@ -10,22 +10,44 @@ public class LanguageKind {
 	public static boolean isCyrillic(Language language) { return language != null && language.getKeyCharacters(2).contains("а"); }
 	public static boolean isLatinBased(Language language) { return language != null && language.getKeyCharacters(2).contains("a") && !language.isTranscribed(); }
 	public static boolean isRTL(Language language) { return isArabicBased(language) || isHebrew(language); }
+	public static boolean usesApostrophes(Language language) {
+		return
+			isCatalan(language) ||
+			isDutch(language) ||
+			isEnglish(language) ||
+			isEstonian(language) ||
+			isFrench(language) ||
+			isHebrew(language) ||
+			isItalian(language) ||
+			isKiswahili(language) ||
+			isLithuanian(language) ||
+			isTurkish(language) ||
+			isUkrainian(language) ||
+			isVietnamese(language);
+	}
 
 	public static boolean isArabic(Language language) { return language != null && language.getId() == 502337; }
+	public static boolean isCatalan(Language language) { return language != null && language.getId() == 627747; }
+	public static boolean isDutch(Language language) { return language != null && language.getId() == 407950; }
 	public static boolean isEnglish(Language language) { return language != null && language.getLocale().equals(Locale.ENGLISH); }
+	public static boolean isEstonian(Language language) { return language != null && language.getId() == 169605; }
 	public static boolean isChinese(Language language) { return isChineseBopomofo(language) || isChinesePinyin(language); }
 	public static boolean isChineseBopomofo(Language language) { return language != null && language.getId() == 774426; }
 	public static boolean isChinesePinyin(Language language) { return language != null && language.getId() == 462106; }
 	public static boolean isFarsi(Language language) { return language != null && language.getId() == 599078; }
 	public static boolean isFrench(Language language) { return language != null && language.getId() == 596550; }
-	public static boolean isJapanese(Language language) { return language != null && language.getId() == 534570; }
 	public static boolean isGreek(Language language) { return language != null && language.getId() == 597381; }
 	public static boolean isGujarati(Language language) { return language != null && language.getId() == 468647; }
 	public static boolean isHebrew(Language language) { return language != null && (language.getId() == 305450 || language.getId() == 403177); }
 	public static boolean isHindi(Language language) { return language != null && language.getId() == 468264; }
 	public static boolean isHinglish(Language language) { return language != null && language.getId() == 468421; }
 	public static boolean isIndic(Language language) { return isGujarati(language) || isHindi(language); }
+	public static boolean isItalian(Language language) { return language != null && language.getId() == 665225; }
+	public static boolean isJapanese(Language language) { return language != null && language.getId() == 534570; }
+	public static boolean isKiswahili(Language language) { return language != null && language.getId() == 873203; }
 	public static boolean isKorean(Language language) { return language != null && language.getId() == KOREAN; }
+	public static boolean isLithuanian(Language language) { return language != null && language.getId() == 668300; }
+	public static boolean isTurkish(Language language) { return language != null && language.getId() == 610900; }
 	public static boolean isUkrainian(Language language) { return language != null && language.getId() == 54645; }
 	public static boolean isVietnamese(Language language) { return language != null && language.getId() == 481590; }
 }

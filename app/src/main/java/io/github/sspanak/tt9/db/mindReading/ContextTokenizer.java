@@ -1,14 +1,17 @@
 package io.github.sspanak.tt9.db.mindReading;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 class ContextTokenizer {
 	private enum TokenType {SPACE, WORD, PUNCTUATION, NUMBER, EMOJI, GARBAGE}
 
 	@NonNull
-	static String[] tokenize(@NonNull String text, int maxTokens, boolean allowApostrophe, boolean allowQuote) {
+	static String[] tokenize(@Nullable Language language, @NonNull String text, int maxTokens) {
 		final StringBuilder current = new StringBuilder();
 		String[] tokens = new String[maxTokens];
 		int tokensCount = 0;
@@ -26,7 +29,7 @@ class ContextTokenizer {
 				type = TokenType.SPACE;
 			} else if (Character.isWhitespace(cp)) {
 				type = TokenType.SPACE;
-			} else if (isWordChar(cp, allowApostrophe, allowQuote)) {
+			} else if (isWordChar(cp) || isWordSpecialChar(language, cp)) {
 				type = TokenType.WORD;
 			} else if (isPunctuationChar(cp)) {
 				type = TokenType.PUNCTUATION;
@@ -88,14 +91,22 @@ class ContextTokenizer {
 		return false;
 	}
 
-	private static boolean isWordChar(int cp, boolean allowApostrophe, boolean allowQuote) {
+	private static boolean isWordChar(int cp) {
 		return
-			cp == 0x200C  // ZWNJ
-			|| cp == 0x200D // ZWJ
-			|| (allowApostrophe && cp == '\'')
-			|| (allowQuote && cp == '"')
-			|| Character.isLetter(cp)
+			Character.isLetter(cp)
 			|| Character.getType(cp) == Character.NON_SPACING_MARK
 			|| Character.getType(cp) == Character.COMBINING_SPACING_MARK;
+	}
+
+	private static boolean isWordSpecialChar(@Nullable Language language, int cp) {
+		return switch (cp) {
+			case '\'' -> LanguageKind.usesApostrophes(language);
+			case '-' -> LanguageKind.isLatinBased(language) || LanguageKind.isCyrillic(language) || LanguageKind.isGreek(language);
+			case '·' -> LanguageKind.isCatalan(language);
+			case '"' -> LanguageKind.isHebrew(language);
+			case Characters.ZWJ_CODE_POINT -> LanguageKind.isArabicBased(language) || LanguageKind.isIndic(language);
+			case Characters.ZWNJ_CODE_POINT -> LanguageKind.isIndic(language);
+			default -> false;
+		};
 	}
 }
