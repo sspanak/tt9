@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionException;
-import java.util.function.Consumer;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
@@ -15,6 +14,7 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.Timer;
 
@@ -36,6 +36,7 @@ public class MindReader {
 	@NonNull MindReaderNgramList ngrams = new MindReaderNgramList(NGRAMS_INITIAL_CAPACITY, MAX_BIGRAM_SUGGESTIONS, MAX_TRIGRAM_SUGGESTIONS, MAX_TETRAGRAM_SUGGESTIONS);
 	@NonNull MindReaderDictionary dictionary = new MindReaderDictionary(MAX_DICTIONARY_WORDS);
 	@NonNull private final MindReaderContext wordContext = new MindReaderContext(MAX_NGRAM_SIZE);
+	@NonNull private volatile ArrayList<String> words = new ArrayList<>();
 
 
 	public MindReader() {
@@ -51,22 +52,31 @@ public class MindReader {
 
 	public void clearContext() {
 		if (!isOff() && wordContext.setText("")) {
+			words.clear();
 			Logger.d(LOG_TAG, "Mind reader context cleared");
 		}
 	}
 
 
-	public void guessNext(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, Consumer<ArrayList<String>> onComplete) {
+	@NonNull
+	public ArrayList<String> getCurrentWords(int textCase) {
+		final ArrayList<String> copy = new ArrayList<>(words);
+		copy.replaceAll(text -> new Text(wordContext.language, text).toTextCase(textCase));
+		return copy;
+	}
+
+
+	public void guessNext(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
 		if (setContextSync(inputMode, language, surroundingText, lastWord)) {
 			runInThread(() -> {
 				processContext(inputMode, language, saveContext);
-				final ArrayList<String> words = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext), null);
+				words = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext), null);
 
 				logState(Timer.stop(TIMER_TAG), words);
-				onComplete.accept(words);
+				onComplete.run();
 			});
 		} else {
 			Timer.stop(TIMER_TAG);
@@ -78,7 +88,7 @@ public class MindReader {
 	 * Given the current context, and that the next words starts with firstLetter, guess what the word
 	 * might be.
 	 */
-	public void guessCurrent(@NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, @NonNull String firstLetter, Consumer<ArrayList<String>> onComplete) {
+	public void guessCurrent(@NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, @NonNull String firstLetter, @NonNull Runnable onComplete) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
@@ -92,13 +102,13 @@ public class MindReader {
 				}
 
 				final Set<Integer> nextTokens = ngrams.getAllNextTokens(dictionary, wordContext);
-				final ArrayList<String> words = new ArrayList<>();
+				words = new ArrayList<>();
 				for (String letter : alternativeLetters) {
 					words.addAll(dictionary.getAll(nextTokens, letter));
 				}
 
 				logState(Timer.stop(TIMER_TAG), words);
-				onComplete.accept(words);
+				onComplete.run();
 			});
 		} else {
 			Timer.stop(TIMER_TAG);

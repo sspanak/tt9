@@ -145,6 +145,13 @@ public class SuggestionOps {
 	}
 
 
+	public void setTextCase(@NonNull Language language, int textCase) {
+		if (suggestionBar != null) {
+			suggestionBar.setTextCase(language, textCase);
+		}
+	}
+
+
 	public void scrollTo(int index) {
 		if (suggestionBar != null) {
 			suggestionBar.scrollToSuggestion(index);

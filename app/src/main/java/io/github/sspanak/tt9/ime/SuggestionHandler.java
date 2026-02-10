@@ -209,6 +209,12 @@ abstract public class SuggestionHandler extends TypingHandler {
 	}
 
 
+	@NonNull
+	protected ArrayList<String> getCurrentGuesses() {
+		return mindReader.getCurrentWords(mInputMode.getTextCase());
+	}
+
+
 	@Override
 	protected void clearGuessingContext() {
 		mindReader.clearContext();
@@ -248,16 +254,16 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 
 	@WorkerThread
-	private void handleGuessesAsync(@Nullable ArrayList<String> guesses) {
-		if (guesses != null && !guesses.isEmpty()) {
-			getAsyncHandler().post(() -> handleGuesses(guesses));
-		}
+	private void handleGuessesAsync() {
+		getAsyncHandler().post(() -> handleGuesses(getCurrentGuesses()));
 	}
 
 
 	@MainThread
 	private void handleGuesses(@NonNull ArrayList<String> guesses) {
-		textField.setComposingText(guesses.get(0));
-		suggestionOps.addGuesses(guesses);
+		if (!guesses.isEmpty()) {
+			appHacks.setComposingText(guesses.get(0));
+			suggestionOps.addGuesses(guesses);
+		}
 	}
 }
