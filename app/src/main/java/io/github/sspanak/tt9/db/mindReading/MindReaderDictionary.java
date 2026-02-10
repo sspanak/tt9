@@ -87,10 +87,10 @@ class MindReaderDictionary {
 			return;
 		}
 
-		for (String w : tokens) {
-			if (token.toLowerCase(locale).equals(w.toLowerCase(locale))) {
-				return;
-			}
+		final int tokenIndex = indexOf(token);
+		if (tokenIndex != -1) {
+			tokens[tokenIndex] = token;
+			return;
 		}
 
 		String[] newTokens;
