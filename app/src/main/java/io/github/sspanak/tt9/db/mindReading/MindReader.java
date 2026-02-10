@@ -186,7 +186,8 @@ public class MindReader {
 
 		log
 			.append("\ncontext: ").append(wordContext)
-			.append("\nN-grams: ").append(ngrams);
+			.append("\nN-grams: ").append(ngrams)
+			.append("\ndictionary: ").append(dictionary);
 
 		log.append("\nMagic Word Count: ").append(words != null ? words.size() : 0);
 

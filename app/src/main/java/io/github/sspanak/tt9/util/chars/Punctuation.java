@@ -19,8 +19,10 @@ class Punctuation {
 	public static final String NEW_LINE = new Paint().hasGlyph("⏎") ? "⏎" : "\\n";
 	public static final String ZWJ = "\u200D";
 	public static final String ZWJ_GRAPHIC = "ZWJ";
+	public static final int ZWJ_CODE_POINT = 0x200D;
 	public static final String ZWNJ = "\u200C";
 	public static final String ZWNJ_GRAPHIC = "ZWNJ";
+	public static final int ZWNJ_CODE_POINT = 0x200C;
 
 	final public static ArrayList<Character> CombiningPunctuation = new ArrayList<>(Arrays.asList(
 		',', '-', '\'', ':', ';', '!', '?', '.'
