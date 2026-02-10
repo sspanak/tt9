@@ -82,8 +82,8 @@ class MindReaderDictionary {
 	}
 
 
-	void add(@Nullable String token) {
-		if (token == null || token.isEmpty()) {
+	private void add(@Nullable String token) {
+		if (token == null || token.isEmpty() || GARBAGE.equals(token) || isSpecialChar(token)) {
 			return;
 		}
 

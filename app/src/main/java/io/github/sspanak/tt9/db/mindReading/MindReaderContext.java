@@ -9,7 +9,6 @@ import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.TextTools;
@@ -121,9 +120,7 @@ class MindReaderContext {
 	 */
 	@NonNull
 	String[] tokenize() {
-		final boolean isLanguageHebrew = LanguageKind.isHebrew(language);
-		final boolean allowApostrophesInWords = LanguageKind.isUkrainian(language) || isLanguageHebrew;
-		tokens = ContextTokenizer.tokenize(raw, maxTokens, allowApostrophesInWords, isLanguageHebrew);
+		tokens = ContextTokenizer.tokenize(language, raw, maxTokens);
 		filterInvalidTokens();
 
 		return tokens;
@@ -141,7 +138,19 @@ class MindReaderContext {
 
 		for (int i = 0; i < tokens.length; i++) {
 			try {
-				if (!MindReaderDictionary.isSpecialChar(tokens[i]) && !DataStore.exists(language, tokens[i], language.getDigitSequenceForWord(tokens[i]))) {
+				if (MindReaderDictionary.isSpecialChar(tokens[i])) {
+					continue;
+				}
+
+				final String digitSequence = language.getDigitSequenceForWord(tokens[i]);
+
+				if (tokens[i].contains("'") || tokens[i].contains("-")) {
+					// Let the words with valid letters and apostrophes or hyphens just pass. It is useful
+					// to keep words like "what's" or "mother-in-law", but they are not in the database.
+					continue;
+				}
+
+				if (!DataStore.exists(language, tokens[i], digitSequence)) {
 					tokens[i] = MindReaderDictionary.GARBAGE;
 				}
 			} catch (Exception e) {
