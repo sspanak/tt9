@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
@@ -320,6 +321,17 @@ public class SuggestionsBar {
 			visibleSuggestions.add(stem + STEM_SUFFIX);
 			selectedIndex++;
 		}
+	}
+
+
+	public void setTextCase(@NonNull Language language, int textCase) {
+		if (suggestions == null || suggestions.isEmpty()) {
+			return;
+		}
+
+		final ArrayList<String> copy = new ArrayList<>(suggestions);
+		copy.replaceAll(text -> new Text(language, text).toTextCase(textCase));
+		setMany(copy, selectedIndex, containsOnlyGuesses());
 	}
 
 
