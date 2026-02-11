@@ -119,9 +119,9 @@ class MindReaderContext {
 	 * checking the factory words in the database.
 	 */
 	@NonNull
-	String[] tokenize() {
+	String[] tokenize(@NonNull MindReaderDictionary dictionary) {
 		tokens = ContextTokenizer.tokenize(language, raw, maxTokens);
-		filterInvalidTokens();
+		filterInvalidTokens(dictionary);
 
 		return tokens;
 	}
@@ -131,22 +131,24 @@ class MindReaderContext {
 	 * Checks which tokens are available as words in the database and returns an array of valid tokens
 	 * only. The invalid ones are replaced with MindReaderDictionary.GARBAGE.
 	 */
-	private void filterInvalidTokens() {
+	private void filterInvalidTokens(@NonNull MindReaderDictionary dictionary) {
 		if (language == null) {
 			return;
 		}
 
 		for (int i = 0; i < tokens.length; i++) {
 			try {
-				if (MindReaderDictionary.isSpecialChar(tokens[i])) {
+				if (MindReaderDictionary.isSpecialChar(tokens[i]) || dictionary.contains(tokens[i])) {
 					continue;
 				}
 
 				final String digitSequence = language.getDigitSequenceForWord(tokens[i]);
 
 				if (tokens[i].contains("'") || tokens[i].contains("-")) {
-					// Let the words with valid letters and apostrophes or hyphens just pass. It is useful
-					// to keep words like "what's" or "mother-in-law", but they are not in the database.
+					// If a word has a valid digit sequence, then it belongs to the language. However, ones
+					// with apostrophes or hyphens, like "what's" or "mother-in-law",  are not in the
+					// database, so there is no point in running queries for them. We just let them pass,
+					// because they are usually useful. Some garbage will go in, but it is what it is.
 					continue;
 				}
 
