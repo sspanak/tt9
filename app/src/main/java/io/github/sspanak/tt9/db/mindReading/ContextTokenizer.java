@@ -8,11 +8,14 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 class ContextTokenizer {
+	static final int WORD_SEPARATOR = 0x200b; // for languages where space has a punctuation-like role
 	private enum TokenType {SPACE, WORD, PUNCTUATION, NUMBER, EMOJI, GARBAGE}
 
 	@NonNull
 	static String[] tokenize(@Nullable Language language, @NonNull String text, int maxTokens) {
 		final StringBuilder current = new StringBuilder();
+		final boolean isLangWithSpacePunctuation = LanguageKind.usesSpaceAsPunctuation(language);
+
 		String[] tokens = new String[maxTokens];
 		int tokensCount = 0;
 		TokenType previousType = TokenType.SPACE;
@@ -20,6 +23,7 @@ class ContextTokenizer {
 		for (int i = 0, len = text.length(); i < len; ) {
 			final int cp = text.codePointAt(i);
 			final int step = Character.charCount(cp);
+			final boolean isCpWhitespace = Character.isWhitespace(cp);
 
 			TokenType type;
 			if (cp == '\n' || cp == '\r') {
@@ -27,14 +31,14 @@ class ContextTokenizer {
 				tokens = new String[maxTokens];
 				tokensCount = 0;
 				type = TokenType.SPACE;
-			} else if (Character.isWhitespace(cp)) {
-				type = TokenType.SPACE;
 			} else if (isWordChar(cp) || isWordSpecialChar(language, cp)) {
 				type = TokenType.WORD;
-			} else if (isPunctuationChar(cp)) {
+			} else if (isPunctuationChar(cp) || (isLangWithSpacePunctuation && isCpWhitespace)) {
 				type = TokenType.PUNCTUATION;
 			} else if (isNumberChar(cp)) {
 				type = TokenType.NUMBER;
+			} else if ((isCpWhitespace) || cp == WORD_SEPARATOR) {
+				type = TokenType.SPACE;
 			} else if (Characters.isGraphic(cp)) {
 				type = TokenType.EMOJI;
 			} else {
