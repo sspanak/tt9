@@ -18,6 +18,7 @@ import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
 import io.github.sspanak.tt9.util.sys.Clipboard;
 
@@ -194,13 +195,6 @@ abstract public class SuggestionHandler extends TypingHandler {
 			updateShiftStateDebounced(shiftStateContext, false, true);
 		}
 
-
-		// if this is the first letter of a word, and not punctuation, guess what the word might be
-		// @todo: don't do this after backspace
-		if (!noSuggestions && mInputMode.getSequenceLength() == 1 && !mInputMode.containsSpecialChars()) {
-			guessCurrentWord(surroundingText, trimmedWord);
-		}
-
 		forceShowWindow();
 
 		if (callback != null) {
@@ -227,23 +221,32 @@ abstract public class SuggestionHandler extends TypingHandler {
 	}
 
 
-	private void guessCurrentWord(@Nullable String[] surroundingText, @Nullable String trimmedWord) {
-		if (trimmedWord == null || !settings.getAutoMindReading()) {
+	@Override
+	protected void guessOnNumber(@NonNull String[] surroundingText, @Nullable String lastWord, int number) {
+		if (mInputMode.getSequenceLength() != 1 || new Text(mLanguage, surroundingText[1]).startsWithWord()) {
 			return;
 		}
 
-		String[] surrounding = surroundingText;
-		if (surrounding == null) {
-			surrounding = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
-			if (surrounding[0].endsWith(" " + trimmedWord)) {
-				surrounding[0] = surrounding[0].substring(0, surrounding[0].length() - trimmedWord.length() - 1);
+		if (number == 0 && !mLanguage.hasLettersOnAllKeys()) {
+			return;
+		}
+
+		if (mLanguage.hasSpaceBetweenWords()) {
+			final String space = Characters.getSpace(mLanguage);
+			if (space.equals(lastWord) || surroundingText[0].endsWith(space)) {
+				guessCurrentWord(surroundingText, number);
 			}
-		} else if (!surrounding[0].endsWith(" " + trimmedWord)) {
-			Logger.d(getClass().getSimpleName(), "Not trying to guess the current word, because the text before does not end with a space + letter: '" + surrounding[0] + "' / '" + trimmedWord + "'");
-			return;
+		} else {
+			guessCurrentWord(surroundingText, number);
 		}
+	}
 
-		mindReader.guessCurrent(mInputMode, (NaturalLanguage) mLanguage, surrounding, trimmedWord, this::handleGuessesAsync);
+
+	private void guessCurrentWord(@NonNull String[] surroundingText, int number) {
+		mindReader.guessCurrent(mInputMode, (NaturalLanguage) mLanguage, surroundingText, number, () -> {
+			// @todo: intercept these in handleSuggestions together with the regular suggestions
+			Logger.d(getClass().getSimpleName(), "======+> guesses for number " + number + ": " + getCurrentGuesses());
+		});
 	}
 
 

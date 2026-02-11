@@ -1,6 +1,9 @@
 package io.github.sspanak.tt9.db.mindReading;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import io.github.sspanak.tt9.languages.Language;
 
 class MindReaderNgram implements Comparable<MindReaderNgram> {
 	final long before;
@@ -9,7 +12,7 @@ class MindReaderNgram implements Comparable<MindReaderNgram> {
 	final boolean isValid;
 	final int size;
 
-	MindReaderNgram(int[] tokens) {
+	MindReaderNgram(@Nullable Language language, int[] tokens) {
 		size = tokens.length;
 
 		if (tokens.length == 0) {
@@ -21,12 +24,12 @@ class MindReaderNgram implements Comparable<MindReaderNgram> {
 			before = tokens[0];
 			next = -1;
 			complete = tokens[0];
-			isValid = validate(tokens);
+			isValid = validate(language, tokens);
 		} else {
 			before = compressBefore(tokens);
 			next = tokens[tokens.length - 1];
 			complete = compressComplete(tokens);
-			isValid = validate(tokens);
+			isValid = validate(language, tokens);
 		}
 	}
 
@@ -46,7 +49,7 @@ class MindReaderNgram implements Comparable<MindReaderNgram> {
 		return compressed;
 	}
 
-	private boolean validate(int[] tokens) {
+	private boolean validate(@Nullable Language language, int[] tokens) {
 		if (tokens.length == 0 || MindReaderDictionary.isNumber(tokens[0])) {
 			return false;
 		}
@@ -65,7 +68,7 @@ class MindReaderNgram implements Comparable<MindReaderNgram> {
 				garbage++;
 			} else if (MindReaderDictionary.isNumber(token)) {
 				numbers++;
-			} else if (MindReaderDictionary.isPunctuation(token)) {
+			} else if (MindReaderDictionary.isPunctuation(language, token)) {
 				punctuation++;
 			} else {
 				words++;

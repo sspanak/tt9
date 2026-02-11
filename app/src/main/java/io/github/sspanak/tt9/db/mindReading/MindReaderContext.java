@@ -52,7 +52,7 @@ class MindReaderContext {
 			final int ngramSize = i + 1;
 			final int[] ngramTokens = new int[ngramSize];
 			System.arraycopy(dictionaryIds, dictionaryIds.length - ngramSize, ngramTokens, 0, ngramSize);
-			endingNgrams[i] = new MindReaderNgram(ngramTokens);
+			endingNgrams[i] = new MindReaderNgram(language, ngramTokens);
 		}
 
 		return endingNgrams;
@@ -139,7 +139,7 @@ class MindReaderContext {
 
 		for (int i = 0; i < tokens.length; i++) {
 			try {
-				if (MindReaderDictionary.isSpecialChar(tokens[i]) || dictionary.contains(tokens[i])) {
+				if (MindReaderDictionary.isSpecialChar(language, tokens[i]) || dictionary.contains(tokens[i])) {
 					continue;
 				}
 
