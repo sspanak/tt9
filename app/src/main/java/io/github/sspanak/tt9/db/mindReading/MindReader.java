@@ -39,6 +39,9 @@ public class MindReader {
 	@NonNull private final MindReaderContext wordContext = new MindReaderContext(MAX_NGRAM_SIZE);
 	@NonNull private volatile ArrayList<String> words = new ArrayList<>();
 
+	private double loadingId = 0;
+	@NonNull private volatile Runnable currentGuessHandler = () -> {};
+
 
 	public MindReader() {
 		this(null, null);
@@ -68,9 +71,15 @@ public class MindReader {
 	}
 
 
+	public double getLoadingId() {
+		return loadingId;
+	}
+
 	public void guessNext(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
+
+		loadingId = 0;
 
 		if (setContextSync(inputMode, language, surroundingText, lastWord)) {
 			runInThread(() -> {
@@ -90,10 +99,11 @@ public class MindReader {
 	 * Given the current context, and that the next words starts with firstLetter, guess what the word
 	 * might be.
 	 */
-	public void guessCurrent(@NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, int number, @NonNull Runnable onComplete) {
+	public void guessCurrent(double loadingId, @NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, int number) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
+		this.loadingId = loadingId;
 		final ArrayList<String> alternativeLetters = language.getKeyCharacters(number);
 
 		if (!alternativeLetters.isEmpty() && setContextSync(inputMode, language, surroundingText, null)) {
@@ -107,7 +117,7 @@ public class MindReader {
 				}
 
 				logState(Timer.stop(TIMER_TAG), words);
-				onComplete.run();
+				currentGuessHandler.run();
 			});
 		} else {
 			Timer.stop(TIMER_TAG);
@@ -149,6 +159,12 @@ public class MindReader {
 		} else {
 			return wordContext.setText(surroundingText[0]);
 		}
+	}
+
+
+	public MindReader setCurrentGuessHandler(@Nullable Runnable handler) {
+		currentGuessHandler = handler == null ? () -> {} : handler;
+		return this;
 	}
 
 
