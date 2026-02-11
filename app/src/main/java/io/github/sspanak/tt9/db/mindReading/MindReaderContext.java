@@ -18,7 +18,7 @@ class MindReaderContext {
 
 	@Nullable private String lastAppendedWord = null;
 	private final int maxTokens;
-	@NonNull private String raw = "";
+	@NonNull private final StringBuilder raw = new StringBuilder();
 	@NonNull private String[] tokens = new String[0];
 	@Nullable private MindReaderNgram[] endingNgrams = null;
 
@@ -63,15 +63,15 @@ class MindReaderContext {
 	 * Appends the given word to the current context text, separating it with a space if needed.
 	 * The word is trimmed before appending.
 	 */
-	boolean appendText(@Nullable String lastWord, boolean addTrailingSpace) {
+	boolean appendText(@Nullable String lastWord, boolean addWordSeparator) {
 		if (lastWord == null || lastWord.isEmpty()) {
 			return false;
 		}
 
-		if (addTrailingSpace && !raw.isEmpty()) {
-			raw += " ";
+		if (addWordSeparator && raw.length() > 0) {
+			raw.appendCodePoint(ContextTokenizer.WORD_SEPARATOR);
 		}
-		raw += lastWord.trim();
+		raw.append(language == null || language.hasSpaceBetweenWords() ? lastWord.trim() : lastWord);
 		lastAppendedWord = lastWord;
 		tokens = new String[0];
 		endingNgrams = null;
@@ -84,11 +84,12 @@ class MindReaderContext {
 	 * Set new context text, replacing the old one.
 	 */
 	boolean setText(@NonNull String beforeCursor) {
-		if (raw.isEmpty() && beforeCursor.isEmpty()) {
+		if (raw.length() == 0 && beforeCursor.isEmpty()) {
 			return false;
 		}
 
-		raw = beforeCursor.trim();
+		raw.setLength(0);
+		raw.append(beforeCursor.trim());
 		lastAppendedWord = null;
 		tokens = new String[0];
 		endingNgrams = null;
@@ -120,7 +121,7 @@ class MindReaderContext {
 	 */
 	@NonNull
 	String[] tokenize(@NonNull MindReaderDictionary dictionary) {
-		tokens = ContextTokenizer.tokenize(language, raw, maxTokens);
+		tokens = ContextTokenizer.tokenize(language, raw.toString(), maxTokens);
 		filterInvalidTokens(dictionary);
 
 		return tokens;
