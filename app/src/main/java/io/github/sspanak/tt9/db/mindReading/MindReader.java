@@ -11,6 +11,7 @@ import java.util.concurrent.RejectedExecutionException;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
@@ -60,6 +61,7 @@ public class MindReader {
 
 	@NonNull
 	public ArrayList<String> getCurrentWords(int textCase) {
+		// @todo: use AutoTextCase.adjustParagraphTextCase() here. "before" is the context.
 		final ArrayList<String> copy = new ArrayList<>(words);
 		copy.replaceAll(text -> new Text(wordContext.language, text).toTextCase(textCase));
 		return copy;
@@ -145,11 +147,10 @@ public class MindReader {
 				&& Character.isWhitespace(lastWord.codePointAt(0))
 				&& wordContext.setText(surroundingText[0])
 				&& wordContext.appendText(lastWord, false);
-		} else if (language.hasSpaceBetweenWords()) {
-			return wordContext.setText(surroundingText[0]);
-		} else {
-		// @todo: Can't remember more than one word per context. Fix it!
+		} else if (LanguageKind.usesSpaceAsPunctuation(language)) {
 			return wordContext.appendText(lastWord, true);
+		} else {
+			return wordContext.setText(surroundingText[0]);
 		}
 	}
 
@@ -175,6 +176,7 @@ public class MindReader {
 			// @todo: load the dictionary for the new language
 			// @todo: load N-grams for the new language
 			dictionary = new MindReaderDictionary(language, MAX_DICTIONARY_WORDS);
+			ngrams = new MindReaderNgramList(NGRAMS_INITIAL_CAPACITY, MAX_BIGRAM_SUGGESTIONS, MAX_TRIGRAM_SUGGESTIONS, MAX_TETRAGRAM_SUGGESTIONS);
 		}
 
 		wordContext.setLanguage(language);

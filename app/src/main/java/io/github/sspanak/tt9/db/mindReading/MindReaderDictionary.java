@@ -25,7 +25,8 @@ class MindReaderDictionary {
 		'!',
 		'?',
 		',',
-		'.'
+		'.',
+		' ' // @see: LanguageKind.usesSpaceAsPunctuation()
 	};
 
 	@NonNull private final Locale locale;
