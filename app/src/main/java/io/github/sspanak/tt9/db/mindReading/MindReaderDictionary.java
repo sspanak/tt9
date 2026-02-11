@@ -127,6 +127,11 @@ class MindReaderDictionary {
 	}
 
 
+	boolean contains(@Nullable String token) {
+		return indexOf(token) != -1;
+	}
+
+
 	int indexOf(@Nullable String token) {
 		if (token == null || token.isEmpty()) {
 			return -1;
