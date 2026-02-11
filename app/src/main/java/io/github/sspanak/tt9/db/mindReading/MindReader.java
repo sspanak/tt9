@@ -90,18 +90,15 @@ public class MindReader {
 	 * Given the current context, and that the next words starts with firstLetter, guess what the word
 	 * might be.
 	 */
-	public void guessCurrent(@NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, @NonNull String firstLetter, @NonNull Runnable onComplete) {
+	public void guessCurrent(@NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, int number, @NonNull Runnable onComplete) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
-		if (setContextSync(inputMode, language, surroundingText, null)) {
+		final ArrayList<String> alternativeLetters = language.getKeyCharacters(number);
+
+		if (!alternativeLetters.isEmpty() && setContextSync(inputMode, language, surroundingText, null)) {
 			runInThread(() -> {
 				processContext(inputMode, language, false);
-
-				final ArrayList<String> alternativeLetters = language.getAlternativesForLetter(firstLetter);
-				if (alternativeLetters.isEmpty()) {
-					alternativeLetters.add(firstLetter);
-				}
 
 				final Set<Integer> nextTokens = ngrams.getAllNextTokens(dictionary, wordContext);
 				words = new ArrayList<>();
@@ -161,7 +158,7 @@ public class MindReader {
 		}
 
 		changeLanguage(language);
-		dictionary.addAll(wordContext.tokenize(dictionary));
+		dictionary.addAll(language, wordContext.tokenize(dictionary));
 		if (saveContext && wordContext.shouldSave(inputMode)) {
 			ngrams.addMany(wordContext.getEndingNgrams(dictionary));
 		}
