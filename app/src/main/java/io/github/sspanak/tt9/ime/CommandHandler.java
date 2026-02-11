@@ -102,7 +102,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		setInputMode(InputMode.MODE_RECOMPOSING);
 		if (mInputMode.setWordStem(word, false)) {
 			((ModeRecomposing) mInputMode).setOnFinishListener(() -> setInputMode(previousMode));
-			getSuggestions("", null);
+			getSuggestions(0, "", null);
 		} else {
 			textField.finishComposingText();
 			setInputMode(previousMode);
@@ -215,7 +215,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			.copy(mInputMode);
 
 		if (mInputMode.isTyping()) {
-			getSuggestions(null, this::onAfterLanguageChange);
+			getSuggestions(0, null, this::onAfterLanguageChange);
 		} else {
 			onAfterLanguageChange();
 		}

@@ -17,7 +17,6 @@ import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.ui.UI;
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
 import io.github.sspanak.tt9.util.sys.Clipboard;
@@ -122,7 +121,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 	 * is still loading. Note that onComplete is called even if the loading was skipped.
 	 */
 	@Override
-	protected void getSuggestions(@Nullable String currentWord, @Nullable Runnable onComplete) {
+	protected void getSuggestions(double loadingId, @Nullable String currentWord, @Nullable Runnable onComplete) {
 		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.getInstance(this).isRunning()) {
 			mInputMode.reset();
 			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
@@ -131,7 +130,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			}
 		} else {
 			mInputMode
-				.setOnSuggestionsUpdated(() -> handleSuggestionsAsync(onComplete))
+				.setOnSuggestionsUpdated(() -> handleSuggestionsAsync(loadingId, onComplete))
 				.loadSuggestions(currentWord == null ? suggestionOps.getCurrent() : currentWord);
 		}
 	}
@@ -139,18 +138,18 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 	@WorkerThread
 	protected void handleSuggestionsAsync() {
-		handleSuggestionsAsync(null);
+		handleSuggestionsAsync(0, null);
 	}
 
 
 	@WorkerThread
-	protected void handleSuggestionsAsync(@Nullable Runnable onComplete) {
-		getAsyncHandler().post(() -> handleSuggestions(onComplete));
+	protected void handleSuggestionsAsync(double loadingId, @Nullable Runnable onComplete) {
+		getAsyncHandler().post(() -> handleSuggestions(loadingId, onComplete));
 	}
 
 
 	@MainThread
-	protected void handleSuggestions(@Nullable Runnable onComplete) {
+	protected void handleSuggestions(double loadingId, @Nullable Runnable onComplete) {
 		// Second pass, analyze the available suggestions and decide if combining them with the
 		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
 		// just the end of a sentence, like: "word." or "another?"
@@ -181,6 +180,11 @@ abstract public class SuggestionHandler extends TypingHandler {
 			// or highlight the stem, when filtering
 			trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
 			appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
+		}
+
+		// append guesses from the MindReader
+		if (loadingId != 0 && loadingId == mindReader.getLoadingId()) {
+			handleOrWaitForGuesses(getCurrentGuesses());
 		}
 
 		onAfterSuggestionsHandled(onComplete, surroundingText, trimmedWord, suggestions.isEmpty());
@@ -215,6 +219,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 	}
 
 
+	// @todo: when typing an entire sentence with spaces, there are no guesses for the middle words.
 	@Override
 	protected void setGuessingContext(@NonNull String[] surroundingText, @Nullable String lastWord) {
 		mindReader.setContext(mInputMode, mLanguage, surroundingText, lastWord);
@@ -222,8 +227,9 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 
 	@Override
-	protected void guessOnNumber(@NonNull String[] surroundingText, @Nullable String lastWord, int number) {
+	protected void guessOnNumber(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number) {
 		if (mInputMode.getSequenceLength() != 1 || new Text(mLanguage, surroundingText[1]).startsWithWord()) {
+			clearGuessingContext();
 			return;
 		}
 
@@ -234,19 +240,18 @@ abstract public class SuggestionHandler extends TypingHandler {
 		if (mLanguage.hasSpaceBetweenWords()) {
 			final String space = Characters.getSpace(mLanguage);
 			if (space.equals(lastWord) || surroundingText[0].endsWith(space)) {
-				guessCurrentWord(surroundingText, number);
+				guessCurrentWord(loadingId, surroundingText, number);
 			}
 		} else {
-			guessCurrentWord(surroundingText, number);
+			guessCurrentWord(loadingId, surroundingText, number);
 		}
 	}
 
 
-	private void guessCurrentWord(@NonNull String[] surroundingText, int number) {
-		mindReader.guessCurrent(mInputMode, (NaturalLanguage) mLanguage, surroundingText, number, () -> {
-			// @todo: intercept these in handleSuggestions together with the regular suggestions
-			Logger.d(getClass().getSimpleName(), "======+> guesses for number " + number + ": " + getCurrentGuesses());
-		});
+	private void guessCurrentWord(double loadingId, @NonNull String[] surroundingText, int number) {
+		mindReader
+			.setCurrentGuessHandler(null)
+			.guessCurrent(loadingId, mInputMode, (NaturalLanguage) mLanguage, surroundingText, number);
 	}
 
 
@@ -267,6 +272,16 @@ abstract public class SuggestionHandler extends TypingHandler {
 		if (!guesses.isEmpty()) {
 			appHacks.setComposingText(guesses.get(0));
 			suggestionOps.addGuesses(guesses);
+		}
+	}
+
+
+	@MainThread
+	private void handleOrWaitForGuesses(@Nullable ArrayList<String> guesses) {
+		if (guesses != null && !guesses.isEmpty()) {
+			handleGuesses(guesses);
+		} else {
+			mindReader.setCurrentGuessHandler(this::handleGuessesAsync);
 		}
 	}
 }

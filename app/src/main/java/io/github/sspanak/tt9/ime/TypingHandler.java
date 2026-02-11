@@ -46,9 +46,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	abstract protected void onAcceptSuggestionsDelayed(String s);
-	abstract protected void getSuggestions(@Nullable String currentWord, @Nullable Runnable onComplete);
+	abstract protected void getSuggestions(double loadingId, @Nullable String currentWord, @Nullable Runnable onComplete);
 
-	protected abstract void guessOnNumber(@NonNull String[] surroundingChars, @Nullable String lastWord, int number);
+	// @todo: figure out the same-value arguments
+	protected abstract void guessOnNumber(double loadingId, @NonNull String[] surroundingChars, @Nullable String lastWord, int number);
 	abstract protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String currentWord, boolean saveContext);
 	abstract protected void clearGuessingContext();
 	abstract protected void setGuessingContext(@NonNull String[] surroundingText, @Nullable String currentWord);
@@ -165,7 +166,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// load new words only if there is no selected text, because it would be confusing
 		if (repeat == 0 && mInputMode.onBackspace() && textSelection.isEmpty()) {
 			final Runnable onLoad = InputModeKind.isRecomposing(mInputMode) ? null : () -> recompose(repeat, false);
-			getSuggestions(null, onLoad);
+			getSuggestions(0, null, onLoad);
 		} else {
 			suggestionOps.commitCurrent(false, true);
 			mInputMode.reset();
@@ -218,8 +219,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 			scrollSuggestions(false);
 			suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
-			guessOnNumber(surroundingChars, lastWord, key);
-			getSuggestions(null, null);
+			final double loadingId = Math.random();
+			guessOnNumber(loadingId, surroundingChars, lastWord, key);
+			getSuggestions(loadingId, null, null);
 		}
 
 		return true;
@@ -411,7 +413,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		final String previousWord = mInputMode.recompose();
 		if (textField.recompose(previousWord)) {
-			getSuggestions(previousWord, null);
+			getSuggestions(0, previousWord, null);
 		} else {
 			mInputMode.reset();
 		}
