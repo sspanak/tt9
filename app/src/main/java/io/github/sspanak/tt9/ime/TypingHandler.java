@@ -47,6 +47,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	abstract protected void onAcceptSuggestionsDelayed(String s);
 	abstract protected void getSuggestions(@Nullable String currentWord, @Nullable Runnable onComplete);
+
+	protected abstract void guessOnNumber(@NonNull String[] surroundingChars, @Nullable String lastWord, int number);
 	abstract protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String currentWord, boolean saveContext);
 	abstract protected void clearGuessingContext();
 	abstract protected void setGuessingContext(@NonNull String[] surroundingText, @Nullable String currentWord);
@@ -189,6 +191,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		hold = hold && settings.getHoldToType();
 		String[] surroundingChars = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
+		String lastWord = null;
 
 		// Automatically accept the previous word, when the next one is a space or punctuation,
 		// instead of requiring "OK" before that.
@@ -198,15 +201,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (mInputMode.shouldAcceptPreviousSuggestion(suggestionOps.getCurrent(), key, hold)) {
 			// WARNING! Ensure the code after "acceptIncompleteAndKeepList()" does not depend on
 			// the suggestions in SuggestionOps, since we don't clear that list.
-			String lastWord = suggestionOps.acceptIncompleteAndKeepList();
+			lastWord = suggestionOps.acceptIncompleteAndKeepList();
 			mInputMode.onAcceptSuggestion(lastWord);
 			surroundingChars = autoCorrectSpace(lastWord, surroundingChars, false, key);
-
-			if (mLanguage.hasSpaceBetweenWords()) {
-				setGuessingContext(surroundingChars, lastWord);
-			} else {
-				guessNextWord(surroundingChars, lastWord, true);
-			}
 		}
 
 		// Auto-adjust the text case before each word/char, if the InputMode supports it.
@@ -221,6 +218,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			scrollSuggestions(false);
 			suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
+			guessOnNumber(surroundingChars, lastWord, key);
 			getSuggestions(null, null);
 		}
 

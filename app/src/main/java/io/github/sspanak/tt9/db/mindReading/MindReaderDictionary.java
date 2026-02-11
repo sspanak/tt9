@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -16,6 +17,7 @@ class MindReaderDictionary {
 	static final String EMOJI = ":)";
 	static final String GARBAGE = "∅";
 	static final String NUMBER = "\\d";
+	static final String SPACE = " ";
 	static final int[] PUNCTUATION = {
 		Characters.AR_QUESTION_MARK.codePointAt(0),
 		Characters.GR_QUESTION_MARK.codePointAt(0),
@@ -25,8 +27,7 @@ class MindReaderDictionary {
 		'!',
 		'?',
 		',',
-		'.',
-		' ' // @see: LanguageKind.usesSpaceAsPunctuation()
+		'.'
 	};
 
 	@NonNull private final Locale locale;
@@ -47,12 +48,13 @@ class MindReaderDictionary {
 
 
 	private void init() {
-		tokens = new String[3 + PUNCTUATION.length + tokens.length];
+		tokens = new String[4 + PUNCTUATION.length + tokens.length];
 		tokens[0] = GARBAGE;
 		tokens[1] = EMOJI;
 		tokens[2] = NUMBER;
+		tokens[3] = SPACE;
 		for (int i = 0; i < PUNCTUATION.length; i++) {
-			tokens[3 + i] = new String(Character.toChars(PUNCTUATION[i]));
+			tokens[4 + i] = new String(Character.toChars(PUNCTUATION[i]));
 		}
 	}
 
@@ -60,16 +62,24 @@ class MindReaderDictionary {
 	static boolean isGarbage(int tokenId) { return tokenId == 0; }
 	static boolean isEmoji(int tokenId) { return tokenId == 1; }
 	static boolean isNumber(int tokenId) { return tokenId == 2; }
-	static boolean isPunctuation(int tokenId) { return tokenId >= 3 && tokenId < 3 + PUNCTUATION.length; }
-	static boolean isWord(int tokenId) { return tokenId >= 3 + PUNCTUATION.length; }
+	static boolean isPunctuation(@Nullable Language language, int tokenId) {
+		return
+			tokenId >= 4 && tokenId < 4 + PUNCTUATION.length
+			|| (LanguageKind.usesSpaceAsPunctuation(language) && tokenId == 3);
+	}
+	static boolean isWord(int tokenId) { return tokenId >= 4 + PUNCTUATION.length; }
 
 
-	static boolean isSpecialChar(@Nullable String token) {
+	static boolean isSpecialChar(@Nullable Language language, @Nullable String token) {
 		if (token == null || token.isEmpty()) {
 			return false;
 		}
 
 		if (token.equals(EMOJI) || token.equals(NUMBER)) {
+			return true;
+		}
+
+		if (LanguageKind.usesSpaceAsPunctuation(language) && token.equals(SPACE)) {
 			return true;
 		}
 
@@ -83,8 +93,8 @@ class MindReaderDictionary {
 	}
 
 
-	private void add(@Nullable String token) {
-		if (token == null || token.isEmpty() || GARBAGE.equals(token) || isSpecialChar(token)) {
+	private void add(@Nullable Language language, @Nullable String token) {
+		if (token == null || token.isEmpty() || GARBAGE.equals(token) || isSpecialChar(language, token)) {
 			return;
 		}
 
@@ -107,9 +117,9 @@ class MindReaderDictionary {
 	}
 
 
-	void addAll(@NonNull String[] tokens) {
+	void addAll(@Nullable Language language, @NonNull String[] tokens) {
 		for (String token : tokens) {
-			add(token);
+			add(language, token);
 		}
 	}
 
