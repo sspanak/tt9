@@ -176,7 +176,7 @@ public class MindReader {
 		changeLanguage(language);
 		dictionary.addAll(language, wordContext.tokenize(dictionary));
 		if (saveContext && wordContext.shouldSave(inputMode)) {
-			ngrams.addMany(wordContext.getEndingNgrams(dictionary));
+			ngrams.addMany(wordContext.getAllNgrams(dictionary));
 		}
 	}
 

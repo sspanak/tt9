@@ -219,7 +219,6 @@ abstract public class SuggestionHandler extends TypingHandler {
 	}
 
 
-	// @todo: when typing an entire sentence with spaces, there are no guesses for the middle words.
 	@Override
 	protected void setGuessingContext(@NonNull String[] surroundingText, @Nullable String lastWord) {
 		mindReader.setContext(mInputMode, mLanguage, surroundingText, lastWord);
