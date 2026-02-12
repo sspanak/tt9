@@ -48,6 +48,12 @@
 			android:key="pref_upside_down_keys"
 			android:summary="@string/pref_upside_down_keys_summary"
 			android:title="@string/pref_upside_down_keys" />
+
+		<SwitchPreferenceCompat
+			android:defaultValue="false"
+			android:key="pref_developer_commands"
+			android:summary="@string/pref_developer_commands_summary"
+			android:title="@string/pref_developer_commands" />
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/pref_category_hacks">

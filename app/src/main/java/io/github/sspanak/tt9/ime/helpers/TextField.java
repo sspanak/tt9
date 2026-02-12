@@ -368,10 +368,15 @@ public class TextField extends InputField {
 
 
 	public boolean sendDownUpKeyEvents(int keyCode, boolean shift, boolean ctrl) {
+		int metaState = shift ? KeyEvent.META_SHIFT_ON : 0;
+		metaState |= ctrl ? KeyEvent.META_CTRL_ON : 0;
+		return sendDownUpKeyEvents(keyCode, metaState);
+	}
+
+
+	public boolean sendDownUpKeyEvents(int keyCode, int metaState) {
 		InputConnection connection = getConnection();
 		if (connection != null) {
-			int metaState = shift ? KeyEvent.META_SHIFT_ON : 0;
-			metaState |= ctrl ? KeyEvent.META_CTRL_ON : 0;
 			KeyEvent downEvent = new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyCode, 0, metaState);
 			KeyEvent upEvent = new KeyEvent(0, 0, KeyEvent.ACTION_UP, keyCode, 0, metaState);
 			return connection.sendKeyEvent(downEvent) && connection.sendKeyEvent(upEvent);

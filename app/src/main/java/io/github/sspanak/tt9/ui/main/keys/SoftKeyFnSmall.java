@@ -26,12 +26,14 @@ public class SoftKeyFnSmall extends SoftKeyFnNumpad {
 	}
 
 	private boolean isNOOP() {
-		return getId() == R.id.soft_key_7 || getId() == R.id.soft_key_9 || getId() == R.id.soft_key_0;
+		return getId() == R.id.soft_key_9 || getId() == R.id.soft_key_0;
 	}
 
 	protected boolean isVisible() {
 		if (isNOOP()) {
 			return false;
+		} else if (getId() == R.id.soft_key_7) {
+			return tt9 == null || tt9.isDeveloperCommandsEnabled();
 		} else if (isVoiceInput()) {
 			return tt9 == null || !tt9.isVoiceInputMissing();
 		} else if (isTextEditing()) {
@@ -51,6 +53,7 @@ public class SoftKeyFnSmall extends SoftKeyFnNumpad {
 		if (keyId == R.id.soft_key_4) return R.drawable.ic_fn_undo;
 		if (keyId == R.id.soft_key_5) return R.drawable.ic_txt_cut;
 		if (keyId == R.id.soft_key_6) return R.drawable.ic_fn_redo;
+		if (keyId == R.id.soft_key_7) return R.drawable.ic_fn_developer;
 		if (keyId == R.id.soft_key_8) return R.drawable.ic_fn_next_keyboard;
 
 		return -1;

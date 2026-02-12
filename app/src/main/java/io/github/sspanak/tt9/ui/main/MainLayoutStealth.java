@@ -3,10 +3,9 @@ package io.github.sspanak.tt9.ui.main;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 
-class MainLayoutStealth extends MainLayoutExtraPanel {
+class MainLayoutStealth extends MainLayoutNumpad {
 	private boolean isCommandPaletteShown = false;
 	private boolean isTextEditingPaletteShown = false;
-
 	private boolean isDeveloperCommandsShown = false;
 
 	MainLayoutStealth(TraditionalT9 tt9) { super(tt9, R.layout.main_stealth); }
@@ -16,6 +15,7 @@ class MainLayoutStealth extends MainLayoutExtraPanel {
 		isTextEditingPaletteShown = false;
 		isDeveloperCommandsShown = false;
 	}
+
 	@Override void showKeyboard() {
 		isCommandPaletteShown = false;
 		isTextEditingPaletteShown = false;
@@ -36,8 +36,8 @@ class MainLayoutStealth extends MainLayoutExtraPanel {
 
 	@Override boolean isCommandPaletteShown() { return isCommandPaletteShown; }
 	@Override boolean isTextEditingPaletteShown() { return isTextEditingPaletteShown; }
+	@Override boolean isDeveloperCommandsShown() { return isDeveloperCommandsShown; }
 	@Override void setWidth(int w, int g) {}
-	@Override boolean isDeveloperCommandsShown() {return isDeveloperCommandsShown; }{
 	@Override void render() {}
 	@Override void renderKeys() {}
 }

@@ -105,4 +105,9 @@ class SettingsInput extends SettingsHacks {
 			prefsEditor.apply();
 		}
 	}
+
+	public boolean getDeveloperCommandsEnabled() {
+		return prefs.getBoolean("pref_developer_commands", false);
+	}
+
 }

@@ -77,6 +77,9 @@
 	<string name="pref_dark_theme_auto">Auto</string>
 	<string name="pref_drag_resize">Drag to Resize</string>
 	<string name="pref_drag_resize_summary">Allow resizing and moving the keyboard by dragging the Status Bar or the Settings key.</string>
+
+	<string name="pref_developer_commands">Developer Commands</string>
+	<string name="pref_developer_commands_summary">Add a developer command panel to hold Ctrl/Alt/Fn/Meta combinations.</string>
 	<string name="pref_double_zero_char">Character for Double 0-key Press</string>
 	<string name="pref_numpad_fn_key_width">Letter Keys Width</string>
 	<string name="pref_font_size">Settings Font Size</string>

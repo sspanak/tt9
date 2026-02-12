@@ -34,7 +34,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 
 
 	protected int getPanelHeight(@NonNull Resources resources) {
-		if (isCommandPaletteShown() || isTextEditingPaletteShown()) {
+		if (isCommandPaletteShown() || isTextEditingPaletteShown() || isDeveloperCommandsShown()) {
 			return resources.getDimensionPixelSize(R.dimen.main_small_command_palette_height);
 		} else {
 			return 0;
@@ -63,6 +63,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		isTextEditingPaletteShown = false;
 		isDeveloperCommandsShown = false;
 		togglePanel(R.id.main_command_keys, true);
+		togglePanel(R.id.developer_command_keys, false);
 		getHeight(true);
 		renderKeys();
 	}
@@ -71,6 +72,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 	void showKeyboard() {
 		super.showKeyboard();
 		togglePanel(R.id.main_command_keys, false);
+		togglePanel(R.id.developer_command_keys, false);
 		isCommandPaletteShown = false;
 		isTextEditingPaletteShown = false;
 		isDeveloperCommandsShown = false;
@@ -86,6 +88,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		isTextEditingPaletteShown = true;
 		isDeveloperCommandsShown = false;
 		togglePanel(R.id.main_command_keys, true);
+		togglePanel(R.id.developer_command_keys, false);
 		getHeight(true);
 		renderKeys();
 	}
@@ -96,6 +99,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		isCommandPaletteShown = false;
 		isTextEditingPaletteShown = false;
 		isDeveloperCommandsShown = true;
+		togglePanel(R.id.main_command_keys, false);
 		togglePanel(R.id.developer_command_keys, true);
 		getHeight(true);
 		renderKeys();
@@ -123,6 +127,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 	protected ArrayList<SoftKey> getKeys() {
 		if (view != null && keys.isEmpty()) {
 			keys.addAll(getKeysFromContainer(view.findViewById(R.id.main_command_keys)));
+			keys.addAll(getKeysFromContainer(view.findViewById(R.id.developer_command_keys)));
 		}
 		return keys;
 	}
