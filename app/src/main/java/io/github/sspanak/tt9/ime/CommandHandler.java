@@ -270,6 +270,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		if (InputModeKind.isRecomposing(mInputMode)) {
 			appHacks.setComposingTextPartsWithHighlightedJoining(mInputMode.getWordStem() + suggestionOps.getCurrent(), mInputMode.getRecomposingSuffix());
 		} else {
+			// @todo: this breaks for mixed suggestions. Fix it!
 			suggestionOps.addGuesses(getCurrentGuesses());
 			appHacks.setComposingText(suggestionOps.getCurrent());
 		}

@@ -96,6 +96,12 @@ class MindReaderContext {
 	}
 
 
+	@NonNull
+	String getRaw() {
+		return raw.toString();
+	}
+
+
 	/**
 	 * Appends the given word to the current context text, separating it with a space if needed.
 	 * The word is trimmed before appending.

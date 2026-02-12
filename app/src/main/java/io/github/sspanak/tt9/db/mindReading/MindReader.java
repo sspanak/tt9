@@ -8,11 +8,16 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionException;
 
+import io.github.sspanak.tt9.hacks.InputType;
+import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
+import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
+import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
+import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
@@ -23,6 +28,7 @@ public class MindReader {
 	private static final String LOG_TAG = MindReader.class.getSimpleName();
 
 	// @todo: move these constants to SettingsStatic
+	// @todo: test and maybe set a maximum size for MindReaderNgramList?
 	private static final int MAX_NGRAM_SIZE = 4;
 	private static final int MAX_BIGRAM_SUGGESTIONS = 5;
 	private static final int MAX_TRIGRAM_SUGGESTIONS = 4;
@@ -31,6 +37,7 @@ public class MindReader {
 	static final int DICTIONARY_WORD_SIZE = 16; // in bytes
 	private static final int MAX_DICTIONARY_WORDS = (int) Math.pow(2, DICTIONARY_WORD_SIZE);
 
+	@Nullable private final AutoTextCase autoTextCase;
 	@Nullable private final ExecutorService executor;
 	@Nullable private final SettingsStore settings;
 
@@ -44,11 +51,12 @@ public class MindReader {
 
 
 	public MindReader() {
-		this(null, null);
+		this(null, null, null);
 	}
 
 
-	public MindReader(@Nullable SettingsStore settings, @Nullable ExecutorService executor) {
+	public MindReader(@Nullable SettingsStore settings, @Nullable ExecutorService executor, @Nullable InputType inputType) {
+		this.autoTextCase = settings != null ? new AutoTextCase(settings, new Sequences(), inputType) : null;
 		this.executor = executor;
 		this.settings = settings;
 	}
@@ -63,10 +71,9 @@ public class MindReader {
 
 
 	@NonNull
-	public ArrayList<String> getCurrentWords(int textCase) {
-		// @todo: use AutoTextCase.adjustParagraphTextCase() here. "before" is the context.
+	public ArrayList<String> getCurrentWords(@Nullable InputMode inputMode, @NonNull TextField textField, @NonNull InputType inputType, int textCase) {
 		final ArrayList<String> copy = new ArrayList<>(words);
-		copy.replaceAll(text -> new Text(wordContext.language, text).toTextCase(textCase));
+		copy.replaceAll(text -> adjustWordTextCase(inputMode, text, inputType.determineTextCase(), textCase, textField));
 		return copy;
 	}
 
@@ -75,12 +82,14 @@ public class MindReader {
 		return loadingId;
 	}
 
+
 	public void guessNext(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
 		loadingId = 0;
 
+		// @todo: this fails for ABC. Fix it!
 		if (setContextSync(inputMode, language, surroundingText, lastWord)) {
 			runInThread(() -> {
 				processContext(inputMode, language, saveContext);
@@ -178,6 +187,29 @@ public class MindReader {
 		if (saveContext && wordContext.shouldSave(inputMode)) {
 			ngrams.addMany(wordContext.getAllNgrams(dictionary));
 		}
+	}
+
+
+	private String adjustWordTextCase(@Nullable InputMode inputMode, @NonNull String word, int modeTextCase, int textFieldTextCase, @NonNull TextField textField) {
+		if (autoTextCase == null || wordContext.language == null || settings == null || !settings.isAutoTextCaseOn(inputMode)) {
+			return word;
+		}
+
+		String digitSequence;
+		try {
+			digitSequence = wordContext.language.getDigitSequenceForWord(word);
+		} catch (InvalidLanguageCharactersException e) {
+			return word;
+		}
+
+
+		String context = wordContext.getRaw();
+		if (!new Text(wordContext.language, context).endsWithLetter()) {
+			context += " ";
+		}
+
+		final int newTextCase = autoTextCase.determineNextWordTextCase(wordContext.language, modeTextCase, textFieldTextCase, textField, digitSequence, context);
+		return autoTextCase.adjustSuggestionTextCase(new Text(wordContext.language, word), newTextCase);
 	}
 
 

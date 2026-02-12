@@ -103,7 +103,7 @@ abstract class VoiceHandler extends SuggestionHandler {
 
 
 	private String autoCapitalize(String str) {
-		if (autoTextCase == null) {
+		if (autoTextCase == null || !settings.isAutoTextCaseOn(mInputMode)) {
 			return str;
 		}
 
