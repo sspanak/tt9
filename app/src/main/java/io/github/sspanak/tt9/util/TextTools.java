@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.util;
 
+import androidx.annotation.Nullable;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +10,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
 
+import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class TextTools {
@@ -100,7 +103,7 @@ public class TextTools {
 	}
 
 
-	public static int indexOfIgnoreCase(List<String> list, String str) {
+	public static int indexOfIgnoreCase(@Nullable List<String> list, @Nullable String str) {
 		for (int i = 0, size = list != null && str != null ? list.size() : 0; i < size; i++) {
 			if (list.get(i).equalsIgnoreCase(str)) {
 				return i;
@@ -124,12 +127,12 @@ public class TextTools {
 
 
 	public static boolean isStartOfSentence(String str) {
-		return str != null && START_OF_SENTENCE.matcher(str).find();
+		return str != null && !str.equals(InputConnectionAsync.TIMEOUT_SENTINEL) && START_OF_SENTENCE.matcher(str).find();
 	}
 
 
 	public static boolean isNextToWord(String str) {
-		return str != null && NEXT_TO_WORD.matcher(str).find();
+		return str != null && !str.equals(InputConnectionAsync.TIMEOUT_SENTINEL) && NEXT_TO_WORD.matcher(str).find();
 	}
 
 

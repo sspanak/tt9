@@ -22,14 +22,14 @@ public class ModeIdeograms extends ModeWords {
 	@NonNull private String lastTextBeforeDelete = "";
 
 
-	protected ModeIdeograms(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
+	protected ModeIdeograms(@NonNull SettingsStore settings, @NonNull Language lang, @Nullable InputType inputType, @Nullable TextField textField) {
 		super(settings, lang, inputType, textField);
 		NAME = super.toString();
 	}
 
 
 	@Override protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
-	@Override public void determineNextWordTextCase(int nextDigit) {}
+	@Override public void determineNextWordTextCase(@Nullable String beforeCursor, int nextDigit) {}
 	@Override public boolean nextTextCase(@Nullable String currentWord, int displayTextCase) { return false; }
 
 
@@ -49,7 +49,7 @@ public class ModeIdeograms extends ModeWords {
 
 	@Override
 	protected void initPredictions() {
-		predictions = new IdeogramPredictions(settings, textField, seq);
+		predictions = new IdeogramPredictions(settings);
 		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
@@ -76,20 +76,25 @@ public class ModeIdeograms extends ModeWords {
 
 	@Override
 	public void beforeDeleteText() {
-		String textBefore = textField.getComposingText();
-		lastTextBeforeDelete = textBefore.isEmpty() ? textField.getStringBeforeCursor(1) : textBefore;
+		if (textField == null) {
+			lastTextBeforeDelete = "";
+			return;
+		}
+
+		final String textBefore = textField.getComposingText();
+		lastTextBeforeDelete = textBefore.isEmpty() ? textField.getTextBeforeCursor(language, 1).toString() : textBefore;
 	}
 
 
 	@Override
 	public String recompose() {
-		if (lastAcceptedWord.isEmpty()) {
+		if (textField == null || lastAcceptedWord.isEmpty()) {
 			return null;
 		}
 
-		String before = textField.getStringBeforeCursor(lastAcceptedWord.length());
+		Text before = textField.getTextBeforeCursor(language, lastAcceptedWord.length());
 		char after = lastTextBeforeDelete.isEmpty() ? 0 : lastTextBeforeDelete.charAt(0);
-		if (lastAcceptedWord.equals(before) && Character.isWhitespace(after)) {
+		if (lastAcceptedWord.equals(before.toString()) && Character.isWhitespace(after)) {
 			reset();
 			digitSequence = lastAcceptedSequence;
 			return lastAcceptedWord;

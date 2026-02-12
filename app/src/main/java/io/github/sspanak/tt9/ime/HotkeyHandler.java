@@ -3,8 +3,12 @@ package io.github.sspanak.tt9.ime;
 import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdMoveCursor;
+import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
+import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
+import io.github.sspanak.tt9.ime.modes.ModeRecomposing;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Ternary;
@@ -12,6 +16,18 @@ import io.github.sspanak.tt9.util.chars.Characters;
 
 public abstract class HotkeyHandler extends CommandHandler {
 	private boolean waitingForSpaceTrim = false;
+
+
+	protected boolean isHoldHotkey(int keyCode) {
+		return
+			keyCode < 0
+			&& (
+				Key.isHotkey(settings, -keyCode)
+				|| (Key.isArrowLeft(-keyCode) && InputModeKind.isRecomposing(mInputMode))
+				|| (Key.isArrowRight(-keyCode) && InputModeKind.isRecomposing(mInputMode))
+			);
+	}
+
 
 	@Override
 	protected void onInit() {
@@ -27,7 +43,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		waitingForSpaceTrim = false;
 		if (super.onBack() == Ternary.TRUE) {
 			return Ternary.TRUE;
-		} else if (settings.isMainLayoutNumpad()) {
+		} else if (settings.isMainLayoutLarge()) {
 			return Ternary.ALTERNATIVE;
 		} else {
 			return Ternary.FALSE;
@@ -38,6 +54,11 @@ public abstract class HotkeyHandler extends CommandHandler {
 	@Override
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		stopWaitingForSpaceTrimKey();
+
+		if (hold && onHotkey(-Key.numberToCode(key), false, false)) {
+			return true;
+		}
+
 		return super.onNumber(key, hold, repeat);
 	}
 
@@ -49,6 +70,8 @@ public abstract class HotkeyHandler extends CommandHandler {
 		if (!suggestionOps.isEmpty()) {
 			if (mInputMode.shouldReplacePreviousSuggestion(suggestionOps.getCurrent())) {
 				mInputMode.onReplaceSuggestion(suggestionOps.getCurrentRaw());
+			} else if (InputModeKind.isRecomposing(mInputMode)) {
+				onAcceptSuggestionManually(suggestionOps.acceptEdited(), KeyEvent.KEYCODE_ENTER);
 			} else {
 				onAcceptSuggestionManually(suggestionOps.acceptCurrent(), KeyEvent.KEYCODE_ENTER);
 			}
@@ -66,12 +89,13 @@ public abstract class HotkeyHandler extends CommandHandler {
 				forceShowWindow();
 			}
 
-			updateShiftState(true, false);
+			// we don't want to use cached beforeCursor, because the action might have changed it
+			updateShiftState(null, true, false);
 			return actionPerformed;
 		}
 
 		actionPerformed = appHacks.onAction(action) || textField.performAction(action);
-		updateShiftState(true, false);
+		updateShiftState(null, true, false);
 
 		return actionPerformed;
 	}
@@ -82,14 +106,36 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return true;
 		}
 
-		if (keyCode == KeyEvent.KEYCODE_UNKNOWN) {
+		if (keyCode == KeyEvent.KEYCODE_UNKNOWN || (keyCode < 0 && Key.isNumber(-keyCode) && !settings.getHoldToType())) {
 			return false;
 		}
 
-		if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT && onTrimTrailingSpace(validateOnly)) {
+		return
+			onHardcodedKey(keyCode, validateOnly)
+			|| onDynamicKey(keyCode, repeat, validateOnly);
+	}
+
+
+	private boolean onHardcodedKey(int keyCode, boolean validateOnly) {
+		if (Key.isArrowUp(keyCode) && onKeyEditDuplicateLetter(validateOnly)) {
 			return true;
 		}
 
+		if (Key.isArrowLeft(-keyCode) || Key.isArrowRight(-keyCode)) {
+			if (onKeyEditAdjacentLetter(validateOnly, -keyCode)) {
+				return true;
+			}
+		}
+
+		if (Key.isArrowLeft(keyCode) && onTrimTrailingSpace(validateOnly)) {
+			return true;
+		}
+
+		return false;
+	}
+
+
+	private boolean onDynamicKey(int keyCode, boolean repeat, boolean validateOnly) {
 		if (keyCode == settings.getKeyAddWord()) {
 			return onKeyAddWord(validateOnly);
 		}
@@ -100,6 +146,10 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		if (keyCode == settings.getKeyEditText()) {
 			return onKeyEditText(validateOnly);
+		}
+
+		if (keyCode == settings.getKeyEditWord()) {
+			return onKeyEditWord(validateOnly);
 		}
 
 		if (keyCode == settings.getKeyFilterClear()) {
@@ -195,6 +245,32 @@ public abstract class HotkeyHandler extends CommandHandler {
 	}
 
 
+	private boolean onKeyEditAdjacentLetter(boolean validateOnly, int keyCode) {
+		if (shouldBeOff() || !InputModeKind.isRecomposing(mInputMode)) {
+			return false;
+		}
+
+		if (!validateOnly) {
+			((ModeRecomposing) mInputMode).skipLetter(Key.isArrowLeft(keyCode));
+		}
+
+		return true;
+	}
+
+
+	private boolean onKeyEditDuplicateLetter(boolean validateOnly) {
+		if (shouldBeOff() || !InputModeKind.isRecomposing(mInputMode)) {
+			return false;
+		}
+
+		if (!validateOnly) {
+			((ModeRecomposing) mInputMode).duplicateLetter();
+		}
+
+		return true;
+	}
+
+
 	private boolean onKeyEditText(boolean validateOnly) {
 		if (!isInputViewShown() || shouldBeOff()) {
 			return false;
@@ -209,12 +285,32 @@ public abstract class HotkeyHandler extends CommandHandler {
 	}
 
 
-	public boolean onKeyMoveCursor(boolean backward) {
+	public boolean onKeyEditWord(boolean validateOnly) {
+		if (shouldBeOff()) {
+			return false;
+		}
+
+		if (!validateOnly) {
+			forceShowWindow();
+			editWord();
+		}
+
+		return true;
+	}
+
+
+	public boolean onKeyMoveCursor(int direction) {
+		suggestionOps.cancelDelayedAccept();
+		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		resetKeyRepeat();
+
+		final boolean backward = direction == CmdMoveCursor.CURSOR_MOVE_LEFT;
+
 		if (textSelection.isEmpty()) {
 			return
-				appHacks.onMoveCursor(backward)
+				appHacks.onMoveCursor(direction)
 				|| (backward && onTrimTrailingSpace(false))
-				|| textField.moveCursor(backward);
+				|| textField.moveCursor(direction);
 		} else {
 			textSelection.clear(backward);
 			return true;
@@ -244,7 +340,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		if (mInputMode.clearWordStem() && isFilteringOn) {
 			mInputMode
-				.setOnSuggestionsUpdated(this::handleSuggestions)
+				.setOnSuggestionsUpdated(this::handleSuggestionsFromThread)
 				.loadSuggestions(suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength()));
 			return true;
 		}
@@ -285,7 +381,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			mInputMode.reset();
 		} else if (mInputMode.setWordStem(filter, repeat)) {
 			mInputMode
-				.setOnSuggestionsUpdated(super::handleSuggestions)
+				.setOnSuggestionsUpdated(super::handleSuggestionsFromThread)
 				.loadSuggestions(filter);
 		}
 
@@ -339,15 +435,9 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout()); // restart the timer
-		nextInputMode();
-
-		getDisplayTextCase(mLanguage, mInputMode.getTextCase());
-		setStatusIcon(mInputMode, mLanguage);
-		statusBar.setText(mInputMode);
-		mainView.render();
-
-		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {
-			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
+		final int nextModeId = nextInputMode();
+		if (nextModeId != mInputMode.getId()) {
+			setInputMode(nextModeId);
 		}
 
 		forceShowWindow();
@@ -436,7 +526,14 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
-		return validateOnly || undo();
+		if (validateOnly) {
+			return true;
+		}
+
+		suggestionOps.cancelDelayedAccept();
+		suggestionOps.acceptCurrent();
+
+		return undo();
 	}
 
 
@@ -445,7 +542,14 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
-		return validateOnly || redo();
+		if (validateOnly) {
+			return true;
+		}
+
+		suggestionOps.cancelDelayedAccept();
+		suggestionOps.acceptCurrent();
+
+		return redo();
 	}
 
 
@@ -473,8 +577,9 @@ public abstract class HotkeyHandler extends CommandHandler {
 		waitingForSpaceTrim = false;
 	}
 
+
 	private boolean onTrimTrailingSpace(boolean validateOnly) {
-		if (!waitingForSpaceTrim || !settings.getAutoSpace() || !suggestionOps.isEmpty()) {
+		if (!waitingForSpaceTrim || !settings.getAutoTrimTrailingSpace() || !suggestionOps.isEmpty()) {
 			return false;
 		}
 
@@ -485,7 +590,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		String before = textField.getStringBeforeCursor(2);
-		if (before.length() != 2 || Character.isWhitespace(before.charAt(0)) || before.charAt(1) != Characters.getSpace(mLanguage).charAt(0)) {
+		if (before.equals(InputConnectionAsync.TIMEOUT_SENTINEL) || before.length() != 2 || Character.isWhitespace(before.charAt(0)) || before.charAt(1) != Characters.getSpace(mLanguage).charAt(0)) {
 			stopWaitingForSpaceTrimKey();
 			return false;
 		}

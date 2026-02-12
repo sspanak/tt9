@@ -1,8 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
 import android.graphics.Color;
-import android.graphics.Insets;
-import android.os.Build;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.View;
@@ -12,28 +10,37 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
+import androidx.core.graphics.Insets;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.ime.helpers.Key;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyAddWord;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyBackspace;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyCommandPalette;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyFilter;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyLF4;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumberNumpad;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyOk;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyRF3;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyShift;
 import io.github.sspanak.tt9.util.ThemedContextBuilder;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 abstract public class BaseMainLayout {
-	protected int e2ePaddingBottomLandscape = -1;
-	protected int e2ePaddingBottomPortrait = -1;
+	private int lastLandscapeBottomInset = -1;
 
 	protected final TraditionalT9 tt9;
 	private final int xml;
 
 	protected View view = null;
 	@NonNull protected final ArrayList<SoftKey> keys = new ArrayList<>();
-	@NonNull protected final HashSet<Integer> dynamicKeys = new HashSet<>();
 
 
 	BaseMainLayout(TraditionalT9 tt9, int xml) {
@@ -73,7 +80,6 @@ abstract public class BaseMainLayout {
 			ContextThemeWrapper themedContext = new ThemedContextBuilder()
 				.setConfiguration(tt9.getResources().getConfiguration())
 				.setContext(tt9)
-				.setSettings(tt9.getSettings())
 				.setTheme(R.style.TTheme)
 				.build();
 			view = View.inflate(themedContext, xml, null);
@@ -86,7 +92,7 @@ abstract public class BaseMainLayout {
 
 	protected WindowInsets onApplyInsets(@NonNull View v, @NonNull WindowInsets windowInsets) {
 		if (DeviceInfo.AT_LEAST_ANDROID_15) {
-			preventEdgeToEdge(v, windowInsets);
+			setPadding(v, windowInsets);
 			return WindowInsets.CONSUMED;
 		} else {
 			return windowInsets;
@@ -95,23 +101,26 @@ abstract public class BaseMainLayout {
 
 
 	/**
-	 * Apply the padding to prevent edge-to-edge on Android 15+. Without padding,
+	 * Apply proper padding to prevent edge-to-edge on Android 15+. Without padding,
 	 * the bottom of the View will be cut off by the system navigation bar.
 	 */
-	@RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
-	protected void preventEdgeToEdge(@NonNull View v, @NonNull WindowInsets windowInsets) {
-		Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-		v.setPadding(insets.left, 0, insets.right, insets.bottom);
+	protected void setPadding(@NonNull View v, @NonNull WindowInsets windowInsets) {
+		final WindowInsetsCompat insetsCompat = WindowInsetsCompat.toWindowInsetsCompat(windowInsets);
+		final Insets insets = insetsCompat.getInsets(WindowInsetsCompat.Type.systemBars());
+		final boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9);
 
-		// cache the padding for use when the insets are not available
-		if (e2ePaddingBottomLandscape < 0 || e2ePaddingBottomPortrait < 0) {
-			boolean isLandscape = DeviceInfo.isLandscapeOrientation(view.getContext());
-			if (isLandscape) {
-				e2ePaddingBottomLandscape = insets.bottom;
-			} else {
-				e2ePaddingBottomPortrait = insets.bottom;
-			}
+		int bottomPadding;
+
+		if (tt9 == null) {
+			bottomPadding = insets.bottom;
+		} else if (isLandscape) {
+			bottomPadding = lastLandscapeBottomInset = insets.bottom;
+		} else {
+			tt9.getSettings().setSamsungBottomPaddingPortrait(Math.round(insets.bottom / DeviceInfo.getScreenPixelDensity(view.getContext())));
+			bottomPadding = tt9.getSettings().getBottomPaddingPortraitPx();
 		}
+
+		v.setPadding(insets.left, 0, insets.right, bottomPadding);
 	}
 
 
@@ -119,15 +128,19 @@ abstract public class BaseMainLayout {
 	 * Similar to the above method, but reuses the last known padding. Useful for when the Main View
 	 * is re-created and it is not yet possible to get the new window insets.
  	 */
-	public void preventEdgeToEdge() {
-		if (tt9 == null || view == null || !DeviceInfo.AT_LEAST_ANDROID_15) {
+	public void setPadding() {
+		if (tt9 == null || view == null) {
 			return;
 		}
 
-		boolean isLandscape = DeviceInfo.isLandscapeOrientation(view.getContext());
+		int bottomPadding;
 
-		int bottomPadding = isLandscape ? e2ePaddingBottomLandscape : e2ePaddingBottomPortrait;
-		bottomPadding = bottomPadding < 0 ? DeviceInfo.getNavigationBarHeight(view.getContext(), tt9.getSettings(), isLandscape) : bottomPadding;
+		if (DeviceInfo.isLandscapeOrientation(tt9)) {
+			bottomPadding = lastLandscapeBottomInset >= 0 ? lastLandscapeBottomInset : view.getPaddingBottom();
+		} else {
+			bottomPadding = tt9.getSettings().getBottomPaddingPortraitPx();
+		}
+
 		view.setPadding(view.getPaddingLeft(), 0, view.getPaddingRight(), bottomPadding);
 	}
 
@@ -259,13 +272,13 @@ abstract public class BaseMainLayout {
 	}
 
 
-	private boolean shouldEnableBackgroundBlending() {
+	public boolean shouldEnableBackgroundBlending() {
 		if (view == null || tt9 == null) {
 			return true;
 		}
 
-		boolean isLandscape = DeviceInfo.isLandscapeOrientation(view.getContext());
-		int width = tt9.getSettings().getWidthPercent();
+		boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9);
+		int width = tt9.getSettings().getWidthPercent(!isLandscape);
 
 		return
 			DeviceInfo.AT_LEAST_ANDROID_15
@@ -280,12 +293,13 @@ abstract public class BaseMainLayout {
 
 		boolean yes = shouldEnableBackgroundBlending();
 
-		view.setBackgroundColor(
-				yes ? view.getContext().getResources().getColor(R.color.keyboard_background) : Color.TRANSPARENT
-		);
+		// super wrapper of everything
+		view.setBackgroundColor(yes ? tt9.getSettings().getKeyboardBackground() | 0xFF000000 : Color.TRANSPARENT);
 
+		// top separator
 		final int separatorVisibility = yes ? View.VISIBLE : View.GONE;
 
+		// transparent space when the width < 100%
 		View leftBumperTopSeparator = view.findViewById(R.id.bumper_left_top_separator);
 		if (leftBumperTopSeparator != null) {
 			leftBumperTopSeparator.setVisibility(separatorVisibility);
@@ -294,6 +308,12 @@ abstract public class BaseMainLayout {
 		View rightBumperTopSeparator = view.findViewById(R.id.bumper_right_top_separator);
 		if (rightBumperTopSeparator != null) {
 			rightBumperTopSeparator.setVisibility(separatorVisibility);
+		}
+
+		// keys container
+		View container = view.findViewById(R.id.keyboard_container);
+		if (container != null) {
+			container.setBackgroundColor(tt9.getSettings().getKeyboardBackground() | 0xFF000000);
 		}
 	}
 
@@ -331,27 +351,67 @@ abstract public class BaseMainLayout {
 	 */
 	abstract void render();
 
+
 	/**
-	 * Render specific keys to update their state. If the list is empty, no keys are rendered. If the
-	 * list is null, all keys are rendered.
+	 * Renders a visual click effect on the key that corresponds to the given keyCode, without
+	 * performing any action.
 	 */
-	private void renderKeys(@Nullable HashSet<Integer> keyIds) {
-		if (keyIds != null && keyIds.isEmpty()) {
+	void renderClickFn(int keyCode) {
+		if (tt9 == null || !tt9.getSettings().getHardwareKeyVisualFeedback()) {
 			return;
 		}
 
+		final SettingsStore cfg = tt9.getSettings();
+
 		for (SoftKey key : getKeys()) {
-			if (keyIds == null || keyIds.contains(key.getId())) {
-				key.render();
+			final int keyId = key.getId();
+
+			if (
+				(key instanceof SoftKeyAddWord && keyCode == cfg.getKeyAddWord())
+				|| (key instanceof SoftKeyBackspace && Key.isBackspace(cfg, keyCode))
+				|| (key instanceof SoftKeyCommandPalette && keyCode == cfg.getKeyCommandPalette())
+				|| (key instanceof SoftKeyLF4 && (keyCode == cfg.getKeyNextInputMode() || keyCode == cfg.getKeyNextLanguage()))
+				|| (key instanceof SoftKeyFilter && (keyCode == cfg.getKeyFilterSuggestions() || keyCode == cfg.getKeyFilterClear()))
+				|| (key instanceof SoftKeyOk && Key.isOK(keyCode))
+				|| (key instanceof SoftKeySettings && keyCode == cfg.getKeyShowSettings())
+				|| (key instanceof SoftKeyShift && keyCode == cfg.getKeyShift())
+				|| (key instanceof SoftKeyRF3 && (keyCode == cfg.getKeyEditText() || keyCode == cfg.getKeyVoiceInput()))
+				|| (keyId == R.id.soft_key_left_arrow && (Key.isArrowLeft(keyCode) || keyCode == cfg.getKeyPreviousSuggestion()))
+				|| (keyId == R.id.soft_key_right_arrow && (Key.isArrowRight(keyCode) || keyCode == cfg.getKeyNextSuggestion()))
+			) {
+				key.renderClick();
+				return;
 			}
 		}
 	}
 
-	void renderKeys() {
-		renderKeys(null);
+
+	/**
+	 * Renders a visual click effect on given number key, without performing any action.
+	 */
+	void renderClickNumber(int number) {
+		if (tt9 == null || !tt9.getSettings().getHardwareKeyVisualFeedback()) {
+			return;
+		}
+
+		for (SoftKey key : getKeys()) {
+			if (key instanceof SoftKeyNumberNumpad && ((SoftKeyNumberNumpad) key).getNumber() == number) {
+				key.renderClick();
+				return;
+			}
+		}
 	}
 
-	void renderDynamicKeys() {
-		renderKeys(dynamicKeys);
+
+	/**
+	 * Tells all layout keys to re-render themselves. If onlyDynamic is true, only keys that
+	 * return true from isDynamic() will be re-rendered.
+	 */
+	void renderKeys(boolean onlyDynamic) {
+		for (SoftKey key : getKeys()) {
+			if (!onlyDynamic || key.isDynamic()) {
+				key.render();
+			}
+		}
 	}
 }

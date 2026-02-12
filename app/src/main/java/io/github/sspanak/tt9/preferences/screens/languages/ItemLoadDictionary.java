@@ -70,7 +70,7 @@ class ItemLoadDictionary extends ItemClickable {
 
 		setBusy();
 		if (!loader.load(activity, languages)) {
-			loader.stop();
+			loader.abort();
 			setReady();
 			onFinish.run();
 		}

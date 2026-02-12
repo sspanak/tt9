@@ -13,7 +13,6 @@ public class StaticMainView {
 
 	protected final TraditionalT9 tt9;
 	@Nullable protected BaseMainLayout main;
-	private boolean darkTheme;
 
 
 	protected StaticMainView(TraditionalT9 tt9) {
@@ -23,7 +22,9 @@ public class StaticMainView {
 
 
 	protected BaseMainLayout getViewInstance(SettingsStore settings) {
-		if (settings.isMainLayoutNumpad() && !(main instanceof MainLayoutNumpad)) {
+		if (settings.isMainLayoutClassic() && (main == null || !main.getClass().equals(MainLayoutClassic.class))) {
+			return new MainLayoutClassic(tt9);
+		} else if (settings.isMainLayoutNumpad() && (main == null || !main.getClass().equals(MainLayoutNumpad.class))) {
 			return new MainLayoutNumpad(tt9);
 		} else if (settings.isMainLayoutSmall() && (main == null || !main.getClass().equals(MainLayoutSmall.class))) {
 			return new MainLayoutSmall(tt9);
@@ -38,20 +39,13 @@ public class StaticMainView {
 
 
 	public boolean create() {
-		SettingsStore settings = tt9.getSettings();
-
-		if (darkTheme != settings.getDarkTheme()) {
-			darkTheme = settings.getDarkTheme();
-			main = null;
-		}
-
-		final BaseMainLayout newMain = getViewInstance(settings);
+		final BaseMainLayout newMain = getViewInstance(tt9.getSettings());
 		if (newMain == null) {
 			return false;
 		}
 
 		main = newMain;
-		main.render();
+
 		return true;
 	}
 
@@ -85,13 +79,25 @@ public class StaticMainView {
 		main.render();
 	}
 
+	public void renderClickFn(int keyCode) {
+		if (main != null) {
+			main.renderClickFn(keyCode);
+		}
+	}
+
+	public void renderClickNumber(int number) {
+		if (main != null) {
+			main.renderClickNumber(number);
+		}
+	}
+
 	public void renderDynamicKeys() {
 		if (main == null) {
 			Logger.e(LOG_TAG, "Cannot render dynamic keys for a null MainView.");
 			return;
 		}
 
-		main.renderDynamicKeys();
+		main.renderKeys(true);
 	}
 
 	public void showCommandPalette() {
@@ -110,6 +116,10 @@ public class StaticMainView {
 		if (main != null) {
 			main.showTextEditingPalette();
 		}
+	}
+
+	public boolean isBackgroundBlendingEnabled() {
+		return main != null && main.shouldEnableBackgroundBlending();
 	}
 
 	public void showDeveloperCommands() {

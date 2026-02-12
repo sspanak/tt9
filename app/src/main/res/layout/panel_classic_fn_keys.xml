@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/TTheme.Classic.FnRow"
+	android:id="@+id/classic_row_function_keys">
+
+	<RelativeLayout style="@style/TTheme.Classic.Key.Overlay.Wrapper">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeySettingsClassic
+			android:id="@+id/soft_key_command_palette"
+			style="@style/TTheme.Numpad.Key.Large" />
+		<include layout="@layout/key_overlay_side_chars" />
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Classic.Key.Overlay.Wrapper.HalfWidth">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_left_arrow"
+			android:text="@string/key_dpad_left" />
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Classic.Key.Overlay.Wrapper">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyOkClassic
+			style="@style/TTheme.Numpad.Key.OK"
+			android:id="@+id/soft_key_numpad_ok" />
+		<include layout="@layout/key_overlay_side_chars" />
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Classic.Key.Overlay.Wrapper.HalfWidth">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_right_arrow"
+			android:text="@string/key_dpad_right" />
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Classic.Key.Overlay.Wrapper">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyBackspace
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_numpad_backspace" />
+	</RelativeLayout>
+</LinearLayout>

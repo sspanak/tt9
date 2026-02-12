@@ -4,21 +4,34 @@ import android.content.Context;
 import android.os.LocaleList;
 import android.provider.Settings;
 import android.view.Window;
-import android.view.WindowInsetsController;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import java.util.Locale;
+
+import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 
 public class SystemSettings {
 	private static InputMethodManager inputManager;
 	private static String packageName;
 
-	public static boolean isTT9Enabled(Context context) {
+
+	public static boolean isNightModeOn(@NonNull Context context) {
+		return context.getString(R.string.system_night_mode).equals("y");
+	}
+
+
+	public static boolean isTT9Enabled(@Nullable Context context) {
+		if (context == null) {
+			return false;
+		}
+
 		inputManager = inputManager == null ? (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE) : inputManager;
 		packageName = packageName == null ? context.getPackageName() : packageName;
 
@@ -30,7 +43,7 @@ public class SystemSettings {
 		return false;
 	}
 
-	public static boolean isTT9Selected(Context context) {
+	public static boolean isTT9Selected(@NonNull Context context) {
 		String defaultIME = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD);
 		inputManager = inputManager == null ? (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE) : inputManager;
 		packageName = packageName == null ? context.getPackageName() : packageName;
@@ -45,7 +58,7 @@ public class SystemSettings {
 
 	@NonNull
 	public static String getLocale() {
-		Locale locale = DeviceInfo.AT_LEAST_ANDROID_7 ? LocaleList.getDefault().get(0) : Locale.getDefault();
+		Locale locale = LocaleList.getDefault().get(0);
 		String country = locale.getCountry();
 		String language = locale.getLanguage();
 
@@ -70,24 +83,17 @@ public class SystemSettings {
 		return null;
 	}
 
-	/**
-	 * Even though the background changes automatically on Android 15, thanks to edge-to-edge,
-	 * the text/icon color remains the device default. This function allows us to change it.
-	 * {@code @see:} <a href="https://stackoverflow.com/a/77240330">the only working solution</a>.
-	 */
-	public static void setNavigationBarDarkTheme(@Nullable Window window, boolean dark) {
-		if (!DeviceInfo.AT_LEAST_ANDROID_11) {
+	public static void setNavigationBarBackground(@Nullable Window window, @NonNull SettingsStore settings, boolean enableBlending) {
+		if (!DeviceInfo.AT_LEAST_ANDROID_11 || window == null) {
 			return;
 		}
 
-		WindowInsetsController insetsController = window != null ? window.getInsetsController() : null;
-		if (insetsController == null) {
-			return;
-		}
+		window.setNavigationBarContrastEnforced(!enableBlending);
 
-		insetsController.setSystemBarsAppearance(
-			dark ? 0 : WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS,
-			WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
-		);
+		// See: <a href="https://stackoverflow.com/a/77240330">the only working solution</a>.
+		if (enableBlending) {
+			WindowInsetsControllerCompat insetsController = new WindowInsetsControllerCompat(window, window.getDecorView());
+			insetsController.setAppearanceLightNavigationBars(!settings.getDarkTheme());
+		}
 	}
 }

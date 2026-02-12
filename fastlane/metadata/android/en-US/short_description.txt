@@ -1,1 +1,1 @@
-A T9 keyboard for devices with a hardware keypad.
+A T9 keyboard inspired by the classic Nokia phones of the 2000s.

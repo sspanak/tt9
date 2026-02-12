@@ -4,48 +4,30 @@ import android.content.Context;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 
+import io.github.sspanak.tt9.commands.CmdAddWord;
+import io.github.sspanak.tt9.commands.CmdBackspace;
+import io.github.sspanak.tt9.commands.CmdCommandPalette;
+import io.github.sspanak.tt9.commands.CmdEditText;
+import io.github.sspanak.tt9.commands.CmdEditWord;
+import io.github.sspanak.tt9.commands.CmdFilterClear;
+import io.github.sspanak.tt9.commands.CmdFilterSuggestions;
+import io.github.sspanak.tt9.commands.CmdNextInputMode;
+import io.github.sspanak.tt9.commands.CmdNextLanguage;
+import io.github.sspanak.tt9.commands.CmdRedo;
+import io.github.sspanak.tt9.commands.CmdSelectKeyboard;
+import io.github.sspanak.tt9.commands.CmdShift;
+import io.github.sspanak.tt9.commands.CmdShowSettings;
+import io.github.sspanak.tt9.commands.CmdSpaceKorean;
+import io.github.sspanak.tt9.commands.CmdSuggestionNext;
+import io.github.sspanak.tt9.commands.CmdSuggestionPrevious;
+import io.github.sspanak.tt9.commands.CmdUndo;
+import io.github.sspanak.tt9.commands.CmdVoiceInput;
+import io.github.sspanak.tt9.commands.Command;
+import io.github.sspanak.tt9.commands.CommandCollection;
 import io.github.sspanak.tt9.util.Logger;
 
 public class SettingsHotkeys extends SettingsVirtualNumpad {
 	private static final String HOTKEY_VERSION = "hotkeys_v6";
-
-	public static final String FUNC_ADD_WORD = "key_add_word";
-	public static final String FUNC_BACKSPACE = "key_backspace";
-	public static final String FUNC_COMMAND_PALETTE = "key_command_palette";
-	public static final String FUNC_EDIT_TEXT = "key_edit_text";
-	public static final String FUNC_FILTER_CLEAR = "key_filter_clear";
-	public static final String FUNC_FILTER_SUGGESTIONS = "key_filter_suggestions";
-	public static final String FUNC_PREVIOUS_SUGGESTION = "key_previous_suggestion";
-	public static final String FUNC_NEXT_SUGGESTION = "key_next_suggestion";
-	public static final String FUNC_NEXT_INPUT_MODE = "key_next_input_mode";
-	public static final String FUNC_NEXT_LANGUAGE = "key_next_language";
-	public static final String FUNC_SELECT_KEYBOARD = "key_select_keyboard";
-	public static final String FUNC_SHIFT = "key_shift";
-	public static final String FUNC_SPACE_KOREAN = "key_space_korean";
-	public static final String FUNC_SHOW_SETTINGS = "key_show_settings";
-	public static final String FUNC_UNDO = "key_undo";
-	public static final String FUNC_REDO = "key_redo";
-	public static final String FUNC_VOICE_INPUT = "key_voice_input";
-
-	public static final String[] FUNCTIONS = {
-		FUNC_ADD_WORD,
-		FUNC_BACKSPACE,
-		FUNC_COMMAND_PALETTE,
-		FUNC_EDIT_TEXT,
-		FUNC_FILTER_CLEAR,
-		FUNC_FILTER_SUGGESTIONS,
-		FUNC_PREVIOUS_SUGGESTION,
-		FUNC_NEXT_SUGGESTION,
-		FUNC_NEXT_INPUT_MODE,
-		FUNC_NEXT_LANGUAGE,
-		FUNC_SELECT_KEYBOARD,
-		FUNC_SHIFT,
-		FUNC_SPACE_KOREAN,
-		FUNC_SHOW_SETTINGS,
-		FUNC_UNDO,
-		FUNC_REDO,
-		FUNC_VOICE_INPUT,
-	};
 
 
 	SettingsHotkeys(Context context) { super(context); }
@@ -66,56 +48,56 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 	 */
 	public void setDefaultKeys() {
 		// no default keys
-		String[] unassigned = { FUNC_ADD_WORD, FUNC_EDIT_TEXT, FUNC_SELECT_KEYBOARD, FUNC_SHOW_SETTINGS, FUNC_UNDO, FUNC_REDO, FUNC_VOICE_INPUT };
+		String[] unassigned = {CmdAddWord.ID, CmdEditText.ID, CmdSelectKeyboard.ID, CmdShowSettings.ID, CmdUndo.ID, CmdRedo.ID, CmdVoiceInput.ID};
 		for (String key : unassigned) {
-			prefsEditor.putString(key, String.valueOf(KeyEvent.KEYCODE_UNKNOWN));
+			getPrefsEditor().putString(key, String.valueOf(KeyEvent.KEYCODE_UNKNOWN));
 		}
 
 		// backspace
 		if (
 			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_CLEAR)
 			|| KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DEL)
-			|| isMainLayoutNumpad()
+			|| isMainLayoutLarge()
 		) {
-			prefsEditor.putString(FUNC_BACKSPACE, String.valueOf(KeyEvent.KEYCODE_UNKNOWN));
+			getPrefsEditor().putString(CmdBackspace.ID, String.valueOf(KeyEvent.KEYCODE_UNKNOWN));
 		} else {
-			prefsEditor.putString(FUNC_BACKSPACE, String.valueOf(KeyEvent.KEYCODE_BACK));
+			getPrefsEditor().putString(CmdBackspace.ID, String.valueOf(KeyEvent.KEYCODE_BACK));
 		}
 
 		// filter clear
-		prefsEditor.putString(
-			FUNC_FILTER_CLEAR,
+		getPrefsEditor().putString(
+			CmdFilterClear.ID,
 			String.valueOf(KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_DOWN) ? KeyEvent.KEYCODE_DPAD_DOWN : KeyEvent.KEYCODE_UNKNOWN)
 		);
 
 		// filter
-		prefsEditor.putString(
-			FUNC_FILTER_SUGGESTIONS,
+		getPrefsEditor().putString(
+			CmdFilterSuggestions.ID,
 			String.valueOf(KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_UP) ? KeyEvent.KEYCODE_DPAD_UP : KeyEvent.KEYCODE_UNKNOWN)
 		);
 
 		// previous suggestion
-		prefsEditor.putString(
-			FUNC_PREVIOUS_SUGGESTION,
+		getPrefsEditor().putString(
+			CmdSuggestionPrevious.ID,
 			String.valueOf(KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_LEFT) ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_UNKNOWN)
 		);
 
 		// next suggestion
-		prefsEditor.putString(
-			FUNC_NEXT_SUGGESTION,
+		getPrefsEditor().putString(
+			CmdSuggestionNext.ID,
 			String.valueOf(KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_RIGHT) ? KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_UNKNOWN)
 		);
 
-		prefsEditor.putString(FUNC_COMMAND_PALETTE, String.valueOf(-KeyEvent.KEYCODE_STAR)); // negative means "hold"
-		prefsEditor.putString(FUNC_NEXT_INPUT_MODE, String.valueOf(KeyEvent.KEYCODE_POUND));
-		prefsEditor.putString(FUNC_NEXT_LANGUAGE, String.valueOf(-KeyEvent.KEYCODE_POUND)); // negative means "hold"
-		prefsEditor.putString(FUNC_SHIFT, String.valueOf(KeyEvent.KEYCODE_STAR));
-		prefsEditor.putString(
-			FUNC_SPACE_KOREAN,
+		getPrefsEditor().putString(CmdCommandPalette.ID, String.valueOf(-KeyEvent.KEYCODE_STAR)); // negative means "hold"
+		getPrefsEditor().putString(CmdNextInputMode.ID, String.valueOf(KeyEvent.KEYCODE_POUND));
+		getPrefsEditor().putString(CmdNextLanguage.ID, String.valueOf(-KeyEvent.KEYCODE_POUND)); // negative means "hold"
+		getPrefsEditor().putString(CmdShift.ID, String.valueOf(KeyEvent.KEYCODE_STAR));
+		getPrefsEditor().putString(
+			CmdSpaceKorean.ID,
 			String.valueOf(KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_SPACE) ? KeyEvent.KEYCODE_SPACE : KeyEvent.KEYCODE_STAR)
 		);
 
-		prefsEditor.putBoolean(HOTKEY_VERSION, true).apply();
+		getPrefsEditor().putBoolean(HOTKEY_VERSION, true).apply();
 	}
 
 
@@ -127,7 +109,7 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 	public void setFunctionKey(String functionName, int keyCode) {
 		if (isValidFunction(functionName)) {
 			Logger.d(LOG_TAG, "Setting hotkey for function: '" + functionName + "' to " + keyCode);
-			prefsEditor.putString(functionName, String.valueOf(keyCode)).apply();
+			getPrefsEditor().putString(functionName, String.valueOf(keyCode)).apply();
 		} else {
 			Logger.w(LOG_TAG,"Not setting a hotkey for invalid function: '" + functionName + "'");
 		}
@@ -135,55 +117,58 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 
 
 	public int getKeyAddWord() {
-		return getFunctionKey(FUNC_ADD_WORD);
+		return getFunctionKey(CmdAddWord.ID);
 	}
 	public int getKeyBackspace() {
-		return getFunctionKey(FUNC_BACKSPACE);
+		return getFunctionKey(CmdBackspace.ID);
 	}
 	public int getKeyCommandPalette() {
-		return getFunctionKey(FUNC_COMMAND_PALETTE);
+		return getFunctionKey(CmdCommandPalette.ID);
 	}
 	public int getKeyEditText() {
-		return getFunctionKey(FUNC_EDIT_TEXT);
+		return getFunctionKey(CmdEditText.ID);
+	}
+	public int getKeyEditWord() {
+		return getFunctionKey(CmdEditWord.ID);
 	}
 	public int getKeyFilterClear() {
-		return getFunctionKey(FUNC_FILTER_CLEAR);
+		return getFunctionKey(CmdFilterClear.ID);
 	}
 	public int getKeyFilterSuggestions() {
-		return getFunctionKey(FUNC_FILTER_SUGGESTIONS);
+		return getFunctionKey(CmdFilterSuggestions.ID);
 	}
 	public int getKeyPreviousSuggestion() {
-		return getFunctionKey(FUNC_PREVIOUS_SUGGESTION);
+		return getFunctionKey(CmdSuggestionPrevious.ID);
 	}
 	public int getKeyNextSuggestion() {
-		return getFunctionKey(FUNC_NEXT_SUGGESTION);
+		return getFunctionKey(CmdSuggestionNext.ID);
 	}
 	public int getKeyNextInputMode() {
-		return getFunctionKey(FUNC_NEXT_INPUT_MODE);
+		return getFunctionKey(CmdNextInputMode.ID);
 	}
 	public int getKeyNextLanguage() {
-		return getFunctionKey(FUNC_NEXT_LANGUAGE);
+		return getFunctionKey(CmdNextLanguage.ID);
 	}
 	public int getKeySelectKeyboard() {
-		return getFunctionKey(FUNC_SELECT_KEYBOARD);
+		return getFunctionKey(CmdSelectKeyboard.ID);
 	}
 	public int getKeyShift() {
-		return getFunctionKey(FUNC_SHIFT);
+		return getFunctionKey(CmdShift.ID);
 	}
 	public int getKeySpaceKorean() {
-		return getFunctionKey(FUNC_SPACE_KOREAN);
+		return getFunctionKey(CmdSpaceKorean.ID);
 	}
 	public int getKeyShowSettings() {
-		return getFunctionKey(FUNC_SHOW_SETTINGS);
+		return getFunctionKey(CmdShowSettings.ID);
 	}
 	public int getKeyUndo() {
-		return getFunctionKey(FUNC_UNDO);
+		return getFunctionKey(CmdUndo.ID);
 	}
 	public int getKeyRedo() {
-		return getFunctionKey(FUNC_REDO);
+		return getFunctionKey(CmdRedo.ID);
 	}
 	public int getKeyVoiceInput() {
-		return getFunctionKey(FUNC_VOICE_INPUT);
+		return getFunctionKey(CmdVoiceInput.ID);
 	}
 
 
@@ -192,9 +177,9 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 			return null;
 		}
 
-		for (String key : FUNCTIONS) {
-			if (keyCode == getFunctionKey(key)) {
-				return key;
+		for (Command cmd : CommandCollection.getHotkeyCommands()) {
+			if (keyCode == getFunctionKey(cmd.getId())) {
+				return cmd.getId();
 			}
 		}
 
@@ -203,8 +188,8 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 
 
 	private boolean isValidFunction(String functionName) {
-		for (String validName : FUNCTIONS) {
-			if (validName.equals(functionName)) {
+		for (Command cmd : CommandCollection.getHotkeyCommands()) {
+			if (cmd.getId().equals(functionName)) {
 				return true;
 			}
 		}

@@ -6,21 +6,28 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
+import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-public class SoftKeyNumber2to9 extends SoftKeyNumber {
+public class SoftKeyNumber2to9 extends SoftKeyNumberSwipeable {
 	public SoftKeyNumber2to9(Context context) { super(context); }
 	public SoftKeyNumber2to9(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyNumber2to9(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+
+
+	@Override
+	public boolean isHoldEnabled() {
+		return tt9 != null && tt9.getSettings().getHoldToType() && !tt9.isInputModeNumeric();
+	}
 
 
 	@Override
@@ -29,11 +36,26 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 			return super.getHoldText();
 		}
 
-		if (tt9 == null || tt9.isInputModeNumeric()) {
+		if (!isHoldEnabled() || getHoldCommand() != null) {
 			return null;
 		}
 
 		return getLocalizedNumber(getNumber());
+	}
+
+
+	@Override
+	protected int getCornerIcon(int position) {
+		if (position != ICON_POSITION_TOP_RIGHT || isFnPanelOn()) {
+			return super.getCornerIcon(position);
+		}
+
+		if (!isHoldEnabled()) {
+			return -1;
+		}
+
+		final Command holdCommand = getHoldCommand();
+		return holdCommand != null ? holdCommand.getIcon() : super.getCornerIcon(position);
 	}
 
 
@@ -70,18 +92,23 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 		boolean isArabic = LanguageKind.isArabic(language) || LanguageKind.isFarsi(language);
 		boolean isGreek = LanguageKind.isGreek(language);
 		boolean isLatinBased = LanguageKind.isLatinBased(language);
-		boolean isUppercase = tt9.getTextCase() == InputMode.CASE_UPPER;
 		int maxChars = LanguageKind.isIndic(language) ? SettingsStore.SOFT_KEY_TITLE_MAX_CHARS_INDIC : SettingsStore.SOFT_KEY_TITLE_MAX_CHARS;
 		maxChars = isArabic ? maxChars * 2 : maxChars; // Arabic chars are split by ZWNJ, so we must take it into account
 
-		String displayChars = getDefaultCharList(chars, language.getLocale(), isArabic, isGreek, isLatinBased, isUppercase);
+		String displayChars = getDefaultCharList(chars, isArabic, isGreek, isLatinBased);
 
 		if (displayChars.length() > maxChars || (isArabic && (number == 2 || number == 4))) {
 			String abbreviationSign = isArabic ? "…" : "–"; // prevent vertical alignment issues on some devices
-			displayChars = abbreviateCharList(displayChars, abbreviationSign, language.getLocale(), isUppercase);
+			displayChars = abbreviateCharList(displayChars, abbreviationSign);
 		}
 
-		return displayChars.isEmpty() ? "--" : displayChars;
+		if (displayChars.isEmpty()) {
+			return "--";
+		} else if (tt9.getTextCase() == InputMode.CASE_UPPER) {
+			return new Text(language, displayChars).toUpperCase();
+		} else {
+			return displayChars;
+		}
 	}
 
 
@@ -89,7 +116,7 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 	 * Joins the key characters into a single string, skipping accented characters
 	 * when necessary
 	 */
-	private String getDefaultCharList(ArrayList<String> chars, Locale locale, boolean isArabic, boolean isGreek, boolean isLatinBased, boolean isUppercase) {
+	private String getDefaultCharList(ArrayList<String> chars, boolean isArabic, boolean isGreek, boolean isLatinBased) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < chars.size(); i++) {
 			String currentLetter = chars.get(i);
@@ -98,9 +125,7 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 				continue;
 			}
 
-			sb.append(
-				isUppercase ? currentLetter.toUpperCase(locale) : currentLetter
-			);
+			sb.append(currentLetter);
 
 			if (isArabic && i < chars.size() - 1) {
 				sb.append(Characters.ZWNJ);
@@ -117,15 +142,14 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 	 * @see <a href="https://github.com/sspanak/tt9/issues/628">Issue #628</a>
 	 * Additionally, for combining characters, we want to add a dummy base, to ensure they look properly.
 	 */
-	private String abbreviateCharList(String chars, String abbreviationSign, Locale locale, boolean isUppercase) {
+	private String abbreviateCharList(String chars, String abbreviationSign) {
 		String firstLetter = chars.substring(0, 1);
 		firstLetter = TextTools.isCombining(firstLetter) ? Characters.COMBINING_BASE + firstLetter : firstLetter;
 
 		String lastLetter = chars.substring(chars.length() - 1);
 		lastLetter = TextTools.isCombining(lastLetter) ? Characters.COMBINING_BASE + lastLetter : lastLetter;
 
-		String list = firstLetter + abbreviationSign + lastLetter;
-		return isUppercase ? list.toUpperCase(locale) : list;
+		return firstLetter + abbreviationSign + lastLetter;
 	}
 
 

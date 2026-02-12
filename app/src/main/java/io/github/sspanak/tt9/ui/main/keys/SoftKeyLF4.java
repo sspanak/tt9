@@ -4,7 +4,13 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
 
+import androidx.annotation.NonNull;
+
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdNextInputMode;
+import io.github.sspanak.tt9.commands.CmdNextKeyboard;
+import io.github.sspanak.tt9.commands.CmdNextLanguage;
+import io.github.sspanak.tt9.commands.CmdSelectKeyboard;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 
@@ -22,8 +28,24 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 		isSwipeable = true;
 	}
 
+	@Override
+	protected void initColors(@NonNull SettingsStore settings) {
+		backgroundColor = settings.getKeyLf4BackgroundColor();
+		borderColor = settings.getKeyLf4BorderColor();
+		cornerElementColor = settings.getKeyLf4CornerElementColor();
+		rippleColor = settings.getKeyLf4RippleColor();
+		centralIconColor = textColor = settings.getKeyLf4TextColor();
+	}
+
 	private boolean areThereManyLanguages() {
-		return tt9 != null && tt9.getSettings().getEnabledLanguageIds().size() > 1;
+		return tt9 != null && tt9.getSettings().areEnabledLanguagesMoreThanN(1);
+	}
+
+	private boolean isKeyHidden() {
+		return
+			tt9 != null
+			&& tt9.getSettings().isMainLayoutClassic()
+			&& tt9.isFnPanelVisible();
 	}
 
 	private boolean isKeySmall() {
@@ -33,28 +55,24 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	@Override
 	protected void handleHold() {
 		preventRepeat();
-		if (validateTT9Handler() && tt9.onKeyNextLanguage(false)) {
+		if (new CmdNextLanguage().run(tt9)) {
 			vibrate(Vibration.getHoldVibration());
 		}
 	}
 
 	@Override
 	protected boolean handleRelease() {
-		return notSwiped() && validateTT9Handler() && tt9.onKeyNextInputMode(false);
+		return notSwiped() && new CmdNextInputMode().run(tt9);
 	}
 
 	@Override
 	protected void handleEndSwipeX(float position, float delta) {
-		if (validateTT9Handler()) {
-			tt9.nextKeyboard();
-		}
+		new CmdNextKeyboard().run(tt9);
 	}
 
 	@Override
 	protected void handleEndSwipeY(float position, float delta) {
-		if (validateTT9Handler()) {
-			tt9.selectKeyboard();
-		}
+		new CmdSelectKeyboard().run(tt9);
 	}
 
 	@Override
@@ -68,13 +86,16 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	}
 
 	@Override
-	protected int getHoldIcon() {
-		return areThereManyLanguages() ? R.drawable.ic_fn_next_language : -1;
+	protected int getCornerIcon(int position) {
+		return position == ICON_POSITION_TOP_RIGHT && areThereManyLanguages() ? new CmdNextLanguage().getIcon() : -1;
 	}
 
 	@Override
-	protected float getHoldElementScale() {
-		return super.getHoldElementScale() * 0.75f;
+	protected float getCornerElementScale(int position) {
+		if (position == ICON_POSITION_TOP_RIGHT) {
+			return super.getCornerElementScale(ICON_POSITION_TOP_RIGHT) * 0.75f;
+		}
+		return super.getCornerElementScale(position);
 	}
 
 	@Override
@@ -83,16 +104,15 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	}
 
 	@Override
-	public void setHeight(int height) {
-		if (tt9 != null && tt9.getSettings().isMainLayoutNumpad() && tt9.getSettings().isNumpadShapeV()) {
-			height = Math.round(height * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_OUTER);
+	public void render() {
+		getOverlayWrapper();
+		if (isKeyHidden()) {
+			overlay.setVisibility(GONE);
+			return;
+		} else {
+			overlay.setVisibility(VISIBLE);
 		}
 
-		super.setHeight(height);
-	}
-
-	@Override
-	public void render() {
 		if (tt9 != null && tt9.isInputModeNumeric()) {
 			resetIconCache();
 		}
@@ -104,15 +124,15 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 			setPaddingRelative(0, 20, 0, 0);
 			setGravity(Gravity.CENTER);
 		} else {
+			setPadding(0, 0, 0, 0);
 			setGravity(Gravity.CENTER);
 		}
-
 
 		setEnabled(
 			tt9 != null
 			&& !tt9.isVoiceInputActive()
-			&& !tt9.isNumericModeStrict()
-			&& !tt9.isInputModePhone()
+			&& !tt9.isInputTypeNumeric()
+			&& !tt9.isInputTypePhone()
 			&& !tt9.isFnPanelVisible()
 		);
 

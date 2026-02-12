@@ -10,6 +10,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 class MainLayoutTray extends MainLayoutExtraPanel {
 	protected int height;
@@ -42,7 +43,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 	}
 
 
-	private int getStatusBarHeight(@NonNull Resources resources, @NonNull SettingsStore settings) {
+	protected int getStatusBarHeight(@NonNull Resources resources, @NonNull SettingsStore settings) {
 		float textSize = resources.getDimension(R.dimen.status_bar_text_size);
 		float padding = textSize * 0.45f;
 		padding = padding < 1 ? 1 : padding;
@@ -65,7 +66,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		togglePanel(R.id.main_command_keys, true);
 		togglePanel(R.id.developer_command_keys, false);
 		getHeight(true);
-		renderKeys();
+		renderKeys(false);
 	}
 
 
@@ -77,7 +78,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		isTextEditingPaletteShown = false;
 		isDeveloperCommandsShown = false;
 		getHeight(true);
-		renderKeys();
+		renderKeys(false);
 	}
 
 
@@ -100,6 +101,17 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		isTextEditingPaletteShown = false;
 		isDeveloperCommandsShown = true;
 		togglePanel(R.id.main_command_keys, false);
+		togglePanel(R.id.developer_command_keys, true);
+		getHeight(true);
+		renderKeys(false);
+	}
+
+	@Override
+	void showDeveloperCommands() {
+		super.showDeveloperCommands();
+		isCommandPaletteShown = false;
+		isTextEditingPaletteShown = false;
+		isDeveloperCommandsShown = true;
 		togglePanel(R.id.developer_command_keys, true);
 		getHeight(true);
 		renderKeys();
@@ -135,12 +147,14 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 
 	@Override
 	void render() {
+		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
+
 		getView();
 		setSoftKeysVisibility();
-		preventEdgeToEdge();
-		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
+		setPadding();
+		setWidth(tt9.getSettings().getWidthPercent(isPortrait), tt9.getSettings().getAlignment());
 		setBackgroundBlending();
 		enableClickHandlers();
-		renderKeys();
+		renderKeys(false);
 	}
 }

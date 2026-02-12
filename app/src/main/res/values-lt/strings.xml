@@ -15,6 +15,8 @@
 	<string name="add_word_success">Žodis \"%1$s\" pridėtas.</string>
 	<string name="add_word_title">Pridėti žodį</string>
 
+	<string name="edit_word_no_selection">Perkelkite žymeklį į žodžio vidų, kad galėtumėte jį redaguoti.</string>
+	<string name="commands_clipboard_is_empty">Iškarpinė tuščia.</string>
 	<string name="commands_select_command">Pasirinkti komandą</string>
 	<string name="pref_category_about">Apie programėlę</string>
 	<string name="pref_category_abc_mode">ABC metodas</string>
@@ -25,6 +27,7 @@
 	<string name="pref_category_keypad_onscreen">Ekrano klavišai</string>
 	<string name="pref_category_predictive_mode">Nuspėjamumas</string>
 	<string name="pref_category_function_keys">Spartieji mygtukai</string>
+	<string name="pref_category_key_appearance">Klavišai</string>
 	<string name="pref_category_keypad">Mygtukai</string>
 	<string name="pref_category_setup">Pradiniai nustatymai</string>
 
@@ -35,10 +38,12 @@
 	<string name="pref_abc_auto_accept_fast">Greitas</string>
 	<string name="pref_abc_auto_accept_normal">Vidutinis</string>
 	<string name="pref_abc_auto_accept_slow">Lėtas</string>
-	<string name="pref_allow_composing_text_summary">Rodyti žodžius teksto laukuose rašant. Išjungti, kai programa nutraukia rašymą.</string>
+	<string name="pref_allow_composing_text">Rodyti rašomą tekstą</string>
+	<string name="pref_allow_composing_text_summary">Rodyti žodžius teksto laukuose rašymo metu. Išjungus, žodžiai rodomi tik paspaudus OK arba tarpo klavišą.</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternatyvus slinkimo būdas per pasiūlytus žodžius</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Įjunkite, jei kartais nematote viso žodžių sąrašo arba kyla problemų juos pasirenkant.</string>
-	<string name="pref_arrow_keys_visible_summary">Rodyti slinkties klavišus abiejose žodžių pasiūlymų sąrašo pusėse.</string>
+	<string name="pref_arrows_left_right_summary">Rodyti kairės/dešinės rodyklių klavišus pasiūlymams slinkti arba horizontaliai perkelti teksto žymeklį.</string>
+	<string name="pref_arrows_up_down_summary">Leisti perbraukti OK klavišą aukštyn/žemyn, kad būtų filtruojami pasiūlymai arba vertikaliai perkeliamas teksto žymeklis.</string>
 	<string name="pref_auto_space">Automatinis tarpas</string>
 	<string name="pref_auto_space_summary">Po žodžių ir skyrybos ženklų automatiškai pridėti tarpą.</string>
 	<string name="pref_auto_text_case">Automatinis didžiųjų raidžių rašymas</string>
@@ -48,18 +53,22 @@
 	<string name="pref_backspace_recomposing">Žodžių redagavimas</string>
 	<string name="pref_backspace_recomposing_summary">Paspauskite Backspace žodžio pabaigoje, kad redaguotumėte. (Negalima kai kuriose programose ir su daugiakalbiu tekstu)</string>
 	<string name="pref_choose_languages">Kalbos</string>
-	<string name="pref_dark_theme">Tamsi išvaizda</string>
-	<string name="pref_dark_theme_yes">Taip</string>
-	<string name="pref_dark_theme_no">Ne</string>
+	<string name="pref_color_scheme">Tema</string>
 	<string name="pref_dark_theme_auto">Automatiškai</string>
-	<string name="pref_drag_resize_summary">Įgalinti klaviatūros dydžio keitimą ir perkėlimą tempiant būsenos juostą arba nustatymų klavišą.</string>
+	<string name="pref_drag_resize_summary">Vilkti būsenos juostą arba nustatymų klavišą, kad būtų galima sumažinti klaviatūrą arba pakoreguoti jos padėtį ekrane.</string>
+	<string name="pref_double_tap_resize_summary">Du kartus bakstelėti būsenos juostą, kad būtų padidinta arba sumažinta klaviatūra, kai nerodoma pasiūlymų.</string>
 	<string name="pref_double_zero_char">Įterpiamas simbolis, kai du kartus paspaudžiamas \"0\" mygtukas</string>
+	<string name="pref_hold_to_type_summary">Leisti įvesti skaičius arba aktyvuoti programos funkcijas laikant nuspaustus skaitmeninius klavišus. Išjungti, jei įrenginys klaidingai aptinka trumpus paspaudimus kaip laikymą.</string>
+	<string name="pref_key_shadows">Šešėliai po klavišais</string>
+	<string name="pref_keyboard_preview">Peržiūra</string>
 	<string name="pref_layout">Išdėstymo tipas</string>
-	<string name="pref_layout_numpad">Skaičių klaviatūra</string>
+	<string name="pref_layout_numpad">Skaičių klaviatūra (moderni)</string>
 	<string name="pref_layout_small">Funkcijos klavišai</string>
 	<string name="pref_layout_stealth">Nematomas režimas</string>
 	<string name="pref_layout_tray">Tik žodžių sąrašas</string>
 	<string name="pref_haptic_feedback_summary">Vibruoti paspaudus virtualų klavišą. (Neįmanoma visuose įrenginiuose)</string>
+	<string name="pref_hardware_key_visual_feedback">Rodyti klavišų paspaudimus</string>
+	<string name="pref_hardware_key_visual_feedback_summary">Paspaudus fizinį klavišą, atitinkamas ekrano klavišas bus paryškintas.</string>
 	<string name="pref_help">Pagalba</string>
 	<string name="pref_suggestion_font_size">Siūlymų šrifto dydis</string>
 	<string name="pref_suggestion_smooth_scroll">Sklandus žodžių sąrašo slinkimas</string>
@@ -68,12 +77,16 @@
 
 	<string name="pref_numpad_shape_long_space">Ilga tarpo juosta</string>
 	<string name="pref_numpad_width">Plotis</string>
+	<string name="pref_one_key_emoji_simple">Trumpas sąrašas</string>
 	<string name="pref_predict_word_pairs">Išmokti žodžių poras</string>
 	<string name="pref_predict_word_pairs_summary">Įsiminti dažnai naudojamas frazes, kad pagerintumėte žodžių pasiūlymus.</string>
+	<string name="pref_predictive_auto_accept">Automatinis žodžių pasirinkimas</string>
 	<string name="pref_privacy_policy">Privatumo politika</string>
 	<string name="pref_quick_switch_language_summary">Paspaudus kalbos klavišą, automatiškai perjungiama į kitą kalbą, užuot rodžius iškylantį langą su visomis įjungtomis kalbomis.</string>
+	<string name="pref_show_suggestions_abc_summary">Paspaudus klavišą, rodyti galimas raides pasiūlymų juostoje.</string>
 	<string name="pref_status_icon">Būsenos piktograma</string>
 	<string name="pref_status_icon_summary">Rodyti piktogramą, kai aktyvus klaviatūros įvedimas</string>
+	<string name="pref_color_scheme_device_light">Sisteminė šviesi</string>
 	<string name="dictionary_cancel_load">Atšaukti įkėlimą</string>
 	<string name="dictionary_load_bad_char">Įkelti \"%2$s\" kalbos nepavyko. Klaida %1$d eilutėje, netinkamas žodis.</string>
 	<string name="dictionary_load_error">Klaida įkeliant \"%1$s\" kalbos žodyną (%2$s).</string>
@@ -90,17 +103,18 @@
 	<string name="dictionary_truncated">Žodynas sėkmingai ištrintas.</string>
 	<string name="dictionary_truncating">Ištrinama…</string>
 
-	<string name="function_add_word_not_available">Žodžių pridėjimas šia kalba nėra galimas.</string>
+	<string name="add_word_not_available_in_language">Žodžių pridėjimas šia kalba nėra galimas.</string>
 	<string name="function_backspace">Trinti</string>
 	<string name="function_show_command_palette">Rodyti komandų sąrašą</string>
 	<string name="function_filter_clear">Panaikinti filtrą</string>
 	<string name="function_edit_text">Iškarpinės įrankiai</string>
+	<string name="function_edit_word">Redaguoti žodį</string>
 	<string name="function_filter_suggestions">Filtruoti pasiūlymus</string>
 	<string name="function_filter_suggestions_not_available">Filtravimas šia kalba nėra galimas.</string>
 	<string name="function_previous_suggestion">Ankstesnis pasiūlytas žodis</string>
 	<string name="function_next_suggestion">Sekantis pasiūlytas žodis</string>
 	<string name="function_next_language">Rašymo kalba</string>
-	<string name="function_next_mode">Rašymo būdas</string>
+	<string name="function_next_mode">Kitas įvedimo režimas</string>
 	<string name="function_reassign">Perpriskirti</string>
 	<string name="function_add_word">Pridėti žodį</string>
 	<string name="function_show_settings">Rodyti nustatymus</string>
@@ -117,7 +131,7 @@
 	<string name="setup_click_here_to_enable">Spauskite čia norėdami įjungti „TT9“ per „Android“ nustatymus.</string>
 
 	<string name="setup_spell_checker">Sistemos rašybos tikrintuvas</string>
-	<string name="setup_spell_checker_on">Sistemos rašybos tikrintuvas gali trukdyti pridėti žodžius. Spustelėkite čia, kad išjungtumėte.</string>
+	<string name="setup_spell_checker_on">Sistemos rašybos tikrintuvas pabraukia tekstą raudonai ir gali neleisti pridėti naujų žodžių. Palieskite, kad išjungtumėte.</string>
 	<string name="setup_spell_checker_off">Išjungtas</string>
 	<string name="key_key">Klavišas</string>
 	<string name="key_hold_key">(laikyti nuspaudus)</string>
@@ -130,10 +144,12 @@
 
 	<string name="char_newline">Nauja eilutė</string>
 	<string name="char_space">Tarpas</string>
+	<string name="pref_category_colors">Spalvos</string>
 	<string name="pref_category_custom_words">Pridėtos žodžiai</string>
 	<string name="pref_category_delete_words">Trinti pridėtus žodžius</string>
 	<string name="pref_hack_always_on_top">Visada viršuje</string>
 	<string name="pref_hack_always_on_top_summary">Neleisti kitiems programoms uždengti %1$s arba atstumti jį nuo ekrano.</string>
+	<string name="pref_hack_auto_disable_composing_summary">Automatiškai išjungti teksto komponavimą, kai programa sukelia rašymo problemų.</string>
 	<string name="pref_hack_key_pad_debounce_time">Apsauga nuo atsitiktinio rakto pasikartojimo</string>
 	<string name="pref_hack_key_pad_debounce_off">Išjungta</string>
 	<string name="dictionary_loading_please_wait">Prašome palaukti, kol žodynas bus įkeltas.</string>
@@ -153,7 +169,7 @@
 	<string name="dictionary_import_error_file_too_long">Žodžių skaičius viršija leistiną maksimumą %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Nenumatytas žodžio formatas: „%1$s“ eilutėje %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Pridėtų žodžių saugykla yra pilna. Daugiau žodžių importuoti negalite.</string>
-	<string name="delete_words_delete">Ištrinti</string>
+	<string name="delete">Ištrinti</string>
 	<string name="delete_words_link_summary">Raskite ir ištrinkite neteisingai parašytus arba nereikalingus žodžius.</string>
 	<string name="search_results">Paieškos rezultatai</string>
 	<string name="search_results_void">Jokių rezultatų.</string>
@@ -165,7 +181,7 @@
 	<string name="donate_title">Paaukoti</string>
 	<string name="donate_summary">Jei jums patinka %1$s, galite pavaišinti mane alumi.</string>
 	<string name="pref_category_layout">Klaviatūros išdėstymas ekrane</string>
-	<string name="pref_numpad_key_font_size">Klavišų šrifto dydis</string>
+	<string name="pref_numpad_key_font_size">Šrifto dydis</string>
 	<string name="pref_numpad_key_height">Aukštis</string>
 	<string name="pref_numpad_fn_key_width">Raidžių klavišų plotis</string>
 	<string name="pref_font_size">Nustatymų šrifto dydis</string>
@@ -187,9 +203,9 @@
 	<string name="voice_input_error_no_network">Nėra interneto ryšio</string>
 	<string name="voice_input_error_not_available">Balso įvestis nėra prieinama</string>
 	<string name="voice_input_stopping">Išjungiamas mikrofonas…</string>
-	<string name="pref_hack_precalculate_navbar_height_summary">Venkite tuščios vietos po klavišais. Išjunkite „Samsung“ įrenginiuose, kad išvengtumėte persidengimo su navigacijos juosta.</string>
 	<string name="pref_haptic_feedback">Vibracija</string>
 	<string name="pref_numpad_alignment">Lygiavimas</string>
+	<string name="tutorial_classic_voice_input">Braukite dešinėn, kad įjungtumėte balso įvestį.</string>
 	<string name="virtual_numpad_alignment_center">Centre</string>
 	<string name="virtual_numpad_alignment_left">Kairėje</string>
 	<string name="virtual_numpad_alignment_right">Dešinėje</string>
@@ -203,6 +219,7 @@
 	<string name="language_selection_language_loaded">(įkelta)</string>
 	<string name="language_selection_title">Įjungti kalbas</string>
 	<string name="language_selection_words">žodžių</string>
+	<string name="pref_auto_trim_trailing_space_summary">Automatiškai pašalinti papildomus tarpus, kai žymeklis perkeliamas atgal.</string>
 	<string name="pref_backspace_acceleration">Greitas ištrynimas</string>
 	<string name="pref_backspace_acceleration_summary">Ištrinti visus žodžius laikant arba perbraukiant Backspace. (Nepalaikoma kai kuriose programėlėse)</string>
 	<string name="pref_category_punctuation_order">Skyrybos ženklų tvarka</string>
@@ -226,17 +243,16 @@
 	<string name="pref_numpad_shape">Forma</string>
 	<string name="pref_numpad_shape_square">Kvadratas</string>
 	<string name="pref_numpad_shape_v">V formos</string>
-	<string name="pref_arrow_keys_visible">Rodyklių klavišai</string>
+	<string name="pref_arrows_left_right">Rodyklės kairėn/dešinėn</string>
 	<string name="donate_hold_to_open">Paspauskite ir laikykite, kad atidarytumėte naršyklėje.</string>
 	<string name="fn_key_order_error_duplicate_key">Pasikartojantys klavišai neleidžiami.</string>
 	<string name="fn_key_order_legend">Legenda:</string>
 	<string name="fn_key_order_preview_tip">Patarimas: Perkėlus klavišus 1 stulpelyje, palieskite 2 stulpelį, kad iškart pamatytumėte rezultatą (arba atvirkščiai).</string>
 	<string name="function_already_assigned">Klavišas „%1$s“ jau priskirtas funkcijai „%2$s“. Ar norite jį priskirti „%3$s“?</string>
 	<string name="function_assign_instructions">* Paspauskite arba palaikykite klavišą, kad priskirtumėte jį funkcijai „%1$s“.\n\n* Paspauskite 0, kad atšauktumėte.\n\n* Paspauskite 2, kad išjungtumėte funkciją.</string>
-	<string name="pref_allow_composing_text">Rodyti rašomą tekstą</string>
-	<string name="pref_drag_resize">Keisti dydį tempiant</string>
+	<string name="pref_bottom_padding_portrait">Tarpas apačioje (portretas)</string>
+	<string name="pref_drag_resize">Vilkti norint pakeisti dydį</string>
 	<string name="function_undo">Atšaukti (Undo)</string>
-	<string name="pref_hack_precalculate_navbar_height">Perskaičiuoti apatinį paraštę</string>
 	<string name="fn_key_order_column_2">Stulpelis 2</string>
 	<string name="fn_key_order_error_wrong_key_count">Stulpelyje gali būti daugiausiai 4 klavišai.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Leidžiami tik klavišų kodai nuo 1 iki 8.</string>
@@ -245,4 +261,21 @@
 	<string name="pref_quick_switch_language">Greitas kalbos keitimas</string>
 	<string name="punctuation_order_initial">Pradiniai simboliai</string>
 	<string name="punctuation_order_group">Grupuoti simboliai (pasirinktinai)</string>
+	<string name="pref_one_key_emoji">Jaustukai 1 klaviše</string>
+	<string name="pref_one_key_emoji_none">Be jaustukų</string>
+	<string name="pref_hold_to_type">Laikyti skaitmeninius klavišus</string>
+	<string name="pref_color_scheme_device_dark">Sisteminė tamsi</string>
+	<string name="click_here_for_preview">Spustelėkite čia, kad peržiūrėtumėte</string>
+	<string name="pref_double_tap_resize">Dvigubas bakstelėjimas dydžiui keisti</string>
+	<string name="pref_layout_classic">Skaičių klaviatūra (retro)</string>
+	<string name="pref_arrows_up_down">Rodyklės aukštyn/žemyn</string>
+	<string name="tutorial_close">Supratau!</string>
+	<string name="tutorial_classic_title">Pirmieji žingsniai</string>
+	<string name="tutorial_classic_OK_swipe">Kai nėra pasiūlymų, braukite aukštyn/žemyn, kad perkeltumėte žymeklį.\n\nKai yra pasiūlymų, braukite aukštyn, kad juos filtruotumėte, arba žemyn, kad išvalytumėte filtrą.</string>
+	<string name="tutorial_classic_add_word">Braukite kairėn, kad pridėtumėte žodį.</string>
+	<string name="pref_hack_auto_disable_composing">Automatiškai išjungti teksto komponavimą</string>
+	<string name="pref_show_suggestions_abc">Rodyti raidžių pasiūlymus</string>
+	<string name="pref_auto_trim_trailing_space">Automatiškai šalinti pabaigos tarpus</string>
+	<string name="edit_word_invalid_characters">Negalima redaguoti „%1$s“, kai kalba yra „%2$s“.</string>
+	<string name="edit_word_not_available_in_language">Žodžių redagavimas šia kalba negalimas.</string>
 </resources>

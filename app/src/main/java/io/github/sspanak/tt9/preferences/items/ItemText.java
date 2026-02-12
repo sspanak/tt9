@@ -29,7 +29,7 @@ public class ItemText extends ItemClickable {
 		);
 
 		if (!DeviceInfo.AT_LEAST_ANDROID_13) {
-			UI.toast(activity, "\"" + Clipboard.getPreview(activity) + "\" copied.");
+			UI.toast(activity, "\"" + Clipboard.getLastPreview() + "\" copied.");
 		}
 
 		return true;

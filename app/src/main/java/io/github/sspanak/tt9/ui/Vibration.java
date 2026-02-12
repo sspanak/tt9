@@ -4,21 +4,14 @@ import android.view.HapticFeedbackConstants;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.BaseClickableKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
-public class Vibration {
-	@NonNull private final SettingsStore settings;
-	private final View view;
-
-	public Vibration(@NonNull SettingsStore settings, View view) {
-		this.settings = settings;
-		this.view = view;
-	}
-
+public record Vibration(@NonNull SettingsStore settings, @Nullable View view) {
 	public static int getNoVibration() {
 		return -1;
 	}

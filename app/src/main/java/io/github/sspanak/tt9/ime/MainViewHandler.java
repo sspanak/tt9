@@ -1,16 +1,20 @@
 package io.github.sspanak.tt9.ime;
 
+import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.ime.helpers.OrientationListener;
+import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.MainView;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 /**
  * Informational methods for the on-screen keyboard
@@ -18,7 +22,6 @@ import io.github.sspanak.tt9.ui.main.MainView;
 abstract public class MainViewHandler extends HotkeyHandler {
 	OrientationListener orientationListener;
 
-	private boolean dragResize = true;
 	private float normalizedWidth = -1;
 	private float normalizedHeight = -1;
 	private int width = 0;
@@ -36,10 +39,40 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 
 	@Override
-	protected boolean onStart(EditorInfo field) {
+	protected boolean onStart(EditorInfo field, boolean restarting) {
 		resetNormalizedDimensions();
-		dragResize = settings.getDragResize();
-		return super.onStart(field);
+		return super.onStart(field, restarting);
+	}
+
+
+	@Override
+	public boolean onBackspace(int repeat) {
+		mainView.renderClickFn(KeyEvent.KEYCODE_DEL);
+		return super.onBackspace(repeat);
+	}
+
+
+	@Override
+	protected boolean onNumber(int key, boolean hold, int repeat) {
+		mainView.renderClickNumber(key);
+		return super.onNumber(key, hold, repeat);
+	}
+
+
+	@Override
+	public boolean onOK() {
+		mainView.renderClickFn(KeyEvent.KEYCODE_ENTER);
+		return super.onOK();
+	}
+
+
+	@Override
+	public boolean onHotkey(int keyCode, boolean repeat, boolean validateOnly) {
+		if (!validateOnly) { // on release
+			mainView.renderClickFn(keyCode);
+		}
+
+		return super.onHotkey(keyCode, repeat, validateOnly);
 	}
 
 
@@ -60,21 +93,6 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		if (mainView != null) {
 			mainView.destroy();
 		}
-	}
-
-
-	public boolean isAddingWordsSupported() {
-		return mLanguage == null || !mLanguage.isTranscribed();
-	}
-
-
-	public boolean isDragResizeOn() {
-		return dragResize;
-	}
-
-
-	public boolean isFilteringSupported() {
-		return mInputMode.supportsFiltering();
 	}
 
 	public boolean isFilteringFuzzy() {
@@ -105,21 +123,21 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		return InputModeKind.isNumeric(mInputMode);
 	}
 
-
-	public boolean isNumericModeStrict() {
-		return InputModeKind.is123(mInputMode) && inputType.isNumeric() && !inputType.isPhoneNumber();
+	public boolean isInputTypeNumeric() {
+		return inputType.isNumeric();
 	}
 
-
-	public boolean isNumericModeSigned() {
-		return InputModeKind.is123(mInputMode) && inputType.isSignedNumber();
+	public boolean isInputTypeDecimal() {
+		return (inputType.isDecimal() || inputType.isUnspecifiedNumber());
 	}
 
-
-	public boolean isInputModePhone() {
-		return InputModeKind.is123(mInputMode) && inputType.isPhoneNumber();
+	public boolean isInputTypeSigned() {
+		return (inputType.isSignedNumber() || inputType.isUnspecifiedNumber());
 	}
 
+	public boolean isInputTypePhone() {
+		return inputType.isPhoneNumber();
+	}
 
 	public boolean isTextEditingActive() {
 		return mainView != null && mainView.isTextEditingPaletteShown();
@@ -140,7 +158,7 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 
 	public boolean isVoiceInputMissing() {
-		return !(new VoiceInputOps(this, null, null, null)).isAvailable();
+		return !(new VoiceInputOps(this, null, null, null, null)).isAvailable();
 	}
 
 
@@ -151,6 +169,11 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 	public int getDisplayTextCase() {
 		return getDisplayTextCase(mLanguage, mInputMode.getTextCase());
+	}
+
+
+	public InputMode getInputMode() {
+		return mInputMode;
 	}
 
 
@@ -191,6 +214,12 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 
+	@Nullable
+	public TextSelection getTextSelection() {
+		return textSelection;
+	}
+
+
 	public int getWidth() {
 		if (width == 0 && mainView != null && mainView.getView() != null) {
 			width = mainView.getView().getWidth();
@@ -202,7 +231,7 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 	public float getNormalizedWidth() {
 		if (normalizedWidth < 0) {
-			normalizedWidth = settings.getWidthPercent() / 100f;
+			normalizedWidth = settings.getWidthPercent(!DeviceInfo.isLandscapeOrientation(this)) / 100f;
 		}
 		return normalizedWidth;
 	}

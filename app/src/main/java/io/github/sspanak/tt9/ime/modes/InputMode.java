@@ -24,6 +24,7 @@ abstract public class InputMode {
 	public static final int MODE_PASSTHROUGH = 4;
 	public static final int MODE_HIRAGANA = 5;
 	public static final int MODE_KATAKANA = 6;
+	public static final int MODE_RECOMPOSING = 7;
 
 	// text case
 	public static final int CASE_UNDEFINED = -1;
@@ -52,14 +53,19 @@ abstract public class InputMode {
 	}
 
 
-	public static InputMode getInstance(SettingsStore settings, @Nullable Language language, InputType inputType, TextField textField, int mode) {
+	public static InputMode getInstance(@Nullable SettingsStore settings, @Nullable Language language, @Nullable InputType inputType, @Nullable TextField textField, int mode) {
+		if (mode != MODE_PASSTHROUGH && (settings == null || language == null)) {
+			mode = MODE_PASSTHROUGH;
+			Logger.w(InputMode.class.getSimpleName(), "Cannot create a new InputMode without Settings and Language. Defaulting to MODE_PASSTHROUGH.");
+		}
+
 		switch (mode) {
 			case MODE_PREDICTIVE:
 				if (LanguageKind.isChineseBopomofo(language)) return new ModeBopomofo(settings, language, inputType, textField);
 				if (LanguageKind.isChinesePinyin(language)) return new ModePinyin(settings, language, inputType, textField);
 				if (LanguageKind.isJapanese(language)) return new ModeKanji(settings, language, inputType, textField);
 				if (LanguageKind.isKorean(language)) return new ModeCheonjiin(settings, inputType, textField);
-				if (language != null && language.isTranscribed()) return new ModeIdeograms(settings, language, inputType, textField);
+				if (language.isTranscribed()) return new ModeIdeograms(settings, language, inputType, textField);
 				return new ModeWords(settings, language, inputType, textField);
 			case MODE_HIRAGANA:
 				if (LanguageKind.isJapanese(language)) return new ModeHiragana(settings, language, inputType, textField);
@@ -69,10 +75,12 @@ abstract public class InputMode {
 				return new ModeABC(settings, language, inputType);
 			case MODE_ABC:
 				return new ModeABC(settings, language, inputType);
+			case MODE_RECOMPOSING:
+				return new ModeRecomposing(settings, language, inputType, textField);
 			case MODE_PASSTHROUGH:
 				return new ModePassthrough(settings, inputType);
 			default:
-				Logger.w("InputMode", "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
+				Logger.w(InputMode.class.getSimpleName(), "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
 			case MODE_123:
 				return new Mode123(settings, language, inputType);
 		}
@@ -94,7 +102,7 @@ abstract public class InputMode {
 
 	// Key handlers. Return "true" when handling the key or "false", when is nothing to do.
 	public boolean onBackspace() { return false; }
-	abstract public boolean onNumber(int number, boolean hold, int repeat);
+	abstract public boolean onNumber(int number, boolean hold, int repeat, @NonNull String[] surroundingChars);
 
 	// Suggestions
 	public void onAcceptSuggestion(@NonNull String word) { onAcceptSuggestion(word, false); }
@@ -129,13 +137,26 @@ abstract public class InputMode {
 
 	@NonNull
 	public ArrayList<String> getSuggestions() {
-		ArrayList<String> newSuggestions = new ArrayList<>();
-		for (String s : suggestions) {
+		// The new list prevents concurrent modification. With a maximum size of 20 Strings, copying
+		// should take microseconds, so any performance impact is negligible.
+		ArrayList<String> thisThreadSuggestions = new ArrayList<>(suggestions);
+		ArrayList<String> newSuggestions = new ArrayList<>(thisThreadSuggestions.size());
+		for (String s : thisThreadSuggestions) {
 			newSuggestions.add(adjustSuggestionTextCase(s, textCase));
 		}
 
 		return newSuggestions;
 	}
+
+	public boolean noSuggestions() {
+		return suggestions.isEmpty();
+	}
+
+	/**
+	 * Returns the index of the most appropriate suggestion to be pre-selected. If the mode does not
+	 * support recommendation, it should return 0, meaning the first suggestion.
+	 */
+	public int getRecommendedSuggestionIdx() { return 0; }
 
 	public InputMode setOnSuggestionsUpdated(@NonNull Runnable onSuggestionsUpdated) {
 		this.onSuggestionsUpdated = onSuggestionsUpdated;
@@ -168,21 +189,22 @@ abstract public class InputMode {
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) { return false; }
 	public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextKey, boolean hold) { return false; }
 	public boolean shouldReplacePreviousSuggestion(@Nullable String currentWord) { return Characters.PLACEHOLDER.equals(currentWord); }
-	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) { return false; }
-	public boolean shouldAddPrecedingSpace() { return false; }
-	public boolean shouldDeletePrecedingSpace() { return false; }
+	public boolean shouldAddTrailingSpace(@NonNull String previousChars, @NonNull String nextChars, boolean isWordAcceptedManually, int nextKey) { return false; }
+	public boolean shouldAddPrecedingSpace(@NonNull String previousChars) { return false; }
+	public boolean shouldDeletePrecedingSpace(@NonNull String previousChars) { return false; }
 	public boolean shouldIgnoreText(String text) { return text == null || text.isEmpty(); }
-	public boolean shouldReplaceLastLetter(int nextKey, boolean hold) { return false; }
 	public boolean shouldSelectNextSuggestion() { return false; }
-
-	public void beforeDeleteText() {}
-	public String recompose() { return null; }
-	public void replaceLastLetter() {}
 
 	public void reset() {
 		autoAcceptTimeout = -1;
 		suggestions.clear();
 	}
+
+	// recomposing
+	public void beforeDeleteText() {}
+	public String recompose() { return null; }
+	@NonNull public String getRecomposingSuffix() { return ""; }
+
 
 	// Text case
 	public int getTextCase() { return textCase; }
@@ -216,7 +238,7 @@ abstract public class InputMode {
 		return true;
 	}
 
-	public void determineNextWordTextCase(int nextDigit) {}
+	public void determineNextWordTextCase(@Nullable String beforeCursor, int nextDigit) {}
 	public void skipNextTextCaseDetection() {}
 
 	// Based on the internal logic of the mode (punctuation or grammar rules), re-adjust the text case for when getSuggestions() is called.

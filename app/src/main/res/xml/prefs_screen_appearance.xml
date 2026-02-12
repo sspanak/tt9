@@ -1,90 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"  app:orderingFromXml="true">
-
-	<DropDownPreference
-		app:defaultValue="-1"
-		app:key="pref_theme"
-		app:title="@string/pref_dark_theme" />
-
-	<DropDownPreference
-		app:key="pref_font_size"
-		app:title="@string/pref_font_size" />
-
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" app:orderingFromXml="true">
+	<PreferenceCategory app:key="category_keyboard_color_scheme" app:title="@string/pref_category_colors">
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownColorScheme />
+	</PreferenceCategory>
 
 	<PreferenceCategory app:title="@string/pref_category_layout">
-		<DropDownPreference
-			app:key="pref_layout_type"
-			app:title="@string/pref_layout" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownLayoutType app:title="@string/pref_layout" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchDragResize />
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchDoubleTapResize />
+	</PreferenceCategory>
 
-		<SwitchPreferenceCompat
-			app:key="pref_arrow_keys_visible"
-			app:title="@string/pref_arrow_keys_visible"
-			app:summary="@string/pref_arrow_keys_visible_summary" />
+	<PreferenceCategory app:key="category_keyboard_geometry" app:title="@string/pref_category_geometry">
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadShape app:title="@string/pref_numpad_shape" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownAlignment app:title="@string/pref_numpad_alignment" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownWidth app:title="@string/pref_numpad_width" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownKeyHeight app:title="@string/pref_numpad_key_height" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownBottomPaddingPortrait app:title="@string/pref_bottom_padding_portrait" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownSuggestionFontSize app:title="@string/pref_suggestion_font_size" />
+	</PreferenceCategory>
+
+	<PreferenceCategory app:key="category_keyboard_keys" app:title="@string/pref_category_key_appearance">
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadFnKeyScale app:title="@string/pref_numpad_fn_key_width" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadKeyFontSize app:title="@string/pref_numpad_key_font_size" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchKeyShadows />
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchLeftRightArrows />
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchShowArrowsUpDown />
 
 		<Preference
 			app:fragment="io.github.sspanak.tt9.preferences.FnKeyOrderScreen"
 			app:key="screen_fn_key_order"
 			app:title="@string/pref_category_fn_key_order" />
-
-		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
-			app:key="pref_drag_resize"
-			app:title="@string/pref_drag_resize"
-			app:summary="@string/pref_drag_resize_summary" />
-	</PreferenceCategory>
-
-	<PreferenceCategory app:title="@string/pref_category_geometry">
-		<DropDownPreference
-			app:key="pref_numpad_shape"
-			app:title="@string/pref_numpad_shape" />
-
-		<DropDownPreference
-			app:key="pref_numpad_alignment"
-			app:title="@string/pref_numpad_alignment" />
-
-		<DropDownPreference
-			app:key="pref_numpad_width"
-			app:title="@string/pref_numpad_width" />
-
-		<DropDownPreference
-			app:key="pref_numpad_key_height"
-			app:title="@string/pref_numpad_key_height" />
-
-		<DropDownPreference
-			app:key="pref_numpad_key_font_size"
-			app:title="@string/pref_numpad_key_font_size" />
-
-		<DropDownPreference
-			app:key="pref_numpad_fn_key_width"
-			app:title="@string/pref_numpad_fn_key_width" />
-
-		<DropDownPreference
-			app:key="pref_suggestion_font_size"
-			app:title="@string/pref_suggestion_font_size" />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="@string/pref_category_hacks">
-		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
-			app:key="pref_suggestion_smooth_scroll"
-			app:title="@string/pref_suggestion_smooth_scroll"/>
-
-		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
-			app:key="pref_alternative_suggestion_scrolling"
-			app:title="@string/pref_alternative_suggestion_scrolling"
-			app:summary="@string/pref_alternative_suggestion_scrolling_summary"/>
-
-		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
-			app:key="pref_clear_insets"
-			app:title="@string/pref_hack_always_on_top" />
-
-		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
-			app:key="hack_precalculate_navbar_height_v3"
-			app:title="@string/pref_hack_precalculate_navbar_height"
-			app:summary="@string/pref_hack_precalculate_navbar_height_summary" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownSettingsFontSize app:title="@string/pref_font_size" />
 
 		<SwitchPreferenceCompat
 			app:key="pref_status_icon"
 			app:title="@string/pref_status_icon"
 			app:summary="@string/pref_status_icon_summary" />
+
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenVisibleLayout
+			app:key="pref_suggestion_smooth_scroll"
+			app:title="@string/pref_suggestion_smooth_scroll"/>
+
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenVisibleLayout
+			app:key="pref_alternative_suggestion_scrolling"
+			app:title="@string/pref_alternative_suggestion_scrolling"
+			app:summary="@string/pref_alternative_suggestion_scrolling_summary"/>
+
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenVisibleLayout
+			app:key="pref_clear_insets"
+			app:title="@string/pref_hack_always_on_top" />
 
 	</PreferenceCategory>
 

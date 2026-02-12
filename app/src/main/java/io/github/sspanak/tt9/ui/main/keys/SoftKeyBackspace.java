@@ -3,9 +3,9 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdBackspace;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
@@ -80,7 +80,7 @@ public class SoftKeyBackspace extends BaseSwipeableKey {
 	private void handlePressDebounced() {
 		if (!isActionPerformed) {
 			isActionPerformed = true;
-			deleteText();
+			CmdBackspace.deleteText(tt9, repeat);
 		}
 	}
 
@@ -89,7 +89,7 @@ public class SoftKeyBackspace extends BaseSwipeableKey {
 	protected void handleStartSwipeX(float position, float delta) {
 		if (!isActionPerformed) {
 			isActionPerformed = true;
-			deleteWord();
+			CmdBackspace.deleteWord(tt9);
 		}
 	}
 
@@ -109,9 +109,9 @@ public class SoftKeyBackspace extends BaseSwipeableKey {
 		isActionPerformed = true;
 
 		if (delta < SWIPE_X_THRESHOLD) {
-			deleteText();
+			CmdBackspace.deleteText(tt9, repeat);
 		} else {
-			deleteWord();
+			CmdBackspace.deleteWord(tt9);
 		}
 	}
 
@@ -120,7 +120,7 @@ public class SoftKeyBackspace extends BaseSwipeableKey {
 	final protected void handleHold() {
 		isActionPerformed = true;
 		repeat++;
-		deleteText();
+		CmdBackspace.deleteText(tt9, repeat);
 	}
 
 
@@ -133,28 +133,11 @@ public class SoftKeyBackspace extends BaseSwipeableKey {
 	}
 
 
-	private void deleteText() {
-		if (validateTT9Handler() && !tt9.onBackspace(repeat)) {
-			// Limited or special numeric field (e.g. formatted money or dates) cannot always return
-			// the text length, therefore onBackspace() seems them as empty and does nothing. This results
-			// in fallback to the default hardware key action. Here we simulate the hardware BACKSPACE.
-			tt9.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-		}
-	}
-
-
-	private void deleteWord() {
-		if (validateTT9Handler()) {
-			tt9.onBackspace(SettingsStore.BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE);
-		}
-	}
-
-
 	@Override
 	protected float getTitleScale() {
 		float scale = 1.1f;
 
-		if (tt9 != null && tt9.getSettings().isMainLayoutNumpad()) {
+		if (tt9 != null && tt9.getSettings().isMainLayoutLarge()) {
 			scale *= super.getTitleScale();
 		}
 
@@ -170,7 +153,9 @@ public class SoftKeyBackspace extends BaseSwipeableKey {
 
 	@Override
 	protected String getTitle() {
-		return LanguageKind.isRTL(tt9 != null ? tt9.getLanguage() : null) ? "⌦" : "⌫";
+		return new CmdBackspace().getIconTxt(
+			LanguageKind.isRTL(tt9 != null ? tt9.getLanguage() : null)
+		);
 	}
 
 

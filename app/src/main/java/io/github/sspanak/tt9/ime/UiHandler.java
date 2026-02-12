@@ -2,23 +2,50 @@ package io.github.sspanak.tt9.ime;
 
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.StatusIcon;
 import io.github.sspanak.tt9.ui.main.MainView;
 import io.github.sspanak.tt9.ui.tray.StatusBar;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 abstract class UiHandler extends AbstractHandler {
-	protected int displayTextCase = InputMode.CASE_UNDEFINED;
+	private final static String LOG_TAG = "UiHandler";
+
+	@NonNull protected final AppHacks appHacks = new AppHacks();
 	protected SettingsStore settings;
+
+	protected int displayTextCase = InputMode.CASE_UNDEFINED;
+	protected boolean isMainViewShown = false;
 	protected MainView mainView = null;
 	protected StatusBar statusBar = null;
+
+
+	@Override
+	public boolean onEvaluateInputViewShown() {
+		super.onEvaluateInputViewShown();
+		if (!SystemSettings.isTT9Selected(this)) {
+			isMainViewShown = false;
+			return false;
+		}
+
+		setInputField(getCurrentInputEditorInfo());
+		return isMainViewShown = shouldBeVisible();
+	}
+
+
+	@Override
+	public boolean onEvaluateFullscreenMode() {
+		return false;
+	}
 
 
 	@Override
@@ -28,34 +55,43 @@ abstract class UiHandler extends AbstractHandler {
 			initTray();
 		} else {
 			mainView.destroy();
-			setInputView(mainView.getView());
+			mainView.getView();
 		}
 	}
 
 
 	protected void initTray() {
-		setInputView(mainView.getView());
+		mainView.getView();
+		statusBar = new StatusBar(this, settings, mainView, this::resetStatus).setColorScheme();
 		createSuggestionBar();
-		getSuggestionOps().setDarkTheme();
-		statusBar = new StatusBar(this, settings, mainView.getView(), this::resetStatus);
+		getSuggestionOps().setColorScheme();
 	}
 
 
-	public void initUi(InputMode inputMode) {
+	protected void initUi(InputMode inputMode) {
 		if (mainView.create()) {
 			initTray();
+			setCurrentView();
 		} else {
-			getSuggestionOps().setDarkTheme();
+			getSuggestionOps().setColorScheme();
 		}
 		setStatusIcon(inputMode, getFinalContext().getLanguage());
-		statusBar.setText(inputMode);
+		statusBar.setColorScheme().setText(inputMode);
 		mainView.showKeyboard();
 		mainView.render();
-		SystemSettings.setNavigationBarDarkTheme(getWindow().getWindow(), settings.getDarkTheme());
 
-		if (!isInputViewShown()) {
+		SystemSettings.setNavigationBarBackground(getWindow().getWindow(), settings, mainView.isBackgroundBlendingEnabled());
+
+		if (appHacks.isBrutalForceShowNeeded()) {
+			brutalForceShowWindow();
+		} else if (!isInputViewShown()) {
 			updateInputViewShown();
 		}
+	}
+
+
+	public void setCurrentView() {
+		setInputView(onCreateInputView());
 	}
 
 
@@ -84,7 +120,7 @@ abstract class UiHandler extends AbstractHandler {
 			return;
 		}
 
-		final int resId = new StatusIcon(settings, mode, language, displayTextCase).resourceId;
+		final int resId = new StatusIcon(settings.isStatusIconEnabled() ? mode : null, language, displayTextCase).resourceId;
 		if (resId == 0) {
 			hideStatusIcon();
 		} else {
@@ -114,6 +150,26 @@ abstract class UiHandler extends AbstractHandler {
 		if (DeviceInfo.AT_LEAST_ANDROID_9) {
 			requestShowSelf(DeviceInfo.isSonimGen2(getApplicationContext()) ? 0 : InputMethodManager.SHOW_IMPLICIT);
 		} else {
+			showWindow(true);
+		}
+	}
+
+
+	/**
+	 * Shows the IME window using brutal force, ignoring IME flags and state, and any (invalid) app
+	 * requests for passthrough mode. Note that this should not be randomly used, because it will
+	 * cause the UI to appear in calculators, banking apps or others where it is not desired.
+	 * Reported problems (in chronological order):
+	 *	- <a href="https://github.com/sspanak/tt9/issues/920">Google search field in Firefox on Android 16</a>
+	 *	- <a href="https://github.com/sspanak/tt9/issues/963">Gmail reply/forward on Android 16</a>
+	 */
+	private void brutalForceShowWindow() {
+		if (!isShowInputRequested() || !isMainViewShown) {
+			forceShowWindow();
+		}
+
+		if (!isShowInputRequested() || !isMainViewShown) {
+			Logger.d(LOG_TAG, "InputMethodManager refused show request. Forcing visibility with showWindow().");
 			showWindow(true);
 		}
 	}

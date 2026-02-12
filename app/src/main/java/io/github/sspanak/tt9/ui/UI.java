@@ -3,19 +3,22 @@ package io.github.sspanak.tt9.ui;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.inputmethodservice.InputMethodService;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class UI {
+	public static final String COMMAND = "tt9.command";
+	public static final String COMMAND_PRINT_VOICE_INPUT = "tt9.command.print_voice_input";
+	public static final String COMMAND_PRINT_VOICE_INPUT_TEXT = "tt9.command.print_voice_input.text";
 	public static final String COMMAND_WAKEUP_MAIN = "tt9.command.wakeup";
 	private static final HashMap<String, Toast> singleToasts = new HashMap<>();
 
@@ -45,11 +48,12 @@ public class UI {
 	}
 
 
-	public static void showSettingsScreen(InputMethodService ims) {
-		Intent prefIntent = new Intent(ims, PreferencesActivity.class);
+	public static void showSettingsScreen(@NonNull Context context, @Nullable String screenName) {
+		Intent prefIntent = new Intent(context, PreferencesActivity.class);
 		prefIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		prefIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-		ims.startActivity(prefIntent);
+		prefIntent.putExtra("screen", screenName);
+		context.startActivity(prefIntent);
 	}
 
 

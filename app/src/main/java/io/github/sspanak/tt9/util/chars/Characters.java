@@ -15,6 +15,8 @@ public class Characters extends Emoji {
 	public static final String PLACEHOLDER = "\u200A";
 	public static final String TAB = "Тab"; // "T" is cyrillic to avoid corruption when typing the word "Tab"
 	public static final String SPACE = "␣";
+	public static final String START_OF_TEXT = "\u0002";
+	public static final String END_OF_TEXT = "\u0003";
 
 
 	public static final ArrayList<String> Currency = new ArrayList<>(Arrays.asList(
@@ -63,8 +65,67 @@ public class Characters extends Emoji {
 
 
 	/**
+	 * Returns a language-specific character for the given generic character.
+	 * If no language-specific character is found, the original character is returned.
+	 */
+	@Nullable
+	public static String getChar(@Nullable Language language, @Nullable String chr) {
+		if (language == null || chr == null) {
+			return chr;
+		}
+
+		boolean isAsian = LanguageKind.isChinese(language) || LanguageKind.isJapanese(language);
+
+		return switch (chr) {
+			case " " -> getSpace(language);
+			case "?" -> getQuestionMark(language);
+			case "!" -> isAsian ? ZH_EXCLAMATION_MARK : chr;
+			case "," -> isAsian ? ZH_COMMA_LIST : chr;
+			case "." -> isAsian ? ZH_FULL_STOP : chr;
+			default -> chr;
+		};
+	}
+
+
+	@Nullable
+	public static String getCharReadable(@Nullable String chr) {
+		if (chr == null) {
+			return null;
+		}
+
+		return switch (chr) {
+			case "*" -> "✱";
+			case ZH_COMMA_LIST -> ",";
+			case ZH_FULL_STOP -> ".";
+			case ZH_QUESTION_MARK -> "?";
+			case ZH_EXCLAMATION_MARK -> "!";
+			case IDEOGRAPHIC_SPACE, " " -> SPACE;
+			default -> chr;
+		};
+	}
+
+
+	/**
+	 * Returns a language-specific question mark.
+	 */
+	private static String getQuestionMark(@Nullable Language language) {
+		if (LanguageKind.isArabicBased(language)) {
+			return AR_QUESTION_MARK;
+		}
+		if (LanguageKind.isGreek(language)) {
+			return GR_QUESTION_MARK;
+		}
+		if (LanguageKind.isChinese(language) || LanguageKind.isJapanese(language)) {
+			return ZH_QUESTION_MARK;
+		}
+		return "?";
+	}
+
+
+	/**
 	 * Returns the language-specific space character.
 	 */
+	@NonNull
 	public static String getSpace(@Nullable Language language) {
 		return LanguageKind.isChinese(language) || LanguageKind.isJapanese(language) ? IDEOGRAPHIC_SPACE : " ";
 	}

@@ -10,58 +10,51 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class Text extends TextTools {
-	@Nullable private final Language language;
-	@Nullable private final String text;
+	private static final String ALPHANUMERIC_CLASS = "1-9\\p{L}\\p{M}\\u200D\\u200C";
+	private static final Pattern ALPHANUMERIC_AT_END = Pattern.compile("([" + ALPHANUMERIC_CLASS + "]+)$");
+	private static final Pattern ALPHANUMERIC_WITH_APOSTROPHES_AT_END = Pattern.compile("([" + ALPHANUMERIC_CLASS + "']+)$");
+	private static final Pattern ALPHANUMERIC_WITH_QUOTES_AT_END = Pattern.compile("([" + ALPHANUMERIC_CLASS + "\"]+)$");
+	private static final Pattern ALPHANUMERIC_WITH_APOSTROPHES_AND_QUOTES_AT_END = Pattern.compile("([" + ALPHANUMERIC_CLASS + "\"']+)$");
+	private static final Pattern ALPHANUMERIC_AT_START = Pattern.compile("^([" + ALPHANUMERIC_CLASS + "]+)");
+	private static final Pattern ALPHANUMERIC_WITH_APOSTROPHES_AT_START = Pattern.compile("^([" + ALPHANUMERIC_CLASS + "']+)");
+	private static final Pattern ALPHANUMERIC_WITH_QUOTES_AT_START = Pattern.compile("^([" + ALPHANUMERIC_CLASS + "\"]+)");
+	private static final Pattern ALPHANUMERIC_WITH_APOSTROPHES_AND_QUOTES_AT_START = Pattern.compile("^([" + ALPHANUMERIC_CLASS + "\"']+)");
 
 	private static final Pattern QUICK_DELETE_GROUP = Pattern.compile("(?:([\\s\\u3000]{2,})|([.,、。，،]{2,})|([^、。，\\s\\u3000]*.))$");
-	private static final Pattern PREVIOUS_WORD = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+)(?![\\r\\n])$");
+
+	private static final Pattern PREVIOUS_WORD = Pattern.compile("(?<=\\s|\\p{Punct}|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+)(?![\\r\\n])$");
+	private static final Pattern PREVIOUS_WORD_WITH_FINAL_COMMA = Pattern.compile("(?<=\\s|\\p{Punct}|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+,?)(?![\\r\\n])$");
 	private static final Pattern PREVIOUS_WORD_WITH_APOSTROPHES = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}']+)(?![\\r\\n])$");
-	private static final Pattern PENULTIMATE_WORD = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+)[\\s'][^\\s']*$");
+	private static final Pattern PREVIOUS_WORD_WITH_APOSTROPHES_AND_FINAL_COMMA = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}']+,?)(?![\\r\\n])$");
+	private static final Pattern PENULTIMATE_WORD = Pattern.compile("(?<=\\s|\\p{Punct}|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+)[\\s'][^\\s']*$");
+	private static final Pattern PENULTIMATE_WORD_WITH_FINAL_COMMA = Pattern.compile("(?<=\\s|\\p{Punct}|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+,?)[\\s'][^\\s']*$");
 	private static final Pattern PENULTIMATE_WORD_WITH_APOSTROPHES = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}']+)\\s\\S*$");
+	private static final Pattern PENULTIMATE_WORD_WITH_APOSTROPHES_AND_FINAL_COMMA = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}']+,?)\\s\\S*$");
 
-	private static final Pattern EMOJI_AT_END = Pattern.compile( getEmojiClass() + "$");
-	private static final Pattern EMOJI_AT_START = Pattern.compile("^" + getEmojiClass());
-
-	private static final String WORD_CLASS = "\\p{L}\\p{M}\\u200D\\u200C";
-	private static final Pattern WORD_AT_END = Pattern.compile("([" + WORD_CLASS + "]+)$");
-	private static final Pattern WORD_WITH_APOSTROPHES_AT_END = Pattern.compile("([" + WORD_CLASS + "']+)$");
-	private static final Pattern WORD_WITH_QUOTES_AT_END = Pattern.compile("([" + WORD_CLASS + "\"]+)$");
-	private static final Pattern WORD_WITH_APOSTROPHES_AND_QUOTES_AT_END = Pattern.compile("([" + WORD_CLASS + "\"']+)$");
-	private static final Pattern WORD_AT_START = Pattern.compile("^([" + WORD_CLASS + "]+)");
-	private static final Pattern WORD_WITH_APOSTROPHES_AT_START = Pattern.compile("^([" + WORD_CLASS + "']+)");
-	private static final Pattern WORD_WITH_QUOTES_AT_START = Pattern.compile("^([" + WORD_CLASS + "\"]+)");
-	private static final Pattern WORD_WITH_APOSTROPHES_AND_QUOTES_AT_START = Pattern.compile("^([" + WORD_CLASS + "\"']+)");
-
-
-	private static String getEmojiClass() {
-		String modern = "[\\p{Extended_Pictographic}\\p{Emoji_Modifier}\\uFE0F\\u200D]+";
-
-		try {
-			Pattern p = Pattern.compile(modern);
-			if (p.matcher("❤️").find()) {
-				return modern;
-			}
-		} catch (Exception ignored) {}
-
-		return "[\\p{So}\\p{Sk}\\u200d\\uFE0F\\u20E3]+";
-	}
+	@Nullable private final Language language;
+	@Nullable private final String text;
 
 
 	public Text(@Nullable Language language, @Nullable String text) {
 		this.language = language;
-		this.text = text;
+		this.text = InputConnectionAsync.TIMEOUT_SENTINEL.equals(text) ? null : text;
+	}
+
+
+	public Text(@Nullable Language language, char text) {
+		this(language, text == 0 ? null : String.valueOf(text));
 	}
 
 
 	public Text(@Nullable String text) {
-		this.language = null;
-		this.text = text;
+		this(null, text);
 	}
 
 
@@ -106,19 +99,25 @@ public class Text extends TextTools {
 
 
 	@NonNull
-	public String getPreviousWord(boolean skipOne, boolean includeApostrophes) {
+	public String getPreviousWord(boolean skipOne, boolean includeApostrophes, boolean allowFinalComma) {
 		if (text == null || text.isEmpty()) {
 			return "";
 		}
 
-		Matcher matcher;
-		if (includeApostrophes) { // Ukrainian and Hebrew
-			matcher = skipOne ? PENULTIMATE_WORD_WITH_APOSTROPHES.matcher(text) : PREVIOUS_WORD_WITH_APOSTROPHES.matcher(text);
+		Pattern pattern;
+		if (allowFinalComma && includeApostrophes) {
+			pattern = skipOne ? PENULTIMATE_WORD_WITH_APOSTROPHES_AND_FINAL_COMMA : PREVIOUS_WORD_WITH_APOSTROPHES_AND_FINAL_COMMA;
+		} else if (allowFinalComma) {
+			pattern = skipOne ? PENULTIMATE_WORD_WITH_FINAL_COMMA : PREVIOUS_WORD_WITH_FINAL_COMMA;
+		} else if (includeApostrophes) {
+			// In Ukrainian and Hebrew, apostrophes are part of the word, so count them as "letters"
+			pattern = skipOne ? PENULTIMATE_WORD_WITH_APOSTROPHES : PREVIOUS_WORD_WITH_APOSTROPHES;
 		} else {
-			matcher = skipOne ? PENULTIMATE_WORD.matcher(text) : PREVIOUS_WORD.matcher(text);
+			pattern = skipOne ? PENULTIMATE_WORD : PREVIOUS_WORD;
 		}
 
-		String word = matcher.find() ? matcher.group(1) : null;
+		final Matcher matcher = pattern.matcher(text);
+		final String word = matcher.find() ? matcher.group(1) : null;
 		return word == null ? "" : word;
 	}
 
@@ -240,6 +239,43 @@ public class Text extends TextTools {
 	}
 
 
+	@NonNull
+	public String deleteCharAt(int index) {
+		if (text == null) {
+			return "";
+		}
+
+		if (index < 0 || index >= text.length()) {
+			return text;
+		}
+
+		StringBuilder sb = new StringBuilder(text);
+		sb.deleteCharAt(index);
+		return sb.toString();
+	}
+
+
+	@NonNull
+	public String duplicateCharAt(int position) {
+		if (text == null) {
+			return "";
+		}
+
+		if (position < 0 || position >= text.length()) {
+			return text;
+		}
+
+		final int length = text.length();
+		final char[] oldText = text.toCharArray();
+		final char[] newText = new char[length + 1];
+
+		System.arraycopy(oldText, 0, newText, 0, position);
+		newText[position] = oldText[position];
+		System.arraycopy(oldText, position, newText, position + 1, length - position);
+		return new String(newText);
+	}
+
+
 	/**
 	 * Returns the length of the last grapheme (a user-perceived character). This allows for correctly
 	 * deleting graphemes consisting of multiple Java chars. Example: 🏴‍☠️ (pirate flag) = 5 chars.
@@ -346,20 +382,20 @@ public class Text extends TextTools {
 	}
 
 
-	public String subStringEndingWord(boolean keepApostrophe, boolean keepQuote) {
+	public String subStringEndingAlphanumeric(boolean keepApostrophe, boolean keepQuote) {
 		if (text == null || text.isEmpty()) {
 			return "";
 		}
 
 		Pattern pattern;
 		if (keepApostrophe && keepQuote) {
-			pattern = WORD_WITH_APOSTROPHES_AND_QUOTES_AT_END;
+			pattern = ALPHANUMERIC_WITH_APOSTROPHES_AND_QUOTES_AT_END;
 		} else if (keepQuote) {
-			pattern = WORD_WITH_QUOTES_AT_END;
+			pattern = ALPHANUMERIC_WITH_QUOTES_AT_END;
 		} else if (keepApostrophe) {
-			pattern = WORD_WITH_APOSTROPHES_AT_END;
+			pattern = ALPHANUMERIC_WITH_APOSTROPHES_AT_END;
 		} else {
-			pattern = WORD_AT_END;
+			pattern = ALPHANUMERIC_AT_END;
 		}
 
 		Matcher matcher = pattern.matcher(text);
@@ -368,18 +404,7 @@ public class Text extends TextTools {
 	}
 
 
-	public String subStringEndingEmoji() {
-		if (text == null || text.isEmpty()) {
-			return "";
-		}
-
-		Matcher matcher = EMOJI_AT_END.matcher(text);
-
-		return matcher.find() ? matcher.group(0) : "";
-	}
-
-
-	public String subStringStartingWord(boolean keepApostrophe, boolean keepQuote) {
+	public String subStringStartingAlphanumeric(boolean keepApostrophe, boolean keepQuote) {
 		if (text == null || text.isEmpty()) {
 			return "";
 		}
@@ -387,29 +412,18 @@ public class Text extends TextTools {
 		Pattern pattern;
 
 		if (keepApostrophe && keepQuote) {
-			pattern = WORD_WITH_APOSTROPHES_AND_QUOTES_AT_START;
+			pattern = ALPHANUMERIC_WITH_APOSTROPHES_AND_QUOTES_AT_START;
 		} else if (keepQuote) {
-			pattern = WORD_WITH_QUOTES_AT_START;
+			pattern = ALPHANUMERIC_WITH_QUOTES_AT_START;
 		} else if (keepApostrophe) {
-			pattern = WORD_WITH_APOSTROPHES_AT_START;
+			pattern = ALPHANUMERIC_WITH_APOSTROPHES_AT_START;
 		} else {
-			pattern = WORD_AT_START;
+			pattern = ALPHANUMERIC_AT_START;
 		}
 
 		Matcher matcher = pattern.matcher(text);
 
 		return matcher.find() ? matcher.group(1) : "";
-	}
-
-
-	public String subStringStartingEmoji() {
-		if (text == null || text.isEmpty()) {
-			return "";
-		}
-
-		Matcher matcher = EMOJI_AT_START.matcher(text);
-
-		return matcher.find() ? matcher.group(0) : "";
 	}
 
 
@@ -428,6 +442,16 @@ public class Text extends TextTools {
 		} else {
 			return text.toUpperCase(language != null ? language.getLocale() : Locale.getDefault());
 		}
+	}
+
+
+	public String toTextCase(int textCase) {
+		return switch (textCase) {
+			case InputMode.CASE_LOWER -> toLowerCase();
+			case InputMode.CASE_UPPER -> toUpperCase();
+			case InputMode.CASE_CAPITALIZE -> capitalize();
+			default -> text == null ? "" : text;
+		};
 	}
 
 

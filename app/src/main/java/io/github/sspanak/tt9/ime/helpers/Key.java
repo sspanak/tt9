@@ -54,6 +54,21 @@ public class Key {
 	}
 
 
+	public static boolean isArrowUp(int keyCode) {
+		return keyCode == KeyEvent.KEYCODE_DPAD_UP;
+	}
+
+
+	public static boolean isArrowRight(int keyCode) {
+		return keyCode == KeyEvent.KEYCODE_DPAD_RIGHT;
+	}
+
+
+	public static boolean isArrowLeft(int keyCode) {
+		return keyCode == KeyEvent.KEYCODE_DPAD_LEFT;
+	}
+
+
 	public static boolean isBackspace(SettingsStore settings, int keyCode) {
 		return isHardwareBackspace(keyCode) || keyCode == settings.getKeyBackspace();
 	}
@@ -124,6 +139,7 @@ public class Key {
 		};
 	}
 
+
 	public static int numberToCode(int number) {
 		if (number >= 0 && number <= 9) {
 			return KeyEvent.KEYCODE_0 + number;
@@ -135,7 +151,7 @@ public class Key {
 	@SuppressLint("GestureBackNavigation") // we are not handling anything here, the warning makes no sense
 	public static String codeToName(@NonNull Context context, int keyCode) {
 		return switch (keyCode) {
-			case KeyEvent.KEYCODE_UNKNOWN -> context.getString(R.string.key_none);
+			case KeyEvent.KEYCODE_UNKNOWN -> context.getString(R.string.list_item_none);
 			case KeyEvent.KEYCODE_POUND -> "#";
 			case KeyEvent.KEYCODE_STAR -> "✱";
 			case KeyEvent.KEYCODE_BACK -> context.getString(R.string.key_back);

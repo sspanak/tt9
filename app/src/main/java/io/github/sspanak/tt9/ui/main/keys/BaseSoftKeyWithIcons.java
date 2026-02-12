@@ -1,25 +1,40 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 
-public class BaseSoftKeyWithIcons extends SoftKey {
-	private Drawable icon = null;
-	private Drawable holdIcon = null;
+import java.util.Arrays;
 
+import io.github.sspanak.tt9.preferences.settings.SettingsColors;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+
+public class BaseSoftKeyWithIcons extends BaseSoftKeyCustomizable {
+	private Drawable icon = null; // central icon
+	protected int centralIconColor = SettingsColors.DEFAULT_KEY_TEXT_COLOR;
+
+	public static final int ICON_POSITION_TOP_RIGHT = 0;
+	public static final int ICON_POSITION_TOP_LEFT = 1;
+	public static final int ICON_POSITION_BOTTOM_RIGHT = 2;
+	public static final int ICON_POSITION_BOTTOM_LEFT = 3;
+	private final Drawable[] cornerIcon = { null, null, null, null };
 
 	public BaseSoftKeyWithIcons(Context context) { super(context); }
 	public BaseSoftKeyWithIcons(Context context, AttributeSet attrs) { super(context, attrs); }
 	public BaseSoftKeyWithIcons(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
+
+	@Override
+	protected void initColors(@NonNull SettingsStore settings) {
+		super.initColors(settings);
+		centralIconColor = textColor;
+	}
 
 	/**
 	 * Returns the central icon resource ID. If the key does not have a central icon, return -1. The scale
@@ -48,34 +63,46 @@ public class BaseSoftKeyWithIcons extends SoftKey {
 		float keyboardSizeScale = Math.max(0.7f, Math.min(getTT9Width(), getTT9Height()));
 		keyboardSizeScale = Math.min(1.15f, keyboardSizeScale);
 		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent() / 100f : 1;
-		return keyboardSizeScale * Math.min(getScreenScaleX(), getScreenScaleY()) * settingsScale;
+		return keyboardSizeScale * getScreenSizeScale() * settingsScale;
 	}
 
 
 	/**
-	 * Returns the hold icon resource ID. If the key does not have a hold icon, return -1. The scale
-	 * is controlled by super.getHoldElementScale().
+	 * Returns the resource ID of the respective icon. If the key does not have an icon at that position,
+	 * return -1. The scale is controlled by super.getCornerElementScale().
 	 */
-	protected int getHoldIcon() { return -1; }
+	protected int getCornerIcon(int position) {
+		return -1;
+	}
 
 
 	/**
-	 * A fail-safe method to get the hold icon drawable.
+	 * A fail-safe method to get the icon drawable for the respective positions.
 	 */
-	private Drawable getHoldIconCompat() {
-		if (holdIcon == null && getHoldIcon() > 0) {
-			holdIcon = AppCompatResources.getDrawable(getContext(), getHoldIcon());
-		} else if (getHoldIcon() <= 0) {
-			holdIcon = null;
+	private Drawable getCornerIconCompat(int position) {
+		if (position < 0 || position >= cornerIcon.length) {
+			return null;
+		} else if (cornerIcon[position] == null && getCornerIcon(position) > 0) {
+			cornerIcon[position] = AppCompatResources.getDrawable(getContext(), getCornerIcon(position));
+		} else if (getCornerIcon(position) <= 0) {
+			cornerIcon[position] = null;
 		}
 
-		return holdIcon;
+		return cornerIcon[position];
+	}
+
+
+	@Override
+	protected float getCornerElementScale(int position) {
+		float keyboardSizeScale = Math.min(1, Math.max(getTT9Width(), getTT9Height()));
+		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent() / 100f : 1;
+		return keyboardSizeScale * getScreenSizeScale() * settingsScale;
 	}
 
 
 	protected void resetIconCache() {
 		icon = null;
-		holdIcon = null;
+		Arrays.fill(cornerIcon, null);
 	}
 
 
@@ -83,22 +110,19 @@ public class BaseSoftKeyWithIcons extends SoftKey {
 	 * Renders one of the key icons. It could be either the central icon, in the place of the main title,
 	 * or a hold icon, displayed in the upper right corner.
 	 */
-	private void renderOverlayDrawable(String elementTag, @Nullable Drawable drawable, float scale, boolean isEnabled) {
+	private void renderOverlayDrawable(String elementTag, @Nullable Drawable drawable, int color, float scale, boolean isEnabled) {
 		if (overlay == null) {
 			return;
 		}
 
-		View element = ((RelativeLayout) getParent()).findViewWithTag(elementTag);
+		View element = overlay.findViewWithTag(elementTag);
 		if (!(element instanceof ImageView el)) {
 			return;
 		}
 
 		el.setImageDrawable(drawable);
-		if (!isEnabled) {
-			el.setColorFilter(Color.GRAY);
-		} else {
-			el.clearColorFilter();
-		}
+		el.setColorFilter(color);
+		el.setAlpha(isEnabled ? 1 : 0.4f);
 
 		if (drawable != null) {
 			el.setScaleX(scale);
@@ -111,8 +135,11 @@ public class BaseSoftKeyWithIcons extends SoftKey {
 		boolean isKeyEnabled = isEnabled();
 
 		getOverlayWrapper();
-		renderOverlayDrawable("overlay_icon", getCentralIconCompat(), getCentralIconScale(), isKeyEnabled);
-		renderOverlayDrawable("overlay_hold_icon", getHoldIconCompat(), getHoldElementScale(), isKeyEnabled && isHoldEnabled());
+		renderOverlayDrawable("overlay_icon", getCentralIconCompat(), centralIconColor, getCentralIconScale(), isKeyEnabled);
+		renderOverlayDrawable("overlay_top_right_icon", getCornerIconCompat(ICON_POSITION_TOP_RIGHT), cornerElementColor, getCornerElementScale(ICON_POSITION_TOP_RIGHT), isKeyEnabled && isHoldEnabled());
+		renderOverlayDrawable("overlay_top_left_icon", getCornerIconCompat(ICON_POSITION_TOP_LEFT), cornerElementColor, getCornerElementScale(ICON_POSITION_TOP_LEFT), isKeyEnabled);
+		renderOverlayDrawable("overlay_bottom_right_icon", getCornerIconCompat(ICON_POSITION_BOTTOM_RIGHT), cornerElementColor, getCornerElementScale(ICON_POSITION_BOTTOM_RIGHT), isKeyEnabled);
+		renderOverlayDrawable("overlay_bottom_left_icon", getCornerIconCompat(ICON_POSITION_BOTTOM_LEFT), cornerElementColor, getCornerElementScale(ICON_POSITION_BOTTOM_LEFT), isKeyEnabled);
 
 		super.render();
 	}

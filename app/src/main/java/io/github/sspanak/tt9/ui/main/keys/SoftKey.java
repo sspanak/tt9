@@ -1,6 +1,8 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
@@ -8,27 +10,56 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.preferences.settings.SettingsColors;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
-import io.github.sspanak.tt9.util.chars.Characters;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class SoftKey extends BaseClickableKey {
+	private static float screenSizeScale = 0;
+
 	protected RelativeLayout overlay = null;
 
-	private static float screenScaleX = 0;
-	private static float screenScaleY = 0;
+	protected int textColor = SettingsColors.DEFAULT_KEY_TEXT_COLOR;
+	protected int cornerElementColor = textColor;
+	@NonNull protected ColorStateList backgroundColor = ColorStateList.valueOf(SettingsColors.DEFAULT_KEY_BACKGROUND_COLOR);
+	@NonNull protected ColorStateList borderColor = ColorStateList.valueOf(SettingsColors.DEFAULT_KEY_BORDER_COLOR);
+	@NonNull protected ColorStateList rippleColor = ColorStateList.valueOf(SettingsColors.DEFAULT_KEY_RIPPLE_COLOR);
 
 
 	public SoftKey(Context context) { super(context); }
 	public SoftKey(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKey(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+
+
+	@Override
+	public void setTT9(TraditionalT9 tt9) {
+		super.setTT9(tt9);
+		if (tt9 != null) {
+			initColors(tt9.getSettings());
+		}
+	}
+
+
+	/**
+	 * Loads the current color scheme from the settings, so that we can use them in render().
+	 */
+	protected void initColors(@NonNull SettingsStore settings) {
+		backgroundColor = settings.getKeyFnBackgroundColor();
+		borderColor = settings.getKeyFnBorderColor();
+		rippleColor = settings.getKeyFnRippleColor();
+		textColor = settings.getKeyFnTextColor();
+		cornerElementColor = settings.getKeyFnCornerElementColor();
+	}
 
 
 	/**
@@ -46,37 +77,30 @@ public class SoftKey extends BaseClickableKey {
 
 
 	/**
-	 * Returns a scale factor for the screen width, used to adjust the key size and text size. Mostly,
+	 * Returns a scale factor for the screen size, used to adjust the key size and text size. Mostly,
 	 * useful for tablets or larger devices, where the keys are too big but the text remains small.
 	 */
-	protected float getScreenScaleX() {
-		if (screenScaleX == 0) {
-			boolean isLandscape = DeviceInfo.isLandscapeOrientation(getContext());
-			float width = isLandscape ? DeviceInfo.getScreenWidthDp(getContext()) : DeviceInfo.getScreenHeightDp(getContext());
-
-			screenScaleX = Math.min(
-				width / SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_WIDTH,
-				SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_MAX
-			);
+	protected float getScreenSizeScale() {
+		if (screenSizeScale > 0) {
+			return screenSizeScale;
 		}
-		return screenScaleX;
-	}
 
+		final boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9);
+		final float width = isLandscape ? DeviceInfo.getScreenWidthDp(getContext()) : DeviceInfo.getScreenHeightDp(getContext());
+		final float height = isLandscape ? DeviceInfo.getScreenHeightDp(getContext()) : DeviceInfo.getScreenWidthDp(getContext());
 
-	/**
-	 * Same as getScreenScaleX(), but used for the key height.
-	 */
-	protected float getScreenScaleY() {
-		if (screenScaleY == 0) {
-			boolean isLandscape = DeviceInfo.isLandscapeOrientation(getContext());
-			float height = isLandscape ? DeviceInfo.getScreenHeightDp(getContext()) : DeviceInfo.getScreenWidthDp(getContext());
+		final float screenScaleX = Math.min(
+			width / SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_SIZE,
+			SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_MAX
+		);
 
-			screenScaleY = Math.min(
-				height / SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_HEIGHT,
-				SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_MAX
-			);
-		}
-		return screenScaleY;
+		final float screenScaleY = Math.min(
+			height / SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_SIZE,
+			SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_MAX
+		);
+
+		screenSizeScale = Math.min(screenScaleX, screenScaleY);
+		return screenSizeScale;
 	}
 
 
@@ -87,6 +111,17 @@ public class SoftKey extends BaseClickableKey {
 
 	protected float getTT9Height() {
 		return tt9 != null ? tt9.getNormalizedHeight() : 1;
+	}
+
+
+	/**
+	 * isDynamic
+	 * Returns true if the key should be rendered more often to reflect dynamic state changes. This is
+	 * used to determine whether BaseMainLayout.renderDynamicKeys() should include this key or not.
+	 * For example, Shift key changes its appearance, while typing, based on the current text case.
+	 */
+	public boolean isDynamic() {
+		return false;
 	}
 
 
@@ -112,6 +147,26 @@ public class SoftKey extends BaseClickableKey {
 	}
 
 
+	public void setWeight(float weight) {
+		if (weight < 0) {
+			return;
+		}
+
+		getOverlayWrapper();
+		View targetView = overlay != null ? overlay : this;
+
+		LinearLayout.LayoutParams newParams;
+		ViewGroup.LayoutParams currentParams = targetView.getLayoutParams();
+		if (currentParams instanceof LinearLayout.LayoutParams params) {
+			newParams = params;
+		} else {
+			newParams = new LinearLayout.LayoutParams(currentParams);
+		}
+
+		newParams.weight = weight;
+		targetView.setLayoutParams(newParams);
+	}
+
 
 	/**
 	 * getTitle
@@ -134,10 +189,8 @@ public class SoftKey extends BaseClickableKey {
 	private String getTitleCompat() {
 		if (
 			getNoEmojiTitle() > 0
-			&& (
-				Characters.NO_EMOJI_SUPPORT
-				|| (new Text(getText().toString()).startsWithGraphic() && !new Paint().hasGlyph(getText().toString()))
-			)
+			&& new Text(getText().toString()).startsWithGraphic()
+			&& !new Paint().hasGlyph(getText().toString())
 		) {
 			return getContext().getString(getNoEmojiTitle());
 		} else {
@@ -152,9 +205,8 @@ public class SoftKey extends BaseClickableKey {
 	 */
 	protected float getTitleScale() {
 		float keyboardSizeScale = Math.max(0.7f, Math.min(getTT9Width(), getTT9Height()));
-		float screenSizeScale = Math.min(getScreenScaleX(), getScreenScaleY());
 		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent() / 100f : 1;
-		return keyboardSizeScale * screenSizeScale * settingsScale;
+		return keyboardSizeScale * getScreenSizeScale() * settingsScale;
 	}
 
 
@@ -167,12 +219,10 @@ public class SoftKey extends BaseClickableKey {
 	}
 
 	/**
-	 * Similar to getTitleScale(), adjusts the font size of the hold text or icon
+	 * Similar to getTitleScale(), adjusts the font size of the corner text or icon
 	 */
-	protected float getHoldElementScale() {
-		float keyboardSizeScale = Math.min(1, Math.max(getTT9Width(), getTT9Height()));
-		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent() / 100f : 1;
-		return keyboardSizeScale * Math.min(getScreenScaleX(), getScreenScaleY()) * settingsScale;
+	protected float getCornerElementScale(int position) {
+		return 1;
 	}
 
 
@@ -182,6 +232,17 @@ public class SoftKey extends BaseClickableKey {
 			if (parent instanceof RelativeLayout) {
 				overlay = (RelativeLayout) parent;
 			}
+		}
+	}
+
+
+	/**
+	 * Renders the click effect of the key without performing the actual action.
+	 */
+	public void renderClick() {
+		if (isEnabled()) {
+			setPressed(true);
+			setPressed(false);
 		}
 	}
 
@@ -213,17 +274,18 @@ public class SoftKey extends BaseClickableKey {
 	 * Renders text in the given overlay element, with optional scaling and alpha. The overlay
 	 * text elements are either the "hold" text or the "swipe" text.
 	 */
-	protected void renderOverlayText(String elementTag, @Nullable String text, float scale, boolean isEnabled) {
+	protected void renderOverlayText(String elementTag, @Nullable String text, int color, float scale, boolean isEnabled) {
 		if (overlay == null) {
 			return;
 		}
 
-		View element = ((RelativeLayout) getParent()).findViewWithTag(elementTag);
+		View element = overlay.findViewWithTag(elementTag);
 		if (!(element instanceof TextView el)) {
 			return;
 		}
 
-		el.setTextColor(el.getTextColors().withAlpha(isEnabled ? 255 : 110));
+		el.setTextColor(color);
+		el.setAlpha(isEnabled ? 1 : 0.4f);
 
 		if (text == null || scale == 1) {
 			el.setText(text);
@@ -237,14 +299,35 @@ public class SoftKey extends BaseClickableKey {
 
 
 	/**
+	 * Renders or removes the under-shadow, that acts like a border and gives a 3D effect,
+	 * increasing visual separation of the keys. Also, allows for toggling between Material2 and
+	 * Material3 style regardless of the Android version.
+	 */
+	private void renderShadow() {
+		final boolean shadows = tt9 != null && tt9.getSettings().getKeyShadows();
+		post(() -> {
+			setElevation(shadows ? SettingsStore.KEY_SHADOW_ELEVATION : 0);
+			setTranslationZ(shadows ? SettingsStore.KEY_SHADOW_TRANSLATION : 0);
+		});
+	}
+
+
+	/**
 	 * render
-	 * Sets the key labels and icons using. Potentially, it can also adjust padding and margins and
+	 * Sets the key labels, colors and icons using. Potentially, it can also adjust padding and margins and
 	 * other visual properties of the key.
 	 */
 	public void render() {
+		setBackgroundTintList(backgroundColor);
+		setRippleColor(rippleColor);
+		setStrokeColor(borderColor);
+		setStrokeWidth(borderColor.getDefaultColor() == Color.TRANSPARENT ? 0 : 2);
+		setTextColor(textColor);
+
 		boolean isKeyEnabled = isEnabled();
 		renderTitle(isKeyEnabled);
 		getOverlayWrapper();
-		renderOverlayText("overlay_hold_text", getHoldText(), getHoldElementScale(), isKeyEnabled && isHoldEnabled());
+		renderOverlayText("overlay_hold_text", getHoldText(), cornerElementColor, getCornerElementScale(BaseSoftKeyWithIcons.ICON_POSITION_TOP_RIGHT), isKeyEnabled && isHoldEnabled());
+		renderShadow();
 	}
 }

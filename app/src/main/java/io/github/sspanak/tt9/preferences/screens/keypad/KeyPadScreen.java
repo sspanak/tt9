@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.preferences.screens.keypad;
 
+import androidx.annotation.Nullable;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
 import io.github.sspanak.tt9.R;
@@ -8,8 +10,9 @@ import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
 public class KeyPadScreen extends BaseScreenFragment {
 	final public static String NAME = "KeyPad";
-	public KeyPadScreen() { init(); }
-	public KeyPadScreen(PreferencesActivity activity) { init(activity); }
+
+	public KeyPadScreen() { super(); }
+	public KeyPadScreen(@Nullable PreferencesActivity activity) { super(activity); }
 
 	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_category_keypad; }
@@ -19,18 +22,25 @@ public class KeyPadScreen extends BaseScreenFragment {
 	protected void onCreate() {
 		createPhysicalKeysSection();
 		createVirtualKeysSection();
-		resetFontSize(false);
+		resetFontSize(true);
 	}
 
 	private void createPhysicalKeysSection() {
-		(new ItemKeyPadDebounceTime(findPreference(ItemKeyPadDebounceTime.NAME), activity)).populate().enableClickHandler().preview();
+		Preference debounceTime = findPreference(DropDownKeyPadDebounceTime.NAME);
+		if (debounceTime instanceof DropDownKeyPadDebounceTime && activity != null) {
+			((DropDownKeyPadDebounceTime) debounceTime).populate(activity.getSettings()).preview();
+		}
 	}
 
 	protected void createVirtualKeysSection() {
+		if (activity == null) {
+			return;
+		}
+
 		(new ItemHapticFeedback(findPreference(ItemHapticFeedback.NAME), activity.getSettings())).populate().enableClickHandler();
 
 		// hide the entire category when the settings shows no interest in it
-		final boolean isVisible = activity.getSettings().isMainLayoutNumpad() || activity.getSettings().isMainLayoutSmall();
+		final boolean isVisible = activity.getSettings().isMainLayoutLarge() || activity.getSettings().isMainLayoutSmall();
 		final PreferenceCategory category = findPreference("category_virtual_keys");
 		if (category != null) {
 			category.setVisible(isVisible);

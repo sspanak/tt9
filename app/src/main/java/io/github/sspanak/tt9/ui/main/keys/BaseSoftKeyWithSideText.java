@@ -13,15 +13,20 @@ public class BaseSoftKeyWithSideText extends BaseSoftKeyWithIcons {
 	protected String getBottomText() { return null; }
 	protected String getLeftText() { return null; }
 
+	protected float getTopElementScale() { return getCornerElementScale(ICON_POSITION_TOP_RIGHT); }
+	protected float getRightElementScale() { return getCornerElementScale(ICON_POSITION_TOP_RIGHT); }
+	protected float getBottomElementScale() { return getCornerElementScale(ICON_POSITION_TOP_RIGHT); }
+	protected float getLeftElementScale() { return getCornerElementScale(ICON_POSITION_TOP_RIGHT); }
+
 	@Override
 	public void render() {
 		boolean isKeyEnabled = isEnabled();
 
 		getOverlayWrapper();
-		renderOverlayText("overlay_top_text", getTopText(), getHoldElementScale(), isKeyEnabled);
-		renderOverlayText("overlay_right_text", getRightText(), getHoldElementScale(), isKeyEnabled);
-		renderOverlayText("overlay_bottom_text", getBottomText(), getHoldElementScale(), isKeyEnabled);
-		renderOverlayText("overlay_left_text", getLeftText(), getHoldElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_top_text", getTopText(), cornerElementColor, getTopElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_right_text", getRightText(), cornerElementColor, getRightElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_bottom_text", getBottomText(), cornerElementColor, getBottomElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_left_text", getLeftText(), cornerElementColor, getLeftElementScale(), isKeyEnabled);
 		super.render();
 	}
 }

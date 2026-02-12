@@ -2,11 +2,15 @@ package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
 
-import io.github.sspanak.tt9.preferences.screens.debug.ItemInputHandlingMode;
+import io.github.sspanak.tt9.preferences.screens.debug.DropDownInputHandlingMode;
+import io.github.sspanak.tt9.preferences.screens.debug.DropDownLogLevel;
+import io.github.sspanak.tt9.preferences.screens.keypad.DropDownKeyPadDebounceTime;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 class SettingsHacks extends BaseSettings {
+	public static final int COMPOSING_TEXT_RESTART_THRESHOLD = 150; // ms
+
 	private boolean demoMode = false;
 
 	SettingsHacks(Context context) { super(context); }
@@ -22,7 +26,7 @@ class SettingsHacks extends BaseSettings {
 	}
 
 	public int getLogLevel() {
-		return getStringifiedInt("pref_log_level", Logger.LEVEL);
+		return getStringifiedInt(DropDownLogLevel.NAME, Logger.LEVEL);
 	}
 
 	public boolean getEnableSystemLogs() {
@@ -30,7 +34,7 @@ class SettingsHacks extends BaseSettings {
 	}
 
 	public int getInputHandlingMode() {
-		return getStringifiedInt("pref_input_handling_mode", ItemInputHandlingMode.NORMAL);
+		return getStringifiedInt(DropDownInputHandlingMode.NAME, DropDownInputHandlingMode.NORMAL);
 	}
 
 
@@ -46,6 +50,14 @@ class SettingsHacks extends BaseSettings {
 	}
 
 	/**
+	 * Protection for lagging devices that detect key press as a long press.
+	 * See <a href="https://github.com/sspanak/tt9/issues/882">#882</a> for more info.
+	 */
+	public boolean getHoldToType() {
+		return prefs.getBoolean("pref_hold_to_type", true);
+	}
+
+	/**
 	 * Protection against faulty devices, that sometimes send two (or more) click events
 	 * per a single key press, which absolutely undesirable side effects.
 	 * There were reports about this on <a href="https://github.com/sspanak/tt9/issues/117">Kyocera KYF31</a>
@@ -54,7 +66,7 @@ class SettingsHacks extends BaseSettings {
 	public int getKeyPadDebounceTime() {
 		int defaultTime = DeviceInfo.IS_CAT_S22_FLIP ? 50 : 0;
 		defaultTime = DeviceInfo.IS_QIN_F21 ? 20 : defaultTime;
-		return getStringifiedInt("pref_key_pad_debounce_time", defaultTime);
+		return getStringifiedInt(DropDownKeyPadDebounceTime.NAME, defaultTime);
 	}
 
 	public boolean getSystemLogs() {
@@ -66,22 +78,15 @@ class SettingsHacks extends BaseSettings {
 	}
 
 	public void setDonationsVisible(boolean yes) {
-		prefsEditor.putBoolean("pref_show_donations", yes).apply();
+		getPrefsEditor().putBoolean("pref_show_donations", yes).apply();
 	}
 
 	public boolean getAllowComposingText() {
 		return prefs.getBoolean("pref_allow_composing_text", true);
 	}
 
-	/**
-	 * On Samsung S25 (SM-S931B), edge-to-edge does not work like on Pixel/Xiaomi/etc. Like on Android 14,
-	 * the navigation bar is subtracted from the initial available screen size, so we must not add padding
-	 * to compensate.
-	 * There has been a report that Samsung S24U also behaves like this after upgrading to Android 15.
-	 * @see <a href="https://github.com/sspanak/tt9/issues/755">extra space at the bottom of the layout</a>
-	 */
-	public boolean getPrecalculateNavbarHeight() {
-		return prefs.getBoolean("hack_precalculate_navbar_height_v3", !DeviceInfo.IS_SAMSUNG);
+	public boolean getAutoDisableComposing() {
+		return getAllowComposingText() && prefs.getBoolean("hack_auto_disable_composing", true);
 	}
 
 
@@ -98,6 +103,6 @@ class SettingsHacks extends BaseSettings {
 	}
 
 	public void setMessengerReplyExtraPadding(boolean enabled) {
-		prefsEditor.putBoolean("hack_messenger_reply_extra_padding", enabled).apply();
+		getPrefsEditor().putBoolean("hack_messenger_reply_extra_padding", enabled).apply();
 	}
 }

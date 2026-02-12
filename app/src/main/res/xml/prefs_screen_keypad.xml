@@ -24,6 +24,12 @@
 			android:key="backspace_acceleration"
 			android:title="@string/pref_backspace_acceleration"
 			android:summary="@string/pref_backspace_acceleration_summary" />
+
+		<SwitchPreferenceCompat
+			android:defaultValue="true"
+			android:key="auto_trim_trailing_space"
+			android:title="@string/pref_auto_trim_trailing_space"
+			android:summary="@string/pref_auto_trim_trailing_space_summary" />
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/pref_category_keypad_onscreen" android:key="category_virtual_keys">
@@ -39,9 +45,7 @@
 			android:key="screen_hotkeys"
 			android:title="@string/pref_category_function_keys" />
 
-		<DropDownPreference
-			android:key="pref_key_pad_debounce_time"
-			android:title="@string/pref_hack_key_pad_debounce_time" />
+		<io.github.sspanak.tt9.preferences.screens.keypad.DropDownKeyPadDebounceTime android:title="@string/pref_hack_key_pad_debounce_time" />
 
 		<SwitchPreferenceCompat
 			android:defaultValue="false"
@@ -62,6 +66,19 @@
 			android:key="pref_allow_composing_text"
 			android:summary="@string/pref_allow_composing_text_summary"
 			android:title="@string/pref_allow_composing_text" />
+
+		<SwitchPreferenceCompat
+			android:dependency="pref_allow_composing_text"
+			android:defaultValue="true"
+			android:key="hack_auto_disable_composing"
+			android:summary="@string/pref_hack_auto_disable_composing_summary"
+			android:title="@string/pref_hack_auto_disable_composing" />
+
+		<SwitchPreferenceCompat
+			android:defaultValue="true"
+			android:key="pref_hold_to_type"
+			android:summary="@string/pref_hold_to_type_summary"
+			android:title="@string/pref_hold_to_type" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

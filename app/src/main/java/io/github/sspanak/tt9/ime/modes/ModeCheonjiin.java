@@ -17,6 +17,7 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -35,12 +36,14 @@ class ModeCheonjiin extends InputMode {
 	@NonNull private String previousJamoSequence = "";
 
 	// text analysis
-	protected final AutoSpace autoSpace;
-	protected final InputType inputType;
-	protected final TextField textField;
+	@NonNull protected Text afterCursor = new Text(null);
+	@NonNull protected Text beforeCursor = new Text(null);
+	@NonNull protected final AutoSpace autoSpace;
+	@Nullable protected final InputType inputType;
+	@Nullable protected final TextField textField;
 
 
-	protected ModeCheonjiin(SettingsStore settings, InputType inputType, TextField textField) {
+	protected ModeCheonjiin(@NonNull SettingsStore settings, @Nullable InputType inputType, @Nullable TextField textField) {
 		super(settings, inputType);
 
 		autoSpace = new AutoSpace(settings);
@@ -127,14 +130,21 @@ class ModeCheonjiin extends InputMode {
 
 
 	@Override
-	public boolean onNumber(int number, boolean hold, int repeat) {
+	public boolean onNumber(int number, boolean hold, int repeat, @NonNull String[] surroundingChars) {
+		beforeCursor = new Text(language, surroundingChars[0]);
+		afterCursor = new Text(language, surroundingChars[1]);
+
 		if (hold) {
 			reset();
 			digitSequence = String.valueOf(number);
 			disablePredictions = true;
 			onNumberHold(number);
 		} else {
-			basicReset();
+			if (shouldReplaceLastLetter(number)) {
+				replaceLastLetter();
+			} else {
+				basicReset();
+			}
 			disablePredictions = false;
 			onNumberPress(number);
 		}
@@ -215,15 +225,15 @@ class ModeCheonjiin extends InputMode {
 		}
 
 		String currentSeq = digitSequence;
-		if (shouldDisplayCustomEmojis()) {
-			currentSeq = digitSequence.substring(PUNCTUATION_SEQUENCE_PREFIX.length());
-		} else if (!previousJamoSequence.isEmpty()) {
+		if (!previousJamoSequence.isEmpty()) {
 			currentSeq = previousJamoSequence;
 		}
 
 		predictions
-			.setLanguage(shouldDisplayCustomEmojis() ? new EmojiLanguage(seq) : language)
+			.setAfterCursor(afterCursor)
+			.setBeforeCursor(beforeCursor)
 			.setDigitSequence(currentSeq)
+			.setLanguage(language)
 			.load();
 	}
 
@@ -245,12 +255,10 @@ class ModeCheonjiin extends InputMode {
 
 
 	protected boolean shouldDisplayEmojis() {
-		return !isEmailMode && digitSequence.startsWith(seq.EMOJI_SEQUENCE) && !digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE);
-	}
-
-
-	protected boolean shouldDisplayCustomEmojis() {
-		return !isEmailMode && digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE);
+		return
+			!isEmailMode
+			&& settings.areEmojisEnabled()
+			&& digitSequence.startsWith(seq.EMOJI_SEQUENCE);
 	}
 
 
@@ -287,12 +295,6 @@ class ModeCheonjiin extends InputMode {
 	 * Gets the currently available Predictions and sends them over to the external caller.
 	 */
 	protected void onPredictions() {
-		// in case the user hasn't added any custom emoji, do not allow advancing to the empty character group
-		if (predictions.getList().isEmpty() && digitSequence.startsWith(seq.EMOJI_SEQUENCE)) {
-			digitSequence = seq.EMOJI_SEQUENCE;
-			return;
-		}
-
 		suggestions.clear();
 		suggestions.addAll(predictions.getList());
 
@@ -300,13 +302,24 @@ class ModeCheonjiin extends InputMode {
 	}
 
 
+	/**
+	 * Forces immediate acceptance of the replaced Jamo matching the shorter sequence, then schedules
+	 * restoration of the auto-accept behavior.
+	 */
 	private void onReplacementPredictions() {
 		autoAcceptTimeout = 0;
 		onPredictions();
-		predictions.setWordsChangedHandler(this::onPredictions);
+		predictions.setWordsChangedHandler(this::onAfterReplacementPredictions);
+	}
 
+
+	/**
+	 * After a replacement has been auto-accepted restore the normal accept behavior.
+	 */
+	private void onAfterReplacementPredictions() {
 		autoAcceptTimeout = -1;
-		loadSuggestions(null);
+		onPredictions();
+		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
 
@@ -316,8 +329,7 @@ class ModeCheonjiin extends InputMode {
 	}
 
 
-	@Override
-	public void replaceLastLetter() {
+	private void replaceLastLetter() {
 		previousJamoSequence = Cheonjiin.stripRepeatingEndingDigits(digitSequence);
 		if (previousJamoSequence.isEmpty() || previousJamoSequence.length() == digitSequence.length()) {
 			previousJamoSequence = "";
@@ -330,9 +342,12 @@ class ModeCheonjiin extends InputMode {
 	}
 
 
-	@Override
-	public boolean shouldReplaceLastLetter(int nextKey, boolean hold) {
-		return !hold && !shouldDisplayEmojis() && Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextKey);
+	/**
+	 * In Korean typing, the next char may "steal" components from the previous one, in which case,
+	 * we must replace the previous char with a one containing less strokes.
+	 */
+	protected boolean shouldReplaceLastLetter(int nextNumber) {
+		return !shouldDisplayEmojis() && Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextNumber);
 	}
 
 
@@ -377,6 +392,7 @@ class ModeCheonjiin extends InputMode {
 			mustReload = true;
 		} else if (!previousJamoSequence.isEmpty()) {
 			digitSequenceStash = digitSequence;
+			mustReload = true;
 		}
 
 		reset();
@@ -389,20 +405,20 @@ class ModeCheonjiin extends InputMode {
 
 
 	@Override
-	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) {
-		return autoSpace.shouldAddTrailingSpace(textField, inputType, isWordAcceptedManually, nextKey);
+	public boolean shouldAddTrailingSpace(@NonNull String previousChars, @NonNull String nextChars, boolean isWordAcceptedManually, int nextKey) {
+		return autoSpace.shouldAddTrailingSpace(inputType, this, previousChars, nextChars, isWordAcceptedManually, nextKey);
 	}
 
 
 	@Override
-	public boolean shouldAddPrecedingSpace() {
-		return autoSpace.shouldAddBeforePunctuation(inputType, textField);
+	public boolean shouldAddPrecedingSpace(@NonNull String previousChars) {
+		return autoSpace.shouldAddBeforePunctuation(inputType, previousChars);
 	}
 
 
 	@Override
-	public boolean shouldDeletePrecedingSpace() {
-		return autoSpace.shouldDeletePrecedingSpace(inputType, textField);
+	public boolean shouldDeletePrecedingSpace(@NonNull String previousChars) {
+		return autoSpace.shouldDeletePrecedingSpace(inputType, previousChars);
 	}
 
 

@@ -4,33 +4,44 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdEditAdjacentLetter;
+import io.github.sspanak.tt9.commands.CmdMoveCursor;
+import io.github.sspanak.tt9.commands.CmdSuggestionNext;
+import io.github.sspanak.tt9.commands.CmdSuggestionPrevious;
 import io.github.sspanak.tt9.ui.Vibration;
 
-public class SoftKeyArrow extends SoftKey {
-	private boolean hold;
+public class SoftKeyArrow extends BaseSoftKeyCustomizable {
+	private final CmdEditAdjacentLetter editNextLetter = new CmdEditAdjacentLetter();
+	private final CmdMoveCursor moveCursor = new CmdMoveCursor();
+
+	private boolean held;
+	private boolean editedNext;
 
 	public SoftKeyArrow(Context context) { super(context); }
 	public SoftKeyArrow(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyArrow(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
-	@Override public void setHeight(int height) {}
-
 	@Override
 	protected boolean handlePress() {
-		hold = false;
+		editedNext = false;
+		held = false;
 		return super.handlePress();
 	}
 
 	@Override
 	protected void handleHold() {
-		hold = true;
-		moveCursor();
+		if (editNextLetter.isAvailable(tt9)) {
+			preventRepeat();
+			editedNext = editNextLetter.run(tt9, getId() == R.id.soft_key_left_arrow);
+		} else {
+			held = true;
+			moveCursor();
+		}
 	}
 
 	@Override
 	protected boolean handleRelease() {
-		if (hold) {
-			hold = false;
+		if (editedNext || held) {
 			vibrate(Vibration.getReleaseVibration());
 			return true;
 		} else {
@@ -51,16 +62,23 @@ public class SoftKeyArrow extends SoftKey {
 	}
 
 	private boolean onLeft() {
-		return tt9.onKeyScrollSuggestion(false, true) || tt9.onKeyMoveCursor(true);
+		return new CmdSuggestionPrevious().run(tt9) || moveCursor.run(tt9, CmdMoveCursor.CURSOR_MOVE_LEFT);
 	}
 
 	private boolean onRight() {
-		return tt9.onKeyScrollSuggestion(false, false) || tt9.onKeyMoveCursor(false);
+		return new CmdSuggestionNext().run(tt9) || moveCursor.run(tt9, CmdMoveCursor.CURSOR_MOVE_RIGHT);
 	}
 
 	@Override
 	public void render() {
-		setVisibility(tt9 != null && tt9.getSettings().areArrowKeysHidden() ? GONE : VISIBLE);
+		final int visibility = tt9 != null && tt9.getSettings().getArrowsLeftRight() ? VISIBLE : GONE;
+
+		setVisibility(visibility);
+		getOverlayWrapper();
+		if (overlay != null) {
+			overlay.setVisibility(visibility);
+		}
+
 		super.render();
 	}
 }

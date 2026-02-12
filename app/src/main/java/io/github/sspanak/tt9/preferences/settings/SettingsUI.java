@@ -1,13 +1,19 @@
 package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.view.Gravity;
-
-import androidx.appcompat.app.AppCompatDelegate;
 
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownAlignment;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownBottomPaddingPortrait;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownLayoutType;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownSettingsFontSize;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownSuggestionFontSize;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownWidth;
+import io.github.sspanak.tt9.preferences.screens.appearance.SwitchDoubleTapResize;
+import io.github.sspanak.tt9.preferences.screens.appearance.SwitchDragResize;
+import io.github.sspanak.tt9.preferences.screens.appearance.SwitchKeyShadows;
 import io.github.sspanak.tt9.preferences.screens.languages.AddWordsWithoutConfirmationSwitch;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -16,12 +22,17 @@ public class SettingsUI extends SettingsTyping {
 	public final static int FONT_SIZE_DEFAULT = 0;
 	public final static int FONT_SIZE_LARGE = 2;
 
+	public final static float KEY_SHADOW_ELEVATION = 3f;
+	public final static float KEY_SHADOW_TRANSLATION = 2f;
+
 	public final static int LAYOUT_STEALTH = 0;
 	public final static int LAYOUT_TRAY = 2;
 	public final static int LAYOUT_SMALL = 3;
 	public final static int LAYOUT_NUMPAD = 4;
+	public final static int LAYOUT_CLASSIC = 5;
 
 	private final int DEFAULT_LAYOUT;
+	private final int DEFAULT_LARGE_LAYOUT;
 
 	public final static int MIN_WIDTH_PERCENT = 50;
 	private int DEFAULT_WIDTH_LANDSCAPE = 0;
@@ -31,8 +42,10 @@ public class SettingsUI extends SettingsTyping {
 	SettingsUI(Context context) {
 		super(context);
 
+		DEFAULT_LARGE_LAYOUT = LAYOUT_NUMPAD;
+
 		if (DeviceInfo.noKeyboard(context)) {
-			DEFAULT_LAYOUT = LAYOUT_NUMPAD;
+			DEFAULT_LAYOUT = DEFAULT_LARGE_LAYOUT;
 		} else if (DeviceInfo.noBackspaceKey() && !DeviceInfo.noTouchScreen(context)) {
 			DEFAULT_LAYOUT = LAYOUT_SMALL;
 		} else {
@@ -52,29 +65,50 @@ public class SettingsUI extends SettingsTyping {
 		return DeviceInfo.AT_LEAST_ANDROID_13 && getStringifiedInt("pref_asked_for_notifications_version", 0) < BuildConfig.VERSION_CODE;
 	}
 
+	public int getBottomPaddingPortrait() {
+		return getStringifiedInt(DropDownBottomPaddingPortrait.NAME, DropDownBottomPaddingPortrait.DEFAULT);
+	}
+
+	public int getBottomPaddingPortraitPx() {
+		return Math.round(getBottomPaddingPortrait() * DeviceInfo.getScreenPixelDensity(context));
+	}
+
+	/**
+	 * Samsung devices with Android 15+ SOMETIMES report bottom inset = navigational bar height, but
+	 * but they still move up the IME window up, the Android 14 way. So, if we apply our bottom padding,
+	 * we end up with double padding. To avoid this, we read the reported device bottom inset and
+	 * overwrite the default bottom padding accordingly.
+	 * Safe to call on non-Samsung devices and pre-Android 15 devices. It will just do nothing.
+	 */
+	public void setSamsungBottomPaddingPortrait(int paddingDp) {
+		if (
+			DeviceInfo.IS_SAMSUNG
+			&& DeviceInfo.AT_LEAST_ANDROID_15
+			&& paddingDp > 0
+			&& getStringifiedInt(DropDownBottomPaddingPortrait.NAME, -1) == -1
+		) {
+			getPrefsEditor().putString(DropDownBottomPaddingPortrait.NAME, Integer.toString(paddingDp)).apply();
+		}
+	}
+
 	public void setNotificationsApproved(boolean yes) {
-		prefsEditor.putString(
+		getPrefsEditor().putString(
 			"pref_asked_for_notifications_version",
 			Integer.toString(yes ? Integer.MAX_VALUE : BuildConfig.VERSION_CODE)
 		);
-		prefsEditor.apply();
+		getPrefsEditor().apply();
 	}
 
 	public boolean isStatusIconEnabled() {
 		return prefs.getBoolean("pref_status_icon", DeviceInfo.IS_QIN_F21 || !DeviceInfo.noKeyboard(context));
 	}
 
-	public boolean getDarkTheme() {
-		int theme = getTheme();
-		if (theme == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
-			return (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
-		} else {
-			return theme == AppCompatDelegate.MODE_NIGHT_YES;
-		}
+	public boolean getDragResize() {
+		return prefs.getBoolean(SwitchDragResize.NAME, SwitchDragResize.DEFAULT);
 	}
 
-	public boolean getDragResize() {
-		return prefs.getBoolean("pref_drag_resize", true);
+	public boolean getDoubleTapResize() {
+		return prefs.getBoolean(SwitchDoubleTapResize.NAME, SwitchDoubleTapResize.DEFAULT);
 	}
 
 	public boolean getHapticFeedback() {
@@ -82,7 +116,7 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public int getAlignment() {
-		return getStringifiedInt("pref_numpad_alignment", Gravity.CENTER_HORIZONTAL);
+		return getStringifiedInt(DropDownAlignment.NAME, Gravity.CENTER_HORIZONTAL);
 	}
 
 	public void setAlignment(int alignment) {
@@ -90,21 +124,25 @@ public class SettingsUI extends SettingsTyping {
 			Logger.w(getClass().getSimpleName(), "Ignoring invalid numpad key alignment: " + alignment);
 		}
 
-		prefsEditor.putString("pref_numpad_alignment", Integer.toString(alignment));
-		prefsEditor.apply();
+		getPrefsEditor().putString(DropDownAlignment.NAME, Integer.toString(alignment));
+		getPrefsEditor().apply();
 	}
 
 	public boolean getQuickSwitchLanguage() {
 		if (DEFAULT_QUICK_SWITCH_LANGUAGE == null) {
-			DEFAULT_QUICK_SWITCH_LANGUAGE = !isMainLayoutStealth() && getEnabledLanguagesIdsAsStrings().size() <= 2;
+			DEFAULT_QUICK_SWITCH_LANGUAGE = !isMainLayoutStealth() && !areEnabledLanguagesMoreThanN(2);
 		}
 
 		return prefs.getBoolean("pref_quick_switch_language", DEFAULT_QUICK_SWITCH_LANGUAGE);
 	}
 
+	public boolean getKeyShadows() {
+		return prefs.getBoolean(SwitchKeyShadows.NAME, SwitchKeyShadows.DEFAULT);
+	}
+
 	public int getSettingsFontSize() {
 		int defaultSize = DeviceInfo.IS_QIN_F21 || DeviceInfo.IS_LG_X100S ? FONT_SIZE_LARGE : FONT_SIZE_DEFAULT;
-		return getStringifiedInt("pref_font_size", defaultSize);
+		return getStringifiedInt(DropDownSettingsFontSize.NAME, defaultSize);
 	}
 
 	public float getSuggestionFontScale() {
@@ -112,19 +150,15 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public int getSuggestionFontSizePercent() {
-		return getStringifiedInt("pref_suggestion_font_size", 100);
+		return getStringifiedInt(DropDownSuggestionFontSize.NAME, 100);
 	}
 
 	public boolean getSuggestionSmoothScroll() {
 		return prefs.getBoolean("pref_suggestion_smooth_scroll", !DeviceInfo.noTouchScreen(context));
 	}
 
-	public int getTheme() {
-		return getStringifiedInt("pref_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-	}
-
-	public int getDefaultWidthPercent() {
-		if (!DeviceInfo.isLandscapeOrientation(context)) {
+	public int getDefaultWidthPercent(boolean isPortrait) {
+		if (isPortrait) {
 			return 100;
 		}
 
@@ -144,24 +178,44 @@ public class SettingsUI extends SettingsTyping {
 		return DEFAULT_WIDTH_LANDSCAPE = Math.round(width / 5) * 5;
 	}
 
-	public int getWidthPercent() {
-		return getStringifiedInt("pref_numpad_width", getDefaultWidthPercent());
+	public int getWidthPercent(boolean isPortrait) {
+		return getStringifiedInt(DropDownWidth.NAME, getDefaultWidthPercent(isPortrait));
 	}
 
 	public void setMainViewLayout(int layout) {
-		if (layout != LAYOUT_STEALTH && layout != LAYOUT_TRAY && layout != LAYOUT_SMALL && layout != LAYOUT_NUMPAD) {
+		if (layout != LAYOUT_STEALTH && layout != LAYOUT_TRAY && layout != LAYOUT_SMALL && layout != LAYOUT_NUMPAD && layout != LAYOUT_CLASSIC) {
 			Logger.w(getClass().getSimpleName(), "Ignoring invalid main view layout: " + layout);
 			return;
 		}
 
-		prefsEditor.putString("pref_layout_type", Integer.toString(layout));
-		prefsEditor.apply();
+		getPrefsEditor().putString(DropDownLayoutType.NAME, Integer.toString(layout));
+		getPrefsEditor().apply();
 	}
 
 	public int getMainViewLayout() {
-		return getStringifiedInt("pref_layout_type", DEFAULT_LAYOUT);
+		return getStringifiedInt(DropDownLayoutType.NAME, DEFAULT_LAYOUT);
 	}
 
+	public int getPreferredLargeLayout() {
+		final int layout = prefs.getInt("pref_preferred_large_layout", DEFAULT_LARGE_LAYOUT);
+		return layout != LAYOUT_CLASSIC && layout != LAYOUT_NUMPAD ? DEFAULT_LARGE_LAYOUT : layout;
+	}
+
+	public void setPreferredLargeLayout(int layout) {
+		if (layout != LAYOUT_CLASSIC && layout != LAYOUT_NUMPAD) {
+			Logger.w(getClass().getSimpleName(), "Ignoring invalid preferred large layout: " + layout);
+			return;
+		}
+
+		getPrefsEditor().putInt("pref_preferred_large_layout", layout).apply();
+	}
+
+	public boolean isMainLayoutLarge() {
+		final int layout = getMainViewLayout();
+		return layout == LAYOUT_CLASSIC || layout == LAYOUT_NUMPAD;
+	}
+
+	public boolean isMainLayoutClassic() { return getMainViewLayout() == LAYOUT_CLASSIC; }
 	public boolean isMainLayoutNumpad() { return getMainViewLayout() == LAYOUT_NUMPAD; }
 	public boolean isMainLayoutTray() { return getMainViewLayout() == LAYOUT_TRAY; }
 	public boolean isMainLayoutSmall() { return getMainViewLayout() == LAYOUT_SMALL; }

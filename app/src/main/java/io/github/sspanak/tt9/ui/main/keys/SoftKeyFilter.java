@@ -3,10 +3,18 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import io.github.sspanak.tt9.R;
+import androidx.annotation.NonNull;
+
+import io.github.sspanak.tt9.commands.CmdEditDuplicateLetter;
+import io.github.sspanak.tt9.commands.CmdFilterClear;
+import io.github.sspanak.tt9.commands.CmdFilterSuggestions;
 import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyFilter extends BaseSoftKeyWithIcons {
+	@NonNull private final CmdFilterClear clear = new CmdFilterClear();
+	@NonNull private final CmdFilterSuggestions filter = new CmdFilterSuggestions();
+	@NonNull private final CmdEditDuplicateLetter duplicateLetter = new CmdEditDuplicateLetter();
+
 	public SoftKeyFilter(Context context) { super(context); }
 	public SoftKeyFilter(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyFilter(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
@@ -14,7 +22,7 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 	@Override
 	protected void handleHold() {
 		preventRepeat();
-		if (validateTT9Handler() && tt9.onKeyFilterClear(false)) {
+		if (!duplicateLetter.isAvailable(tt9) && clear.run(tt9)) {
 			vibrate(Vibration.getHoldVibration());
 			ignoreLastPressedKey();
 		}
@@ -22,36 +30,28 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 
 	@Override
 	protected boolean handleRelease() {
-		return
-			validateTT9Handler()
-			&& tt9.onKeyFilterSuggestions(false, getLastPressedKey() == getId());
+		return duplicateLetter.run(tt9) || filter.run(tt9, getLastPressedKey() == getId());
 	}
 
-	@Override protected int getCentralIcon() {
-		if (tt9 != null) {
-			if (tt9.isFilteringFuzzy()) return R.drawable.ic_fn_filter_fuzzy;
-			if (tt9.isFilteringOn()) return R.drawable.ic_fn_filter_exact;
-		}
-		return R.drawable.ic_fn_filter;
+	@Override
+	public boolean isDynamic() {
+		return true;
 	}
 
-	@Override protected int getHoldIcon() {
-		return R.drawable.ic_fn_filter_off;
+	@Override
+	protected int getCentralIcon() {
+		return duplicateLetter.isAvailable(tt9) ? duplicateLetter.getIcon() : filter.getDynamicIcon(tt9);
+	}
+
+	@Override
+	protected int getCornerIcon(int position) {
+		return position == ICON_POSITION_TOP_RIGHT && !duplicateLetter.isAvailable(tt9) ? clear.getIcon() : super.getCornerIcon(position);
 	}
 
 	@Override
 	public void render() {
 		resetIconCache();
-		if (tt9 != null) {
-			setEnabled(
-				tt9.isFilteringSupported()
-				&& !tt9.isInputModeABC()
-				&& !tt9.isInputModeNumeric()
-				&& !tt9.isVoiceInputActive()
-				&& !tt9.isFnPanelVisible()
-			);
-		}
-
+		setEnabled(filter.isAvailable(tt9) || duplicateLetter.isAvailable(tt9));
 		super.render();
 	}
 }

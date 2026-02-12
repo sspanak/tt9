@@ -104,6 +104,22 @@ public class InputType extends StandardInputType {
 	}
 
 
+	public boolean isFirefoxText() {
+		return
+			isAppField("org.mozilla.firefox", EditorInfo.TYPE_CLASS_TEXT)
+			|| isAppField("org.mozilla.fennec_fdroid", EditorInfo.TYPE_CLASS_TEXT)
+			|| isAppField("org.mozilla.focus", EditorInfo.TYPE_CLASS_TEXT);
+	}
+
+
+	public boolean isGmailComposeMail() {
+		final String GMAIL = "com.google.android.gm";
+		return
+			isAppField(GMAIL, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE | EditorInfo.TYPE_TEXT_FLAG_AUTO_CORRECT)
+			|| isAppField(GMAIL, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+	}
+
+
 	public boolean isLgX100SDialer() {
 		int imeOptions = EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_ENTER_ACTION;
 		return
@@ -133,20 +149,6 @@ public class InputType extends StandardInputType {
 	 */
 	boolean isMultilineTextInNonSystemApp() {
 		return field != null && !field.packageName.contains("android") && isMultilineText();
-	}
-
-
-	/**
-	 * The main search field in Reddit does some weird stuff accepting the first character of the
-	 * composing text, causing issues when typing a new word and when recomposing. This method detects
-	 * it so that we can perform composing internally, without inserting the text into the field.
-	 */
-	public boolean isRedditSearchField() {
-		final int navigateFlags = EditorInfo.IME_FLAG_NAVIGATE_NEXT | EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS;
-
-		return
-			isAppField("com.reddit.frontpage", 65537)
-			&& (field.imeOptions & navigateFlags) == navigateFlags;
 	}
 
 

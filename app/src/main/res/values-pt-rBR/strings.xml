@@ -14,9 +14,12 @@
 	<string name="add_word_success">\"%1$s\" adicionada.</string>
 	<string name="add_word_title">Adicionar Palavra</string>
 
+	<string name="edit_word_no_selection">Mova o cursor para dentro de uma palavra para editá-la.</string>
+	<string name="commands_clipboard_is_empty">A área de transferência está vazia.</string>
 	<string name="commands_select_command">Selecionar um comando</string>
 	<string name="pref_category_about">Sobre</string>
 	<string name="pref_category_abc_mode">Modo ABC</string>
+	<string name="pref_category_colors">Cores</string>
 	<string name="pref_category_custom_words">Palavras adicionadas</string>
 	<string name="pref_category_delete_words">Excluir palavras adicionadas</string>
 	<string name="pref_category_fn_key_order">Ordem das teclas de função</string>
@@ -26,6 +29,7 @@
 	<string name="pref_category_keypad_onscreen">Teclas na tela</string>
 	<string name="pref_category_predictive_mode">Modo Predictivo</string>
 	<string name="pref_category_function_keys">Atalhos</string>
+	<string name="pref_category_key_appearance">Teclas</string>
 	<string name="pref_category_keypad">Teclado</string>
 
 	<string name="pref_category_setup">Configuração inicial</string>
@@ -36,10 +40,12 @@
 	<string name="pref_abc_auto_accept_fast">Rápido</string>
 	<string name="pref_abc_auto_accept_normal">Moderado</string>
 	<string name="pref_abc_auto_accept_slow">Lento</string>
-	<string name="pref_allow_composing_text_summary">Exibir as palavras nos campos de texto ao digitá-las. Desativar quando um app interromper a digitação.</string>
+	<string name="pref_allow_composing_text">Mostrar texto em composição</string>
+	<string name="pref_allow_composing_text_summary">Mostrar palavras nos campos de texto enquanto digita. Quando desativado, as palavras são exibidas apenas após pressionar OK ou Espaço.</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de rolagem de sugestões</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Ative se às vezes não conseguir ver todas as sugestões ou tiver problemas para rolá-las.</string>
-	<string name="pref_arrow_keys_visible_summary">Mostrar teclas de rolagem em ambos os lados da lista de sugestões de palavras.</string>
+	<string name="pref_arrows_left_right_summary">Mostrar as teclas de seta esquerda/direita para rolar as sugestões ou mover o cursor de texto horizontalmente.</string>
+	<string name="pref_arrows_up_down_summary">Permitir deslizar para cima/baixo na tecla OK para filtrar sugestões ou mover o cursor de texto verticalmente.</string>
 	<string name="pref_auto_space">Espaçamento automático</string>
 	<string name="pref_auto_space_summary">Insere um espaçamento após ponto final.</string>
 	<string name="pref_auto_text_case">Maiúsculas automáticas</string>
@@ -49,25 +55,34 @@
 	<string name="pref_backspace_recomposing">Recomposição de palavras</string>
 	<string name="pref_backspace_recomposing_summary">Pressionar Backspace no fim da palavra para editar. (Não funciona em alguns apps e com texto em vários idiomas)</string>
 	<string name="pref_choose_languages">Idiomas</string>
-	<string name="pref_dark_theme">Modo Escuro</string>
-	<string name="pref_drag_resize_summary">Permitir redimensionar e mover o teclado arrastando a Barra de Status ou a tecla de Configurações.</string>
+	<string name="pref_drag_resize_summary">Arrastar a barra de status ou a tecla de Configurações para minimizar o teclado ou ajustar sua posição na tela.</string>
+	<string name="pref_double_tap_resize_summary">Tocar duas vezes na barra de status para maximizar ou minimizar o teclado quando não houver sugestões.</string>
 	<string name="pref_double_zero_char">Caractere para toque duplo na tecla 0</string>
+	<string name="pref_hold_to_type_summary">Permite digitar números ou ativar funções do app mantendo pressionadas as teclas numéricas. Desative se o dispositivo detectar incorretamente toques curtos como pressionamentos longos.</string>
+	<string name="pref_key_shadows">Sombras abaixo das teclas</string>
+	<string name="pref_keyboard_preview">Visualizar</string>
 	<string name="pref_layout">Tipo de layout</string>
-	<string name="pref_layout_numpad">Teclado numérico</string>
+	<string name="pref_layout_numpad">Teclado numérico (moderno)</string>
 	<string name="pref_layout_small">Teclas de função</string>
 	<string name="pref_layout_stealth">Modo invisível</string>
 	<string name="pref_layout_tray">Apenas lista de palavras</string>
 	<string name="pref_haptic_feedback_summary">Vibrar ao pressionar uma tecla virtual. (Não é possível em todos os dispositivos)</string>
+	<string name="pref_hardware_key_visual_feedback">Visualizar pressionamentos</string>
+	<string name="pref_hardware_key_visual_feedback_summary">Pressionar uma tecla física destacará a tecla correspondente na tela.</string>
 	<string name="pref_help">Ajuda</string>
 
 	<string name="pref_numpad_shape_long_space">Barra de espaço longa</string>
 	<string name="pref_numpad_width">Largura</string>
+	<string name="pref_one_key_emoji_simple">Lista breve</string>
 	<string name="pref_predict_word_pairs">Aprender pares de palavras</string>
 	<string name="pref_predict_word_pairs_summary">Lembrar de frases comumente usadas para melhorar as sugestões de palavras.</string>
+	<string name="pref_predictive_auto_accept">Seleção automática de palavras</string>
 	<string name="pref_privacy_policy">Política de privacidade</string>
 	<string name="pref_quick_switch_language_summary">Pressionar a tecla de idioma alterna automaticamente para o próximo idioma, em vez de mostrar um pop-up com todos os idiomas habilitados.</string>
+	<string name="pref_show_suggestions_abc_summary">Mostrar letras possíveis na barra de sugestões ao pressionar uma tecla.</string>
 	<string name="pref_status_icon">Ícone de status</string>
 	<string name="pref_status_icon_summary">Mostrar um ícone quando a digitação estiver ativa.</string>
+	<string name="pref_color_scheme_device_light">Claro do sistema</string>
 	<string name="dictionary_cancel_load">Cancelar Carregamento</string>
 	<string name="dictionary_load_bad_char">Falha no carregamento. Palavra inválida na linha %1$d do idioma \"%2$s\".</string>
 	<string name="dictionary_load_error">Falha no carregamento do dicionário para o idioma \"%1$s\" (%2$s).</string>
@@ -83,11 +98,11 @@
 	<string name="dictionary_truncate_title">Limpar Dicionário</string>
 	<string name="dictionary_truncated">Dicionário apagado com sucesso.</string>
 
-	<string name="function_add_word_not_available">Não é possível adicionar palavras neste idioma.</string>
+	<string name="add_word_not_available_in_language">Não é possível adicionar palavras neste idioma.</string>
 	<string name="function_backspace">Backspace</string>
 	<string name="function_next_suggestion">Próxima Sugestão</string>
 	<string name="function_next_language">Próximo Idioma</string>
-	<string name="function_next_mode">Modo de Entrada</string>
+	<string name="function_next_mode">Próximo modo de entrada</string>
 	<string name="function_reassign">Reatribuir</string>
 	<string name="function_add_word">Adicionar palavra</string>
 	<string name="function_show_settings">Entrar em Configurações</string>
@@ -102,8 +117,8 @@
 	<string name="setup_tt9_on">%1$s está ativado</string>
 	<string name="setup_tt9_off">%1$s está desativado</string>
 	<string name="setup_click_here_to_enable">Clique aqui para ativar TT9 nas configurações do Android.</string>
-	<string name="setup_spell_checker">Verificador ortográfico do sistema</string>
-	<string name="setup_spell_checker_on">O verificador ortográfico do sistema pode interferir na adição de palavras. Clique aqui para desativá-lo.</string>
+	<string name="setup_spell_checker">Corretor ortográfico do sistema</string>
+	<string name="setup_spell_checker_on">O corretor ortográfico do sistema sublinha o texto em vermelho e pode impedir a adição de novas palavras. Toque para desativar.</string>
 	<string name="setup_spell_checker_off">Desativado</string>
 	<string name="key_key">Tecla</string>
 	<string name="key_hold_key">(segurar)</string>
@@ -121,8 +136,7 @@
 	<string name="pref_suggestion_smooth_scroll">Rolagem suave de sugestões</string>
 	<string name="pref_upside_down_keys">Inverter ordem das teclas</string>
 	<string name="dictionary_truncate_unselected">Limpar Não Selecionados</string>
-	<string name="pref_dark_theme_yes">Sim</string>
-	<string name="pref_dark_theme_no">Não</string>
+	<string name="pref_color_scheme">Tema</string>
 	<string name="pref_dark_theme_auto">Automático</string>
 	<string name="dictionary_truncating">Excluindo…</string>
 	<string name="dictionary_export">Exportar selecionados</string>
@@ -137,7 +151,7 @@
 	<string name="dictionary_import_error_file_too_long">O número de palavras excede o máximo permitido de %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Formato de palavra inesperado: \"%1$s\" na linha %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">O armazenamento de palavras adicionadas está cheio. Você não pode importar mais palavras.</string>
-	<string name="delete_words_delete">Excluir</string>
+	<string name="delete">Excluir</string>
 	<string name="delete_words_link_summary">Encontrar e excluir palavras escritas incorretamente ou desnecessárias.</string>
 	<string name="search_results">Palavras encontradas</string>
 	<string name="search_results_void">Sem resultados.</string>
@@ -150,6 +164,7 @@
 	<string name="donate_summary">Se você gosta de %1$s, pode me pagar uma cerveja.</string>
 	<string name="pref_hack_always_on_top">Sempre na frente</string>
 	<string name="pref_hack_always_on_top_summary">Não permitir que outras aplicações cubram %1$s ou o empurrem para fora do ecrã.</string>
+	<string name="pref_hack_auto_disable_composing_summary">Desativar automaticamente a composição de texto quando um app causa problemas de digitação.</string>
 	<string name="pref_hack_key_pad_debounce_time">Proteção contra repetição acidental de teclas</string>
 	<string name="pref_hack_key_pad_debounce_off">Desligado</string>
 	<string name="dictionary_export_finished">Exportação concluída</string>
@@ -157,7 +172,7 @@
 	<string name="dictionary_export_generating_csv">Exportando CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportando CSV (%1$s)…</string>
 	<string name="pref_category_layout">Layout na tela</string>
-	<string name="pref_numpad_key_font_size">Tamanho da fonte das teclas</string>
+	<string name="pref_numpad_key_font_size">Tamanho da fonte</string>
 	<string name="pref_numpad_key_height">Altura</string>
 	<string name="pref_numpad_fn_key_width">Largura das teclas de letras</string>
 	<string name="pref_font_size">Tamanho da fonte das configurações</string>
@@ -180,9 +195,9 @@
 	<string name="voice_input_error_no_network">Sem conexão com a Internet</string>
 	<string name="voice_input_error_not_available">A entrada de voz não está disponível</string>
 	<string name="voice_input_stopping">Desligando o microfone…</string>
-	<string name="pref_hack_precalculate_navbar_height_summary">Evita espaço sob as teclas. Desative no Samsung para evitar sobreposição com a barra de navegação.</string>
 	<string name="pref_haptic_feedback">Vibração</string>
 	<string name="pref_numpad_alignment">Alinhamento</string>
+	<string name="tutorial_classic_voice_input">Deslize para a direita para ativar a entrada por voz.</string>
 	<string name="virtual_numpad_alignment_center">No meio</string>
 	<string name="virtual_numpad_alignment_left">À esquerda</string>
 	<string name="virtual_numpad_alignment_right">À direita</string>
@@ -196,6 +211,7 @@
 	<string name="language_selection_language_loaded">(carregado)</string>
 	<string name="language_selection_title">Habilitar idiomas</string>
 	<string name="language_selection_words">palavras</string>
+	<string name="pref_auto_trim_trailing_space_summary">Remover automaticamente espaços extras ao mover o cursor para trás.</string>
 	<string name="pref_backspace_acceleration">Exclusão rápida</string>
 	<string name="pref_backspace_acceleration_summary">Apagar palavras inteiras mantendo pressionado ou deslizando o Backspace. (Não suportado em alguns aplicativos)</string>
 	<string name="pref_category_punctuation_order">Ordem de pontuação</string>
@@ -215,13 +231,14 @@
 	<string name="punctuation_order_save">Salvar a ordem para %1$s</string>
 	<string name="punctuation_order_forbidden_char">Caractere proibido:%1$s</string>
 	<string name="punctuation_order_forbidden_chars">Caracteres proibidos:%1$s</string>
+	<string name="function_edit_word">Editar palavra</string>
 	<string name="function_filter_suggestions">Filtrar de Sugestões</string>
 	<string name="function_filter_suggestions_not_available">Não é possível filtrar neste idioma.</string>
 	<string name="pref_category_geometry">Geometria</string>
 	<string name="pref_numpad_shape">Forma</string>
 	<string name="pref_numpad_shape_square">Quadrado</string>
 	<string name="pref_numpad_shape_v">Forma em V</string>
-	<string name="pref_arrow_keys_visible">Teclas de seta</string>
+	<string name="pref_arrows_left_right">Setas esquerda/direita</string>
 	<string name="donate_hold_to_open">Pressione e segure para abrir no navegador.</string>
 	<string name="fn_key_order_error_duplicate_key">Teclas duplicadas não são permitidas.</string>
 	<string name="fn_key_order_legend">Legenda:</string>
@@ -231,10 +248,9 @@
 	<string name="function_filter_clear">Limpar Filtro</string>
 	<string name="function_edit_text">Ferramentas da área de transferência</string>
 	<string name="function_previous_suggestion">Sugestão Anterior</string>
-	<string name="pref_allow_composing_text">Mostrar texto em composição</string>
-	<string name="pref_drag_resize">Redimensionar arrastando</string>
+	<string name="pref_bottom_padding_portrait">Espaçamento inferior (retrato)</string>
+	<string name="pref_drag_resize">Arrastar para redimensionar</string>
 	<string name="function_undo">Desfazer</string>
-	<string name="pref_hack_precalculate_navbar_height">Recalcular o espaçamento inferior</string>
 	<string name="fn_key_order_column_2">Coluna 2</string>
 	<string name="fn_key_order_error_wrong_key_count">A coluna pode conter no máximo 4 teclas.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Apenas os códigos de tecla de 1 a 8 são permitidos.</string>
@@ -243,4 +259,21 @@
 	<string name="pref_quick_switch_language">Alternância rápida de idioma</string>
 	<string name="punctuation_order_initial">Caracteres iniciais</string>
 	<string name="punctuation_order_group">Caracteres agrupados (opcional)</string>
+	<string name="pref_one_key_emoji">Emojis na tecla 1</string>
+	<string name="pref_one_key_emoji_none">Sem emojis</string>
+	<string name="pref_hold_to_type">Manter teclas numéricas</string>
+	<string name="pref_color_scheme_device_dark">Escuro do sistema</string>
+	<string name="click_here_for_preview">Clique aqui para visualizar</string>
+	<string name="pref_double_tap_resize">Toque duplo para redimensionar</string>
+	<string name="pref_layout_classic">Teclado numérico (retrô)</string>
+	<string name="pref_arrows_up_down">Setas para cima/baixo</string>
+	<string name="tutorial_close">Entendi!</string>
+	<string name="tutorial_classic_title">Primeiros passos</string>
+	<string name="tutorial_classic_OK_swipe">Quando não houver sugestões, deslize para cima/baixo para mover o cursor.\n\nQuando houver sugestões, deslize para cima para filtrá-las ou para baixo para limpar o filtro.</string>
+	<string name="tutorial_classic_add_word">Deslize para a esquerda para adicionar uma palavra.</string>
+	<string name="pref_hack_auto_disable_composing">Desativar automaticamente a composição de texto</string>
+	<string name="pref_show_suggestions_abc">Mostrar sugestões de letras</string>
+	<string name="pref_auto_trim_trailing_space">Remover automaticamente espaços finais</string>
+	<string name="edit_word_invalid_characters">Não é possível editar \"%1$s\" quando o idioma é \"%2$s\".</string>
+	<string name="edit_word_not_available_in_language">Não é possível editar palavras neste idioma.</string>
 </resources>

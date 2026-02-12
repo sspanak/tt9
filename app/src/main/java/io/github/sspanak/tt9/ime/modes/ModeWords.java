@@ -11,7 +11,6 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.ime.modes.predictions.WordPredictions;
-import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
@@ -24,6 +23,7 @@ import io.github.sspanak.tt9.util.chars.Characters;
 class ModeWords extends ModeCheonjiin {
 	private final String LOG_TAG = getClass().getSimpleName();
 
+	private boolean ignoreNextSpace = false;
 	private String lastAcceptedWord = "";
 
 	// stem filter
@@ -53,7 +53,7 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	protected void initPredictions() {
-		predictions = new WordPredictions(settings, textField, seq);
+		predictions = new WordPredictions(settings);
 		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
@@ -88,24 +88,34 @@ class ModeWords extends ModeCheonjiin {
 
 
 	@Override
-	public boolean onNumber(int number, boolean hold, int repeat) {
+	public boolean onNumber(int number, boolean hold, int repeat, @NonNull String[] surroundingChars) {
 		isCursorDirectionForward = true;
-		return super.onNumber(number, hold, repeat);
+		return super.onNumber(number, hold, repeat, surroundingChars);
 	}
 
 
 	@Override
 	protected void onNumberPress(int nextNumber) {
-		if (!language.isTranscribed() && containsGeneratedSuggestions() && digitSequence.length() - 1 == stem.length() && !predictions.getList().isEmpty() && predictions.getList().get(0).startsWith(stem)) {
-			// For alphabet-based languages, in case we are currently showing:
-			// > word + ... | ... a | ... b | ... c |
-			// where "a" appeared as pre-selected because it was the first in the list, do auto-select
-			// "worda" before processing the next keypress, to prevent any potential database "wordb" or "wordc"
-			// matches unexpectedly overriding the current choice.
-			// See the video in: https://github.com/sspanak/tt9/issues/854 for more info.
+		// In East Asian languages, Spacebar must accept the current word, or type a space when there
+		// is no word. Here, we handle the case when 0-key is Space, and not the Space hotkey in
+		// HotkeyHandler, which could be a different key, assigned by the user.
+		if (ignoreNextSpace && nextNumber == Sequences.CHARS_0_KEY) {
+			ignoreNextSpace = false;
+			return;
+		}
+		ignoreNextSpace = false;
+
+		// For alphabet-based languages, in case we are currently showing:
+		// > Guel + ... | ... d | ... e | ... f | ... (in Italian)
+		// where "d" appeared as pre-selected because it was the first in the list, do auto-select
+		// "Gueld" before processing the next keypress, to prevent the database result "Guelf" from
+		// overriding the current choice.
+		// Illustration video in: https://github.com/sspanak/tt9/issues/854#issuecomment-3223797384
+		if (isStemFuzzy && !language.isTranscribed() && containsGeneratedSuggestions() && digitSequence.length() - 1 == stem.length()) {
 			final String newStem = predictions.getList().get(0);
 			Logger.d(LOG_TAG, "Extending stem: " + stem + " -> " + newStem);
 			stem = newStem;
+			isStemFuzzy = false;
 		}
 
 		super.onNumberPress(nextNumber);
@@ -115,6 +125,7 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	protected void onNumberHold(int number) {
 		autoAcceptTimeout = 0;
+		ignoreNextSpace = false;
 		suggestions.add(language.getKeyNumeral(number));
 	}
 
@@ -145,7 +156,7 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	public String recompose() {
 		isRecomposing = false;
-		if (!language.hasSpaceBetweenWords() || language.isTranscribed()) {
+		if (textField == null || !language.hasSpaceBetweenWords() || language.isTranscribed()) {
 			return null;
 		}
 
@@ -155,7 +166,7 @@ class ModeWords extends ModeCheonjiin {
 		}
 
 		boolean includeApostrophes = LanguageKind.isUkrainian(language) || LanguageKind.isHebrew(language);
-		String previousWord = textField.getTextBeforeCursor().getPreviousWord(false, includeApostrophes);
+		String previousWord = textField.getTextBeforeCursor(language, 50).getPreviousWord(false, includeApostrophes, false);
 		if (previousWord.length() < 2 || previousWord.contains(" ")) {
 			Logger.d(LOG_TAG, "Not recomposing invalid word: '" + previousWord + "'");
 			textCase = settings.getTextCase();
@@ -189,6 +200,13 @@ class ModeWords extends ModeCheonjiin {
 		digitSequence = "";
 		disablePredictions = false;
 		stem = "";
+	}
+
+
+	@Override
+	protected void basicReset() {
+		super.basicReset();
+		autoAcceptTimeout = settings.getAutoAcceptTimeoutPredictive();
 	}
 
 
@@ -313,20 +331,30 @@ class ModeWords extends ModeCheonjiin {
 			.setInputWord(currentWord.isEmpty() ? stem : currentWord)
 			.setIsStemFuzzy(isStemFuzzy)
 			.setStem(stem)
+			.setAfterCursor(afterCursor)
+			.setBeforeCursor(beforeCursor)
 			.setDigitSequence(digitSequence)
-			.setLanguage(shouldDisplayCustomEmojis() ? new EmojiLanguage(seq) : language)
+			.setLanguage(language)
 			.load();
 	}
 
 
 	protected boolean loadPreferredChar() {
-		if (digitSequence.equals(seq.PREFERRED_CHAR_SEQUENCE)) {
-			suggestions.clear();
-			suggestions.add(getPreferredChar());
-			return true;
+		if (!digitSequence.equals(seq.PREFERRED_CHAR_SEQUENCE)) {
+			return false;
 		}
 
-		return false;
+		String preferredChar = getPreferredChar();
+		if (preferredChar == null || preferredChar.isEmpty()) {
+			digitSequence = seq.CHARS_0_SEQUENCE;
+			autoAcceptTimeout = settings.getAutoAcceptTimeoutPredictive();
+			return false;
+		}
+
+
+		suggestions.clear();
+		suggestions.add(getPreferredChar());
+		return true;
 	}
 
 
@@ -378,17 +406,21 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {
-		return autoTextCase.adjustSuggestionTextCase(new Text(language, word), newTextCase);
+		return language.hasUpperCase() ? autoTextCase.adjustSuggestionTextCase(new Text(language, word), newTextCase) : word;
 	}
 
 	@Override
-	public void determineNextWordTextCase(int nextDigit) {
+	public void determineNextWordTextCase(@Nullable String beforeCursor, int nextDigit) {
+		if (nextDigit >= 0 && !suggestions.isEmpty()) {
+			return;
+		}
+
 		final String nextSequence = nextDigit >= 0 ? digitSequence + nextDigit : digitSequence;
-		textCase = autoTextCase.determineNextWordTextCase(language, textCase, textFieldTextCase, textField.getStringBeforeCursor(), nextSequence);
+		textCase = autoTextCase.determineNextWordTextCase(language, textCase, textFieldTextCase, textField, nextSequence, beforeCursor);
 	}
 
 	private void determineTextFieldTextCase() {
-		int fieldCase = inputType.determineTextCase();
+		final int fieldCase = inputType != null ? inputType.determineTextCase() : CASE_UNDEFINED;
 		textFieldTextCase = allowedTextCases.contains(fieldCase) ? fieldCase : CASE_UNDEFINED;
 	}
 
@@ -436,8 +468,9 @@ class ModeWords extends ModeCheonjiin {
 		autoTextCase.skipNext();
 	}
 
+
 	@Override
-	public boolean shouldReplaceLastLetter(int n, boolean h) {
+	protected boolean shouldReplaceLastLetter(int n) {
 		return false;
 	}
 
@@ -449,16 +482,28 @@ class ModeWords extends ModeCheonjiin {
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextDigit, boolean hold) {
+		if (!language.hasSpaceBetweenWords() && nextDigit == Sequences.CHARS_0_KEY && !digitSequence.isEmpty() && !seq.isAnySpecialCharSequence(digitSequence)) {
+			ignoreNextSpace = true;
+		}
+
 		if (hold) {
 			return true;
 		}
 
 		if (digitSequence.isEmpty()) {
 			return false;
-		} else if (
-			digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE) ||
-			(seq.startsWithEmojiSequence(digitSequence) && nextDigit != Sequences.CHARS_1_KEY && nextDigit != Sequences.CUSTOM_EMOJI_KEY)
-		) {
+		} else if (seq.startsWithEmojiSequence(digitSequence) && nextDigit != Sequences.CHARS_1_KEY) {
+			return true;
+		}
+
+		// no preferred char is set, so typing "00" should just yield two spaces
+		boolean isTherePreferredChar = getPreferredChar() != null && !getPreferredChar().isEmpty();
+		if (!isTherePreferredChar && nextDigit == Sequences.CHARS_0_KEY && digitSequence.equals(seq.CHARS_0_SEQUENCE)) {
+			return true;
+		}
+
+		// when emojis are disabled, we just type punctuation marks on every key press
+		if (!settings.areEmojisEnabled() && seq.startsWithEmojiSequence(digitSequence + nextDigit)) {
 			return true;
 		}
 
@@ -499,12 +544,11 @@ class ModeWords extends ModeCheonjiin {
 		return
 			!digitSequence.isEmpty()
 			&& predictions.noDbWords()
-			&& (
-				// when no custom emoji, assume the last digit is the beginning of a new word
-				digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE)
-				// emojis and punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
-				|| (digitSequence.contains(seq.CHARS_1_SEQUENCE) && !digitSequence.equals(seq.CHARS_1_SEQUENCE) && !digitSequence.startsWith(seq.EMOJI_SEQUENCE))
-			);
+			// emojis and punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
+			&& digitSequence.contains(seq.CHARS_1_SEQUENCE)
+			&& !digitSequence.equals(seq.CHARS_1_SEQUENCE)
+			&& !digitSequence.equals(seq.CHARS_GROUP_1_SEQUENCE)
+			&& !digitSequence.startsWith(seq.EMOJI_SEQUENCE);
 	}
 
 

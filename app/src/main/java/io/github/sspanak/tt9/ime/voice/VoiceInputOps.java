@@ -12,38 +12,42 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.function.Consumer;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class VoiceInputOps {
 	private final static String LOG_TAG = VoiceInputOps.class.getSimpleName();
 
-	private final Context ims;
-	private final HashMap<Integer, Boolean> isOfflineModeDisabled;
-	private Language language;
-	private final VoiceListener listener;
-	private final SpeechRecognizerSupportLegacy recognizerSupport;
-	private SpeechRecognizer speechRecognizer;
+	@NonNull private final Context ims;
+	@NonNull private final HashMap<Integer, Boolean> isOfflineModeDisabled;
+	private boolean forceAlternativeInput = false;
+	@Nullable private Language language;
+	@NonNull private final VoiceListener listener;
+	@NonNull private final SpeechRecognizerSupportLegacy recognizerSupport;
+	@Nullable private SpeechRecognizer speechRecognizer;
 
-	private final ConsumerCompat<String> onStopListening;
-	private final ConsumerCompat<VoiceInputError> onListeningError;
+	@NonNull private final Consumer<String> onStopListening;
+	@NonNull private final Consumer<String> onPartialResult;
+	@NonNull private final Consumer<VoiceInputError> onListeningError;
 
 
 	public VoiceInputOps(
 		@NonNull Context ims,
-		Runnable onStart,
-		ConsumerCompat<String> onStop,
-		ConsumerCompat<VoiceInputError> onError
+		@Nullable Runnable onStart,
+		@Nullable Consumer<String> onStop,
+		@Nullable Consumer<String> onPartial,
+		@Nullable Consumer<VoiceInputError> onError
 	) {
 		isOfflineModeDisabled = new HashMap<>();
-		listener = new VoiceListener(ims, onStart, this::onStop, this::onError);
-		recognizerSupport = DeviceInfo.AT_LEAST_ANDROID_13 ? new SpeechRecognizerSupportModern(ims) : new SpeechRecognizerSupportLegacy(ims);
+		listener = new VoiceListener(ims, onStart, this::onStop, this::onPartial, this::onError);
+		recognizerSupport = DeviceInfo.AT_LEAST_ANDROID_13 ? new SpeechRecognizerSupportModern(ims) : new SpeechRecognizerSupportLegacy();
 
 		onStopListening = onStop != null ? onStop : result -> {};
+		onPartialResult = onPartial != null ? onPartial : result -> {};
 		onListeningError = onError != null ? onError : error -> {};
 
 		this.ims = ims;
@@ -55,25 +59,29 @@ public class VoiceInputOps {
 	}
 
 
-	static Intent createIntent(@NonNull String locale) {
+	static Intent createIntent(@Nullable String locale) {
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, locale);
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+		intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
+		if (locale != null) {
+			intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, locale);
+		}
 		return intent;
 	}
 
 
-	private void createRecognizer(@Nullable Language language) {
+	private void createGoogleRecognizer(@Nullable Language language) {
 		boolean isLanguageAllowedOffline = language != null && !Boolean.TRUE.equals(isOfflineModeDisabled.get(language.getId()));
 
-		if (isLanguageAllowedOffline && DeviceInfo.AT_LEAST_ANDROID_13 && recognizerSupport.isLanguageSupportedOffline(language)) {
+		if (isLanguageAllowedOffline && DeviceInfo.AT_LEAST_ANDROID_13 && recognizerSupport.isLanguageSupportedOffline(ims, language)) {
 			Logger.d(LOG_TAG, "Creating offline SpeechRecognizer...");
 			speechRecognizer = SpeechRecognizer.createOnDeviceSpeechRecognizer(ims);
-		} else if (recognizerSupport.isRecognitionAvailable) {
+		} else if (recognizerSupport.isGoogleOnlineRecognitionAvailable(ims)) {
 			Logger.d(LOG_TAG, "Creating online SpeechRecognizer...");
 			speechRecognizer = SpeechRecognizer.createSpeechRecognizer(ims);
 		} else {
 			Logger.d(LOG_TAG, "Cannot create SpeechRecognizer, recognition not available.");
+			speechRecognizer = null;
 			return;
 		}
 
@@ -82,7 +90,10 @@ public class VoiceInputOps {
 
 
 	public boolean isAvailable() {
-		return recognizerSupport.isRecognitionAvailable || recognizerSupport.isOnDeviceRecognitionAvailable;
+		return
+			recognizerSupport.isAlternativeAvailable(ims)
+			|| recognizerSupport.isGoogleOnlineRecognitionAvailable(ims)
+			|| recognizerSupport.isGoogleOfflineRecognitionAvailable(ims);
 	}
 
 
@@ -92,48 +103,39 @@ public class VoiceInputOps {
 
 
 	public void listen(@Nullable Language language) {
+		this.language = language;
+		if (forceAlternativeInput || recognizerSupport.isAlternativeAvailable(ims)) {
+			ims.startActivity(VoiceInputPickerActivity.generateShowIntent(ims));
+		} else {
+			recognizerSupport.setLanguage(language).checkOfflineSupport(
+				ims,
+				() -> new Handler(Looper.getMainLooper()).post(this::listen)
+			);
+		}
+	}
+
+
+	private void listen() {
 		if (language == null) {
 			onListeningError.accept(new VoiceInputError(ims, VoiceInputError.ERROR_INVALID_LANGUAGE));
 			return;
 		}
 
-		if (!isAvailable()) {
-			onListeningError.accept(new VoiceInputError(ims, VoiceInputError.ERROR_NOT_AVAILABLE));
-			return;
-		}
-
 		if (isListening()) {
 			onListeningError.accept(new VoiceInputError(ims, SpeechRecognizer.ERROR_RECOGNIZER_BUSY));
 			return;
 		}
 
-		this.language = language;
-		recognizerSupport.setLanguage(language).checkOfflineSupport(this::listenAsync);
-	}
-
-
-	private void listenAsync() {
-		Handler mainHandler = new Handler(Looper.getMainLooper());
-		mainHandler.post(this::listen);
-	}
-
-
-	private void listen() {
-		if (!isAvailable()) {
+		createGoogleRecognizer(language);
+		if (speechRecognizer == null) {
 			onListeningError.accept(new VoiceInputError(ims, VoiceInputError.ERROR_NOT_AVAILABLE));
 			return;
 		}
-
-		if (isListening()) {
-			onListeningError.accept(new VoiceInputError(ims, SpeechRecognizer.ERROR_RECOGNIZER_BUSY));
-			return;
-		}
-
-		createRecognizer(language);
 
 		String locale = getLocale(language);
 
 		try {
+			listener.onBeforeStart();
 			speechRecognizer.startListening(createIntent(locale));
 			Logger.d(LOG_TAG, "SpeechRecognizer started for locale: " + locale);
 		} catch (SecurityException e) {
@@ -145,7 +147,7 @@ public class VoiceInputOps {
 
 	public void stop() {
 		this.language = null;
-		if (isAvailable() && isListening()) {
+		if (speechRecognizer != null && isListening()) {
 			speechRecognizer.stopListening();
 		}
 	}
@@ -186,17 +188,28 @@ public class VoiceInputOps {
 
 
 	public void enableOfflineMode() {
-		for (Integer langId : isOfflineModeDisabled.keySet()) {
-			isOfflineModeDisabled.put(langId, false);
-		}
+		isOfflineModeDisabled.replaceAll((i, v) -> false);
 
 		Logger.d(LOG_TAG, "Re-enabled offline voice input for all languages");
 	}
 
 
-	private void onStop(ArrayList<String> results) {
+	public VoiceInputOps forceAlternativeInput(boolean yes) {
+		forceAlternativeInput = yes;
+		return this;
+	}
+
+
+	private void onStop(@NonNull ArrayList<String> results) {
 		destroy();
 		onStopListening.accept(results.isEmpty() ? null : results.get(0));
+	}
+
+
+	private void onPartial(@NonNull ArrayList<String> results) {
+		if (!results.isEmpty()) {
+			onPartialResult.accept(results.get(0));
+		}
 	}
 
 

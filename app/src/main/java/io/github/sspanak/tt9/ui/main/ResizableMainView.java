@@ -4,6 +4,7 @@ import android.view.Gravity;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -17,6 +18,7 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 	private float resizeStartY;
 	private long lastResizeTime;
 
+	private int heightClassic;
 	private int heightNumpad;
 	private int heightSmall;
 	private int heightTray;
@@ -31,28 +33,30 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 	private void calculateSnapHeights() {
 		boolean forceRecalculate = DeviceInfo.AT_LEAST_ANDROID_15;
 
+		heightClassic = new MainLayoutClassic(tt9).getHeight(forceRecalculate);
 		heightNumpad = new MainLayoutNumpad(tt9).getHeight(forceRecalculate);
 		heightSmall = new MainLayoutSmall(tt9).getHeight(forceRecalculate);
 		heightTray = new MainLayoutTray(tt9).getHeight(forceRecalculate);
 	}
 
 
+	@Nullable
+	@Override
+	public View getView() {
+		final View view = super.getView();
+		if (view != null) {
+			view.removeOnAttachStateChangeListener(this);
+			view.addOnAttachStateChangeListener(this);
+			vibration = new Vibration(tt9.getSettings(), view);
+		}
+
+		return view;
+	}
+
+
 	@Override
 	public boolean create() {
-		if (!super.create()) {
-			return false;
-		}
-
-		if (main == null) {
-			return false;
-		}
-
-		main.getView().removeOnAttachStateChangeListener(this);
-		main.getView().addOnAttachStateChangeListener(this);
-
-		vibration = new Vibration(tt9.getSettings(), main.getView());
-
-		return true;
+		return super.create() && main != null;
 	}
 
 
@@ -68,8 +72,8 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 	@Override public void onViewDetachedFromWindow(@NonNull View v) {}
 	@Override public void onViewAttachedToWindow(@NonNull View v) {
 		if (main != null) {
-			main.preventEdgeToEdge();
-			setHeight(height, heightSmall, heightNumpad);
+			main.setPadding();
+			setHeight(height, heightSmall, main instanceof MainLayoutNumpad ? heightNumpad : heightClassic);
 		}
 	}
 
@@ -81,7 +85,7 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 
 
 	public void onAlign(float deltaX) {
-		if (!(main instanceof MainLayoutNumpad)) {
+		if (!(main instanceof MainLayoutNumpad) && !(main instanceof MainLayoutClassic)) {
 			return;
 		}
 
@@ -146,22 +150,23 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 			return;
 		}
 
-		SettingsStore settings = tt9.getSettings();
+		final SettingsStore settings = tt9.getSettings();
+		final int largeSize = settings.getPreferredLargeLayout() == SettingsStore.LAYOUT_CLASSIC ? heightClassic : heightNumpad;
 
 		if (settings.isMainLayoutTray()) {
 			settings.setMainViewLayout(SettingsStore.LAYOUT_SMALL);
 			height = heightSmall;
-			tt9.onCreateInputView();
+			tt9.setCurrentView();
 			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
 		} else if (settings.isMainLayoutSmall()) {
-			settings.setMainViewLayout(SettingsStore.LAYOUT_NUMPAD);
-			height = (int) Math.max(Math.max(heightNumpad * 0.6, heightSmall * 1.1), height + delta);
-			tt9.onCreateInputView();
+			settings.setMainViewLayout(settings.getPreferredLargeLayout());
+			height = (int) Math.max(Math.max(largeSize * 0.6, heightSmall * 1.1), height + delta);
+			tt9.setCurrentView();
 			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
 		} else {
-			changeHeight(delta, heightSmall, heightNumpad);
+			changeHeight(delta, heightSmall, largeSize);
 		}
 	}
 
@@ -173,17 +178,19 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 			return;
 		}
 
+		final int largeSize = settings.getPreferredLargeLayout() == SettingsStore.LAYOUT_CLASSIC ? heightClassic : heightNumpad;
+
 		if (settings.isMainLayoutSmall()) {
 			settings.setMainViewLayout(SettingsStore.LAYOUT_TRAY);
 			height = heightTray;
-			tt9.onCreateInputView();
+			tt9.setCurrentView();
 			fitMain();
 			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
-		} else if (!changeHeight(delta, heightSmall, heightNumpad)) {
+		} else if (!changeHeight(delta, heightSmall, largeSize)) {
 			settings.setMainViewLayout(SettingsStore.LAYOUT_SMALL);
 			height = heightSmall;
-			tt9.onCreateInputView();
+			tt9.setCurrentView();
 			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
 		}
@@ -225,6 +232,9 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 		if (main instanceof MainLayoutNumpad) {
 			heightLow = heightSmall;
 			heightHigh = heightNumpad;
+		} else if (main instanceof MainLayoutClassic) {
+			heightLow = heightSmall;
+			heightHigh = heightClassic;
 		} else if (main instanceof MainLayoutSmall) {
 			heightLow = 0;
 			heightHigh = Math.max(heightSmall, heightMain); // make room for the command palette

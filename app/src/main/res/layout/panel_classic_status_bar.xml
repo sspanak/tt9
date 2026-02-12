@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" style="@style/TTheme.Numpad.TopBar" android:id="@+id/status_bar_container">
+	<FrameLayout style="@style/TTheme.Classic.StatusBar.Wrapper">
+		<include layout="@layout/panel_status_bar" />
+	</FrameLayout>
+</LinearLayout>

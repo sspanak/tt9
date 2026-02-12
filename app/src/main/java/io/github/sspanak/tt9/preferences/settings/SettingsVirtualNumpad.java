@@ -8,9 +8,15 @@ import androidx.annotation.NonNull;
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownKeyHeight;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadFnKeyScale;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadKeyFontSize;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadShape;
+import io.github.sspanak.tt9.preferences.screens.appearance.SwitchLeftRightArrows;
+import io.github.sspanak.tt9.preferences.screens.appearance.SwitchShowArrowsUpDown;
 import io.github.sspanak.tt9.preferences.screens.fnKeyOrder.FnKeyOrderValidator;
 
-public class SettingsVirtualNumpad extends SettingsUI {
+public class SettingsVirtualNumpad extends SettingsCustomKeyActions {
 	public final static int NUMPAD_SHAPE_SQUARE = 0;
 	public final static int NUMPAD_SHAPE_V = 1;
 	public final static int NUMPAD_SHAPE_LONG_SPACE = 2;
@@ -33,8 +39,16 @@ public class SettingsVirtualNumpad extends SettingsUI {
 		super(context);
 	}
 
-	public boolean areArrowKeysHidden() {
-		return !prefs.getBoolean("pref_arrow_keys_visible", true);
+	public boolean getArrowsLeftRight() {
+		return prefs.getBoolean(SwitchLeftRightArrows.NAME, SwitchLeftRightArrows.DEFAULT);
+	}
+
+	public boolean getArrowsUpDown() {
+		return prefs.getBoolean(SwitchShowArrowsUpDown.NAME, SwitchShowArrowsUpDown.DEFAULT);
+	}
+
+	public boolean getHardwareKeyVisualFeedback() {
+		return prefs.getBoolean("pref_hardware_key_visual_feedback", false);
 	}
 
 	@NonNull public String getLfnKeyOrder() {
@@ -48,7 +62,7 @@ public class SettingsVirtualNumpad extends SettingsUI {
 	public FnKeyOrderValidator setFnKeyOrder(String left, String right) {
 		FnKeyOrderValidator validator = new FnKeyOrderValidator(left, right);
 		if (validator.validate()) {
-			prefsEditor
+			getPrefsEditor()
 				.putString("pref_rfn_key_order", right)
 				.putString("pref_lfn_key_order", left)
 				.apply();
@@ -62,7 +76,7 @@ public class SettingsVirtualNumpad extends SettingsUI {
 	}
 
 	public int getNumpadKeyHeight() {
-		return getStringifiedInt("pref_numpad_key_height", getNumpadKeyDefaultHeight());
+		return getStringifiedInt(DropDownKeyHeight.NAME, getNumpadKeyDefaultHeight());
 	}
 
 	public float getNumpadFnKeyDefaultScale() {
@@ -77,17 +91,37 @@ public class SettingsVirtualNumpad extends SettingsUI {
 	}
 
 	public float getNumpadFnKeyScale() {
-		return getStringifiedFloat("pref_numpad_fn_key_width", getNumpadFnKeyDefaultScale());
+		return getStringifiedFloat(DropDownNumpadFnKeyScale.NAME, getNumpadFnKeyDefaultScale());
 	}
 
 	public int getNumpadKeyFontSizePercent() {
-		return isMainLayoutNumpad() ? getStringifiedInt("pref_numpad_key_font_size", 100) : 100;
+		return isMainLayoutLarge() ? getStringifiedInt(DropDownNumpadKeyFontSize.NAME, 100) : 100;
 	}
 
 	public int getNumpadShape() {
-		return getStringifiedInt("pref_numpad_shape", NUMPAD_SHAPE_SQUARE);
+		return getStringifiedInt(DropDownNumpadShape.NAME, NUMPAD_SHAPE_SQUARE);
 	}
 
 	public boolean isNumpadShapeLongSpace() { return getNumpadShape() == NUMPAD_SHAPE_LONG_SPACE; }
 	public boolean isNumpadShapeV() { return getNumpadShape() == NUMPAD_SHAPE_V; }
+
+
+	public boolean getTutorialSeen() {
+		if (isMainLayoutClassic()) {
+			return prefs.getBoolean("pref_tutorial_classic_seen", false);
+		} else if (isMainLayoutNumpad()) {
+			return prefs.getBoolean("pref_tutorial_fn_keys_seen", false);
+		} else {
+			return false;
+		}
+	}
+
+
+	public void setTutorialSeen() {
+		if (isMainLayoutClassic()) {
+			getPrefsEditor().putBoolean("pref_tutorial_classic_seen", true).apply();
+		} else if (isMainLayoutNumpad()) {
+			getPrefsEditor().putBoolean("pref_tutorial_fn_keys_seen", true).apply();
+		}
+	}
 }

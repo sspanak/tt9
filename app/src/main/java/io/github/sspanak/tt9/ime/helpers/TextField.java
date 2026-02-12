@@ -1,11 +1,6 @@
 package io.github.sspanak.tt9.ime.helpers;
 
-import android.graphics.Typeface;
 import android.inputmethodservice.InputMethodService;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -18,42 +13,47 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 
 public class TextField extends InputField {
 	@NonNull private CharSequence composingText = "";
-	private final boolean isComposingSupported;
+
+	private boolean isComposingSupported;
 	private final boolean isNonText;
+	private final boolean isUs;
 
 
-	public TextField(@Nullable InputMethodService ims, SettingsStore settings, EditorInfo inputField) {
+	public TextField(@Nullable InputMethodService ims, @Nullable SettingsStore settings, EditorInfo inputField) {
 		super(ims, inputField);
 
 		InputType inputType = new InputType(ims, inputField);
 		isComposingSupported =
 			!inputType.isNumeric() && !inputType.isLimited() // unsupported input fields
-			&& !inputType.isRustDesk() && !inputType.isRedditSearchField() // stupid apps
+			&& !inputType.isRustDesk() // not fixed by settings.getAutoDisableComposing()
 			&& (settings == null || settings.getAllowComposingText()); // disabled in settings
 		isNonText = !inputType.isText();
+		isUs = inputType.isUs();
 	}
 
 
 	public boolean isEmpty() {
-		return getStringBeforeCursor(1).isEmpty() && getStringAfterCursor(1).isEmpty();
+		final String after = getStringAfterCursor(1);
+		final String before = getStringBeforeCursor(1);
+
+		return
+			(after.isEmpty() || after.equals(InputConnectionAsync.TIMEOUT_SENTINEL))
+			&& (before.isEmpty() || before.equals(InputConnectionAsync.TIMEOUT_SENTINEL));
 	}
 
 
 	@NonNull public String getStringAfterCursor(int numberOfChars) {
-		InputConnection connection = getConnection();
-		CharSequence chars = connection != null && numberOfChars > 0 ? connection.getTextAfterCursor(numberOfChars, 0) : null;
+		CharSequence chars = numberOfChars > 0 ? InputConnectionAsync.getTextAfterCursor(isUs, getConnection(), numberOfChars, 0) : null;
 		return chars != null ? chars.toString() : "";
 	}
 
 
 	@NonNull public String getStringBeforeCursor(int numberOfChars) {
-		InputConnection connection = getConnection();
-		CharSequence chars = connection != null && numberOfChars > 0 ? connection.getTextBeforeCursor(numberOfChars, 0) : null;
+		CharSequence chars = numberOfChars > 0 ? InputConnectionAsync.getTextBeforeCursor(isUs, getConnection(), numberOfChars, 0) : null;
 		return chars != null ? chars.toString() : "";
 	}
 
@@ -67,18 +67,41 @@ public class TextField extends InputField {
 	}
 
 
-	@NonNull public Text getTextAfterCursor(int numberOfChars) {
-		return new Text(getStringAfterCursor(numberOfChars));
+	/**
+	 * getSurroundingStringForAutoAssistance
+	 * Returns just enough characters for AutoSpace and AutoText case classes to perform their work.
+	 * Elements:
+	 * 	[0] - up to 50 characters before the cursor
+	 * 	[1] - up to 2 characters after the cursor
+	 * When auto-assistance is disabled for the given input mode, returns two empty strings.
+	 */
+	@NonNull public String[] getSurroundingStringForAutoAssistance(@NonNull SettingsStore settings, @Nullable InputMode mode) {
+		if (settings.isAutoAssistanceOn(mode)) {
+			return new String[] {
+				getStringBeforeCursor(50),
+				getStringAfterCursor(2)
+			};
+		} else {
+			return new String[] { "", "" };
+		}
 	}
 
 
+	/**
+	 * Similar to getStringBeforeCursor(), but returns a Text object instead of a String. On
+	 * InputConnection timeout, the Text will be empty.
+	 */
+	@NonNull public Text getTextAfterCursor(@Nullable Language language, int numberOfChars) {
+		return new Text(language, getStringAfterCursor(numberOfChars));
+	}
+
+
+	/**
+	 * Similar to getStringAfterCursor(), but returns a Text object instead of a String. On
+	 * InputConnection timeout, the Text will be empty.
+	 */
 	@NonNull public Text getTextBeforeCursor(@Nullable Language language, int numberOfChars) {
 		return new Text(language, getStringBeforeCursor(numberOfChars));
-	}
-
-
-	@NonNull public Text getTextBeforeCursor() {
-		return new Text(getStringBeforeCursor());
 	}
 
 
@@ -87,32 +110,29 @@ public class TextField extends InputField {
 	 * Returns the word next or around the cursor. Scanning length is up to 50 chars in each direction.
 	 */
 	@NonNull public String getSurroundingWord(Language language) {
+		final String[] parts = getSurroundingWordParts(language);
+		return parts[0] + parts[1];
+	}
+
+
+	/**
+	 * getSurroundingWord
+	 * Detects the word next to or around the cursor and returns its parts: [0] = before cursor,
+	 * [1] = after cursor. Scanning length is up to 50 chars in each direction.
+	 */
+	@NonNull
+	public String[] getSurroundingWordParts(@Nullable Language language) {
 		// Hebrew and Ukrainian use the respective special characters as letters
 		boolean keepApostrophe = LanguageKind.isHebrew(language) || LanguageKind.isUkrainian(language);
 		boolean keepQuote = LanguageKind.isHebrew(language);
 
-		final Text textBefore = new Text(language, getStringBeforeCursor());
-		final Text textAfter = new Text(language, getStringAfterCursor(50));
+		final Text textBefore = getTextBeforeCursor(language, 50);
+		final Text textAfter = getTextAfterCursor(language, 50);
 
-		final String emojiBefore = textBefore.subStringEndingEmoji();
-		final String emojiAfter = textAfter.subStringStartingEmoji();
+		final String wordBefore = textBefore.subStringEndingAlphanumeric(keepApostrophe, keepQuote);
+		final String wordAfter = textAfter.subStringStartingAlphanumeric(keepApostrophe, keepQuote);
 
-		// emoji + emoji or void
-		if (!emojiBefore.isEmpty()) {
-			return emojiBefore + emojiAfter;
-		}
-
-		final String wordBefore = textBefore.subStringEndingWord(keepApostrophe, keepQuote);
-
-		// void + emoji
-		if (!emojiAfter.isEmpty() && wordBefore.isEmpty()) {
-			return emojiAfter;
-		}
-
-		final String wordAfter = textAfter.subStringStartingWord(keepApostrophe, keepQuote);
-
-		// word or void + word or void
-		return wordBefore + wordAfter;
+		return new String[] { wordBefore,  wordAfter };
 	}
 
 
@@ -122,11 +142,11 @@ public class TextField extends InputField {
 	 * The scanning length is up to the maximum returned by getTextBeforeCursor().
 	 */
 	public int getPaddedWordBeforeCursorLength() {
-		if (getTextAfterCursor(1).startsWithWord()) {
+		if (getTextAfterCursor(null, 1).startsWithWord()) {
 			return 0;
 		}
 
-		Text before = getTextBeforeCursor();
+		Text before = getTextBeforeCursor(null, 50);
 		if (before.isEmpty()) {
 			return 0;
 		}
@@ -155,7 +175,9 @@ public class TextField extends InputField {
 
 		if (numberOfChars == 1) {
 			// Make sure we don't break complex letters or emojis. (for example, 🏴󠁧󠁢󠁷󠁬󠁳󠁿 = 14 chars!)
-			numberOfChars = getTextBeforeCursor(language, 30).lastGraphemeLength();
+			// However, if the connection lags, we still delete at least one char as a last resort.
+			String before = getStringBeforeCursor(30);
+			numberOfChars = before.equals(InputConnectionAsync.TIMEOUT_SENTINEL) ? 1 : new Text(language, before).lastGraphemeLength();
 		}
 
 		composingText = composingText.length() > numberOfChars ? composingText.subSequence(0, composingText.length() - numberOfChars) : "";
@@ -214,6 +236,11 @@ public class TextField extends InputField {
 	}
 
 
+	public void disableComposing() {
+		isComposingSupported = false;
+	}
+
+
 	/**
 	 * Erases the previous N characters and sets the given "text" as composing text. N is the length of
 	 * the given "text". Returns "true" if the operation was successful, "false" otherwise.
@@ -233,6 +260,27 @@ public class TextField extends InputField {
 		}
 
 		return success;
+	}
+
+
+	@NonNull
+	public String recomposeSurroundingWord(@Nullable Language language) {
+		InputConnection connection = getConnection();
+		if (connection == null || !isComposingSupported) {
+			return "";
+		}
+
+		connection.beginBatchEdit();
+		final String[] parts = getSurroundingWordParts(language);
+		final String word = parts[0] + parts[1];
+		final boolean success = connection.deleteSurroundingText(parts[0].length(), parts[1].length()) && connection.setComposingText(word, 1);
+		connection.endBatchEdit();
+
+		if (success) {
+			composingText = word;
+		}
+
+		return success ? word : "";
 	}
 
 
@@ -267,23 +315,6 @@ public class TextField extends InputField {
 	}
 
 	public void setComposingText(CharSequence text) { setComposingText(text, 1); }
-
-
-	/**
-	 * setComposingTextWithHighlightedStem
-	 * <p>
-	 * Sets the composing text, but makes the "stem" substring bold. If "highlightMore" is true,
-	 * the "stem" part will be in bold and italic.
-	 */
-	public void setComposingTextWithHighlightedStem(CharSequence word, String stem, boolean highlightMore) {
-		setComposingText(
-			stem.isEmpty() ? word : highlightText(word, 0, stem.length(), highlightMore)
-		);
-	}
-
-	public void setComposingTextWithHighlightedStem(CharSequence word, InputMode inputMode) {
-		setComposingTextWithHighlightedStem(word, inputMode.getWordStem(), inputMode.isStemFilterFuzzy());
-	}
 
 
 	/**

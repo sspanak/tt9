@@ -1,9 +1,8 @@
 package io.github.sspanak.tt9.db.sqlite;
 
-import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 
-class Migration {
+record Migration(String query, int oldVersion) {
 	static final Migration[] LIST = {
 		new Migration(
 			"ALTER TABLE " + Tables.LANGUAGES_META + " ADD COLUMN fileHash TEXT NOT NULL DEFAULT 0",
@@ -30,16 +29,8 @@ class Migration {
 		),
 		new Migration(
 			// fix custom emoji with an incorrect sequence accidentally caused when introducing Sequences()
-			"UPDATE " + Tables.CUSTOM_WORDS + " SET sequence = " + new Sequences().CUSTOM_EMOJI_SEQUENCE + " WHERE langId = " + new EmojiLanguage().getId(),
-			1202
+			"DELETE FROM " + Tables.CUSTOM_WORDS + " WHERE langId = " + new EmojiLanguage(null).getId(),
+			1287
 		)
 	};
-
-	final String query;
-	final int oldVersion;
-
-	private Migration(String query, int oldVersion) {
-		this.oldVersion = oldVersion;
-		this.query = query;
-	}
 }

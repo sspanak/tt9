@@ -9,8 +9,7 @@ import android.view.inputmethod.InputConnection;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedHashSet;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
 
@@ -77,6 +76,11 @@ abstract public class StandardInputType {
 	}
 
 
+	public boolean isUnspecifiedNumber() {
+		return isNumeric() && !isDecimal() && !isSignedNumber() && !isPasswordNumeric();
+	}
+
+
 	abstract protected boolean isSpecialNumeric(Context context);
 
 
@@ -104,6 +108,11 @@ abstract public class StandardInputType {
 			variation == InputType.TYPE_TEXT_VARIATION_PASSWORD
 			|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
 			|| variation == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD;
+	}
+
+
+	public boolean isPasswordNumeric() {
+		return isNumeric() && (field.inputType & InputType.TYPE_NUMBER_VARIATION_PASSWORD) == InputType.TYPE_NUMBER_VARIATION_PASSWORD;
 	}
 
 
@@ -140,12 +149,13 @@ abstract public class StandardInputType {
 
 	/**
 	 * determineInputModes
-	 * Determine the typing mode based on the input field being edited. Returns an ArrayList of the allowed modes.
+	 * Determine the typing mode based on the input field being edited. Returns an ordered list of
+	 * the allowed modes.
 	 *
-	 * @return Set<InputMode.MODE_PASSTHROUGH | InputMode.MODE_ABC | InputMode.MODE_123 | InputMode.MODE_PREDICTIVE>
+	 * @return LinkedHashSet<InputMode.MODE_PASSTHROUGH | InputMode.MODE_ABC | InputMode.MODE_123 | InputMode.MODE_PREDICTIVE>
 	 */
-	public Set<Integer> determineInputModes(@NonNull Context context) {
-		Set<Integer> allowedModes = new HashSet<>();
+	public LinkedHashSet<Integer> determineInputModes(@NonNull Context context) {
+		LinkedHashSet<Integer> allowedModes = new LinkedHashSet<>();
 
 		if (field == null) {
 			allowedModes.add(InputMode.MODE_PASSTHROUGH);

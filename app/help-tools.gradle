@@ -14,7 +14,6 @@ static markdownToHtml(markdownPath, htmlPath, addIndex) {
 	text = convertOrderedLists(text)
 	text = convertUnorderedLists(text)
 	text = convertInlineTags(text)
-	text = addStylesToTags(text)
 	if (addIndex) {
 		text = insertIndex(text, generateIndex(text))
 	}
@@ -30,7 +29,6 @@ static getStyles() {
 		"a:visited {color: inherit;}" +
 		"li {margin: 4px 0; padding: 1px;}" +
 		"p {text-align: left;}" +
-		"p.wrap{word-wrap: break-word;}" +
 		".toc {border: 1px solid; display: inline-block; padding: 12px 20px 12px 0; margin: 12px 0;}" +
 		".toc > h3 {text-align: center; margin: 0;}"
 }
@@ -163,11 +161,6 @@ static convertInlineTags(markdown) {
 		.replaceAll("\\[([^]]+)\\]\\(([^)]+)\\)", "<a href=\"\$2\">\$1</a>")
 		.replaceAll("href=\"([^\"]+)-\"", "href=\"\$1\"")
 		.replaceAll("href=\"([^\"]+?)--([^\"]+?)\"", "href=\"\$1-\$2\"")
-}
-
-
-static addStylesToTags(html) {
-	return html.replaceAll("<p>([^<]+?googlequicksearchbox[^<]+?)</p>", "<p class=\"wrap\">\$1</p>")
 }
 
 

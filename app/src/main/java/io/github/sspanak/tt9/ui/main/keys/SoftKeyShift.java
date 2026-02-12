@@ -3,8 +3,10 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdShift;
+import io.github.sspanak.tt9.commands.CmdSpaceKorean;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SoftKeyShift extends BaseSoftKeyWithIcons {
 	public SoftKeyShift(Context context) {
@@ -19,31 +21,55 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 		super(context, attrs, defStyleAttr);
 	}
 
+	private boolean isShiftEnabled() {
+		return tt9 != null
+			&& tt9.getLanguage() != null && tt9.getLanguage().hasUpperCase()
+			&& !tt9.isVoiceInputActive()
+			&& !tt9.isInputModeNumeric()
+			&& !tt9.isFnPanelVisible();
+	}
+
+	private boolean isShiftHidden() {
+		return
+			tt9 != null
+			&& tt9.getSettings().isMainLayoutClassic()
+			&& tt9.isFnPanelVisible();
+	}
+
+	@Override public boolean isDynamic() { return true; }
+	@Override protected String getTitle() { return hasLettersOnAllKeys() ? Characters.SPACE : ""; }
+	@Override protected float getTitleScale() { return hasLettersOnAllKeys() ? 1.3f * Math.min(1, getTT9Height()) * getScreenSizeScale() : super.getTitleScale(); }
+
 	@Override protected int getCentralIcon() {
+		if (hasLettersOnAllKeys()) {
+			return 0;
+		}
+
 		final int textCase = tt9 != null ? tt9.getDisplayTextCase() : InputMode.CASE_UNDEFINED;
 		return switch (textCase) {
-			case InputMode.CASE_CAPITALIZE -> R.drawable.ic_fn_shift_caps;
-			case InputMode.CASE_UPPER -> R.drawable.ic_fn_shift_up;
-			default -> R.drawable.ic_fn_shift_low;
+			case InputMode.CASE_CAPITALIZE -> new CmdShift().getIconCaps();
+			case InputMode.CASE_UPPER -> new CmdShift().getIconUp();
+			default -> new CmdShift().getIcon();
 		};
 	}
 
 	@Override
 	protected boolean handleRelease() {
-		return validateTT9Handler() && tt9.onKeyNextTextCase(false);
+		return hasLettersOnAllKeys() ? new CmdSpaceKorean().run(tt9) : new CmdShift().run(tt9);
 	}
 
 	@Override
 	public void render() {
+		getOverlayWrapper();
+		if (isShiftHidden()) {
+			overlay.setVisibility(GONE);
+			return;
+		} else {
+			overlay.setVisibility(VISIBLE);
+		}
+
 		resetIconCache();
-		setEnabled(
-			tt9 != null
-			&& tt9.getLanguage() != null && tt9.getLanguage().hasUpperCase()
-			&& !tt9.isVoiceInputActive()
-			&& !tt9.isInputModePhone()
-			&& !tt9.isNumericModeSigned()
-			&& !tt9.isFnPanelVisible()
-		);
+		setEnabled(isShiftEnabled() || hasLettersOnAllKeys());
 		super.render();
 	}
 }

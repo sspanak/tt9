@@ -4,16 +4,8 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class ItemStatusIcon {
+public record ItemStatusIcon(SwitchPreferenceCompat item, SettingsStore settings) {
 	public static final String NAME = "pref_status_icon";
-
-	private final SwitchPreferenceCompat item;
-	private final SettingsStore settings;
-
-	public ItemStatusIcon(SwitchPreferenceCompat item, SettingsStore settings) {
-		this.item = item;
-		this.settings = settings;
-	}
 
 	public void populate() {
 		if (item != null) {

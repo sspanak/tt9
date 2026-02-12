@@ -1,6 +1,6 @@
 # Traditional T9 ![GitHub Downloads (latest release)](https://img.shields.io/github/downloads/sspanak/tt9/latest/total)
 
-TT9 is a 12-key T9 keyboard for devices with a hardware numpad. It supports predictive text typing in [40+ languages](app/languages/definitions), configurable hotkeys, text editing with undo/redo, and an on-screen keypad that can turn your smartphone into a Nokia from the 2000s. And, best of all, it [doesn't spy](docs/privacy.md) on you!
+TT9 is a Nokia-style 12-key T9 keyboard for Android. It provides predictive text input in [40+ languages](app/languages/definitions), configurable hotkeys, clipboard, undo/redo, and extensive customization. It works on touchscreens, physical keypads, and TV remote controls. And best of all, it [doesn't spy](docs/privacy.md) on you!
 
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
@@ -10,6 +10,7 @@ This is a modernized version of the [original project](https://github.com/Clam-/
         <td> <img src="screenshots/1.png"> </td>
         <td rowspan="2"> <img src="screenshots/3.png"> </td>
         <td rowspan="2"> <img src="screenshots/4.png"> </td>
+        <td rowspan="2"> <img src="screenshots/7.png"> </td>
         <td rowspan="2"> <img src="screenshots/5.png"> </td>
     </tr>
     <tr>
@@ -29,7 +30,6 @@ _If your phone does not have Google Play and does not allow installing custom AP
 
 ## ⚙️ System Requirements
 - Android 5.0 or higher.
-- A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be activated from the Settings.
 - Storage space depends on the Android version. The lite version requires at least 6-8 Mb and the full version requires at least 220 Mb.
 - Extra storage space is necessary for language dictionaries in Predictive Mode.
     - Languages with character predictions only (Korean): ~1 Mb per language
@@ -46,6 +46,7 @@ If you own a phone with Android 4.4, the latest TT9 version you can use is [v44.
 TT9 may not work well on TCL Flip 2, Kyocera phones, especially ones running Android 10 or newer, or other devices that run highly customized Android versions, where all apps are integrated and intended to work with the respective native keyboard. You may experience missing functionality, empty gaps/misaligned items on the screen, or unexpected text/numbers appearing when you try to type.
 
 Compatibility has been verified only on the following devices:
+- Motorola g05 (Android 15)
 - CAT S22 Flip (Android 11)
 - Unihertz Atom L (Android 11)
 - Qin F21 Pro+ (Android 11)
@@ -56,7 +57,7 @@ Compatibility has been verified only on the following devices:
 ## 🤔 How to Use Traditional T9?
 Before using Traditional T9 for the first time you need to configure it and load a dictionary. After that, you can start typing right away in one of the three modes: Predictive, ABC, or Numeric (123). And even if you have mastered the keypad back in the day, you will still find the Predictive mode now offers more powerful and smart new ways of typing with even fewer key presses.
 
-So make sure to read the initial setup and the hotkey tips in the [user manual](docs/help/help.en.md). Also, don't miss the convenient [compatibility options](docs/help/help.en.md#compatibility-options) aimed to improve the experience in some applications.
+So make sure to read the initial setup and the hotkey tips in the [user manual](docs/help/help.en.md). Also, don't miss the convenient [compatibility options](docs/help/help.en.md#troubleshooting) aimed to improve the experience in some applications.
 
 _The user manual is also available in: [Brazilian Portuguese](docs/help/help.pt.md), [German](docs/help/help.de.md), [French](docs/help/help.fr.md), [Italian](docs/help/help.it.md), [Russian](docs/help/help.ru.md), [Spanish](docs/help/help.es.md), [Turkish](docs/help/help.tr.md), [Ukrainian](docs/help/help.uk.md)._
 
@@ -70,19 +71,20 @@ As with many other open-source projects, this one is also maintained by its auth
 Your PRs are welcome!
 
 ## 👍 Support
-The easiest way to support the project is to give it a star on GitHub. Higher-ranked projects can use development tools for free and apply for funding more easily. You can also give it five stars on Google Play to increase its rating, prompting the Play Store to recommend it to more people.
+The best way to support the project is to give it five stars on Google Play. While it may sound trivial, good reviews really motivate me to keep working on it. They also encourage the Play Store to promote TT9 to more people and ultimately help spread the word.
 
-If you truly enjoy using TT9, buy me a beer on [Ko-Fi](https://ko-fi.com/sspanak) or [PayPal](https://www.paypal.com/donate/?hosted_button_id=LW97X3JM2CRZC).
+You can also give the project a star on GitHub. Higher-ranked projects can access development tools for free and apply for funding more easily.
+
+And if you truly enjoy using TT9, buy me a beer on [Ko-Fi](https://ko-fi.com/sspanak) or [PayPal](https://www.paypal.com/donate/?hosted_button_id=LW97X3JM2CRZC).
 
 ## 💪 Philosophy
-- No ads, no premium or paid features. It's all free.
-- No spying, no tracking, no telemetry or reports. No nothing!
-- No unnecessary bells or whistles. It only does its job, typing.
-- No unnecessary permissions. The Full version operates entirely offline, the Lite version connects only to download dictionaries from GitHub. Voice Input may require Internet access depending on the available voice services.
-- Open-source, so you can verify all the above yourself.
+- No spying, tracking, telemetry, reports, or data collection of any sort.
+- No ads or unnecessary bells and whistles. It only does its job, typing.
+- No unnecessary network connections. The Full version operates entirely offline, and the Lite version connects only to download dictionaries from GitHub. Voice Input may require Internet access, depending on the available voice services.
+- Open-source, permitting you to verify all the above yourself.
 - Created with help from the entire community.
-- Things it will (probably) never have: QWERTY layout, swipe-typing, GIFs and stickers, backgrounds, or other customizations. "It can be any color you like, as long as it is black."
-- Not intended as a clone of Touchpal, Sony Ericsson, KaiOS, Samsung, etc. It is understandable to miss your favorite old phone or keyboard app, but TT9 has its own unique design, inspired by the Nokia 3310 and 6303i. While it captures the feel of the classics, it offers its own experience and won’t replicate any device exactly.
+- Things it will (probably) never have: QWERTY layout, swipe-typing, GIFs, and stickers.
+- Not intended as a clone of TouchPal, Sony Ericsson, KaiOS, Samsung, etc. While it captures the feel of the classics, TT9 offers its own experience and won’t replicate any device or app exactly.
 
 Thank you for understanding, and enjoy TT9!
 

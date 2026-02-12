@@ -15,9 +15,12 @@
 	<string name="add_word_success">\"%1$s\" додано.</string>
 	<string name="add_word_title">Додати слово</string>
 
+	<string name="edit_word_no_selection">Перемістіть курсор усередину слова, щоб відредагувати його.</string>
+	<string name="commands_clipboard_is_empty">Буфер обміну порожній.</string>
 	<string name="commands_select_command">Вибрати команду</string>
 	<string name="pref_category_about">Про програму</string>
 	<string name="pref_category_abc_mode">Режим АБВ</string>
+	<string name="pref_category_colors">Кольори</string>
 	<string name="pref_category_custom_words">Додані слова</string>
 	<string name="pref_category_delete_words">Видалити додані слова</string>
 	<string name="pref_category_fn_key_order">Порядок функціональних клавіш</string>
@@ -26,6 +29,7 @@
 	<string name="pref_category_keypad_hardware">Апаратні клавіші</string>
 	<string name="pref_category_predictive_mode">Предиктивний режим</string>
 	<string name="pref_category_function_keys">Гарячі клавіші</string>
+	<string name="pref_category_key_appearance">Клавіші</string>
 	<string name="pref_category_keypad">Клавіатура</string>
 	<string name="pref_category_setup">Початкові налаштування</string>
 
@@ -36,10 +40,12 @@
 	<string name="pref_abc_auto_accept_fast">Швидко</string>
 	<string name="pref_abc_auto_accept_normal">Середній</string>
 	<string name="pref_abc_auto_accept_slow">Повільний</string>
-	<string name="pref_allow_composing_text_summary">Відображати слова в текстових полях під час введення. Вимикати, коли застосунок перериває введен</string>
+	<string name="pref_allow_composing_text">Показувати текст під час введення</string>
+	<string name="pref_allow_composing_text_summary">Показувати слова в текстових полях під час набору. Якщо вимкнено, слова відображаються лише після натискання OK або пробілу.</string>
 	<string name="pref_alternative_suggestion_scrolling">Альтернативний метод прокрутки пропозицій</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Увімкніть, якщо ви іноді не бачите всіх пропозицій або не можете їх прокрутити.</string>
-	<string name="pref_arrow_keys_visible_summary">Показувати клавіші прокрутки з обох боків списку пропонованих слів.</string>
+	<string name="pref_arrows_left_right_summary">Показувати клавіші зі стрілками вліво/вправо для прокручування пропозицій або горизонтального переміщення текстового курсора.</string>
+	<string name="pref_arrows_up_down_summary">Дозволити свайп вгору/вниз по клавіші OK для фільтрування пропозицій або вертикального переміщення текстового курсора.</string>
 	<string name="pref_auto_space">Автоматичний пробіл</string>
 	<string name="pref_auto_space_summary">Автоматично додавати пробіл після розділових знаків або слів.</string>
 	<string name="pref_auto_text_case">Автоматична велика літера</string>
@@ -49,22 +55,27 @@
 	<string name="pref_backspace_recomposing">Редагування слів</string>
 	<string name="pref_backspace_recomposing_summary">Натисніть Backspace в кінці слова, щоб його відредагувати. (Не працює в деяких програмах і з багатомовним текстом)</string>
 	<string name="pref_choose_languages">Мови</string>
-	<string name="pref_dark_theme">Темна тема</string>
-	<string name="pref_dark_theme_yes">Так</string>
-	<string name="pref_dark_theme_no">Ні</string>
+	<string name="pref_color_scheme">Тема</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>
-	<string name="pref_drag_resize_summary">Увімкнути зміну розміру та переміщення клавіатури перетягуванням рядка стану або клавіші налаштувань.</string>
+	<string name="pref_drag_resize_summary">Перетягнути Рядок стану або клавішу Налаштування, щоб мінімізувати клавіатуру або змінити її положення на екрані.</string>
+	<string name="pref_double_tap_resize_summary">Двічі торкнутися Рядка стану, щоб збільшити або зменшити клавіатуру, коли немає пропозицій.</string>
 	<string name="pref_double_zero_char">Символ при подвійному натискання клавіші 0</string>
 	<string name="pref_hack_always_on_top">Поверх інших програм</string>
 	<string name="pref_hack_always_on_top_summary">Не дозволяти іншим програмам перекривати %1$s або змушувати його зникати з екрану.</string>
+	<string name="pref_hack_auto_disable_composing_summary">Автоматично приховувати поточний текст, коли додаток спричиняє проблеми з введенням.</string>
 	<string name="pref_hack_key_pad_debounce_time">Захист від випадкового повторення натискань</string>
 	<string name="pref_hack_key_pad_debounce_off">Вимкнено</string>
+	<string name="pref_hold_to_type_summary">Дозволяє вводити цифри або запускати функції додатку, утримуючи цифрові клавіші. Вимкніть, якщо пристрій помилково визначає короткі натискання як утримування.</string>
+	<string name="pref_key_shadows">Тіні під клавішами</string>
+	<string name="pref_keyboard_preview">Перегляд</string>
 	<string name="pref_layout">Тип розкладки</string>
-	<string name="pref_layout_numpad">Цифрова клавіатура</string>
+	<string name="pref_layout_numpad">Цифрова клавіатура (сучасна)</string>
 	<string name="pref_layout_small">Функціональні клавіші</string>
 	<string name="pref_layout_stealth">Невидимий режим</string>
 	<string name="pref_layout_tray">Лише список слів</string>
 	<string name="pref_haptic_feedback_summary">Вібрувати при натисканні віртуальної клавіші. (Неможливо на всіх пристроях)</string>
+	<string name="pref_hardware_key_visual_feedback">Візуалізація натискань</string>
+	<string name="pref_hardware_key_visual_feedback_summary">Натискання фізичної клавіші виділить відповідну клавішу на екрані.</string>
 	<string name="pref_help">Допомога</string>
 	<string name="pref_suggestion_font_size">Розмір шрифту пропозицій</string>
 	<string name="pref_suggestion_smooth_scroll">Плавне гортання пропозицій</string>
@@ -73,12 +84,16 @@
 
 	<string name="pref_numpad_shape_long_space">Довгий пробіл</string>
 	<string name="pref_numpad_width">Ширина</string>
+	<string name="pref_one_key_emoji_simple">Короткий список</string>
 	<string name="pref_predict_word_pairs">Запам’ятовувати пари слів</string>
 	<string name="pref_predict_word_pairs_summary">Запам\'ятовувати часто вживані фрази для покращення пропозицій слів.</string>
+	<string name="pref_predictive_auto_accept">Автоматичний вибір слів</string>
 	<string name="pref_privacy_policy">Політика конфіденційності</string>
 	<string name="pref_quick_switch_language_summary">Натискання клавіші мови автоматично перемикає на наступну мову замість відображення спливаючого вікна з усіма активними мовами.</string>
+	<string name="pref_show_suggestions_abc_summary">Показувати можливі літери в рядку підказок під час натискання клавіші.</string>
 	<string name="pref_status_icon">Іконка статусу</string>
 	<string name="pref_status_icon_summary">Показати іконку, коли активне введення з клавіатури.</string>
+	<string name="pref_color_scheme_device_light">Системний світлий</string>
 	<string name="dictionary_cancel_load">Скасувати завантаження</string>
 	<string name="dictionary_load_bad_char">Завантаження не вдалося. Невірне слово у рядку %1$d мови \"%2$s\".</string>
 	<string name="dictionary_load_error">Не вдалося завантажити словник для мови \"%1$s\" (%2$s).</string>
@@ -108,7 +123,7 @@
 	<string name="dictionary_import_error_file_too_long">Кількість слів перевищує максимально дозволену кількість %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Несподіваний формат слова: \"%1$s\" у рядку %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Сховище доданих слів заповнено. Ви не можете імпортувати більше слів.</string>
-	<string name="delete_words_delete">Видалити</string>
+	<string name="delete">Видалити</string>
 	<string name="delete_words_link_summary">Знайти та видалити неправильно написані або зайві слова.</string>
 	<string name="search_results">Знайдені слова</string>
 	<string name="search_results_void">Немає результатів.</string>
@@ -121,17 +136,18 @@
 	<string name="donate_title">Підтримати</string>
 	<string name="donate_summary">Якщо вам подобається %1$s, ви можете пригостити мене пивом.</string>
 
-	<string name="function_add_word_not_available">Додавання слів неможливе цією мовою.</string>
+	<string name="add_word_not_available_in_language">Додавання слів неможливе цією мовою.</string>
 	<string name="function_backspace">Стерти</string>
 	<string name="function_show_command_palette">Список команд</string>
 	<string name="function_filter_clear">Очистити фільтр</string>
 	<string name="function_edit_text">Інструменти буфера обміну</string>
+	<string name="function_edit_word">Редагувати слово</string>
 	<string name="function_filter_suggestions">Фільтрувати пропозиції</string>
 	<string name="function_filter_suggestions_not_available">Фільтрація неможлива цією мовою.</string>
 	<string name="function_previous_suggestion">Попередня пропозиція</string>
 	<string name="function_next_suggestion">Наступна пропозиція</string>
 	<string name="function_next_language">Наступна мова</string>
-	<string name="function_next_mode">Режим вводу</string>
+	<string name="function_next_mode">Наступний режим введення</string>
 	<string name="function_reassign">Перепризначити</string>
 	<string name="function_add_word">Додати слово</string>
 	<string name="function_show_settings">Показати налаштування</string>
@@ -148,7 +164,7 @@
 	<string name="setup_click_here_to_enable">Нажміть тут, щоб увімкнути TT9 в налаштуваннях Android.</string>
 
 	<string name="setup_spell_checker">Системна перевірка орфографії</string>
-	<string name="setup_spell_checker_on">Системна перевірка орфографії може заважати додаванню слів. Натисніть тут, щоб вимкнути.</string>
+	<string name="setup_spell_checker_on">Системна перевірка правопису підкреслює текст червоним і може заважати додаванню нових слів. Торкніться, щоб вимкнути.</string>
 	<string name="setup_spell_checker_off">Вимкнена</string>
 	<string name="key_key">Клавіша</string>
 	<string name="key_hold_key">(тримати)</string>
@@ -167,7 +183,7 @@
 	<string name="dictionary_export_generating_csv_for_language">Експорт CSV (%1$s)…</string>
 	<string name="pref_category_keypad_onscreen">Екранні клавіші</string>
 	<string name="pref_category_layout">Екранна розкладка</string>
-	<string name="pref_numpad_key_font_size">Розмір шрифту клавіш</string>
+	<string name="pref_numpad_key_font_size">Розмір шрифту</string>
 	<string name="pref_numpad_key_height">Висота</string>
 	<string name="pref_numpad_fn_key_width">Ширина літерних клавіш</string>
 	<string name="pref_font_size">Розмір шрифту у налаштуваннях</string>
@@ -189,9 +205,9 @@
 	<string name="voice_input_error_no_network">Немає підключення до Інтернету</string>
 	<string name="voice_input_error_not_available">Голосовий ввід недоступний</string>
 	<string name="voice_input_stopping">Вимикання мікрофона…</string>
-	<string name="pref_hack_precalculate_navbar_height_summary">Уникає порожнечі під клавішами. Вимкніть на Samsung, щоб уникнути накладання на панель навігації.</string>
 	<string name="pref_haptic_feedback">Вібрація</string>
 	<string name="pref_numpad_alignment">Вирівнювання</string>
+	<string name="tutorial_classic_voice_input">Свайп вправо — увімкнути голосове введення.</string>
 	<string name="virtual_numpad_alignment_center">Посередині</string>
 	<string name="virtual_numpad_alignment_left">Ліворуч</string>
 	<string name="virtual_numpad_alignment_right">Праворуч</string>
@@ -205,6 +221,7 @@
 	<string name="language_selection_language_loaded">(завантажено)</string>
 	<string name="language_selection_title">Увімкнути мови</string>
 	<string name="language_selection_words">слів</string>
+	<string name="pref_auto_trim_trailing_space_summary">Автоматично видаляти зайві пробіли під час переміщення курсора назад.</string>
 	<string name="pref_backspace_acceleration">Швидке видалення</string>
 	<string name="pref_backspace_acceleration_summary">Видалити цілі слова, утримуючи або провівши клавішею Backspace. (Не підтримується в деяких додатках)</string>
 	<string name="pref_category_punctuation_order">Порядок пунктуації</string>
@@ -228,17 +245,16 @@
 	<string name="pref_numpad_shape">Форма</string>
 	<string name="pref_numpad_shape_square">Квадрат</string>
 	<string name="pref_numpad_shape_v">V-подібна</string>
-	<string name="pref_arrow_keys_visible">Клавіші зі стрілками</string>
+	<string name="pref_arrows_left_right">Стрілки вліво/вправо</string>
 	<string name="donate_hold_to_open">Натисніть і утримуйте, щоб відкрити в браузері.</string>
 	<string name="fn_key_order_error_duplicate_key">Повторювані клавіші не дозволені.</string>
 	<string name="fn_key_order_legend">Умовні позначення:</string>
 	<string name="fn_key_order_preview_tip">Підказка: Після зміни порядку клавіш у стовпці 1, натисніть на стовпець 2, щоб одразу побачити результат (або навпаки).</string>
 	<string name="function_already_assigned">\"%1$s\" tuşu zaten \"%2$s\" işlevine atanmış. Onu \"%3$s\" işlevine atamak ister misiniz?</string>
 	<string name="function_assign_instructions">* Натисніть або утримуйте клавішу, щоб призначити її функції «%1$s».\n\n* Натисніть 0, щоб скасувати.\n\n* Натисніть 2, щоб вимкнути функцію.</string>
-	<string name="pref_allow_composing_text">Показувати текст під час введення</string>
-	<string name="pref_drag_resize">Змінювати розмір перетягуванням</string>
+	<string name="pref_bottom_padding_portrait">Проміжок знизу (портрет)</string>
+	<string name="pref_drag_resize">Перетягнути, щоб змінити розмір</string>
 	<string name="function_undo">Скасувати (Undo)</string>
-	<string name="pref_hack_precalculate_navbar_height">Перерахувати нижній відступ</string>
 	<string name="fn_key_order_column_2">Стовпець 2</string>
 	<string name="fn_key_order_error_wrong_key_count">У стовпці може бути щонайбільше 4 клавіші.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Дозволено лише коди клавіш від 1 до 8.</string>
@@ -247,4 +263,21 @@
 	<string name="pref_quick_switch_language">Швидке перемикання мов</string>
 	<string name="punctuation_order_initial">Початкові символи</string>
 	<string name="punctuation_order_group">Груповані символи (необов’язково)</string>
+	<string name="pref_one_key_emoji">Емодзі на клавіші 1</string>
+	<string name="pref_one_key_emoji_none">Без емодзі</string>
+	<string name="pref_hold_to_type">Утримання цифрових клавіш</string>
+	<string name="pref_color_scheme_device_dark">Системний темний</string>
+	<string name="click_here_for_preview">Натисніть тут, щоб переглянути</string>
+	<string name="pref_double_tap_resize">Подвійне торкання для зміни розміру</string>
+	<string name="pref_layout_classic">Цифрова клавіатура (ретро)</string>
+	<string name="pref_arrows_up_down">Стрілки вгору/вниз</string>
+	<string name="tutorial_close">Зрозуміло!</string>
+	<string name="tutorial_classic_title">Перші кроки</string>
+	<string name="tutorial_classic_OK_swipe">Коли немає пропозицій, свайп вгору/вниз переміщує курсор.\n\nКоли є пропозиції, свайп вгору фільтрує їх, а свайп вниз очищає фільтр.</string>
+	<string name="tutorial_classic_add_word">Свайп вліво — додати слово.</string>
+	<string name="pref_hack_auto_disable_composing">Автоматично приховувати введений текст</string>
+	<string name="pref_show_suggestions_abc">Показувати підказки літер</string>
+	<string name="pref_auto_trim_trailing_space">Автоматично видаляти кінцеві пробіли</string>
+	<string name="edit_word_invalid_characters">Неможливо редагувати «%1$s», коли мова — «%2$s».</string>
+	<string name="edit_word_not_available_in_language">Редагування слів цією мовою неможливе.</string>
 </resources>

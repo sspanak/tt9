@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.BuildConfig;
-import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.util.Logger;
@@ -25,7 +24,6 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 	private SQLiteOpener(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		allLanguages = new ArrayList<>(LanguageCollection.getAll());
-		allLanguages.add(new EmojiLanguage());
 	}
 
 
@@ -57,16 +55,16 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		onCreate(db);
 		for (Migration migration : Migration.LIST) {
-			if (oldVersion > migration.oldVersion) {
-				Logger.d(LOG_TAG, "Skipping migration: '" + migration.query + "'. Highest previous version: " + migration.oldVersion + " but we are at: " + oldVersion);
+			if (oldVersion > migration.oldVersion()) {
+				Logger.d(LOG_TAG, "Skipping migration: '" + migration.query() + "'. Highest previous version: " + migration.oldVersion() + " but we are at: " + oldVersion);
 				continue;
 			}
 
 			try {
-				db.execSQL(migration.query);
-				Logger.d(LOG_TAG, "Migration succeeded: '" + migration.query);
+				db.execSQL(migration.query());
+				Logger.d(LOG_TAG, "Migration succeeded: '" + migration.query());
 			} catch (Exception e) {
-				Logger.e(LOG_TAG, "Ignoring migration: '" + migration.query + "'. ");
+				Logger.e(LOG_TAG, "Ignoring migration: '" + migration.query() + "'. ");
 			}
 		}
 	}

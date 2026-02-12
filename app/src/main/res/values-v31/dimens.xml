@@ -2,4 +2,5 @@
 <resources>
 	<dimen name="numpad_key_overlay_hold_icon_spacing_top">5dp</dimen>
 	<dimen name="numpad_key_overlay_hold_icon_spacing_right">4dp</dimen>
+	<dimen name="preview_header_height">64dp</dimen>
 </resources>

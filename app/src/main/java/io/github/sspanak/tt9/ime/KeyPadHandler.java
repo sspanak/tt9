@@ -3,7 +3,7 @@ package io.github.sspanak.tt9.ime;
 import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.ime.helpers.Key;
-import io.github.sspanak.tt9.preferences.screens.debug.ItemInputHandlingMode;
+import io.github.sspanak.tt9.preferences.screens.debug.DropDownInputHandlingMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Timer;
 
@@ -46,9 +46,9 @@ abstract class KeyPadHandler extends UiHandler {
 			return true;
 		}
 
-		if (settings.getInputHandlingMode() == ItemInputHandlingMode.RETURN_FALSE) {
+		if (settings.getInputHandlingMode() == DropDownInputHandlingMode.RETURN_FALSE) {
 			return false;
-		} else if (settings.getInputHandlingMode() == ItemInputHandlingMode.CALL_SUPER) {
+		} else if (settings.getInputHandlingMode() == DropDownInputHandlingMode.CALL_SUPER) {
 			return super.onKeyDown(keyCode, event);
 		}
 
@@ -72,7 +72,7 @@ abstract class KeyPadHandler extends UiHandler {
 			event.startTracking();
 			return true;
 		}
-		else if (Key.isHotkey(settings, -keyCode)) {
+		else if (getFinalContext().isHoldHotkey(-keyCode)) {
 			event.startTracking();
 		}
 
@@ -96,9 +96,9 @@ abstract class KeyPadHandler extends UiHandler {
 
 	@Override
 	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-		if (settings.getInputHandlingMode() == ItemInputHandlingMode.RETURN_FALSE) {
+		if (settings.getInputHandlingMode() == DropDownInputHandlingMode.RETURN_FALSE) {
 			return false;
-		} else if (settings.getInputHandlingMode() == ItemInputHandlingMode.CALL_SUPER) {
+		} else if (settings.getInputHandlingMode() == DropDownInputHandlingMode.CALL_SUPER) {
 			return super.onKeyLongPress(keyCode, event);
 		}
 
@@ -142,9 +142,9 @@ abstract class KeyPadHandler extends UiHandler {
 			return true;
 		}
 
-		if (settings.getInputHandlingMode() == ItemInputHandlingMode.RETURN_FALSE) {
+		if (settings.getInputHandlingMode() == DropDownInputHandlingMode.RETURN_FALSE) {
 			return false;
-		} else if (settings.getInputHandlingMode() == ItemInputHandlingMode.CALL_SUPER) {
+		} else if (settings.getInputHandlingMode() == DropDownInputHandlingMode.CALL_SUPER) {
 			return super.onKeyUp(keyCode, event);
 		}
 

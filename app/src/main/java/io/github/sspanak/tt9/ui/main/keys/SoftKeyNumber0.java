@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-public class SoftKeyNumber0 extends SoftKeyNumber {
+public class SoftKeyNumber0 extends SoftKeyNumberSwipeable {
 	private static final String CHARS_NUMERIC_MODE = "+%$";
 
 	public SoftKeyNumber0(Context context) { super(context); }
@@ -42,21 +42,29 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 
 
 	@Override
+	public boolean isHoldEnabled() {
+		return tt9 != null && tt9.getSettings().getHoldToType() && !shouldHide();
+	}
+
+
+	@Override
 	protected String getHoldText() {
 		if (isFnPanelOn()) {
 			return super.getHoldText();
 		}
 
-		if (tt9 == null || shouldHide()) {
+		if (tt9 == null || !isHoldEnabled()) {
 			return null;
 		}
 
-		if (tt9.isTextEditingActive() || tt9.isNumericModeStrict()) {
+		if (tt9.isTextEditingActive()) {
 			return "";
-		} if (tt9.isNumericModeSigned()) {
+		} else if (tt9.isInputTypeSigned()) {
 			return "+/-";
-		} else if (tt9.isInputModePhone()) {
+		} else if (tt9.isInputTypePhone()) {
 			return "+";
+		} else if (tt9.isInputTypeNumeric() && !tt9.isInputTypeSigned() && !tt9.isInputTypePhone()) {
+			return "";
 		} else if (tt9.isInputModeNumeric() || hasLettersOnAllKeys()) {
 			return CHARS_NUMERIC_MODE;
 		}
@@ -91,7 +99,7 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 
 		// scale up the space character, because it is too small
 		if (Characters.SPACE.equals(getTitle())) {
-			return 1.3f * Math.min(1, getTT9Height()) * getScreenScaleY();
+			return 1.3f * Math.min(1, getTT9Height()) * getScreenSizeScale();
 		}
 
 		return super.getTitleScale();

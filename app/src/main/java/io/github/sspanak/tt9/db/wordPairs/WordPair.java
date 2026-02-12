@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class WordPair {
 	private final Language language;
@@ -30,6 +31,8 @@ public class WordPair {
 		return
 			language == null
 			|| word1.isEmpty() || word2.isEmpty()
+			|| word1.equals(Characters.START_OF_TEXT) || word1.equals(Characters.END_OF_TEXT)
+			|| word2.equals(Characters.START_OF_TEXT) || word2.equals(Characters.END_OF_TEXT)
 			|| word1.equals(word2)
 			|| sequence2 == null || !(new Text(sequence2).isNumeric())
 			|| (w1.codePointLength() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH && w2.codePointLength() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH)

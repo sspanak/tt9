@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	style="@style/TTheme.Classic.Tutorial"
+	android:id="@+id/tutorial_popup_container">
+
+	<androidx.constraintlayout.widget.ConstraintLayout style="@style/TTheme.Classic.Tutorial.ConstraintWrapper">
+		<androidx.constraintlayout.widget.ConstraintLayout
+			tools:ignore="MissingConstraints"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layoutDirection="ltr"
+			app:layout_constraintDimensionRatio="716:900"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<ImageView
+				style="@style/TTheme.Classic.Tutorial.KeyboardImage"
+				android:src="@drawable/tutorial_classic" />
+
+			<TextView
+				style="@style/TTheme.Classic.Tutorial.OverlayText.OK"
+				android:text="@string/tutorial_classic_OK_swipe" />
+
+			<androidx.constraintlayout.widget.Guideline
+				style="@style/TTheme.Classic.Tutorial.GuideVertical.Left"
+				android:id="@+id/guide_left" />
+
+			<androidx.constraintlayout.widget.Guideline
+				style="@style/TTheme.Classic.Tutorial.GuideVertical.Right"
+				android:id="@+id/guide_right" />
+
+			<TextView
+				style="@style/TTheme.Classic.Tutorial.OverlayText.AddWord"
+				android:text="@string/tutorial_classic_add_word" />
+
+			<TextView
+				style="@style/TTheme.Classic.Tutorial.OverlayText.VoiceInput"
+				android:text="@string/tutorial_classic_voice_input" />
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+	<Button
+		style="@style/TTheme.Classic.Tutorial.Button"
+		android:id="@+id/tutorial_close_button"
+		android:text="@string/tutorial_close" />
+
+</LinearLayout>

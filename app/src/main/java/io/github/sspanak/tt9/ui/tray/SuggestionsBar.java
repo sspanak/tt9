@@ -2,9 +2,10 @@ package io.github.sspanak.tt9.ui.tray;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.view.MotionEvent;
+import android.os.Looper;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -25,8 +26,10 @@ import io.github.sspanak.tt9.ui.main.ResizableMainView;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
+import io.github.sspanak.tt9.util.sys.Clipboard;
 
 public class SuggestionsBar {
+	public static final String CLIPBOARD_SUGGESTION_SUFFIX = "\u200B...\u200B";
 	public static final String SHOW_GROUP_0_SUGGESTION = "(…\u200A)";
 	public static final String SHOW_GROUP_1_SUGGESTION = "(…\u200B)";
 
@@ -38,39 +41,38 @@ public class SuggestionsBar {
 
 	private int defaultBackgroundColor = Color.TRANSPARENT;
 	private int backgroundColor;
+	private int suggestionSeparatorColor;
 
-	private double lastClickTime = 0;
+
 	private int lastScrollIndex = 0;
 	private int selectedIndex = 0;
 	@Nullable private List<String> suggestions = new ArrayList<>();
 	@NonNull private final List<String> visibleSuggestions = new ArrayList<>();
 
 	private final DefaultItemAnimator animator = new DefaultItemAnimator();
-	private final ResizableMainView mainView;
 	private final Runnable onItemClick;
 	@Nullable private final RecyclerView mView;
 	private final SettingsStore settings;
 	private SuggestionsAdapter mSuggestionsAdapter;
 	private Vibration vibration;
 
-	private final Handler delayedDisplayHandler = new Handler();
+	private final Handler displayHandler = new Handler(Looper.getMainLooper());
 
 
 	public SuggestionsBar(@NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull Runnable onItemClick) {
 		this.onItemClick = onItemClick;
 		this.settings = settings;
 
-		this.mainView = mainView;
 		mView = mainView.getView() != null ? mainView.getView().findViewById(R.id.suggestions_bar) : null;
 		if (mView != null) {
 			Context context = mainView.getView().getContext();
 
 			mView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-			mView.setOnTouchListener(this::onTouch);
 
 			initDataAdapter(context);
 			initSeparator(context);
 			configureAnimation();
+			setVisible(settings.getShowSuggestions());
 			vibration = new Vibration(settings, mView);
 		}
 	}
@@ -93,10 +95,19 @@ public class SuggestionsBar {
 			return;
 		}
 
+		int suggestionLayout;
+		if (settings.isMainLayoutNumpad()) {
+			suggestionLayout = R.layout.suggestion_list_numpad;
+		} else if (settings.isMainLayoutClassic()) {
+			suggestionLayout = R.layout.suggestion_list_classic;
+		} else {
+			suggestionLayout = R.layout.suggestion_list_small;
+		}
+
 		mSuggestionsAdapter = new SuggestionsAdapter(
 			context,
 			this::handleItemClick,
-			settings.isMainLayoutNumpad() ? R.layout.suggestion_list_numpad : R.layout.suggestion_list,
+			suggestionLayout,
 			R.id.suggestion_list_item,
 			visibleSuggestions
 		);
@@ -104,7 +115,7 @@ public class SuggestionsBar {
 		mView.setAdapter(mSuggestionsAdapter);
 		mView.setHasFixedSize(true); // Optimizes performance
 
-		setDarkTheme();
+		setColorScheme();
 	}
 
 
@@ -113,6 +124,7 @@ public class SuggestionsBar {
 			return;
 		}
 
+		suggestionSeparatorColor = settings.getSuggestionSeparatorColor();
 		// Extra XML is required instead of a ColorDrawable object, because setting the highlight color
 		// erases the borders defined using the ColorDrawable.
 		Drawable separatorDrawable = ContextCompat.getDrawable(context, R.drawable.suggestion_separator);
@@ -120,9 +132,23 @@ public class SuggestionsBar {
 			return;
 		}
 
+		separatorDrawable.setColorFilter(suggestionSeparatorColor, PorterDuff.Mode.SRC_ATOP);
+
 		DividerItemDecoration separator = new DividerItemDecoration(mView.getContext(), RecyclerView.HORIZONTAL);
 		separator.setDrawable(separatorDrawable);
+
+		int decorations = mView.getItemDecorationCount();
+		if (decorations > 0) {
+			mView.removeItemDecorationAt(decorations - 1);
+		}
 		mView.addItemDecoration(separator);
+	}
+
+
+	public void setVisible(boolean yes) {
+		if (mView != null) {
+			mView.setVisibility(yes ? View.VISIBLE : View.INVISIBLE);
+		}
 	}
 
 
@@ -144,6 +170,11 @@ public class SuggestionsBar {
 	@NonNull
 	public String get(int id) {
 		String suggestion = getRaw(id);
+
+		// clipboard abbreviated suggestion
+		if (suggestion.endsWith(CLIPBOARD_SUGGESTION_SUFFIX) && suggestions != null) {
+			suggestion = Clipboard.get(suggestions.size() - id - 1);
+		}
 
 		// show more...
 		if (suggestion.equals(SHOW_MORE_SUGGESTION) || suggestion.equalsIgnoreCase(SHOW_GROUP_1_SUGGESTION) || suggestion.equalsIgnoreCase(SHOW_GROUP_0_SUGGESTION)) {
@@ -290,14 +321,18 @@ public class SuggestionsBar {
 			return;
 		}
 
-		setBackground(false);
-		mSuggestionsAdapter.setTextSize(settings.getSuggestionFontScale());
+		final boolean isVisible = mView.getVisibility() == View.VISIBLE;
 
-		boolean smooth = settings.getSuggestionSmoothScroll() && visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX + 1;
-		mView.setItemAnimator(smooth ? animator : null);
+		if (isVisible) {
+			setBackground(false);
+			mSuggestionsAdapter.setTextSize(settings.getSuggestionFontScale());
+
+			boolean smooth = settings.getSuggestionSmoothScroll() && visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX + 1;
+			mView.setItemAnimator(smooth ? animator : null);
+		}
 
 		mSuggestionsAdapter.resetItems(selectedIndex);
-		if (selectedIndex > 0) {
+		if (isVisible && selectedIndex > 0) {
 			mView.scrollToPosition(selectedIndex);
 		}
 	}
@@ -376,8 +411,8 @@ public class SuggestionsBar {
 		mSuggestionsAdapter.setSelection(selectedIndex);
 
 		if (settings.getSuggestionScrollingDelay() > 0) {
-			delayedDisplayHandler.removeCallbacksAndMessages(null);
-			delayedDisplayHandler.postDelayed(this::renderScroll, settings.getSuggestionScrollingDelay());
+			displayHandler.removeCallbacksAndMessages(null);
+			displayHandler.postDelayed(this::renderScroll, settings.getSuggestionScrollingDelay());
 		} else {
 			renderScroll();
 		}
@@ -389,7 +424,7 @@ public class SuggestionsBar {
 	 * to set the selected index in the adapter.
 	 */
 	private void renderScroll() {
-		if (mView == null) {
+		if (mView == null || mView.getVisibility() != View.VISIBLE) {
 			return;
 		}
 
@@ -401,22 +436,20 @@ public class SuggestionsBar {
 
 
 	/**
-	 * setDarkTheme
-	 * Changes the suggestion colors according to the theme. Due to the fact we change the colors
-	 * dynamically based on the selected index and whether the suggestions are empty or not, we
-	 * need to set them manually.
+	 * setColorScheme
+	 * Changes the suggestion colors according to the current color scheme.
 	 */
-	public void setDarkTheme() {
+	public void setColorScheme() {
 		if (mView == null) {
 			return;
 		}
 
-		Context context = mView.getContext();
-
-		defaultBackgroundColor = ContextCompat.getColor(context, R.color.keyboard_background);
-		mSuggestionsAdapter.setColorDefault(ContextCompat.getColor(context, R.color.keyboard_text));
-		mSuggestionsAdapter.setColorHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_text));
-		mSuggestionsAdapter.setBackgroundHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_background));
+		defaultBackgroundColor = settings.getKeyboardBackground();
+		mSuggestionsAdapter.setColorDefault(settings.getKeyboardTextColor());
+		mSuggestionsAdapter.setColorHighlight(settings.getSuggestionSelectedColor());
+		mSuggestionsAdapter.setBackgroundHighlight(settings.getSuggestionSelectedBackground());
+		suggestionSeparatorColor = settings.getSuggestionSeparatorColor();
+		initSeparator(mView.getContext());
 
 		setBackground(true);
 	}
@@ -449,6 +482,10 @@ public class SuggestionsBar {
 	 * Passes through suggestion selected using the touchscreen.
 	 */
 	private void handleItemClick(int position) {
+		if (containsStem() && position == 0) {
+			return;
+		}
+
 		vibration.vibrate();
 		selectedIndex = position;
 		if (appendHiddenSuggestionsIfNeeded(false)) {
@@ -456,38 +493,5 @@ public class SuggestionsBar {
 		} else {
 			onItemClick.run();
 		}
-	}
-
-
-	private boolean onTouch(View v, MotionEvent event) {
-		if (!isEmpty()) {
-			return false;
-		}
-
-		int action = event.getAction();
-
-		switch (action) {
-			case MotionEvent.ACTION_DOWN:
-				mainView.onResizeStart(event.getRawY());
-				return true;
-			case MotionEvent.ACTION_MOVE:
-				if (settings.getDragResize()) {
-					mainView.onResizeThrottled(event.getRawY());
-				}
-				return true;
-			case MotionEvent.ACTION_UP:
-				long now = System.currentTimeMillis();
-				if (now - lastClickTime < SettingsStore.SOFT_KEY_DOUBLE_CLICK_DELAY) {
-					mainView.onSnap();
-				} else if (settings.getDragResize()){
-					mainView.onResize(event.getRawY());
-				}
-
-				lastClickTime = now;
-
-				return true;
-		}
-
-		return false;
 	}
 }

@@ -5,19 +5,14 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.DataStore;
-import io.github.sspanak.tt9.ime.helpers.TextField;
-import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class WordPredictions extends Predictions {
-	protected final TextField textField;
 	private LocaleWordsSorter localeWordsSorter;
-	private final Sequences seq;
 
 	private String inputWord;
 	private boolean isStemFuzzy;
@@ -26,14 +21,12 @@ public class WordPredictions extends Predictions {
 	protected String penultimateWord;
 
 
-	public WordPredictions(SettingsStore settings, TextField textField, Sequences sequences) {
+	public WordPredictions(SettingsStore settings) {
 		super(settings);
 		lastEnforcedTopWord = "";
 		localeWordsSorter = new LocaleWordsSorter(null);
 		penultimateWord = "";
-		seq = sequences;
 		stem = "";
-		this.textField = textField;
 	}
 
 
@@ -94,7 +87,7 @@ public class WordPredictions extends Predictions {
 
 	@Override
 	protected boolean isRetryAllowed() {
-		return !seq.CUSTOM_EMOJI_SEQUENCE.equals(digitSequence);
+		return true;
 	}
 
 	/**
@@ -115,16 +108,12 @@ public class WordPredictions extends Predictions {
 		}
 
 		words.clear();
-		if (digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE)) {
-			words.addAll(dbWords);
-		} else {
-			suggestStem();
-			dbWords = localeWordsSorter.shouldSort(stem, digitSequence) ? localeWordsSorter.sort(dbWords) : dbWords;
-			dbWords = rearrangeByPairFrequency(dbWords);
-			suggestMissingWords(generatePossibleStemVariations(dbWords));
-			suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords);
-			words = insertPunctuationCompletions(words);
-		}
+		suggestStem();
+		dbWords = localeWordsSorter.shouldSort(stem, digitSequence) ? localeWordsSorter.sort(dbWords) : dbWords;
+		dbWords = rearrangeByPairFrequency(dbWords);
+		suggestMissingWords(generatePossibleStemVariations(dbWords));
+		suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords);
+		words = insertPunctuationCompletions(words);
 
 		onWordsChanged.run();
 	}
@@ -353,22 +342,25 @@ public class WordPredictions extends Predictions {
 	@NonNull
 	protected String getPenultimateWord(@NonNull String currentWord) {
 		// We are in the middle of a word or at the beginning of a new one. Pairing makes no sense.
-		Text after = textField.getTextAfterCursor(1);
-		if (after.startsWithWord()) {
+		if (afterCursor.startsWithWord()) {
 			return "";
 		}
 
-		Text before = textField.getTextBeforeCursor();
+		if (beforeCursor.isEmpty()) {
+			return Characters.START_OF_TEXT;
+		}
 
-		// We are at the end of word. The user is probably typing a compound word. We do not want to
+		// We are at the end of a word. The user is probably typing a compound word. We do not want to
 		// pair with the first part of the compound word.
-		if (before.length() > currentWord.length() && before.toString().endsWith(currentWord) && Character.isAlphabetic(before.toString().charAt(before.length() - currentWord.length() - 1))) {
-			return "";
+		final String before = beforeCursor.toString();
+		if (before.length() > currentWord.length() && before.endsWith(currentWord) && Character.isAlphabetic(before.charAt(before.length() - currentWord.length() - 1))) {
+			return Characters.END_OF_TEXT;
 		}
 
-		return before.getPreviousWord(
+		return beforeCursor.getPreviousWord(
 			!currentWord.isEmpty(),
-			LanguageKind.isUkrainian(language) || LanguageKind.isHebrew(language)
+			LanguageKind.isUkrainian(language) || LanguageKind.isHebrew(language),
+			true
 		);
 	}
 }

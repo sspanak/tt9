@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,15 +16,31 @@ class SettingsInput extends SettingsHacks {
 	SettingsInput(Context context) { super(context); }
 
 
-	public ArrayList<Integer> getEnabledLanguageIds() {
-		Set<String> languagesPref = getEnabledLanguagesIdsAsStrings();
+	public boolean areEnabledLanguagesMoreThanN(int N) {
+		final Set<String> langs = prefs.getStringSet("pref_languages", null);
+		return langs != null && langs.size() > N;
+	}
 
-		ArrayList<Integer>languageIds = new ArrayList<>();
-		for (String languageId : languagesPref) {
-			languageIds.add(Integer.valueOf(languageId));
+
+	@NonNull
+	public ArrayList<Integer> getEnabledLanguageIds() {
+		final Set<String> rawLangIds = prefs.getStringSet("pref_languages", null);
+		final HashSet<String> langIds = new HashSet<>(rawLangIds != null ? rawLangIds : Collections.emptySet());
+
+		final ArrayList<Integer> list = new ArrayList<>();
+		for (String languageId : langIds) {
+			try {
+				list.add(Integer.parseInt(languageId));
+			} catch (NumberFormatException e) {
+				Logger.w(LOG_TAG, "Ignoring invalid language ID in preferences: '" + languageId + "'");
+			}
 		}
 
-		return languageIds;
+		if (list.isEmpty()) {
+			list.add(LanguageCollection.getDefault().getId());
+		}
+
+		return list;
 	}
 
 
@@ -33,15 +51,6 @@ class SettingsInput extends SettingsHacks {
 		}
 
 		saveEnabledLanguageIds(idsAsStrings);
-	}
-
-
-	public Set<String> getEnabledLanguagesIdsAsStrings() {
-		Set<String> defaultLanguages =  new HashSet<>(Collections.singletonList(
-			String.valueOf(LanguageCollection.getDefault().getId())
-		));
-
-		return new HashSet<>(prefs.getStringSet("pref_languages", defaultLanguages));
 	}
 
 
@@ -61,8 +70,8 @@ class SettingsInput extends SettingsHacks {
 			return;
 		}
 
-		prefsEditor.putStringSet("pref_languages", validLanguageIds);
-		prefsEditor.apply();
+		getPrefsEditor().putStringSet("pref_languages", validLanguageIds);
+		getPrefsEditor().apply();
 	}
 
 
@@ -73,8 +82,8 @@ class SettingsInput extends SettingsHacks {
 
 	public void saveInputLanguage(int language) {
 		if (Validators.validateInputLanguage(language, "saveInputLanguage")){
-			prefsEditor.putInt("pref_input_language", language);
-			prefsEditor.apply();
+			getPrefsEditor().putInt("pref_input_language", language);
+			getPrefsEditor().apply();
 		}
 	}
 
@@ -87,8 +96,8 @@ class SettingsInput extends SettingsHacks {
 	public void saveInputMode(int mode) {
 		boolean isModeValid = Validators.validateInputMode(mode, LOG_TAG, "Not saving invalid input mode: " + mode);
 		if (isModeValid) {
-			prefsEditor.putInt("pref_input_mode", mode);
-			prefsEditor.apply();
+			getPrefsEditor().putInt("pref_input_mode", mode);
+			getPrefsEditor().apply();
 		}
 	}
 
@@ -101,8 +110,8 @@ class SettingsInput extends SettingsHacks {
 	public void saveTextCase(int textCase) {
 		boolean isTextCaseValid = Validators.validateTextCase(textCase, LOG_TAG,"Not saving invalid text case: " + textCase);
 		if (isTextCaseValid) {
-			prefsEditor.putInt("pref_text_case", textCase);
-			prefsEditor.apply();
+			getPrefsEditor().putInt("pref_text_case", textCase);
+			getPrefsEditor().apply();
 		}
 	}
 

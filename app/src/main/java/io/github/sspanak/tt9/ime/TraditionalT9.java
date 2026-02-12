@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
-import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -19,12 +18,13 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog;
 import io.github.sspanak.tt9.util.Logger;
-import io.github.sspanak.tt9.util.sys.Clipboard;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 public class TraditionalT9 extends PremiumHandler {
 	private static final String LOG_TAG = "MAIN";
+
+	private Thread asyncInitThread;
 
 	@NonNull private final Handler backgroundTasks = new Handler(Looper.getMainLooper());
 	@NonNull private final Handler zombieDetector = new Handler(Looper.getMainLooper());
@@ -32,23 +32,8 @@ public class TraditionalT9 extends PremiumHandler {
 	private boolean isDead = false;
 	private int zombieChecks = 0;
 
-
-	@Override
-	public boolean onEvaluateInputViewShown() {
-		super.onEvaluateInputViewShown();
-		if (!SystemSettings.isTT9Selected(this)) {
-			return false;
-		}
-
-		setInputField(getCurrentInputEditorInfo());
-		return shouldBeVisible();
-	}
-
-
-	@Override
-	public boolean onEvaluateFullscreenMode() {
-		return false;
-	}
+	// A String to be committed after successfully starting in an input field.
+	@NonNull private final StringBuffer onAfterStartText = new StringBuffer();
 
 
 	@Override
@@ -59,6 +44,7 @@ public class TraditionalT9 extends PremiumHandler {
 		initTray();
 		statusBar.setText(mInputMode);
 		suggestionOps.set(mInputMode.getSuggestions(), mInputMode.containsGeneratedSuggestions());
+		mainView.render();
 
 		return mainView.getView();
 	}
@@ -81,13 +67,13 @@ public class TraditionalT9 extends PremiumHandler {
 			LOG_TAG,
 			"===> Start Up; packageName: " + inputField.packageName + " inputType: " + inputField.inputType + " actionId: " + inputField.actionId + " imeOptions: " + inputField.imeOptions + " privateImeOptions: " + inputField.privateImeOptions + " extras: " + inputField.extras
 		);
-		onStart(inputField);
+		onStart(inputField, restarting);
 	}
 
 
 	@Override
 	public void onStartInputView(EditorInfo inputField, boolean restarting) {
-		onStart(inputField);
+		onStart(inputField, restarting);
 	}
 
 
@@ -109,9 +95,16 @@ public class TraditionalT9 extends PremiumHandler {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		int result = super.onStartCommand(intent, flags, startId);
 
-		String wakeupCommand = intent != null ? intent.getStringExtra(UI.COMMAND_WAKEUP_MAIN) : null;
-		if (UI.COMMAND_WAKEUP_MAIN.equals(wakeupCommand)) {
-			forceShowWindow();
+		final String command = intent != null ? intent.getStringExtra(UI.COMMAND) : null;
+
+		switch (command == null ? "" : command) {
+			case UI.COMMAND_WAKEUP_MAIN -> forceShowWindow();
+			case UI.COMMAND_PRINT_VOICE_INPUT -> {
+				final String text = intent.getStringExtra(UI.COMMAND_PRINT_VOICE_INPUT_TEXT);
+				if (text != null) {
+					onAfterStartText.append(text);
+				}
+			}
 		}
 
 		return result;
@@ -124,14 +117,18 @@ public class TraditionalT9 extends PremiumHandler {
 		zombieChecks = 0;
 		settings.setDemoMode(false);
 		Logger.setLevel(settings.getLogLevel());
-		LanguageCollection.init(this);
-		DataStore.init(this);
+
+		asyncInitThread = asyncInitThread == null ? new Thread(this::runHeavyInitTasks) : asyncInitThread;
+		asyncInitThread.start();
+
 		super.onInit();
 	}
 
 
 	@Override
-	protected boolean onStart(EditorInfo field) {
+	protected boolean onStart(EditorInfo field, boolean restarting) {
+		Logger.setLevel(settings.getLogLevel());
+
 		if (SystemSettings.isTT9Selected(this)) {
 			startHeartbeatCheck();
 		} else {
@@ -141,15 +138,24 @@ public class TraditionalT9 extends PremiumHandler {
 			return false;
 		}
 
-		AppHacks.onStart(settings, field);
+		try {
+			if (asyncInitThread != null && asyncInitThread.isAlive()) {
+				asyncInitThread.join();
+			}
+		} catch (InterruptedException e) {
+			Logger.w(LOG_TAG, "Async initialization failed. " + e.getMessage() + ". Retrying on main thread.");
+			runHeavyInitTasks();
+		} finally {
+			asyncInitThread = null;
+		}
 
-		if (isDead || !super.onStart(field)) {
+		appHacks.onBeforeStart(this, settings, mLanguage, field, mInputMode, suggestionOps, restarting);
+
+		if (isDead || !super.onStart(field, restarting)) {
 			getDisplayTextCase();
 			setStatusIcon(mInputMode, mLanguage);
 			return false;
 		}
-
-		Logger.setLevel(settings.getLogLevel());
 
 		if (InputModeKind.isPassthrough(mInputMode)) {
 			onStop();
@@ -159,19 +165,29 @@ public class TraditionalT9 extends PremiumHandler {
 			initUi(mInputMode);
 		}
 
-		InputType newInputType = new InputType(this, field);
+		onAfterStart(field);
+
+		return true;
+	}
+
+
+	private void onAfterStart(EditorInfo field) {
+		final InputType newInputType = new InputType(this, field);
 
 		if (newInputType.isText()) {
 			DataStore.loadWordPairs(DictionaryLoader.getInstance(this), LanguageCollection.getAll(settings.getEnabledLanguageIds()));
 		}
 
 		if (!newInputType.isUs()) {
-			DictionaryLoader.autoLoad(this, mLanguage);
+			DictionaryLoader.autoLoad(this, settings, mLanguage);
+		}
+
+		if (onAfterStartText.length() > 0) {
+			onText(onAfterStartText.toString(), false);
+			onAfterStartText.setLength(0);
 		}
 
 		askForNotifications();
-
-		return true;
 	}
 
 
@@ -180,7 +196,6 @@ public class TraditionalT9 extends PremiumHandler {
 		stopVoiceInput();
 		onFinishTyping();
 		suggestionOps.clear();
-		Clipboard.clearListener(this);
 		statusBar.setText(mInputMode);
 
 		if (isInputViewShown()) {
@@ -314,7 +329,7 @@ public class TraditionalT9 extends PremiumHandler {
 
 	@Override
 	protected boolean onNumber(int key, boolean hold, int repeat) {
-		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.autoLoad(this, mLanguage)) {
+		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.autoLoad(this, settings, mLanguage)) {
 			return true;
 		}
 		return super.onNumber(key, hold, repeat);
@@ -327,11 +342,20 @@ public class TraditionalT9 extends PremiumHandler {
 	}
 
 
+	private void runHeavyInitTasks() {
+		LanguageCollection.init(getApplicationContext());
+		DataStore.init(getApplicationContext());
+		Logger.d(LOG_TAG, "Heavy initialization tasks completed successfully");
+	}
+
+
 	private void runBackgroundTasks() {
-		voiceInputOps.enableOfflineMode();
-		if (!DictionaryLoader.getInstance(this).isRunning()) {
-			DataStore.saveWordPairs();
-			DataStore.normalizeNext();
-		}
+		new Thread(() -> {
+			voiceInputOps.forceAlternativeInput(false).enableOfflineMode();
+			if (!DictionaryLoader.getInstance(this).isRunning()) {
+				DataStore.saveWordPairs();
+				DataStore.normalizeNext();
+			}
+		}).start();
 	}
 }

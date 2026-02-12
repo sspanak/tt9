@@ -1,32 +1,26 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.widget.TextViewCompat;
 
-import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CommandCollection;
 
-public class SoftKeyFnSmall extends SoftKeyFnNumpad {
+public class SoftKeyFnSmall extends SoftKeyNumberNumpad {
 	public SoftKeyFnSmall(Context context) { super(context);}
 	public SoftKeyFnSmall(Context context, AttributeSet attrs) { super(context, attrs);}
 	public SoftKeyFnSmall(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr);}
 
 	@Override protected void handleHold() { preventRepeat(); }
-	@Override protected String getTitle() { return getNumber() + ""; }
+	@Override protected String getTitle() { return String.valueOf(getNumber()); }
 	@Override protected float getTitleScale() { return 1; }
 
-	private boolean isVoiceInput() {
-		return getId() == R.id.soft_key_3;
-	}
-
-	private boolean isTextEditing() {
-		return getId() == R.id.soft_key_5;
-	}
-
 	private boolean isNOOP() {
-		return getId() == R.id.soft_key_9 || getId() == R.id.soft_key_0;
+		return !CommandCollection.getAll(CommandCollection.COLLECTION_PALETTE).containsKey(getId());
 	}
 
 	protected boolean isVisible() {
@@ -39,33 +33,22 @@ public class SoftKeyFnSmall extends SoftKeyFnNumpad {
 		} else if (isTextEditing()) {
 			return tt9 == null || !tt9.isInputLimited();
 		} else {
-			return true;
+			return CommandCollection.getBySoftKey(CommandCollection.COLLECTION_PALETTE, getId()).isAvailable(tt9);
 		}
 	}
 
-
 	protected int getBottomIconId() {
-		final int keyId = getId();
-
-		if (keyId == R.id.soft_key_1) return R.drawable.ic_fn_settings;
-		if (keyId == R.id.soft_key_2) return R.drawable.ic_fn_add_word;
-		if (keyId == R.id.soft_key_3) return R.drawable.ic_fn_voice;
-		if (keyId == R.id.soft_key_4) return R.drawable.ic_fn_undo;
-		if (keyId == R.id.soft_key_5) return R.drawable.ic_txt_cut;
-		if (keyId == R.id.soft_key_6) return R.drawable.ic_fn_redo;
-		if (keyId == R.id.soft_key_7) return R.drawable.ic_fn_developer;
-		if (keyId == R.id.soft_key_8) return R.drawable.ic_fn_next_keyboard;
-
-		return -1;
+		return CommandCollection.getBySoftKey(CommandCollection.COLLECTION_PALETTE, getId()).getIcon();
 	}
-
 
 	private void setBottomIcon() {
 		final int iconId = getBottomIconId();
 		final Drawable icon = iconId > 0 && tt9 != null ? AppCompatResources.getDrawable(tt9.getApplicationContext(), iconId) : null;
 		setCompoundDrawablesWithIntrinsicBounds(null, null, null, icon);
+		if (icon != null) {
+			TextViewCompat.setCompoundDrawableTintList(this, ColorStateList.valueOf(centralIconColor));
+		}
 	}
-
 
 	@Override
 	public void render() {

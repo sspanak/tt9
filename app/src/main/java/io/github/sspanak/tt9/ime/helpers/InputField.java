@@ -1,27 +1,42 @@
 package io.github.sspanak.tt9.ime.helpers;
 
 import android.inputmethodservice.InputMethodService;
+import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.commands.CmdMoveCursor;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.util.sys.DeviceInfo;
+import io.github.sspanak.tt9.util.Text;
 
-public class InputField {
+abstract class InputField {
 	public static final int IME_ACTION_ENTER = EditorInfo.IME_MASK_ACTION + 1;
 
+	@NonNull public final String id;
 	@Nullable protected final InputMethodService ims;
 	@Nullable protected final EditorInfo field;
 
 
 	protected InputField(@Nullable InputMethodService ims, @Nullable EditorInfo inputField) {
+		id = generateId(inputField);
 		this.ims = ims;
 		field = inputField;
+	}
+
+
+	@NonNull
+	private static String generateId(@Nullable EditorInfo inputField) {
+		if (inputField == null) {
+			return "";
+		}
+
+		return inputField.packageName + ":" + inputField.inputType + ":" + inputField.imeOptions;
 	}
 
 
@@ -34,7 +49,7 @@ public class InputField {
 	public boolean equals(InputConnection inputConnection, EditorInfo inputField) {
 		return
 			inputConnection != null && inputConnection == getConnection()
-			&& field != null && field == inputField;
+			&& id.equals(generateId(inputField));
 	}
 
 
@@ -93,7 +108,7 @@ public class InputField {
 	 */
 	@Nullable
 	public Language getLanguage(ArrayList<Integer> allowedLanguageIds) {
-		if (!DeviceInfo.AT_LEAST_ANDROID_7 || field == null || field.hintLocales == null) {
+		if (field == null || field.hintLocales == null) {
 			return null;
 		}
 
@@ -106,4 +121,53 @@ public class InputField {
 
 		return null;
 	}
+
+
+	public boolean moveCursor(int direction) {
+		final boolean backward = direction == CmdMoveCursor.CURSOR_MOVE_LEFT;
+		final boolean forward = direction == CmdMoveCursor.CURSOR_MOVE_RIGHT;
+
+		if (
+			(backward && getTextBeforeCursor(null, 1).isEmpty())
+			|| (forward && getTextAfterCursor(null, 1).isEmpty())
+		) {
+			return false;
+		}
+
+		final int keyCode = switch (direction) {
+			case CmdMoveCursor.CURSOR_MOVE_UP -> KeyEvent.KEYCODE_DPAD_UP;
+			case CmdMoveCursor.CURSOR_MOVE_DOWN -> KeyEvent.KEYCODE_DPAD_DOWN;
+			case CmdMoveCursor.CURSOR_MOVE_LEFT -> KeyEvent.KEYCODE_DPAD_LEFT;
+			case CmdMoveCursor.CURSOR_MOVE_RIGHT -> KeyEvent.KEYCODE_DPAD_RIGHT;
+			default -> KeyEvent.KEYCODE_UNKNOWN;
+		};
+
+
+		sendDownUpKeyEvents(keyCode);
+
+		return true;
+	}
+
+
+	public boolean sendDownUpKeyEvents(int keyCode) {
+		return sendDownUpKeyEvents(keyCode, false, false);
+	}
+
+
+	public boolean sendDownUpKeyEvents(int keyCode, boolean shift, boolean ctrl) {
+		InputConnection connection = getConnection();
+		if (connection != null) {
+			int metaState = shift ? KeyEvent.META_SHIFT_ON : 0;
+			metaState |= ctrl ? KeyEvent.META_CTRL_ON : 0;
+			KeyEvent downEvent = new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyCode, 0, metaState);
+			KeyEvent upEvent = new KeyEvent(0, 0, KeyEvent.ACTION_UP, keyCode, 0, metaState);
+			return connection.sendKeyEvent(downEvent) && connection.sendKeyEvent(upEvent);
+		}
+
+		return false;
+	}
+
+
+	@NonNull protected abstract Text getTextAfterCursor(@Nullable Language language, int numberOfChars);
+	@NonNull protected abstract Text getTextBeforeCursor(@Nullable Language language, int numberOfChars);
 }

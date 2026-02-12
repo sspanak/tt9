@@ -6,10 +6,14 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.hacks.InputType;
+import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
+import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
+import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 class ModeABC extends InputMode {
@@ -17,37 +21,56 @@ class ModeABC extends InputMode {
 
 	private boolean shouldSelectNextLetter = false;
 
+	// text analysis
+	@NonNull private final AutoSpace autoSpace;
+	@NonNull private final AutoTextCase autoTextCase;
+	@Nullable private final InputType inputType;
+	private final int textFieldTextCase;
+
 	@Override public int getId() { return MODE_ABC; }
 
-	protected ModeABC(SettingsStore settings, Language lang, InputType inputType) {
+
+	protected ModeABC(@NonNull SettingsStore settings, @NonNull Language lang, @Nullable InputType inputType) {
 		super(settings, inputType);
+		autoSpace = new AutoSpace(settings);
+		autoTextCase = new AutoTextCase(settings, new Sequences(), inputType);
+		this.inputType = inputType;
+		textFieldTextCase = inputType == null ? CASE_UNDEFINED : inputType.determineTextCase();
+
 		setLanguage(lang);
+		defaultTextCase();
 	}
+
 
 	@Override
 	public boolean onBackspace() {
-		if (suggestions.isEmpty()) {
-			return false;
+		if (!suggestions.isEmpty()) {
+			reset();
 		}
 
-		reset();
-		return true;
+		return false;
 	}
 
+
 	@Override
-	public boolean onNumber(int number, boolean hold, int repeat) {
+	public boolean onNumber(int number, boolean hold, int repeat, @NonNull String[] s) {
+		return onNumber(number, hold, repeat);
+	}
+
+
+	private boolean onNumber(int number, boolean hold, int repeat) {
 		if (hold) {
 			reset();
 			autoAcceptTimeout = 0;
 			digitSequence = String.valueOf(number);
 			shouldSelectNextLetter = false;
 			suggestions.add(language.getKeyNumeral(number));
-		} else if (repeat > 0) {
-			autoAcceptTimeout = settings.getAbcAutoAcceptTimeout();
+		} else if (repeat > 0 && !suggestions.isEmpty()) {
+			autoAcceptTimeout = settings.getAutoAcceptTimeoutAbc();
 			shouldSelectNextLetter = true;
 		} else {
 			reset();
-			autoAcceptTimeout = settings.getAbcAutoAcceptTimeout();
+			autoAcceptTimeout = settings.getAutoAcceptTimeoutAbc();
 			digitSequence = String.valueOf(number);
 			shouldSelectNextLetter = false;
 			suggestions.addAll(KEY_CHARACTERS.size() > number ? KEY_CHARACTERS.get(number) : settings.getOrderedKeyChars(language, number));
@@ -57,10 +80,69 @@ class ModeABC extends InputMode {
 		return true;
 	}
 
+
+	/******** TEXT CASE ********/
 	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {
-		return newTextCase == CASE_UPPER ? word.toUpperCase(language.getLocale()) : word.toLowerCase(language.getLocale());
+		if (language.hasUpperCase()) {
+			return newTextCase == CASE_LOWER ? word.toLowerCase(language.getLocale()) : word.toUpperCase(language.getLocale());
+		} else {
+			return word;
+		}
 	}
+
+
+	@Override
+	public void determineNextWordTextCase(@Nullable String beforeCursor, int nextDigit) {
+		if (settings.getAutoTextCaseAbc()) {
+			textCase = autoTextCase.determineNextLetterTextCase(language, textFieldTextCase, beforeCursor);
+		}
+	}
+
+
+	@Override
+	public boolean nextTextCase(@Nullable String currentWord, int displayTextCase) {
+		if (suggestions.isEmpty()) {
+			return super.nextTextCase(currentWord, displayTextCase);
+		}
+
+		for (int newTextCase : allowedTextCases) {
+			if (newTextCase != textCase && newTextCase != InputMode.CASE_CAPITALIZE) {
+				textCase = newTextCase;
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+	@Override
+	public void skipNextTextCaseDetection() {
+		autoTextCase.skipNext();
+	}
+
+
+	/******** AUTO-SPACE ********/
+	@Override
+	public boolean shouldAddTrailingSpace(@NonNull String previousChars, @NonNull String nextChars, boolean isWordAcceptedManually, int nextKey) {
+		return autoSpace.shouldAddTrailingSpace(inputType, this, previousChars, nextChars, isWordAcceptedManually, nextKey);
+	}
+
+
+	@Override
+	public boolean shouldAddPrecedingSpace(@NonNull String previousChars) {
+		return autoSpace.shouldAddBeforePunctuation(inputType, previousChars);
+	}
+
+
+	@Override
+	public boolean shouldDeletePrecedingSpace(@NonNull String previousChars) {
+		return autoSpace.shouldDeletePrecedingSpace(inputType, previousChars);
+	}
+
+
+	/******** GENERAL ********/
 
 	private void refreshSuggestions() {
 		if (digitSequence.isEmpty()) {
@@ -70,6 +152,7 @@ class ModeABC extends InputMode {
 		}
 	}
 
+
 	@Override
 	public boolean setLanguage(@Nullable Language newLanguage) {
 		if (newLanguage != null && !newLanguage.hasABC()) {
@@ -78,9 +161,14 @@ class ModeABC extends InputMode {
 
 		super.setLanguage(newLanguage);
 
+		autoSpace.setLanguage(newLanguage);
+
 		allowedTextCases.clear();
 		allowedTextCases.add(CASE_LOWER);
 		if (language.hasUpperCase()) {
+			if (settings.getAutoTextCaseAbc()) {
+				allowedTextCases.add(CASE_CAPITALIZE);
+			}
 			allowedTextCases.add(CASE_UPPER);
 		}
 
@@ -98,6 +186,7 @@ class ModeABC extends InputMode {
 		return true;
 	}
 
+
 	@Override
 	public void setSequence(@NonNull String sequence) {
 		super.setSequence(sequence);
@@ -105,9 +194,26 @@ class ModeABC extends InputMode {
 		shouldSelectNextLetter = true;
 	}
 
-	@Override public void onAcceptSuggestion(@NonNull String w) { reset(); }
-	@Override public boolean shouldAcceptPreviousSuggestion(String w) { return !shouldSelectNextLetter; }
-	@Override public boolean shouldSelectNextSuggestion() { return shouldSelectNextLetter; }
+
+	@Override public void onAcceptSuggestion(@NonNull String w) {
+		reset();
+	}
+
+
+	@Override
+	public boolean shouldAcceptPreviousSuggestion(String word) {
+		return
+			!shouldSelectNextLetter
+			&& word != null && !word.isEmpty()
+			&& !Characters.PLACEHOLDER.equals(word);
+	}
+
+
+	@Override
+	public boolean shouldSelectNextSuggestion() {
+		return shouldSelectNextLetter;
+	}
+
 
 	@Override
 	public void reset() {
@@ -115,6 +221,7 @@ class ModeABC extends InputMode {
 		digitSequence = "";
 		shouldSelectNextLetter = false;
 	}
+
 
 	@NonNull
 	@Override
@@ -128,6 +235,6 @@ class ModeABC extends InputMode {
 			modeString += " / " + language.getCode();
 		}
 
-		return (textCase == CASE_LOWER) ? modeString.toLowerCase(language.getLocale()) : modeString.toUpperCase(language.getLocale());
+		return new Text(language, modeString).toTextCase(textCase);
 	}
 }

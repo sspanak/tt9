@@ -10,29 +10,38 @@
 	<color name="keyboard_background">#e8eaed</color>
 	<color name="keyboard_text">#3d3d3f</color>
 	<color name="keyboard_top_separator">@color/key_fn_background</color>
-	<color name="keyboard_wrapper_background">#00000000</color>
-	<color name="keyboard_wrapper_top_separator">#00000000</color>
+	<color name="keyboard_wrapper_background">@android:color/transparent</color>
+	<color name="keyboard_wrapper_top_separator">@android:color/transparent</color>
 
 	<color name="key_num_background">#fff</color>
+	<color name="key_num_border">@android:color/transparent</color>
 	<color name="key_num_ripple">#eff0f1</color>
 	<color name="key_num_text">#333</color>
 	<color name="key_num_alternative_text">#4d4d4f</color> <!-- 'hold' functions -->
 
 	<color name="key_fn_background">#ccced5</color>
+	<color name="key_fn_border">@android:color/transparent</color>
 	<color name="key_fn_ripple">#b9bbc2</color>
 	<color name="key_fn_text">@color/keyboard_text</color>
 	<color name="key_fn_alternative_text">#4e4e50</color> <!-- 'hold' functions -->
 
 	<color name="key_lf4_background">@color/key_fn_background</color>
+	<color name="key_lf4_border">@android:color/transparent</color>
 	<color name="key_lf4_ripple">@color/key_fn_ripple</color>
 	<color name="key_lf4_text">@color/key_fn_text</color>
 	<color name="key_lf4_alternative_text">@color/key_fn_alternative_text</color> <!-- 'hold' functions -->
 
 	<color name="key_ok_background">#1a73e8</color>
+	<color name="key_ok_border">@android:color/transparent</color>
 	<color name="key_ok_ripple">#0961d6</color>
 	<color name="key_ok_text">#fff</color>
 
 	<color name="suggestion_selected_background">#8cb7f9</color> <!-- 8ed0fe / 7ecbff / #FFB27E / 73c7ff / 7ecfe2 / 8ac8f1 -->
 	<color name="suggestion_selected_text">#000</color>
 	<color name="suggestion_separator">#888888</color>
+
+	<color name="tutorial_background_color">#888</color>
+	<color name="tutorial_button_background">#A1E483</color>
+	<color name="tutorial_button_text_color">#000</color>
+	<color name="tutorial_text_balloon_background">#fff</color>
 </resources>

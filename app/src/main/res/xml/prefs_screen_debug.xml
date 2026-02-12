@@ -7,6 +7,15 @@
 		app:title="Device Info" />
 
 	<Preference
+		app:key="screen_test_input"
+		app:title="Test Input">
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:targetPackage="io.github.sspanak.tt9"
+			android:targetClass="io.github.sspanak.tt9.preferences.screens.debug.TestInputActivity" />
+	</Preference>
+
+	<Preference
 		android:fragment="io.github.sspanak.tt9.preferences.screens.UsageStatsScreen"
 		android:key="pref_slow_queries"
 		android:title="@string/pref_category_usage_stats" />
@@ -16,15 +25,11 @@
 			app:key="pref_demo_mode"
 			app:title="Demo Mode" />
 
-		<DropDownPreference
-			app:key="pref_input_handling_mode"
-			app:title="Keypad Handling Mode" />
+		<io.github.sspanak.tt9.preferences.screens.debug.DropDownInputHandlingMode app:title="Keypad Handling Mode" />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="Logging" app:singleLineTitle="true">
-		<DropDownPreference
-			app:key="pref_log_level"
-			app:title="Log Level" />
+		<io.github.sspanak.tt9.preferences.screens.debug.DropDownLogLevel app:title="Log Level" />
 
 		<SwitchPreferenceCompat
 			app:defaultValue="false"

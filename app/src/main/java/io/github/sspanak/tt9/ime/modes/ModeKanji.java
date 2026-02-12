@@ -12,7 +12,7 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class ModeKanji extends ModePinyin {
-	protected ModeKanji(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
+	protected ModeKanji(@NonNull SettingsStore settings, @NonNull Language lang, @Nullable InputType inputType, @Nullable TextField textField) {
 		super(settings, lang, inputType, textField);
 		NAME = language.getName().replace(" / ローマ字", "");
 	}

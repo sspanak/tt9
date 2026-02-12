@@ -14,11 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-
-import io.github.sspanak.tt9.util.ConsumerCompat;
+import java.util.function.Consumer;
 
 public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.ViewHolder> {
-	private final ConsumerCompat<Integer> onItemClick;
+	private final Consumer<Integer> onItemClick;
 	private final int layout;
 	private final int textViewResourceId;
 	private final LayoutInflater mInflater;
@@ -31,7 +30,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 	private int selectedIndex = 0;
 
 
-	public SuggestionsAdapter(Context context, ConsumerCompat<Integer> onItemClick, int layout, int textViewResourceId, List<String> suggestions) {
+	public SuggestionsAdapter(Context context, Consumer<Integer> onItemClick, int layout, int textViewResourceId, List<String> suggestions) {
 		this.onItemClick = onItemClick;
 		this.layout = layout;
 		this.textViewResourceId = textViewResourceId;
