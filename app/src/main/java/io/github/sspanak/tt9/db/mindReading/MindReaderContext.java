@@ -14,17 +14,16 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.TextTools;
 
 class MindReaderContext {
-	@Nullable Language language;
+	private final int MAX_TOKENS;
 
+	@Nullable Language language;
 	@Nullable private String lastAppendedWord = null;
-	private final int maxTokens;
 	@NonNull private final StringBuilder raw = new StringBuilder();
 	@NonNull private String[] tokens = new String[0];
-	@Nullable private MindReaderNgram[] endingNgrams = null;
 
 
 	MindReaderContext(int maxTokens) {
-		this.maxTokens = Math.max(maxTokens, 0);
+		MAX_TOKENS = Math.max(maxTokens, 0);
 	}
 
 
@@ -34,19 +33,57 @@ class MindReaderContext {
 
 
 	/**
+	 * Get all possible 2-, 3- and 4-grams for the current context text.
+	 * The n-grams are generated from the tokens produced by the tokenize() method.
+	 */
+	@NonNull
+	MindReaderNgram[] getAllNgrams(@NonNull MindReaderDictionary dictionary) {
+		final int[] dictionaryIds =  dictionary.indexOf(tokens);
+
+		if (tokens.length == 1) {
+			return new MindReaderNgram[] {
+				new MindReaderNgram(language, new int[] { dictionaryIds[0] })
+			};
+		}
+
+		final int nGramsCount = switch (tokens.length) {
+			case 2 -> 1;
+			case 3 -> 3;
+			default -> 6;
+		};
+
+		final MindReaderNgram[] ngrams = new MindReaderNgram[nGramsCount];
+		int idx = 0;
+
+		if (tokens.length == 4) {
+			ngrams[idx++] = new MindReaderNgram(language, new int[] { dictionaryIds[0], dictionaryIds[1], dictionaryIds[2], dictionaryIds[3] });
+			ngrams[idx++] = new MindReaderNgram(language, new int[] { dictionaryIds[1], dictionaryIds[2], dictionaryIds[3] });
+			ngrams[idx++] = new MindReaderNgram(language, new int[] { dictionaryIds[2], dictionaryIds[3] });
+		}
+
+		if (tokens.length >= 3) {
+			ngrams[idx++] = new MindReaderNgram(language, new int[] { dictionaryIds[0], dictionaryIds[1], dictionaryIds[2] });
+			ngrams[idx++] = new MindReaderNgram(language, new int[] { dictionaryIds[1], dictionaryIds[2] });
+		}
+
+		if (tokens.length >= 2) {
+			ngrams[idx] = new MindReaderNgram(language, new int[] { dictionaryIds[0], dictionaryIds[1] });
+		}
+
+		return ngrams;
+	}
+
+
+	/**
 	 * Get all possible ending n-grams for the current context text, starting with the longest one.
 	 * The n-grams are generated from the tokens produced by the tokenize() method.
 	 */
 	@NonNull
 	MindReaderNgram[] getEndingNgrams(@NonNull MindReaderDictionary dictionary) {
-		if (endingNgrams != null) {
-			return endingNgrams;
-		}
-
 		final int[] dictionaryIds =  dictionary.indexOf(tokens);
-		final int nGramsCount = Math.min(maxTokens, dictionaryIds.length);
+		final int nGramsCount = Math.min(MAX_TOKENS, dictionaryIds.length);
 
-		endingNgrams = new MindReaderNgram[nGramsCount];
+		final MindReaderNgram[] endingNgrams = new MindReaderNgram[nGramsCount];
 
 		for (int i = 0; i < nGramsCount; i++) {
 			final int ngramSize = i + 1;
@@ -74,7 +111,6 @@ class MindReaderContext {
 		raw.append(language == null || language.hasSpaceBetweenWords() ? lastWord.trim() : lastWord);
 		lastAppendedWord = lastWord;
 		tokens = new String[0];
-		endingNgrams = null;
 
 		return true;
 	}
@@ -92,7 +128,6 @@ class MindReaderContext {
 		raw.append(beforeCursor.trim());
 		lastAppendedWord = null;
 		tokens = new String[0];
-		endingNgrams = null;
 
 		return true;
 	}
@@ -121,7 +156,7 @@ class MindReaderContext {
 	 */
 	@NonNull
 	String[] tokenize(@NonNull MindReaderDictionary dictionary) {
-		tokens = ContextTokenizer.tokenize(language, raw.toString(), maxTokens);
+		tokens = ContextTokenizer.tokenize(language, raw.toString(), MAX_TOKENS);
 		filterInvalidTokens(dictionary);
 
 		return tokens;
