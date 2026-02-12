@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ime;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
@@ -27,9 +28,9 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 
 	@Override
-	protected void onInit() {
-		super.onInit();
-		mindReader = new MindReader(settings, executor);
+	protected void setInputField(EditorInfo field) {
+		super.setInputField(field);
+		mindReader = new MindReader(settings, executor, inputType);
 	}
 
 
@@ -209,7 +210,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 	@NonNull
 	protected ArrayList<String> getCurrentGuesses() {
-		return mindReader.getCurrentWords(mInputMode.getTextCase());
+		return mindReader.getCurrentWords(mInputMode, textField, inputType, mInputMode.getTextCase());
 	}
 
 
