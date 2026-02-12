@@ -26,6 +26,12 @@ public class SoftKeyFnSmall extends SoftKeyNumberNumpad {
 	protected boolean isVisible() {
 		if (isNOOP()) {
 			return false;
+		} else if (getId() == R.id.soft_key_7) {
+			return tt9 == null || tt9.isDeveloperCommandsEnabled();
+		} else if (isVoiceInput()) {
+			return tt9 == null || !tt9.isVoiceInputMissing();
+		} else if (isTextEditing()) {
+			return tt9 == null || !tt9.isInputLimited();
 		} else {
 			return CommandCollection.getBySoftKey(CommandCollection.COLLECTION_PALETTE, getId()).isAvailable(tt9);
 		}

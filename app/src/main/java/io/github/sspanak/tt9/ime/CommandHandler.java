@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.ime;
 
 import android.view.KeyEvent;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.commands.CmdAddWord;
 import io.github.sspanak.tt9.commands.CmdEditWord;
@@ -20,13 +22,16 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 abstract public class CommandHandler extends TextEditingHandler {
+	private int developerMetaState = 0;
+	private boolean awaitingDeveloperComboKey = false;
+
 	@Override
 	protected Ternary onBack() {
-		if (hideCommandPalette()) {
+		if (hideDeveloperCommands() || hideCommandPalette()) {
 			return Ternary.TRUE;
-		} else {
-			return super.onBack();
 		}
+
+		return super.onBack();
 	}
 
 
@@ -34,6 +39,15 @@ abstract public class CommandHandler extends TextEditingHandler {
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		if (statusBar.isErrorShown()) {
 			resetStatus();
+		}
+
+		if (!shouldBeOff() && mainView.isDeveloperCommandsShown()) {
+			onDeveloperCommand(key);
+			return true;
+		}
+
+		if (!shouldBeOff() && awaitingDeveloperComboKey) {
+			return sendDeveloperCombination(key, repeat);
 		}
 
 		if (!shouldBeOff() && mainView.isCommandPaletteShown()) {
@@ -44,6 +58,18 @@ abstract public class CommandHandler extends TextEditingHandler {
 		return super.onNumber(key, hold, repeat);
 	}
 
+	@Override
+	public boolean onText(String text, boolean validateOnly) {
+		if (mainView.isDeveloperCommandsShown() && "#".equals(text)) {
+			if (!validateOnly) {
+				awaitingDeveloperComboKey = developerMetaState != 0;
+				hideDeveloperCommands();
+			}
+			return true;
+		}
+
+		return super.onText(text, validateOnly);
+	}
 
 	private void onCommand(int key) {
 		switch (key) {
@@ -75,9 +101,97 @@ abstract public class CommandHandler extends TextEditingHandler {
 	}
 
 
+	private void onDeveloperCommand(int key) {
+		switch (key) {
+			case 1:
+				toggleDeveloperMeta(KeyEvent.META_CTRL_ON);
+				break;
+			case 2:
+				toggleDeveloperMeta(KeyEvent.META_ALT_ON);
+				break;
+			case 3:
+				toggleDeveloperMeta(KeyEvent.META_FUNCTION_ON);
+				break;
+			case 4:
+				toggleDeveloperMeta(KeyEvent.META_META_ON);
+				break;
+			case 5:
+				toggleDeveloperMeta(KeyEvent.META_SHIFT_ON);
+				break;
+			case 6:
+				toggleDeveloperMeta(KeyEvent.META_CTRL_LEFT_ON);
+				break;
+			case 7:
+				toggleDeveloperMeta(KeyEvent.META_ALT_LEFT_ON);
+				break;
+			case 8:
+				clearDeveloperModifiers();
+				break;
+			case 9:
+				toggleDeveloperMeta(KeyEvent.META_CAPS_LOCK_ON);
+				break;
+		}
+
+		mainView.renderKeys();
+	}
+
+
+	private void toggleDeveloperMeta(int metaFlag) {
+		developerMetaState = (developerMetaState & metaFlag) == 0 ? (developerMetaState | metaFlag) : (developerMetaState & ~metaFlag);
+	}
+
+
+	private boolean sendDeveloperCombination(int key, int repeat) {
+		final int keyCode = resolveDeveloperKeyCode(key, repeat);
+		if (keyCode == KeyEvent.KEYCODE_UNKNOWN) {
+			return false;
+		}
+
+		boolean handled = textField.sendDownUpKeyEvents(keyCode, developerMetaState);
+		clearDeveloperModifiers();
+		awaitingDeveloperComboKey = false;
+		resetStatus();
+		return handled;
+	}
+
+
+	private int resolveDeveloperKeyCode(int key, int repeat) {
+		if (key < 0 || key > 9 || mLanguage == null) {
+			return KeyEvent.KEYCODE_UNKNOWN;
+		}
+
+		ArrayList<String> keyChars = mLanguage.getKeyCharacters(key);
+		if (keyChars.isEmpty()) {
+			return KeyEvent.KEYCODE_UNKNOWN;
+		}
+
+		int index = repeat % keyChars.size();
+		String keyValue = keyChars.get(index);
+		if (keyValue == null || keyValue.isEmpty()) {
+			return KeyEvent.KEYCODE_UNKNOWN;
+		}
+
+		char keyChar = keyValue.charAt(0);
+		if (Character.isLetter(keyChar)) {
+			String name = "KEYCODE_" + Character.toUpperCase(keyChar);
+			return KeyEvent.keyCodeFromString(name);
+		}
+
+		if (Character.isDigit(keyChar)) {
+			return KeyEvent.KEYCODE_0 + Character.getNumericValue(keyChar);
+		}
+
+		return switch (keyChar) {
+			case ' ' -> KeyEvent.KEYCODE_SPACE;
+			case '\n' -> KeyEvent.KEYCODE_ENTER;
+			default -> KeyEvent.KEYCODE_UNKNOWN;
+		};
+	}
+
+
 	@Override
 	protected boolean navigateBack() {
-		return hideCommandPalette() || super.navigateBack();
+		return hideDeveloperCommands() || hideCommandPalette() || super.navigateBack();
 	}
 
 
@@ -96,13 +210,34 @@ abstract public class CommandHandler extends TextEditingHandler {
 			return;
 		}
 		if (mainView.isDeveloperCommandsShown()) {
-			statusBar.setText(R.string.developer_select_command);
+			statusBar.setText(R.string.developer_select_modifier);
 			return;
 		}
 
 		statusBar.setText(mInputMode);
 	}
 
+	public boolean isDeveloperModifierHeld(int keyNumber) {
+		if (!mainView.isDeveloperCommandsShown()) {
+			return false;
+		}
+
+		return switch (keyNumber) {
+			case 1 -> (developerMetaState & KeyEvent.META_CTRL_ON) != 0;
+			case 2 -> (developerMetaState & KeyEvent.META_ALT_ON) != 0;
+			case 3 -> (developerMetaState & KeyEvent.META_FUNCTION_ON) != 0;
+			case 4 -> (developerMetaState & KeyEvent.META_META_ON) != 0;
+			case 5 -> (developerMetaState & KeyEvent.META_SHIFT_ON) != 0;
+			case 6 -> (developerMetaState & KeyEvent.META_CTRL_LEFT_ON) != 0;
+			case 7 -> (developerMetaState & KeyEvent.META_ALT_LEFT_ON) != 0;
+			case 9 -> (developerMetaState & KeyEvent.META_CAPS_LOCK_ON) != 0;
+			default -> false;
+		};
+	}
+
+	public boolean isDeveloperCommandsEnabled() {
+		return settings.getDeveloperCommandsEnabled();
+	}
 
 	public void addWord() {
 		if (!CmdAddWord.validate(getFinalContext(), settings, mLanguage)) {
@@ -328,6 +463,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		suggestionOps.cancelDelayedAccept();
 		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 		mInputMode.reset();
+		awaitingDeveloperComboKey = false;
 
 		mainView.showCommandPalette();
 		resetStatus();
@@ -347,6 +483,42 @@ abstract public class CommandHandler extends TextEditingHandler {
 		}
 
 		return true;
+	}
+
+
+	public void showDeveloperCommands() {
+		if (!settings.getDeveloperCommandsEnabled() || mainView.isDeveloperCommandsShown()) {
+			return;
+		}
+
+		suggestionOps.cancelDelayedAccept();
+		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		mInputMode.reset();
+		awaitingDeveloperComboKey = false;
+		mainView.showDeveloperCommands();
+		resetStatus();
+	}
+
+
+	public boolean hideDeveloperCommands() {
+		if (!mainView.isDeveloperCommandsShown()) {
+			return false;
+		}
+
+		mainView.showKeyboard();
+		if (voiceInputOps.isListening()) {
+			stopVoiceInput();
+		} else {
+			resetStatus();
+		}
+
+		return true;
+	}
+
+
+	private void clearDeveloperModifiers() {
+		developerMetaState = 0;
+		mainView.renderKeys();
 	}
 
 

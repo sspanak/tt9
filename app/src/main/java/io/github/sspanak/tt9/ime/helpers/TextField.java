@@ -334,4 +334,85 @@ public class TextField extends InputField {
 			composingText = "";
 		}
 	}
+
+
+	/**
+	 * highlightText
+	 * Makes the characters from "start" to "end" bold. If "highlightMore" is true,
+	 * the text will be in bold and italic.
+	 */
+	private CharSequence highlightText(CharSequence word, int start, int end, boolean highlightMore) {
+		if (end <= start || start < 0) {
+			Logger.w("tt9.util.highlightComposingText", "Cannot highlight invalid composing text range: [" + start + ", " + end + "]");
+			return word;
+		}
+
+		// nothing to highlight in: an empty string; after the last letter; in special characters or emoji, because it breaks them
+		if (word == null || word.length() == 0 || word.length() <= start || !Character.isLetterOrDigit(word.charAt(0))) {
+			return word;
+		}
+
+		SpannableString styledWord = new SpannableString(word);
+
+		// default underline style
+		styledWord.setSpan(new UnderlineSpan(), 0, word.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+		// highlight the requested range
+		styledWord.setSpan(
+			new StyleSpan(Typeface.BOLD),
+			start,
+			Math.min(word.length(), end),
+			Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+		);
+
+		if (highlightMore) {
+			styledWord.setSpan(
+				new StyleSpan(Typeface.BOLD_ITALIC),
+				start,
+				Math.min(word.length(), end),
+				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+			);
+		}
+
+		return styledWord;
+	}
+
+
+	public boolean moveCursor(boolean backward) {
+		if (
+			getConnection() == null
+			|| (backward && getStringBeforeCursor(1).isEmpty())
+			|| (!backward && getStringAfterCursor(1).isEmpty())
+		) {
+			return false;
+		}
+
+		sendDownUpKeyEvents(backward ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT);
+
+		return true;
+	}
+
+
+	public boolean sendDownUpKeyEvents(int keyCode) {
+		return sendDownUpKeyEvents(keyCode, false, false);
+	}
+
+
+	public boolean sendDownUpKeyEvents(int keyCode, boolean shift, boolean ctrl) {
+		int metaState = shift ? KeyEvent.META_SHIFT_ON : 0;
+		metaState |= ctrl ? KeyEvent.META_CTRL_ON : 0;
+		return sendDownUpKeyEvents(keyCode, metaState);
+	}
+
+
+	public boolean sendDownUpKeyEvents(int keyCode, int metaState) {
+		InputConnection connection = getConnection();
+		if (connection != null) {
+			KeyEvent downEvent = new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyCode, 0, metaState);
+			KeyEvent upEvent = new KeyEvent(0, 0, KeyEvent.ACTION_UP, keyCode, 0, metaState);
+			return connection.sendKeyEvent(downEvent) && connection.sendKeyEvent(upEvent);
+		}
+
+		return false;
+	}
 }
