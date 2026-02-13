@@ -1,18 +1,18 @@
 Classical Latin word list source:
-https://github.com/wooorm/dictionaries/tree/main/dictionaries/la
+https://github.com/Alatius/latin-macronizer
 
 Dictionary file used for conversion:
-https://raw.githubusercontent.com/wooorm/dictionaries/main/dictionaries/la/index.dic
+https://raw.githubusercontent.com/Alatius/latin-macronizer/master/macrons.txt
 
-The upstream dictionary header states:
-- LATIN DICTIONARY 3.1 (la.dic Version 3.1, 2013-03-31)
-- (c) 2008-2013 Karl Zeiler
-- based on mlatin Version 0.34 (2006-02-02)
-- (c) 2006 Jean-Pierre Sutto
-- "This software is licensed under GPL 2 or later."
+Upstream license:
+- GPL-3.0 (repository license file)
 
 Conversion notes for TT9:
-- Removed Hunspell flags and comments.
-- Kept only alphabetic entries and lowercased them.
-- Removed 1-letter forms and duplicates.
+- Parsed the macronized inflected-form column (4th TAB-separated field), which includes full forms
+  (e.g. finite verb tenses/persons, infinitives, participles, declined forms).
+- Converted marker notation to Unicode vowels:
+  - removed breve marker `^`
+  - converted long-vowel marker `_` to macrons on the preceding vowel (`ā ē ī ō ū ȳ`)
+- Lowercased words, removed duplicates, removed 1-letter entries.
+- Kept only alphabetic entries matching `[a-zāēīōūȳ]+`.
 - Output format: one word per line (`la-utf8.txt`).
