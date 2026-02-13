@@ -1,0 +1,15 @@
+locale: la
+dictionaryFile: la-utf8.txt
+name: Lingua Latina
+iconABC: ic_lang_latin
+layout:
+  - [SPECIAL] # 0
+  - [PUNCTUATION] # 1
+  - [a, ā, b, c] # 2
+  - [d, e, ē, f] # 3
+  - [g, h, i, ī] # 4
+  - [j, k, l] # 5
+  - [m, n, o, ō] # 6
+  - [p, q, r, s] # 7
+  - [t, u, ū, v] # 8
+  - [w, x, y, ȳ, z] # 9
