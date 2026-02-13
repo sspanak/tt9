@@ -48,6 +48,8 @@ tasks.register('buildDictionaryDownloads') {
 tasks.register('copyDownloadsToAssets', Copy) {
 	from DICTIONARIES_DOWNLOAD_DIR
 	include '**/*.zip'
+	// Keep Latin as a downloadable add-on language; do not bundle it in the full APK.
+	exclude 'la-utf8.zip'
 	into DICTIONARIES_OUTPUT_DIR
 	dependsOn buildDictionaryDownloads
 	mustRunAfter buildDictionaryDownloads
