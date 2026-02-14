@@ -442,6 +442,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (CursorOps.isMovedWhileTyping(newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
 			stopWaitingForSpaceTrimKey();
 			mInputMode.onCursorMove(suggestionOps.acceptIncomplete());
+			clearGuessingContext();
 			return;
 		}
 
@@ -449,9 +450,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// location. This prevents undesired deletion of the space, in the middle of the text.
 		if (CursorOps.isMovedFar(newSelStart, newSelEnd, oldSelStart, oldSelEnd)) {
 			stopWaitingForSpaceTrimKey();
-			if (!mInputMode.isTyping()) {
-				clearGuessingContext();
-			}
 		}
 	}
 
