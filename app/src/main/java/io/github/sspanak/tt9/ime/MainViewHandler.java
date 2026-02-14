@@ -144,6 +144,14 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 
+	public boolean isDeveloperCommandsActive() {
+		return mainView != null && mainView.isDeveloperCommandsShown();
+	}
+
+	public boolean isDeveloperModifierHeld(int keyNumber) {
+		return super.isDeveloperModifierHeld(keyNumber);
+	}
+
 	public boolean isVoiceInputActive() {
 		return voiceInputOps != null && voiceInputOps.isListening();
 	}
