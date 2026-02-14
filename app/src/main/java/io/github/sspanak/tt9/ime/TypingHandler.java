@@ -198,6 +198,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// First pass, analyze the incoming key press and decide whether it could be the start of
 		// a new word. In case we do accept it, we preserve the suggestion list instead of clearing,
 		// to prevent flashing while the next suggestions are being loaded.
+
+		// @todo: accept first-letter-completed on space
 		if (mInputMode.shouldAcceptPreviousSuggestion(suggestionOps.getCurrent(), key, hold)) {
 			// WARNING! Ensure the code after "acceptIncompleteAndKeepList()" does not depend on
 			// the suggestions in SuggestionOps, since we don't clear that list.
