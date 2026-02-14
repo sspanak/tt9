@@ -103,7 +103,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			mInputMode.determineNextWordTextCase(surroundingText[0], -1);
 			updateShiftState(surroundingText[0], false, false);
 			resetKeyRepeat();
-			guessNextWord(surroundingText, word, true);
+			guessNextWord(surroundingText, word);
 		}
 
 		if (!Characters.getSpace(mLanguage).equals(word)) {
@@ -223,8 +223,8 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 
 	@Override
-	protected void setGuessingContext(@NonNull String[] surroundingText, @Nullable String lastWord) {
-		mindReader.setContext(mInputMode, mLanguage, surroundingText, lastWord);
+	protected void setGuessingContext(@NonNull String[] surroundingText) {
+		mindReader.setContext(mInputMode, mLanguage, surroundingText, null);
 	}
 
 
@@ -264,10 +264,10 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 
 	@Override
-	protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext) {
+	protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord) {
 		mindReader
 			.setTextCase(mInputMode.getTextCaseRaw())
-			.guessNext(mInputMode, mLanguage, surroundingText, lastWord, saveContext, this::handleGuessesAsync);
+			.guessNext(mInputMode, mLanguage, surroundingText, lastWord, true, this::handleGuessesAsync);
 	}
 
 

@@ -141,13 +141,6 @@ class ModeABC extends InputMode {
 		return autoSpace.shouldDeletePrecedingSpace(inputType, previousChars);
 	}
 
-	/******** GENERAL ********/
-
-	@Override
-	public boolean containsSpecialChars() {
-		return seq.isAnySpecialCharSequence(digitSequence);
-	}
-
 
 	private void refreshSuggestions() {
 		if (digitSequence.isEmpty()) {

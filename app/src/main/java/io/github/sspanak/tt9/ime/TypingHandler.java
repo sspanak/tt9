@@ -48,11 +48,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 	abstract protected void onAcceptSuggestionsDelayed(String s);
 	abstract protected void getSuggestions(double loadingId, @Nullable String currentWord, @Nullable Runnable onComplete);
 
-	// @todo: figure out the same-value arguments
 	protected abstract void guessOnNumber(double loadingId, @NonNull String[] surroundingChars, @Nullable String lastWord, int number, int useTextCase);
-	abstract protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext);
+	abstract protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord);
 	abstract protected void clearGuessingContext();
-	abstract protected void setGuessingContext(@NonNull String[] surroundingText, @Nullable String currentWord);
+	abstract protected void setGuessingContext(@NonNull String[] surroundingText);
 
 
 	protected void createSuggestionBar() {
@@ -90,7 +89,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// don't use surroundingText cache on start up
 		final String[] surroundingText = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
 		updateShiftState(surroundingText[0], false, false);
-		setGuessingContext(surroundingText, null);
+		setGuessingContext(surroundingText);
 
 		return true;
 	}
@@ -269,7 +268,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		mInputMode.determineNextWordTextCase(surroundingChars[0], -1);
 		updateShiftState(surroundingChars[0], false, false);
-		guessNextWord(surroundingChars, lastWord, true);
+		guessNextWord(surroundingChars, lastWord);
 
 		return true;
 	}
