@@ -73,6 +73,7 @@ public class MindReader {
 	@NonNull
 	public ArrayList<String> getCurrentWords(@Nullable InputMode inputMode, @NonNull TextField textField, @NonNull InputType inputType, int textCase) {
 		final ArrayList<String> copy = new ArrayList<>(words);
+		// @todo: this sets always capitals when auto-completing the current word
 		copy.replaceAll(text -> adjustWordTextCase(inputMode, text, inputType.determineTextCase(), textCase, textField));
 		return copy;
 	}
