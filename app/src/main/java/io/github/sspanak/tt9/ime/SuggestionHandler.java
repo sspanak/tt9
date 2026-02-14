@@ -235,21 +235,28 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 	@Override
 	protected void guessOnNumber(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number, int useTextCase) {
+		if (number == 0 && mLanguage.hasLettersOnAllKeys()) {
+			return;
+		}
+
+		if (!mLanguage.hasSpaceBetweenWords()) {
+			if (lastWord != null) {
+				if (!mInputMode.isTyping()) {
+					guessNextWord(surroundingText, lastWord);
+				} else if (mInputMode.getSequenceLength() == 1) {
+					guessCurrentWord(loadingId, surroundingText, number);
+				}
+			}
+			return;
+		}
+
 		if (mInputMode.getSequenceLength() != 1 || new Text(mLanguage, surroundingText[1]).startsWithWord()) {
 			clearGuessingContext();
 			return;
 		}
 
-		if (number == 0 && !mLanguage.hasLettersOnAllKeys()) {
-			return;
-		}
-
-		if (mLanguage.hasSpaceBetweenWords()) {
-			final String space = Characters.getSpace(mLanguage);
-			if (space.equals(lastWord) || surroundingText[0].endsWith(space)) {
-				guessCurrentWord(loadingId, surroundingText, number);
-			}
-		} else {
+		final String space = Characters.getSpace(mLanguage);
+		if (space.equals(lastWord) || surroundingText[0].endsWith(space)) {
 			guessCurrentWord(loadingId, surroundingText, number);
 		}
 	}

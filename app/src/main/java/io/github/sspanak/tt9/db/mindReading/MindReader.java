@@ -88,8 +88,8 @@ public class MindReader {
 
 		loadingId = 0;
 
-		// @todo: Thai no longer works
 		// @todo: Chinese no longer works
+		// @todo: Korean does not work
 		// @todo: this fails for ABC. Fix it!
 		if (setContextSync(inputMode, language, surroundingText, lastWord)) {
 			runInThread(() -> {
