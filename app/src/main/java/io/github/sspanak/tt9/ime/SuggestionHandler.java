@@ -99,7 +99,9 @@ abstract public class SuggestionHandler extends TypingHandler {
 				true,
 				fromKey
 			);
-			updateShiftState(surroundingText[0], true, false);
+
+			mInputMode.determineNextWordTextCase(surroundingText[0], -1);
+			updateShiftState(surroundingText[0], false, false);
 			resetKeyRepeat();
 			guessNextWord(surroundingText, word, true);
 		}
@@ -210,7 +212,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 	@NonNull
 	protected ArrayList<String> getCurrentGuesses() {
-		return mindReader.getCurrentWords(mInputMode, textField, inputType, mInputMode.getTextCase());
+		return mindReader.getGuesses();
 	}
 
 
@@ -226,8 +228,13 @@ abstract public class SuggestionHandler extends TypingHandler {
 	}
 
 
+	protected void setGuessesTextCase(int textCase) {
+		mindReader.setTextCase(textCase);
+	}
+
+
 	@Override
-	protected void guessOnNumber(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number) {
+	protected void guessOnNumber(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number, int useTextCase) {
 		if (mInputMode.getSequenceLength() != 1 || new Text(mLanguage, surroundingText[1]).startsWithWord()) {
 			clearGuessingContext();
 			return;
@@ -251,13 +258,16 @@ abstract public class SuggestionHandler extends TypingHandler {
 	private void guessCurrentWord(double loadingId, @NonNull String[] surroundingText, int number) {
 		mindReader
 			.setCurrentGuessHandler(null)
+			.setTextCase(mInputMode.getTextCaseRaw())
 			.guessCurrent(loadingId, mInputMode, (NaturalLanguage) mLanguage, surroundingText, number);
 	}
 
 
 	@Override
 	protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext) {
-		mindReader.guessNext(mInputMode, mLanguage, surroundingText, lastWord, saveContext, this::handleGuessesAsync);
+		mindReader
+			.setTextCase(mInputMode.getTextCaseRaw())
+			.guessNext(mInputMode, mLanguage, surroundingText, lastWord, saveContext, this::handleGuessesAsync);
 	}
 
 

@@ -49,8 +49,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 	abstract protected void getSuggestions(double loadingId, @Nullable String currentWord, @Nullable Runnable onComplete);
 
 	// @todo: figure out the same-value arguments
-	protected abstract void guessOnNumber(double loadingId, @NonNull String[] surroundingChars, @Nullable String lastWord, int number);
-	abstract protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String currentWord, boolean saveContext);
+	protected abstract void guessOnNumber(double loadingId, @NonNull String[] surroundingChars, @Nullable String lastWord, int number, int useTextCase);
+	abstract protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext);
 	abstract protected void clearGuessingContext();
 	abstract protected void setGuessingContext(@NonNull String[] surroundingText, @Nullable String currentWord);
 
@@ -89,7 +89,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		// don't use surroundingText cache on start up
 		final String[] surroundingText = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
-		updateShiftState(surroundingText[0], true, false);
+		updateShiftState(surroundingText[0], false, false);
 		setGuessingContext(surroundingText, null);
 
 		return true;
@@ -220,7 +220,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
 			final double loadingId = Math.random();
-			guessOnNumber(loadingId, surroundingChars, lastWord, key);
+			guessOnNumber(loadingId, surroundingChars, lastWord, key, mInputMode.getTextCase());
 			getSuggestions(loadingId, null, null);
 		}
 
@@ -266,7 +266,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		forceShowWindow();
-		updateShiftState(surroundingChars[0], true, false);
+
+		mInputMode.determineNextWordTextCase(surroundingChars[0], -1);
+		updateShiftState(surroundingChars[0], false, false);
 		guessNextWord(surroundingChars, lastWord, true);
 
 		return true;

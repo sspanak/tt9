@@ -208,7 +208,8 @@ abstract public class InputMode {
 
 
 	// Text case
-	public int getTextCase() { return textCase; }
+	public int getTextCase() { return getTextCaseRaw(); }
+	public int getTextCaseRaw() { return textCase; }
 
 	public boolean setTextCase(int newTextCase) {
 		if (!allowedTextCases.contains(newTextCase)) {
