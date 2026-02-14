@@ -88,6 +88,8 @@ public class MindReader {
 
 		loadingId = 0;
 
+		// @todo: Thai no longer works
+		// @todo: Chinese no longer works
 		// @todo: this fails for ABC. Fix it!
 		if (setContextSync(inputMode, language, surroundingText, lastWord)) {
 			runInThread(() -> {
@@ -196,7 +198,7 @@ public class MindReader {
 
 
 	private String adjustWordTextCase(@NonNull String word) {
-		if (autoTextCase == null) {
+		if (autoTextCase == null || (wordContext.language != null && !wordContext.language.hasUpperCase())) {
 			return word;
 		}
 
