@@ -106,17 +106,6 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		renderKeys(false);
 	}
 
-	@Override
-	void showDeveloperCommands() {
-		super.showDeveloperCommands();
-		isCommandPaletteShown = false;
-		isTextEditingPaletteShown = false;
-		isDeveloperCommandsShown = true;
-		togglePanel(R.id.developer_command_keys, true);
-		getHeight(true);
-		renderKeys();
-	}
-
 
 	@Override
 	boolean isCommandPaletteShown() {

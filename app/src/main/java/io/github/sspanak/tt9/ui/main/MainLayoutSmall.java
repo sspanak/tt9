@@ -32,7 +32,7 @@ class MainLayoutSmall extends MainLayoutTray {
 
 	@Override
 	protected int getPanelHeight(@NonNull Resources resources) {
-		if (isCommandPaletteShown() || isTextEditingPaletteShown()) {
+		if (isCommandPaletteShown() || isTextEditingPaletteShown() || isDeveloperCommandsShown()) {
 			return super.getPanelHeight(resources);
 		} else {
 			return tt9.getResources().getDimensionPixelSize(R.dimen.main_small_main_key_wrapper_height);

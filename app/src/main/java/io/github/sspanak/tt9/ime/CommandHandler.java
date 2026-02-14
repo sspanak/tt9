@@ -41,13 +41,14 @@ abstract public class CommandHandler extends TextEditingHandler {
 			resetStatus();
 		}
 
-		if (!shouldBeOff() && mainView.isDeveloperCommandsShown()) {
-			onDeveloperCommand(key);
+		if (!shouldBeOff() && awaitingDeveloperComboKey) {
+			sendDeveloperCombination(key, repeat);
 			return true;
 		}
 
-		if (!shouldBeOff() && awaitingDeveloperComboKey) {
-			return sendDeveloperCombination(key, repeat);
+		if (!shouldBeOff() && mainView.isDeveloperCommandsShown()) {
+			onDeveloperCommand(key);
+			return true;
 		}
 
 		if (!shouldBeOff() && mainView.isCommandPaletteShown()) {
@@ -63,7 +64,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		if (mainView.isDeveloperCommandsShown() && "#".equals(text)) {
 			if (!validateOnly) {
 				awaitingDeveloperComboKey = developerMetaState != 0;
-				hideDeveloperCommands();
+				statusBar.setText(awaitingDeveloperComboKey ? R.string.developer_select_command : R.string.developer_select_modifier);
 			}
 			return true;
 		}
@@ -148,9 +149,12 @@ abstract public class CommandHandler extends TextEditingHandler {
 		}
 
 		boolean handled = textField.sendDownUpKeyEvents(keyCode, developerMetaState);
-		clearDeveloperModifiers();
-		awaitingDeveloperComboKey = false;
-		resetStatus();
+		if (handled) {
+			clearDeveloperModifiers();
+			awaitingDeveloperComboKey = false;
+			hideDeveloperCommands();
+			resetStatus();
+		}
 		return handled;
 	}
 
@@ -210,7 +214,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			return;
 		}
 		if (mainView.isDeveloperCommandsShown()) {
-			statusBar.setText(R.string.developer_select_modifier);
+			statusBar.setText(awaitingDeveloperComboKey ? R.string.developer_select_command : R.string.developer_select_modifier);
 			return;
 		}
 
@@ -505,6 +509,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			return false;
 		}
 
+		awaitingDeveloperComboKey = false;
 		mainView.showKeyboard();
 		if (voiceInputOps.isListening()) {
 			stopVoiceInput();
@@ -529,28 +534,5 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 	protected boolean redo() {
 		return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, true, true);
-	}
-
-	public void showDeveloperCommands() {
-		if (mainView.isDeveloperCommandsShown()) {
-			return;
-		}
-		suggestionOps.cancelDelayedAccept();
-		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
-		mInputMode.reset();
-		mainView.showDeveloperCommands();
-		resetStatus();
-	}
-	
-	public boolean hideDeveloperCommands() {
-		if (!mainView.isDeveloperCommandsShown()) {
-			return false;
-		}
-		mainView.showKeyboard();
-		if (voiceInputOps.isListening()) {
-			stopVoiceInput();
-		} else {
-			resetStatus();
-		}
 	}
 }
