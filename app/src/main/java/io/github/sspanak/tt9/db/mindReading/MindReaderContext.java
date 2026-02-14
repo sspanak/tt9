@@ -96,12 +96,6 @@ class MindReaderContext {
 	}
 
 
-	@NonNull
-	String getRaw() {
-		return raw.toString();
-	}
-
-
 	/**
 	 * Appends the given word to the current context text, separating it with a space if needed.
 	 * The word is trimmed before appending.
@@ -180,7 +174,7 @@ class MindReaderContext {
 
 		for (int i = 0; i < tokens.length; i++) {
 			try {
-				if (MindReaderDictionary.isSpecialChar(language, tokens[i]) || dictionary.contains(tokens[i])) {
+				if (language.isTranscribed() || MindReaderDictionary.isSpecialChar(language, tokens[i]) || dictionary.contains(tokens[i])) {
 					continue;
 				}
 

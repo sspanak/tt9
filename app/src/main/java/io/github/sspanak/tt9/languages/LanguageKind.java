@@ -26,7 +26,12 @@ public class LanguageKind {
 			isUkrainian(language) ||
 			isVietnamese(language);
 	}
-	public static boolean usesSpaceAsPunctuation(Language language) { return isThai(language); }
+
+	public static boolean usesSpaceAsPunctuation(Language language) {
+		return
+			(language != null && language.isTranscribed())
+			|| isThai(language);
+	}
 
 	public static boolean isArabic(Language language) { return language != null && language.getId() == 502337; }
 	public static boolean isCatalan(Language language) { return language != null && language.getId() == 627747; }
