@@ -9,7 +9,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionException;
 
 import io.github.sspanak.tt9.hacks.InputType;
-import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
@@ -17,7 +16,6 @@ import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
-import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
@@ -48,6 +46,7 @@ public class MindReader {
 
 	private double loadingId = 0;
 	@NonNull private volatile Runnable currentGuessHandler = () -> {};
+	private volatile int textCase = InputMode.CASE_UNDEFINED;
 
 
 	public MindReader() {
@@ -71,10 +70,9 @@ public class MindReader {
 
 
 	@NonNull
-	public ArrayList<String> getCurrentWords(@Nullable InputMode inputMode, @NonNull TextField textField, @NonNull InputType inputType, int textCase) {
+	public ArrayList<String> getGuesses() {
 		final ArrayList<String> copy = new ArrayList<>(words);
-		// @todo: this sets always capitals when auto-completing the current word
-		copy.replaceAll(text -> adjustWordTextCase(inputMode, text, inputType.determineTextCase(), textCase, textField));
+		copy.replaceAll(this::adjustWordTextCase);
 		return copy;
 	}
 
@@ -178,6 +176,12 @@ public class MindReader {
 	}
 
 
+	public MindReader setTextCase(int rawTextCase) {
+		textCase = rawTextCase;
+		return this;
+	}
+
+
 	public void processContext(@Nullable InputMode inputMode, @NonNull Language language, boolean saveContext) {
 		if (isOff()) {
 			return;
@@ -191,26 +195,12 @@ public class MindReader {
 	}
 
 
-	private String adjustWordTextCase(@Nullable InputMode inputMode, @NonNull String word, int modeTextCase, int textFieldTextCase, @NonNull TextField textField) {
-		if (autoTextCase == null || wordContext.language == null || settings == null || !settings.isAutoTextCaseOn(inputMode)) {
+	private String adjustWordTextCase(@NonNull String word) {
+		if (autoTextCase == null) {
 			return word;
 		}
 
-		String digitSequence;
-		try {
-			digitSequence = wordContext.language.getDigitSequenceForWord(word);
-		} catch (InvalidLanguageCharactersException e) {
-			return word;
-		}
-
-
-		String context = wordContext.getRaw();
-		if (!new Text(wordContext.language, context).endsWithLetter()) {
-			context += " ";
-		}
-
-		final int newTextCase = autoTextCase.determineNextWordTextCase(wordContext.language, modeTextCase, textFieldTextCase, textField, digitSequence, context);
-		return autoTextCase.adjustSuggestionTextCase(new Text(wordContext.language, word), newTextCase);
+		return autoTextCase.adjustSuggestionTextCase(new Text(wordContext.language, word), textCase);
 	}
 
 
