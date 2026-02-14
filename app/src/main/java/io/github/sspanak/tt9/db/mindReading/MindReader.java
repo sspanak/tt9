@@ -62,6 +62,7 @@ public class MindReader {
 
 
 	public void clearContext() {
+		// @todo: probably, always do this when the input field resets, and the language is transcribed or uses no spaces
 		if (!isOff() && wordContext.setText("")) {
 			words.clear();
 			Logger.d(LOG_TAG, "Mind reader context cleared");
@@ -88,7 +89,7 @@ public class MindReader {
 
 		loadingId = 0;
 
-		// @todo: Korean does not work
+		// @todo: In Korean count space as the last word character
 		// @todo: this fails for ABC. Fix it!
 		if (setContextSync(inputMode, language, surroundingText, lastWord)) {
 			runInThread(() -> {
@@ -163,7 +164,7 @@ public class MindReader {
 				&& Character.isWhitespace(lastWord.codePointAt(0))
 				&& wordContext.setText(surroundingText[0])
 				&& wordContext.appendText(lastWord, false);
-		} else if (LanguageKind.usesSpaceAsPunctuation(language)) {
+		} else if (LanguageKind.usesSpaceAsPunctuation(language) && !LanguageKind.isKorean(language)) {
 			return wordContext.appendText(lastWord, true);
 		} else {
 			return wordContext.setText(surroundingText[0]);

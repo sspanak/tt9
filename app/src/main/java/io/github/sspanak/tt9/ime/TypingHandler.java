@@ -48,7 +48,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	abstract protected void onAcceptSuggestionsDelayed(String s);
 	abstract protected void getSuggestions(double loadingId, @Nullable String currentWord, @Nullable Runnable onComplete);
 
-	protected abstract void guessOnNumber(double loadingId, @NonNull String[] surroundingChars, @Nullable String lastWord, int number, int useTextCase);
+	protected abstract void guessOnNumber(double loadingId, @NonNull String[] surroundingChars, @Nullable String lastWord, int number);
 	abstract protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord);
 	abstract protected void clearGuessingContext();
 	abstract protected void setGuessingContext(@NonNull String[] surroundingText);
@@ -199,7 +199,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// a new word. In case we do accept it, we preserve the suggestion list instead of clearing,
 		// to prevent flashing while the next suggestions are being loaded.
 
-		// @todo: accept first-letter-completed on space
+		// @todo: accept current guessed on space for consistency
 		if (mInputMode.shouldAcceptPreviousSuggestion(suggestionOps.getCurrent(), key, hold)) {
 			// WARNING! Ensure the code after "acceptIncompleteAndKeepList()" does not depend on
 			// the suggestions in SuggestionOps, since we don't clear that list.
@@ -221,7 +221,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
 			final double loadingId = Math.random();
-			guessOnNumber(loadingId, surroundingChars, lastWord, key, mInputMode.getTextCase());
+			guessOnNumber(loadingId, surroundingChars, lastWord, key);
 			getSuggestions(loadingId, null, null);
 		}
 
