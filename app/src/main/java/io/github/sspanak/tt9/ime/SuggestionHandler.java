@@ -298,6 +298,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 	@MainThread
 	private void handleGuesses(@NonNull ArrayList<String> guesses) {
 		if (!guesses.isEmpty()) {
+			suggestionOps.cancelDelayedAccept();
 			appHacks.setComposingText(guesses.get(0));
 			suggestionOps.addGuesses(guesses);
 		}
