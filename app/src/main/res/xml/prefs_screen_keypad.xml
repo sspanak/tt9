@@ -30,6 +30,12 @@
 			android:key="auto_trim_trailing_space"
 			android:title="@string/pref_auto_trim_trailing_space"
 			android:summary="@string/pref_auto_trim_trailing_space_summary" />
+
+		<SwitchPreferenceCompat
+			android:defaultValue="false"
+			android:key="auto_mind_reading"
+			android:summary="@string/pref_auto_mind_reading_summary"
+			android:title="@string/pref_auto_mind_reading" />
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/pref_category_keypad_onscreen" android:key="category_virtual_keys">

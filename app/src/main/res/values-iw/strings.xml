@@ -44,6 +44,7 @@
 	<string name="pref_alternative_suggestion_scrolling_summary">הפעל אם לפעמים אי אפשר לראות את כל ההצעות או יש בעיות בגלילתן.</string>
 	<string name="pref_arrows_left_right_summary">הצגת מקשי חצים שמאלה/ימינה לגלילת ההצעות או להזזת סמן הטקסט אופקית.</string>
 	<string name="pref_arrows_up_down_summary">לאפשר החלקה למעלה/למטה על מקש OK לסינון הצעות או להזזת סמן הטקסט אנכית.</string>
+	<string name="pref_auto_mind_reading_summary">הצגת הצעות למילה הבאה לפני שמתחילים להקליד או לאחר האות הראשונה. מתחיל ללא הצעות ולומד תוך כדי הקלדה.</string>
 	<string name="pref_auto_space">רווח אוטומטי</string>
 	<string name="pref_auto_space_summary">הוסף רווח אוטומטית לאחר סימני פיסוק או מילים.</string>
 	<string name="pref_auto_text_case">שימוש אוטומטי באותיות רישיות</string>
@@ -280,4 +281,5 @@
 	<string name="edit_word_not_available_in_language">עריכת מילים אינה אפשרית בשפה זו.</string>
 	<string name="dictionary_import_raise_import_limits">הגדלת מגבלות הייבוא</string>
 	<string name="dictionary_import_cancel">ביטול הייבוא</string>
+	<string name="pref_auto_mind_reading">קריאת מחשבות</string>
 </resources>
