@@ -90,7 +90,6 @@ public class MindReader {
 		loadingId = 0;
 
 		// @todo: In Korean count space as the last word character
-		// @todo: this fails for ABC. Fix it!
 		if (setContextSync(inputMode, language, surroundingText, lastWord)) {
 			runInThread(() -> {
 				processContext(inputMode, language, saveContext);
@@ -160,10 +159,12 @@ public class MindReader {
 			return false;
 		} else if (InputModeKind.isABC(inputMode)) {
 			return
-				TextTools.isSingleCodePoint(lastWord)
-				&& Character.isWhitespace(lastWord.codePointAt(0))
+				(
+					(TextTools.isSingleCodePoint(lastWord) && Character.isWhitespace(lastWord.codePointAt(0)))
+					|| TextTools.endsWithSpace(surroundingText[0])
+				)
 				&& wordContext.setText(surroundingText[0])
-				&& wordContext.appendText(lastWord, false);
+				&& (lastWord == null || wordContext.appendText(lastWord, false));
 		} else if (LanguageKind.usesSpaceAsPunctuation(language) && !LanguageKind.isKorean(language)) {
 			return wordContext.appendText(lastWord, true);
 		} else {
