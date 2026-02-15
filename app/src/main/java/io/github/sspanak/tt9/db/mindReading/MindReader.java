@@ -26,7 +26,7 @@ public class MindReader {
 	private static final String LOG_TAG = MindReader.class.getSimpleName();
 
 	// @todo: move these constants to SettingsStatic
-	// @todo: test and maybe set a maximum size for MindReaderNgramList?
+	// @todo: test and maybe set a maximum size for MindReaderNgramList? Butt beware, because this will break the connection between the dictionary IDs and the N-grams.
 	private static final int MAX_NGRAM_SIZE = 4;
 	private static final int MAX_BIGRAM_SUGGESTIONS = 5;
 	private static final int MAX_TRIGRAM_SUGGESTIONS = 4;
@@ -82,7 +82,7 @@ public class MindReader {
 	}
 
 
-	public void guessNext(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
+	public boolean guessNext(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
@@ -98,8 +98,10 @@ public class MindReader {
 				logState(Timer.stop(TIMER_TAG), words);
 				onComplete.run();
 			});
+			return true;
 		} else {
 			Timer.stop(TIMER_TAG);
+			return false;
 		}
 	}
 
@@ -211,13 +213,18 @@ public class MindReader {
 	}
 
 
-	public void processContext(@Nullable InputMode inputMode, boolean saveContext) {
+	public void saveContext(@Nullable InputMode inputMode) {
+		processContext(inputMode, true);
+	}
+
+
+	private void processContext(@Nullable InputMode inputMode, boolean saveContext) {
 		if (isOff()) {
 			return;
 		}
 
 		dictionary.addAll(wordContext.language, wordContext.tokenize(dictionary));
-		if (saveContext && wordContext.shouldSave(inputMode)) {
+		if (saveContext && wordContext.shouldAutoSave(inputMode)) {
 			ngrams.addMany(wordContext.getAllNgrams(dictionary));
 		}
 	}
@@ -230,9 +237,6 @@ public class MindReader {
 
 		return autoTextCase.adjustSuggestionTextCase(new Text(wordContext.language, word), textCase);
 	}
-
-
-
 
 
 	private boolean isOff() {
