@@ -31,7 +31,6 @@ import io.github.sspanak.tt9.util.sys.Clipboard;
 
 public class SuggestionsBar {
 	public static final String CLIPBOARD_SUGGESTION_SUFFIX = "\u200B...\u200B";
-	private static final String GUESSES_SUFFIX = "\u200B\u200B";
 	public static final String SHOW_GROUP_0_SUGGESTION = "(…\u200A)";
 	public static final String SHOW_GROUP_1_SUGGESTION = "(…\u200B)";
 
@@ -46,6 +45,7 @@ public class SuggestionsBar {
 	private int suggestionSeparatorColor;
 
 
+	private boolean containsOnlyGuesses = false;
 	private int lastScrollIndex = 0;
 	private int selectedIndex = 0;
 	@Nullable private List<String> suggestions = new ArrayList<>();
@@ -160,17 +160,7 @@ public class SuggestionsBar {
 
 
 	public boolean containsOnlyGuesses() {
-		if (suggestions == null) {
-			return false;
-		}
-
-		for (String suggestion : suggestions) {
-			if (!suggestion.endsWith(GUESSES_SUFFIX)) {
-				return false;
-			}
-		}
-
-		return true;
+		return containsOnlyGuesses && suggestions != null && !suggestions.isEmpty();
 	}
 
 
@@ -202,7 +192,6 @@ public class SuggestionsBar {
 		if (suggestion.equals(Characters.NEW_LINE)) return "\n";
 		if (suggestion.equals(Characters.TAB)) return "\t";
 
-		suggestion = suggestion.replace(GUESSES_SUFFIX, "");
 		suggestion = suggestion.replace(Characters.ZWNJ_GRAPHIC, Characters.ZWNJ);
 		suggestion = suggestion.replace(Characters.ZWJ_GRAPHIC, Characters.ZWJ);
 		if (suggestion.length() == 1) return suggestion;
@@ -255,14 +244,14 @@ public class SuggestionsBar {
 
 		if (suggestions == null || suggestions.isEmpty()) {
 			setMany(guesses, 0, false);
+			containsOnlyGuesses = true;
 			return;
+		} else {
+			containsOnlyGuesses = false;
 		}
 
 		final ArrayList<String> combined = new ArrayList<>(guesses.size() + suggestions.size());
-		final ArrayList<String> formatted = new ArrayList<>(guesses);
-
-		formatted.replaceAll(s -> s + GUESSES_SUFFIX);
-		combined.addAll(formatted);
+		combined.addAll(guesses);
 
 		for (String old : suggestions) {
 			if (!guesses.contains(old)) {
@@ -279,6 +268,7 @@ public class SuggestionsBar {
 			return;
 		}
 
+		containsOnlyGuesses = false;
 		suggestions = newSuggestions;
 		selectedIndex = newSuggestions == null || newSuggestions.isEmpty() ? 0 : Math.max(initialSel, 0);
 
