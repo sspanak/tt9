@@ -67,6 +67,12 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	@Override
+	protected void onInit() {
+		super.onInit();
+		mindReader = new MindReader(settings, executor);
+	}
+
+	@Override
 	protected boolean onStart(EditorInfo field, boolean restarting) {
 		boolean restart = restarting || textField.equals(getCurrentInputConnection(), field);
 

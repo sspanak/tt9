@@ -167,6 +167,11 @@ class MindReaderDictionary {
 	}
 
 
+	int size() {
+		return tokens.length;
+	}
+
+
 	@NonNull
 	@Override
 	public String toString() {
