@@ -432,9 +432,12 @@ public abstract class TypingHandler extends KeyPadHandler {
 		textSelection.onSelectionUpdate(newSelStart, newSelEnd);
 
 		// in case the app has modified the InputField and moved the cursor without notifying us...
-		if (appHacks.onUpdateSelection(mInputMode, suggestionOps, oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
+		if (CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
 			stopWaitingForSpaceTrimKey();
-			return;
+			mindReader.clearContext();
+			if (appHacks.acceptComposingTextOnCursorReset(mInputMode, suggestionOps, textField)) {
+				return;
+			}
 		}
 
 		// If the cursor moves while composing a word (usually, because the user has touched the screen outside the word), we must
