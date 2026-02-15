@@ -41,6 +41,7 @@
 	<string name="pref_alternative_suggestion_scrolling_summary">Aktivieren Sie, wenn Sie manchmal nicht alle Vorschläge sehen können oder Probleme beim Scrollen haben.</string>
 	<string name="pref_arrows_left_right_summary">Linke/rechte Pfeiltasten anzeigen, um durch Vorschläge zu scrollen oder den Textcursor horizontal zu bewegen.</string>
 	<string name="pref_arrows_up_down_summary">Wischen nach oben/unten auf der OK-Taste erlauben, um Vorschläge zu filtern oder den Textcursor vertikal zu bewegen.</string>
+	<string name="pref_auto_mind_reading_summary">Afficher des suggestions de mot suivant avant de commencer à saisir ou après la première lettre. Commence sans suggestions et apprend au fur et à mesure que vous tapez.</string>
 	<string name="pref_auto_space">Automatischer Abstand</string>
 	<string name="pref_auto_space_summary">Automatisch ein Leerzeichen nach Satzzeichen oder Wörtern hinzufügen.</string>
 	<string name="pref_auto_text_case">Automatische Großbuchstaben</string>
@@ -275,4 +276,5 @@
 	<string name="edit_word_not_available_in_language">Das Bearbeiten von Wörtern ist in dieser Sprache nicht möglich.</string>
 	<string name="dictionary_import_raise_import_limits">Importbeschränkungen erhöhen</string>
 	<string name="dictionary_import_cancel">Import abbrechen</string>
+	<string name="pref_auto_mind_reading">Gedankenlesen</string>
 </resources>
