@@ -182,7 +182,7 @@ public class MindReader {
 	/**
 	 * Set and potentially save the current context, without guessing anything.
 	 */
-	public void setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
+	public MindReader setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
@@ -197,6 +197,8 @@ public class MindReader {
 		} else {
 			Timer.stop(TIMER_TAG);
 		}
+
+		return this;
 	}
 
 
@@ -222,13 +224,13 @@ public class MindReader {
 			return;
 		}
 
-		wordContext.setLanguage(language);
 
 		if (!language.equals(wordContext.language)) {
 			final String TIMER_TAG = LOG_TAG + Math.random();
 			Timer.start(TIMER_TAG);
 
 			clearContext();
+			wordContext.setLanguage(language);
 
 			// @todo: save the current dictionary for the previous language
 			// @todo: save new N-grams for this language
