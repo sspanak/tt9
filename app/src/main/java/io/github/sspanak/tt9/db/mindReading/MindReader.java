@@ -88,8 +88,9 @@ public class MindReader {
 
 		loadingId = 0;
 
-		// @todo: In Korean count space as the last word character
-		if (setContextSync(inputMode, language, surroundingText, lastWord)) {
+		// Only attempt guessing if the context is valid and ends with a space. Otherwise, the guessed
+		// composing text will appear joined with the last word, instead of as a new word.
+		if (setContextSync(inputMode, language, surroundingText, lastWord) && (!language.hasSpaceBetweenWords() || TextTools.endsWithSpace(surroundingText[0]))) {
 			runInThread(() -> {
 				processContext(inputMode, saveContext);
 				words = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext), null);
@@ -164,7 +165,7 @@ public class MindReader {
 				)
 				&& wordContext.setText(surroundingText[0])
 				&& (lastWord == null || wordContext.appendText(lastWord, false));
-		} else if (LanguageKind.usesSpaceAsPunctuation(language) && !LanguageKind.isKorean(language)) {
+		} else if (LanguageKind.usesSpaceAsPunctuation(language)) {
 			return wordContext.appendText(lastWord, true);
 		} else {
 			return wordContext.setText(surroundingText[0]);
