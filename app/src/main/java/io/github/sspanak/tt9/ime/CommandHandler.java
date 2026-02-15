@@ -224,6 +224,8 @@ abstract public class CommandHandler extends TextEditingHandler {
 			DictionaryLoader.autoLoad(this, settings, mLanguage);
 		}
 
+		mindReader.setLanguage(mLanguage);
+
 		forceShowWindow();
 	}
 
@@ -270,8 +272,8 @@ abstract public class CommandHandler extends TextEditingHandler {
 		if (InputModeKind.isRecomposing(mInputMode)) {
 			appHacks.setComposingTextPartsWithHighlightedJoining(mInputMode.getWordStem() + suggestionOps.getCurrent(), mInputMode.getRecomposingSuffix());
 		} else {
-			setGuessesTextCase(mInputMode.getTextCaseRaw());
-			suggestionOps.addGuesses(getCurrentGuesses());
+			mindReader.setTextCase(mInputMode.getTextCaseRaw());
+			suggestionOps.addGuesses(mindReader.getGuesses());
 			appHacks.setComposingText(suggestionOps.getCurrent());
 		}
 
