@@ -12,7 +12,6 @@ import androidx.annotation.WorkerThread;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.mindReading.MindReader;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
@@ -29,7 +28,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 	@Override
 	protected void setInputField(EditorInfo field) {
 		super.setInputField(field);
-		mindReader = new MindReader(settings, executor, inputType);
+		mindReader.setInputType(inputType);
 	}
 
 
@@ -51,7 +50,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			suggestionHandler = null;
 		}
 
-		mindReader.clearContext();
+		mindReader.updateStats().clearContext();
 		super.onFinishTyping();
 	}
 
