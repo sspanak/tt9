@@ -16,6 +16,7 @@ import io.github.sspanak.tt9.util.chars.Characters;
 public class TextTools {
 	private static final Pattern COMBINING_STRING = Pattern.compile("^\\p{M}+$");
 	private static final Pattern CONTAINS_PUNCTUATION = Pattern.compile("\\p{Punct}");
+	private static final Pattern ENDS_WITH_SPACE = Pattern.compile("\\s+$");
 	private static final Pattern NEXT_IS_PUNCTUATION = Pattern.compile("^\\p{Punct}");
 	private static final Pattern IS_CHINESE = Pattern.compile("[\\p{script=Han}" + String.join("", Characters.PunctuationChinese) + "]+");
 	private static final Pattern IS_JAPANESE = Pattern.compile("[\\p{script=Hiragana}\\p{script=Katakana}\\p{script=Han}" + String.join("", Characters.PunctuationChinese) + "]+");
@@ -27,16 +28,13 @@ public class TextTools {
 	private static final Pattern START_OF_SENTENCE = Pattern.compile("(?<!\\.)(^|[.?!؟¿¡])\\s+$");
 
 
-	public static boolean isSingleCodePoint(String str) {
-		return
-			str != null
-			&& !str.isEmpty()
-			&& str.offsetByCodePoints(0, 1) == str.length();
+	public static boolean containsPunctuation(String str) {
+		return str != null && !str.isEmpty() && CONTAINS_PUNCTUATION.matcher(str).find();
 	}
 
 
-	public static boolean containsPunctuation(String str) {
-		return str != null && !str.isEmpty() && CONTAINS_PUNCTUATION.matcher(str).find();
+	public static boolean endsWithSpace(String str) {
+		return str != null && !str.isEmpty() && ENDS_WITH_SPACE.matcher(str).find();
 	}
 
 
@@ -108,6 +106,14 @@ public class TextTools {
 	 */
 	public static boolean isThaiText(String str) {
 		return str != null && IS_THAI_TEXT.matcher(str).find();
+	}
+
+
+	public static boolean isSingleCodePoint(String str) {
+		return
+			str != null
+			&& !str.isEmpty()
+			&& str.offsetByCodePoints(0, 1) == str.length();
 	}
 
 
