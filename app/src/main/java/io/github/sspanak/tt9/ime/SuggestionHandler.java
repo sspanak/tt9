@@ -312,4 +312,10 @@ abstract public class SuggestionHandler extends TypingHandler {
 			mindReader.setCurrentGuessHandler(this::handleGuessesAsync);
 		}
 	}
+
+
+	@Override
+	protected boolean shouldAcceptGuessesOnNumber(int number) {
+		return number == 0 && !mLanguage.hasLettersOnAllKeys() && suggestionOps.containsOnlyGuesses();
+	}
 }
