@@ -149,6 +149,16 @@ class MindReaderNgramList {
 	}
 
 
+	int size() {
+		return size;
+	}
+
+
+	int capacity() {
+		return before.length;
+	}
+
+
 	@Override
 	@NonNull
 	public String toString() {
