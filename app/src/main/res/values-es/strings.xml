@@ -91,6 +91,7 @@
 	<string name="pref_alternative_suggestion_scrolling_summary">Habilítelo si a veces no puedes ver todas las sugerencias o tienes problemas para desplazarte por ellas.</string>
 	<string name="pref_arrows_left_right_summary">Mostrar las teclas de flecha izquierda/derecha para desplazarse por las sugerencias o mover el cursor de texto horizontalmente.</string>
 	<string name="pref_arrows_up_down_summary">Permitir deslizar hacia arriba/abajo en la tecla OK para filtrar sugerencias o mover el cursor de texto verticalmente.</string>
+	<string name="pref_auto_mind_reading_summary">Mostrar sugerencias de la siguiente palabra antes de empezar a escribir o después de la primera letra. Comienza sin sugerencias y aprende mientras escribes.</string>
 	<string name="pref_auto_space">Espacio automático</string>
 	<string name="pref_auto_space_summary">Insertar un espacio automático después de palabras y signos de puntuación.</string>
 	<string name="pref_drag_resize_summary">Arrastrar la barra de estado o la tecla de ajustes para minimizar el teclado o ajustar su posición en la pantalla.</string>
@@ -273,4 +274,5 @@
 	<string name="edit_word_not_available_in_language">No es posible editar palabras en este idioma.</string>
 	<string name="dictionary_import_raise_import_limits">Aumentar restricciones de importación</string>
 	<string name="dictionary_import_cancel">Cancelar importación</string>
+	<string name="pref_auto_mind_reading">Lectura de mente</string>
 </resources>

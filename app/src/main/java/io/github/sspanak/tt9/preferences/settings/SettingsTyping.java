@@ -38,12 +38,23 @@ class SettingsTyping extends SettingsPunctuation {
 		return getAutoTextCasePredictive() && prefs.getBoolean("auto_capitals_after_newline", false);
 	}
 
+	public boolean getAutoMindReading() {
+		return prefs.getBoolean("auto_mind_reading", false);
+	}
+
 	public boolean getAutoTrimTrailingSpace() {
 		return prefs.getBoolean("auto_trim_trailing_space", true);
 	}
 
+	public boolean isAutoTextCaseOn(@Nullable InputMode mode) {
+		return
+			(InputModeKind.isPredictive(mode) && getAutoTextCasePredictive()) ||
+			(InputModeKind.isABC(mode) && getAutoTextCaseAbc());
+	}
+
 	public boolean isAutoAssistanceOn(@Nullable InputMode mode) {
 		return
+			(getAutoMindReading() && (InputModeKind.isPredictive(mode) || InputModeKind.isABC(mode))) ||
 			(InputModeKind.isPredictive(mode) && (getAutoSpacePredictive() || getAutoTextCasePredictive() || getPredictWordPairs())) ||
 			(InputModeKind.isABC(mode) && (getAutoSpaceAbc() || getAutoTextCaseAbc()));
 	}

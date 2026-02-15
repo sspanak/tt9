@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.db.mindReading.MindReader;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
@@ -25,10 +25,8 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
-import io.github.sspanak.tt9.util.sys.Clipboard;
 
 public abstract class TypingHandler extends KeyPadHandler {
 	// internal settings/data
@@ -37,7 +35,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected TextSelection textSelection = new TextSelection(null, null);
 	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null, null, null);
 
-	@Nullable private Handler suggestionHandler;
 	@Nullable private Handler shiftStateDebounceHandler;
 
 	// input
@@ -47,6 +44,16 @@ public abstract class TypingHandler extends KeyPadHandler {
 	// language
 	protected ArrayList<Integer> mEnabledLanguages;
 	protected Language mLanguage;
+
+	// output: suggestions
+	abstract protected void onAcceptSuggestionsDelayed(String s);
+	abstract protected void getSuggestions(double loadingId, @Nullable String currentWord, @Nullable Runnable onComplete);
+
+	// output: mind-reading
+	@NonNull protected MindReader mindReader = new MindReader();
+	abstract protected void guessOnNumber(double loadingId, @NonNull String[] surroundingChars, @Nullable String lastWord, int number);
+	abstract protected boolean guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord);
+	abstract protected boolean shouldAcceptGuessesOnNumber(int key);
 
 
 	protected void createSuggestionBar() {
@@ -58,6 +65,12 @@ public abstract class TypingHandler extends KeyPadHandler {
 		return getCurrentInputConnection() == null || InputModeKind.isPassthrough(mInputMode);
 	}
 
+
+	@Override
+	protected void onInit() {
+		super.onInit();
+		mindReader = new MindReader(settings, executor);
+	}
 
 	@Override
 	protected boolean onStart(EditorInfo field, boolean restarting) {
@@ -79,8 +92,12 @@ public abstract class TypingHandler extends KeyPadHandler {
 		resetKeyRepeat();
 		mInputMode = determineInputMode();
 		determineTextCase();
-		updateShiftState(null, true, false); // don't use beforeCursor cache on start up
 		suggestionOps.set(null);
+
+		// don't use surroundingText cache on start up
+		final String[] surroundingText = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
+		updateShiftState(surroundingText[0], false, false);
+		mindReader.setContext(mInputMode, mLanguage, surroundingText, null);
 
 		return true;
 	}
@@ -122,10 +139,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 			shiftStateDebounceHandler.removeCallbacksAndMessages(null);
 			shiftStateDebounceHandler = null;
 		}
-		if (suggestionHandler != null) {
-			suggestionHandler.removeCallbacksAndMessages(null);
-			suggestionHandler = null;
-		}
 		suggestionOps.cancelDelayedAccept();
 		mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
 		setInputField(null);
@@ -139,6 +152,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (InputModeKind.isPassthrough(mInputMode)) {
 			return false;
 		}
+
+		mindReader.clearContext();
 
 		if (appHacks.onBackspace(settings, mInputMode)) {
 			mInputMode.reset();
@@ -158,7 +173,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// load new words only if there is no selected text, because it would be confusing
 		if (repeat == 0 && mInputMode.onBackspace() && textSelection.isEmpty()) {
 			final Runnable onLoad = InputModeKind.isRecomposing(mInputMode) ? null : () -> recompose(repeat, false);
-			getSuggestions(null, onLoad);
+			getSuggestions(0, null, onLoad);
 		} else {
 			suggestionOps.commitCurrent(false, true);
 			mInputMode.reset();
@@ -184,18 +199,21 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		hold = hold && settings.getHoldToType();
 		String[] surroundingChars = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
+		String lastWord = null;
 
 		// Automatically accept the previous word, when the next one is a space or punctuation,
 		// instead of requiring "OK" before that.
 		// First pass, analyze the incoming key press and decide whether it could be the start of
 		// a new word. In case we do accept it, we preserve the suggestion list instead of clearing,
 		// to prevent flashing while the next suggestions are being loaded.
-		if (mInputMode.shouldAcceptPreviousSuggestion(suggestionOps.getCurrent(), key, hold)) {
+
+		if (mInputMode.shouldAcceptPreviousSuggestion(suggestionOps.getCurrent(), key, hold) || shouldAcceptGuessesOnNumber(key)) {
 			// WARNING! Ensure the code after "acceptIncompleteAndKeepList()" does not depend on
 			// the suggestions in SuggestionOps, since we don't clear that list.
-			String lastWord = suggestionOps.acceptIncompleteAndKeepList();
+			lastWord = suggestionOps.acceptIncompleteAndKeepList();
 			mInputMode.onAcceptSuggestion(lastWord);
 			surroundingChars = autoCorrectSpace(lastWord, surroundingChars, false, key);
+			mindReader.setContext(mInputMode, mLanguage, surroundingChars, lastWord).saveContext(mInputMode);
 		}
 
 		// Auto-adjust the text case before each word/char, if the InputMode supports it.
@@ -210,7 +228,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 			scrollSuggestions(false);
 			suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
-			getSuggestions(null, null);
+			final double loadingId = Math.random();
+			guessOnNumber(loadingId, surroundingChars, lastWord, key);
+			getSuggestions(loadingId, null, null);
 		}
 
 		return true;
@@ -248,21 +268,24 @@ public abstract class TypingHandler extends KeyPadHandler {
 		mInputMode.onAcceptSuggestion(text);
 		textField.setText(text);
 		surroundingChars[0] += text;
-		String beforeCursor = autoCorrectSpace(text, surroundingChars, true, -1)[0];
+		surroundingChars = autoCorrectSpace(text, surroundingChars, true, -1);
 
-		if (beforeCursor.endsWith(Characters.getSpace(mLanguage))) {
+		if (surroundingChars[0].endsWith(Characters.getSpace(mLanguage))) {
 			waitForSpaceTrimKey();
 		}
 
 		forceShowWindow();
-		updateShiftState(beforeCursor, true, false);
+
+		mInputMode.determineNextWordTextCase(surroundingChars[0], -1);
+		updateShiftState(surroundingChars[0], false, false);
+		guessNextWord(surroundingChars, lastWord);
 
 		return true;
 	}
 
 
 	@NonNull
-	private String[] autoCorrectSpace(@Nullable String currentWord, @NonNull String[] surroundingChars, boolean isWordAcceptedManually, int nextKey) {
+	protected String[] autoCorrectSpace(@Nullable String currentWord, @NonNull String[] surroundingChars, boolean isWordAcceptedManually, int nextKey) {
 		if (currentWord == null || currentWord.isEmpty() || !settings.isAutoAssistanceOn(mInputMode)) {
 			return surroundingChars;
 		}
@@ -401,7 +424,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		final String previousWord = mInputMode.recompose();
 		if (textField.recompose(previousWord)) {
-			getSuggestions(previousWord, null);
+			getSuggestions(0, previousWord, null);
 		} else {
 			mInputMode.reset();
 		}
@@ -416,9 +439,12 @@ public abstract class TypingHandler extends KeyPadHandler {
 		textSelection.onSelectionUpdate(newSelStart, newSelEnd);
 
 		// in case the app has modified the InputField and moved the cursor without notifying us...
-		if (appHacks.onUpdateSelection(mInputMode, suggestionOps, oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
+		if (CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
 			stopWaitingForSpaceTrimKey();
-			return;
+			mindReader.clearContext();
+			if (appHacks.acceptComposingTextOnCursorReset(mInputMode, suggestionOps, textField)) {
+				return;
+			}
 		}
 
 		// If the cursor moves while composing a word (usually, because the user has touched the screen outside the word), we must
@@ -427,6 +453,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (CursorOps.isMovedWhileTyping(newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
 			stopWaitingForSpaceTrimKey();
 			mInputMode.onCursorMove(suggestionOps.acceptIncomplete());
+			mindReader.clearContext();
 			return;
 		}
 
@@ -435,146 +462,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (CursorOps.isMovedFar(newSelStart, newSelEnd, oldSelStart, oldSelEnd)) {
 			stopWaitingForSpaceTrimKey();
 		}
-	}
-
-
-	private String onAcceptPreviousSuggestion() {
-		final int lastWordLength = InputModeKind.isABC(mInputMode) ? 1 : mInputMode.getSequenceLength() - 1;
-		String lastWord = suggestionOps.getCurrent(mLanguage, lastWordLength);
-		if (Characters.PLACEHOLDER.equals(lastWord)) {
-			lastWord = "";
-		}
-
-		suggestionOps.commitCurrent(false, true);
-		mInputMode.onAcceptSuggestion(lastWord, true);
-		final String beforeCursor = autoCorrectSpace(
-			lastWord,
-			textField.getSurroundingStringForAutoAssistance(settings, mInputMode),
-			false,
-			mInputMode.getFirstKey()
-		)[0];
-		mInputMode.determineNextWordTextCase(beforeCursor, -1);
-
-		return beforeCursor;
-	}
-
-
-	private void onAcceptSuggestionsDelayed(String word) {
-		onAcceptSuggestionManually(word, -1);
-		forceShowWindow();
-	}
-
-
-	protected void onAcceptSuggestionManually(String word, int fromKey) {
-		mInputMode.onAcceptSuggestion(word);
-		if (Clipboard.contains(word)) {
-			Clipboard.copy(this, word);
-		}
-
-		if (!word.isEmpty()) {
-			String beforeCursor = autoCorrectSpace(
-				word,
-				textField.getSurroundingStringForAutoAssistance(settings, mInputMode),
-				true,
-				fromKey
-			)[0];
-			updateShiftState(beforeCursor, true, false);
-			resetKeyRepeat();
-		}
-
-		if (!Characters.getSpace(mLanguage).equals(word)) {
-			waitForSpaceTrimKey();
-		}
-	}
-
-
-	@NonNull
-	@Override
-	public SuggestionOps getSuggestionOps() {
-		return suggestionOps;
-	}
-
-
-	/**
-	 * Ask the InputMode to load suggestions for the current state. No action is taken if the dictionary
-	 * is still loading. Note that onComplete is called even if the loading was skipped.
-	 */
-	protected void getSuggestions(@Nullable String currentWord, @Nullable Runnable onComplete) {
-		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.getInstance(this).isRunning()) {
-			mInputMode.reset();
-			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
-			if (onComplete != null) {
-				onComplete.run();
-			}
-		} else {
-			mInputMode
-				.setOnSuggestionsUpdated(() -> handleSuggestionsFromThread(onComplete))
-				.loadSuggestions(currentWord == null ? suggestionOps.getCurrent() : currentWord);
-		}
-	}
-
-
-	protected void handleSuggestionsFromThread() {
-		handleSuggestionsFromThread(null);
-	}
-
-
-	protected void handleSuggestionsFromThread(@Nullable Runnable onComplete) {
-		if (suggestionHandler == null) {
-			suggestionHandler = new Handler(Looper.getMainLooper());
-		} else {
-			suggestionHandler.removeCallbacksAndMessages(null);
-		}
-		suggestionHandler.post(() -> {
-			handleSuggestions();
-			if (onComplete != null) {
-				onComplete.run();
-			}
-		});
-	}
-
-
-	protected void handleSuggestions() {
-		// Second pass, analyze the available suggestions and decide if combining them with the
-		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
-		// just the end of a sentence, like: "word." or "another?"
-		String beforeCursor = null;
-		if (mInputMode.shouldAcceptPreviousSuggestion(suggestionOps.getCurrent())) {
-			beforeCursor = onAcceptPreviousSuggestion();
-		}
-
-		final ArrayList<String> suggestions = mInputMode.getSuggestions();
-		suggestionOps.set(suggestions, mInputMode.getRecommendedSuggestionIdx(), mInputMode.containsGeneratedSuggestions());
-
-		// either accept the first one automatically (when switching from punctuation to text
-		// or vice versa), or schedule auto-accept in N seconds (in ABC mode)
-		if (suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout())) {
-			return;
-		}
-
-		// We have not accepted anything yet, which means the user is composing a word.
-		// put the first suggestion in the text field, but cut it off to the length of the sequence
-		// (the count of key presses), for a more intuitive experience.
-		String trimmedWord;
-
-		if (InputModeKind.isRecomposing(mInputMode)) {
-			// highlight the current letter, when editing a word
-			trimmedWord = mInputMode.getWordStem() + suggestionOps.getCurrent();
-			appHacks.setComposingTextPartsWithHighlightedJoining(trimmedWord, mInputMode.getRecomposingSuffix());
-		} else {
-			// or highlight the stem, when filtering
-			trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
-			appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
-		}
-
-		beforeCursor = beforeCursor != null ? beforeCursor + trimmedWord : trimmedWord;
-		if (suggestions.isEmpty()) {
-			updateShiftStateDebounced(beforeCursor, true, false);
-		} else {
-			updateShiftStateDebounced(beforeCursor, false, true);
-		}
-
-		forceShowWindow();
 	}
 
 

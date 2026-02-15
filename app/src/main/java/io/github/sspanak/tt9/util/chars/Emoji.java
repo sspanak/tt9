@@ -33,6 +33,10 @@ class Emoji extends Punctuation {
 		return !(ch < 256 || Character.isLetterOrDigit(ch) || Character.isAlphabetic(ch));
 	}
 
+	public static boolean isGraphic(int codePoint) {
+		return !(codePoint < 256 || Character.isLetterOrDigit(codePoint) || Character.isAlphabetic(codePoint));
+	}
+
 	public static ArrayList<String> getEmoji(int level) {
 		if (level < 0 || level >= Emoji.size()) {
 			return new ArrayList<>();

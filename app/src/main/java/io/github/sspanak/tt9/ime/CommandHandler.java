@@ -102,7 +102,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		setInputMode(InputMode.MODE_RECOMPOSING);
 		if (mInputMode.setWordStem(word, false)) {
 			((ModeRecomposing) mInputMode).setOnFinishListener(() -> setInputMode(previousMode));
-			getSuggestions("", null);
+			getSuggestions(0, "", null);
 		} else {
 			textField.finishComposingText();
 			setInputMode(previousMode);
@@ -215,7 +215,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			.copy(mInputMode);
 
 		if (mInputMode.isTyping()) {
-			getSuggestions(null, this::onAfterLanguageChange);
+			getSuggestions(0, null, this::onAfterLanguageChange);
 		} else {
 			onAfterLanguageChange();
 		}
@@ -223,6 +223,8 @@ abstract public class CommandHandler extends TextEditingHandler {
 		if (InputModeKind.isPredictive(mInputMode)) {
 			DictionaryLoader.autoLoad(this, settings, mLanguage);
 		}
+
+		mindReader.setLanguage(mLanguage);
 
 		forceShowWindow();
 	}
@@ -250,8 +252,14 @@ abstract public class CommandHandler extends TextEditingHandler {
 		mInputMode.skipNextTextCaseDetection();
 		settings.saveTextCase(mInputMode.getTextCase());
 
-		// if there are no suggestions or they are special chars, we don't need to adjust their text case
-		if (currentWord.isEmpty() || (currentWord.length() == 1 && !Character.isAlphabetic(currentWord.charAt(0)))) {
+		if (currentWord.isEmpty() && !suggestionOps.isEmpty()) {
+			// if we have set the suggestions from a different source, e.g. Clipboard or MindReader,
+			// they won't be in the InputMode's state, so adjust the list directly, without any specific rules
+			suggestionOps.setTextCase(mLanguage, mInputMode.getTextCase());
+			appHacks.setComposingText(suggestionOps.getCurrent());
+			return true;
+		} else if (currentWord.isEmpty() || (currentWord.length() == 1 && !Character.isAlphabetic(currentWord.charAt(0)))) {
+			// if there are no suggestions or they are special chars, we don't need to adjust their text case
 			return true;
 		}
 
@@ -264,6 +272,8 @@ abstract public class CommandHandler extends TextEditingHandler {
 		if (InputModeKind.isRecomposing(mInputMode)) {
 			appHacks.setComposingTextPartsWithHighlightedJoining(mInputMode.getWordStem() + suggestionOps.getCurrent(), mInputMode.getRecomposingSuffix());
 		} else {
+			mindReader.setTextCase(mInputMode.getTextCaseRaw());
+			suggestionOps.addGuesses(mindReader.getGuesses());
 			appHacks.setComposingText(suggestionOps.getCurrent());
 		}
 

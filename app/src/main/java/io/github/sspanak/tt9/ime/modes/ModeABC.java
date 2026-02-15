@@ -142,8 +142,6 @@ class ModeABC extends InputMode {
 	}
 
 
-	/******** GENERAL ********/
-
 	private void refreshSuggestions() {
 		if (digitSequence.isEmpty()) {
 			suggestions.clear();

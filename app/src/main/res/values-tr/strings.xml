@@ -41,6 +41,7 @@
 	<string name="pref_alternative_suggestion_scrolling_summary">Tüm önerileri göremediğiniz ya da tahminlerde kaydırma yapamadığınız zaman etkinleştirin.</string>
 	<string name="pref_arrows_left_right_summary">Öneriler arasında gezinmek veya metin imlecini yatay olarak hareket ettirmek için sol/sağ ok tuşlarını göster.</string>
 	<string name="pref_arrows_up_down_summary">OK tuşunda yukarı/aşağı kaydırmaya izin vererek önerileri filtrelemek veya metin imlecini dikey olarak hareket ettirmek.</string>
+	<string name="pref_auto_mind_reading_summary">Yazmaya başlamadan önce veya ilk harften sonra sonraki kelime önerilerini göster. Başlangıçta öneri yoktur ve yazdıkça öğrenir.</string>
 	<string name="pref_auto_space">Otomatik Boşluk</string>
 	<string name="pref_auto_space_summary">Seçimlerin sonrasında otomatik olarak boşluk ekler.</string>
 	<string name="pref_auto_text_case">Otomatik Büyük Harf</string>
@@ -278,4 +279,5 @@
 	<string name="edit_word_not_available_in_language">Bu dilde kelime düzenleme mümkün değildir.</string>
 	<string name="dictionary_import_raise_import_limits">İçe aktarma kısıtlamalarını artır</string>
 	<string name="dictionary_import_cancel">İçe aktarmayı iptal et</string>
+	<string name="pref_auto_mind_reading">Zihin Okuma</string>
 </resources>

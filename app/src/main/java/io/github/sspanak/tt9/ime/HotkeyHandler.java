@@ -67,7 +67,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		suggestionOps.cancelDelayedAccept();
 		stopWaitingForSpaceTrimKey();
 
-		if (!suggestionOps.isEmpty()) {
+		if (!suggestionOps.isEmpty() && !suggestionOps.containsOnlyGuesses()) {
 			if (mInputMode.shouldReplacePreviousSuggestion(suggestionOps.getCurrent())) {
 				mInputMode.onReplaceSuggestion(suggestionOps.getCurrentRaw());
 			} else if (InputModeKind.isRecomposing(mInputMode)) {
@@ -117,6 +117,10 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	private boolean onHardcodedKey(int keyCode, boolean validateOnly) {
+		if (!validateOnly && Key.isArrow(keyCode)) {
+			mindReader.clearContext();
+		}
+
 		if (Key.isArrowUp(keyCode) && onKeyEditDuplicateLetter(validateOnly)) {
 			return true;
 		}
@@ -302,6 +306,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 	public boolean onKeyMoveCursor(int direction) {
 		suggestionOps.cancelDelayedAccept();
 		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		mindReader.clearContext();
 		resetKeyRepeat();
 
 		final boolean backward = direction == CmdMoveCursor.CURSOR_MOVE_LEFT;
@@ -319,7 +324,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyFilterClear(boolean validateOnly) {
-		if (suggestionOps.isEmpty()) {
+		if (suggestionOps.containsNoOrdinaryWords()) {
 			return false;
 		}
 
@@ -340,7 +345,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		if (mInputMode.clearWordStem() && isFilteringOn) {
 			mInputMode
-				.setOnSuggestionsUpdated(this::handleSuggestionsFromThread)
+				.setOnSuggestionsUpdated(this::handleSuggestionsAsync)
 				.loadSuggestions(suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength()));
 			return true;
 		}
@@ -355,7 +360,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyFilterSuggestions(boolean validateOnly, boolean repeat) {
-		if (suggestionOps.isEmpty()) {
+		if (suggestionOps.containsNoOrdinaryWords()) {
 			return false;
 		}
 
@@ -381,7 +386,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			mInputMode.reset();
 		} else if (mInputMode.setWordStem(filter, repeat)) {
 			mInputMode
-				.setOnSuggestionsUpdated(super::handleSuggestionsFromThread)
+				.setOnSuggestionsUpdated(super::handleSuggestionsAsync)
 				.loadSuggestions(filter);
 		}
 

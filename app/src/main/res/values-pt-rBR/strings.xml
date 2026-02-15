@@ -46,6 +46,7 @@
 	<string name="pref_alternative_suggestion_scrolling_summary">Ative se às vezes não conseguir ver todas as sugestões ou tiver problemas para rolá-las.</string>
 	<string name="pref_arrows_left_right_summary">Mostrar as teclas de seta esquerda/direita para rolar as sugestões ou mover o cursor de texto horizontalmente.</string>
 	<string name="pref_arrows_up_down_summary">Permitir deslizar para cima/baixo na tecla OK para filtrar sugestões ou mover o cursor de texto verticalmente.</string>
+	<string name="pref_auto_mind_reading_summary">Mostrar sugestões da próxima palavra antes de começar a digitar ou após a primeira letra. Começa sem sugestões e aprende enquanto você digita.</string>
 	<string name="pref_auto_space">Espaçamento automático</string>
 	<string name="pref_auto_space_summary">Insere um espaçamento após ponto final.</string>
 	<string name="pref_auto_text_case">Maiúsculas automáticas</string>
@@ -280,4 +281,5 @@
 	<string name="edit_word_not_available_in_language">Não é possível editar palavras neste idioma.</string>
 	<string name="dictionary_import_raise_import_limits">Aumentar restrições de importação</string>
 	<string name="dictionary_import_cancel">Cancelar importação</string>
+	<string name="pref_auto_mind_reading">Leitura de mentes</string>
 </resources>

@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.commands.CmdMoveCursor;
-import io.github.sspanak.tt9.ime.helpers.CursorOps;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -196,26 +195,6 @@ public class AppHacks {
 
 
 	/**
-	 * Performs extra operations when the cursor moves and returns "true" if the selection was handled,
-	 * "false" otherwise.
-	 */
-	public boolean onUpdateSelection(
-		@NonNull InputMode inputMode,
-		@NonNull SuggestionOps suggestionOps,
-		int oldSelStart,
-		int oldSelEnd,
-		int newSelStart,
-		int newSelEnd,
-		int candidatesStart,
-		int candidatesEnd
-	) {
-		return
-			CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)
-			&& acceptComposingTextOnCursorReset(inputMode, suggestionOps, textField);
-	}
-
-
-	/**
 	 * onEnter
 	 * Tries to guess and send the correct confirmation key code or sequence of key codes,
 	 * depending on the connected application and input field. On invalid connection or field,
@@ -251,8 +230,8 @@ public class AppHacks {
 	 * word then causes the previous word to pop back up. We use this hack to detect such situations
 	 * and reset the InputMode upon sending a message.
 	 */
-	private boolean acceptComposingTextOnCursorReset(@NonNull InputMode inputMode, @NonNull SuggestionOps suggestionOps, @Nullable TextField textField) {
-		if (!isComposingCausingRestarts() && textField != null && textField.isEmpty() && !(inputMode.getSuggestions().isEmpty() && suggestionOps.isEmpty())) {
+	public boolean acceptComposingTextOnCursorReset(@NonNull InputMode inputMode, @NonNull SuggestionOps suggestionOps, @Nullable TextField textField) {
+		if (!isComposingCausingRestarts() && textField != null && textField.isEmpty() && !(inputMode.getSuggestions().isEmpty() && suggestionOps.containsNoOrdinaryWords())) {
 			inputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 			inputMode.reset();
 			return true;
