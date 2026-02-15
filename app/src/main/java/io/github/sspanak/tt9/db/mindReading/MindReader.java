@@ -92,7 +92,7 @@ public class MindReader {
 		// @todo: In Korean count space as the last word character
 		if (setContextSync(inputMode, language, surroundingText, lastWord)) {
 			runInThread(() -> {
-				processContext(inputMode, language, saveContext);
+				processContext(inputMode, saveContext);
 				words = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext), null);
 
 				logState(Timer.stop(TIMER_TAG), words);
@@ -117,7 +117,7 @@ public class MindReader {
 
 		if (!alternativeLetters.isEmpty() && setContextSync(inputMode, language, surroundingText, null)) {
 			runInThread(() -> {
-				processContext(inputMode, language, false);
+				processContext(inputMode, false);
 
 				final Set<Integer> nextTokens = ngrams.getAllNextTokens(dictionary, wordContext);
 				words = new ArrayList<>();
@@ -140,7 +140,7 @@ public class MindReader {
 
 		if (setContextSync(inputMode, language, surroundingText, lastWord)) {
 			runInThread(() -> {
-				processContext(inputMode, language, true);
+				processContext(inputMode, true);
 				logState(Timer.stop(TIMER_TAG), null);
 			});
 		} else {
@@ -179,19 +179,44 @@ public class MindReader {
 	}
 
 
+	public void setLanguage(@NonNull Language language) {
+		if (isOff()) {
+			return;
+		}
+
+		if (!language.equals(wordContext.language)) {
+			final String TIMER_TAG = LOG_TAG + Math.random();
+			Timer.start(TIMER_TAG);
+
+			clearContext();
+
+			// @todo: save the current dictionary for the previous language
+			// @todo: save new N-grams for this language
+
+			// @todo: load the dictionary for the new language
+			// @todo: load N-grams for the new language
+			dictionary = new MindReaderDictionary(language, MAX_DICTIONARY_WORDS);
+			ngrams = new MindReaderNgramList(NGRAMS_INITIAL_CAPACITY, MAX_BIGRAM_SUGGESTIONS, MAX_TRIGRAM_SUGGESTIONS, MAX_TETRAGRAM_SUGGESTIONS);
+
+			Logger.d(LOG_TAG, "Loaded dictionary and N-grams for language: " + language + ". Time: " + Timer.stop(TIMER_TAG) + " ms");
+		}
+
+		wordContext.setLanguage(language);
+	}
+
+
 	public MindReader setTextCase(int rawTextCase) {
 		textCase = rawTextCase;
 		return this;
 	}
 
 
-	public void processContext(@Nullable InputMode inputMode, @NonNull Language language, boolean saveContext) {
+	public void processContext(@Nullable InputMode inputMode, boolean saveContext) {
 		if (isOff()) {
 			return;
 		}
 
-		changeLanguage(language);
-		dictionary.addAll(language, wordContext.tokenize(dictionary));
+		dictionary.addAll(wordContext.language, wordContext.tokenize(dictionary));
 		if (saveContext && wordContext.shouldSave(inputMode)) {
 			ngrams.addMany(wordContext.getAllNgrams(dictionary));
 		}
@@ -207,19 +232,7 @@ public class MindReader {
 	}
 
 
-	private void changeLanguage(@NonNull Language language) {
-		if (!language.equals(wordContext.language)) {
-			// @todo: save the current dictionary for the previous language
-			// @todo: save new N-grams for this language
 
-			// @todo: load the dictionary for the new language
-			// @todo: load N-grams for the new language
-			dictionary = new MindReaderDictionary(language, MAX_DICTIONARY_WORDS);
-			ngrams = new MindReaderNgramList(NGRAMS_INITIAL_CAPACITY, MAX_BIGRAM_SUGGESTIONS, MAX_TRIGRAM_SUGGESTIONS, MAX_TETRAGRAM_SUGGESTIONS);
-		}
-
-		wordContext.setLanguage(language);
-	}
 
 
 	private boolean isOff() {
