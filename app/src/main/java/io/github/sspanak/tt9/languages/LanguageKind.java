@@ -29,7 +29,7 @@ public class LanguageKind {
 
 	public static boolean usesSpaceAsPunctuation(Language language) {
 		return
-			(language != null && language.isTranscribed())
+			(language != null && language.isTranscribed() && !LanguageKind.isKorean(language))
 			|| isThai(language);
 	}
 

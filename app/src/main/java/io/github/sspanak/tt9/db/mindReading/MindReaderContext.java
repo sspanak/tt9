@@ -9,7 +9,6 @@ import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.TextTools;
@@ -126,7 +125,7 @@ class MindReaderContext {
 		}
 
 		raw.setLength(0);
-		raw.append(LanguageKind.usesSpaceAsPunctuation(language) ? beforeCursor : beforeCursor.trim());
+		raw.append(beforeCursor.trim());
 		lastAppendedWord = null;
 		tokens = new String[0];
 
