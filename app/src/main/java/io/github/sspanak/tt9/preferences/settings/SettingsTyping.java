@@ -39,7 +39,7 @@ class SettingsTyping extends SettingsPunctuation {
 	}
 
 	public boolean getAutoMindReading() {
-		return prefs.getBoolean("auto_mind_reading", true);
+		return prefs.getBoolean("auto_mind_reading", false);
 	}
 
 	public boolean getAutoTrimTrailingSpace() {
