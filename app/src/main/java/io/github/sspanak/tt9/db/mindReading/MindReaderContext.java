@@ -38,6 +38,10 @@ class MindReaderContext {
 	 */
 	@NonNull
 	MindReaderNgram[] getAllNgrams(@NonNull MindReaderDictionary dictionary) {
+		if (tokens.length == 0) {
+			return new MindReaderNgram[0];
+		}
+
 		final int[] dictionaryIds =  dictionary.indexOf(tokens);
 
 		if (tokens.length == 1) {
@@ -136,7 +140,7 @@ class MindReaderContext {
 	/**
 	 * Determines whether the current context should be saved to the database.
 	 */
-	boolean shouldSave(@Nullable InputMode inputMode) {
+	boolean shouldAutoSave(@Nullable InputMode inputMode) {
 		if (!InputModeKind.isABC(inputMode)) {
 			return true;
 		}
