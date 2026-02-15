@@ -99,7 +99,7 @@ public class MindReader {
 	 */
 	@NonNull
 	public ArrayList<String> getGuesses() {
-		// @todo: when only guesses are displayed and the user presses the hardware ENTER, prevent default.
+		// @todo: When only guesses are displayed, selecting one also prints a new line. This includes selecting with a tap from the list.
 		final ArrayList<String> copy = new ArrayList<>(words);
 		copy.replaceAll(this::adjustWordTextCase);
 		return copy;
@@ -153,6 +153,10 @@ public class MindReader {
 	 * a word.
 	 */
 	public boolean guessNext(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
+		// @todo: these don't work
+		//  - времето в пловдив
+		//  - започва без предложения и се учи, докато пишете
+
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
