@@ -62,7 +62,6 @@ public class MindReader {
 
 
 	public void clearContext() {
-		// @todo: probably, always do this when the input field resets, and the language is transcribed or uses no spaces
 		if (!isOff() && wordContext.setText("")) {
 			words.clear();
 			Logger.d(LOG_TAG, "Mind reader context cleared");
