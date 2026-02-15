@@ -24,7 +24,6 @@ import io.github.sspanak.tt9.util.sys.Clipboard;
 
 abstract public class SuggestionHandler extends TypingHandler {
 	@Nullable private Handler suggestionHandler;
-	@NonNull private MindReader mindReader = new MindReader();
 
 
 	@Override
@@ -52,7 +51,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			suggestionHandler = null;
 		}
 
-		clearGuessingContext();
+		mindReader.clearContext();
 		super.onFinishTyping();
 	}
 
@@ -187,7 +186,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 		// append guesses from the MindReader
 		if (loadingId != 0 && loadingId == mindReader.getLoadingId()) {
-			handleOrWaitForGuesses(getCurrentGuesses());
+			handleOrWaitForGuesses();
 		}
 
 		onAfterSuggestionsHandled(onComplete, surroundingText, trimmedWord, suggestions.isEmpty());
@@ -207,29 +206,6 @@ abstract public class SuggestionHandler extends TypingHandler {
 		if (callback != null) {
 			callback.run();
 		}
-	}
-
-
-	@NonNull
-	protected ArrayList<String> getCurrentGuesses() {
-		return mindReader.getGuesses();
-	}
-
-
-	@Override
-	protected void clearGuessingContext() {
-		mindReader.clearContext();
-	}
-
-
-	@Override
-	protected void setGuessingContext(@NonNull String[] surroundingText) {
-		mindReader.setContext(mInputMode, mLanguage, surroundingText, null);
-	}
-
-
-	protected void setGuessesTextCase(int textCase) {
-		mindReader.setTextCase(textCase);
 	}
 
 
@@ -262,7 +238,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 	private void guessOnNumberRegularLanguage(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number) {
 		if (mInputMode.getSequenceLength() != 1 || new Text(mLanguage, surroundingText[1]).startsWithWord()) {
-			clearGuessingContext();
+			mindReader.clearContext();
 			return;
 		}
 
@@ -291,25 +267,28 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 	@WorkerThread
 	private void handleGuessesAsync() {
-		getAsyncHandler().post(() -> handleGuesses(getCurrentGuesses()));
+		getAsyncHandler().post(this::handleGuesses);
 	}
 
 
 	@MainThread
-	private void handleGuesses(@NonNull ArrayList<String> guesses) {
-		if (!guesses.isEmpty()) {
-			suggestionOps.cancelDelayedAccept();
-			appHacks.setComposingText(guesses.get(0));
-			suggestionOps.addGuesses(guesses);
+	private boolean handleGuesses() {
+		final ArrayList<String> guesses = mindReader.getGuesses();
+		if (guesses.isEmpty()) {
+			return false;
 		}
+
+		suggestionOps.cancelDelayedAccept();
+		appHacks.setComposingText(guesses.get(0));
+		suggestionOps.addGuesses(guesses);
+
+		return true;
 	}
 
 
 	@MainThread
-	private void handleOrWaitForGuesses(@Nullable ArrayList<String> guesses) {
-		if (guesses != null && !guesses.isEmpty()) {
-			handleGuesses(guesses);
-		} else {
+	private void handleOrWaitForGuesses() {
+		if (!handleGuesses()) {
 			mindReader.setCurrentGuessHandler(this::handleGuessesAsync);
 		}
 	}

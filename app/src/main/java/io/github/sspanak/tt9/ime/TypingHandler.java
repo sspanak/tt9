@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.db.mindReading.MindReader;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
@@ -44,14 +45,14 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected ArrayList<Integer> mEnabledLanguages;
 	protected Language mLanguage;
 
-
+	// output: suggestions
 	abstract protected void onAcceptSuggestionsDelayed(String s);
 	abstract protected void getSuggestions(double loadingId, @Nullable String currentWord, @Nullable Runnable onComplete);
 
+	// output: mind-reading
+	@NonNull protected MindReader mindReader = new MindReader();
 	abstract protected void guessOnNumber(double loadingId, @NonNull String[] surroundingChars, @Nullable String lastWord, int number);
 	abstract protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord);
-	abstract protected void clearGuessingContext();
-	abstract protected void setGuessingContext(@NonNull String[] surroundingText);
 	abstract protected boolean shouldAcceptGuessesOnNumber(int key);
 
 
@@ -90,7 +91,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// don't use surroundingText cache on start up
 		final String[] surroundingText = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
 		updateShiftState(surroundingText[0], false, false);
-		setGuessingContext(surroundingText);
+		mindReader.setContext(mInputMode, mLanguage, surroundingText, null);
 
 		return true;
 	}
@@ -146,7 +147,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return false;
 		}
 
-		clearGuessingContext();
+		mindReader.clearContext();
 
 		if (appHacks.onBackspace(settings, mInputMode)) {
 			mInputMode.reset();
@@ -442,7 +443,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (CursorOps.isMovedWhileTyping(newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
 			stopWaitingForSpaceTrimKey();
 			mInputMode.onCursorMove(suggestionOps.acceptIncomplete());
-			clearGuessingContext();
+			mindReader.clearContext();
 			return;
 		}
 
