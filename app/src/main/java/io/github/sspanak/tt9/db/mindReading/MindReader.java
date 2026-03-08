@@ -99,7 +99,6 @@ public class MindReader {
 	 */
 	@NonNull
 	public ArrayList<String> getGuesses() {
-		// @todo: When only guesses are displayed, selecting one also prints a new line. This includes selecting with a tap from the list.
 		final ArrayList<String> copy = new ArrayList<>(words);
 		copy.replaceAll(this::adjustWordTextCase);
 		return copy;
