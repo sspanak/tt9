@@ -155,6 +155,7 @@ public class MindReader {
 		// @todo: these don't work
 		//  - времето в пловдив
 		//  - започва без предложения и се учи, докато пишете
+		// @todo: provide suggestions only in multiline fields, when not TYPE_TEXT_FLAG_NO_SUGGESTIONS, not URL, not password, not numeric, not email
 
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
