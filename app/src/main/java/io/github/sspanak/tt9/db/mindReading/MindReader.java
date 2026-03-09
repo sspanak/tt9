@@ -157,7 +157,6 @@ public class MindReader {
 	 * a word.
 	 */
 	public boolean guessNext(@NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
-		// @todo: do not suggest automatically after auto space
 		// @todo: do not suggest shorter contexts when the context is long
 		// @todo: when a word is saved as uppercase, but is guessed in the middle of a sentence, the text case is not adjuster properly.
 
@@ -176,7 +175,13 @@ public class MindReader {
 		if (setContextSync(inputMode, language, surroundingText, lastWord) && (!language.hasSpaceBetweenWords() || TextTools.endsWithSpace(surroundingText[0]))) {
 			runInThread(() -> {
 				processContext(inputMode, saveContext);
-				words = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext), null);
+
+				// don't be too eager to guess what comes after punctuation, emoji etc...
+				if (wordContext.endsWithPunctuation()) {
+					words = new ArrayList<>();
+				} else {
+					words = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext), null);
+				}
 
 				final long time = Timer.stop(TIMER_TAG);
 				slowestGuessNextTime = Math.max(slowestGuessNextTime, time);
