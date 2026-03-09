@@ -223,9 +223,9 @@ public class MindReader {
 	/**
 	 * Clear the current context and cache, and load the dictionary and N-grams for the given language.
 	 */
-	public void setLanguage(@NonNull Language language) {
+	public MindReader setLanguage(@NonNull Language language) {
 		if (isOff()) {
-			return;
+			return this;
 		}
 
 
