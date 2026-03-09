@@ -124,6 +124,7 @@
 	<string name="dictionary_import_error_malformed_line">Несподіваний формат слова: \"%1$s\" у рядку %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Сховище доданих слів заповнено. Ви не можете імпортувати більше слів.</string>
 	<string name="delete">Видалити</string>
+	<string name="dictionary_import_raise_import_limits_summary">Збільшити максимальну кількість слів у файлі з %1$d до %2$d і загальну кількість слів з %3$d до %4$d.\nУвага! Імпорт занадто великої кількості слів може уповільнити введення тексту.</string>
 	<string name="delete_words_link_summary">Знайти та видалити неправильно написані або зайві слова.</string>
 	<string name="search_results">Знайдені слова</string>
 	<string name="search_results_void">Немає результатів.</string>
@@ -213,6 +214,7 @@
 	<string name="virtual_numpad_alignment_right">Праворуч</string>
 	<string name="function_select_keyboard">Змінити клавіатуру</string>
 	<string name="add_word_no_confirmation">Додати без підтвердження</string>
+	<string name="dictionary_import_canceled">Імпорт скасовано.</string>
 	<string name="dictionary_import_custom_words">Імпортувати</string>
 	<string name="dictionary_import_custom_words_summary">Імпортувати слова з раніше експортованого CSV.</string>
 	<string name="dictionary_import_progress">Імпорт CSV (%1$s)…</string>
@@ -280,4 +282,6 @@
 	<string name="pref_auto_trim_trailing_space">Автоматично видаляти кінцеві пробіли</string>
 	<string name="edit_word_invalid_characters">Неможливо редагувати «%1$s», коли мова — «%2$s».</string>
 	<string name="edit_word_not_available_in_language">Редагування слів цією мовою неможливе.</string>
+	<string name="dictionary_import_raise_import_limits">Збільшити обмеження імпорту</string>
+	<string name="dictionary_import_cancel">Скасувати імпорт</string>
 </resources>

@@ -7,6 +7,8 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.preference.Preference;
 
+import java.util.Locale;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.customWords.CustomWordsImporter;
 import io.github.sspanak.tt9.db.entities.CustomWordFile;
@@ -20,6 +22,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 	private ActivityResultLauncher<Intent> importCustomWordsLauncher;
 	private String lastError;
+	private float lastProgress;
 
 	public ItemImportCustomWords(Preference item, PreferencesActivity activity, Runnable onStart, Runnable onFinish) {
 		super(item, activity, onStart, onFinish);
@@ -34,22 +37,43 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 	@Override
 	protected boolean onClick(Preference p) {
 		setDefaultHandlers();
+		getProcessor().setCancelHandler(this::onCancel);
 		getProcessor().setFailureHandler(this::onFailure);
 		getProcessor().setProgressHandler(this::onProgress);
-		browseFiles();
+
+		if (getProcessor().isRunning()) {
+			getProcessor().cancel();
+		} else {
+			browseFiles();
+		}
 		return true;
 	}
 
 	@Override
 	protected boolean onStartProcessing() {
 		lastError = "";
+		lastProgress = 0;
 		return false;
 	}
 
-	private void onProgress(int progress) {
-		String loadingMsg = activity.getString(R.string.dictionary_import_progress, progress + "%");
+	private void onCancel() {
+		activity.runOnUiThread(() -> {
+			final String statusMsg = activity.getString(R.string.dictionary_import_canceled);
 
-		DictionaryProgressNotification.getInstance(activity).showLoadingMessage(loadingMsg, "", progress, 100);
+			setAndNotifyReady();
+			DictionaryProgressNotification.getInstance(activity).showMessage("", statusMsg, statusMsg);
+
+			item.setTitle(R.string.dictionary_import_custom_words);
+			item.setSummary(statusMsg);
+		});
+	}
+
+	private void onProgress(float progress) {
+		final String numberFormat = (progress - lastProgress) < 2 ? "%1.3f%%" : "%1.0f%%";
+		final String loadingMsg = activity.getString(R.string.dictionary_import_progress, String.format(Locale.getDefault(), numberFormat, progress));
+		lastProgress = progress;
+
+		DictionaryProgressNotification.getInstance(activity).showLoadingMessage(loadingMsg, "", Math.round(progress), 100);
 		activity.runOnUiThread(() -> item.setSummary(loadingMsg));
 	}
 
@@ -82,6 +106,15 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 	public void enable() {
 		item.setSummary(R.string.dictionary_import_custom_words_summary);
 		super.enable();
+	}
+
+	@Override
+	public void disable() {
+		if (getProcessor().isRunning()) {
+			item.setTitle(R.string.dictionary_import_cancel);
+		} else {
+			super.disable();
+		}
 	}
 
 	void setBrowseFilesLauncher(ActivityResultLauncher<Intent> launcher) {
@@ -122,6 +155,6 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 			return;
 		}
 
-		getProcessor().run(activity, file);
+		getProcessor().run(activity, activity.getSettings(), file);
 	}
 }

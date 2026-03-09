@@ -129,6 +129,7 @@
 	<string name="dictionary_import_error_malformed_line">Beklenmeyen kelime formatı: \"%1$s\" satır %2$d\'de.</string>
 	<string name="dictionary_import_error_too_many_words">Eklenen kelime depolama alanı dolu. Daha fazla kelime içe aktaramazsınız.</string>
 	<string name="delete">Sil</string>
+	<string name="dictionary_import_raise_import_limits_summary">Dosya başına en fazla kelime sayısını %1$d’den %2$d’ye ve toplam kelime sayısını %3$d’den %4$d’ye çıkar.\nUyarı! Çok fazla kelime içe aktarmak yazma hızını düşürebilir.</string>
 	<string name="delete_words_link_summary">Yanlış yazılan ya da gereksiz kelimeleri bulun ve silin.</string>
 	<string name="search_results">Ara</string>
 	<string name="search_results_void">Eşleşme bulunamadı.</string>
@@ -204,6 +205,7 @@
 	<string name="virtual_numpad_alignment_right">Sağa</string>
 	<string name="function_select_keyboard">Klavye seçimi</string>
 	<string name="add_word_no_confirmation">Onay olmadan ekle</string>
+	<string name="dictionary_import_canceled">İçe aktarma iptal edildi.</string>
 	<string name="dictionary_import_custom_words">İçe Aktar</string>
 	<string name="dictionary_import_custom_words_summary">Daha önce dışa aktarılan bir CSV\'den kelimeleri içe aktar.</string>
 	<string name="dictionary_import_progress">CSV İçe aktarılıyor (%1$s)…</string>
@@ -274,4 +276,6 @@
 	<string name="pref_auto_trim_trailing_space">Sondaki boşlukları otomatik olarak kaldır</string>
 	<string name="edit_word_invalid_characters">Dil \"%2$s\" iken \"%1$s\" düzenlenemez.</string>
 	<string name="edit_word_not_available_in_language">Bu dilde kelime düzenleme mümkün değildir.</string>
+	<string name="dictionary_import_raise_import_limits">İçe aktarma kısıtlamalarını artır</string>
+	<string name="dictionary_import_cancel">İçe aktarmayı iptal et</string>
 </resources>

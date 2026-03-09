@@ -152,6 +152,7 @@
 	<string name="dictionary_import_error_malformed_line">Неожиданный формат слова: «%1$s» на строке %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Хранилище добавленных слов заполнено. Вы не можете импортировать больше слов.</string>
 	<string name="delete">Удалить</string>
+	<string name="dictionary_import_raise_import_limits_summary">Увеличить максимальное количество слов в файле с %1$d до %2$d и общее количество слов с %3$d до %4$d.\nВнимание! Импорт слишком большого количества слов может замедлить ввод текста.</string>
 	<string name="delete_words_link_summary">Найти и удалить ошибочно написанные или ненужные слова.</string>
 	<string name="search_results">Найденные слова</string>
 	<string name="search_results_void">Нет результатов.</string>
@@ -202,6 +203,7 @@
 	<string name="virtual_numpad_alignment_right">Направо</string>
 	<string name="function_select_keyboard">Выбор клавиатуры</string>
 	<string name="add_word_no_confirmation">Добавить без подтверждения</string>
+	<string name="dictionary_import_canceled">Импорт отменён.</string>
 	<string name="dictionary_import_custom_words">Импортировать</string>
 	<string name="dictionary_import_custom_words_summary">Импортировать слова из ранее экспортированного CSV.</string>
 	<string name="dictionary_import_progress">Импортирование CSV (%1$s)…</string>
@@ -269,4 +271,6 @@
 	<string name="pref_auto_trim_trailing_space">Автоматически удалять конечные пробелы</string>
 	<string name="edit_word_invalid_characters">Невозможно редактировать «%1$s», когда язык — «%2$s».</string>
 	<string name="edit_word_not_available_in_language">Редактирование слов в этом языке невозможно.</string>
+	<string name="dictionary_import_raise_import_limits">Увеличить ограничения импорта</string>
+	<string name="dictionary_import_cancel">Отменить импорт</string>
 </resources>

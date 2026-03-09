@@ -151,6 +151,7 @@
 	<string name="dictionary_import_error_malformed_line">תבנית מילה בלתי צפויה: \"%1$s\" בשורה %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">אחסון המילים שהתווספו מלא. אינך יכול לייבא עוד מילים.</string>
 	<string name="delete">מחיקה</string>
+	<string name="dictionary_import_raise_import_limits_summary">הגדלת מספר המילים המרבי לכל קובץ מ־%1$d ל־%2$d ואת מספר המילים הכולל מ־%3$d ל־%4$d.\nאזהרה! ייבוא של יותר מדי מילים עלול לגרום להאטה בהקלדה.</string>
 	<string name="delete_words_link_summary">מצא ומחק מילים שכתובות בטעות או שאינן נדרשות.</string>
 	<string name="search_results">תוצאות חיפוש</string>
 	<string name="search_results_void">אין תוצאות.</string>
@@ -201,6 +202,7 @@
 	<string name="virtual_numpad_alignment_right">ימינה</string>
 	<string name="function_select_keyboard">בחירת מקלדת</string>
 	<string name="add_word_no_confirmation">להוסיף ללא אישור</string>
+	<string name="dictionary_import_canceled">הייבוא בוטל.</string>
 	<string name="dictionary_import_custom_words">לְיַבֵּא</string>
 	<string name="dictionary_import_custom_words_summary">ייבוא מילים מקובץ CSV שיוצא קודם לכן.</string>
 	<string name="dictionary_import_progress">מייבא CSV (%1$s)…</string>
@@ -276,4 +278,6 @@
 	<string name="pref_auto_trim_trailing_space">הסרה אוטומטית של רווחים בסוף</string>
 	<string name="edit_word_invalid_characters">לא ניתן לערוך \"%1$s\" כאשר השפה היא \"%2$s\".</string>
 	<string name="edit_word_not_available_in_language">עריכת מילים אינה אפשרית בשפה זו.</string>
+	<string name="dictionary_import_raise_import_limits">הגדלת מגבלות הייבוא</string>
+	<string name="dictionary_import_cancel">ביטול הייבוא</string>
 </resources>
