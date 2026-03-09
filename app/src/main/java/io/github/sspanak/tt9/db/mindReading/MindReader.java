@@ -157,8 +157,9 @@ public class MindReader {
 	 * a word.
 	 */
 	public boolean guessNext(@NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
-		// @todo: do not suggest shorter contexts when the context is long
+		// @todo: for more accurate predictions, in MindReaderContext,getEndingNgrams() return the last two n-grams, instead of all. For example, for context of 4, return 4 and 3, but not 2.
 		// @todo: when a word is saved as uppercase, but is guessed in the middle of a sentence, the text case is not adjuster properly.
+		// @todo: enable error logging from threads
 
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
