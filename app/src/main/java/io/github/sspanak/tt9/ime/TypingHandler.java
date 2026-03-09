@@ -25,6 +25,7 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.SupremeExecutor;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -69,7 +70,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@Override
 	protected void onInit() {
 		super.onInit();
-		mindReader = new MindReader(settings, getExecutor());
+		mindReader = new MindReader(settings, SupremeExecutor.get());
 	}
 
 	@Override

@@ -20,6 +20,7 @@ import io.github.sspanak.tt9.db.words.WordStore;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.SupremeExecutor;
 
 public class DataStore {
 	private final static String LOG_TAG = DataStore.class.getSimpleName();
@@ -33,8 +34,8 @@ public class DataStore {
 	private static WordStore words;
 
 
-	public static void init(@NonNull Context context, @NonNull ExecutorService executorService) {
-		executor = executor == null ? executorService : executor;
+	public static void init(@NonNull Context context) {
+		executor = executor == null ? SupremeExecutor.get() : executor;
 		pairs = pairs == null ? new WordPairStore(context.getApplicationContext()) : pairs;
 		words = words == null ? new WordStore(context.getApplicationContext()) : words;
 	}
