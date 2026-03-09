@@ -11,7 +11,7 @@ public class SupremeExecutor {
 	@Nullable private static ExecutorService executor;
 
 	@NonNull
-	public static ExecutorService get() {
+	synchronized public static ExecutorService get() {
 		if (executor == null) {
 			executor = Executors.newCachedThreadPool();
 		}
