@@ -94,24 +94,20 @@ class MindReaderDictionary {
 
 
 	private void add(@Nullable Language language, @Nullable String token) {
-		if (token == null || token.isEmpty() || GARBAGE.equals(token) || isSpecialChar(language, token)) {
+		if (token == null || token.isEmpty() || tokens.length >= capacity || GARBAGE.equals(token) || isSpecialChar(language, token)) {
 			return;
 		}
 
+		// if the token already exists, just correct its text case (e.g. "Hello" -> "hello")
 		final int tokenIndex = indexOf(token);
 		if (tokenIndex != -1) {
 			tokens[tokenIndex] = token;
 			return;
 		}
 
-		String[] newTokens;
-		if (tokens.length >= capacity) {
-			newTokens = new String[capacity];
-			System.arraycopy(tokens, 1, newTokens, 0, capacity - 1);
-		} else {
-			newTokens = new String[tokens.length + 1];
-			System.arraycopy(tokens, 0, newTokens, 0, tokens.length);
-		}
+		// if it is a new token, increase the array size by 1 and add the new token at the end
+		final String[] newTokens = new String[tokens.length + 1];
+		System.arraycopy(tokens, 0, newTokens, 0, tokens.length);
 		newTokens[tokens.length] = token;
 		tokens = newTokens;
 	}
