@@ -141,7 +141,7 @@ public class MindReader {
 
 				final long time = Timer.stop(TIMER_TAG);
 				slowestGuessCurrentTime = Math.max(slowestGuessCurrentTime, time);
-				logState(Timer.stop(TIMER_TAG), words);
+				logState(time, words);
 
 				currentGuessHandler.run();
 			});

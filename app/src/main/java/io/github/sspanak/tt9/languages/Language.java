@@ -137,6 +137,16 @@ abstract public class Language {
 
 
 	public boolean equals(@Nullable Object obj) {
-		return obj instanceof Language && ((Language) obj).getId() == getId();
+		return obj instanceof Language && obj.hashCode() == hashCode();
+	}
+
+
+	/**
+	 * For consistency with this.equals(), hash code must return the same value, not to break HashMap
+	 * and similar data structures
+	 */
+	@Override
+	public int hashCode() {
+		return id;
 	}
 }
