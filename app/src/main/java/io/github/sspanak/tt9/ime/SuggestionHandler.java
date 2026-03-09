@@ -35,8 +35,6 @@ abstract public class SuggestionHandler extends TypingHandler {
 	private Handler getAsyncHandler() {
 		if (suggestionHandler == null) {
 			suggestionHandler = new Handler(Looper.getMainLooper());
-		} else {
-			suggestionHandler.removeCallbacksAndMessages(null);
 		}
 
 		return suggestionHandler;
@@ -148,7 +146,9 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 	@WorkerThread
 	protected void handleSuggestionsAsync(double loadingId, @Nullable Runnable onComplete) {
-		getAsyncHandler().post(() -> handleSuggestions(loadingId, onComplete));
+		final Handler handler = getAsyncHandler();
+		handler.removeCallbacksAndMessages(null);
+		handler.post(() -> handleSuggestions(loadingId, onComplete));
 	}
 
 
@@ -269,7 +269,9 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 	@WorkerThread
 	private void handleGuessesAsync() {
-		getAsyncHandler().post(this::handleGuesses);
+		final Handler handler = getAsyncHandler();
+		handler.removeCallbacks(this::handleGuesses);
+		handler.post(this::handleGuesses);
 	}
 
 
