@@ -13,6 +13,10 @@ class ContextTokenizer {
 
 	@NonNull
 	static String[] tokenize(@Nullable Language language, @NonNull String text, int maxTokens) {
+		if (text.isEmpty()) {
+			return new String[0];
+		}
+
 		final StringBuilder current = new StringBuilder();
 		final boolean isLangWithSpacePunctuation = LanguageKind.usesSpaceAsPunctuation(language);
 
