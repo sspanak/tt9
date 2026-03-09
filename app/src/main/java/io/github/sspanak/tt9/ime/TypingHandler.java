@@ -97,7 +97,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// don't use surroundingText cache on start up
 		final String[] surroundingText = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
 		updateShiftState(surroundingText[0], false, false);
-		mindReader.setContext(mInputMode, mLanguage, surroundingText, null);
+		mindReader
+			.setLanguage(mLanguage)
+			.setContext(mInputMode, mLanguage, surroundingText, null);
 
 		return true;
 	}
