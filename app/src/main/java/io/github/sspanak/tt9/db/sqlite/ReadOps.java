@@ -11,9 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import io.github.sspanak.tt9.db.entities.CustomWord;
 import io.github.sspanak.tt9.db.entities.NormalizationList;
@@ -27,7 +27,7 @@ import io.github.sspanak.tt9.util.Logger;
 
 public class ReadOps {
 	private final String LOG_TAG = "ReadOperations";
-	private final HashMap<String, String> sqlCache = new HashMap<>();
+	private final ConcurrentHashMap<String, String> sqlCache = new ConcurrentHashMap<>();
 
 
 	/**
