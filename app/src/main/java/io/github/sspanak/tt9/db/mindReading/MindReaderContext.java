@@ -137,10 +137,19 @@ class MindReaderContext {
 	}
 
 
+	boolean isEmpty() {
+		return raw.length() == 0;
+	}
+
+
 	/**
 	 * Determines whether the current context should be saved to the database.
 	 */
 	boolean shouldAutoSave(@Nullable InputMode inputMode) {
+		if (isEmpty()) {
+			return false;
+		}
+
 		if (!InputModeKind.isABC(inputMode)) {
 			return true;
 		}
