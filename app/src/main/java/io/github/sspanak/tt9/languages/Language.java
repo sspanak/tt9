@@ -125,7 +125,7 @@ abstract public class Language {
 
 
 	/**
-	 * Checks whether the given word contains characters outside of the language alphabet.
+	 * Checks whether the given word contains characters outside the language alphabet.
 	 */
 	abstract public boolean isValidWord(String word);
 
@@ -137,7 +137,7 @@ abstract public class Language {
 
 
 	public boolean equals(@Nullable Object obj) {
-		return obj instanceof Language && obj.hashCode() == hashCode();
+		return obj instanceof Language && ((Language) obj).getId() == getId();
 	}
 
 
@@ -147,6 +147,6 @@ abstract public class Language {
 	 */
 	@Override
 	public int hashCode() {
-		return id;
+		return getId();
 	}
 }

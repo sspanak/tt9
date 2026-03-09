@@ -32,7 +32,7 @@ public class MindReader {
 	private static final int MAX_TRIGRAM_SUGGESTIONS = 4;
 	private static final int MAX_TETRAGRAM_SUGGESTIONS = 4;
 	private static final int NGRAMS_INITIAL_CAPACITY = 1000;
-	static final int DICTIONARY_WORD_SIZE = 16; // in bytes
+	static final int DICTIONARY_WORD_SIZE = 16; // bits
 	private static final int MAX_DICTIONARY_WORDS = (int) Math.pow(2, DICTIONARY_WORD_SIZE);
 
 	// dependencies
