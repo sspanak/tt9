@@ -24,7 +24,7 @@ abstract class UiHandler extends AbstractHandler {
 	private final static String LOG_TAG = "UiHandler";
 
 	@NonNull protected final AppHacks appHacks = new AppHacks();
-	public final ExecutorService executor = Executors.newCachedThreadPool();
+	@Nullable private static ExecutorService executor;
 	protected SettingsStore settings;
 
 	protected int displayTextCase = InputMode.CASE_UNDEFINED;
@@ -96,6 +96,15 @@ abstract class UiHandler extends AbstractHandler {
 
 	public void setCurrentView() {
 		setInputView(onCreateInputView());
+	}
+
+
+	@NonNull
+	protected ExecutorService getExecutor() {
+		if (executor == null) {
+			executor = Executors.newCachedThreadPool();
+		}
+		return executor;
 	}
 
 

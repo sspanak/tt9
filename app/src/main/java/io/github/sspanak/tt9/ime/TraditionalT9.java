@@ -121,7 +121,7 @@ public class TraditionalT9 extends PremiumHandler {
 		settings.setDemoMode(false);
 		Logger.setLevel(settings.getLogLevel());
 
-		asyncInitThread = asyncInitThread == null ? executor.submit(this::runHeavyInitTasks) : asyncInitThread;
+		asyncInitThread = asyncInitThread == null ? getExecutor().submit(this::runHeavyInitTasks) : asyncInitThread;
 
 		super.onInit();
 	}
@@ -346,13 +346,13 @@ public class TraditionalT9 extends PremiumHandler {
 
 	private void runHeavyInitTasks() {
 		LanguageCollection.init(getApplicationContext());
-		DataStore.init(getApplicationContext(), executor);
+		DataStore.init(getApplicationContext(), getExecutor());
 		Logger.d(LOG_TAG, "Heavy initialization tasks completed successfully");
 	}
 
 
 	private void runBackgroundTasks() {
-		executor.submit(() -> {
+		getExecutor().submit(() -> {
 			voiceInputOps.forceAlternativeInput(false).enableOfflineMode();
 			if (!DictionaryLoader.getInstance(this).isRunning()) {
 				DataStore.saveWordPairs();

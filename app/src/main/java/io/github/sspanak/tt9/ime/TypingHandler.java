@@ -69,7 +69,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@Override
 	protected void onInit() {
 		super.onInit();
-		mindReader = new MindReader(settings, executor);
+		mindReader = new MindReader(settings, getExecutor());
 	}
 
 	@Override
