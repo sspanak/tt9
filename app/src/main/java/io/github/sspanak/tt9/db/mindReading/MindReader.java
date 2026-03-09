@@ -117,11 +117,16 @@ public class MindReader {
 	 * Given the current context and the letters matching the pressed number, get all possible next
 	 * words from the dictionary.
 	 */
-	public void guessCurrent(double loadingId, @NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, int number) {
+	public void guessCurrent(double loadingId, @NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, int number) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
 		this.loadingId = loadingId;
+		if (inputType.notMindReadableText()) {
+			Timer.stop(TIMER_TAG);
+			return;
+		}
+
 		final ArrayList<String> alternativeLetters = language.getKeyCharacters(number);
 
 		if (!alternativeLetters.isEmpty() && setContextSync(inputMode, language, surroundingText, null)) {
@@ -151,16 +156,16 @@ public class MindReader {
 	 * the user has just typed a space, or in languages without spaces, when the user has just typed
 	 * a word.
 	 */
-	public boolean guessNext(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
-		// @todo: these don't work
-		//  - времето в пловдив
-		//  - започва без предложения и се учи, докато пишете
-		// @todo: provide suggestions only in multiline fields, when not TYPE_TEXT_FLAG_NO_SUGGESTIONS, not URL, not password, not numeric, not email
-
+	public boolean guessNext(@NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
 		loadingId = 0;
+
+		if (inputType.notMindReadableText()) {
+			Timer.stop(TIMER_TAG);
+			return false;
+		}
 
 		// Only attempt guessing if the context is valid and ends with a space. Otherwise, the guessed
 		// composing text will appear joined with the last word, instead of as a new word.
@@ -228,7 +233,6 @@ public class MindReader {
 			return this;
 		}
 
-
 		if (!language.equals(wordContext.language)) {
 			final String TIMER_TAG = LOG_TAG + Math.random();
 			Timer.start(TIMER_TAG);
@@ -249,6 +253,8 @@ public class MindReader {
 		} else {
 			Logger.d(LOG_TAG, "Keeping language: " + language);
 		}
+
+		return this;
 	}
 
 

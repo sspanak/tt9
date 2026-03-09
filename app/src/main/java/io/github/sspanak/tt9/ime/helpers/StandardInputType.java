@@ -116,7 +116,7 @@ abstract public class StandardInputType {
 	}
 
 
-	boolean isPersonName() {
+	protected boolean isPersonName() {
 		return isText() && (field.inputType & InputType.TYPE_MASK_VARIATION) == InputType.TYPE_TEXT_VARIATION_PERSON_NAME;
 	}
 
@@ -142,7 +142,7 @@ abstract public class StandardInputType {
 	}
 
 
-	private boolean isUri() {
+	protected boolean isUri() {
 		return field != null && (field.inputType & InputType.TYPE_MASK_VARIATION) == InputType.TYPE_TEXT_VARIATION_URI;
 	}
 
