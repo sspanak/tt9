@@ -93,7 +93,7 @@ class MindReaderNgramList {
 
 		for (MindReaderNgram currentNgram : currentNgrams) {
 			// We want to show more recent first, so we loop from the end to the beginning.
-			for (int i = size; i >= 0; i--) {
+			for (int i = size - 1; i >= 0; i--) {
 				if (currentNgram.complete == before[i]) {
 					results.add(next[i]);
 				}
