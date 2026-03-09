@@ -21,6 +21,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.SupremeExecutor;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
@@ -121,7 +122,7 @@ public class TraditionalT9 extends PremiumHandler {
 		settings.setDemoMode(false);
 		Logger.setLevel(settings.getLogLevel());
 
-		asyncInitThread = asyncInitThread == null ? getExecutor().submit(this::runHeavyInitTasks) : asyncInitThread;
+		asyncInitThread = asyncInitThread == null ? SupremeExecutor.submit(this::runHeavyInitTasks) : asyncInitThread;
 
 		super.onInit();
 	}
@@ -346,13 +347,13 @@ public class TraditionalT9 extends PremiumHandler {
 
 	private void runHeavyInitTasks() {
 		LanguageCollection.init(getApplicationContext());
-		DataStore.init(getApplicationContext(), getExecutor());
+		DataStore.init(getApplicationContext());
 		Logger.d(LOG_TAG, "Heavy initialization tasks completed successfully");
 	}
 
 
 	private void runBackgroundTasks() {
-		getExecutor().submit(() -> {
+		SupremeExecutor.submit(() -> {
 			voiceInputOps.forceAlternativeInput(false).enableOfflineMode();
 			if (!DictionaryLoader.getInstance(this).isRunning()) {
 				DataStore.saveWordPairs();
