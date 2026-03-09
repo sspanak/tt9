@@ -150,8 +150,9 @@ public class InputType extends StandardInputType {
 	 */
 	public boolean notMindReadableText() {
 		return
-			!isMultilineText()
+			field == null
 			|| (field.inputType & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+			|| !isMultilineText()
 			|| isEmail()
 			|| isNumeric()
 			|| isPassword()
