@@ -27,8 +27,67 @@ class MindReaderContext {
 	}
 
 
-	void setLanguage(@NonNull Language language) {
-		this.language = language;
+	/**
+	 * Appends the given word to the current context text, separating it with a space if needed.
+	 * The word is trimmed before appending.
+	 */
+	boolean appendText(@Nullable String lastWord, boolean addWordSeparator) {
+		if (lastWord == null || lastWord.isEmpty()) {
+			return false;
+		}
+
+		if (addWordSeparator && raw.length() > 0) {
+			raw.appendCodePoint(ContextTokenizer.WORD_SEPARATOR);
+		}
+		raw.append(language == null || language.hasSpaceBetweenWords() ? lastWord.trim() : lastWord);
+		lastAppendedWord = lastWord;
+		tokens = new String[0];
+
+		return true;
+	}
+
+
+
+	boolean endsWithPunctuation() {
+		return tokens.length > 0 && MindReaderDictionary.isSpecialChar(language, tokens[tokens.length - 1]);
+	}
+
+
+	/**
+	 * Checks which tokens are available as words in the database and returns an array of valid tokens
+	 * only. The invalid ones are replaced with MindReaderDictionary.GARBAGE.
+	 */
+	private void filterInvalidTokens(@NonNull MindReaderDictionary dictionary) {
+		if (language == null) {
+			return;
+		}
+
+		for (int i = 0; i < tokens.length; i++) {
+			try {
+				if (language.isTranscribed() || MindReaderDictionary.isSpecialChar(language, tokens[i]) || dictionary.contains(tokens[i])) {
+					continue;
+				}
+
+				final String digitSequence = language.getDigitSequenceForWord(tokens[i]);
+
+				if (tokens[i].contains("'") || tokens[i].contains("-")) {
+					// If a word has a valid digit sequence, then it belongs to the language. However, ones
+					// with apostrophes or hyphens, like "what's" or "mother-in-law",  are not in the
+					// database, so there is no point in running queries for them. We just let them pass,
+					// because they are usually useful. Some garbage will go in, but it is what it is.
+					continue;
+				}
+
+				if (!DataStore.exists(language, tokens[i], digitSequence)) {
+					tokens[i] = MindReaderDictionary.GARBAGE;
+				}
+			} catch (Exception e) {
+				if (!(e instanceof InvalidLanguageCharactersException)) {
+					Logger.w(getClass().getSimpleName(), "Failed to filter token \"" + tokens[i] + "\" for language " + language.getName() + ": " + e.getMessage());
+				}
+				tokens[i] = MindReaderDictionary.GARBAGE;
+			}
+		}
 	}
 
 
@@ -100,23 +159,13 @@ class MindReaderContext {
 	}
 
 
-	/**
-	 * Appends the given word to the current context text, separating it with a space if needed.
-	 * The word is trimmed before appending.
-	 */
-	boolean appendText(@Nullable String lastWord, boolean addWordSeparator) {
-		if (lastWord == null || lastWord.isEmpty()) {
-			return false;
-		}
+	boolean isEmpty() {
+		return raw.length() == 0;
+	}
 
-		if (addWordSeparator && raw.length() > 0) {
-			raw.appendCodePoint(ContextTokenizer.WORD_SEPARATOR);
-		}
-		raw.append(language == null || language.hasSpaceBetweenWords() ? lastWord.trim() : lastWord);
-		lastAppendedWord = lastWord;
-		tokens = new String[0];
 
-		return true;
+	void setLanguage(@NonNull Language language) {
+		this.language = language;
 	}
 
 
@@ -134,11 +183,6 @@ class MindReaderContext {
 		tokens = new String[0];
 
 		return true;
-	}
-
-
-	boolean isEmpty() {
-		return raw.length() == 0;
 	}
 
 
@@ -173,44 +217,6 @@ class MindReaderContext {
 		filterInvalidTokens(dictionary);
 
 		return tokens;
-	}
-
-
-	/**
-	 * Checks which tokens are available as words in the database and returns an array of valid tokens
-	 * only. The invalid ones are replaced with MindReaderDictionary.GARBAGE.
-	 */
-	private void filterInvalidTokens(@NonNull MindReaderDictionary dictionary) {
-		if (language == null) {
-			return;
-		}
-
-		for (int i = 0; i < tokens.length; i++) {
-			try {
-				if (language.isTranscribed() || MindReaderDictionary.isSpecialChar(language, tokens[i]) || dictionary.contains(tokens[i])) {
-					continue;
-				}
-
-				final String digitSequence = language.getDigitSequenceForWord(tokens[i]);
-
-				if (tokens[i].contains("'") || tokens[i].contains("-")) {
-					// If a word has a valid digit sequence, then it belongs to the language. However, ones
-					// with apostrophes or hyphens, like "what's" or "mother-in-law",  are not in the
-					// database, so there is no point in running queries for them. We just let them pass,
-					// because they are usually useful. Some garbage will go in, but it is what it is.
-					continue;
-				}
-
-				if (!DataStore.exists(language, tokens[i], digitSequence)) {
-					tokens[i] = MindReaderDictionary.GARBAGE;
-				}
-			} catch (Exception e) {
-				if (!(e instanceof InvalidLanguageCharactersException)) {
-					Logger.w(getClass().getSimpleName(), "Failed to filter token \"" + tokens[i] + "\" for language " + language.getName() + ": " + e.getMessage());
-				}
-				tokens[i] = MindReaderDictionary.GARBAGE;
-			}
-		}
 	}
 
 
