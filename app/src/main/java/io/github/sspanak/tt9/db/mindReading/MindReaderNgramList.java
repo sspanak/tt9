@@ -2,8 +2,6 @@ package io.github.sspanak.tt9.db.mindReading;
 
 import androidx.annotation.NonNull;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -52,13 +50,6 @@ class MindReaderNgramList {
 	}
 
 
-	void addMany(@NonNull MindReaderNgram[] ngrams) {
-		for (MindReaderNgram ngram : ngrams) {
-			add(ngram);
-		}
-	}
-
-
 	int indexOf(@NonNull MindReaderNgram ngram) {
 		for (int i = 0; i < size; i++) {
 			if (before[i] == ngram.before && next[i] == ngram.next) {
@@ -83,24 +74,19 @@ class MindReaderNgramList {
 
 
 	@NonNull
-	Set<Integer> getAllNextTokens(@NonNull MindReaderDictionary dictionary, @NonNull MindReaderContext current) {
-		final int maxResults = Math.max(Math.max(MAX_NGRAM_VARIATIONS[0], MAX_NGRAM_VARIATIONS[1]), MAX_NGRAM_VARIATIONS[2]);
-		final Set<Integer> results = new LinkedHashSet<>(maxResults);
+	Set<Integer> getNextTokens(@NonNull MindReaderDictionary dictionary, @NonNull MindReaderContext current) {
+		final MindReaderNgram currentNgram = current.toEndingNgram(dictionary);
+		final int maxIndex = Math.min(MAX_NGRAM_VARIATIONS.length - 1, Math.max(currentNgram.size - 2, 0));
+		final Set<Integer> results = new LinkedHashSet<>(MAX_NGRAM_VARIATIONS[maxIndex]);
 
-		// Longer N-gram means more specific context, so we want to show those predictions first.
-		final MindReaderNgram[] currentNgrams = current.getEndingNgrams(dictionary);
-		Arrays.sort(currentNgrams, Collections.reverseOrder());
+		// We want to show more recent first, so we loop from the end to the beginning.
+		for (int i = size - 1; i >= 0; i--) {
+			if (currentNgram.complete == before[i]) {
+				results.add(next[i]);
+			}
 
-		for (MindReaderNgram currentNgram : currentNgrams) {
-			// We want to show more recent first, so we loop from the end to the beginning.
-			for (int i = size - 1; i >= 0; i--) {
-				if (currentNgram.complete == before[i]) {
-					results.add(next[i]);
-				}
-
-				if (results.size() >= maxResults) {
-					break;
-				}
+			if (results.size() >= MAX_NGRAM_VARIATIONS[maxIndex]) {
+				break;
 			}
 		}
 
