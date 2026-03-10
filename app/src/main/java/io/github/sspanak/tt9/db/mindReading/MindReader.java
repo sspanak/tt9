@@ -157,8 +157,7 @@ public class MindReader {
 	 * a word.
 	 */
 	public boolean guessNext(@NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
-		// @todo: pressing the input field "clear" button does not clear the suggestion bar when it contains only guesses
-		// @todo: when a word is saved as uppercase, but is guessed in the middle of a sentence, the text case is not adjuster properly.
+		// @todo: In MindReaderContext.filterInvalidTokens(), use DataStore.get() to adjust the text case of the word. Keep only that text case, do not overwrite it later.
 		// @todo: enable error logging from threads
 
 		final String TIMER_TAG = LOG_TAG + Math.random();

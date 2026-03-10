@@ -445,9 +445,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
 			stopWaitingForSpaceTrimKey();
 			mindReader.clearContext();
-			if (appHacks.acceptComposingTextOnCursorReset(mInputMode, suggestionOps, textField)) {
-				return;
+			if (!appHacks.acceptComposingTextOnCursorReset(mInputMode, suggestionOps, textField)) {
+				suggestionOps.clear();
 			}
+			return;
 		}
 
 		// If the cursor moves while composing a word (usually, because the user has touched the screen outside the word), we must
