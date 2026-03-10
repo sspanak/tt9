@@ -1,7 +1,7 @@
 locale: la-VA
 dictionaryFile: la-utf8.txt
-name: Lingua Latina
 iconABC: ic_lang_latin
+iconT9: ic_lang_la
 layout:
   - [SPECIAL] # 0
   - [PUNCTUATION] # 1
