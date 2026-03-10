@@ -92,70 +92,31 @@ class MindReaderContext {
 
 
 	/**
-	 * Get all possible 2-, 3- and 4-grams for the current context text.
-	 * The n-grams are generated from the tokens produced by the tokenize() method.
+	 * Convert the current tokens (produced by tokenize()) into an N-gram.
 	 */
 	@NonNull
-	MindReaderNgram[] getAllNgrams(@NonNull MindReaderDictionary dictionary) {
-		if (tokens.length == 0) {
-			return new MindReaderNgram[0];
-		}
-
-		final int[] dictionaryIds =  dictionary.indexOf(tokens);
-
-		if (tokens.length == 1) {
-			return new MindReaderNgram[] {
-				new MindReaderNgram(language, new int[] { dictionaryIds[0] })
-			};
-		}
-
-		final int nGramsCount = switch (tokens.length) {
-			case 2 -> 1;
-			case 3 -> 3;
-			default -> 6;
-		};
-
-		final MindReaderNgram[] ngrams = new MindReaderNgram[nGramsCount];
-		int idx = 0;
-
-		if (tokens.length == 4) {
-			ngrams[idx++] = new MindReaderNgram(language, new int[] { dictionaryIds[0], dictionaryIds[1], dictionaryIds[2], dictionaryIds[3] });
-			ngrams[idx++] = new MindReaderNgram(language, new int[] { dictionaryIds[1], dictionaryIds[2], dictionaryIds[3] });
-			ngrams[idx++] = new MindReaderNgram(language, new int[] { dictionaryIds[2], dictionaryIds[3] });
-		}
-
-		if (tokens.length >= 3) {
-			ngrams[idx++] = new MindReaderNgram(language, new int[] { dictionaryIds[0], dictionaryIds[1], dictionaryIds[2] });
-			ngrams[idx++] = new MindReaderNgram(language, new int[] { dictionaryIds[1], dictionaryIds[2] });
-		}
-
-		if (tokens.length >= 2) {
-			ngrams[idx] = new MindReaderNgram(language, new int[] { dictionaryIds[0], dictionaryIds[1] });
-		}
-
-		return ngrams;
+	MindReaderNgram toNgram(@NonNull MindReaderDictionary dictionary) {
+		return new MindReaderNgram(language, dictionary.indexOf(tokens));
 	}
 
 
 	/**
-	 * Get all possible ending n-grams for the current context text, starting with the longest one.
-	 * The n-grams are generated from the tokens produced by the tokenize() method.
+	 * Similar to toNgram(), but the resulting N-gram will be truncated to maximum context length - 1.
+	 * This way, comparing "endingNgram.complete" to "before" of all other N-grams will give us the next
+	 * token candidates ("next" of the other N-grams).
 	 */
 	@NonNull
-	MindReaderNgram[] getEndingNgrams(@NonNull MindReaderDictionary dictionary) {
-		final int[] dictionaryIds =  dictionary.indexOf(tokens);
-		final int nGramsCount = Math.min(MAX_TOKENS, dictionaryIds.length);
-
-		final MindReaderNgram[] endingNgrams = new MindReaderNgram[nGramsCount];
-
-		for (int i = 0; i < nGramsCount; i++) {
-			final int ngramSize = i + 1;
-			final int[] ngramTokens = new int[ngramSize];
-			System.arraycopy(dictionaryIds, dictionaryIds.length - ngramSize, ngramTokens, 0, ngramSize);
-			endingNgrams[i] = new MindReaderNgram(language, ngramTokens);
+	MindReaderNgram toEndingNgram(@NonNull MindReaderDictionary dictionary) {
+		if (tokens.length == 0) {
+			return new MindReaderNgram(language, new int[0]);
 		}
 
-		return endingNgrams;
+		final int[] dictionaryIds =  dictionary.indexOf(tokens);
+		final int nGramSize = Math.max(1, Math.min(tokens.length, MAX_TOKENS - 1));
+		final int[] ngramTokens = new int[nGramSize];
+
+		System.arraycopy(dictionaryIds, dictionaryIds.length - nGramSize, ngramTokens, 0, nGramSize);
+		return new MindReaderNgram(language, ngramTokens);
 	}
 
 

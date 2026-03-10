@@ -133,7 +133,7 @@ public class MindReader {
 			runInThread(() -> {
 				processContext(inputMode, false);
 
-				final Set<Integer> nextTokens = ngrams.getAllNextTokens(dictionary, wordContext);
+				final Set<Integer> nextTokens = ngrams.getNextTokens(dictionary, wordContext);
 				words = new ArrayList<>();
 				for (String letter : alternativeLetters) {
 					words.addAll(dictionary.getAll(nextTokens, letter));
@@ -157,7 +157,7 @@ public class MindReader {
 	 * a word.
 	 */
 	public boolean guessNext(@NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
-		// @todo: for more accurate predictions, in MindReaderContext,getEndingNgrams() return the last two n-grams, instead of all. For example, for context of 4, return 4 and 3, but not 2.
+		// @todo: pressing the input field "clear" button does not clear the suggestion bar when it contains only guesses
 		// @todo: when a word is saved as uppercase, but is guessed in the middle of a sentence, the text case is not adjuster properly.
 		// @todo: enable error logging from threads
 
@@ -181,7 +181,7 @@ public class MindReader {
 				if (wordContext.endsWithPunctuation()) {
 					words = new ArrayList<>();
 				} else {
-					words = dictionary.getAll(ngrams.getAllNextTokens(dictionary, wordContext), null);
+					words = dictionary.getAll(ngrams.getNextTokens(dictionary, wordContext), null);
 				}
 
 				final long time = Timer.stop(TIMER_TAG);
@@ -317,7 +317,7 @@ public class MindReader {
 
 		dictionary.addAll(wordContext.language, wordContext.tokenize(dictionary));
 		if (saveContext && wordContext.shouldAutoSave(inputMode)) {
-			ngrams.addMany(wordContext.getAllNgrams(dictionary));
+			ngrams.add(wordContext.toNgram(dictionary));
 		}
 	}
 
