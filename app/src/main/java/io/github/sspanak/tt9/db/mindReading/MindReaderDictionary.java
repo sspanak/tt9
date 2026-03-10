@@ -98,10 +98,9 @@ class MindReaderDictionary {
 			return;
 		}
 
-		// if the token already exists, just correct its text case (e.g. "Hello" -> "hello")
+		// ignore duplicates
 		final int tokenIndex = indexOf(token);
 		if (tokenIndex != -1) {
-			tokens[tokenIndex] = token;
 			return;
 		}
 

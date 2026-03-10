@@ -144,8 +144,10 @@ public class DataStore {
 		runInThread(() -> dataHandler.accept(words.exists(languages)));
 	}
 
-	public static boolean exists(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
-		return words.exists(language, word, sequence);
+
+	@Nullable
+	public static String getWord(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
+		return words.getWord(language, word, sequence);
 	}
 
 

@@ -35,30 +35,7 @@ public class ReadOps {
 	 * Sequence is used for faster lookup.
 	 */
 	public boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word, @NonNull String sequence) {
-		if (sequence.isEmpty() || word.isEmpty()) {
-			return false;
-		}
-
-		final String sql = sqlCache.computeIfAbsent(
-			"exists_fast_" + language.getId(),
-			k ->
-				"SELECT COUNT(*)" +
-				" FROM " + Tables.getWordPositions(language.getId()) + " AS wp" +
-				" JOIN " + Tables.getWords(language.getId()) + " AS w ON w.position >= wp.start AND w.position <= wp.`end`" +
-				" WHERE sequence = ? AND w.word IN(?,?,?)"
-		);
-
-		final SQLiteStatement query = CompiledQueryCache.get(db, sql);
-		query.bindString(1, sequence);
-		query.bindString(2, word);
-		query.bindString(3, word.toLowerCase(language.getLocale()));
-		query.bindString(4, word.toUpperCase(language.getLocale()));
-
-		try {
-			return query.simpleQueryForLong() > 0;
-		} catch (SQLiteDoneException e) {
-			return false;
-		}
+		return getWord(db, language, word, sequence) != null;
 	}
 
 
@@ -155,6 +132,39 @@ public class ReadOps {
 		}
 
 		return words;
+	}
+
+
+	/**
+	 * Searches case-insensitively for the given factory word in the database. If the word exists,
+	 * it is returned in the correct case. If not, null is returned. Sequence is used for faster lookup.
+	 */
+	@Nullable
+	public String getWord(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word, @NonNull String sequence) {
+		if (sequence.isEmpty() || word.isEmpty()) {
+			return null;
+		}
+
+		final String sql = sqlCache.computeIfAbsent(
+			"exists_fast_" + language.getId(),
+			k ->
+				"SELECT w.word" +
+				" FROM " + Tables.getWordPositions(language.getId()) + " AS wp" +
+				" JOIN " + Tables.getWords(language.getId()) + " AS w ON w.position >= wp.start AND w.position <= wp.`end`" +
+				" WHERE sequence = ? AND w.word IN(?,?,?)"
+		);
+
+		final SQLiteStatement query = CompiledQueryCache.get(db, sql);
+		query.bindString(1, sequence);
+		query.bindString(2, word);
+		query.bindString(3, word.toLowerCase(language.getLocale()));
+		query.bindString(4, word.toUpperCase(language.getLocale()));
+
+		try {
+			return query.simpleQueryForString();
+		} catch (SQLiteDoneException e) {
+			return null;
+		}
 	}
 
 

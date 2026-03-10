@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.CancellationSignal;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -60,8 +61,13 @@ public class WordStore extends BaseSyncStore {
 	 * Checks if the given word exists in the factory dictionary for the specified language
 	 * (case-insensitive).
 	 */
-	public boolean exists(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
-		return checkOrNotify() && readOps.exists(sqlite.getDb(), language, word, sequence);
+	@Nullable
+	public String getWord(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
+		if (checkOrNotify()) {
+			return readOps.getWord(sqlite.getDb(), language, word, sequence);
+		} else {
+			return null;
+		}
 	}
 
 
