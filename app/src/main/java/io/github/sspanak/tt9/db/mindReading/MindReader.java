@@ -157,7 +157,7 @@ public class MindReader {
 	 * a word.
 	 */
 	public boolean guessNext(@NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
-		// @todo: In MindReaderContext.filterInvalidTokens(), use DataStore.get() to adjust the text case of the word. Keep only that text case, do not overwrite it later.
+		// @todo: support first-word guess. Make sure to add surroundingText[0] check in SuggestionHandler.guessOnNumberRegularLanguage()
 		// @todo: enable error logging from threads
 
 		final String TIMER_TAG = LOG_TAG + Math.random();

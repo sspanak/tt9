@@ -54,10 +54,11 @@ class MindReaderContext {
 
 
 	/**
-	 * Checks which tokens are available as words in the database and returns an array of valid tokens
-	 * only. The invalid ones are replaced with MindReaderDictionary.GARBAGE.
+	 * Check which tokens exists as factory words in the database. Non-existing ones are
+	 * replaced with MindReaderDictionary.GARBAGE. Existing ones are corrected to the text case in
+	 * the database.
 	 */
-	private void filterInvalidTokens(@NonNull MindReaderDictionary dictionary) {
+	private void rectifyTokens(@NonNull MindReaderDictionary dictionary) {
 		if (language == null) {
 			return;
 		}
@@ -78,8 +79,11 @@ class MindReaderContext {
 					continue;
 				}
 
-				if (!DataStore.exists(language, tokens[i], digitSequence)) {
+				final String word = DataStore.getWord(language, tokens[i], digitSequence);
+				if (word == null || word.isEmpty()) {
 					tokens[i] = MindReaderDictionary.GARBAGE;
+				} else {
+					tokens[i] = word; // correct the text case
 				}
 			} catch (Exception e) {
 				if (!(e instanceof InvalidLanguageCharactersException)) {
@@ -175,7 +179,7 @@ class MindReaderContext {
 	@NonNull
 	String[] tokenize(@NonNull MindReaderDictionary dictionary) {
 		tokens = ContextTokenizer.tokenize(language, raw.toString(), MAX_TOKENS);
-		filterInvalidTokens(dictionary);
+		rectifyTokens(dictionary);
 
 		return tokens;
 	}
