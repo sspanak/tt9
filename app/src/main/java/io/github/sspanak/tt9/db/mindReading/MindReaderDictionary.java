@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Set;
 
@@ -32,8 +33,10 @@ class MindReaderDictionary {
 	};
 
 	@NonNull private final Locale locale;
-	@NonNull private String[] tokens = new String[0];
 	private final int capacity;
+	private final HashMap<String, Integer> index;
+	private int size = 0;
+	private final String[] tokens;
 
 
 	MindReaderDictionary() {
@@ -42,20 +45,17 @@ class MindReaderDictionary {
 
 
 	MindReaderDictionary(@Nullable Language language) {
-		init();
-		this.capacity = SettingsStatic.MIND_READER_MAX_DICTIONARY_WORDS;
 		this.locale = language == null ? Locale.getDefault() : language.getLocale();
-	}
+		this.capacity = SettingsStatic.MIND_READER_MAX_DICTIONARY_WORDS;
+		this.index = new HashMap<>(capacity);
+		this.tokens = new String[capacity];
 
-
-	private void init() {
-		tokens = new String[4 + PUNCTUATION.length + tokens.length];
-		tokens[0] = GARBAGE;
-		tokens[1] = EMOJI;
-		tokens[2] = NUMBER;
-		tokens[3] = SPACE;
-		for (int i = 0; i < PUNCTUATION.length; i++) {
-			tokens[4 + i] = new String(Character.toChars(PUNCTUATION[i]));
+		addInternal(GARBAGE);
+		addInternal(EMOJI);
+		addInternal(NUMBER);
+		addInternal(SPACE);
+		for (int p : PUNCTUATION) {
+			addInternal(new String(Character.toChars(p)));
 		}
 	}
 
@@ -94,22 +94,29 @@ class MindReaderDictionary {
 	}
 
 
+	private void addInternal(@NonNull String token) {
+		tokens[size] = token;
+		index.put(token.toLowerCase(locale), size);
+		size++;
+	}
+
+
 	private void add(@Nullable Language language, @Nullable String token) {
-		if (token == null || token.isEmpty() || tokens.length >= capacity || GARBAGE.equals(token) || isSpecialChar(language, token)) {
+		if (token == null || token.isEmpty() || size >= capacity || GARBAGE.equals(token) || isSpecialChar(language, token)) {
 			return;
 		}
 
 		// ignore duplicates
-		final int tokenIndex = indexOf(token);
-		if (tokenIndex != -1) {
+		String tokenIndex = token.toLowerCase(locale);
+		if (index.containsKey(tokenIndex)) {
 			return;
 		}
 
-		// if it is a new token, increase the array size by 1 and add the new token at the end
-		final String[] newTokens = new String[tokens.length + 1];
-		System.arraycopy(tokens, 0, newTokens, 0, tokens.length);
-		newTokens[tokens.length] = token;
-		tokens = newTokens;
+		// If it is a new token, add it to the end. Larger index means more recently used, hence
+		// displayed higher in the suggestions list.
+		tokens[size] = token;
+		index.put(tokenIndex, size);
+		size++;
 	}
 
 
@@ -120,22 +127,8 @@ class MindReaderDictionary {
 	}
 
 
-	@NonNull
-	public ArrayList<String> getAll(@NonNull Set<Integer> tokenIds, @Nullable String startsWith) {
-		final ArrayList<String> results = new ArrayList<>(tokenIds.size());
-
-		for (final int tokenId : tokenIds) {
-			if (isWord(tokenId) && tokenId < tokens.length && (startsWith == null || tokens[tokenId].toLowerCase(locale).startsWith(startsWith.toLowerCase(locale)))) {
-				results.add(tokens[tokenId]);
-			}
-		}
-
-		return results;
-	}
-
-
 	boolean contains(@Nullable String token) {
-		return indexOf(token) != -1;
+		return token != null && !token.isEmpty() && index.containsKey(token.toLowerCase(locale));
 	}
 
 
@@ -144,13 +137,8 @@ class MindReaderDictionary {
 			return -1;
 		}
 
-		for (int i = 0; i < tokens.length; i++) {
-			if (token.toLowerCase(locale).equals(tokens[i].toLowerCase(locale))) {
-				return i;
-			}
-		}
-
-		return -1;
+		Integer idx = index.get(token.toLowerCase(locale));
+		return idx == null ? -1 : idx;
 	}
 
 
@@ -163,8 +151,28 @@ class MindReaderDictionary {
 	}
 
 
+	@NonNull
+	public ArrayList<String> getAll(@NonNull Set<Integer> tokenIds, @Nullable String startsWith) {
+		final ArrayList<String> results = new ArrayList<>(tokenIds.size());
+
+		final String prefix = startsWith == null ? null : startsWith.toLowerCase(locale);
+
+		for (int tokenId : tokenIds) {
+			if (!isWord(tokenId) || tokenId >= size) {
+				continue;
+			}
+
+			if (prefix == null || tokens[tokenId].toLowerCase(locale).startsWith(prefix)) {
+				results.add(tokens[tokenId]);
+			}
+		}
+
+		return results;
+	}
+
+
 	int size() {
-		return tokens.length;
+		return size;
 	}
 
 
