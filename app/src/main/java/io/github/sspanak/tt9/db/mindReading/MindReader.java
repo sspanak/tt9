@@ -393,6 +393,6 @@ public class MindReader {
 
 	@NonNull
 	public static String getStats() {
-		return statsSnapshot;
+		return statsSnapshot.isEmpty() ? "No mind read." : statsSnapshot;
 	}
 }
