@@ -55,6 +55,11 @@ generate_async NotoSans-Bold.ttf αβ alfabeta_lo
 generate_async NotoSans-Bold.ttf Αβ alfabeta_cp
 generate_async NotoSans-Bold.ttf ΑΒ -0.15 alfabeta_up
 
+# Latin
+generate_async NotoSans-Bold.ttf la classicallatin_lo
+generate_async NotoSans-Bold.ttf La classicallatin_cp
+generate_async NotoSans-Bold.ttf LA classicallatin_up
+
 # Hebrew / Yiddish
 generate_async NotoSansHebrew-Bold יי -0.2 ji
 generate_async NotoSansHebrew-Bold אב -0.2 he
