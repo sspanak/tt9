@@ -197,7 +197,9 @@ public class MindReader {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
-		if (setContextSync(inputMode, language, surroundingText, lastWord)) {
+		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
+
+		if (setContextSync(inputMode, language, adjustedSurroundingText, lastWord)) {
 			runInThread(() -> {
 				processContext(inputMode, true);
 
