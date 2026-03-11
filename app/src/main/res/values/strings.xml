@@ -71,12 +71,14 @@
 	<string name="pref_arrows_left_right_summary">Show left/right arrow keys for scrolling the suggestions or moving the text cursor horizontally.</string>
 	<string name="pref_arrows_up_down">Up/Down Arrows</string>
 	<string name="pref_arrows_up_down_summary">Allow swiping the OK key up/down to filter suggestions or move the text cursor vertically.</string>
+	<string name="pref_auto_capitals_after_newline">Automatically Capitalize Every Line</string>
+	<string name="pref_auto_capitals_after_newline_summary">Start every line with a capital letter, even it is in the middle of a sentence.</string>
+	<string name="pref_auto_mind_reading">Mind Reading</string>
+	<string name="pref_auto_mind_reading_summary">Show next-word suggestions before you start typing or after the first letter. Starts empty and learns as you type.</string>
 	<string name="pref_auto_space">Automatic Space</string>
 	<string name="pref_auto_space_summary">Automatically add a space after punctuation or words.</string>
 	<string name="pref_auto_text_case">Automatic Capitalization</string>
 	<string name="pref_auto_text_case_summary">Automatically start sentences with a capital letter. (Not possible in all languages)</string>
-	<string name="pref_auto_capitals_after_newline">Automatically Capitalize Every Line</string>
-	<string name="pref_auto_capitals_after_newline_summary">Start every line with a capital letter, even it is in the middle of a sentence.</string>
 	<string name="pref_auto_trim_trailing_space">Automatically Trim Trailing Whitespace</string>
 	<string name="pref_auto_trim_trailing_space_summary">Automatically remove extra spaces when moving the cursor back.</string>
 	<string name="pref_backspace_acceleration">Fast Delete</string>

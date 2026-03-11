@@ -415,6 +415,10 @@ class ModeWords extends ModeCheonjiin {
 			return;
 		}
 
+		if (!settings.isAutoTextCaseOn(this)) {
+			return;
+		}
+
 		final String nextSequence = nextDigit >= 0 ? digitSequence + nextDigit : digitSequence;
 		textCase = autoTextCase.determineNextWordTextCase(language, textCase, textFieldTextCase, textField, nextSequence, beforeCursor);
 	}

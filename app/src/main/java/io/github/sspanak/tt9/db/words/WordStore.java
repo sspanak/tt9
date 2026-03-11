@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.CancellationSignal;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -53,6 +54,20 @@ public class WordStore extends BaseSyncStore {
 		}
 
 		return loadedLanguages;
+	}
+
+
+	/**
+	 * Checks if the given word exists in the factory dictionary for the specified language
+	 * (case-insensitive).
+	 */
+	@Nullable
+	public String getWord(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
+		if (checkOrNotify()) {
+			return readOps.getWord(sqlite.getDb(), language, word, sequence);
+		} else {
+			return null;
+		}
 	}
 
 
@@ -143,11 +158,11 @@ public class WordStore extends BaseSyncStore {
 		}
 
 		try {
-			if (readOps.exists(sqlite.getDb(), language, word)) {
+			final String sequence = language.getDigitSequenceForWord(word);
+
+			if (readOps.exists(sqlite.getDb(), language, word, sequence)) {
 				return new AddWordResult(AddWordResult.CODE_WORD_EXISTS, word);
 			}
-
-			String sequence = language.getDigitSequenceForWord(word);
 
 			if (InsertOps.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
 				makeTopWord(language, word, sequence);
