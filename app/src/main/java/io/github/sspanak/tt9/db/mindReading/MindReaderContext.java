@@ -9,9 +9,12 @@ import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.TextTools;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 class MindReaderContext {
 	private final int MAX_TOKENS;
@@ -189,5 +192,21 @@ class MindReaderContext {
 	@NonNull
 	public String toString() {
 		return "raw=\"" + raw + "\", tokens=" + Arrays.toString(tokens);
+	}
+
+
+	/**
+	 * If start of text, simulate we are at the end of a dummy sentence. This makes the guessing
+	 * machinery work for the first word in a text field.
+	 */
+	static String[] handleStartOfSentenceInSurroundingText(@NonNull Language language, @NonNull String[] surroundingText) {
+		final String[] adjustedSurroundingText = new String[] { surroundingText[0], surroundingText[1] };
+		if (!LanguageKind.isThai(language) && surroundingText[0].length() < SettingsStore.AUTO_ASSISTANCE_BEFORE_TEXT) {
+			String endOfDummySentence = Characters.getChar(language, ".");
+			endOfDummySentence = endOfDummySentence == null ? "" : endOfDummySentence;
+			adjustedSurroundingText[0] = endOfDummySentence + surroundingText[0];
+		}
+
+		return adjustedSurroundingText;
 	}
 }

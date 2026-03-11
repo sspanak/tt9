@@ -127,9 +127,11 @@ public class MindReader {
 			return;
 		}
 
+
+		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
 		final ArrayList<String> alternativeLetters = language.getKeyCharacters(number);
 
-		if (!alternativeLetters.isEmpty() && setContextSync(inputMode, language, surroundingText, null)) {
+		if (!alternativeLetters.isEmpty() && setContextSync(inputMode, language, adjustedSurroundingText, null)) {
 			runInThread(() -> {
 				processContext(inputMode, false);
 
@@ -157,7 +159,6 @@ public class MindReader {
 	 * a word.
 	 */
 	public boolean guessNext(@NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
-		// @todo: support first-word guess. Make sure to add surroundingText[0] check in SuggestionHandler.guessOnNumberRegularLanguage()
 		// @todo: enable error logging from threads
 
 		final String TIMER_TAG = LOG_TAG + Math.random();
@@ -170,9 +171,11 @@ public class MindReader {
 			return false;
 		}
 
+		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
+
 		// Only attempt guessing if the context is valid and ends with a space. Otherwise, the guessed
 		// composing text will appear joined with the last word, instead of as a new word.
-		if (setContextSync(inputMode, language, surroundingText, lastWord) && (!language.hasSpaceBetweenWords() || TextTools.endsWithSpace(surroundingText[0]))) {
+		if (setContextSync(inputMode, language, adjustedSurroundingText, lastWord) && (!language.hasSpaceBetweenWords() || TextTools.endsWithSpace(surroundingText[0]))) {
 			runInThread(() -> {
 				processContext(inputMode, saveContext);
 
