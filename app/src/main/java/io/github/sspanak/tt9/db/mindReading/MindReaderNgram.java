@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
 
 class MindReaderNgram implements Comparable<MindReaderNgram> {
 	final long before;
@@ -36,7 +37,7 @@ class MindReaderNgram implements Comparable<MindReaderNgram> {
 	private long compressBefore(int[] tokens) {
 		long compressed = 0;
 		for (int i = tokens.length - 2; i >= 0; i--) {
-			compressed = compressed | ((long) tokens[i] << i * MindReader.DICTIONARY_WORD_SIZE);
+			compressed = compressed | ((long) tokens[i] << i * SettingsStatic.MIND_READER_DICTIONARY_WORD_SIZE);
 		}
 		return compressed;
 	}
@@ -44,7 +45,7 @@ class MindReaderNgram implements Comparable<MindReaderNgram> {
 	private long compressComplete(int[] tokens) {
 		long compressed = 0;
 		for (int i = tokens.length - 1; i >= 0; i--) {
-			compressed = compressed | ((long) tokens[i] << i * MindReader.DICTIONARY_WORD_SIZE);
+			compressed = compressed | ((long) tokens[i] << i * SettingsStatic.MIND_READER_DICTIONARY_WORD_SIZE);
 		}
 		return compressed;
 	}

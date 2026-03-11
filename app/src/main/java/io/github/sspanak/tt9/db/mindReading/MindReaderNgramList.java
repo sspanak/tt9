@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
+
 class MindReaderNgramList {
 	private final int[] MAX_NGRAM_VARIATIONS;
 
@@ -14,12 +16,16 @@ class MindReaderNgramList {
 	private int size;
 
 
-	MindReaderNgramList(int capacity, int maxBigramVariations, int maxTrigramVariations, int maxTetragramVariations) {
-		MAX_NGRAM_VARIATIONS = new int[] {maxBigramVariations, maxTrigramVariations, maxTetragramVariations};
+	MindReaderNgramList() {
+		MAX_NGRAM_VARIATIONS = new int[] {
+			SettingsStatic.MIND_READER_MAX_BIGRAM_SUGGESTIONS,
+			SettingsStatic.MIND_READER_MAX_TRIGRAM_SUGGESTIONS,
+			SettingsStatic.MIND_READER_MAX_TETRAGRAM_SUGGESTIONS
+		};
 
-		before = new long[capacity];
-		next = new int[capacity];
-		initialCapacity = capacity;
+		initialCapacity = SettingsStatic.MIND_READER_NGRAMS_INITIAL_CAPACITY;
+		before = new long[initialCapacity];
+		next = new int[initialCapacity];
 		size = 0;
 	}
 

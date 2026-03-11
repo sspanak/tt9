@@ -20,6 +20,13 @@ public class SettingsStatic extends SettingsColors {
 	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME = 250; // ms
 	public final static long INPUT_CONNECTION_MAX_WAIT = 50; // ms
 	public final static int LANGUAGE_SEARCH_DEBOUNCE_TIME = 500; // ms
+	public static final int MIND_READER_DICTIONARY_WORD_SIZE = 16; // bits
+	public static final int MIND_READER_MAX_NGRAM_SIZE = 4;
+	public static final int MIND_READER_MAX_BIGRAM_SUGGESTIONS = 5;
+	public static final int MIND_READER_MAX_TRIGRAM_SUGGESTIONS = 4;
+	public static final int MIND_READER_MAX_TETRAGRAM_SUGGESTIONS = 4;
+	public static final int MIND_READER_NGRAMS_INITIAL_CAPACITY = 1000;
+	public static final int MIND_READER_MAX_DICTIONARY_WORDS = (int) Math.pow(2, MIND_READER_DICTIONARY_WORD_SIZE);
 	public final static int RESIZE_THROTTLING_TIME = 60; // ms
 	public final static int SHIFT_STATE_DEBOUNCE_TIME = 175; // ms
 	public final static byte SLOW_QUERY_TIME = 50; // ms
