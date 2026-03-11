@@ -25,26 +25,16 @@ import io.github.sspanak.tt9.util.Timer;
 public class MindReader {
 	private static final String LOG_TAG = MindReader.class.getSimpleName();
 
-	// @todo: move these constants to SettingsStatic
-	// @todo: test and maybe set a maximum size for MindReaderNgramList? Butt beware, because this will break the connection between the dictionary IDs and the N-grams.
-	private static final int MAX_NGRAM_SIZE = 4;
-	private static final int MAX_BIGRAM_SUGGESTIONS = 5;
-	private static final int MAX_TRIGRAM_SUGGESTIONS = 4;
-	private static final int MAX_TETRAGRAM_SUGGESTIONS = 4;
-	private static final int NGRAMS_INITIAL_CAPACITY = 1000;
-	static final int DICTIONARY_WORD_SIZE = 16; // bits
-	private static final int MAX_DICTIONARY_WORDS = (int) Math.pow(2, DICTIONARY_WORD_SIZE);
-
 	// dependencies
 	@Nullable private AutoTextCase autoTextCase;
 	@Nullable private final ExecutorService executor;
 	@Nullable private final SettingsStore settings;
 
 	// data
-	@NonNull MindReaderNgramList ngrams = new MindReaderNgramList(NGRAMS_INITIAL_CAPACITY, MAX_BIGRAM_SUGGESTIONS, MAX_TRIGRAM_SUGGESTIONS, MAX_TETRAGRAM_SUGGESTIONS);
-	@NonNull MindReaderDictionary dictionary = new MindReaderDictionary(MAX_DICTIONARY_WORDS);
+	@NonNull MindReaderNgramList ngrams = new MindReaderNgramList();
+	@NonNull MindReaderDictionary dictionary = new MindReaderDictionary();
 	private volatile int textCase = InputMode.CASE_UNDEFINED;
-	@NonNull private final MindReaderContext wordContext = new MindReaderContext(MAX_NGRAM_SIZE);
+	@NonNull private final MindReaderContext wordContext = new MindReaderContext(SettingsStore.MIND_READER_MAX_NGRAM_SIZE);
 	@NonNull private volatile ArrayList<String> words = new ArrayList<>();
 
 	// loading
@@ -76,8 +66,8 @@ public class MindReader {
 	 * Clear the current dictionary and N-grams, as well as the timing records.
 	 */
 	public void clearCache() {
-		dictionary = new MindReaderDictionary(wordContext.language, MAX_DICTIONARY_WORDS);
-		ngrams = new MindReaderNgramList(NGRAMS_INITIAL_CAPACITY, MAX_BIGRAM_SUGGESTIONS, MAX_TRIGRAM_SUGGESTIONS, MAX_TETRAGRAM_SUGGESTIONS);
+		dictionary = new MindReaderDictionary(wordContext.language);
+		ngrams = new MindReaderNgramList();
 		slowestGuessCurrentTime = slowestGuessNextTime = slowestSetContextTime = slowestSetLanguageTime = 0;
 	}
 

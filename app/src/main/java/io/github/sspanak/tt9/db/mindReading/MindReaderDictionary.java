@@ -10,6 +10,7 @@ import java.util.Set;
 
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -35,14 +36,14 @@ class MindReaderDictionary {
 	private final int capacity;
 
 
-	MindReaderDictionary(int capacity) {
-		this(null, capacity);
+	MindReaderDictionary() {
+		this(null);
 	}
 
 
-	MindReaderDictionary(@Nullable Language language, int capacity) {
+	MindReaderDictionary(@Nullable Language language) {
 		init();
-		this.capacity = capacity;
+		this.capacity = SettingsStatic.MIND_READER_MAX_DICTIONARY_WORDS;
 		this.locale = language == null ? Locale.getDefault() : language.getLocale();
 	}
 
