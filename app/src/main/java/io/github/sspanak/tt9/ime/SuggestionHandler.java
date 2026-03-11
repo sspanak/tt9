@@ -245,7 +245,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 		}
 
 		final String space = Characters.getSpace(mLanguage);
-		if (space.equals(lastWord) || surroundingText[0].endsWith(space)) {
+		if (space.equals(lastWord) || surroundingText[0].endsWith(space) || surroundingText[0].isEmpty()) {
 			guessCurrentWord(loadingId, surroundingText, number);
 		}
 	}

@@ -6,6 +6,8 @@ public class SettingsStatic extends SettingsColors {
 	protected SettingsStatic(Context context) { super(context); }
 
 	/************* internal settings *************/
+	public static final int AUTO_ASSISTANCE_BEFORE_TEXT = 50; // chars
+	public static final int AUTO_ASSISTANCE_AFTER_TEXT = 2; // chars
 	public static final int BACKSPACE_ACCELERATION_MAX_CHARS = 20; // maximum chars to be deleted at once in very long words
 	public static final int BACKSPACE_ACCELERATION_MAX_CHARS_NO_SPACE = 4; // maximum chars to be deleted at once for languages with no spaces
 	public static final int BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE = 5;
