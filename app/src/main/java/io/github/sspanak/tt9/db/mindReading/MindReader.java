@@ -104,10 +104,11 @@ public class MindReader {
 
 
 	/**
-	 * Given the current context and the letters matching the pressed number, get all possible next
-	 * words from the dictionary.
+	 * Given the current context, get all possible completions of the words starting with the given
+	 * number (e.g. if number=2, show completions starting with "a", "b", "c"). This is used when the
+	 * user types the first letter of a word.
 	 */
-	public void guessCurrent(double loadingId, @NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, int number) {
+	public void complete(double loadingId, @NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, int number) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
@@ -148,7 +149,7 @@ public class MindReader {
 	 * the user has just typed a space, or in languages without spaces, when the user has just typed
 	 * a word.
 	 */
-	public boolean guessNext(@NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
+	public boolean guess(@NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
 		// @todo: enable error logging from threads
 
 		final String TIMER_TAG = LOG_TAG + Math.random();

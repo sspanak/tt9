@@ -212,20 +212,20 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 
 	@Override
-	protected void guessOnNumber(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number) {
+	protected void autoCompleteOnNumber(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number) {
 		if (mLanguage.hasLettersOnAllKeys()) {
 			return;
 		}
 
 		if (mLanguage.hasSpaceBetweenWords()) {
-			guessOnNumberRegularLanguage(loadingId, surroundingText, lastWord, number);
+			autoCompleteOnNumberRegularLanguage(loadingId, surroundingText, lastWord, number);
 		} else {
-			guessOnNumberNoSpaceLanguage(loadingId, surroundingText, lastWord, number);
+			autoCompleteOnNumberNoSpaceLanguage(loadingId, surroundingText, lastWord, number);
 		}
 	}
 
 
-	private void guessOnNumberNoSpaceLanguage(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number) {
+	private void autoCompleteOnNumberNoSpaceLanguage(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number) {
 		if (lastWord == null) {
 			return;
 		}
@@ -233,12 +233,12 @@ abstract public class SuggestionHandler extends TypingHandler {
 		if (!mInputMode.isTyping()) {
 			guessNextWord(surroundingText, lastWord);
 		} else if (mInputMode.getSequenceLength() == 1) {
-			guessCurrentWord(loadingId, surroundingText, number);
+			autoCompleteWord(loadingId, surroundingText, number);
 		}
 	}
 
 
-	private void guessOnNumberRegularLanguage(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number) {
+	private void autoCompleteOnNumberRegularLanguage(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number) {
 		if (mInputMode.getSequenceLength() != 1 || new Text(mLanguage, surroundingText[1]).startsWithWord()) {
 			mindReader.clearContext();
 			return;
@@ -246,16 +246,16 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 		final String space = Characters.getSpace(mLanguage);
 		if (space.equals(lastWord) || surroundingText[0].endsWith(space) || surroundingText[0].isEmpty()) {
-			guessCurrentWord(loadingId, surroundingText, number);
+			autoCompleteWord(loadingId, surroundingText, number);
 		}
 	}
 
 
-	private void guessCurrentWord(double loadingId, @NonNull String[] surroundingText, int number) {
+	private void autoCompleteWord(double loadingId, @NonNull String[] surroundingText, int number) {
 		mindReader
 			.setCurrentGuessHandler(null)
 			.setTextCase(mInputMode.getTextCaseRaw())
-			.guessCurrent(loadingId, inputType, mInputMode, (NaturalLanguage) mLanguage, surroundingText, number);
+			.complete(loadingId, inputType, mInputMode, (NaturalLanguage) mLanguage, surroundingText, number);
 	}
 
 
@@ -263,7 +263,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 	protected boolean guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord) {
 		return mindReader
 			.setTextCase(mInputMode.getTextCaseRaw())
-			.guessNext(inputType, mInputMode, mLanguage, surroundingText, lastWord, true, this::handleGuessesAsync);
+			.guess(inputType, mInputMode, mLanguage, surroundingText, lastWord, true, this::handleGuessesAsync);
 	}
 
 
