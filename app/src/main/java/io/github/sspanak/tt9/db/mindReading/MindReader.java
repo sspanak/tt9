@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionException;
@@ -30,17 +31,16 @@ public class MindReader {
 	@Nullable private final ExecutorService executor;
 	@Nullable private final SettingsStore settings;
 
-	// data
-	@NonNull MindReaderNgramList ngrams = new MindReaderNgramList();
-	@NonNull MindReaderDictionary dictionary = new MindReaderDictionary();
-	private volatile int textCase = InputMode.CASE_UNDEFINED;
+	// mind-reader state (worker thread only)
+	@NonNull private MindReaderNgramList ngrams = new MindReaderNgramList();
+	@NonNull private MindReaderDictionary dictionary = new MindReaderDictionary();
 	@NonNull private final MindReaderContext wordContext = new MindReaderContext(SettingsStore.MIND_READER_MAX_NGRAM_SIZE);
-	@NonNull private volatile ArrayList<String> words = new ArrayList<>();
 
-	// loading
-	private double loadingId = 0;
-	@NonNull private volatile Runnable currentGuessHandler = () -> {};
-
+	// output (shared with main thread)
+	private volatile Runnable currentGuessHandler = () -> {};
+	private volatile double loadingId = 0;
+	private volatile int textCase = InputMode.CASE_UNDEFINED;
+	private volatile List<String> words = List.of();
 
 	// statistics
 	private static long slowestGuessCurrentTime = 0;
@@ -66,8 +66,10 @@ public class MindReader {
 	 * Clear the current dictionary and N-grams, as well as the timing records.
 	 */
 	public void clearCache() {
-		dictionary = new MindReaderDictionary(wordContext.language);
-		ngrams = new MindReaderNgramList();
+		runInThread(() -> {
+			dictionary = new MindReaderDictionary(wordContext.language);
+			ngrams = new MindReaderNgramList();
+		});
 		slowestGuessCurrentTime = slowestGuessNextTime = slowestSetContextTime = slowestSetLanguageTime = 0;
 	}
 
@@ -77,10 +79,16 @@ public class MindReader {
 	 * goes to a different app or an input field, where the current context is no longer relevant.
 	 */
 	public void clearContext() {
-		if (!isOff() && wordContext.setText("")) {
-			words.clear();
-			Logger.d(LOG_TAG, "Mind reader context cleared");
+		if (isOff()) {
+			return;
 		}
+
+		runInThread(() -> {
+			if (wordContext.setText("")) {
+				words.clear();
+				Logger.d(LOG_TAG, "Mind reader context cleared");
+			}
+		});
 	}
 
 
@@ -89,7 +97,8 @@ public class MindReader {
 	 */
 	@NonNull
 	public ArrayList<String> getGuesses() {
-		final ArrayList<String> copy = new ArrayList<>(words);
+		final List<String> snapshot = words;
+		final ArrayList<String> copy = new ArrayList<>(snapshot);
 		copy.replaceAll(this::adjustWordTextCase);
 		return copy;
 	}
@@ -113,34 +122,42 @@ public class MindReader {
 		Timer.start(TIMER_TAG);
 
 		this.loadingId = loadingId;
+
 		if (inputType.notMindReadableText()) {
 			Timer.stop(TIMER_TAG);
 			return;
 		}
 
-
 		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
 		final ArrayList<String> alternativeLetters = language.getKeyCharacters(number);
 
-		if (!alternativeLetters.isEmpty() && setContextSync(inputMode, language, adjustedSurroundingText, null)) {
-			runInThread(() -> {
-				processContext(inputMode, false);
-
-				final Set<Integer> nextTokens = ngrams.getNextTokens(dictionary, wordContext);
-				words = new ArrayList<>();
-				for (String letter : alternativeLetters) {
-					words.addAll(dictionary.getAll(nextTokens, letter));
-				}
-
-				final long time = Timer.stop(TIMER_TAG);
-				slowestGuessCurrentTime = Math.max(slowestGuessCurrentTime, time);
-				logState(time, words);
-
-				currentGuessHandler.run();
-			});
-		} else {
+		if (alternativeLetters.isEmpty()) {
 			Timer.stop(TIMER_TAG);
+			return;
 		}
+
+		runInThread(() -> {
+			if (!setContextSync(inputMode, language, adjustedSurroundingText, null)) {
+				Timer.stop(TIMER_TAG);
+				return;
+			}
+
+			processContext(inputMode, false);
+
+			final Set<Integer> nextTokens = ngrams.getNextTokens(dictionary, wordContext);
+			ArrayList<String> completions = new ArrayList<>();
+			for (String letter : alternativeLetters) {
+				completions.addAll(dictionary.getAll(nextTokens, letter));
+			}
+
+			words = List.copyOf(completions);
+
+			final long time = Timer.stop(TIMER_TAG);
+			slowestGuessCurrentTime = Math.max(slowestGuessCurrentTime, time);
+			logState(time, words);
+
+			currentGuessHandler.run();
+		});
 	}
 
 
@@ -149,7 +166,8 @@ public class MindReader {
 	 * the user has just typed a space, or in languages without spaces, when the user has just typed
 	 * a word.
 	 */
-	public boolean guess(@NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, boolean saveContext, @NonNull Runnable onComplete) {
+	public void guess(@NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, @NonNull Runnable onComplete) {
+		// @todo: in a very long chain of words, this sometimes returns nothing randomly
 		// @todo: enable error logging from threads
 
 		final String TIMER_TAG = LOG_TAG + Math.random();
@@ -159,35 +177,37 @@ public class MindReader {
 
 		if (inputType.notMindReadableText()) {
 			Timer.stop(TIMER_TAG);
-			return false;
+			return;
 		}
 
 		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
 
-		// Only attempt guessing if the context is valid and ends with a space. Otherwise, the guessed
-		// composing text will appear joined with the last word, instead of as a new word.
-		if (setContextSync(inputMode, language, adjustedSurroundingText, lastWord) && (!language.hasSpaceBetweenWords() || TextTools.endsWithSpace(surroundingText[0]))) {
-			runInThread(() -> {
-				processContext(inputMode, saveContext);
+		runInThread(() -> {
+			// Only attempt guessing if the context is valid and ends with a space. Otherwise, the guessed
+			// composing text will appear joined with the last word, instead of as a new word.
+			if (!setContextSync(inputMode, language, adjustedSurroundingText, lastWord) || (language.hasSpaceBetweenWords() && !TextTools.endsWithSpace(surroundingText[0]))) {
+				Timer.stop(TIMER_TAG);
+				return;
+			}
 
+			processContext(inputMode, true);
+
+			List<String> guesses;
+			if (wordContext.endsWithPunctuation()) {
 				// don't be too eager to guess what comes after punctuation, emoji etc...
-				if (wordContext.endsWithPunctuation()) {
-					words = new ArrayList<>();
-				} else {
-					words = dictionary.getAll(ngrams.getNextTokens(dictionary, wordContext), null);
-				}
+				guesses = new ArrayList<>();
+			} else {
+				guesses = dictionary.getAll(ngrams.getNextTokens(dictionary, wordContext), null);
+			}
 
-				final long time = Timer.stop(TIMER_TAG);
-				slowestGuessNextTime = Math.max(slowestGuessNextTime, time);
-				logState(time, words);
+			words = List.copyOf(guesses);
 
-				onComplete.run();
-			});
-			return true;
-		} else {
-			Timer.stop(TIMER_TAG);
-			return false;
-		}
+			final long time = Timer.stop(TIMER_TAG);
+			slowestGuessNextTime = Math.max(slowestGuessNextTime, time);
+			logState(time, words);
+
+			onComplete.run();
+		});
 	}
 
 
@@ -200,17 +220,17 @@ public class MindReader {
 
 		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
 
-		if (setContextSync(inputMode, language, adjustedSurroundingText, lastWord)) {
-			runInThread(() -> {
+		runInThread(() -> {
+			if (setContextSync(inputMode, language, adjustedSurroundingText, lastWord)) {
 				processContext(inputMode, true);
 
 				final long time = Timer.stop(TIMER_TAG);
 				slowestSetContextTime = Math.max(slowestSetContextTime, time);
 				logState(time, null);
-			});
-		} else {
-			Timer.stop(TIMER_TAG);
-		}
+			} else {
+				Timer.stop(TIMER_TAG);
+			}
+		});
 
 		return this;
 	}
@@ -238,7 +258,12 @@ public class MindReader {
 			return this;
 		}
 
-		if (!language.equals(wordContext.language)) {
+		runInThread(() -> {
+			if (language.equals(wordContext.language)) {
+				Logger.d(LOG_TAG, "Keeping language: " + language);
+				return;
+			}
+
 			final String TIMER_TAG = LOG_TAG + Math.random();
 			Timer.start(TIMER_TAG);
 
@@ -255,9 +280,7 @@ public class MindReader {
 			final long time = Timer.stop(TIMER_TAG);
 			slowestSetLanguageTime = Math.max(slowestSetLanguageTime, time);
 			Logger.d(LOG_TAG, "Loaded dictionary and N-grams for language: " + language + ". Time: " + slowestSetLanguageTime + " ms");
-		} else {
-			Logger.d(LOG_TAG, "Keeping language: " + language);
-		}
+		});
 
 		return this;
 	}
@@ -277,7 +300,7 @@ public class MindReader {
 	 * They can be used for guessing in the future.
 	 */
 	public void saveContext(@Nullable InputMode inputMode) {
-		processContext(inputMode, true);
+		runInThread(() -> processContext(inputMode, true));
 	}
 
 
@@ -331,7 +354,7 @@ public class MindReader {
 	}
 
 
-	private void logState(long processingTime, @Nullable ArrayList<String> words) {
+	private void logState(long processingTime, @Nullable List<String> words) {
 		if (!Logger.isDebugLevel()) {
 			return;
 		}
