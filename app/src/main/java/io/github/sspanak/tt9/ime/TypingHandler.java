@@ -53,7 +53,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	// output: mind-reading
 	@NonNull protected MindReader mindReader = new MindReader();
 	abstract protected void autoCompleteOnNumber(double loadingId, @NonNull String[] surroundingChars, @Nullable String lastWord, int number);
-	abstract protected boolean guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord);
+	abstract protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord);
 	abstract protected boolean shouldAcceptGuessesOnNumber(int key);
 
 
