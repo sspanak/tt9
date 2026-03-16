@@ -116,9 +116,15 @@ class MindReaderNgramList {
 		long beforeValue = before[position];
 		int nextValue = next[position];
 
+		// shift elements one position to the left
 		System.arraycopy(before, position + 1, before, position, size - position - 1);
 		System.arraycopy(next, position + 1, next, position, size - position - 1);
 
+		for (int i = position; i < size - 1; i++) {
+			index.put(getIndex(before[i], next[i]), i);
+		}
+
+		// place the target element at the end
 		before[size - 1] = beforeValue;
 		next[size - 1] = nextValue;
 		index.put(getIndex(beforeValue, nextValue), size - 1);
@@ -130,9 +136,18 @@ class MindReaderNgramList {
 			return;
 		}
 
+		// remove the target element
+		long beforeValue = before[position];
+		int nextValue = next[position];
+		index.remove(getIndex(beforeValue, nextValue));
+
+		// shift all following elements one position to the left.
 		System.arraycopy(before, position + 1, before, position, size - position - 1);
 		System.arraycopy(next, position + 1, next, position, size - position - 1);
-		index.remove(getIndex(before[position], next[position]));
+
+		for (int i = position; i < size - 1; i++) {
+			index.put(getIndex(before[i], next[i]), i);
+		}
 
 		size--;
 	}
