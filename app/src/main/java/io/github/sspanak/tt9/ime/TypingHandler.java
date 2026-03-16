@@ -281,7 +281,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		mInputMode.determineNextWordTextCase(surroundingChars[0], -1);
 		updateShiftState(surroundingChars[0], false, false);
-		guessNextWord(surroundingChars, lastWord);
 
 		return true;
 	}
