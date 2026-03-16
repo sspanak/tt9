@@ -71,19 +71,16 @@ class MindReaderNgramList {
 	}
 
 
-	int indexOf(@NonNull MindReaderNgram ngram) {
+	private int indexOf(@NonNull MindReaderNgram ngram) {
 		Integer idx = index.get(getIndex(ngram.before, ngram.next));
 		return idx != null ? idx : -1;
 	}
 
 
 	private static long getIndex(long before, int next) {
-		// Use the configured dictionary word size to pack "before" and "next"
-		// into a single 64-bit value without discarding any high bits of "before".
-		final int wordBits = SettingsStatic.MIND_READER_DICTIONARY_WORD_SIZE;
-		final long mask = (wordBits >= Long.SIZE) ? -1L : ((1L << wordBits) - 1L);
+		final long mask = (1L << SettingsStatic.MIND_READER_DICTIONARY_WORD_SIZE) - 1L;
 		final long maskedNext = ((long) next) & mask;
-		return (before << wordBits) | maskedNext;
+		return (before << SettingsStatic.MIND_READER_DICTIONARY_WORD_SIZE) | maskedNext;
 	}
 
 
