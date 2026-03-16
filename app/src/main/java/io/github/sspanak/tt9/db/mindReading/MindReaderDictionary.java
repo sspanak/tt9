@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Set;
@@ -179,6 +178,16 @@ class MindReaderDictionary {
 	@NonNull
 	@Override
 	public String toString() {
-		return Arrays.toString(tokens);
+		StringBuilder str = new StringBuilder("[");
+		for (int i = 0; i < tokens.length; i++) {
+			if (tokens[i] != null || (tokens[i] == null && i < tokens.length - 2 && tokens[i + 1] != null)) {
+				str.append(tokens[i]).append(", ");
+			}
+		}
+
+		str.setLength(str.length() - 2);
+		str.append("]");
+
+		return str.toString();
 	}
 }

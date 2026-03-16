@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -31,7 +32,7 @@ public class MindReader {
 
 	// dependencies
 	@Nullable private AutoTextCase autoTextCase;
-	@Nullable private final ExecutorService executor;
+	@NonNull private final ExecutorService executor;
 	@Nullable private final SettingsStore settings;
 
 	private final AtomicLong completeRequestCount = new AtomicLong(Long.MIN_VALUE);
@@ -57,12 +58,12 @@ public class MindReader {
 
 
 	public MindReader() {
-		this(null, null);
+		this(null);
 	}
 
 
-	public MindReader(@Nullable SettingsStore settings, @Nullable ExecutorService executor) {
-		this.executor = executor;
+	public MindReader(@Nullable SettingsStore settings) {
+		this.executor = Executors.newSingleThreadExecutor();
 		this.settings = settings;
 		updateStats();
 	}
@@ -386,14 +387,15 @@ public class MindReader {
 		}
 
 		StringBuilder log = new StringBuilder();
-		log.append("===== Mind Reading Summary =====");
-
 		log
-			.append("\ncontext: ").append(wordContext)
-			.append("\nN-grams: ").append(ngrams)
-			.append("\ndictionary: ").append(dictionary);
+			.append("===== Mind Reading Summary =====")
+			.append("\ncontext: ").append(wordContext);
 
-		log.append("\nMagic Word Count: ").append(words != null ? words.size() : 0);
+		if (Logger.isVerboseLevel()) {
+			log
+				.append("\nN-grams: ").append(ngrams)
+				.append("\ndictionary: ").append(dictionary);
+		}
 
 		if (processingTime >= 0) {
 			log.append("\nTime: ").append(processingTime).append(" ms");
@@ -406,11 +408,6 @@ public class MindReader {
 
 
 	private void runInThread(@NonNull Runnable runnable) {
-		if (executor == null) {
-			Logger.e(LOG_TAG, "MindReader can not be used without an ExecutorService");
-			return;
-		}
-
 		try {
 			executor.execute(() -> {
 				try {
