@@ -322,7 +322,7 @@ public class SuggestionsBar {
 		final ArrayList<String> copy = new ArrayList<>(suggestions);
 		copy.replaceAll(text -> new Text(language, text).toTextCase(textCase));
 		final boolean onlyGuesses = containsOnlyGuesses();
-		setMany(copy, selectedIndex, containsOnlyGuesses());
+		setMany(copy, selectedIndex, onlyGuesses);
 		containsOnlyGuesses = onlyGuesses;
 	}
 

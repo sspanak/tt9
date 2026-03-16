@@ -85,7 +85,7 @@ public class MindReader {
 
 		runInThread(() -> {
 			if (wordContext.setText("")) {
-				words.clear();
+				words = List.of();
 				Logger.d(LOG_TAG, "Mind reader context cleared");
 			}
 		});
