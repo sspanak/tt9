@@ -78,7 +78,12 @@ class MindReaderNgramList {
 
 
 	private static long getIndex(long before, int next) {
-		return (before << 32) ^ next;
+		// Use the configured dictionary word size to pack "before" and "next"
+		// into a single 64-bit value without discarding any high bits of "before".
+		final int wordBits = SettingsStatic.MIND_READER_DICTIONARY_WORD_SIZE;
+		final long mask = (wordBits >= Long.SIZE) ? -1L : ((1L << wordBits) - 1L);
+		final long maskedNext = ((long) next) & mask;
+		return (before << wordBits) | maskedNext;
 	}
 
 
