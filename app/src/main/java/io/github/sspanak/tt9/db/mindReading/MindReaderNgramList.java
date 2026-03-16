@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.db.mindReading;
 
 import androidx.annotation.NonNull;
 
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ class MindReaderNgramList {
 
 	private long[] before;
 	private int[] next;
+	private final HashMap<Long, Integer> index = new HashMap<>();
 	private final int initialCapacity;
 	private int size;
 
@@ -36,9 +38,9 @@ class MindReaderNgramList {
 		}
 
 		// if we re-insert an N-gram, move it to the end to mark it as most recently used
-		final int index = indexOf(ngram);
-		if (index != -1) {
-			moveToEnd(index);
+		final int idx = indexOf(ngram);
+		if (idx != -1) {
+			moveToEnd(idx);
 			return;
 		}
 
@@ -48,22 +50,12 @@ class MindReaderNgramList {
 
 		before[size] = ngram.before;
 		next[size] = ngram.next;
+		index.put(getIndex(ngram.before, ngram.next), size);
 		size++;
 
 		// keep only the most recent N-gram variations for a given context,
 		// to prevent the list from growing indefinitely and to keep the predictions relevant
 		removeOldestVariations(ngram, MAX_NGRAM_VARIATIONS[Math.min(4, ngram.size - 2)]);
-	}
-
-
-	int indexOf(@NonNull MindReaderNgram ngram) {
-		for (int i = 0; i < size; i++) {
-			if (before[i] == ngram.before && next[i] == ngram.next) {
-				return i;
-			}
-		}
-
-		return -1;
 	}
 
 
@@ -76,6 +68,17 @@ class MindReaderNgramList {
 
 		before = newBeforeStorage;
 		next = newNextStorage;
+	}
+
+
+	int indexOf(@NonNull MindReaderNgram ngram) {
+		Integer idx = index.get(getIndex(ngram.before, ngram.next));
+		return idx != null ? idx : -1;
+	}
+
+
+	private static long getIndex(long before, int next) {
+		return (before << 32) ^ next;
 	}
 
 
@@ -100,29 +103,31 @@ class MindReaderNgramList {
 	}
 
 
-	private void moveToEnd(int index) {
-		if (index < 0 || index >= size) {
+	private void moveToEnd(int position) {
+		if (position < 0 || position >= size) {
 			return;
 		}
 
-		long beforeValue = before[index];
-		int nextValue = next[index];
+		long beforeValue = before[position];
+		int nextValue = next[position];
 
-		System.arraycopy(before, index + 1, before, index, size - index - 1);
-		System.arraycopy(next, index + 1, next, index, size - index - 1);
+		System.arraycopy(before, position + 1, before, position, size - position - 1);
+		System.arraycopy(next, position + 1, next, position, size - position - 1);
 
 		before[size - 1] = beforeValue;
 		next[size - 1] = nextValue;
+		index.put(getIndex(beforeValue, nextValue), size - 1);
 	}
 
 
-	private void removeAt(int index) {
-		if (index < 0 || index >= size) {
+	private void removeAt(int position) {
+		if (position < 0 || position >= size) {
 			return;
 		}
 
-		System.arraycopy(before, index + 1, before, index, size - index - 1);
-		System.arraycopy(next, index + 1, next, index, size - index - 1);
+		System.arraycopy(before, position + 1, before, position, size - position - 1);
+		System.arraycopy(next, position + 1, next, position, size - position - 1);
+		index.remove(getIndex(before[position], next[position]));
 
 		size--;
 	}
