@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.atomic.AtomicLong;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
@@ -32,6 +33,9 @@ public class MindReader {
 	@Nullable private AutoTextCase autoTextCase;
 	@Nullable private final ExecutorService executor;
 	@Nullable private final SettingsStore settings;
+
+	private final AtomicLong completeRequestCount = new AtomicLong(Long.MIN_VALUE);
+	private final AtomicLong guessRequestCount = new AtomicLong(Long.MIN_VALUE);
 
 	// mind-reader state (worker thread only)
 	@NonNull private MindReaderNgramList ngrams = new MindReaderNgramList();
@@ -105,6 +109,7 @@ public class MindReader {
 		Timer.start(TIMER_TAG);
 
 		this.loadingId = loadingId;
+		final long requestVersion = completeRequestCount.incrementAndGet();
 
 		if (inputType.notMindReadableText()) {
 			Timer.stop(TIMER_TAG);
@@ -133,6 +138,11 @@ public class MindReader {
 				completions.addAll(dictionary.getAll(nextTokens, letter));
 			}
 
+			if (requestVersion != completeRequestCount.get()) {
+				Timer.stop(TIMER_TAG);
+				return;
+			}
+
 			words = List.copyOf(completions);
 
 			final long time = Timer.stop(TIMER_TAG);
@@ -153,7 +163,8 @@ public class MindReader {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
-		loadingId = 0;
+		loadingId = 0; // only needed when getting the results from complete(), but we reset it for consistency
+		long requestVersion = guessRequestCount.incrementAndGet();
 
 		if (inputType.notMindReadableText()) {
 			Timer.stop(TIMER_TAG);
@@ -178,6 +189,11 @@ public class MindReader {
 				guesses = new ArrayList<>();
 			} else {
 				guesses = dictionary.getAll(ngrams.getNextTokens(dictionary, wordContext), null);
+			}
+
+			if (requestVersion != guessRequestCount.get()) {
+				Timer.stop(TIMER_TAG);
+				return;
 			}
 
 			words = List.copyOf(guesses);
