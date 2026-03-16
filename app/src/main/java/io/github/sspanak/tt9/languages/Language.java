@@ -136,6 +136,7 @@ abstract public class Language {
 	@NonNull abstract public String getDigitSequenceForWord(String word) throws InvalidLanguageCharactersException;
 
 
+	@Override
 	public boolean equals(@Nullable Object obj) {
 		return obj instanceof Language && ((Language) obj).getId() == getId();
 	}

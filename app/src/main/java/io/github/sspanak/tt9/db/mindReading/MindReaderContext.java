@@ -103,7 +103,7 @@ class MindReaderContext {
 	 */
 	@NonNull
 	MindReaderNgram toNgram(@NonNull MindReaderDictionary dictionary) {
-		return new MindReaderNgram(language, dictionary.indexOf(tokens));
+		return new MindReaderNgram(language, dictionary.getIndices(tokens));
 	}
 
 
@@ -118,7 +118,7 @@ class MindReaderContext {
 			return new MindReaderNgram(language, new int[0]);
 		}
 
-		final int[] dictionaryIds =  dictionary.indexOf(tokens);
+		final int[] dictionaryIds =  dictionary.getIndices(tokens);
 		final int nGramSize = Math.max(1, Math.min(tokens.length, MAX_TOKENS - 1));
 		final int[] ngramTokens = new int[nGramSize];
 

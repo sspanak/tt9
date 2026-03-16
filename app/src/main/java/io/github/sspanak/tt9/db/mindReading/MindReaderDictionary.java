@@ -131,7 +131,7 @@ class MindReaderDictionary {
 	}
 
 
-	int indexOf(@Nullable String token) {
+	private int indexOf(@Nullable String token) {
 		if (token == null || token.isEmpty()) {
 			return -1;
 		}
@@ -141,17 +141,8 @@ class MindReaderDictionary {
 	}
 
 
-	int[] indexOf(@NonNull String[] tokens) {
-		final int[] indices = new int[tokens.length];
-		for (int i = 0; i < tokens.length; i++) {
-			indices[i] = indexOf(tokens[i]);
-		}
-		return indices;
-	}
-
-
 	@NonNull
-	public ArrayList<String> getAll(@NonNull Set<Integer> tokenIds, @Nullable String startsWith) {
+	ArrayList<String> getAll(@NonNull Set<Integer> tokenIds, @Nullable String startsWith) {
 		final ArrayList<String> results = new ArrayList<>(tokenIds.size());
 
 		final String prefix = startsWith == null ? null : startsWith.toLowerCase(locale);
@@ -167,6 +158,20 @@ class MindReaderDictionary {
 		}
 
 		return results;
+	}
+
+
+	/**
+	 * Similar to index of, but works with an array of tokens. It returns the index of each token in
+	 * the array, or 0 (GARBAGE) if the token is not found.
+	 */
+	int[] getIndices(@NonNull String[] tokens) {
+		final int[] indices = new int[tokens.length];
+		for (int i = 0; i < tokens.length; i++) {
+			final int idx = indexOf(tokens[i]);
+			indices[i] = idx == -1 ? 0 : idx;
+		}
+		return indices;
 	}
 
 
