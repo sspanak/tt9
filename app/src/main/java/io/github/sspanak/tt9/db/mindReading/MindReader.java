@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.db.mindReading;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,32 +64,13 @@ public class MindReader {
 
 
 	/**
-	 * Clear the current dictionary and N-grams, as well as the timing records.
-	 */
-	public void clearCache() {
-		runInThread(() -> {
-			dictionary = new MindReaderDictionary(wordContext.language);
-			ngrams = new MindReaderNgramList();
-		});
-		slowestGuessCurrentTime = slowestGuessNextTime = slowestSetContextTime = slowestSetLanguageTime = 0;
-	}
-
-
-	/**
 	 * Clear the current context and guesses. This should be called when the user finishes typing, and
 	 * goes to a different app or an input field, where the current context is no longer relevant.
 	 */
 	public void clearContext() {
-		if (isOff()) {
-			return;
+		if (!isOff()) {
+			runInThread(this::clearContextSync);
 		}
-
-		runInThread(() -> {
-			if (wordContext.setText("")) {
-				words = List.of();
-				Logger.d(LOG_TAG, "Mind reader context cleared");
-			}
-		});
 	}
 
 
@@ -167,7 +149,6 @@ public class MindReader {
 	 * a word.
 	 */
 	public void guess(@NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, @NonNull Runnable onComplete) {
-		// @todo: in a very long chain of words, this sometimes returns nothing randomly
 		// @todo: enable error logging from threads
 
 		final String TIMER_TAG = LOG_TAG + Math.random();
@@ -208,6 +189,26 @@ public class MindReader {
 
 			onComplete.run();
 		});
+	}
+
+
+	/**
+	 * Clear the current dictionary and N-grams, as well as the timing records.
+	 */
+	@WorkerThread
+	private void clearCache() {
+		dictionary = new MindReaderDictionary(wordContext.language);
+		ngrams = new MindReaderNgramList();
+		slowestGuessCurrentTime = slowestGuessNextTime = slowestSetContextTime = slowestSetLanguageTime = 0;
+	}
+
+
+	@WorkerThread
+	private void clearContextSync() {
+		if (wordContext.setText("")) {
+			words = List.of();
+			Logger.d(LOG_TAG, "Mind reader context cleared");
+		}
 	}
 
 
@@ -267,7 +268,7 @@ public class MindReader {
 			final String TIMER_TAG = LOG_TAG + Math.random();
 			Timer.start(TIMER_TAG);
 
-			clearContext();
+			clearContextSync();
 			wordContext.setLanguage(language);
 
 			// @todo: save the current dictionary for the previous language
@@ -304,6 +305,7 @@ public class MindReader {
 	}
 
 
+	@WorkerThread
 	private boolean setContextSync(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
 		if (isOff()) {
 			return false;
@@ -328,6 +330,7 @@ public class MindReader {
 	}
 
 
+	@WorkerThread
 	private void processContext(@Nullable InputMode inputMode, boolean saveContext) {
 		if (isOff()) {
 			return;
