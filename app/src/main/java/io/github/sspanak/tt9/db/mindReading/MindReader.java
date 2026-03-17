@@ -32,16 +32,17 @@ public class MindReader {
 
 	// dependencies
 	@Nullable private AutoTextCase autoTextCase;
-	@NonNull private final ExecutorService executor;
+	@NonNull private final ExecutorService executor = Executors.newSingleThreadExecutor();
 	@Nullable private SettingsStore settings;
+	@NonNull public final MindReaderStats stats = new MindReaderStats(this);
 
 	private final AtomicLong completeRequestCount = new AtomicLong(Long.MIN_VALUE);
 	private final AtomicLong guessRequestCount = new AtomicLong(Long.MIN_VALUE);
 
 	// mind-reader state (worker thread only)
-	@NonNull private MindReaderNgramList ngrams = new MindReaderNgramList();
-	@NonNull private MindReaderDictionary dictionary = new MindReaderDictionary();
-	@NonNull private final MindReaderContext wordContext = new MindReaderContext(SettingsStore.MIND_READER_MAX_NGRAM_SIZE);
+	@NonNull MindReaderNgramList ngrams = new MindReaderNgramList();
+	@NonNull MindReaderDictionary dictionary = new MindReaderDictionary();
+	@NonNull final MindReaderContext wordContext = new MindReaderContext(SettingsStore.MIND_READER_MAX_NGRAM_SIZE);
 
 	// output (shared with main thread)
 	private volatile Runnable currentGuessHandler = () -> {};
@@ -49,28 +50,17 @@ public class MindReader {
 	private volatile int textCase = InputMode.CASE_UNDEFINED;
 	private volatile List<String> words = List.of();
 
-	// statistics
-	private static long slowestGuessCurrentTime = 0;
-	private static long slowestGuessNextTime = 0;
-	private static long slowestSetContextTime = 0;
-	private static long slowestSetLanguageTime = 0;
-	@NonNull private static String statsSnapshot = "";
-
-
-	public MindReader() {
-		this.executor = Executors.newSingleThreadExecutor();
-		updateStats();
-	}
-
 
 	/**
 	 * Clear the current context and guesses. This should be called when the user finishes typing, and
 	 * goes to a different app or an input field, where the current context is no longer relevant.
 	 */
-	public void clearContext() {
+	public MindReader clearContext() {
 		if (!isOff()) {
 			runInThread(this::clearContextSync);
 		}
+
+		return this;
 	}
 
 
@@ -141,7 +131,7 @@ public class MindReader {
 			words = List.copyOf(completions);
 
 			final long time = Timer.stop(TIMER_TAG);
-			slowestGuessCurrentTime = Math.max(slowestGuessCurrentTime, time);
+			stats.recordCompleteTime(time);
 			logState(time, words);
 
 			currentGuessHandler.run();
@@ -194,7 +184,7 @@ public class MindReader {
 			words = List.copyOf(guesses);
 
 			final long time = Timer.stop(TIMER_TAG);
-			slowestGuessNextTime = Math.max(slowestGuessNextTime, time);
+			stats.recordGuessTime(time);
 			logState(time, words);
 
 			onComplete.run();
@@ -209,7 +199,7 @@ public class MindReader {
 	private void clearCache() {
 		dictionary = new MindReaderDictionary(wordContext.language);
 		ngrams = new MindReaderNgramList();
-		slowestGuessCurrentTime = slowestGuessNextTime = slowestSetContextTime = slowestSetLanguageTime = 0;
+		stats.clear().update();
 	}
 
 
@@ -236,7 +226,7 @@ public class MindReader {
 				processContext(inputMode, true);
 
 				final long time = Timer.stop(TIMER_TAG);
-				slowestSetContextTime = Math.max(slowestSetContextTime, time);
+				stats.recordSetContextTime(time);
 				logState(time, null);
 			} else {
 				Timer.stop(TIMER_TAG);
@@ -289,8 +279,8 @@ public class MindReader {
 			clearCache();
 
 			final long time = Timer.stop(TIMER_TAG);
-			slowestSetLanguageTime = Math.max(slowestSetLanguageTime, time);
-			Logger.d(LOG_TAG, "Loaded dictionary and N-grams for language: " + language + ". Time: " + slowestSetLanguageTime + " ms");
+			stats.recordSetLanguageTime(time);
+			Logger.d(LOG_TAG, "Loaded dictionary and N-grams for language: " + language + ". Time: " + time + " ms");
 		});
 
 		return this;
@@ -367,7 +357,7 @@ public class MindReader {
 	}
 
 
-	private boolean isOff() {
+	protected boolean isOff() {
 		return settings == null || !settings.getAutoMindReading() || settings.isMainLayoutStealth();
 	}
 
@@ -418,32 +408,5 @@ public class MindReader {
 		} catch (RejectedExecutionException e) {
 			Logger.e(LOG_TAG, "Failed running async MindReader task. " + e);
 		}
-	}
-
-
-	public MindReader updateStats() {
-		StringBuilder sb = new StringBuilder();
-
-		sb.append("Status").append(isOff() ? ": Off\n" : ": On\n");
-		sb.append("Language: ").append(wordContext.language).append("\n");
-		sb.append("Dictionary size: ").append(dictionary.size()).append(" tokens\n");
-		sb.append("N-grams: ").append(ngrams.size()).append(" / ").append(ngrams.capacity()).append("\n");
-
-		if (!isOff()) {
-			sb.append("\nSlowest guess-current time: ").append(slowestGuessCurrentTime).append(" ms\n");
-			sb.append("Slowest guess-next time: ").append(slowestGuessNextTime).append(" ms\n");
-			sb.append("Slowest set-context time: ").append(slowestSetContextTime).append(" ms\n");
-			sb.append("Slowest set-language time: ").append(slowestSetLanguageTime).append(" ms\n");
-		}
-
-		statsSnapshot = sb.toString();
-
-		return this;
-	}
-
-
-	@NonNull
-	public static String getStats() {
-		return statsSnapshot.isEmpty() ? "No mind read." : statsSnapshot;
 	}
 }
