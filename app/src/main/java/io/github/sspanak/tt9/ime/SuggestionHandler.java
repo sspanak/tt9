@@ -18,6 +18,7 @@ import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 import io.github.sspanak.tt9.util.sys.Clipboard;
 
@@ -241,8 +242,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			return;
 		}
 
-		final String space = Characters.getSpace(mLanguage);
-		if (space.equals(lastWord) || surroundingText[0].endsWith(space) || surroundingText[0].isEmpty()) {
+		if (surroundingText[0].isEmpty() || Characters.getSpace(mLanguage).equals(lastWord) || TextTools.endsWithSpace(surroundingText[0])) {
 			autoCompleteWord(loadingId, surroundingText, number);
 		}
 	}
@@ -252,7 +252,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 		mindReader
 			.setCurrentGuessHandler(null)
 			.setTextCase(mInputMode.getTextCaseRaw())
-			.complete(loadingId, inputType, mInputMode, (NaturalLanguage) mLanguage, surroundingText, number);
+			.complete(loadingId, mInputMode, (NaturalLanguage) mLanguage, surroundingText, number);
 	}
 
 
@@ -260,7 +260,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 	protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord) {
 		mindReader
 			.setTextCase(mInputMode.getTextCaseRaw())
-			.guess(inputType, mInputMode, mLanguage, surroundingText, lastWord, this::handleGuessesAsync);
+			.guess(mInputMode, mLanguage, surroundingText, lastWord, this::handleGuessesAsync);
 	}
 
 

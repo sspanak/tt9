@@ -197,16 +197,22 @@ class MindReaderContext {
 
 	/**
 	 * If start of text, simulate we are at the end of a dummy sentence. This makes the guessing
-	 * machinery work for the first word in a text field.
+	 * machinery work for the first word in a text field. Also, if the text contains new lines,
+	 * ignore everything before the last new line, because it is not relevant for guessing the next
+	 * word.
 	 */
 	static String[] handleStartOfSentenceInSurroundingText(@NonNull Language language, @NonNull String[] surroundingText) {
-		final String[] adjustedSurroundingText = new String[] { surroundingText[0], surroundingText[1] };
-		if (!LanguageKind.isThai(language) && surroundingText[0].length() < SettingsStore.AUTO_ASSISTANCE_BEFORE_TEXT) {
+		final String[] adjusted = new String[] { surroundingText[0], surroundingText[1] };
+
+		final int lastNewLineIndex = surroundingText[0].lastIndexOf('\n');
+		adjusted[0] = lastNewLineIndex == -1 ? surroundingText[0] : surroundingText[0].substring(lastNewLineIndex + 1);
+
+		if (!LanguageKind.isThai(language) && adjusted[0].length() < SettingsStore.AUTO_ASSISTANCE_BEFORE_TEXT) {
 			String endOfDummySentence = Characters.getChar(language, ".");
 			endOfDummySentence = endOfDummySentence == null ? "" : endOfDummySentence;
-			adjustedSurroundingText[0] = endOfDummySentence + surroundingText[0];
+			adjusted[0] = endOfDummySentence + adjusted[0];
 		}
 
-		return adjustedSurroundingText;
+		return adjusted;
 	}
 }

@@ -39,10 +39,11 @@ public class MindReader {
 	private final AtomicLong completeRequestCount = new AtomicLong(Long.MIN_VALUE);
 	private final AtomicLong guessRequestCount = new AtomicLong(Long.MIN_VALUE);
 
-	// mind-reader state (worker thread only)
-	@NonNull MindReaderNgramList ngrams = new MindReaderNgramList();
-	@NonNull MindReaderDictionary dictionary = new MindReaderDictionary();
-	@NonNull final MindReaderContext wordContext = new MindReaderContext(SettingsStore.MIND_READER_MAX_NGRAM_SIZE);
+	// mind-reader state
+	private boolean inputNotMindReadable = false;
+	@NonNull MindReaderNgramList ngrams = new MindReaderNgramList(); // worker thread only
+	@NonNull MindReaderDictionary dictionary = new MindReaderDictionary(); // worker thread only
+	@NonNull final MindReaderContext wordContext = new MindReaderContext(SettingsStore.MIND_READER_MAX_NGRAM_SIZE); // worker thread only
 
 	// output (shared with main thread)
 	private volatile Runnable currentGuessHandler = () -> {};
@@ -97,17 +98,18 @@ public class MindReader {
 	 * number (e.g. if number=2, show completions starting with "a", "b", "c"). This is used when the
 	 * user types the first letter of a word.
 	 */
-	public void complete(double loadingId, @NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, int number) {
+	public void complete(double loadingId, @NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, int number) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
 		this.loadingId = loadingId;
 		final long requestVersion = completeRequestCount.incrementAndGet();
 
-		if (inputType.notMindReadableText()) {
+		if (inputNotMindReadable) {
 			Timer.stop(TIMER_TAG);
 			return;
 		}
+
 
 		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
 		final ArrayList<String> alternativeLetters = language.getKeyCharacters(number);
@@ -152,14 +154,14 @@ public class MindReader {
 	 * the user has just typed a space, or in languages without spaces, when the user has just typed
 	 * a word.
 	 */
-	public void guess(@NonNull InputType inputType, @NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, @NonNull Runnable onComplete) {
+	public void guess(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, @NonNull Runnable onComplete) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
 		loadingId = 0; // only needed when getting the results from complete(), but we reset it for consistency
 		long requestVersion = guessRequestCount.incrementAndGet();
 
-		if (inputType.notMindReadableText()) {
+		if (inputNotMindReadable) {
 			Timer.stop(TIMER_TAG);
 			return;
 		}
@@ -227,6 +229,11 @@ public class MindReader {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
+		if (inputNotMindReadable) {
+			Timer.stop(TIMER_TAG);
+			return this;
+		}
+
 		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
 
 		runInThread(() -> {
@@ -256,6 +263,11 @@ public class MindReader {
 
 	public void setInputType(@Nullable InputType inputType) {
 		autoTextCase = settings != null ? new AutoTextCase(settings, new Sequences(), inputType) : null;
+		inputNotMindReadable = inputType == null || inputType.notMindReadableText();
+
+		if (inputNotMindReadable) {
+			Logger.d(LOG_TAG, "The current input field is not mind-readable.");
+		}
 	}
 
 
