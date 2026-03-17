@@ -166,6 +166,9 @@ abstract public class SuggestionHandler extends TypingHandler {
 		// either accept the first one automatically (when switching from punctuation to text
 		// or vice versa), or schedule auto-accept in N seconds (in ABC mode)
 		if (suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout())) {
+			if (onComplete != null) {
+				onComplete.run();
+			}
 			return;
 		}
 
