@@ -289,6 +289,7 @@ public class TraditionalT9 extends PremiumHandler {
 	}
 
 
+	@Override
 	protected void cleanUp() {
 		stopHeartbeatCheck();
 		zombieDetector.removeCallbacksAndMessages(null);

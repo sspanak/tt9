@@ -51,15 +51,23 @@ public class MindReader {
 	private volatile List<String> words = List.of();
 
 
+	public void destroy() {
+		if (!executor.isShutdown()) {
+			executor.shutdownNow();
+		}
+	}
+
+
 	/**
 	 * Clear the current context and guesses. This should be called when the user finishes typing, and
 	 * goes to a different app or an input field, where the current context is no longer relevant.
 	 */
 	public MindReader clearContext() {
-		if (!isOff()) {
-			runInThread(this::clearContextSync);
+		if (isOff() || executor.isTerminated() || executor.isShutdown()) {
+			return this;
 		}
 
+		runInThread(this::clearContextSync);
 		return this;
 	}
 
@@ -397,6 +405,11 @@ public class MindReader {
 
 
 	private void runInThread(@NonNull Runnable runnable) {
+		if (executor.isShutdown() || executor.isTerminated()) {
+			Logger.e(LOG_TAG, "Mind reading is not possible. The background thread executor is shutdown.");
+			return;
+		}
+
 		try {
 			executor.execute(() -> {
 				try {

@@ -73,6 +73,12 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
+	protected void cleanUp() {
+		InputConnectionAsync.destroy();
+		mindReader.destroy();
+	}
+
+
 	@Override
 	protected boolean onStart(EditorInfo field, boolean restarting) {
 		boolean restart = restarting || textField.equals(getCurrentInputConnection(), field);
@@ -103,13 +109,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 			.setContext(mInputMode, mLanguage, surroundingText, null);
 
 		return true;
-	}
-
-
-	@Override
-	public void onDestroy() {
-		InputConnectionAsync.destroy();
-		super.onDestroy();
 	}
 
 
