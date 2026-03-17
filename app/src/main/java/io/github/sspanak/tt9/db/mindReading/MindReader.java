@@ -33,7 +33,7 @@ public class MindReader {
 	// dependencies
 	@Nullable private AutoTextCase autoTextCase;
 	@NonNull private final ExecutorService executor;
-	@Nullable private final SettingsStore settings;
+	@Nullable private SettingsStore settings;
 
 	private final AtomicLong completeRequestCount = new AtomicLong(Long.MIN_VALUE);
 	private final AtomicLong guessRequestCount = new AtomicLong(Long.MIN_VALUE);
@@ -58,13 +58,7 @@ public class MindReader {
 
 
 	public MindReader() {
-		this(null);
-	}
-
-
-	public MindReader(@Nullable SettingsStore settings) {
 		this.executor = Executors.newSingleThreadExecutor();
-		this.settings = settings;
 		updateStats();
 	}
 
@@ -300,6 +294,11 @@ public class MindReader {
 		});
 
 		return this;
+	}
+
+
+	public void setSettings(@NonNull SettingsStore settings) {
+		this.settings = settings;
 	}
 
 

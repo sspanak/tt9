@@ -50,7 +50,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	abstract protected void getSuggestions(double loadingId, @Nullable String currentWord, @Nullable Runnable onComplete);
 
 	// output: mind-reading
-	@NonNull protected MindReader mindReader = new MindReader();
+	@NonNull protected final MindReader mindReader = new MindReader();
 	abstract protected void autoCompleteOnNumber(double loadingId, @NonNull String[] surroundingChars, @Nullable String lastWord, int number);
 	abstract protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord);
 	abstract protected boolean shouldAcceptGuessesOnNumber(int key);
@@ -69,7 +69,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@Override
 	protected void onInit() {
 		super.onInit();
-		mindReader = new MindReader(settings);
+		mindReader.setSettings(settings);
 	}
 
 
