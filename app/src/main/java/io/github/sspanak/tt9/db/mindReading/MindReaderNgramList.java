@@ -55,7 +55,7 @@ class MindReaderNgramList {
 
 		// keep only the most recent N-gram variations for a given context,
 		// to prevent the list from growing indefinitely and to keep the predictions relevant
-		removeOldestVariations(ngram, MAX_NGRAM_VARIATIONS[Math.min(4, ngram.size - 2)]);
+		removeOldestVariations(ngram, MAX_NGRAM_VARIATIONS[Math.min(MAX_NGRAM_VARIATIONS.length - 1, ngram.size - 2)]);
 	}
 
 
