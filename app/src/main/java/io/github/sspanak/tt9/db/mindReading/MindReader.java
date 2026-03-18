@@ -30,7 +30,7 @@ import io.github.sspanak.tt9.util.Timer;
 public class MindReader {
 	private static final String LOG_TAG = MindReader.class.getSimpleName();
 
-	private static boolean clearCacheOnNextUse = false;
+	private static volatile boolean clearCacheOnNextUse = false;
 
 	// dependencies
 	@Nullable private AutoTextCase autoTextCase;
