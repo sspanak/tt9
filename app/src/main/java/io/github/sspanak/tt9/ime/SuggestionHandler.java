@@ -213,26 +213,20 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 	@Override
 	protected void autoCompleteOnNumber(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number) {
-		if (mLanguage.hasLettersOnAllKeys()) {
+		if (mLanguage.hasLettersOnAllKeys() || mLanguage.isTranscribed()) {
 			return;
 		}
 
 		if (mLanguage.hasSpaceBetweenWords()) {
 			autoCompleteOnNumberRegularLanguage(loadingId, surroundingText, lastWord, number);
 		} else {
-			autoCompleteOnNumberNoSpaceLanguage(loadingId, surroundingText, lastWord, number);
+			autoCompleteOnNumberNoSpaceLanguage(loadingId, surroundingText, number);
 		}
 	}
 
 
-	private void autoCompleteOnNumberNoSpaceLanguage(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number) {
-		if (lastWord == null) {
-			return;
-		}
-
-		if (!mInputMode.isTyping()) {
-			guessNextWord(surroundingText, lastWord);
-		} else if (mInputMode.getSequenceLength() == 1) {
+	private void autoCompleteOnNumberNoSpaceLanguage(double loadingId, @NonNull String[] surroundingText, int number) {
+		if (mInputMode.getSequenceLength() == 1) {
 			autoCompleteWord(loadingId, surroundingText, number);
 		}
 	}

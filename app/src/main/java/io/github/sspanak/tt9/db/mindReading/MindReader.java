@@ -131,8 +131,8 @@ public class MindReader {
 				return;
 			}
 
-
-			if (!setContextSync(inputMode, language, adjustedSurroundingText, null)) {
+			final boolean isContextMandatory = InputModeKind.isABC(inputMode) || language.isTranscribed() || language.hasSpaceBetweenWords() || wordContext.isEmpty();
+			if (isContextMandatory && !setContextSync(inputMode, language, adjustedSurroundingText, null)) {
 				Timer.stop(TIMER_TAG);
 				return;
 			}
