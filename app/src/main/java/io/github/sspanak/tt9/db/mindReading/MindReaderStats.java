@@ -53,7 +53,7 @@ public class MindReaderStats {
 	}
 
 
-	void resetTimings() {
+	synchronized void resetTimings() {
 		countComplete = countGuess = countSetContext = countSetLanguage = 0;
 		totalComplete = totalGuess = totalSetContext = totalSetLanguage = 0;
 		slowestComplete = slowestGuess = slowestSetContext = slowestSetLanguage = 0;
@@ -65,21 +65,21 @@ public class MindReaderStats {
 	}
 
 
-	void setCompleteTime(long time) {
+	synchronized void setCompleteTime(long time) {
 		countComplete++;
 		totalComplete += time;
 		slowestComplete = Math.max(slowestComplete, time);
 	}
 
 
-	void setGuessTime(long time) {
+	synchronized void setGuessTime(long time) {
 		countGuess++;
 		totalGuess += time;
 		slowestGuess = Math.max(slowestGuess, time);
 	}
 
 
-	void setChangeContextTime(long time) {
+	synchronized void setChangeContextTime(long time) {
 		countSetContext++;
 		totalSetContext += time;
 		slowestSetContext = Math.max(slowestSetContext, time);
