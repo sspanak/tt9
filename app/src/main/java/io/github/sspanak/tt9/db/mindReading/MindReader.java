@@ -57,8 +57,6 @@ public class MindReader {
 		if (!executor.isShutdown()) {
 			executor.shutdownNow();
 		}
-
-		clearCacheOnNextUse = false;
 	}
 
 
