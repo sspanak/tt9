@@ -91,6 +91,7 @@
 	<string name="pref_alternative_suggestion_scrolling_summary">Habilítelo si a veces no puedes ver todas las sugerencias o tienes problemas para desplazarte por ellas.</string>
 	<string name="pref_arrows_left_right_summary">Mostrar las teclas de flecha izquierda/derecha para desplazarse por las sugerencias o mover el cursor de texto horizontalmente.</string>
 	<string name="pref_arrows_up_down_summary">Permitir deslizar hacia arriba/abajo en la tecla OK para filtrar sugerencias o mover el cursor de texto verticalmente.</string>
+	<string name="pref_auto_mind_reading_summary">Mostrar sugerencias de la siguiente palabra antes de empezar a escribir o después de la primera letra. Comienza sin sugerencias y aprende mientras escribes.</string>
 	<string name="pref_auto_space">Espacio automático</string>
 	<string name="pref_auto_space_summary">Insertar un espacio automático después de palabras y signos de puntuación.</string>
 	<string name="pref_drag_resize_summary">Arrastrar la barra de estado o la tecla de ajustes para minimizar el teclado o ajustar su posición en la pantalla.</string>
@@ -152,6 +153,7 @@
 	<string name="dictionary_import_error_malformed_line">Formato de palabra inesperado: \"%1$s\" en la línea %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">El almacenamiento de palabras añadidas está lleno. No puede importar más palabras.</string>
 	<string name="delete">Eliminar</string>
+	<string name="dictionary_import_raise_import_limits_summary">Aumentar el número máximo de palabras por archivo de %1$d a %2$d y el número total de palabras de %3$d a %4$d.\nAdvertencia: importar demasiadas palabras puede ralentizar la escritura.</string>
 	<string name="delete_words_link_summary">Buscar y eliminar palabras mal escritas o innecesarias.</string>
 	<string name="search_results">Palabras encontradas</string>
 	<string name="search_results_void">Sin resultados.</string>
@@ -202,6 +204,7 @@
 	<string name="virtual_numpad_alignment_right">A la derecha</string>
 	<string name="function_select_keyboard">Cambiar el teclado</string>
 	<string name="add_word_no_confirmation">Añadir sin confirmación</string>
+	<string name="dictionary_import_canceled">Importación cancelada.</string>
 	<string name="dictionary_import_custom_words">Importar</string>
 	<string name="dictionary_import_custom_words_summary">Importar palabras de un CSV previamente exportado.</string>
 	<string name="dictionary_import_progress">Importando CSV (%1$s)…</string>
@@ -269,4 +272,7 @@
 	<string name="pref_auto_trim_trailing_space">Eliminar automáticamente los espacios finales</string>
 	<string name="edit_word_invalid_characters">No se puede editar \"%1$s\" cuando el idioma es \"%2$s\".</string>
 	<string name="edit_word_not_available_in_language">No es posible editar palabras en este idioma.</string>
+	<string name="dictionary_import_raise_import_limits">Aumentar restricciones de importación</string>
+	<string name="dictionary_import_cancel">Cancelar importación</string>
+	<string name="pref_auto_mind_reading">Lectura de mente</string>
 </resources>

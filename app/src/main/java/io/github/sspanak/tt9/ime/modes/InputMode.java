@@ -166,6 +166,7 @@ abstract public class InputMode {
 	// Utility
 	abstract public int getId();
 	public boolean containsGeneratedSuggestions() { return false; }
+
 	public boolean isTyping() { return !digitSequence.isEmpty(); }
 	public int getFirstKey() { return digitSequence.isEmpty() ? -1 : digitSequence.charAt(0) - '0'; }
 	public int getSequenceLength() { return digitSequence.length(); } // The number of key presses for the current word.
@@ -207,7 +208,8 @@ abstract public class InputMode {
 
 
 	// Text case
-	public int getTextCase() { return textCase; }
+	public int getTextCase() { return getTextCaseRaw(); }
+	public int getTextCaseRaw() { return textCase; }
 
 	public boolean setTextCase(int newTextCase) {
 		if (!allowedTextCases.contains(newTextCase)) {

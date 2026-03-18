@@ -30,7 +30,7 @@
 		app:title="@string/pref_category_custom_words"
 		app:singleLineTitle="true">
 
-		<io.github.sspanak.tt9.preferences.screens.languages.AddWordsWithoutConfirmationSwitch />
+		<io.github.sspanak.tt9.preferences.screens.languages.SwitchAddWordsWithoutConfirmation />
 
 		<Preference
 			app:key="dictionary_import_custom"

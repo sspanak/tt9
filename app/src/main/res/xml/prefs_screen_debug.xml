@@ -20,6 +20,16 @@
 		android:key="pref_slow_queries"
 		android:title="@string/pref_category_usage_stats" />
 
+	<PreferenceCategory app:title="Beta Features" app:singleLineTitle="true">
+		<SwitchPreferenceCompat
+			android:defaultValue="false"
+			android:key="auto_mind_reading"
+			android:summary="@string/pref_auto_mind_reading_summary"
+			android:title="@string/pref_auto_mind_reading" />
+
+		<io.github.sspanak.tt9.preferences.screens.languages.SwitchRaiseImportLimits />
+	</PreferenceCategory>
+
 	<PreferenceCategory app:title="Hacks" app:singleLineTitle="true">
 		<SwitchPreferenceCompat
 			app:key="pref_demo_mode"

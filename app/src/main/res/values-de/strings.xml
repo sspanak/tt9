@@ -41,6 +41,7 @@
 	<string name="pref_alternative_suggestion_scrolling_summary">Aktivieren Sie, wenn Sie manchmal nicht alle Vorschläge sehen können oder Probleme beim Scrollen haben.</string>
 	<string name="pref_arrows_left_right_summary">Linke/rechte Pfeiltasten anzeigen, um durch Vorschläge zu scrollen oder den Textcursor horizontal zu bewegen.</string>
 	<string name="pref_arrows_up_down_summary">Wischen nach oben/unten auf der OK-Taste erlauben, um Vorschläge zu filtern oder den Textcursor vertikal zu bewegen.</string>
+	<string name="pref_auto_mind_reading_summary">Vorschläge für das nächste Wort anzeigen, bevor Sie mit dem Tippen beginnen oder nach dem ersten Buchstaben. Beginnt ohne Vorschläge und lernt beim Tippen dazu.</string>
 	<string name="pref_auto_space">Automatischer Abstand</string>
 	<string name="pref_auto_space_summary">Automatisch ein Leerzeichen nach Satzzeichen oder Wörtern hinzufügen.</string>
 	<string name="pref_auto_text_case">Automatische Großbuchstaben</string>
@@ -133,6 +134,7 @@
 	<string name="dictionary_import_error_malformed_line">Unerwartetes Wortformat: \"%1$s\" in Zeile %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Der Speicher für hinzugefügte Wörter ist voll. Sie können keine weiteren Wörter importieren.</string>
 	<string name="delete">Löschen</string>
+	<string name="dictionary_import_raise_import_limits_summary">Maximale Anzahl von Wörtern pro Datei von %1$d auf %2$d und die Gesamtzahl der Wörter von %3$d auf %4$d erhöhen.\nWarnung! Das Importieren zu vieler Wörter kann die Eingabe verlangsamen.</string>
 	<string name="delete_words_link_summary">Finde und lösche falsch geschriebene oder überflüssige Wörter.</string>
 	<string name="search_results">Suchergebnisse</string>
 	<string name="search_results_void">Keine Ergebnisse.</string>
@@ -189,6 +191,7 @@
 	<string name="function_next_mode">Nächster Eingabemodus</string>
 	<string name="function_select_keyboard">Tastaturauswahl</string>
 	<string name="add_word_no_confirmation">Ohne Bestätigung hinzufügen</string>
+	<string name="dictionary_import_canceled">Import abgebrochen.</string>
 	<string name="dictionary_import_custom_words">Importieren</string>
 	<string name="dictionary_import_custom_words_summary">Wörter aus einer zuvor exportierten CSV-Datei importieren.</string>
 	<string name="dictionary_import_progress">CSV importieren (%1$s)…</string>
@@ -271,4 +274,7 @@
 	<string name="pref_auto_trim_trailing_space">Nachfolgende Leerzeichen automatisch entfernen</string>
 	<string name="edit_word_invalid_characters">„%1$s“ kann nicht bearbeitet werden, wenn die Sprache „%2$s“ ist.</string>
 	<string name="edit_word_not_available_in_language">Das Bearbeiten von Wörtern ist in dieser Sprache nicht möglich.</string>
+	<string name="dictionary_import_raise_import_limits">Importbeschränkungen erhöhen</string>
+	<string name="dictionary_import_cancel">Import abbrechen</string>
+	<string name="pref_auto_mind_reading">Gedankenlesen</string>
 </resources>

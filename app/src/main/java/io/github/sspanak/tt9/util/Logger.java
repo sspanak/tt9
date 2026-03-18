@@ -12,6 +12,10 @@ public class Logger {
 		return LEVEL <= Log.DEBUG;
 	}
 
+	public static boolean isVerboseLevel() {
+		return LEVEL <= Log.VERBOSE;
+	}
+
 	public static void setLevel(int level) {
 		if (level >= Log.VERBOSE && level <= Log.ASSERT) {
 			LEVEL = level;

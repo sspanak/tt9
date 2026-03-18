@@ -71,8 +71,18 @@ public class SuggestionOps {
 	}
 
 
+	public boolean containsOnlyGuesses() {
+		return suggestionBar != null && suggestionBar.containsOnlyGuesses();
+	}
+
+
 	public boolean containsStem() {
 		return suggestionBar != null && suggestionBar.containsStem();
+	}
+
+
+	public boolean containsNoOrdinaryWords() {
+		return isEmpty() || containsOnlyGuesses();
 	}
 
 
@@ -93,25 +103,33 @@ public class SuggestionOps {
 	}
 
 
-	public void set(ArrayList<String> suggestions) {
+	public void addGuesses(@NonNull ArrayList<String> guesses) {
+		setVisibility(settings, isEmpty() && guesses.isEmpty(), true);
+		if (suggestionBar != null) {
+			suggestionBar.prependGuesses(guesses);
+		}
+	}
+
+
+	public void set(@Nullable ArrayList<String> suggestions) {
 		set(suggestions, 0, false);
 	}
 
 
-	public void set(ArrayList<String> suggestions, boolean containsGenerated) {
+	public void set(@Nullable ArrayList<String> suggestions, boolean containsGenerated) {
 		set(suggestions, 0, containsGenerated);
 	}
 
 
-	public void set(ArrayList<String> suggestions, int selectIndex, boolean containsGenerated) {
-		setVisibility(settings, suggestions, false);
+	public void set(@Nullable ArrayList<String> suggestions, int selectIndex, boolean containsGenerated) {
+		setVisibility(settings, suggestions == null || suggestions.isEmpty(), false);
 		if (suggestionBar != null) {
 			suggestionBar.setMany(suggestions, selectIndex, containsGenerated);
 		}
 	}
 
 
-	public void setClipboardItems(LinkedList<CharSequence> clips) {
+	public void setClipboardItems(@NonNull LinkedList<CharSequence> clips) {
 		ArrayList<String> clipStrings = new ArrayList<>(clips.size());
 		for (int i = clips.size() - 1; i >= 0; i--) {
 			String preview = Clipboard.getPreview(i, SuggestionsBar.CLIPBOARD_SUGGESTION_SUFFIX);
@@ -120,9 +138,16 @@ public class SuggestionOps {
 			}
 		}
 
-		setVisibility(settings, clipStrings, true);
+		setVisibility(settings, clipStrings.isEmpty(), true);
 		if (suggestionBar != null) {
 			suggestionBar.setMany(clipStrings, 0, false);
+		}
+	}
+
+
+	public void setTextCase(@NonNull Language language, int textCase) {
+		if (suggestionBar != null) {
+			suggestionBar.setTextCase(language, textCase);
 		}
 	}
 
@@ -271,15 +296,15 @@ public class SuggestionOps {
 	}
 
 
-	private void setVisibility(@Nullable SettingsStore settings, @Nullable ArrayList<String> newSuggestions, boolean clipboardSuggestions) {
-		final boolean areSuggestionsVisible = isInputLimited || clipboardSuggestions || (settings != null && settings.getShowSuggestions());
+	private void setVisibility(@Nullable SettingsStore settings, boolean willBeEmpty, boolean forceVisible) {
+		final boolean areSuggestionsVisible = isInputLimited || forceVisible || (settings != null && settings.getShowSuggestions());
 
 		if (suggestionBar != null) {
 			suggestionBar.setVisible(areSuggestionsVisible);
 		}
 
 		if (statusBar != null) {
-			statusBar.setShown(newSuggestions == null || newSuggestions.isEmpty() || !areSuggestionsVisible);
+			statusBar.setShown(willBeEmpty || !areSuggestionsVisible);
 		}
 	}
 }

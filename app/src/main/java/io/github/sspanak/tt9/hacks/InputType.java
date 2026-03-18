@@ -144,6 +144,24 @@ public class InputType extends StandardInputType {
 
 
 	/**
+	 * Determines whether to enable the MindReader for the current field. The likely candidates are
+	 * multiline text fields, that do not have TYPE_TEXT_FLAG_NO_SUGGESTIONS (app does not want learning),
+	 * and are not of type URL, password, and others where predictions make no sense.
+	 */
+	public boolean notMindReadableText() {
+		return
+			field == null
+			|| (field.inputType & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+			|| !isMultilineText()
+			|| isEmail()
+			|| isNumeric()
+			|| isPassword()
+			|| isPersonName()
+			|| isUri();
+	}
+
+
+	/**
 	 * Third-party apps are usually designed for a touch screen, so the least we can do is convert
 	 * DPAD_CENTER to ENTER for typing new lines, regardless of the implementation of the OK key.
 	 */
@@ -188,8 +206,8 @@ public class InputType extends StandardInputType {
 
 	/**
 	 * isTermux
-	 * Termux is a terminal emulator and it naturally has a text input, but it incorrectly introduces itself as having a NULL input,
-	 * instead of a plain text input. However NULL inputs are usually, buttons and dropdown menus, which indeed can not read text
+	 * Termux is a terminal emulator, and it naturally has a text input, but it incorrectly introduces itself as having a NULL input,
+	 * instead of a plain text input. However, NULL inputs are usually, buttons and dropdown menus, which indeed can not read text
 	 * and are ignored by TT9 by default. In order not to ignore Termux, we need this.
 	 */
 	public boolean isTermux() {

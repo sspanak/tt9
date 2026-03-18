@@ -78,8 +78,8 @@ public class TextField extends InputField {
 	@NonNull public String[] getSurroundingStringForAutoAssistance(@NonNull SettingsStore settings, @Nullable InputMode mode) {
 		if (settings.isAutoAssistanceOn(mode)) {
 			return new String[] {
-				getStringBeforeCursor(50),
-				getStringAfterCursor(2)
+				getStringBeforeCursor(SettingsStore.AUTO_ASSISTANCE_BEFORE_TEXT),
+				getStringAfterCursor(SettingsStore.AUTO_ASSISTANCE_AFTER_TEXT)
 			};
 		} else {
 			return new String[] { "", "" };

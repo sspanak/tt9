@@ -6,12 +6,12 @@ public class SettingsStatic extends SettingsColors {
 	protected SettingsStatic(Context context) { super(context); }
 
 	/************* internal settings *************/
+	public static final int AUTO_ASSISTANCE_BEFORE_TEXT = 50; // chars
+	public static final int AUTO_ASSISTANCE_AFTER_TEXT = 2; // chars
 	public static final int BACKSPACE_ACCELERATION_MAX_CHARS = 20; // maximum chars to be deleted at once in very long words
 	public static final int BACKSPACE_ACCELERATION_MAX_CHARS_NO_SPACE = 4; // maximum chars to be deleted at once for languages with no spaces
 	public static final int BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE = 5;
 	public final static int CLIPBOARD_PREVIEW_LENGTH = 20;
-	public final static int CUSTOM_WORDS_IMPORT_MAX_LINES = 250;
-	public final static int CUSTOM_WORDS_MAX = 1000;
 	public final static int CUSTOM_WORDS_SEARCH_RESULTS_MAX = 50;
 	public final static int DICTIONARY_AUTO_LOAD_COOLDOWN_TIME = 1200000; // 20 minutes in ms
 	public final static int DICTIONARY_DOWNLOAD_CONNECTION_TIMEOUT = 10000; // ms
@@ -20,6 +20,13 @@ public class SettingsStatic extends SettingsColors {
 	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME = 250; // ms
 	public final static long INPUT_CONNECTION_MAX_WAIT = 50; // ms
 	public final static int LANGUAGE_SEARCH_DEBOUNCE_TIME = 500; // ms
+	public static final int MIND_READER_DICTIONARY_WORD_SIZE = 16; // bits
+	public static final int MIND_READER_MAX_NGRAM_SIZE = 4;
+	public static final int MIND_READER_MAX_BIGRAM_SUGGESTIONS = 5;
+	public static final int MIND_READER_MAX_TRIGRAM_SUGGESTIONS = 4;
+	public static final int MIND_READER_MAX_TETRAGRAM_SUGGESTIONS = 4;
+	public static final int MIND_READER_NGRAMS_INITIAL_CAPACITY = 1000;
+	public static final int MIND_READER_MAX_DICTIONARY_WORDS = (int) Math.pow(2, MIND_READER_DICTIONARY_WORD_SIZE);
 	public final static int RESIZE_THROTTLING_TIME = 60; // ms
 	public final static int SHIFT_STATE_DEBOUNCE_TIME = 175; // ms
 	public final static byte SLOW_QUERY_TIME = 50; // ms
