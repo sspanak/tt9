@@ -6,26 +6,26 @@ import androidx.annotation.Nullable;
 public class MindReaderStats {
 	private static final MindReaderStats self = new MindReaderStats();
 
-	private boolean isOff = true;
-	private int dictionarySize = 0;
-	private int ngramsSize = 0;
-	private int ngramsCapacity = 0;
-	@Nullable private String language = null;
+	private volatile boolean isOff = true;
+	private volatile int dictionarySize = 0;
+	private volatile int ngramsSize = 0;
+	private volatile int ngramsCapacity = 0;
+	@Nullable private volatile String language = null;
 
-	private long countComplete = 0;
-	private long countGuess = 0;
-	private long countSetContext = 0;
-	private long countSetLanguage = 0;
+	private volatile long countComplete = 0;
+	private volatile long countGuess = 0;
+	private volatile long countSetContext = 0;
+	private volatile long countSetLanguage = 0;
 
-	private long totalComplete = 0;
-	private long totalGuess = 0;
-	private long totalSetContext = 0;
-	private long totalSetLanguage = 0;
+	private volatile long totalComplete = 0;
+	private volatile long totalGuess = 0;
+	private volatile long totalSetContext = 0;
+	private volatile long totalSetLanguage = 0;
 
-	private long slowestComplete = 0;
-	private long slowestGuess = 0;
-	private long slowestSetContext = 0;
-	private long slowestSetLanguage = 0;
+	private volatile long slowestComplete = 0;
+	private volatile long slowestGuess = 0;
+	private volatile long slowestSetContext = 0;
+	private volatile long slowestSetLanguage = 0;
 
 
 	@NonNull
