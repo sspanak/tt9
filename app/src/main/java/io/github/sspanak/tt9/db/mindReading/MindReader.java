@@ -238,10 +238,6 @@ public class MindReader {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
-		if (clearCacheOnNextUse) {
-			clearCache();
-		}
-
 		if (inputNotMindReadable) {
 			Timer.stop(TIMER_TAG);
 			return this;
@@ -250,6 +246,10 @@ public class MindReader {
 		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
 
 		runInThread(() -> {
+			if (clearCacheOnNextUse) {
+				clearCache();
+			}
+
 			if (setContextSync(inputMode, language, adjustedSurroundingText, lastWord)) {
 				processContext(inputMode, true);
 
