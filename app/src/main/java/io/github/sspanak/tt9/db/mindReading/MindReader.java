@@ -20,7 +20,6 @@ import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
@@ -106,7 +105,7 @@ public class MindReader {
 	 * number (e.g. if number=2, show completions starting with "a", "b", "c"). This is used when the
 	 * user types the first letter of a word.
 	 */
-	public void complete(double loadingId, @NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, int number) {
+	public void complete(double loadingId, @NonNull InputMode inputMode, @NonNull String[] surroundingText, int number) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
@@ -118,16 +117,23 @@ public class MindReader {
 			return;
 		}
 
-
-		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
-		final ArrayList<String> alternativeLetters = language.getKeyCharacters(number);
-
-		if (alternativeLetters.isEmpty()) {
-			Timer.stop(TIMER_TAG);
-			return;
-		}
-
 		runInThread(() -> {
+			final Language language = wordContext.language;
+			if (language == null) {
+				Logger.w(LOG_TAG, "Cannot complete the current word: language is not set in the context.");
+				Timer.stop(TIMER_TAG);
+				return;
+			}
+
+			final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
+			final ArrayList<String> alternativeLetters = language.getKeyCharacters(number);
+
+			if (alternativeLetters.isEmpty()) {
+				Timer.stop(TIMER_TAG);
+				return;
+			}
+
+
 			if (!setContextSync(inputMode, language, adjustedSurroundingText, null)) {
 				Timer.stop(TIMER_TAG);
 				return;
@@ -162,7 +168,7 @@ public class MindReader {
 	 * the user has just typed a space, or in languages without spaces, when the user has just typed
 	 * a word.
 	 */
-	public void guess(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, @NonNull Runnable onComplete) {
+	public void guess(@NonNull InputMode inputMode, @NonNull String[] surroundingText, @Nullable String lastWord, @NonNull Runnable onComplete) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
@@ -174,9 +180,16 @@ public class MindReader {
 			return;
 		}
 
-		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
-
 		runInThread(() -> {
+			final Language language = wordContext.language;
+			if (language == null) {
+				Logger.w(LOG_TAG, "Cannot guess next word: language is not set in the context.");
+				Timer.stop(TIMER_TAG);
+				return;
+			}
+
+			final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
+
 			// Only attempt guessing if the context is valid and ends with a space. Otherwise, the guessed
 			// composing text will appear joined with the last word, instead of as a new word.
 			if (!setContextSync(inputMode, language, adjustedSurroundingText, lastWord) || (language.hasSpaceBetweenWords() && !TextTools.endsWithSpace(surroundingText[0]))) {
@@ -294,7 +307,6 @@ public class MindReader {
 
 		runInThread(() -> {
 			if (language.equals(wordContext.language)) {
-				Logger.d(LOG_TAG, "Keeping language: " + language);
 				return;
 			}
 

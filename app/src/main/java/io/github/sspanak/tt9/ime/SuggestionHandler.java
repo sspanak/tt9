@@ -15,7 +15,6 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
-import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
@@ -255,7 +254,8 @@ abstract public class SuggestionHandler extends TypingHandler {
 		mindReader
 			.setCurrentGuessHandler(null)
 			.setTextCase(mInputMode.getTextCaseRaw())
-			.complete(loadingId, mInputMode, (NaturalLanguage) mLanguage, surroundingText, number);
+			.setLanguage(mLanguage)
+			.complete(loadingId, mInputMode, surroundingText, number);
 	}
 
 
@@ -263,7 +263,8 @@ abstract public class SuggestionHandler extends TypingHandler {
 	protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord) {
 		mindReader
 			.setTextCase(mInputMode.getTextCaseRaw())
-			.guess(mInputMode, mLanguage, surroundingText, lastWord, this::handleGuessesAsync);
+			.setLanguage(mLanguage)
+			.guess(mInputMode, surroundingText, lastWord, this::handleGuessesAsync);
 	}
 
 
