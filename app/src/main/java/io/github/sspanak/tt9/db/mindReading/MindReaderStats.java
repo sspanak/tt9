@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class MindReaderStats {
-	private static MindReaderStats self;
+	private static final MindReaderStats self = new MindReaderStats();
 
 	private boolean isOff = true;
 	private int dictionarySize = 0;
@@ -30,9 +30,6 @@ public class MindReaderStats {
 
 	@NonNull
 	public static MindReaderStats getInstance() {
-		if (self == null) {
-			self = new MindReaderStats();
-		}
 		return self;
 	}
 
