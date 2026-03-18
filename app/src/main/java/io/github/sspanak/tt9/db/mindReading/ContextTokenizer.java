@@ -36,7 +36,9 @@ class ContextTokenizer {
 				tokens = new String[maxTokens];
 				tokensCount = 0;
 				type = TokenType.SPACE;
-			} else if (isWordChar(cp) || isWordSpecialChar(language, cp)) {
+			} else if (isWordChar(cp) || (previousType == TokenType.WORD && isWordSpecialChar(language, cp))) {
+				// only consider special chars as part of a word if they are between other word chars,
+				// otherwise we get undesired false-positives, such as "-" being considered a word
 				type = TokenType.WORD;
 			} else if (isPriorityPunctuationChar(cp)) {
 				type = TokenType.PUNCTUATION_PRIORITY;
