@@ -85,7 +85,9 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 
+	@Override
 	protected void cleanUp() {
+		super.cleanUp();
 		if (orientationListener != null) {
 			orientationListener.stop();
 			orientationListener = null;

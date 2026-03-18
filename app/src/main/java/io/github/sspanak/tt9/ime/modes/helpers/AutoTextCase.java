@@ -118,10 +118,8 @@ public class AutoTextCase {
 	 */
 	public int determineNextWordTextCase(@NonNull Language language, int currentTextCase, int textFieldTextCase, @Nullable TextField textField, @Nullable String digitSequence, @Nullable String beforeCursor) {
 		if (
-			// When the setting is off or invalid, don't do any changes.
-			!settings.getAutoTextCasePredictive()
 			// If the user has explicitly selected uppercase, we respect that.
-			|| currentTextCase == InputMode.CASE_UPPER
+			currentTextCase == InputMode.CASE_UPPER
 			// save resources if the language has no uppercase letters
 			|| !language.hasUpperCase()
 		) {

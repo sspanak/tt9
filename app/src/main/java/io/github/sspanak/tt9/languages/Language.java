@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.languages;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -124,7 +125,7 @@ abstract public class Language {
 
 
 	/**
-	 * Checks whether the given word contains characters outside of the language alphabet.
+	 * Checks whether the given word contains characters outside the language alphabet.
 	 */
 	abstract public boolean isValidWord(String word);
 
@@ -133,4 +134,20 @@ abstract public class Language {
 	 * For example: "food" -> "3663"
 	 */
 	@NonNull abstract public String getDigitSequenceForWord(String word) throws InvalidLanguageCharactersException;
+
+
+	@Override
+	public boolean equals(@Nullable Object obj) {
+		return obj instanceof Language && ((Language) obj).getId() == getId();
+	}
+
+
+	/**
+	 * For consistency with this.equals(), hash code must return the same value, not to break HashMap
+	 * and similar data structures
+	 */
+	@Override
+	public int hashCode() {
+		return getId();
+	}
 }
