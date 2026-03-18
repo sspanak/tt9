@@ -30,11 +30,13 @@ import io.github.sspanak.tt9.util.Timer;
 public class MindReader {
 	private static final String LOG_TAG = MindReader.class.getSimpleName();
 
+	private static boolean clearCacheOnNextUse = false;
+
 	// dependencies
 	@Nullable private AutoTextCase autoTextCase;
 	@NonNull private final ExecutorService executor = Executors.newSingleThreadExecutor();
 	@Nullable private SettingsStore settings;
-	@NonNull public final MindReaderStats stats = new MindReaderStats(this);
+	@NonNull public final MindReaderStats stats = MindReaderStats.getInstance();
 
 	private final AtomicLong completeRequestCount = new AtomicLong(Long.MIN_VALUE);
 	private final AtomicLong guessRequestCount = new AtomicLong(Long.MIN_VALUE);
@@ -56,6 +58,13 @@ public class MindReader {
 		if (!executor.isShutdown()) {
 			executor.shutdownNow();
 		}
+
+		clearCacheOnNextUse = false;
+	}
+
+
+	public static void clear() {
+		clearCacheOnNextUse = true;
 	}
 
 
@@ -63,13 +72,12 @@ public class MindReader {
 	 * Clear the current context and guesses. This should be called when the user finishes typing, and
 	 * goes to a different app or an input field, where the current context is no longer relevant.
 	 */
-	public MindReader clearContext() {
+	public void clearContext() {
 		if (isOff() || executor.isTerminated() || executor.isShutdown()) {
-			return this;
+			return;
 		}
 
 		runInThread(this::clearContextSync);
-		return this;
 	}
 
 
@@ -141,7 +149,7 @@ public class MindReader {
 			words = List.copyOf(completions);
 
 			final long time = Timer.stop(TIMER_TAG);
-			stats.recordCompleteTime(time);
+			stats.update(this).setCompleteTime(time);
 			logState(time, words);
 
 			currentGuessHandler.run();
@@ -194,7 +202,7 @@ public class MindReader {
 			words = List.copyOf(guesses);
 
 			final long time = Timer.stop(TIMER_TAG);
-			stats.recordGuessTime(time);
+			stats.update(this).setGuessTime(time);
 			logState(time, words);
 
 			onComplete.run();
@@ -207,9 +215,10 @@ public class MindReader {
 	 */
 	@WorkerThread
 	private void clearCache() {
+		clearCacheOnNextUse = false;
 		dictionary = new MindReaderDictionary(wordContext.language);
 		ngrams = new MindReaderNgramList();
-		stats.clear().update();
+		stats.update(this).resetTimings();
 	}
 
 
@@ -229,6 +238,10 @@ public class MindReader {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
+		if (clearCacheOnNextUse) {
+			clearCache();
+		}
+
 		if (inputNotMindReadable) {
 			Timer.stop(TIMER_TAG);
 			return this;
@@ -241,7 +254,7 @@ public class MindReader {
 				processContext(inputMode, true);
 
 				final long time = Timer.stop(TIMER_TAG);
-				stats.recordSetContextTime(time);
+				stats.update(this).setChangeContextTime(time);
 				logState(time, null);
 			} else {
 				Timer.stop(TIMER_TAG);
@@ -299,7 +312,7 @@ public class MindReader {
 			clearCache();
 
 			final long time = Timer.stop(TIMER_TAG);
-			stats.recordSetLanguageTime(time);
+			stats.update(this).setChangeLanguageTime(time);
 			Logger.d(LOG_TAG, "Loaded dictionary and N-grams for language: " + language + ". Time: " + time + " ms");
 		});
 
@@ -378,7 +391,9 @@ public class MindReader {
 
 
 	protected boolean isOff() {
-		return settings == null || !settings.getAutoMindReading() || settings.isMainLayoutStealth();
+		final boolean off = settings == null || !settings.getAutoMindReading() || settings.isMainLayoutStealth();
+		stats.setOff(off);
+		return off;
 	}
 
 

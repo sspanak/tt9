@@ -49,7 +49,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			suggestionHandler = null;
 		}
 
-		mindReader.clearContext().stats.update();
+		mindReader.clearContext();
 		super.onFinishTyping();
 	}
 

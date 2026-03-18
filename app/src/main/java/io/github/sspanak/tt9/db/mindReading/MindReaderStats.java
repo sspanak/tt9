@@ -1,75 +1,109 @@
 package io.github.sspanak.tt9.db.mindReading;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class MindReaderStats {
-	private final MindReader mindReader;
+	private static MindReaderStats self;
 
-	private static long countComplete = 0;
-	private static long countGuess = 0;
-	private static long countSetContext = 0;
-	private static long countSetLanguage = 0;
+	private boolean isOff = true;
+	private int dictionarySize = 0;
+	private int ngramsSize = 0;
+	private int ngramsCapacity = 0;
+	@Nullable private String language = null;
 
-	private static long totalComplete = 0;
-	private static long totalGuess = 0;
-	private static long totalSetContext = 0;
-	private static long totalSetLanguage = 0;
+	private long countComplete = 0;
+	private long countGuess = 0;
+	private long countSetContext = 0;
+	private long countSetLanguage = 0;
 
-	private static long slowestComplete = 0;
-	private static long slowestGuess = 0;
-	private static long slowestSetContext = 0;
-	private static long slowestSetLanguage = 0;
-	@NonNull private static String statsSnapshot = "";
+	private long totalComplete = 0;
+	private long totalGuess = 0;
+	private long totalSetContext = 0;
+	private long totalSetLanguage = 0;
+
+	private long slowestComplete = 0;
+	private long slowestGuess = 0;
+	private long slowestSetContext = 0;
+	private long slowestSetLanguage = 0;
 
 
-	MindReaderStats(@NonNull MindReader reader) {
-		mindReader = reader;
+	@NonNull
+	public static MindReaderStats getInstance() {
+		if (self == null) {
+			self = new MindReaderStats();
+		}
+		return self;
 	}
 
 
-	MindReaderStats clear() {
-		slowestComplete = slowestGuess = slowestSetContext = slowestSetLanguage = 0;
+	@NonNull
+	public static String get() {
+		return getInstance().generate();
+	}
+
+
+	MindReaderStats update(@NonNull MindReader mindReader) {
+		isOff = mindReader.isOff();
+		dictionarySize = mindReader.dictionary.size();
+		ngramsSize = mindReader.ngrams.size();
+		ngramsCapacity = mindReader.ngrams.capacity();
+		language = mindReader.wordContext.language != null ? mindReader.wordContext.language.toString() : null;
+
 		return this;
 	}
 
 
-	void recordCompleteTime(long time) {
+	void resetTimings() {
+		countComplete = countGuess = countSetContext = countSetLanguage = 0;
+		totalComplete = totalGuess = totalSetContext = totalSetLanguage = 0;
+		slowestComplete = slowestGuess = slowestSetContext = slowestSetLanguage = 0;
+	}
+
+
+	void setOff(boolean off) {
+		isOff = off;
+	}
+
+
+	void setCompleteTime(long time) {
 		countComplete++;
 		totalComplete += time;
 		slowestComplete = Math.max(slowestComplete, time);
 	}
 
 
-	void recordGuessTime(long time) {
+	void setGuessTime(long time) {
 		countGuess++;
 		totalGuess += time;
 		slowestGuess = Math.max(slowestGuess, time);
 	}
 
 
-	void recordSetContextTime(long time) {
+	void setChangeContextTime(long time) {
 		countSetContext++;
 		totalSetContext += time;
 		slowestSetContext = Math.max(slowestSetContext, time);
 	}
 
 
-	void recordSetLanguageTime(long time) {
+	void setChangeLanguageTime(long time) {
 		countSetLanguage++;
 		totalSetLanguage += time;
 		slowestSetLanguage = Math.max(slowestSetLanguage, time);
 	}
 
 
-	public void update() {
-		StringBuilder sb = new StringBuilder();
+	@NonNull
+	private String generate() {
+		final StringBuilder sb = new StringBuilder();
 
-		sb.append("Status").append(mindReader.isOff() ? ": Off\n" : ": On\n");
-		sb.append("Language: ").append(mindReader.wordContext.language).append("\n");
-		sb.append("Dictionary size: ").append(mindReader.dictionary.size()).append(" tokens\n");
-		sb.append("N-grams: ").append(mindReader.ngrams.size()).append(" / ").append(mindReader.ngrams.capacity()).append("\n");
+		sb.append("Status").append(isOff ? ": Off\n" : ": On\n");
+		sb.append("Language: ").append(language).append("\n");
+		sb.append("Dictionary size: ").append(dictionarySize).append(" tokens\n");
+		sb.append("N-grams: ").append(ngramsSize).append(" / ").append(ngramsCapacity).append("\n");
 
-		if (!mindReader.isOff()) {
+		if (!isOff) {
 			sb.append("\nComplete word: ").append(countComplete)
 				.append(".  Average: ").append(countComplete == 0 ? 0 : totalComplete / countComplete)
 				.append(" ms.  Slowest: ")
@@ -88,12 +122,6 @@ public class MindReaderStats {
 				.append(slowestSetLanguage).append(" ms\n");
 		}
 
-		statsSnapshot = sb.toString();
-	}
-
-
-	@NonNull
-	public static String get() {
-		return statsSnapshot.isEmpty() ? "No mind read." : statsSnapshot;
+		return sb.toString();
 	}
 }
