@@ -6,6 +6,8 @@ import androidx.annotation.Nullable;
 public class MindReaderStats {
 	private static final MindReaderStats self = new MindReaderStats();
 
+	private MindReaderStats() {}
+
 	private volatile boolean isOff = true;
 	private volatile int dictionarySize = 0;
 	private volatile int ngramsSize = 0;
