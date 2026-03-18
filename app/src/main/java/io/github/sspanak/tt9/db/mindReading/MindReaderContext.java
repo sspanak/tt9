@@ -171,7 +171,7 @@ class MindReaderContext {
 		}
 
 		final int cp = lastAppendedWord.codePointAt(0);
-		return Character.isWhitespace(cp) || ContextTokenizer.isPunctuationChar(cp);
+		return Character.isWhitespace(cp) || ContextTokenizer.isPriorityPunctuationChar(cp);
 	}
 
 

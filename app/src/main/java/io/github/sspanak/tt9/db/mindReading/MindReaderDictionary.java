@@ -19,6 +19,7 @@ class MindReaderDictionary {
 	static final String GARBAGE = "∅";
 	static final String NUMBER = "\\d";
 	static final String SPACE = " ";
+	static final String PUNCTUATION_OTHER = "|";
 	static final int[] PUNCTUATION = {
 		Characters.AR_QUESTION_MARK.codePointAt(0),
 		Characters.GR_QUESTION_MARK.codePointAt(0),
@@ -53,6 +54,7 @@ class MindReaderDictionary {
 		addInternal(EMOJI);
 		addInternal(NUMBER);
 		addInternal(SPACE);
+		addInternal(PUNCTUATION_OTHER);
 		for (int p : PUNCTUATION) {
 			addInternal(new String(Character.toChars(p)));
 		}
@@ -64,10 +66,11 @@ class MindReaderDictionary {
 	static boolean isNumber(int tokenId) { return tokenId == 2; }
 	static boolean isPunctuation(@Nullable Language language, int tokenId) {
 		return
-			tokenId >= 4 && tokenId < 4 + PUNCTUATION.length
+			tokenId == 4
+			|| (tokenId >= 5 && tokenId < 5 + PUNCTUATION.length)
 			|| (LanguageKind.usesSpaceAsPunctuation(language) && tokenId == 3);
 	}
-	static boolean isWord(int tokenId) { return tokenId >= 4 + PUNCTUATION.length; }
+	static boolean isWord(int tokenId) { return tokenId >= 5 + PUNCTUATION.length; }
 
 
 	static boolean isSpecialChar(@Nullable Language language, @Nullable String token) {
@@ -75,7 +78,7 @@ class MindReaderDictionary {
 			return false;
 		}
 
-		if (token.equals(EMOJI) || token.equals(NUMBER)) {
+		if (token.equals(EMOJI) || token.equals(NUMBER) || token.equals(PUNCTUATION_OTHER)) {
 			return true;
 		}
 
