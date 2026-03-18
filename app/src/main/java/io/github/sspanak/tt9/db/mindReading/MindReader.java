@@ -259,10 +259,6 @@ public class MindReader {
 		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
 
 		runInThread(() -> {
-			if (clearCacheOnNextUse) {
-				clearCache();
-			}
-
 			if (setContextSync(inputMode, language, adjustedSurroundingText, lastWord)) {
 				processContext(inputMode, true);
 
@@ -359,6 +355,10 @@ public class MindReader {
 	private boolean setContextSync(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
 		if (isOff()) {
 			return false;
+		}
+
+		if (clearCacheOnNextUse) {
+			clearCache();
 		}
 
 		if (surroundingText.length < 2 || !surroundingText[1].isEmpty()) {
