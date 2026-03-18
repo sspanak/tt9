@@ -26,6 +26,8 @@
 			android:key="auto_mind_reading"
 			android:summary="@string/pref_auto_mind_reading_summary"
 			android:title="@string/pref_auto_mind_reading" />
+
+		<io.github.sspanak.tt9.preferences.screens.languages.SwitchRaiseImportLimits />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="Hacks" app:singleLineTitle="true">
