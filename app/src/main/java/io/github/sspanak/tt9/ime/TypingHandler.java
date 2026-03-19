@@ -266,6 +266,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 			);
 		}
 
+		mindReader.setContext(mInputMode, mLanguage, surroundingChars, text).saveContext(mInputMode);
+
 		// "type" and accept the new word
 		mInputMode.onAcceptSuggestion(text);
 		textField.setText(text);
