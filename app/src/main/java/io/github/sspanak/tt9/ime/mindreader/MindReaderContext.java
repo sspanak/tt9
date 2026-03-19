@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.db.mindReading;
+package io.github.sspanak.tt9.ime.mindreader;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

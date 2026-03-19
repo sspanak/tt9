@@ -5,9 +5,9 @@ import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
-import io.github.sspanak.tt9.db.mindReading.MindReader;
-import io.github.sspanak.tt9.db.mindReading.MindReaderStats;
 import io.github.sspanak.tt9.db.words.SlowQueryStats;
+import io.github.sspanak.tt9.ime.mindreader.MindReader;
+import io.github.sspanak.tt9.ime.mindreader.MindReaderStats;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemText;
