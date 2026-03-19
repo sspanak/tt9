@@ -86,7 +86,7 @@ public class MindReaderStats {
 	}
 
 
-	void setChangeLanguageTime(long time) {
+	synchronized void setChangeLanguageTime(long time) {
 		countSetLanguage++;
 		totalSetLanguage += time;
 		slowestSetLanguage = Math.max(slowestSetLanguage, time);
