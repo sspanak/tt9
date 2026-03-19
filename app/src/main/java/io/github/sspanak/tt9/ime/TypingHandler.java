@@ -215,7 +215,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			lastWord = suggestionOps.acceptIncompleteAndKeepList();
 			mInputMode.onAcceptSuggestion(lastWord);
 			surroundingChars = autoCorrectSpace(lastWord, surroundingChars, false, key);
-			mindReader.setContext(mInputMode, mLanguage, surroundingChars, lastWord).saveContext(mInputMode);
+			mindReader.setContext(mInputMode, mLanguage, surroundingChars, lastWord);
 		}
 
 		// Auto-adjust the text case before each word/char, if the InputMode supports it.
@@ -266,7 +266,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			);
 		}
 
-		mindReader.setContext(mInputMode, mLanguage, surroundingChars, text).saveContext(mInputMode);
+		mindReader.setContext(mInputMode, mLanguage, surroundingChars, text);
 
 		// "type" and accept the new word
 		mInputMode.onAcceptSuggestion(text);

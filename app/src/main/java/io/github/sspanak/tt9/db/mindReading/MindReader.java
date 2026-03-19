@@ -340,15 +340,6 @@ public class MindReader {
 	}
 
 
-	/**
-	 * Extract meaningful words from the current context and save them in the dictionary and N-grams.
-	 * They can be used for guessing in the future.
-	 */
-	public void saveContext(@Nullable InputMode inputMode) {
-		runInThread(() -> processContext(inputMode, true));
-	}
-
-
 	@WorkerThread
 	private boolean setContextSync(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
 		if (isOff()) {
@@ -378,6 +369,10 @@ public class MindReader {
 	}
 
 
+	/**
+	 * Extract meaningful words from the current context and save them in the dictionary and N-grams.
+	 * They can be used for guessing in the future.
+	 */
 	@WorkerThread
 	private void processContext(@Nullable InputMode inputMode, boolean saveContext) {
 		if (isOff()) {
