@@ -16,6 +16,7 @@ import io.github.sspanak.tt9.db.entities.CustomWordFile;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
+import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
@@ -122,7 +123,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 
 
 	private boolean openDb(Context context) {
-		sqlite = SQLiteOpener.getInstance(context);
+		sqlite = WordDbOpener.getInstance(context);
 		if (sqlite.getDb() != null) {
 			return true;
 		}

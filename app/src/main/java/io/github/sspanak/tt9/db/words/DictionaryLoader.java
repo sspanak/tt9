@@ -22,6 +22,7 @@ import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.Tables;
+import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
@@ -59,7 +60,7 @@ public class DictionaryLoader {
 	private DictionaryLoader(Context context) {
 		assets = context.getAssets();
 		loadingBar = DictionaryLoadingBar.getInstance(context);
-		sqlite = SQLiteOpener.getInstance(context);
+		sqlite = WordDbOpener.getInstance(context);
 	}
 
 

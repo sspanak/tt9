@@ -4,41 +4,30 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.ArrayList;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.BuildConfig;
-import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.util.Logger;
 
-public class SQLiteOpener extends SQLiteOpenHelper {
+abstract public class SQLiteOpener extends SQLiteOpenHelper {
 	private static final String LOG_TAG = SQLiteOpener.class.getSimpleName();
-	private static final String DATABASE_NAME = "tt9.db";
-	private static final int DATABASE_VERSION = BuildConfig.VERSION_CODE;
 
-	private static SQLiteOpener self;
-	private SQLiteDatabase db;
+	protected SQLiteDatabase db;
 
-	private final ArrayList<Language> allLanguages;
 
-	private SQLiteOpener(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		allLanguages = new ArrayList<>(LanguageCollection.getAll());
+	public SQLiteOpener(@Nullable Context context, @NonNull String name) {
+		super(context, name, null, BuildConfig.VERSION_CODE);
 	}
 
 
-	public static SQLiteOpener getInstance(Context context) {
-		if (self == null) {
-			self = new SQLiteOpener(context);
-		}
-
-		return self;
-	}
+	@NonNull abstract protected String[] getCreateQueries();
+	@NonNull abstract Migration[] getMigrations();
 
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		for (String query : Tables.getCreateQueries(allLanguages)) {
+		for (String query : getCreateQueries()) {
 			db.execSQL(query);
 		}
 	}
@@ -54,7 +43,7 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		onCreate(db);
-		for (Migration migration : Migration.LIST) {
+		for (Migration migration : getMigrations()) {
 			if (oldVersion > migration.oldVersion()) {
 				Logger.d(LOG_TAG, "Skipping migration: '" + migration.query() + "'. Highest previous version: " + migration.oldVersion() + " but we are at: " + oldVersion);
 				continue;

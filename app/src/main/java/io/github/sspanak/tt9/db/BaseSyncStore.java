@@ -2,15 +2,15 @@ package io.github.sspanak.tt9.db;
 
 import android.content.Context;
 
-import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
+import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
 import io.github.sspanak.tt9.util.Logger;
 
 public class BaseSyncStore {
-	protected SQLiteOpener sqlite;
+	protected WordDbOpener sqlite;
 
 	protected BaseSyncStore(Context context) {
 		try {
-			sqlite = SQLiteOpener.getInstance(context);
+			sqlite = WordDbOpener.getInstance(context);
 			sqlite.getDb();
 		} catch (Exception e) {
 			sqlite = null;
