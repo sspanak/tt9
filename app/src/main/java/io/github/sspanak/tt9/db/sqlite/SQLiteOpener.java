@@ -22,7 +22,7 @@ abstract public class SQLiteOpener extends SQLiteOpenHelper {
 
 
 	@NonNull abstract protected String[] getCreateQueries();
-	@NonNull abstract Migration[] getMigrations();
+	@NonNull abstract protected Migration[] getMigrations();
 
 
 	@Override

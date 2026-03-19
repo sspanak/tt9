@@ -169,7 +169,7 @@ public class DictionaryLoader {
 
 			sqlite.beginTransaction();
 
-			Tables.dropIndexes(sqlite.getDb(), language);
+			Tables.dropWordsIndexes(sqlite.getDb(), language);
 			sendProgressMessage(language, ++progress);
 			logLoadingStep("Indexes dropped", language, Timer.restart());
 

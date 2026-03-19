@@ -2,21 +2,28 @@ package io.github.sspanak.tt9.db;
 
 import android.content.Context;
 
-import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
+import androidx.annotation.NonNull;
+
+import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.util.Logger;
 
-public class BaseSyncStore {
-	protected WordDbOpener sqlite;
+abstract public class BaseSyncStore {
+	protected SQLiteOpener sqlite;
 
 	protected BaseSyncStore(Context context) {
 		try {
-			sqlite = WordDbOpener.getInstance(context);
+			sqlite = openDb(context);
 			sqlite.getDb();
 		} catch (Exception e) {
 			sqlite = null;
 			Logger.w(getClass().getSimpleName(), "Database connection failure. All operations will return empty results. " + e.getMessage());
 		}
 	}
+
+
+	@NonNull
+	abstract protected SQLiteOpener openDb(Context context);
+
 
 	protected boolean checkOrNotify() {
 		if (sqlite == null || sqlite.getDb() == null) {

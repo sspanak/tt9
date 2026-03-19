@@ -14,6 +14,7 @@ import io.github.sspanak.tt9.db.BaseSyncStore;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
+import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -35,6 +36,13 @@ public class WordPairStore extends BaseSyncStore {
 
 	public WordPairStore(Context context) {
 		super(context);
+	}
+
+
+	@NonNull
+	@Override
+	protected WordDbOpener openDb(Context context) {
+		return WordDbOpener.getInstance(context);
 	}
 
 

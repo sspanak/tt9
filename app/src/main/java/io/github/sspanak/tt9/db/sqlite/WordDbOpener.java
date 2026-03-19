@@ -4,21 +4,16 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-
-import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 
 public class WordDbOpener extends SQLiteOpener {
 	private static WordDbOpener self;
 
-	private final ArrayList<Language> allLanguages;
-
 	private WordDbOpener(Context context) {
 		super(context, "tt9.db");
-		allLanguages = new ArrayList<>(LanguageCollection.getAll());
 	}
 
+	@NonNull
 	public static WordDbOpener getInstance(Context context) {
 		if (self == null) {
 			self = new WordDbOpener(context);
@@ -30,12 +25,12 @@ public class WordDbOpener extends SQLiteOpener {
 	@NonNull
 	@Override
 	protected String[] getCreateQueries() {
-		return Tables.getCreateQueries(allLanguages);
+		return Tables.getWordsCreateQueries(LanguageCollection.getAll());
 	}
 
 	@NonNull
 	@Override
-	Migration[] getMigrations() {
+	protected Migration[] getMigrations() {
 		return Migration.WORDS;
 	}
 }
