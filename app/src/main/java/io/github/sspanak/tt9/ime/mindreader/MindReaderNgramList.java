@@ -8,7 +8,7 @@ import java.util.Set;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
 
-class MindReaderNgramList {
+public class MindReaderNgramList {
 	private final int[] MAX_NGRAM_VARIATIONS;
 
 	private long[] before;
@@ -16,6 +16,8 @@ class MindReaderNgramList {
 	private final HashMap<Long, Integer> index = new HashMap<>();
 	private final int initialCapacity;
 	private int size;
+
+	private boolean dirty;
 
 
 	MindReaderNgramList() {
@@ -29,6 +31,8 @@ class MindReaderNgramList {
 		before = new long[initialCapacity];
 		next = new int[initialCapacity];
 		size = 0;
+
+		dirty = false;
 	}
 
 
@@ -56,6 +60,8 @@ class MindReaderNgramList {
 		// keep only the most recent N-gram variations for a given context,
 		// to prevent the list from growing indefinitely and to keep the predictions relevant
 		removeOldestVariations(ngram, MAX_NGRAM_VARIATIONS[Math.min(MAX_NGRAM_VARIATIONS.length - 1, ngram.size - 2)]);
+
+		dirty = true;
 	}
 
 
@@ -77,10 +83,24 @@ class MindReaderNgramList {
 	}
 
 
-	private static long getIndex(long before, int next) {
+	public long[] getBefore() {
+		long[] results = new long[size];
+		System.arraycopy(before, 0, results, 0, size);
+		return results;
+	}
+
+
+	private long getIndex(long before, int next) {
 		final long mask = (1L << SettingsStatic.MIND_READER_DICTIONARY_WORD_SIZE) - 1L;
 		final long maskedNext = ((long) next) & mask;
 		return (before << SettingsStatic.MIND_READER_DICTIONARY_WORD_SIZE) | maskedNext;
+	}
+
+
+	public int[] getNext() {
+		int[] results = new int[size];
+		System.arraycopy(next, 0, results, 0, size);
+		return results;
 	}
 
 
@@ -163,13 +183,18 @@ class MindReaderNgramList {
 	}
 
 
-	int size() {
-		return size;
+	int capacity() {
+		return before.length;
 	}
 
 
-	int capacity() {
-		return before.length;
+	public boolean dirty() {
+		return dirty;
+	}
+
+
+	public int size() {
+		return size;
 	}
 
 

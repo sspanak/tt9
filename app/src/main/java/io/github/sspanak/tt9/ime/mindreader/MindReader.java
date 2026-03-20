@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.mindreader;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
@@ -13,6 +15,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 
+import io.github.sspanak.tt9.db.mindreader.MindReaderStore;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
@@ -36,6 +39,7 @@ public class MindReader {
 	@NonNull private final ExecutorService executor = Executors.newSingleThreadExecutor();
 	@Nullable private SettingsStore settings;
 	@NonNull public final MindReaderStats stats = MindReaderStats.getInstance();
+	@Nullable private MindReaderStore store;
 
 	private final AtomicLong completeRequestCount = new AtomicLong(Long.MIN_VALUE);
 	private final AtomicLong guessRequestCount = new AtomicLong(Long.MIN_VALUE);
@@ -51,6 +55,11 @@ public class MindReader {
 	private volatile double loadingId = 0;
 	private volatile int textCase = InputMode.CASE_UNDEFINED;
 	private volatile List<String> words = List.of();
+
+
+	public void init(@NonNull Context context) {
+		store = new MindReaderStore(context);
+	}
 
 
 	public void destroy() {
@@ -282,6 +291,10 @@ public class MindReader {
 
 
 	public void setInputType(@Nullable InputType inputType) {
+		if (isOff()) {
+			return;
+		}
+
 		autoTextCase = settings != null ? new AutoTextCase(settings, new Sequences(), inputType) : null;
 		inputNotMindReadable = inputType == null || inputType.notMindReadableText();
 
@@ -294,8 +307,8 @@ public class MindReader {
 	/**
 	 * Clear the current context and cache, and load the dictionary and N-grams for the given language.
 	 */
-	public MindReader setLanguage(@NonNull Language language) {
-		if (isOff()) {
+	public MindReader setLanguage(@NonNull Context context, @NonNull Language language) {
+		if (isOff() || store == null) {
 			return this;
 		}
 
@@ -304,22 +317,26 @@ public class MindReader {
 				return;
 			}
 
+			// statistics
 			final String TIMER_TAG = LOG_TAG + Math.random();
+			final String oldLanguageName = wordContext.language != null ? wordContext.language.getName() : "null";
+
 			Timer.start(TIMER_TAG);
 
+
+			// @todo: test database upgrade
+			store.save(wordContext.language, ngrams, dictionary);
 			clearContextSync();
 			wordContext.setLanguage(language);
 
-			// @todo: save the current dictionary for the previous language
-			// @todo: save new N-grams for this language
+			// @todo: load new language data from the database
+			dictionary = new MindReaderDictionary(wordContext.language);
+			ngrams = new MindReaderNgramList();
 
-			// @todo: load the dictionary for the new language
-			// @todo: load N-grams for the new language
-			clearCache();
-
+			// save statistics and log
 			final long time = Timer.stop(TIMER_TAG);
-			stats.update(this).setChangeLanguageTime(time);
-			Logger.d(LOG_TAG, "Loaded dictionary and N-grams for language: " + language + ". Time: " + time + " ms");
+			stats.update(this).setChangeLanguageTime(time); // @todo: save the timings here too
+			Logger.d(LOG_TAG, "Language changed from " + oldLanguageName + " to " + language.getName() + ". Time: " + time + " ms");
 		});
 
 		return this;

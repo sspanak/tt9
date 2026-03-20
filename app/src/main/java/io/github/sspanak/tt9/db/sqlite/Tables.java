@@ -140,12 +140,10 @@ public class Tables {
 
 	private static String createMindReaderNgrams(int langId) {
 		return "CREATE TABLE IF NOT EXISTS " + getMindReaderNgrams(langId) + " (" +
+			"idx INTEGER NOT NULL DEFAULT 0, " +
 			"before INTEGER NOT NULL DEFAULT 0, " +
 			"next INTEGER NOT NULL DEFAULT 0, " +
-			"complete INTEGER NOT NULL DEFAULT 0, " +
-			"isValid INTEGER NOT NULL DEFAULT 0, " +
-			"size INTEGER NOT NULL DEFAULT 0, " +
-			"PRIMARY KEY (before, next) " +
+			"PRIMARY KEY (idx) " +
 		") WITHOUT ROWID";
 	}
 

@@ -21,7 +21,7 @@ public class InsertOps {
 
 
 	public InsertOps(SQLiteDatabase db, @NonNull Language language) {
-		// super cache to avoid String concatenation in the dictionary loading loop
+		// super cache to avoid String concatenation in loops
 		insertWordsQuery = CompiledQueryCache.get(db, "INSERT INTO " + Tables.getWords(language.getId()) + " (frequency, position, word) VALUES (?, ?, ?)");
 		insertPositionsQuery = CompiledQueryCache.get(db, "INSERT INTO " + Tables.getWordPositions(language.getId()) + " (sequence, `start`, `end`) VALUES (?, ?, ?)");
 	}
@@ -98,5 +98,42 @@ public class InsertOps {
 		sql.setLength(sql.length() - 1);
 
 		db.execSQL(sql.toString());
+	}
+
+
+	public int insertMindReaderTokens(@NonNull SQLiteDatabase db, int langId, @NonNull String[] tokens) {
+		if (tokens.length == 0 || langId <= 0) {
+			return 0;
+		}
+
+		final String table = Tables.getMindReaderTokens(langId);
+		final ContentValues values = new ContentValues();
+
+		for (int i = 0; i < tokens.length; i++) {
+			values.put("idx", i);
+			values.put("token", tokens[i]);
+			db.insert(table, null, values);
+		}
+
+		return tokens.length;
+	}
+
+
+	public int insertMindReaderNgrams(@NonNull SQLiteDatabase db, int langId, long[] before, int[] next) {
+		if (langId <= 0) {
+			return 0;
+		}
+
+		final String table = Tables.getMindReaderNgrams(langId);
+		final ContentValues values = new ContentValues();
+
+		for (int i = 0, end = before.length; i < end; i++) {
+			values.put("idx", i);
+			values.put("before", before[i]);
+			values.put("next", next[i]);
+			db.insert(table, null, values);
+		}
+
+		return before.length;
 	}
 }

@@ -14,7 +14,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-class MindReaderDictionary {
+public class MindReaderDictionary {
 	static final String EMOJI = ":)";
 	static final String GARBAGE = "∅";
 	static final String NUMBER = "\\d";
@@ -38,6 +38,8 @@ class MindReaderDictionary {
 	private int size = 0;
 	private final String[] tokens;
 
+	private boolean dirty;
+
 
 	MindReaderDictionary() {
 		this(null);
@@ -58,6 +60,8 @@ class MindReaderDictionary {
 		for (int p : PUNCTUATION) {
 			addInternal(new String(Character.toChars(p)));
 		}
+
+		dirty = false;
 	}
 
 
@@ -119,6 +123,7 @@ class MindReaderDictionary {
 		tokens[size] = token;
 		index.put(tokenIndex, size);
 		size++;
+		dirty = true;
 	}
 
 
@@ -134,6 +139,11 @@ class MindReaderDictionary {
 	}
 
 
+	public boolean dirty() {
+		return dirty;
+	}
+
+
 	private int indexOf(@Nullable String token) {
 		if (token == null || token.isEmpty()) {
 			return -1;
@@ -141,6 +151,14 @@ class MindReaderDictionary {
 
 		Integer idx = index.get(token.toLowerCase(locale));
 		return idx == null ? -1 : idx;
+	}
+
+
+	@NonNull
+	public String[] getAll() {
+		String[] results = new String[size];
+		System.arraycopy(tokens, 0, results, 0, size);
+		return results;
 	}
 
 
