@@ -248,7 +248,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 		mindReader
 			.setCurrentGuessHandler(null)
 			.setTextCase(mInputMode.getTextCaseRaw())
-			.setLanguage(getApplicationContext(), mLanguage)
+			.setLanguage(mLanguage)
 			.complete(loadingId, mInputMode, surroundingText, number);
 	}
 
@@ -257,7 +257,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 	protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord) {
 		mindReader
 			.setTextCase(mInputMode.getTextCaseRaw())
-			.setLanguage(getApplicationContext(), mLanguage)
+			.setLanguage(mLanguage)
 			.guess(mInputMode, surroundingText, lastWord, this::handleGuessesAsync);
 	}
 

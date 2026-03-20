@@ -105,7 +105,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		final String[] surroundingText = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
 		updateShiftState(surroundingText[0], false, false);
 		mindReader
-			.setLanguage(getApplicationContext(), mLanguage)
+			.setLanguage(mLanguage)
 			.setContext(mInputMode, mLanguage, surroundingText, null);
 
 		return true;

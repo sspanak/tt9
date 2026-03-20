@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import io.github.sspanak.tt9.db.BaseSyncStore;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
+import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.ime.mindreader.MindReaderDictionary;
 import io.github.sspanak.tt9.ime.mindreader.MindReaderNgramList;
@@ -20,6 +21,7 @@ public class MindReaderStore extends BaseSyncStore {
 	private static final String LOG_TAG = MindReaderStore.class.getSimpleName();
 
 	private InsertOps insertOps;
+	private final ReadOps readOps = new ReadOps();
 
 
 	public MindReaderStore(@NonNull Context context) {
@@ -34,12 +36,42 @@ public class MindReaderStore extends BaseSyncStore {
 	}
 
 
-	@NonNull
-	private InsertOps getInsertOps(@NonNull Language language) {
+	private void getInsertOps(@NonNull Language language) {
 		if (insertOps == null) {
 			insertOps = new InsertOps(sqlite.getDb(), language);
 		}
-		return insertOps;
+	}
+
+
+	@NonNull
+	public MindReaderNgramList loadNgrams(@NonNull Language language) {
+		Timer.start(LOG_TAG);
+
+		final MindReaderNgramList ngrams = new MindReaderNgramList();
+
+		if (checkOrNotify()) {
+			ngrams.addAllUnsafe(readOps.getMindReaderNgrams(sqlite.getDb(), language.getId()));
+		}
+
+		Logger.d(LOG_TAG, "Loaded " + ngrams.size() + " N-grams for: " + language + " in " + Timer.stop(LOG_TAG) + " ms.");
+
+		return ngrams;
+	}
+
+
+	@NonNull
+	public MindReaderDictionary loadDictionary(@NonNull Language language) {
+		Timer.start(LOG_TAG);
+
+		final MindReaderDictionary dictionary = new MindReaderDictionary(language);
+
+		if (checkOrNotify()) {
+			dictionary.addAllUnsafe(readOps.getMindReaderTokens(sqlite.getDb(), language.getId()));
+		}
+
+		Logger.d(LOG_TAG, "Loaded " + dictionary.size() + " tokens for: " + language + " in " + Timer.stop(LOG_TAG) + " ms.");
+
+		return dictionary;
 	}
 
 
@@ -91,18 +123,21 @@ public class MindReaderStore extends BaseSyncStore {
 		printSaveSummary(language, Timer.stop(LOG_TAG + "_save"), deleteNgramsTime, deleteTokensTime, saveNgramsTime, saveTokensTime, ngramCount, tokenCount);
 	}
 
-	private void printSaveSummary(Language language, long stop, long deleteNgramsTime, long deleteTokensTime, long saveNgramsTime, long saveTokensTime, int ngramCount, int tokenCount) {
-		if (!Logger.isDebugLevel()) {
-			return;
+	private void printSaveSummary(Language language, long totalTime, long deleteNgramsTime, long deleteTokensTime, long saveNgramsTime, long saveTokensTime, int ngramCount, int tokenCount) {
+		if (Logger.isVerboseLevel()) {
+			Logger.v(LOG_TAG,
+				"Saved mind reading data for: " + language +
+				".\nTime: " + totalTime +
+				" ms (delete N-grams: " + deleteNgramsTime + " ms" +
+				", delete tokens: " + deleteTokensTime + " ms" +
+				", save " + ngramCount + " N-grams: " + saveNgramsTime + " ms" +
+				", save " + tokenCount + " tokens: " + saveTokensTime + " ms).");
+		} else if (Logger.isDebugLevel()) {
+			Logger.d(LOG_TAG,
+				"Saved mind reading data for: " + language +
+					". Time: " + totalTime + " ms (N-grams: " + (deleteNgramsTime + saveNgramsTime) +
+					" ms, tokens: " + (deleteTokensTime + saveTokensTime) + " ms)."
+			);
 		}
-
-		final String log = "Saved mind reading data for: " + language +
-			".\nTime: " + stop +
-			" ms (delete N-grams: " + deleteNgramsTime + " ms" +
-			", delete tokens: " + deleteTokensTime + " ms" +
-			", save " + ngramCount + " N-grams: " + saveNgramsTime + " ms" +
-			", save " + tokenCount + " tokens: " + saveTokensTime + " ms).";
-
-		Logger.d(LOG_TAG, log);
 	}
 }

@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.mindreader;
 
+import android.util.SparseArray;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -32,7 +34,7 @@ public class MindReaderDictionary {
 		'.'
 	};
 
-	@NonNull private final Locale locale;
+	@Nullable private final Locale locale;
 	private final int capacity;
 	private final HashMap<String, Integer> index;
 	private int size = 0;
@@ -46,8 +48,8 @@ public class MindReaderDictionary {
 	}
 
 
-	MindReaderDictionary(@Nullable Language language) {
-		this.locale = language == null ? Locale.getDefault() : language.getLocale();
+	public MindReaderDictionary(@Nullable Language language) {
+		this.locale = language == null || !language.hasUpperCase() ? null : language.getLocale();
 		this.capacity = SettingsStatic.MIND_READER_MAX_DICTIONARY_WORDS;
 		this.index = new HashMap<>(capacity);
 		this.tokens = new String[capacity];
@@ -102,8 +104,13 @@ public class MindReaderDictionary {
 
 	private void addInternal(@NonNull String token) {
 		tokens[size] = token;
-		index.put(token.toLowerCase(locale), size);
+		addToIndex(token, size);
 		size++;
+	}
+
+
+	private void addToIndex(@NonNull String token, int position) {
+		index.put(locale != null ? token.toLowerCase(locale) : token, position);
 	}
 
 
@@ -113,15 +120,14 @@ public class MindReaderDictionary {
 		}
 
 		// ignore duplicates
-		String tokenIndex = token.toLowerCase(locale);
-		if (index.containsKey(tokenIndex)) {
+		if (contains(token)) {
 			return;
 		}
 
 		// If it is a new token, add it to the end. Larger index means more recently used, hence
 		// displayed higher in the suggestions list.
 		tokens[size] = token;
-		index.put(tokenIndex, size);
+		addToIndex(token, size);
 		size++;
 		dirty = true;
 	}
@@ -134,8 +140,26 @@ public class MindReaderDictionary {
 	}
 
 
+	public void addAllUnsafe(@NonNull SparseArray<String> all) {
+		if (all.size() == 0) {
+			return;
+		}
+
+		final int end = Math.min(all.size(), capacity);
+		for (size = 0; size < end; size++) {
+			String token = all.valueAt(size);
+			tokens[size] = token;
+			addToIndex(token, size);
+		}
+	}
+
+
 	boolean contains(@Nullable String token) {
-		return token != null && !token.isEmpty() && index.containsKey(token.toLowerCase(locale));
+		if (token == null || token.isEmpty()) {
+			return false;
+		}
+
+		return locale != null ? index.containsKey(token.toLowerCase(locale)) : index.containsKey(token);
 	}
 
 
@@ -149,7 +173,7 @@ public class MindReaderDictionary {
 			return -1;
 		}
 
-		Integer idx = index.get(token.toLowerCase(locale));
+		Integer idx = locale != null ? index.get(token.toLowerCase(locale)) : index.get(token);
 		return idx == null ? -1 : idx;
 	}
 
@@ -166,15 +190,23 @@ public class MindReaderDictionary {
 	ArrayList<String> getAll(@NonNull Set<Integer> tokenIds, @Nullable String startsWith) {
 		final ArrayList<String> results = new ArrayList<>(tokenIds.size());
 
-		final String prefix = startsWith == null ? null : startsWith.toLowerCase(locale);
+		String prefix = startsWith;
+		if (prefix != null && locale != null) {
+			prefix = prefix.toLowerCase(locale);
+		}
 
 		for (int tokenId : tokenIds) {
 			if (!isWord(tokenId) || tokenId >= size) {
 				continue;
 			}
 
-			if (prefix == null || tokens[tokenId].toLowerCase(locale).startsWith(prefix)) {
+			if (prefix == null) {
 				results.add(tokens[tokenId]);
+			} else {
+				final String tokenLower = locale != null ? tokens[tokenId].toLowerCase(locale) : tokens[tokenId];
+				if (tokenLower.startsWith(prefix)) {
+					results.add(tokens[tokenId]);
+				}
 			}
 		}
 
@@ -196,7 +228,7 @@ public class MindReaderDictionary {
 	}
 
 
-	int size() {
+	public int size() {
 		return size;
 	}
 

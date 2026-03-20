@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ime.mindreader;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class MindReaderNgramList {
 	private boolean dirty;
 
 
-	MindReaderNgramList() {
+	public MindReaderNgramList() {
 		MAX_NGRAM_VARIATIONS = new int[] {
 			SettingsStatic.MIND_READER_MAX_BIGRAM_SUGGESTIONS,
 			SettingsStatic.MIND_READER_MAX_TRIGRAM_SUGGESTIONS,
@@ -41,6 +42,8 @@ public class MindReaderNgramList {
 			return;
 		}
 
+		dirty = true;
+
 		// if we re-insert an N-gram, move it to the end to mark it as most recently used
 		final int idx = indexOf(ngram);
 		if (idx != -1) {
@@ -60,8 +63,28 @@ public class MindReaderNgramList {
 		// keep only the most recent N-gram variations for a given context,
 		// to prevent the list from growing indefinitely and to keep the predictions relevant
 		removeOldestVariations(ngram, MAX_NGRAM_VARIATIONS[Math.min(MAX_NGRAM_VARIATIONS.length - 1, ngram.size - 2)]);
+	}
 
-		dirty = true;
+
+	public void addAllUnsafe(@NonNull ArrayList<long[]> rawNgrams) {
+		if (rawNgrams.isEmpty()) {
+			return;
+		}
+
+		before = new long[rawNgrams.size()];
+		next = new int[rawNgrams.size()];
+		size = 0;
+
+		for (long[] raw : rawNgrams) {
+			if (raw.length < 3) {
+				continue;
+			}
+
+			before[size] = raw[1];
+			next[size] = (int) raw[2];
+			index.put(getIndex(before[size], next[size]), (int) raw[0]);
+			size++;
+		}
 	}
 
 

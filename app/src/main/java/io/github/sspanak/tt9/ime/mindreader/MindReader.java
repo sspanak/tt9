@@ -254,13 +254,13 @@ public class MindReader {
 	/**
 	 * Set and potentially save the current context, without guessing anything.
 	 */
-	public MindReader setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
+	public void setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
 		if (inputNotMindReadable) {
 			Timer.stop(TIMER_TAG);
-			return this;
+			return;
 		}
 
 		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
@@ -277,7 +277,6 @@ public class MindReader {
 			}
 		});
 
-		return this;
 	}
 
 
@@ -307,7 +306,7 @@ public class MindReader {
 	/**
 	 * Clear the current context and cache, and load the dictionary and N-grams for the given language.
 	 */
-	public MindReader setLanguage(@NonNull Context context, @NonNull Language language) {
+	public MindReader setLanguage(@NonNull Language language) {
 		if (isOff() || store == null) {
 			return this;
 		}
@@ -323,15 +322,13 @@ public class MindReader {
 
 			Timer.start(TIMER_TAG);
 
-
 			// @todo: test database upgrade
 			store.save(wordContext.language, ngrams, dictionary);
+			dictionary = store.loadDictionary(language);
+			ngrams = store.loadNgrams(language);
+
 			clearContextSync();
 			wordContext.setLanguage(language);
-
-			// @todo: load new language data from the database
-			dictionary = new MindReaderDictionary(wordContext.language);
-			ngrams = new MindReaderNgramList();
 
 			// save statistics and log
 			final long time = Timer.stop(TIMER_TAG);

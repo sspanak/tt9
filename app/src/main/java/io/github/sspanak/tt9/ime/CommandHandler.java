@@ -224,7 +224,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			DictionaryLoader.autoLoad(this, settings, mLanguage);
 		}
 
-		mindReader.setLanguage(getApplicationContext(), mLanguage);
+		mindReader.setLanguage(mLanguage);
 
 		forceShowWindow();
 	}
