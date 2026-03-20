@@ -332,7 +332,10 @@ public class MindReader {
 
 			// save statistics and log
 			final long time = Timer.stop(TIMER_TAG);
-			stats.update(this).setChangeLanguageTime(time); // @todo: save the timings here too
+			stats
+				.update(this)
+				.setDbTimes(store.getLastLoadNgramsTime(), store.getLastLoadTokensTime(), store.getLastSaveNgramsTime(), store.getLastSaveTokensTime())
+				.setChangeLanguageTime(time);
 			Logger.d(LOG_TAG, "Language changed from " + oldLanguageName + " to " + language.getName() + ". Time: " + time + " ms");
 		});
 

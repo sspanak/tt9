@@ -23,6 +23,11 @@ public class MindReaderStore extends BaseSyncStore {
 	private InsertOps insertOps;
 	private final ReadOps readOps = new ReadOps();
 
+	private long lastLoadNgramsTime = 0;
+	private long lastLoadTokensTime = 0;
+	private long lastSaveNgramsTime = 0;
+	private long lastSaveTokensTime = 0;
+
 
 	public MindReaderStore(@NonNull Context context) {
 		super(context);
@@ -53,7 +58,8 @@ public class MindReaderStore extends BaseSyncStore {
 			ngrams.addAllUnsafe(readOps.getMindReaderNgrams(sqlite.getDb(), language.getId()));
 		}
 
-		Logger.d(LOG_TAG, "Loaded " + ngrams.size() + " N-grams for: " + language + " in " + Timer.stop(LOG_TAG) + " ms.");
+		lastLoadNgramsTime = Timer.stop(LOG_TAG);
+		Logger.d(LOG_TAG, "Loaded " + ngrams.size() + " N-grams for: " + language + " in " + lastLoadNgramsTime + " ms.");
 
 		return ngrams;
 	}
@@ -69,7 +75,8 @@ public class MindReaderStore extends BaseSyncStore {
 			dictionary.addAllUnsafe(readOps.getMindReaderTokens(sqlite.getDb(), language.getId()));
 		}
 
-		Logger.d(LOG_TAG, "Loaded " + dictionary.size() + " tokens for: " + language + " in " + Timer.stop(LOG_TAG) + " ms.");
+		lastLoadTokensTime = Timer.stop(LOG_TAG);
+		Logger.d(LOG_TAG, "Loaded " + dictionary.size() + " tokens for: " + language + " in " + lastLoadTokensTime + " ms.");
 
 		return dictionary;
 	}
@@ -114,6 +121,9 @@ public class MindReaderStore extends BaseSyncStore {
 				saveTokensTime = Timer.stop(LOG_TAG);
 			}
 
+			lastSaveNgramsTime = saveNgramsTime + deleteNgramsTime;
+			lastSaveTokensTime = saveTokensTime + deleteTokensTime;
+
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
@@ -122,6 +132,7 @@ public class MindReaderStore extends BaseSyncStore {
 
 		printSaveSummary(language, Timer.stop(LOG_TAG + "_save"), deleteNgramsTime, deleteTokensTime, saveNgramsTime, saveTokensTime, ngramCount, tokenCount);
 	}
+
 
 	private void printSaveSummary(Language language, long totalTime, long deleteNgramsTime, long deleteTokensTime, long saveNgramsTime, long saveTokensTime, int ngramCount, int tokenCount) {
 		if (Logger.isVerboseLevel()) {
@@ -135,9 +146,15 @@ public class MindReaderStore extends BaseSyncStore {
 		} else if (Logger.isDebugLevel()) {
 			Logger.d(LOG_TAG,
 				"Saved mind reading data for: " + language +
-					". Time: " + totalTime + " ms (N-grams: " + (deleteNgramsTime + saveNgramsTime) +
-					" ms, tokens: " + (deleteTokensTime + saveTokensTime) + " ms)."
+					". Time: " + totalTime + " ms (N-grams: " + lastSaveNgramsTime +
+					" ms, tokens: " + lastSaveTokensTime + " ms)."
 			);
 		}
 	}
+
+
+	public long getLastLoadNgramsTime() { return lastLoadNgramsTime; }
+	public long getLastLoadTokensTime() { return lastLoadTokensTime; }
+	public long getLastSaveNgramsTime() { return lastSaveNgramsTime; }
+	public long getLastSaveTokensTime() { return lastSaveTokensTime; }
 }

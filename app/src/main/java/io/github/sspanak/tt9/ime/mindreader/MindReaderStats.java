@@ -29,6 +29,11 @@ public class MindReaderStats {
 	private volatile long slowestSetContext = 0;
 	private volatile long slowestSetLanguage = 0;
 
+	private volatile long slowestLoadNgrams = 0;
+	private volatile long slowestLoadTokens = 0;
+	private volatile long slowestSaveNgrams = 0;
+	private volatile long slowestSaveTokens = 0;
+
 
 	@NonNull
 	public static MindReaderStats getInstance() {
@@ -57,6 +62,7 @@ public class MindReaderStats {
 		countComplete = countGuess = countSetContext = countSetLanguage = 0;
 		totalComplete = totalGuess = totalSetContext = totalSetLanguage = 0;
 		slowestComplete = slowestGuess = slowestSetContext = slowestSetLanguage = 0;
+		slowestLoadNgrams = slowestLoadTokens = slowestSaveNgrams = slowestSaveTokens = 0;
 	}
 
 
@@ -69,6 +75,15 @@ public class MindReaderStats {
 		countComplete++;
 		totalComplete += time;
 		slowestComplete = Math.max(slowestComplete, time);
+	}
+
+
+	synchronized MindReaderStats setDbTimes(long loadNgrams, long loadTokens, long saveNgrams, long saveTokens) {
+		slowestLoadNgrams = Math.max(slowestLoadNgrams, loadNgrams);
+		slowestLoadTokens = Math.max(slowestLoadTokens, loadTokens);
+		slowestSaveNgrams = Math.max(slowestSaveNgrams, saveNgrams);
+		slowestSaveTokens = Math.max(slowestSaveTokens, saveTokens);
+		return this;
 	}
 
 
@@ -119,6 +134,11 @@ public class MindReaderStats {
 				.append(".  Average: ").append(countSetLanguage == 0 ? 0 : totalSetLanguage / countSetLanguage)
 				.append(" ms.  Slowest: ")
 				.append(slowestSetLanguage).append(" ms\n");
+
+			sb.append("\nMax load times.  N-grams: ").append(slowestLoadNgrams)
+				.append(" ms.  Tokens: ").append(slowestLoadTokens).append(" ms")
+				.append("\nMax save times.  N-grams: ").append(slowestSaveNgrams)
+				.append(" ms.  Tokens: ").append(slowestSaveTokens).append(" ms");
 		}
 
 		return sb.toString();
