@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.db.mindReading;
+package io.github.sspanak.tt9.ime.mindreader;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -171,7 +171,7 @@ class MindReaderContext {
 		}
 
 		final int cp = lastAppendedWord.codePointAt(0);
-		return Character.isWhitespace(cp) || ContextTokenizer.isPunctuationChar(cp);
+		return Character.isWhitespace(cp) || ContextTokenizer.isPriorityPunctuationChar(cp);
 	}
 
 

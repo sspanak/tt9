@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.db.mindReading;
+package io.github.sspanak.tt9.ime.mindreader;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,7 +9,8 @@ import io.github.sspanak.tt9.util.chars.Characters;
 
 class ContextTokenizer {
 	static final int WORD_SEPARATOR = 0x200b; // for languages where space has a punctuation-like role
-	private enum TokenType {SPACE, WORD, PUNCTUATION, NUMBER, EMOJI, GARBAGE}
+	private enum TokenType {SPACE, WORD, PUNCTUATION_PRIORITY, PUNCTUATION_OTHER, NUMBER, EMOJI, GARBAGE}
+
 
 	@NonNull
 	static String[] tokenize(@Nullable Language language, @NonNull String text, int maxTokens) {
@@ -35,10 +36,14 @@ class ContextTokenizer {
 				tokens = new String[maxTokens];
 				tokensCount = 0;
 				type = TokenType.SPACE;
-			} else if (isWordChar(cp) || isWordSpecialChar(language, cp)) {
+			} else if (isWordChar(cp) || (previousType == TokenType.WORD && isWordSpecialChar(language, cp))) {
+				// independent special word chars are not considered words themselves,
+				// otherwise we get undesired false-positives, such as "-" being considered a word
 				type = TokenType.WORD;
-			} else if (isPunctuationChar(cp) || (isLangWithSpacePunctuation && isCpWhitespace)) {
-				type = TokenType.PUNCTUATION;
+			} else if (isPriorityPunctuationChar(cp)) {
+				type = TokenType.PUNCTUATION_PRIORITY;
+			} else if (isOtherPunctuationChar(cp) || (isLangWithSpacePunctuation && isCpWhitespace)) {
+				type = TokenType.PUNCTUATION_OTHER;
 			} else if (isNumberChar(cp)) {
 				type = TokenType.NUMBER;
 			} else if ((isCpWhitespace) || cp == WORD_SEPARATOR) {
@@ -61,6 +66,8 @@ class ContextTokenizer {
 				if (current.length() == 0) current.append(MindReaderDictionary.EMOJI);
 			} else if (type == TokenType.NUMBER) {
 				if (current.length() == 0) current.append(MindReaderDictionary.NUMBER);
+			} else if (type == TokenType.PUNCTUATION_OTHER) {
+				if (current.length() == 0) current.append(MindReaderDictionary.PUNCTUATION_OTHER);
 			} else if (type != TokenType.SPACE) {
 				current.appendCodePoint(cp);
 			}
@@ -79,6 +86,7 @@ class ContextTokenizer {
 		return validTokens;
 	}
 
+
 	private static void addToken(@NonNull String[] tokens, int maxTokens, @NonNull String newToken) {
 		for (int i = 1; i < maxTokens; i++) {
 			tokens[i - 1] = tokens[i];
@@ -86,18 +94,35 @@ class ContextTokenizer {
 		tokens[maxTokens - 1] = newToken;
 	}
 
+
 	private static boolean isNumberChar(int cp) {
 		return Character.isDigit(cp);
 	}
 
-	static boolean isPunctuationChar(int cp) {
+
+	static boolean isPriorityPunctuationChar(int cp) {
 		for (int punctuationChar : MindReaderDictionary.PUNCTUATION) {
 			if (cp == punctuationChar) {
 				return true;
 			}
 		}
+
 		return false;
 	}
+
+
+	public static boolean isOtherPunctuationChar(int codePoint) {
+		int type = Character.getType(codePoint);
+		return
+			type == Character.CONNECTOR_PUNCTUATION
+			|| type == Character.DASH_PUNCTUATION
+			|| type == Character.START_PUNCTUATION
+			|| type == Character.END_PUNCTUATION
+			|| type == Character.INITIAL_QUOTE_PUNCTUATION
+			|| type == Character.FINAL_QUOTE_PUNCTUATION
+			|| type == Character.OTHER_PUNCTUATION;
+	}
+
 
 	private static boolean isWordChar(int cp) {
 		return
@@ -105,6 +130,7 @@ class ContextTokenizer {
 			|| Character.getType(cp) == Character.NON_SPACING_MARK
 			|| Character.getType(cp) == Character.COMBINING_SPACING_MARK;
 	}
+
 
 	private static boolean isWordSpecialChar(@Nullable Language language, int cp) {
 		return switch (cp) {
