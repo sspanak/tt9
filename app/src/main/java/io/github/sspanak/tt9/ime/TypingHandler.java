@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.mindReading.MindReader;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
@@ -19,6 +18,7 @@ import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.helpers.TextSelection;
+import io.github.sspanak.tt9.ime.mindreader.MindReader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
@@ -215,7 +215,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			lastWord = suggestionOps.acceptIncompleteAndKeepList();
 			mInputMode.onAcceptSuggestion(lastWord);
 			surroundingChars = autoCorrectSpace(lastWord, surroundingChars, false, key);
-			mindReader.setContext(mInputMode, mLanguage, surroundingChars, lastWord).saveContext(mInputMode);
+			mindReader.setContext(mInputMode, mLanguage, surroundingChars, lastWord);
 		}
 
 		// Auto-adjust the text case before each word/char, if the InputMode supports it.
@@ -265,6 +265,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 				-1
 			);
 		}
+
+		mindReader.setContext(mInputMode, mLanguage, surroundingChars, text);
 
 		// "type" and accept the new word
 		mInputMode.onAcceptSuggestion(text);

@@ -1,0 +1,126 @@
+package io.github.sspanak.tt9.ime.mindreader;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+public class MindReaderStats {
+	private static final MindReaderStats self = new MindReaderStats();
+
+	private MindReaderStats() {}
+
+	private volatile boolean isOff = true;
+	private volatile int dictionarySize = 0;
+	private volatile int ngramsSize = 0;
+	private volatile int ngramsCapacity = 0;
+	@Nullable private volatile String language = null;
+
+	private volatile long countComplete = 0;
+	private volatile long countGuess = 0;
+	private volatile long countSetContext = 0;
+	private volatile long countSetLanguage = 0;
+
+	private volatile long totalComplete = 0;
+	private volatile long totalGuess = 0;
+	private volatile long totalSetContext = 0;
+	private volatile long totalSetLanguage = 0;
+
+	private volatile long slowestComplete = 0;
+	private volatile long slowestGuess = 0;
+	private volatile long slowestSetContext = 0;
+	private volatile long slowestSetLanguage = 0;
+
+
+	@NonNull
+	public static MindReaderStats getInstance() {
+		return self;
+	}
+
+
+	@NonNull
+	public static String get() {
+		return getInstance().generate();
+	}
+
+
+	MindReaderStats update(@NonNull MindReader mindReader) {
+		isOff = mindReader.isOff();
+		dictionarySize = mindReader.dictionary.size();
+		ngramsSize = mindReader.ngrams.size();
+		ngramsCapacity = mindReader.ngrams.capacity();
+		language = mindReader.wordContext.language != null ? mindReader.wordContext.language.toString() : null;
+
+		return this;
+	}
+
+
+	synchronized void resetTimings() {
+		countComplete = countGuess = countSetContext = countSetLanguage = 0;
+		totalComplete = totalGuess = totalSetContext = totalSetLanguage = 0;
+		slowestComplete = slowestGuess = slowestSetContext = slowestSetLanguage = 0;
+	}
+
+
+	void setOff(boolean off) {
+		isOff = off;
+	}
+
+
+	synchronized void setCompleteTime(long time) {
+		countComplete++;
+		totalComplete += time;
+		slowestComplete = Math.max(slowestComplete, time);
+	}
+
+
+	synchronized void setGuessTime(long time) {
+		countGuess++;
+		totalGuess += time;
+		slowestGuess = Math.max(slowestGuess, time);
+	}
+
+
+	synchronized void setChangeContextTime(long time) {
+		countSetContext++;
+		totalSetContext += time;
+		slowestSetContext = Math.max(slowestSetContext, time);
+	}
+
+
+	synchronized void setChangeLanguageTime(long time) {
+		countSetLanguage++;
+		totalSetLanguage += time;
+		slowestSetLanguage = Math.max(slowestSetLanguage, time);
+	}
+
+
+	@NonNull
+	private String generate() {
+		final StringBuilder sb = new StringBuilder();
+
+		sb.append("Status").append(isOff ? ": Off\n" : ": On\n");
+		sb.append("Language: ").append(language).append("\n");
+		sb.append("Dictionary size: ").append(dictionarySize).append(" tokens\n");
+		sb.append("N-grams: ").append(ngramsSize).append(" / ").append(ngramsCapacity).append("\n");
+
+		if (!isOff) {
+			sb.append("\nComplete word: ").append(countComplete)
+				.append(".  Average: ").append(countComplete == 0 ? 0 : totalComplete / countComplete)
+				.append(" ms.  Slowest: ")
+				.append(slowestComplete).append(" ms\n");
+			sb.append("Guess word: ").append(countGuess)
+				.append(".  Average: ").append(countGuess == 0 ? 0 : totalGuess / countGuess)
+				.append(" ms.  Slowest: ")
+				.append(slowestGuess).append(" ms\n");
+			sb.append("Set context: ").append(countSetContext)
+				.append(".  Average: ").append(countSetContext == 0 ? 0 : totalSetContext / countSetContext)
+				.append(" ms.  Slowest: ")
+				.append(slowestSetContext).append(" ms\n");
+			sb.append("Set language: ").append(countSetLanguage)
+				.append(".  Average: ").append(countSetLanguage == 0 ? 0 : totalSetLanguage / countSetLanguage)
+				.append(" ms.  Slowest: ")
+				.append(slowestSetLanguage).append(" ms\n");
+		}
+
+		return sb.toString();
+	}
+}

@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.db.mindReading;
+package io.github.sspanak.tt9.ime.mindreader;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +20,6 @@ import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
@@ -30,11 +29,13 @@ import io.github.sspanak.tt9.util.Timer;
 public class MindReader {
 	private static final String LOG_TAG = MindReader.class.getSimpleName();
 
+	private static volatile boolean clearCacheOnNextUse = false;
+
 	// dependencies
 	@Nullable private AutoTextCase autoTextCase;
 	@NonNull private final ExecutorService executor = Executors.newSingleThreadExecutor();
 	@Nullable private SettingsStore settings;
-	@NonNull public final MindReaderStats stats = new MindReaderStats(this);
+	@NonNull public final MindReaderStats stats = MindReaderStats.getInstance();
 
 	private final AtomicLong completeRequestCount = new AtomicLong(Long.MIN_VALUE);
 	private final AtomicLong guessRequestCount = new AtomicLong(Long.MIN_VALUE);
@@ -59,17 +60,21 @@ public class MindReader {
 	}
 
 
+	public static void clear() {
+		clearCacheOnNextUse = true;
+	}
+
+
 	/**
 	 * Clear the current context and guesses. This should be called when the user finishes typing, and
 	 * goes to a different app or an input field, where the current context is no longer relevant.
 	 */
-	public MindReader clearContext() {
+	public void clearContext() {
 		if (isOff() || executor.isTerminated() || executor.isShutdown()) {
-			return this;
+			return;
 		}
 
 		runInThread(this::clearContextSync);
-		return this;
 	}
 
 
@@ -98,7 +103,7 @@ public class MindReader {
 	 * number (e.g. if number=2, show completions starting with "a", "b", "c"). This is used when the
 	 * user types the first letter of a word.
 	 */
-	public void complete(double loadingId, @NonNull InputMode inputMode, @NonNull NaturalLanguage language, @NonNull String[] surroundingText, int number) {
+	public void complete(double loadingId, @NonNull InputMode inputMode, @NonNull String[] surroundingText, int number) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
@@ -110,17 +115,24 @@ public class MindReader {
 			return;
 		}
 
-
-		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
-		final ArrayList<String> alternativeLetters = language.getKeyCharacters(number);
-
-		if (alternativeLetters.isEmpty()) {
-			Timer.stop(TIMER_TAG);
-			return;
-		}
-
 		runInThread(() -> {
-			if (!setContextSync(inputMode, language, adjustedSurroundingText, null)) {
+			final Language language = wordContext.language;
+			if (language == null) {
+				Logger.w(LOG_TAG, "Cannot complete the current word: language is not set in the context.");
+				Timer.stop(TIMER_TAG);
+				return;
+			}
+
+			final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
+			final ArrayList<String> alternativeLetters = language.getKeyCharacters(number);
+
+			if (alternativeLetters.isEmpty()) {
+				Timer.stop(TIMER_TAG);
+				return;
+			}
+
+			final boolean isContextMandatory = InputModeKind.isABC(inputMode) || language.isTranscribed() || language.hasSpaceBetweenWords() || wordContext.isEmpty();
+			if (isContextMandatory && !setContextSync(inputMode, language, adjustedSurroundingText, null)) {
 				Timer.stop(TIMER_TAG);
 				return;
 			}
@@ -141,7 +153,7 @@ public class MindReader {
 			words = List.copyOf(completions);
 
 			final long time = Timer.stop(TIMER_TAG);
-			stats.recordCompleteTime(time);
+			stats.update(this).setCompleteTime(time);
 			logState(time, words);
 
 			currentGuessHandler.run();
@@ -154,7 +166,7 @@ public class MindReader {
 	 * the user has just typed a space, or in languages without spaces, when the user has just typed
 	 * a word.
 	 */
-	public void guess(@NonNull InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord, @NonNull Runnable onComplete) {
+	public void guess(@NonNull InputMode inputMode, @NonNull String[] surroundingText, @Nullable String lastWord, @NonNull Runnable onComplete) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
@@ -166,9 +178,16 @@ public class MindReader {
 			return;
 		}
 
-		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
-
 		runInThread(() -> {
+			final Language language = wordContext.language;
+			if (language == null) {
+				Logger.w(LOG_TAG, "Cannot guess next word: language is not set in the context.");
+				Timer.stop(TIMER_TAG);
+				return;
+			}
+
+			final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
+
 			// Only attempt guessing if the context is valid and ends with a space. Otherwise, the guessed
 			// composing text will appear joined with the last word, instead of as a new word.
 			if (!setContextSync(inputMode, language, adjustedSurroundingText, lastWord) || (language.hasSpaceBetweenWords() && !TextTools.endsWithSpace(surroundingText[0]))) {
@@ -194,7 +213,7 @@ public class MindReader {
 			words = List.copyOf(guesses);
 
 			final long time = Timer.stop(TIMER_TAG);
-			stats.recordGuessTime(time);
+			stats.update(this).setGuessTime(time);
 			logState(time, words);
 
 			onComplete.run();
@@ -207,9 +226,10 @@ public class MindReader {
 	 */
 	@WorkerThread
 	private void clearCache() {
+		clearCacheOnNextUse = false;
 		dictionary = new MindReaderDictionary(wordContext.language);
 		ngrams = new MindReaderNgramList();
-		stats.clear().update();
+		stats.update(this).resetTimings();
 	}
 
 
@@ -241,7 +261,7 @@ public class MindReader {
 				processContext(inputMode, true);
 
 				final long time = Timer.stop(TIMER_TAG);
-				stats.recordSetContextTime(time);
+				stats.update(this).setChangeContextTime(time);
 				logState(time, null);
 			} else {
 				Timer.stop(TIMER_TAG);
@@ -281,7 +301,6 @@ public class MindReader {
 
 		runInThread(() -> {
 			if (language.equals(wordContext.language)) {
-				Logger.d(LOG_TAG, "Keeping language: " + language);
 				return;
 			}
 
@@ -299,7 +318,7 @@ public class MindReader {
 			clearCache();
 
 			final long time = Timer.stop(TIMER_TAG);
-			stats.recordSetLanguageTime(time);
+			stats.update(this).setChangeLanguageTime(time);
 			Logger.d(LOG_TAG, "Loaded dictionary and N-grams for language: " + language + ". Time: " + time + " ms");
 		});
 
@@ -321,19 +340,14 @@ public class MindReader {
 	}
 
 
-	/**
-	 * Extract meaningful words from the current context and save them in the dictionary and N-grams.
-	 * They can be used for guessing in the future.
-	 */
-	public void saveContext(@Nullable InputMode inputMode) {
-		runInThread(() -> processContext(inputMode, true));
-	}
-
-
 	@WorkerThread
 	private boolean setContextSync(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
 		if (isOff()) {
 			return false;
+		}
+
+		if (clearCacheOnNextUse) {
+			clearCache();
 		}
 
 		if (surroundingText.length < 2 || !surroundingText[1].isEmpty()) {
@@ -355,6 +369,10 @@ public class MindReader {
 	}
 
 
+	/**
+	 * Extract meaningful words from the current context and save them in the dictionary and N-grams.
+	 * They can be used for guessing in the future.
+	 */
 	@WorkerThread
 	private void processContext(@Nullable InputMode inputMode, boolean saveContext) {
 		if (isOff()) {
@@ -378,7 +396,9 @@ public class MindReader {
 
 
 	protected boolean isOff() {
-		return settings == null || !settings.getAutoMindReading() || settings.isMainLayoutStealth();
+		final boolean off = settings == null || !settings.getAutoMindReading() || settings.isMainLayoutStealth();
+		stats.setOff(off);
+		return off;
 	}
 
 

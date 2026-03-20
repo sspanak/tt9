@@ -1,41 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" app:orderingFromXml="true">
 
-	<Preference
-		app:key="slow_queries_clear_cache"
-		app:title="Clear Query Cache" />
-
-	<Preference
-		app:key="mind_reader_clear_db"
-		app:title="Clear Mind Reader DB" />
-
-	<Preference
-		app:key="word_pair_clear_cache"
-		app:title="Clear Word Pair Memory Cache" />
-
-	<Preference
-		app:key="word_pair_clear_db"
-		app:title="Clear Word Pair DB" />
-
-	<PreferenceCategory app:title="Mind Reader Stats" app:singleLineTitle="true">
+	<PreferenceCategory app:title="Mind Reader" app:singleLineTitle="true">
 		<io.github.sspanak.tt9.preferences.custom.PreferencePlainText
 			app:key="mind_reader_container"
 			app:summary="--">
+
 		</io.github.sspanak.tt9.preferences.custom.PreferencePlainText>
+
+		<Preference
+			app:key="mind_reader_clear_cache"
+			app:title="Clear cache on next use" />
+
+		<Preference
+			app:key="mind_reader_clear_db"
+			app:title="Clear DB" />
 	</PreferenceCategory>
 
-	<PreferenceCategory app:title="Word Pair Stats" app:singleLineTitle="true">
+	<PreferenceCategory app:title="Word Pairs" app:singleLineTitle="true">
 		<io.github.sspanak.tt9.preferences.custom.PreferencePlainText
 			app:key="word_pairs_container"
 			app:summary="--">
+
 		</io.github.sspanak.tt9.preferences.custom.PreferencePlainText>
+
+		<Preference
+			app:key="word_pair_clear_cache"
+			app:title="Clear Cache" />
+
+		<Preference
+			app:key="word_pair_clear_db"
+			app:title="Clear DB" />
 	</PreferenceCategory>
 
-	<PreferenceCategory app:title="DB Query Stats" app:singleLineTitle="true">
+	<PreferenceCategory app:title="Words Database" app:singleLineTitle="true">
 		<io.github.sspanak.tt9.preferences.custom.PreferencePlainText
 			app:key="summary_container"
 			app:summary="--">
+
 		</io.github.sspanak.tt9.preferences.custom.PreferencePlainText>
+
+		<Preference
+			app:key="slow_queries_clear_cache"
+			app:title="Clear Query Cache" />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="Slow Queries" app:singleLineTitle="true">

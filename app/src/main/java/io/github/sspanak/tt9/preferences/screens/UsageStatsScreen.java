@@ -5,8 +5,9 @@ import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
-import io.github.sspanak.tt9.db.mindReading.MindReaderStats;
 import io.github.sspanak.tt9.db.words.SlowQueryStats;
+import io.github.sspanak.tt9.ime.mindreader.MindReader;
+import io.github.sspanak.tt9.ime.mindreader.MindReaderStats;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemText;
@@ -19,6 +20,7 @@ public class UsageStatsScreen extends BaseScreenFragment {
 	private final static String BUTTON_RESET_SLOW_QUERIES = "slow_queries_clear_cache";
 
 	private final static String CONTAINER_MIND_READER_STATS = "mind_reader_container";
+	private final static String BUTTON_RESET_MIND_READER_CACHE = "mind_reader_clear_cache";
 	private final static String BUTTON_RESET_MIND_READER_DB = "mind_reader_clear_db";
 
 	private final static String CONTAINER_WORD_PAIRS = "word_pairs_container";
@@ -47,6 +49,11 @@ public class UsageStatsScreen extends BaseScreenFragment {
 			slowQueriesButton.setOnPreferenceClickListener(this::resetSlowQueries);
 		}
 
+		Preference mindReaderCacheButton = findPreference(BUTTON_RESET_MIND_READER_CACHE);
+		if (mindReaderCacheButton != null) {
+			mindReaderCacheButton.setOnPreferenceClickListener(this::resetMindReaderCache);
+		}
+
 		Preference mindReaderDbButton = findPreference(BUTTON_RESET_MIND_READER_DB);
 		if (mindReaderDbButton != null) {
 			mindReaderDbButton.setOnPreferenceClickListener(this::deleteMindReaderDb);
@@ -70,6 +77,11 @@ public class UsageStatsScreen extends BaseScreenFragment {
 		if (container != null) {
 			container.setSummary(text);
 		}
+	}
+
+	private boolean resetMindReaderCache(Preference ignored) {
+		MindReader.clear();
+		return true;
 	}
 
 	private boolean deleteMindReaderDb(Preference ignored) {
