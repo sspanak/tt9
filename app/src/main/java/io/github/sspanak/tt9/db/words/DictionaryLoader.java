@@ -40,6 +40,7 @@ public class DictionaryLoader {
 
 	private final AssetManager assets;
 	private final SQLiteOpener sqlite;
+	private final InsertOps insertOps = new InsertOps();
 
 	@NonNull private final DictionaryLoadingBar loadingBar;
 	private Thread loadThread;
@@ -303,14 +304,12 @@ public class DictionaryLoader {
 
 
 	private void saveWordBatch(WordBatch batch) {
-		InsertOps insertOps = new InsertOps(sqlite.getDb(), batch.getLanguage());
-
 		for (int i = 0, end = batch.getWords().size(); i < end; i++) {
-			insertOps.insertWord(batch.getWords().get(i));
+			insertOps.insertWord(sqlite.getDb(), batch.getLanguage(), batch.getWords().get(i));
 		}
 
 		for (int i = 0, end = batch.getPositions().size(); i < end; i++) {
-			insertOps.insertWordPosition(batch.getPositions().get(i));
+			insertOps.insertWordPosition(sqlite.getDb(), batch.getLanguage(), batch.getPositions().get(i));
 		}
 	}
 

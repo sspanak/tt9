@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteStatement;
 import androidx.annotation.NonNull;
 
 import java.util.Collection;
+import java.util.HashMap;
 
 import io.github.sspanak.tt9.db.entities.Word;
 import io.github.sspanak.tt9.db.entities.WordPosition;
@@ -16,30 +17,35 @@ import io.github.sspanak.tt9.languages.Language;
 
 
 public class InsertOps {
-	private final SQLiteStatement insertWordsQuery;
-	private final SQLiteStatement insertPositionsQuery;
+	private final HashMap<Integer, SQLiteStatement> insertWordsQuery = new HashMap<>();
+	private final HashMap<Integer, SQLiteStatement> insertPositionsQuery = new HashMap<>();
 
 
-	public InsertOps(SQLiteDatabase db, @NonNull Language language) {
-		// super cache to avoid String concatenation in loops
-		insertWordsQuery = CompiledQueryCache.get(db, "INSERT INTO " + Tables.getWords(language.getId()) + " (frequency, position, word) VALUES (?, ?, ?)");
-		insertPositionsQuery = CompiledQueryCache.get(db, "INSERT INTO " + Tables.getWordPositions(language.getId()) + " (sequence, `start`, `end`) VALUES (?, ?, ?)");
+	public void insertWord(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull Word word) {
+		SQLiteStatement insert = insertWordsQuery.get(language.getId());
+		if (insert == null) {
+			insert = CompiledQueryCache.get(db, "INSERT INTO " + Tables.getWords(language.getId()) + " (frequency, position, word) VALUES (?, ?, ?)");
+			insertWordsQuery.put(language.getId(), insert);
+		}
+
+		insert.bindLong(1, word.frequency);
+		insert.bindLong(2, word.position);
+		insert.bindString(3, word.word);
+		insert.execute();
 	}
 
 
-	public void insertWord(Word word) {
-		insertWordsQuery.bindLong(1, word.frequency);
-		insertWordsQuery.bindLong(2, word.position);
-		insertWordsQuery.bindString(3, word.word);
-		insertWordsQuery.execute();
-	}
+	public void insertWordPosition(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull WordPosition position) {
+		SQLiteStatement insert = insertPositionsQuery.get(language.getId());
+		if (insert == null) {
+			insert = CompiledQueryCache.get(db, "INSERT INTO " + Tables.getWordPositions(language.getId()) + " (sequence, `start`, `end`) VALUES (?, ?, ?)");
+			insertPositionsQuery.put(language.getId(), insert);
+		}
 
-
-	public void insertWordPosition(WordPosition position) {
-		insertPositionsQuery.bindString(1, position.sequence);
-		insertPositionsQuery.bindLong(2, position.start);
-		insertPositionsQuery.bindLong(3, position.end);
-		insertPositionsQuery.execute();
+		insert.bindString(1, position.sequence);
+		insert.bindLong(2, position.start);
+		insert.bindLong(3, position.end);
+		insert.execute();
 	}
 
 

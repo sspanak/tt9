@@ -25,8 +25,8 @@ import io.github.sspanak.tt9.util.Timer;
 public class MindReaderStore extends BaseSyncStore {
 	private static final String LOG_TAG = MindReaderStore.class.getSimpleName();
 
-	private InsertOps insertOps;
-	private final ReadOps readOps = new ReadOps();
+	@NonNull private final InsertOps insertOps = new InsertOps();
+	@NonNull private final ReadOps readOps = new ReadOps();
 
 	private long lastLoadNgramsTime = 0;
 	private long lastLoadTokensTime = 0;
@@ -43,13 +43,6 @@ public class MindReaderStore extends BaseSyncStore {
 	@Override
 	protected SQLiteOpener openDb(Context context) {
 		return MindReaderDbOpener.getInstance(context);
-	}
-
-
-	private void getInsertOps(@NonNull Language language) {
-		if (insertOps == null) {
-			insertOps = new InsertOps(sqlite.getDb(), language);
-		}
 	}
 
 
@@ -107,8 +100,6 @@ public class MindReaderStore extends BaseSyncStore {
 
 		db.beginTransaction();
 		try {
-			getInsertOps(language);
-
 			if (ngrams.dirty()) {
 				Timer.start(LOG_TAG);
 				DeleteOps.deleteMindReaderNgrams(db, language.getId());
