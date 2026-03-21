@@ -69,10 +69,11 @@ public class MindReaderStore extends BaseSyncStore {
 	public MindReaderDictionary loadDictionary(@NonNull Language language) {
 		Timer.start(LOG_TAG);
 
-		final MindReaderDictionary dictionary = new MindReaderDictionary(language);
+		MindReaderDictionary dictionary = new MindReaderDictionary(language);
 
 		if (checkOrNotify()) {
-			dictionary.addAllUnsafe(readOps.getMindReaderTokens(sqlite.getDb(), language.getId()));
+			boolean success = dictionary.addAllUnsafe(readOps.getMindReaderTokens(sqlite.getDb(), language.getId()));
+			dictionary = success ? dictionary : new MindReaderDictionary(language);
 		}
 
 		lastLoadTokensTime = Timer.stop(LOG_TAG);

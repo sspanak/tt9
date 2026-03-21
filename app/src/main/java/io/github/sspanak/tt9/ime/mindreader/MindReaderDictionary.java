@@ -13,6 +13,7 @@ import java.util.Set;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -140,17 +141,25 @@ public class MindReaderDictionary {
 	}
 
 
-	public void addAllUnsafe(@NonNull SparseArray<String> all) {
+	public boolean addAllUnsafe(@NonNull SparseArray<String> all) {
 		if (all.size() == 0) {
-			return;
+			return true;
 		}
 
-		final int end = Math.min(all.size(), capacity);
-		for (size = 0; size < end; size++) {
-			String token = all.valueAt(size);
-			tokens[size] = token;
-			addToIndex(token, size);
+		size = Math.min(all.size(), capacity);
+		for (int i = 0; i < size; i++) {
+			int idx = all.keyAt(i);
+			if (idx < 0 || idx >= capacity) {
+				Logger.e(getClass().getSimpleName(), "Failed adding multiple MindReader tokens. Index: " + idx + " is out-of-bounds for dictionary capacity: " + capacity);
+				return false;
+			}
+
+			String token = all.valueAt(i);
+			tokens[idx] = token;
+			addToIndex(token, idx);
 		}
+
+		return true;
 	}
 
 
