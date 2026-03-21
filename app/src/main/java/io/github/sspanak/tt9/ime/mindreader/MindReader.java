@@ -353,7 +353,6 @@ public class MindReader {
 			Timer.start(TIMER_TAG);
 
 			// @todo: test database upgrade
-			// @todo: also save the data when going to the background
 			persistSync();
 			restoreSync(language);
 

@@ -83,7 +83,9 @@ public class UsageStatsScreen extends BaseScreenFragment {
 
 	private boolean resetMindReaderCache(Preference ignored) {
 		MindReader.clear();
-		UI.toast(activity,  "MindReader cache scheduled for clearing.");
+		if (activity != null && activity.getApplicationContext() != null) {
+			UI.toast(activity.getApplicationContext(), "MindReader cache scheduled for clearing.");
+		}
 		return true;
 	}
 
@@ -95,7 +97,7 @@ public class UsageStatsScreen extends BaseScreenFragment {
 
 		new MindReaderStore(activity.getApplicationContext()).truncate(
 			LanguageCollection.getAll(),
-			() -> UI.toastLongFromAsync(activity, "Truncated all MindReader tables.")
+			() -> UI.toastLongFromAsync(activity.getApplicationContext(), "Truncated all MindReader tables.")
 		);
 		return true;
 	}
@@ -124,11 +126,15 @@ public class UsageStatsScreen extends BaseScreenFragment {
 	}
 
 	private boolean deleteWordPairs(Preference ignored) {
+		if (activity == null || activity.getApplicationContext() == null) {
+			Logger.w(getName(), "Cannot delete word pairs without context.");
+			return false;
+		}
+
 		DataStore.deleteWordPairs(
 			LanguageCollection.getAll(),
-			() -> UI.toastLongFromAsync(activity, "Word pairs deleted. You must reopen the screen manually.")
+			() -> UI.toastLongFromAsync(activity.getApplicationContext(), "Word pairs deleted. You must reopen the screen manually.")
 		);
 		return true;
 	}
-
 }

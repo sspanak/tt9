@@ -150,7 +150,7 @@ public class MindReaderDictionary {
 
 		for (int i = 0; i < size; i++) {
 			int idx = all.keyAt(i);
-			if (idx < 0 || idx >= capacity) {
+			if (idx < 0 || idx >= capacity || idx >= size) {
 				Logger.e(getClass().getSimpleName(), "Failed adding multiple MindReader tokens. Index: " + idx + " is out-of-bounds for dictionary capacity: " + capacity);
 				return false;
 			}
