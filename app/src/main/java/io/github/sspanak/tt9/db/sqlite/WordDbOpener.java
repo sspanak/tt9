@@ -10,7 +10,7 @@ public class WordDbOpener extends SQLiteOpener {
 	private static WordDbOpener self;
 
 	private WordDbOpener(Context context) {
-		super(context, "tt9.db");
+		super(context.getApplicationContext(), "tt9.db");
 	}
 
 	@NonNull

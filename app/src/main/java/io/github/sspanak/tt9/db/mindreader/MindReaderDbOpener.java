@@ -13,7 +13,7 @@ public class MindReaderDbOpener extends SQLiteOpener {
 	private static MindReaderDbOpener self;
 
 	private MindReaderDbOpener(Context context) {
-		super(context, "tt9.mindreader.db");
+		super(context.getApplicationContext(), "tt9.mindreader.db");
 	}
 
 	public static MindReaderDbOpener getInstance(Context context) {
