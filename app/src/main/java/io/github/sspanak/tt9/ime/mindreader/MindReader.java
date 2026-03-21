@@ -323,6 +323,7 @@ public class MindReader {
 			Timer.start(TIMER_TAG);
 
 			// @todo: test database upgrade
+			// @todo: also save the data when going to the background
 			store.save(wordContext.language, ngrams, dictionary);
 			dictionary = store.loadDictionary(language);
 			ngrams = store.loadNgrams(language);

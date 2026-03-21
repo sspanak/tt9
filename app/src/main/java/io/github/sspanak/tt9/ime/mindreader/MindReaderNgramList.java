@@ -73,7 +73,9 @@ public class MindReaderNgramList {
 
 		before = new long[rawNgrams.size()];
 		next = new int[rawNgrams.size()];
+		index.clear();
 		size = 0;
+		dirty = false;
 
 		for (long[] raw : rawNgrams) {
 			if (raw.length < 3) {
@@ -82,7 +84,7 @@ public class MindReaderNgramList {
 
 			before[size] = raw[1];
 			next[size] = (int) raw[2];
-			index.put(getIndex(before[size], next[size]), (int) raw[0]);
+			index.put(getIndex(before[size], next[size]), size);
 			size++;
 		}
 	}
