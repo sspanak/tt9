@@ -5,6 +5,7 @@ import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
+import io.github.sspanak.tt9.db.mindreader.MindReaderStore;
 import io.github.sspanak.tt9.db.words.SlowQueryStats;
 import io.github.sspanak.tt9.ime.mindreader.MindReader;
 import io.github.sspanak.tt9.ime.mindreader.MindReaderStats;
@@ -12,6 +13,7 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemText;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.util.Logger;
 
 public class UsageStatsScreen extends BaseScreenFragment {
 	public final static String NAME = "UsageStats";
@@ -81,11 +83,20 @@ public class UsageStatsScreen extends BaseScreenFragment {
 
 	private boolean resetMindReaderCache(Preference ignored) {
 		MindReader.clear();
+		UI.toast(activity,  "MindReader cache scheduled for clearing.");
 		return true;
 	}
 
 	private boolean deleteMindReaderDb(Preference ignored) {
-		UI.toast(activity, "Not implemented yet.");
+		if (activity == null || activity.getApplicationContext() == null) {
+			Logger.w(getName(), "Cannot truncate MindReader database without context.");
+			return false;
+		}
+
+		new MindReaderStore(activity.getApplicationContext()).truncate(
+			LanguageCollection.getAll(),
+			() -> UI.toastLongFromAsync(activity, "Truncated all MindReader tables.")
+		);
 		return true;
 	}
 

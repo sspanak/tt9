@@ -5,6 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import io.github.sspanak.tt9.db.BaseSyncStore;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
@@ -49,6 +54,7 @@ public class MindReaderStore extends BaseSyncStore {
 
 
 	@NonNull
+	@WorkerThread
 	public MindReaderNgramList loadNgrams(@NonNull Language language) {
 		Timer.start(LOG_TAG);
 
@@ -66,6 +72,7 @@ public class MindReaderStore extends BaseSyncStore {
 
 
 	@NonNull
+	@WorkerThread
 	public MindReaderDictionary loadDictionary(@NonNull Language language) {
 		Timer.start(LOG_TAG);
 
@@ -82,6 +89,7 @@ public class MindReaderStore extends BaseSyncStore {
 	}
 
 
+	@WorkerThread
 	public void save(@Nullable Language language, @NonNull MindReaderNgramList ngrams, @NonNull MindReaderDictionary dictionary) {
 		if (!checkOrNotify() || language == null) {
 			return;
@@ -125,12 +133,41 @@ public class MindReaderStore extends BaseSyncStore {
 			lastSaveTokensTime = saveTokensTime + deleteTokensTime;
 
 			db.setTransactionSuccessful();
+		} catch (Error e) {
+			Logger.e(LOG_TAG, "Failed saving MindReader data for language: " + language + ". " + e);
 		} finally {
 			db.endTransaction();
 			Timer.stop(LOG_TAG); // avoid timer memory leaks
 		}
 
 		printSaveSummary(language, Timer.stop(LOG_TAG + "_save"), deleteNgramsTime, deleteTokensTime, saveNgramsTime, saveTokensTime, ngramCount, tokenCount);
+	}
+
+
+	public void truncate(@NonNull ArrayList<Language> languages, @NonNull Runnable onDone) {
+		if (!checkOrNotify()) {
+			return;
+		}
+
+		try (ExecutorService executor = Executors.newSingleThreadExecutor()) {
+			executor.execute(() -> {
+				final SQLiteDatabase db = sqlite.getDb();
+				for (Language language : languages) {
+					try {
+						db.beginTransaction();
+						DeleteOps.deleteMindReaderNgrams(db, language.getId());
+						DeleteOps.deleteMindReaderTokens(db, language.getId());
+						db.setTransactionSuccessful();
+					} catch (Error e) {
+						Logger.w(LOG_TAG, "Failed truncating MindReader tables for language: " + language + ". " + e);
+					} finally {
+						db.endTransaction();
+					}
+				}
+
+				onDone.run();
+			});
+		}
 	}
 
 
