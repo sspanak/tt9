@@ -147,6 +147,7 @@ public class MindReaderDictionary {
 		}
 
 		size = Math.min(all.size(), capacity);
+
 		for (int i = 0; i < size; i++) {
 			int idx = all.keyAt(i);
 			if (idx < 0 || idx >= capacity) {
@@ -158,6 +159,8 @@ public class MindReaderDictionary {
 			tokens[idx] = token;
 			addToIndex(token, idx);
 		}
+
+		dirty = false;
 
 		return true;
 	}
@@ -234,6 +237,11 @@ public class MindReaderDictionary {
 			indices[i] = idx == -1 ? 0 : idx;
 		}
 		return indices;
+	}
+
+
+	public void setNotDirty() {
+		dirty = false;
 	}
 
 

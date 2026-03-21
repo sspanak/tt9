@@ -218,6 +218,11 @@ public class MindReaderNgramList {
 	}
 
 
+	public void setNotDirty() {
+		dirty = false;
+	}
+
+
 	public int size() {
 		return size;
 	}
