@@ -75,6 +75,18 @@ public class MindReader {
 
 
 	/**
+	 * Clear the current dictionary and N-grams, as well as the timing records.
+	 */
+	@WorkerThread
+	private void clearCache() {
+		clearCacheOnNextUse = false;
+		dictionary = new MindReaderDictionary(wordContext.language);
+		ngrams = new MindReaderNgramList();
+		stats.update(this).resetTimings();
+	}
+
+
+	/**
 	 * Clear the current context and guesses. This should be called when the user finishes typing, and
 	 * goes to a different app or an input field, where the current context is no longer relevant.
 	 */
@@ -84,6 +96,15 @@ public class MindReader {
 		}
 
 		runInThread(this::clearContextSync);
+	}
+
+
+	@WorkerThread
+	private void clearContextSync() {
+		if (wordContext.setText("")) {
+			words = List.of();
+			Logger.d(LOG_TAG, "Mind reader context cleared");
+		}
 	}
 
 
@@ -231,22 +252,31 @@ public class MindReader {
 
 
 	/**
-	 * Clear the current dictionary and N-grams, as well as the timing records.
+	 * Same as persistSync() but runs asynchronously and can be used from the main thread.
+	 */
+	public void persist() {
+		runInThread(this::persistSync);
+	}
+
+	/**
+	 * Save the dictionary and the n-grams for the current language to the database.
 	 */
 	@WorkerThread
-	private void clearCache() {
-		clearCacheOnNextUse = false;
-		dictionary = new MindReaderDictionary(wordContext.language);
-		ngrams = new MindReaderNgramList();
-		stats.update(this).resetTimings();
+	private void persistSync() {
+		if (store != null) {
+			store.save(wordContext.language, ngrams, dictionary);
+		}
 	}
 
 
+	/**
+	 * Load the dictionary and the n-grams for the given language from the database.
+	 */
 	@WorkerThread
-	private void clearContextSync() {
-		if (wordContext.setText("")) {
-			words = List.of();
-			Logger.d(LOG_TAG, "Mind reader context cleared");
+	private void restoreSync(@NonNull Language language) {
+		if (store != null) {
+			dictionary = store.loadDictionary(language);
+			ngrams = store.loadNgrams(language);
 		}
 	}
 
@@ -307,7 +337,7 @@ public class MindReader {
 	 * Clear the current context and cache, and load the dictionary and N-grams for the given language.
 	 */
 	public MindReader setLanguage(@NonNull Language language) {
-		if (isOff() || store == null) {
+		if (isOff()) {
 			return this;
 		}
 
@@ -324,9 +354,8 @@ public class MindReader {
 
 			// @todo: test database upgrade
 			// @todo: also save the data when going to the background
-			store.save(wordContext.language, ngrams, dictionary);
-			dictionary = store.loadDictionary(language);
-			ngrams = store.loadNgrams(language);
+			persistSync();
+			restoreSync(language);
 
 			clearContextSync();
 			wordContext.setLanguage(language);
@@ -335,8 +364,10 @@ public class MindReader {
 			final long time = Timer.stop(TIMER_TAG);
 			stats
 				.update(this)
-				.setDbTimes(store.getLastLoadNgramsTime(), store.getLastLoadTokensTime(), store.getLastSaveNgramsTime(), store.getLastSaveTokensTime())
 				.setChangeLanguageTime(time);
+			if (store != null) {
+				stats.setDbTimes(store.getLastLoadNgramsTime(), store.getLastLoadTokensTime(), store.getLastSaveNgramsTime(), store.getLastSaveTokensTime());
+			}
 			Logger.d(LOG_TAG, "Language changed from " + oldLanguageName + " to " + language.getName() + ". Time: " + time + " ms");
 		});
 
