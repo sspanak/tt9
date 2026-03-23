@@ -22,6 +22,7 @@ import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.Tables;
+import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
@@ -39,6 +40,7 @@ public class DictionaryLoader {
 
 	private final AssetManager assets;
 	private final SQLiteOpener sqlite;
+	private final InsertOps insertOps = new InsertOps();
 
 	@NonNull private final DictionaryLoadingBar loadingBar;
 	private Thread loadThread;
@@ -59,7 +61,7 @@ public class DictionaryLoader {
 	private DictionaryLoader(Context context) {
 		assets = context.getAssets();
 		loadingBar = DictionaryLoadingBar.getInstance(context);
-		sqlite = SQLiteOpener.getInstance(context);
+		sqlite = WordDbOpener.getInstance(context);
 	}
 
 
@@ -168,7 +170,7 @@ public class DictionaryLoader {
 
 			sqlite.beginTransaction();
 
-			Tables.dropIndexes(sqlite.getDb(), language);
+			Tables.dropWordsIndexes(sqlite.getDb(), language);
 			sendProgressMessage(language, ++progress);
 			logLoadingStep("Indexes dropped", language, Timer.restart());
 
@@ -302,14 +304,12 @@ public class DictionaryLoader {
 
 
 	private void saveWordBatch(WordBatch batch) {
-		InsertOps insertOps = new InsertOps(sqlite.getDb(), batch.getLanguage());
-
 		for (int i = 0, end = batch.getWords().size(); i < end; i++) {
-			insertOps.insertWord(batch.getWords().get(i));
+			insertOps.insertWord(sqlite.getDb(), batch.getLanguage(), batch.getWords().get(i));
 		}
 
 		for (int i = 0, end = batch.getPositions().size(); i < end; i++) {
-			insertOps.insertWordPosition(batch.getPositions().get(i));
+			insertOps.insertWordPosition(sqlite.getDb(), batch.getLanguage(), batch.getPositions().get(i));
 		}
 	}
 

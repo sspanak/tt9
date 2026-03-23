@@ -2,13 +2,14 @@ package io.github.sspanak.tt9.ime.mindreader;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
 
-class MindReaderNgramList {
+public class MindReaderNgramList {
 	private final int[] MAX_NGRAM_VARIATIONS;
 
 	private long[] before;
@@ -17,8 +18,10 @@ class MindReaderNgramList {
 	private final int initialCapacity;
 	private int size;
 
+	private boolean dirty;
 
-	MindReaderNgramList() {
+
+	public MindReaderNgramList() {
 		MAX_NGRAM_VARIATIONS = new int[] {
 			SettingsStatic.MIND_READER_MAX_BIGRAM_SUGGESTIONS,
 			SettingsStatic.MIND_READER_MAX_TRIGRAM_SUGGESTIONS,
@@ -29,6 +32,8 @@ class MindReaderNgramList {
 		before = new long[initialCapacity];
 		next = new int[initialCapacity];
 		size = 0;
+
+		dirty = false;
 	}
 
 
@@ -36,6 +41,8 @@ class MindReaderNgramList {
 		if (!ngram.isValid || ngram.size < 2) {
 			return;
 		}
+
+		dirty = true;
 
 		// if we re-insert an N-gram, move it to the end to mark it as most recently used
 		final int idx = indexOf(ngram);
@@ -59,6 +66,30 @@ class MindReaderNgramList {
 	}
 
 
+	public void addAllUnsafe(@NonNull ArrayList<long[]> rawNgrams) {
+		if (rawNgrams.isEmpty()) {
+			return;
+		}
+
+		before = new long[rawNgrams.size()];
+		next = new int[rawNgrams.size()];
+		index.clear();
+		size = 0;
+		dirty = false;
+
+		for (long[] raw : rawNgrams) {
+			if (raw.length < 3) {
+				continue;
+			}
+
+			before[size] = raw[1];
+			next[size] = (int) raw[2];
+			index.put(getIndex(before[size], next[size]), size);
+			size++;
+		}
+	}
+
+
 	private void expand() {
 		long[] newBeforeStorage = new long[before.length + initialCapacity];
 		int[] newNextStorage = new int[next.length + initialCapacity];
@@ -77,10 +108,24 @@ class MindReaderNgramList {
 	}
 
 
-	private static long getIndex(long before, int next) {
+	public long[] getBefore() {
+		long[] results = new long[size];
+		System.arraycopy(before, 0, results, 0, size);
+		return results;
+	}
+
+
+	private long getIndex(long before, int next) {
 		final long mask = (1L << SettingsStatic.MIND_READER_DICTIONARY_WORD_SIZE) - 1L;
 		final long maskedNext = ((long) next) & mask;
 		return (before << SettingsStatic.MIND_READER_DICTIONARY_WORD_SIZE) | maskedNext;
+	}
+
+
+	public int[] getNext() {
+		int[] results = new int[size];
+		System.arraycopy(next, 0, results, 0, size);
+		return results;
 	}
 
 
@@ -163,13 +208,23 @@ class MindReaderNgramList {
 	}
 
 
-	int size() {
-		return size;
+	int capacity() {
+		return before.length;
 	}
 
 
-	int capacity() {
-		return before.length;
+	public boolean dirty() {
+		return dirty;
+	}
+
+
+	public void setNotDirty() {
+		dirty = false;
+	}
+
+
+	public int size() {
+		return size;
 	}
 
 

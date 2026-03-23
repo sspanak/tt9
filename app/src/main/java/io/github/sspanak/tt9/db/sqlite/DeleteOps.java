@@ -38,4 +38,12 @@ public class DeleteOps {
 	public static void deleteWordPairs(@NonNull SQLiteDatabase db, int languageId) {
 		db.delete(Tables.getWordPairs(languageId), null, null);
 	}
+
+	public static void deleteMindReaderNgrams(@NonNull SQLiteDatabase db, int languageId) {
+		db.delete(Tables.getMindReaderNgrams(languageId), null, null);
+	}
+
+	public static void deleteMindReaderTokens(@NonNull SQLiteDatabase db, int languageId) {
+		db.delete(Tables.getMindReaderTokens(languageId), null, null);
+	}
 }

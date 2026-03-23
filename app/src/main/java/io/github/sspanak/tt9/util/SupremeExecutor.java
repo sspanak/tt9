@@ -21,4 +21,8 @@ public class SupremeExecutor {
 	public static Future<?> submit(@NonNull Runnable task) {
 		return get().submit(task);
 	}
+
+	public static void execute(@NonNull Runnable task) {
+		get().execute(task);
+	}
 }
