@@ -37,7 +37,8 @@ public class MindReaderDictionary {
 
 	@Nullable private final Locale locale;
 	private final int capacity;
-	private final HashMap<String, Integer> index;
+	private final HashMap<String, Integer> index; // for indexOf(), contains() and other lookups
+	private final MindReaderTrie longIndex = new MindReaderTrie(); // for getLongestWord()
 	private int size = 0;
 	private final String[] tokens;
 
@@ -111,7 +112,9 @@ public class MindReaderDictionary {
 
 
 	private void addToIndex(@NonNull String token, int position) {
-		index.put(locale != null ? token.toLowerCase(locale) : token, position);
+		final String key = locale != null ? token.toLowerCase(locale) : token;
+		index.put(key, position);
+		longIndex.add(key, position);
 	}
 
 
@@ -237,6 +240,12 @@ public class MindReaderDictionary {
 			indices[i] = idx == -1 ? 0 : idx;
 		}
 		return indices;
+	}
+
+
+	@Nullable
+	String getLongestWord(@NonNull String text, int end) {
+		return longIndex.getLongestWord(text, end, tokens);
 	}
 
 
