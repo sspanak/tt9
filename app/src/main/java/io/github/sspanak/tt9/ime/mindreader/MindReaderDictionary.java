@@ -37,10 +37,10 @@ public class MindReaderDictionary {
 
 	@Nullable private final Locale locale;
 	private final int capacity;
-	private final HashMap<String, Integer> index; // for indexOf(), contains() and other lookups
-	private final MindReaderTrie longIndex = new MindReaderTrie(); // for getLongestWord()
+	@NonNull private final HashMap<String, Integer> index; // for indexOf(), contains() and other lookups
+	@NonNull private final MindReaderTrie longIndex = new MindReaderTrie(); // for getLongestWord()
 	private int size = 0;
-	private final String[] tokens;
+	@NonNull private final String[] tokens;
 
 	private boolean dirty;
 

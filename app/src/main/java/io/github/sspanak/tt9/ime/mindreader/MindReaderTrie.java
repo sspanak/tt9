@@ -1,16 +1,17 @@
 package io.github.sspanak.tt9.ime.mindreader;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.HashMap;
 
 class MindReaderTrie {
 	private static class Node {
-		HashMap<Integer, Node> children = new HashMap<>();
+		@Nullable HashMap<Integer, Node> children = null;
 		int tokenId = -1; // -1 = not found
 	}
 
-	private final Node root = new Node();
+	@NonNull private final Node root = new Node();
 
 	void add(@NonNull String word, int tokenId) {
 		Node node = root;
@@ -20,7 +21,7 @@ class MindReaderTrie {
 			int cp = word.codePointBefore(i);
 			i -= Character.charCount(cp);
 
-			node = node.children.computeIfAbsent(cp, k -> new Node());
+			node = getNodeChildren(node).computeIfAbsent(cp, k -> new Node());
 		}
 
 		node.tokenId = tokenId;
@@ -29,7 +30,8 @@ class MindReaderTrie {
 	/**
 	 * Return the longest matching word ending at position `end` (exclusive)
 	 */
-	String getLongestWord(@NonNull String text, int end, String[] tokens) {
+	@Nullable
+	String getLongestWord(@NonNull String text, int end, @NonNull String[] tokens) {
 		Node node = root;
 		String result = null;
 
@@ -37,7 +39,7 @@ class MindReaderTrie {
 			int cp = text.codePointBefore(i);
 			i -= Character.charCount(cp);
 
-			node = node.children.get(cp);
+			node = getNodeChildren(node).get(cp);
 			if (node == null) break;
 
 			if (node.tokenId != -1) {
@@ -46,5 +48,16 @@ class MindReaderTrie {
 		}
 
 		return result;
+	}
+
+	/**
+	 * Ensures the given node has a non-null children map and returns them.
+	 */
+	@NonNull
+	private HashMap<Integer, Node> getNodeChildren(@NonNull Node node) {
+		if (node.children == null) {
+			node.children = new HashMap<>();
+		}
+		return node.children;
 	}
 }
