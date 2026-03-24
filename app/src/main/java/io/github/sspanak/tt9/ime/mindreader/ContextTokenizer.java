@@ -44,7 +44,7 @@ class ContextTokenizer {
 		}
 
 		// tokenize the remaining text using the dictionary
-		final String[] beforeTokens = tokenizeWithoutSpace(dictionary, unusedBeforeCursor, maxTokens - tokens.length);
+		final String[] beforeTokens = tokenizeWithoutSpace(language, dictionary, unusedBeforeCursor, maxTokens - tokens.length);
 		if (beforeTokens.length == 0) {
 			return tokens;
 		}
@@ -131,14 +131,15 @@ class ContextTokenizer {
 	}
 
 
-	private static String[] tokenizeWithoutSpace(@NonNull MindReaderDictionary dictionary, @NonNull String text, int maxTokens) {
+	private static String[] tokenizeWithoutSpace(@NonNull Language language, @NonNull MindReaderDictionary dictionary, @NonNull String text, int maxTokens) {
 		if (text.isEmpty() || maxTokens <= 0) {
 			return new String[0];
 		}
 
+		final boolean isLangWithSpacePunctuation = LanguageKind.usesSpaceAsPunctuation(language);
+
 		String[] tokens = new String[maxTokens];
 		int tokensCount = 0;
-
 		int i = text.length();
 
 		while (i > 0 && tokensCount < maxTokens) {
@@ -148,6 +149,8 @@ class ContextTokenizer {
 				break;
 			}
 
+			final boolean isCpWhitespace = Character.isWhitespace(cp);
+
 			if (isPriorityPunctuationChar(cp)) {
 				addToken(tokens, maxTokens, new String(Character.toChars(cp)));
 				tokensCount++;
@@ -155,7 +158,7 @@ class ContextTokenizer {
 				continue;
 			}
 
-			if (isOtherPunctuationChar(cp)) {
+			if (isOtherPunctuationChar(cp) || (isLangWithSpacePunctuation && isCpWhitespace)) {
 				addToken(tokens, maxTokens, MindReaderDictionary.PUNCTUATION_OTHER);
 				tokensCount++;
 				i -= Character.charCount(cp);
@@ -169,7 +172,7 @@ class ContextTokenizer {
 				continue;
 			}
 
-			if (Character.isWhitespace(cp)) {
+			if (isCpWhitespace) {
 				addToken(tokens, maxTokens, MindReaderDictionary.SPACE);
 				tokensCount++;
 				i -= Character.charCount(cp);
