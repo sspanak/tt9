@@ -1,12 +1,12 @@
 package io.github.sspanak.tt9.ime.mindreader;
 
-import androidx.annotation.NonNull;
+import android.util.SparseArray;
 
-import java.util.HashMap;
+import androidx.annotation.NonNull;
 
 class MindReaderTrie {
 	private static class Node {
-		HashMap<Integer, Node> children = new HashMap<>();
+		SparseArray<Node> children = null; // lazy: allocated on first insert
 		int tokenId = -1; // -1 = not found
 	}
 
@@ -20,7 +20,15 @@ class MindReaderTrie {
 			int cp = word.codePointBefore(i);
 			i -= Character.charCount(cp);
 
-			node = node.children.computeIfAbsent(cp, k -> new Node());
+			if (node.children == null) {
+				node.children = new SparseArray<>();
+			}
+			Node child = node.children.get(cp);
+			if (child == null) {
+				child = new Node();
+				node.children.put(cp, child);
+			}
+			node = child;
 		}
 
 		node.tokenId = tokenId;
@@ -37,6 +45,7 @@ class MindReaderTrie {
 			int cp = text.codePointBefore(i);
 			i -= Character.charCount(cp);
 
+			if (node.children == null) break;
 			node = node.children.get(cp);
 			if (node == null) break;
 
