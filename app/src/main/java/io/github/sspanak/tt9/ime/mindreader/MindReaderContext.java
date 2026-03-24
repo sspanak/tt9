@@ -23,6 +23,7 @@ class MindReaderContext {
 	@Nullable private String lastAppendedWord = null;
 	@NonNull private final StringBuilder raw = new StringBuilder();
 	@NonNull private String[] tokens = new String[0];
+	@Nullable private String unusedBeforeCursor = null;
 
 
 	MindReaderContext(int maxTokens) {
@@ -32,9 +33,10 @@ class MindReaderContext {
 
 	/**
 	 * Appends the given word to the current context text, separating it with a space if needed.
-	 * The word is trimmed before appending.
+	 * The word is trimmed before appending. "textBefore" is preserved for additional tokenization
+	 * for languages without space.
 	 */
-	boolean appendText(@Nullable String lastWord, boolean addWordSeparator) {
+	boolean appendText(@NonNull String textBefore, @Nullable String lastWord, boolean addWordSeparator) {
 		if (lastWord == null || lastWord.isEmpty()) {
 			return false;
 		}
@@ -45,6 +47,7 @@ class MindReaderContext {
 		raw.append(language == null || language.hasSpaceBetweenWords() ? lastWord.trim() : lastWord);
 		lastAppendedWord = lastWord;
 		tokens = new String[0];
+		unusedBeforeCursor = textBefore;
 
 		return true;
 	}
@@ -149,6 +152,7 @@ class MindReaderContext {
 		raw.append(beforeCursor.trim());
 		lastAppendedWord = null;
 		tokens = new String[0];
+		unusedBeforeCursor = null;
 
 		return true;
 	}
@@ -181,7 +185,7 @@ class MindReaderContext {
 	 */
 	@NonNull
 	String[] tokenize(@NonNull MindReaderDictionary dictionary) {
-		tokens = ContextTokenizer.tokenize(language, raw.toString(), MAX_TOKENS);
+		tokens = ContextTokenizer.tokenize(dictionary, language, raw.toString(), unusedBeforeCursor, MAX_TOKENS);
 		rectifyTokens(dictionary);
 
 		return tokens;

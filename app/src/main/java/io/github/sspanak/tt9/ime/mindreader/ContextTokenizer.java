@@ -8,13 +8,57 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 class ContextTokenizer {
-	static final int WORD_SEPARATOR = 0x200b; // for languages where space has a punctuation-like role
+	// alternative space for languages where space has a punctuation-like role
+	static final int WORD_SEPARATOR = 0x200b;
+	private static final String WORD_SEPARATOR_STR = "\u200b";
+
 	private enum TokenType {SPACE, WORD, PUNCTUATION_PRIORITY, PUNCTUATION_OTHER, NUMBER, EMOJI, GARBAGE}
 
 
 	@NonNull
-	static String[] tokenize(@Nullable Language language, @NonNull String text, int maxTokens) {
+	static String[] tokenize(@NonNull MindReaderDictionary dictionary, @Nullable Language language, @NonNull String text, @Nullable String unusedBeforeCursor, int maxTokens) {
 		if (text.isEmpty()) {
+			return new String[0];
+		}
+
+		// split by space, if possible
+		String[] tokens = tokenizeTextWithSpace(language, text, maxTokens);
+		if (tokens.length >= maxTokens || language == null || language.hasSpaceBetweenWords() || unusedBeforeCursor == null || unusedBeforeCursor.isEmpty()) {
+			return tokens;
+		}
+
+		// in languages without space, if there aren't enough tokens, try to extract more from the
+		// unused text before the cursor. Since it would be a solid block of text, we use the dictionary
+		// to search for words.
+
+		// remove the tokens that we already extracted above
+		final String squashedText = text.replace(WORD_SEPARATOR_STR, "");
+		if (unusedBeforeCursor.endsWith(squashedText)) {
+			unusedBeforeCursor = unusedBeforeCursor.substring(0, unusedBeforeCursor.length() - squashedText.length());
+		}
+
+		// remove the dummy start-of-text character
+		final String dot = Characters.getChar(language, ".");
+		if (dot != null && unusedBeforeCursor.startsWith(dot)) {
+			unusedBeforeCursor = unusedBeforeCursor.substring(dot.length());
+		}
+
+		// tokenize the remaining text using the dictionary
+		final String[] beforeTokens = tokenizeWithoutSpace(language, dictionary, unusedBeforeCursor, maxTokens - tokens.length);
+		if (beforeTokens.length == 0) {
+			return tokens;
+		}
+
+		String[] allTokens = new String[Math.min(tokens.length + beforeTokens.length, maxTokens)];
+		System.arraycopy(beforeTokens, 0, allTokens, 0, beforeTokens.length);
+		System.arraycopy(tokens, 0, allTokens, beforeTokens.length, tokens.length);
+
+		return allTokens;
+	}
+
+
+	private static String[] tokenizeTextWithSpace(@Nullable Language language, @NonNull String text, int maxTokens) {
+		if (text.isEmpty() || maxTokens <= 0) {
 			return new String[0];
 		}
 
@@ -84,6 +128,85 @@ class ContextTokenizer {
 		String[] validTokens = new String[Math.min(tokensCount, maxTokens)];
 		System.arraycopy(tokens, Math.max(0, maxTokens - tokensCount), validTokens, 0, Math.min(tokensCount, maxTokens));
 		return validTokens;
+	}
+
+
+	private static String[] tokenizeWithoutSpace(@NonNull Language language, @NonNull MindReaderDictionary dictionary, @NonNull String text, int maxTokens) {
+		if (text.isEmpty() || maxTokens <= 0) {
+			return new String[0];
+		}
+
+		final boolean isLangWithSpacePunctuation = LanguageKind.usesSpaceAsPunctuation(language);
+
+		String[] tokens = new String[maxTokens];
+		int tokensCount = 0;
+		int i = text.length();
+
+		while (i > 0 && tokensCount < maxTokens) {
+			final int cp = text.codePointBefore(i);
+
+			if (cp == '\n' || cp == '\r') {
+				break;
+			}
+
+			final boolean isCpWhitespace = Character.isWhitespace(cp);
+
+			if (isPriorityPunctuationChar(cp)) {
+				addToken(tokens, maxTokens, new String(Character.toChars(cp)));
+				tokensCount++;
+				i -= Character.charCount(cp);
+				continue;
+			}
+
+			if (isOtherPunctuationChar(cp) || (isLangWithSpacePunctuation && isCpWhitespace)) {
+				addToken(tokens, maxTokens, MindReaderDictionary.PUNCTUATION_OTHER);
+				tokensCount++;
+				i -= Character.charCount(cp);
+				continue;
+			}
+
+			if (Character.isDigit(cp)) {
+				addToken(tokens, maxTokens, MindReaderDictionary.NUMBER);
+				tokensCount++;
+				i -= Character.charCount(cp);
+				continue;
+			}
+
+			if (isCpWhitespace) {
+				addToken(tokens, maxTokens, MindReaderDictionary.SPACE);
+				tokensCount++;
+				i -= Character.charCount(cp);
+				continue;
+			}
+
+			if (Characters.isGraphic(cp)) {
+				addToken(tokens, maxTokens, MindReaderDictionary.EMOJI);
+				tokensCount++;
+				i -= Character.charCount(cp);
+				continue;
+			}
+
+			final String match = dictionary.getLongestWord(text, i);
+
+			if (match != null) {
+				addToken(tokens, maxTokens, match);
+				tokensCount++;
+				i -= match.length();
+			} else {
+				// fallback: single char as garbage
+				addToken(tokens, maxTokens, MindReaderDictionary.GARBAGE);
+				tokensCount++;
+				i -= Character.charCount(cp);
+			}
+		}
+
+		// trim and reverse the result
+		final String[] result = new String[Math.min(tokensCount, maxTokens)];
+		for (int j = 0; j < result.length; j++) {
+			result[j] = tokens[maxTokens - 1 - j];
+		}
+
+		return result;
 	}
 
 

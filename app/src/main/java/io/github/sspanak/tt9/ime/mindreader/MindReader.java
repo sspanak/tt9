@@ -408,9 +408,9 @@ public class MindReader {
 					|| TextTools.endsWithSpace(surroundingText[0])
 				)
 				&& wordContext.setText(surroundingText[0])
-				&& (lastWord == null || wordContext.appendText(lastWord, false));
+				&& (lastWord == null || wordContext.appendText(surroundingText[0], lastWord, false));
 		} else if (LanguageKind.usesSpaceAsPunctuation(language)) {
-			return wordContext.appendText(lastWord, true);
+			return wordContext.appendText(surroundingText[0], lastWord, true);
 		} else {
 			return wordContext.setText(surroundingText[0]);
 		}
