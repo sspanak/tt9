@@ -1,7 +1,7 @@
-locale: tk-PN
+locale: en-IT # workaround, not true locale; doesn't seem like a toki pona locale is supported :*(
 dictionaryFile: tp-utf8.txt
 iconABC: ic_lang_latin
-iconT9: ic_lang_en
+iconT9: ic_lang_tp
 name: toki pona
 layout:
   - [SPECIAL] # 0
