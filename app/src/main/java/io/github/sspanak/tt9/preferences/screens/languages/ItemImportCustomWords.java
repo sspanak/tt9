@@ -63,7 +63,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 			setAndNotifyReady();
 			DictionaryProgressNotification.getInstance(activity).showMessage("", statusMsg, statusMsg);
 
-			item.setTitle(R.string.dictionary_import_custom_words);
+			setDefaultTitle();
 			item.setSummary(statusMsg);
 		});
 	}
@@ -77,9 +77,19 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 		activity.runOnUiThread(() -> item.setSummary(loadingMsg));
 	}
 
+	@Override
+	protected void onFinishProcessing(String fileName) {
+		super.onFinishProcessing(fileName);
+		activity.runOnUiThread(this::setDefaultTitle);
+	}
+
 	private void onFailure(String error) {
 		lastError = error;
 		onFinishProcessing(null);
+	}
+
+	private void setDefaultTitle() {
+		item.setTitle(R.string.dictionary_import_custom_words);
 	}
 
 	@Override
