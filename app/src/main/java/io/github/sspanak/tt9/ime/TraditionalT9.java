@@ -164,7 +164,6 @@ public class TraditionalT9 extends PremiumHandler {
 			onStop();
 		}	else {
 			backgroundTasks.removeCallbacksAndMessages(null);
-			settings.setDonationsVisible(true);
 			initUi(mInputMode);
 		}
 

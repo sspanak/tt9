@@ -58,7 +58,7 @@ public class ProfitPreference extends Preference {
 
 
 	public ProfitPreference populate(@NonNull PreferencesActivity activity, boolean isTT9On) {
-		boolean isVisible = isTT9On && !activity.getSettings().getDemoMode() && activity.getSettings().getDonationsVisible();
+		boolean isVisible = isTT9On && !activity.getSettings().getDemoMode();
 		setVisible(isVisible);
 		setIconSpaceReserved(false);
 
