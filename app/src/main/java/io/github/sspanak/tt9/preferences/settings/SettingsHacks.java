@@ -73,14 +73,6 @@ class SettingsHacks extends SettingsAddedWords {
 		return prefs.getBoolean("pref_enable_system_logs", false);
 	}
 
-	public boolean getDonationsVisible() {
-		return prefs.getBoolean("pref_show_donations", false);
-	}
-
-	public void setDonationsVisible(boolean yes) {
-		getPrefsEditor().putBoolean("pref_show_donations", yes).apply();
-	}
-
 	public boolean getAllowComposingText() {
 		return prefs.getBoolean("pref_allow_composing_text", true);
 	}
