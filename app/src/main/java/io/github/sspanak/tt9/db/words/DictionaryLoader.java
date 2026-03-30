@@ -171,7 +171,7 @@ public class DictionaryLoader {
 		}
 
 		try {
-			Timer.start();
+			Timer.start(LOG_TAG);
 
 			float progress = 1;
 
@@ -246,6 +246,8 @@ public class DictionaryLoader {
 				+ e.getClass().getSimpleName() + ": "
 				+ e.getMessage()
 			);
+		} finally {
+			Timer.stop(LOG_TAG);
 		}
 	}
 
