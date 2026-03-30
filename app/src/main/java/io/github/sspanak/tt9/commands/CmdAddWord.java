@@ -49,7 +49,7 @@ public class CmdAddWord implements Command {
 			return false;
 		}
 
-		if (DictionaryLoader.getInstance(tt9).isRunning()) {
+		if (DictionaryLoader.isRunning()) {
 			UI.toastShortSingle(tt9, R.string.dictionary_loading_please_wait);
 			return false;
 		}

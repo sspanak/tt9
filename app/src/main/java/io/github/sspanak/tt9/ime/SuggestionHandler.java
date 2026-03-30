@@ -121,7 +121,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 	 */
 	@Override
 	protected void getSuggestions(double loadingId, @Nullable String currentWord, @Nullable Runnable onComplete) {
-		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.getInstance(this).isRunning()) {
+		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.isRunning()) {
 			mInputMode.reset();
 			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
 			if (onComplete != null) {
