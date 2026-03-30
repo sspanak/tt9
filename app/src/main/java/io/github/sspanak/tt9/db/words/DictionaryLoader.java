@@ -46,6 +46,7 @@ public class DictionaryLoader {
 	private Thread loadThread;
 
 	private static final HashMap<Integer, Long> lastAutoLoadAttemptTime = new HashMap<>();
+	private static boolean skipNextAutoLoad = false;
 	private int currentFile = 0;
 
 
@@ -53,6 +54,14 @@ public class DictionaryLoader {
 		assets = context.getAssets();
 		loadingBar = DictionaryLoadingBar.getInstance(context);
 		sqlite = WordDbOpener.getInstance(context);
+	}
+
+
+	public static void abort() {
+		if (self != null) {
+			self.stop();
+			self.loadingBar.showCancelled();
+		}
 	}
 
 
@@ -95,6 +104,11 @@ public class DictionaryLoader {
 			return false;
 		}
 
+		if (skipNextAutoLoad) {
+			skipNextAutoLoad = false;
+			return false;
+		}
+
 		final Long lastUpdateTime = lastAutoLoadAttemptTime.get(language.getId());
 		final boolean isItTooSoon = lastUpdateTime != null && System.currentTimeMillis() - lastUpdateTime < SettingsStore.DICTIONARY_AUTO_LOAD_COOLDOWN_TIME;
 		if (isItTooSoon) {
@@ -122,11 +136,8 @@ public class DictionaryLoader {
 	}
 
 
-	public static void abort() {
-		if (self != null) {
-			self.stop();
-			self.loadingBar.showCancelled();
-		}
+	public static void setSkipNextAutoLoad() {
+		skipNextAutoLoad = true;
 	}
 
 
