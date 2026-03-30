@@ -178,7 +178,7 @@ public class TraditionalT9 extends PremiumHandler {
 		final InputType newInputType = new InputType(this, field);
 
 		if (newInputType.isText()) {
-			DataStore.loadWordPairs(DictionaryLoader.getInstance(this), LanguageCollection.getAll(settings.getEnabledLanguageIds()));
+			DataStore.loadWordPairs(LanguageCollection.getAll(settings.getEnabledLanguageIds()));
 		}
 
 		if (!newInputType.isUs()) {
@@ -358,7 +358,7 @@ public class TraditionalT9 extends PremiumHandler {
 		SupremeExecutor.submit(() -> {
 			mindReader.persist();
 			voiceInputOps.forceAlternativeInput(false).enableOfflineMode();
-			if (!DictionaryLoader.getInstance(this).isRunning()) {
+			if (!DictionaryLoader.isRunning()) {
 				DataStore.saveWordPairs();
 				DataStore.normalizeNext();
 			}

@@ -45,17 +45,8 @@ public class DictionaryLoader {
 	@NonNull private final DictionaryLoadingBar loadingBar;
 	private Thread loadThread;
 
-	private final HashMap<Integer, Long> lastAutoLoadAttemptTime = new HashMap<>();
+	private static final HashMap<Integer, Long> lastAutoLoadAttemptTime = new HashMap<>();
 	private int currentFile = 0;
-
-
-	public static DictionaryLoader getInstance(Context context) {
-		if (self == null) {
-			self = new DictionaryLoader(context);
-		}
-
-		return self;
-	}
 
 
 	private DictionaryLoader(Context context) {
@@ -65,7 +56,7 @@ public class DictionaryLoader {
 	}
 
 
-	public boolean load(Context context, ArrayList<Language> languages) {
+	public static boolean load(Context context, ArrayList<Language> languages) {
 		if (isRunning()) {
 			return false;
 		}
@@ -75,10 +66,80 @@ public class DictionaryLoader {
 			return true;
 		}
 
-		loadThread = new Thread(() -> loadSync(context, languages));
-		loadThread.start();
+		if (self == null) {
+			self = new DictionaryLoader(context);
+		}
+		self.loadThread = new Thread(() -> {
+			try {
+				self.loadSync(context, languages);
+			} finally {
+				self.loadThread = null;
+				self = null;
+			}
+		});
+		self.loadThread.start();
 
 		return true;
+	}
+
+
+	public static void load(Context context, Language language) {
+		ArrayList<Language> languages = new ArrayList<>(1);
+		languages.add(language);
+		load(context, languages);
+	}
+
+
+	public static boolean autoLoad(@NonNull InputMethodService context, @NonNull SettingsStore settings, @NonNull Language language) {
+		if (!settings.getPredictiveMode() || isRunning()) {
+			return false;
+		}
+
+		final Long lastUpdateTime = lastAutoLoadAttemptTime.get(language.getId());
+		final boolean isItTooSoon = lastUpdateTime != null && System.currentTimeMillis() - lastUpdateTime < SettingsStore.DICTIONARY_AUTO_LOAD_COOLDOWN_TIME;
+		if (isItTooSoon) {
+			return false;
+		}
+
+		DataStore.getLastLanguageUpdateTime(
+			(hash) -> {
+				lastAutoLoadAttemptTime.put(language.getId(), System.currentTimeMillis());
+
+				final boolean noDictionary = hash == null || hash.isEmpty();
+				final boolean isDictionaryOutdated = noDictionary || !hash.equals(new WordFile(context, language, self.assets).getHash());
+				final boolean noNotifications = !(new SettingsStore(context).getNotificationsApproved());
+
+				if (noDictionary || (isDictionaryOutdated && noNotifications)) {
+					load(context, language);
+				} else if (isDictionaryOutdated) {
+					new DictionaryUpdateNotification(context, language).show();
+				}
+			},
+			language
+		);
+
+		return true;
+	}
+
+
+	public static void abort() {
+		if (self != null) {
+			self.stop();
+			self.loadingBar.showCancelled();
+		}
+	}
+
+
+	private void stop() {
+		if (loadThread != null) {
+			loadThread.interrupt();
+		}
+		Timer.stop(IMPORT_TIMER);
+	}
+
+
+	public static boolean isRunning() {
+		return self != null && self.loadThread != null && self.loadThread.isAlive();
 	}
 
 
@@ -99,60 +160,6 @@ public class DictionaryLoader {
 		}
 
 		Timer.stop(IMPORT_TIMER);
-	}
-
-
-	public static void load(Context context, Language language) {
-		getInstance(context).load(context, new ArrayList<>() {{ add(language); }});
-	}
-
-
-	public static boolean autoLoad(@NonNull InputMethodService context, @NonNull SettingsStore settings, @NonNull Language language) {
-		if (getInstance(context).isRunning() || !settings.getPredictiveMode()) {
-			return false;
-		}
-
-		final Long lastUpdateTime = self.lastAutoLoadAttemptTime.get(language.getId());
-		final boolean isItTooSoon = lastUpdateTime != null && System.currentTimeMillis() - lastUpdateTime < SettingsStore.DICTIONARY_AUTO_LOAD_COOLDOWN_TIME;
-		if (isItTooSoon) {
-			return false;
-		}
-
-		DataStore.getLastLanguageUpdateTime(
-			(hash) -> {
-				getInstance(context).lastAutoLoadAttemptTime.put(language.getId(), System.currentTimeMillis());
-
-				final boolean noDictionary = hash == null || hash.isEmpty();
-				final boolean isDictionaryOutdated = noDictionary || !hash.equals(new WordFile(context, language, self.assets).getHash());
-				final boolean noNotifications = !(new SettingsStore(context).getNotificationsApproved());
-
-				if (noDictionary || (isDictionaryOutdated && noNotifications)) {
-					load(context, language);
-				} else if (isDictionaryOutdated) {
-					new DictionaryUpdateNotification(context, language).show();
-				}
-			},
-			language
-		);
-
-		return true;
-	}
-
-
-	public void abort() {
-		stop();
-		loadingBar.showCancelled();
-	}
-
-
-	private void stop() {
-		loadThread.interrupt();
-		Timer.stop(IMPORT_TIMER);
-	}
-
-
-	public boolean isRunning() {
-		return loadThread != null && loadThread.isAlive();
 	}
 
 

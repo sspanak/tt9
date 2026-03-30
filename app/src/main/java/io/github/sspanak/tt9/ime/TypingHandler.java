@@ -421,7 +421,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	 * suggestions. Otherwise, reset the InputMode.
 	 */
 	private void recompose(int backspaceRepeat, boolean isTextSelected) {
-		if (!settings.getBackspaceRecomposing() || backspaceRepeat > 0 || isFnPanelVisible() || isTextSelected || !suggestionOps.isEmpty() || DictionaryLoader.getInstance(this).isRunning()) {
+		if (!settings.getBackspaceRecomposing() || backspaceRepeat > 0 || isFnPanelVisible() || isTextSelected || !suggestionOps.isEmpty() || DictionaryLoader.isRunning()) {
 			return;
 		}
 

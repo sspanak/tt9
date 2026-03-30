@@ -21,14 +21,12 @@ class ItemLoadDictionary extends ItemClickable {
 	private final Runnable onStart;
 	private final Runnable onFinish;
 
-	private final DictionaryLoader loader;
 	private final DictionaryLoadingBar progressBar;
 
 
 	ItemLoadDictionary(Preference item, PreferencesActivity context, Runnable onStart, Runnable onFinish) {
 		super(item);
 
-		loader = DictionaryLoader.getInstance(context);
 		progressBar = DictionaryLoadingBar.getInstance(context);
 
 		this.activity = context;
@@ -38,7 +36,7 @@ class ItemLoadDictionary extends ItemClickable {
 
 
 	public void refreshStatus() {
-		if (loader.isRunning()) {
+		if (DictionaryLoader.isRunning()) {
 			setBusy();
 		} else {
 			setReady();
@@ -69,8 +67,8 @@ class ItemLoadDictionary extends ItemClickable {
 		ArrayList<Language> languages = LanguageCollection.getAll(activity.getSettings().getEnabledLanguageIds());
 
 		setBusy();
-		if (!loader.load(activity, languages)) {
-			loader.abort();
+		if (!DictionaryLoader.load(activity, languages)) {
+			DictionaryLoader.abort();
 			setReady();
 			onFinish.run();
 		}

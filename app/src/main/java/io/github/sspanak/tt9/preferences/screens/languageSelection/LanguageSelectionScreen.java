@@ -49,7 +49,7 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 		}
 
 		addLanguagesToCategory(languagesCategory, allLanguages);
-		if (!DictionaryLoader.getInstance(activity).isRunning()) {
+		if (!DictionaryLoader.isRunning()) {
 			DataStore.exists(this::addLoadedStatus, allLanguages);
 		}
 	}

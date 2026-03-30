@@ -117,7 +117,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 				Logger.i(getClass().getSimpleName(), "Imported " + file.getName() + " in " + Timer.get(getClass().getSimpleName()) + " ms");
 			}
 		} else {
-			Logger.e(getClass().getSimpleName(), "Failed to import " + file.getName());
+			Logger.e(getClass().getSimpleName(), "Failed to import " + file.getName() + ". File breaks the validation constraints. Stopped after " + Timer.get(getClass().getSimpleName()) + " ms");
 		}
 	}
 

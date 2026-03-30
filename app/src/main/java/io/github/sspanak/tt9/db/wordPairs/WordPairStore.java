@@ -125,12 +125,12 @@ public class WordPairStore extends BaseSyncStore {
 	}
 
 
-	public void load(@NonNull DictionaryLoader dictionaryLoader, ArrayList<Language> languages) {
+	public void load(ArrayList<Language> languages) {
 		if (!checkOrNotify()) {
 			return;
 		}
 
-		if (dictionaryLoader.isRunning()) {
+		if (DictionaryLoader.isRunning()) {
 			Logger.e(LOG_TAG, "Cannot load word pairs while the DictionaryLoader is working.");
 			return;
 		}
