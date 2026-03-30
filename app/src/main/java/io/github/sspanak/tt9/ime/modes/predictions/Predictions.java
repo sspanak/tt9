@@ -28,9 +28,9 @@ abstract public class Predictions {
 	protected Runnable onWordsChanged = () -> {};
 
 	// data
-	protected boolean areThereDbWords = true;
-	protected boolean containsGeneratedWords = false;
-	@NonNull protected ArrayList<String> words = new ArrayList<>();
+	protected volatile boolean areThereDbWords = true;
+	protected volatile boolean containsGeneratedWords = false;
+	@NonNull protected volatile ArrayList<String> words = new ArrayList<>();
 
 
 	public Predictions(SettingsStore settings) {
@@ -41,7 +41,7 @@ abstract public class Predictions {
 	public void reset() {
 		areThereDbWords = false;
 		containsGeneratedWords = false;
-		words.clear();
+		words = new ArrayList<>();
 	}
 
 
@@ -103,12 +103,12 @@ abstract public class Predictions {
 
 	/**
 	 * suggestMissingWords
-	 * Takes a list of words and appends them to the words list, if they are missing.
+	 * Takes a list of words and appends them to the old list of words, if they are missing.
 	 */
-	protected void suggestMissingWords(ArrayList<String> newWords) {
+	protected void suggestMissingWords(ArrayList<String> newWords, ArrayList<String> oldWords) {
 		for (String newWord : newWords) {
-			if (!words.contains(newWord) && !words.contains(newWord.toLowerCase(language.getLocale()))) {
-				words.add(newWord);
+			if (!oldWords.contains(newWord) && !oldWords.contains(newWord.toLowerCase(language.getLocale()))) {
+				oldWords.add(newWord);
 			}
 		}
 	}

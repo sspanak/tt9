@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
@@ -83,7 +85,10 @@ public class ModeBopomofo extends ModePinyin {
 			digitSequence = seq.CHARS_1_SEQUENCE;
 		} else {
 			autoAcceptTimeout = 0;
-			suggestions.add(language.getKeyNumeral(number));
+
+			ArrayList<String> newSuggestions = new ArrayList<>(1);
+			newSuggestions.add(language.getKeyNumeral(number));
+			suggestions = newSuggestions;
 		}
 	}
 

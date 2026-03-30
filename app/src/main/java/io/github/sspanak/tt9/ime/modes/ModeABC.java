@@ -64,7 +64,10 @@ class ModeABC extends InputMode {
 			autoAcceptTimeout = 0;
 			digitSequence = String.valueOf(number);
 			shouldSelectNextLetter = false;
-			suggestions.add(language.getKeyNumeral(number));
+
+			ArrayList<String> newSuggestions = new ArrayList<>(1);
+			newSuggestions.add(language.getKeyNumeral(number));
+			suggestions = newSuggestions;
 		} else if (repeat > 0 && !suggestions.isEmpty()) {
 			autoAcceptTimeout = settings.getAutoAcceptTimeoutAbc();
 			shouldSelectNextLetter = true;
@@ -73,8 +76,10 @@ class ModeABC extends InputMode {
 			autoAcceptTimeout = settings.getAutoAcceptTimeoutAbc();
 			digitSequence = String.valueOf(number);
 			shouldSelectNextLetter = false;
-			suggestions.addAll(KEY_CHARACTERS.size() > number ? KEY_CHARACTERS.get(number) : settings.getOrderedKeyChars(language, number));
-			suggestions.add(language.getKeyNumeral(number));
+
+			ArrayList<String> newSuggestions = new ArrayList<>(KEY_CHARACTERS.size() > number ? KEY_CHARACTERS.get(number) : settings.getOrderedKeyChars(language, number));
+			newSuggestions.add(language.getKeyNumeral(number));
+			suggestions = newSuggestions;
 		}
 
 		return true;
@@ -144,7 +149,7 @@ class ModeABC extends InputMode {
 
 	private void refreshSuggestions() {
 		if (digitSequence.isEmpty()) {
-			suggestions.clear();
+			suggestions = new ArrayList<>();
 		} else {
 			onNumber(digitSequence.charAt(0) - '0', false, 0);
 		}

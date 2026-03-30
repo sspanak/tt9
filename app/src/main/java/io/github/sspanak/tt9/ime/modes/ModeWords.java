@@ -126,7 +126,10 @@ class ModeWords extends ModeCheonjiin {
 	protected void onNumberHold(int number) {
 		autoAcceptTimeout = 0;
 		ignoreNextSpace = false;
-		suggestions.add(language.getKeyNumeral(number));
+
+		ArrayList<String> newSuggestions = new ArrayList<>(1);
+		newSuggestions.add(language.getKeyNumeral(number));
+		suggestions = newSuggestions;
 	}
 
 
@@ -229,16 +232,16 @@ class ModeWords extends ModeCheonjiin {
 		stem = stem.length() > lastAcceptedWordLength ? stem.substring(lastAcceptedWordLength) : "";
 
 		if (digitSequence.length() == 1) {
-			suggestions.clear();
 			loadSuggestions("");
 			return;
 		}
 
-		ArrayList<String> lastSuggestions = new ArrayList<>(suggestions);
-		suggestions.clear();
+		final ArrayList<String> lastSuggestions = suggestions;
+		ArrayList<String> newSuggestions = new ArrayList<>(lastSuggestions.size());
 		for (String s : lastSuggestions) {
-			suggestions.add(s.length() >= lastAcceptedWordLength ? s.substring(lastAcceptedWordLength) : "");
+			newSuggestions.add(s.length() >= lastAcceptedWordLength ? s.substring(lastAcceptedWordLength) : "");
 		}
+		suggestions = newSuggestions;
 	}
 
 
@@ -321,6 +324,8 @@ class ModeWords extends ModeCheonjiin {
 	 */
 	@Override
 	public void loadSuggestions(String currentWord) {
+		containsEmojis = false;
+
 		if (disablePredictions || loadPreferredChar() || loadSpecialCharacters() || loadEmojis()) {
 			predictions.reset();
 			onSuggestionsUpdated.run();
@@ -351,9 +356,9 @@ class ModeWords extends ModeCheonjiin {
 			return false;
 		}
 
-
-		suggestions.clear();
-		suggestions.add(getPreferredChar());
+		ArrayList<String> newSuggestions = new ArrayList<>(1);
+		newSuggestions.add(getPreferredChar());
+		suggestions = newSuggestions;
 		return true;
 	}
 
