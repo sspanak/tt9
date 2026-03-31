@@ -28,6 +28,10 @@
 			android:title="@string/pref_auto_mind_reading" />
 
 		<io.github.sspanak.tt9.preferences.screens.languages.SwitchRaiseImportLimits />
+
+		<SwitchPreferenceCompat
+			app:key="word_editing"
+			app:title="Word Editing" />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="Hacks" app:singleLineTitle="true">

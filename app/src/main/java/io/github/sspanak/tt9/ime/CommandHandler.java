@@ -5,6 +5,7 @@ import android.view.KeyEvent;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.commands.CmdAddWord;
 import io.github.sspanak.tt9.commands.CmdEditWord;
+import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.commands.CommandCollection;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
@@ -37,7 +38,10 @@ abstract public class CommandHandler extends TextEditingHandler {
 		}
 
 		if (!shouldBeOff() && mainView.isCommandPaletteShown()) {
-			CommandCollection.getByHardKey(CommandCollection.COLLECTION_PALETTE, key).run(getFinalContext());
+			Command cmd = CommandCollection.getByHardKey(CommandCollection.COLLECTION_PALETTE, key);
+			if (cmd.isAvailable(getFinalContext())) {
+				cmd.run(getFinalContext());
+			}
 			return true;
 		}
 
