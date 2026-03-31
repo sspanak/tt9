@@ -250,7 +250,9 @@ abstract public class CommandHandler extends TextEditingHandler {
 		}
 
 		mInputMode.skipNextTextCaseDetection();
-		settings.saveTextCase(mInputMode.getTextCase());
+		if (!InputModeKind.isRecomposing(mInputMode)) {
+			settings.saveTextCase(mInputMode.getTextCase());
+		}
 
 		if (currentWord.isEmpty() && !suggestionOps.isEmpty()) {
 			// if we have set the suggestions from a different source, e.g. Clipboard or MindReader,
