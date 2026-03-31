@@ -5,6 +5,7 @@ import android.content.Context;
 import io.github.sspanak.tt9.preferences.screens.debug.DropDownInputHandlingMode;
 import io.github.sspanak.tt9.preferences.screens.debug.DropDownLogLevel;
 import io.github.sspanak.tt9.preferences.screens.keypad.DropDownKeyPadDebounceTime;
+import io.github.sspanak.tt9.preferences.screens.keypad.SwitchHapticFeedback;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
@@ -47,6 +48,18 @@ class SettingsHacks extends SettingsAddedWords {
 
 	public boolean clearInsets() {
 		return prefs.getBoolean("pref_clear_insets", DeviceInfo.isSonimGen2(context));
+	}
+
+	public boolean getHapticFeedbackProblematic() {
+		return prefs.getBoolean(SwitchHapticFeedback.HACK_NAME, SwitchHapticFeedback.HACK_DEFAULT);
+	}
+
+
+	public void setHapticFeedbackProblematic(boolean yes) {
+		if (yes) {
+			getPrefsEditor().putBoolean(SwitchHapticFeedback.NAME, false);
+		}
+		getPrefsEditor().putBoolean(SwitchHapticFeedback.HACK_NAME, yes).apply();
 	}
 
 	/**
@@ -92,7 +105,7 @@ class SettingsHacks extends SettingsAddedWords {
 
 	/**
 	 * Facebook Messenger has a bug where when trying to reply to a message, and when the keyboard
-	 * has certain height, it somehow switches the focus outside of the text field. The problematic
+	 * has certain height, it somehow switches the focus outside the text field. The problematic
 	 * height is exactly the height when the Main View is Small or when the Command Palette is shown.
 	 * With this hack, we tell the Main View to become taller and mitigate the issue.
 	 * More info: <a href="https://github.com/sspanak/tt9/issues/815">Issue 815</a>. Note that the

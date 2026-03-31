@@ -267,6 +267,7 @@
 	<string name="tutorial_classic_OK_swipe">Когато няма предложения, плъзнете нагоре/надолу, за да преместите курсора.\n\nКогато има предложения, плъзнете нагоре, за да ги филтрирате, или надолу, за да изчистите филтъра.</string>
 	<string name="tutorial_classic_add_word">Плъзнете наляво, за да добавите дума.</string>
 	<string name="pref_hack_auto_disable_composing">Автоматично скриване на въвеждания текст</string>
+	<string name="pref_haptic_feedback_problematic_summary">Вибрацията може да причини сривове на вашето устройство. Активирайте на собствен риск.</string>
 	<string name="pref_hardware_key_visual_feedback">Визуализиране на натисканията</string>
 	<string name="pref_show_suggestions_abc">Показване на предложения за букви</string>
 	<string name="pref_auto_trim_trailing_space">Автоматично премахване на крайните интервали</string>

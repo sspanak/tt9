@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.BaseClickableKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public record Vibration(@NonNull SettingsStore settings, @Nullable View view) {
@@ -37,8 +38,18 @@ public record Vibration(@NonNull SettingsStore settings, @Nullable View view) {
 	}
 
 	public void vibrate(int vibrationType) {
-		if (settings.getHapticFeedback() && view != null) {
+		if (view == null || !settings.getHapticFeedback()) {
+			return;
+		}
+
+		try {
 			view.performHapticFeedback(vibrationType, HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
+		} catch (Exception e) {
+			// Some devices Xiaomi and Poco devices with Android 16 crash when trying to vibrate.
+			// This is a workaround to prevent the app from crashing on such devices.
+			settings.setHapticFeedbackProblematic(true);
+
+			Logger.e(getClass().getSimpleName(), "Failed to vibrate, disabling haptic feedback. " + e);
 		}
 	}
 

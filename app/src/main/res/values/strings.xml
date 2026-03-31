@@ -105,6 +105,7 @@
 	<string name="pref_hack_key_pad_debounce_off">Off</string>
 	<string name="pref_haptic_feedback">Vibration</string>
 	<string name="pref_haptic_feedback_summary">Vibrate when a virtual key is pressed. (Not possible on all devices)</string>
+	<string name="pref_haptic_feedback_problematic_summary">Vibration may cause crashes on your device. Enable at your own risk.</string>
 	<string name="pref_hardware_key_visual_feedback">Visualize Key Presses</string>
 	<string name="pref_hardware_key_visual_feedback_summary">Pressing a physical key will make the corresponding on-screen key show a click effect.</string>
 	<string name="pref_help">Help</string>
