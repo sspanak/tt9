@@ -29,9 +29,10 @@ public class StatusBar {
 
 	@NonNull private final DictionaryLoadingBar loadingBar;
 	@NonNull private final Runnable onLoadingFinished;
+	@NonNull private final Runnable onSwipe;
 
 
-	public StatusBar(@NonNull Context context, @NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull Runnable onDictionaryLoadingFinished) {
+	public StatusBar(@NonNull Context context, @NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull Runnable onDictionaryLoadingFinished, @NonNull Runnable onSwipe) {
 		this.mainView = mainView;
 		this.settings = settings;
 		statusView = mainView.getView() != null ? mainView.getView().findViewById(R.id.status_bar) : null;
@@ -42,6 +43,7 @@ public class StatusBar {
 		loadingBar = DictionaryLoadingBar.getInstance(context);
 		loadingBar.setOnStatusChange2(this::onLoading);
 		onLoadingFinished = onDictionaryLoadingFinished;
+		this.onSwipe = onSwipe;
 	}
 
 
@@ -49,11 +51,14 @@ public class StatusBar {
 	 * Handle double-click and drag resizing
 	 */
 	private boolean onTouch(View v, MotionEvent event) {
+		final int action = event.getAction();
+
 		if (!isShown) {
+			if (action == MotionEvent.ACTION_MOVE || action == MotionEvent.ACTION_DOWN) {
+				onSwipe.run();
+			}
 			return false;
 		}
-
-		int action = event.getAction();
 
 		switch (action) {
 			case MotionEvent.ACTION_DOWN:
