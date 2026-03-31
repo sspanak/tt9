@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadShape;
 import io.github.sspanak.tt9.preferences.screens.appearance.SwitchLeftRightArrows;
 import io.github.sspanak.tt9.preferences.screens.appearance.SwitchShowArrowsUpDown;
 import io.github.sspanak.tt9.preferences.screens.fnKeyOrder.FnKeyOrderValidator;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class SettingsVirtualNumpad extends SettingsCustomKeyActions {
 	public final static int NUMPAD_SHAPE_SQUARE = 0;
@@ -49,6 +50,10 @@ public class SettingsVirtualNumpad extends SettingsCustomKeyActions {
 
 	public boolean getHardwareKeyVisualFeedback() {
 		return prefs.getBoolean("pref_hardware_key_visual_feedback", false);
+	}
+
+	public boolean isFnKeyOrderEnabled() {
+		return isMainLayoutNumpad() && !DeviceInfo.noTouchScreen(context);
 	}
 
 	@NonNull public String getLfnKeyOrder() {
