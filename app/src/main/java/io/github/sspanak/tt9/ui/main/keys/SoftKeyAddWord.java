@@ -19,7 +19,7 @@ public class SoftKeyAddWord extends BaseSoftKeyWithIcons {
 
 	@Override
 	protected int getCornerIcon(int position) {
-		return position == ICON_POSITION_TOP_RIGHT ? editWord.getIcon() : super.getCornerIcon(position);
+		return position == ICON_POSITION_TOP_RIGHT && editWord.isAvailable(tt9) ? editWord.getIcon() : super.getCornerIcon(position);
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class SoftKeyAddWord extends BaseSoftKeyWithIcons {
 	@Override
 	protected void handleHold() {
 		preventRepeat();
-		if (editWord.run(tt9)) {
+		if (editWord.isAvailable(tt9) && editWord.run(tt9)) {
 			vibrate(Vibration.getHoldVibration());
 		}
 		ignoreLastPressedKey();

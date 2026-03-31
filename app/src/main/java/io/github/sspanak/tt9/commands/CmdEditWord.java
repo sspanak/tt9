@@ -23,6 +23,7 @@ public class CmdEditWord implements Command {
 	public boolean isAvailable(@Nullable TraditionalT9 tt9) {
 		return
 			tt9 != null
+			&& tt9.getSettings().getWordEditing()
 			&& tt9.getSettings().getPredictiveMode()
 			&& tt9.getLanguage() != null
 			&& !tt9.getLanguage().isTranscribed();
