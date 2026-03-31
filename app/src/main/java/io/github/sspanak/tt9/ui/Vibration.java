@@ -45,7 +45,7 @@ public record Vibration(@NonNull SettingsStore settings, @Nullable View view) {
 		try {
 			view.performHapticFeedback(vibrationType, HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
 		} catch (Exception e) {
-			// Some devices Xiaomi and Poco devices with Android 16 crash when trying to vibrate.
+			// Some Xiaomi and Poco devices with Android 16 crash when trying to vibrate.
 			// This is a workaround to prevent the app from crashing on such devices.
 			settings.setHapticFeedbackProblematic(true);
 
