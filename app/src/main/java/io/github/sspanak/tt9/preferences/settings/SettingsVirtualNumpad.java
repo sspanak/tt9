@@ -53,7 +53,7 @@ public class SettingsVirtualNumpad extends SettingsCustomKeyActions {
 	}
 
 	public boolean isFnKeyOrderEnabled() {
-		return getMainViewLayout() == SettingsStore.LAYOUT_NUMPAD && !DeviceInfo.noTouchScreen(context);
+		return isMainLayoutNumpad() && !DeviceInfo.noTouchScreen(context);
 	}
 
 	@NonNull public String getLfnKeyOrder() {
