@@ -42,5 +42,8 @@ public class SwitchHapticFeedback extends SwitchPreferenceCompat {
 		} else {
 			setSummary(R.string.pref_haptic_feedback_summary);
 		}
+
+		setDefaultValue(DEFAULT);
+		setChecked(getPersistedBoolean(DEFAULT));
 	}
 }
