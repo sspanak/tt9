@@ -1,14 +1,14 @@
 package io.github.sspanak.tt9.ime;
 
+import android.content.res.Configuration;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import io.github.sspanak.tt9.ime.helpers.OrientationListener;
-import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.helpers.TextSelection;
+import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.languages.Language;
@@ -20,7 +20,7 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
  * Informational methods for the on-screen keyboard
  **/
 abstract public class MainViewHandler extends HotkeyHandler {
-	OrientationListener orientationListener;
+	private int previousOrientation = Configuration.ORIENTATION_UNDEFINED;
 
 	private float normalizedWidth = -1;
 	private float normalizedHeight = -1;
@@ -30,11 +30,6 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	@Override
 	protected void onInit() {
 		super.onInit();
-
-		if (orientationListener == null) {
-			orientationListener = new OrientationListener(this, this::onOrientationChanged);
-			orientationListener.start();
-		}
 	}
 
 
@@ -42,6 +37,16 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	protected boolean onStart(EditorInfo field, boolean restarting) {
 		resetNormalizedDimensions();
 		return super.onStart(field, restarting);
+	}
+
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		if (newConfig.orientation != previousOrientation) {
+			previousOrientation = newConfig.orientation;
+			onOrientationChanged();
+		}
 	}
 
 
@@ -88,10 +93,6 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	@Override
 	protected void cleanUp() {
 		super.cleanUp();
-		if (orientationListener != null) {
-			orientationListener.stop();
-			orientationListener = null;
-		}
 		if (mainView != null) {
 			mainView.destroy();
 		}
