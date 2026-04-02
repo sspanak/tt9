@@ -25,6 +25,7 @@
 	<string name="pref_layout_stealth">Unsichtbarer Modus</string>
 	<string name="pref_layout_tray">Nur Wortliste</string>
 	<string name="pref_haptic_feedback_summary">Vibrieren beim Drücken einer virtuellen Taste. (Nicht auf allen Geräten möglich)</string>
+	<string name="pref_haptic_feedback_problematic_summary">Vibration kann auf Ihrem Gerät zu Abstürzen führen. Aktivierung auf eigene Gefahr.</string>
 	<string name="pref_hardware_key_visual_feedback">Tastendrücke visualisieren</string>
 	<string name="pref_hardware_key_visual_feedback_summary">Durch Drücken einer physischen Taste wird die entsprechende Bildschirmtaste hervorgehoben.</string>
 	<string name="pref_help">Hilfe</string>
