@@ -51,7 +51,7 @@ public class StatusBar {
 	 * Handle double-click and drag resizing
 	 */
 	private boolean onTouch(View v, MotionEvent event) {
-		final int action = event.getAction();
+		final int action = event.getActionMasked();
 
 		if (!isShown) {
 			if (action == MotionEvent.ACTION_MOVE || action == MotionEvent.ACTION_DOWN) {
