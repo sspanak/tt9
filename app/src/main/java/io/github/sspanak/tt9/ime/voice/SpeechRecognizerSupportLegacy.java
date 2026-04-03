@@ -24,7 +24,21 @@ public class SpeechRecognizerSupportLegacy {
 			PackageManager.MATCH_DEFAULT_ONLY
 		);
 
-		return resolveInfo.size() > 1;
+		final String google1 = "com.google.android.tts";
+		final String google2 = "com.google.android.googlequicksearchbox";
+
+		for (ResolveInfo info : resolveInfo) {
+			if (
+				info != null
+				&& info.activityInfo != null
+				&& !google1.equals(info.activityInfo.packageName)
+				&& !google2.equals(info.activityInfo.packageName)
+			) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	boolean isGoogleOfflineRecognitionAvailable(@NonNull Context context) {
