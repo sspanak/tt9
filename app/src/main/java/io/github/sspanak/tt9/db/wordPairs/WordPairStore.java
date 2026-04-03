@@ -14,6 +14,7 @@ import io.github.sspanak.tt9.db.BaseSyncStore;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
+import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -35,6 +36,13 @@ public class WordPairStore extends BaseSyncStore {
 
 	public WordPairStore(Context context) {
 		super(context);
+	}
+
+
+	@NonNull
+	@Override
+	protected WordDbOpener openDb(Context context) {
+		return WordDbOpener.getInstance(context);
 	}
 
 
@@ -117,12 +125,12 @@ public class WordPairStore extends BaseSyncStore {
 	}
 
 
-	public void load(@NonNull DictionaryLoader dictionaryLoader, ArrayList<Language> languages) {
+	public void load(ArrayList<Language> languages) {
 		if (!checkOrNotify()) {
 			return;
 		}
 
-		if (dictionaryLoader.isRunning()) {
+		if (DictionaryLoader.isRunning()) {
 			Logger.e(LOG_TAG, "Cannot load word pairs while the DictionaryLoader is working.");
 			return;
 		}

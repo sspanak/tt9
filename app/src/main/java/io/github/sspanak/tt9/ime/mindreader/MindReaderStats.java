@@ -29,6 +29,11 @@ public class MindReaderStats {
 	private volatile long slowestSetContext = 0;
 	private volatile long slowestSetLanguage = 0;
 
+	private volatile long slowestLoadNgrams = 0;
+	private volatile long slowestLoadTokens = 0;
+	private volatile long slowestSaveNgrams = 0;
+	private volatile long slowestSaveTokens = 0;
+
 
 	@NonNull
 	public static MindReaderStats getInstance() {
@@ -57,6 +62,7 @@ public class MindReaderStats {
 		countComplete = countGuess = countSetContext = countSetLanguage = 0;
 		totalComplete = totalGuess = totalSetContext = totalSetLanguage = 0;
 		slowestComplete = slowestGuess = slowestSetContext = slowestSetLanguage = 0;
+		slowestLoadNgrams = slowestLoadTokens = slowestSaveNgrams = slowestSaveTokens = 0;
 	}
 
 
@@ -69,6 +75,15 @@ public class MindReaderStats {
 		countComplete++;
 		totalComplete += time;
 		slowestComplete = Math.max(slowestComplete, time);
+	}
+
+
+	synchronized MindReaderStats setDbTimes(long loadNgrams, long loadTokens, long saveNgrams, long saveTokens) {
+		slowestLoadNgrams = Math.max(slowestLoadNgrams, loadNgrams);
+		slowestLoadTokens = Math.max(slowestLoadTokens, loadTokens);
+		slowestSaveNgrams = Math.max(slowestSaveNgrams, saveNgrams);
+		slowestSaveTokens = Math.max(slowestSaveTokens, saveTokens);
+		return this;
 	}
 
 
@@ -103,22 +118,29 @@ public class MindReaderStats {
 		sb.append("N-grams: ").append(ngramsSize).append(" / ").append(ngramsCapacity).append("\n");
 
 		if (!isOff) {
-			sb.append("\nComplete word: ").append(countComplete)
-				.append(".  Average: ").append(countComplete == 0 ? 0 : totalComplete / countComplete)
-				.append(" ms.  Slowest: ")
+			sb.append("\n -== Operations ==-\n");
+			sb.append("\nComplete: ").append(countComplete)
+				.append(".  Avg: ").append(countComplete == 0 ? 0 : totalComplete / countComplete)
+				.append(" ms.  Max: ")
 				.append(slowestComplete).append(" ms\n");
-			sb.append("Guess word: ").append(countGuess)
-				.append(".  Average: ").append(countGuess == 0 ? 0 : totalGuess / countGuess)
-				.append(" ms.  Slowest: ")
+			sb.append("Guess: ").append(countGuess)
+				.append(".  Avg: ").append(countGuess == 0 ? 0 : totalGuess / countGuess)
+				.append(" ms.  Max: ")
 				.append(slowestGuess).append(" ms\n");
-			sb.append("Set context: ").append(countSetContext)
-				.append(".  Average: ").append(countSetContext == 0 ? 0 : totalSetContext / countSetContext)
-				.append(" ms.  Slowest: ")
+			sb.append("Context: ").append(countSetContext)
+				.append(".  Avg: ").append(countSetContext == 0 ? 0 : totalSetContext / countSetContext)
+				.append(" ms.  Max: ")
 				.append(slowestSetContext).append(" ms\n");
-			sb.append("Set language: ").append(countSetLanguage)
-				.append(".  Average: ").append(countSetLanguage == 0 ? 0 : totalSetLanguage / countSetLanguage)
-				.append(" ms.  Slowest: ")
+			sb.append("Language: ").append(countSetLanguage)
+				.append(".  Avg: ").append(countSetLanguage == 0 ? 0 : totalSetLanguage / countSetLanguage)
+				.append(" ms.  Max: ")
 				.append(slowestSetLanguage).append(" ms\n");
+
+			sb.append("\n -== Max Db Times ==-\n")
+				.append("\nLoad. N-grams: ").append(slowestLoadNgrams)
+				.append(" ms. Tokens: ").append(slowestLoadTokens).append(" ms")
+				.append("\nSave. N-grams: ").append(slowestSaveNgrams)
+				.append(" ms. Tokens: ").append(slowestSaveTokens).append(" ms");
 		}
 
 		return sb.toString();

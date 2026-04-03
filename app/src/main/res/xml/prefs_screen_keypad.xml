@@ -33,10 +33,7 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/pref_category_keypad_onscreen" android:key="category_virtual_keys">
-		<SwitchPreferenceCompat
-			android:key="pref_haptic_feedback"
-			android:title="@string/pref_haptic_feedback"
-			android:summary="@string/pref_haptic_feedback_summary"/>
+		<io.github.sspanak.tt9.preferences.screens.keypad.SwitchHapticFeedback />
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/pref_category_keypad_hardware">

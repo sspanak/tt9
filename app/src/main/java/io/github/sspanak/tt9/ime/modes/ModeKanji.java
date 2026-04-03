@@ -21,8 +21,9 @@ public class ModeKanji extends ModePinyin {
 	@NonNull
 	@Override
 	public ArrayList<String> getSuggestions() {
-		ArrayList<String> newSuggestions = new ArrayList<>();
-		for (String s : suggestions) {
+		ArrayList<String> snapshot = suggestions;
+		ArrayList<String> newSuggestions = new ArrayList<>(snapshot.size());
+		for (String s : snapshot) {
 			// "Ql" is the transcription of "—" in the database, as defined in Japanese.yml. However, this
 			// has only technical meaning. When displaying the suggestions, we want to show "—" for better
 			// readability.

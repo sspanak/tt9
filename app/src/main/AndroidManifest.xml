@@ -65,7 +65,7 @@
 		</activity>
 
 		<activity
-			android:label="Input Test"
+			android:label="Test Input"
 			android:name="io.github.sspanak.tt9.preferences.screens.debug.TestInputActivity"
 			android:exported="true"
 			android:theme="@style/TTheme.Preferences">

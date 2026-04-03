@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.mindreader;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
@@ -13,6 +15,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 
+import io.github.sspanak.tt9.db.mindreader.MindReaderStore;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
@@ -36,6 +39,7 @@ public class MindReader {
 	@NonNull private final ExecutorService executor = Executors.newSingleThreadExecutor();
 	@Nullable private SettingsStore settings;
 	@NonNull public final MindReaderStats stats = MindReaderStats.getInstance();
+	@Nullable private MindReaderStore store;
 
 	private final AtomicLong completeRequestCount = new AtomicLong(Long.MIN_VALUE);
 	private final AtomicLong guessRequestCount = new AtomicLong(Long.MIN_VALUE);
@@ -53,6 +57,11 @@ public class MindReader {
 	private volatile List<String> words = List.of();
 
 
+	public void init(@NonNull Context context) {
+		store = new MindReaderStore(context);
+	}
+
+
 	public void destroy() {
 		if (!executor.isShutdown()) {
 			executor.shutdownNow();
@@ -66,6 +75,18 @@ public class MindReader {
 
 
 	/**
+	 * Clear the current dictionary and N-grams, as well as the timing records.
+	 */
+	@WorkerThread
+	private void clearCache() {
+		clearCacheOnNextUse = false;
+		dictionary = new MindReaderDictionary(wordContext.language);
+		ngrams = new MindReaderNgramList();
+		stats.update(this).resetTimings();
+	}
+
+
+	/**
 	 * Clear the current context and guesses. This should be called when the user finishes typing, and
 	 * goes to a different app or an input field, where the current context is no longer relevant.
 	 */
@@ -75,6 +96,15 @@ public class MindReader {
 		}
 
 		runInThread(this::clearContextSync);
+	}
+
+
+	@WorkerThread
+	private void clearContextSync() {
+		if (wordContext.setText("")) {
+			words = List.of();
+			Logger.d(LOG_TAG, "Mind reader context cleared");
+		}
 	}
 
 
@@ -222,22 +252,31 @@ public class MindReader {
 
 
 	/**
-	 * Clear the current dictionary and N-grams, as well as the timing records.
+	 * Same as persistSync() but runs asynchronously and can be used from the main thread.
+	 */
+	public void persist() {
+		runInThread(this::persistSync);
+	}
+
+	/**
+	 * Save the dictionary and the n-grams for the current language to the database.
 	 */
 	@WorkerThread
-	private void clearCache() {
-		clearCacheOnNextUse = false;
-		dictionary = new MindReaderDictionary(wordContext.language);
-		ngrams = new MindReaderNgramList();
-		stats.update(this).resetTimings();
+	private void persistSync() {
+		if (store != null) {
+			store.save(wordContext.language, ngrams, dictionary);
+		}
 	}
 
 
+	/**
+	 * Load the dictionary and the n-grams for the given language from the database.
+	 */
 	@WorkerThread
-	private void clearContextSync() {
-		if (wordContext.setText("")) {
-			words = List.of();
-			Logger.d(LOG_TAG, "Mind reader context cleared");
+	private void restoreSync(@NonNull Language language) {
+		if (store != null) {
+			dictionary = store.loadDictionary(language);
+			ngrams = store.loadNgrams(language);
 		}
 	}
 
@@ -245,13 +284,13 @@ public class MindReader {
 	/**
 	 * Set and potentially save the current context, without guessing anything.
 	 */
-	public MindReader setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
+	public void setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
 		if (inputNotMindReadable) {
 			Timer.stop(TIMER_TAG);
-			return this;
+			return;
 		}
 
 		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
@@ -268,7 +307,6 @@ public class MindReader {
 			}
 		});
 
-		return this;
 	}
 
 
@@ -282,6 +320,10 @@ public class MindReader {
 
 
 	public void setInputType(@Nullable InputType inputType) {
+		if (isOff()) {
+			return;
+		}
+
 		autoTextCase = settings != null ? new AutoTextCase(settings, new Sequences(), inputType) : null;
 		inputNotMindReadable = inputType == null || inputType.notMindReadableText();
 
@@ -304,22 +346,28 @@ public class MindReader {
 				return;
 			}
 
+			// statistics
 			final String TIMER_TAG = LOG_TAG + Math.random();
+			final String oldLanguageName = wordContext.language != null ? wordContext.language.getName() : "null";
+
 			Timer.start(TIMER_TAG);
+
+			// @todo: test database upgrade
+			persistSync();
+			restoreSync(language);
 
 			clearContextSync();
 			wordContext.setLanguage(language);
 
-			// @todo: save the current dictionary for the previous language
-			// @todo: save new N-grams for this language
-
-			// @todo: load the dictionary for the new language
-			// @todo: load N-grams for the new language
-			clearCache();
-
+			// save statistics and log
 			final long time = Timer.stop(TIMER_TAG);
-			stats.update(this).setChangeLanguageTime(time);
-			Logger.d(LOG_TAG, "Loaded dictionary and N-grams for language: " + language + ". Time: " + time + " ms");
+			stats
+				.update(this)
+				.setChangeLanguageTime(time);
+			if (store != null) {
+				stats.setDbTimes(store.getLastLoadNgramsTime(), store.getLastLoadTokensTime(), store.getLastSaveNgramsTime(), store.getLastSaveTokensTime());
+			}
+			Logger.d(LOG_TAG, "Language changed from " + oldLanguageName + " to " + language.getName() + ". Time: " + time + " ms");
 		});
 
 		return this;
@@ -360,9 +408,9 @@ public class MindReader {
 					|| TextTools.endsWithSpace(surroundingText[0])
 				)
 				&& wordContext.setText(surroundingText[0])
-				&& (lastWord == null || wordContext.appendText(lastWord, false));
+				&& (lastWord == null || wordContext.appendText(surroundingText[0], lastWord, false));
 		} else if (LanguageKind.usesSpaceAsPunctuation(language)) {
-			return wordContext.appendText(lastWord, true);
+			return wordContext.appendText(surroundingText[0], lastWord, true);
 		} else {
 			return wordContext.setText(surroundingText[0]);
 		}

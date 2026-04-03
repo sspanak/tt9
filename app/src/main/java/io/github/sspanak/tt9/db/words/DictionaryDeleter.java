@@ -12,6 +12,7 @@ import java.util.concurrent.Future;
 
 import io.github.sspanak.tt9.db.BaseSyncStore;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
+import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.util.Logger;
@@ -36,6 +37,13 @@ public class DictionaryDeleter extends BaseSyncStore {
 			self = new DictionaryDeleter(context);
 		}
 		return self;
+	}
+
+
+	@NonNull
+	@Override
+	protected WordDbOpener openDb(Context context) {
+		return WordDbOpener.getInstance(context);
 	}
 
 

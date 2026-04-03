@@ -16,20 +16,20 @@ class MindReaderNgram implements Comparable<MindReaderNgram> {
 	MindReaderNgram(@Nullable Language language, int[] tokens) {
 		size = tokens.length;
 
-		if (tokens.length == 0) {
+		if (size == 0) {
 			before = -1;
 			next = -1;
 			complete = -1;
 			isValid = false;
-		} else if (tokens.length == 1) {
+		} else if (size == 1) {
 			before = tokens[0];
 			next = -1;
 			complete = tokens[0];
 			isValid = validate(language, tokens);
 		} else {
 			before = compressBefore(tokens);
-			next = tokens[tokens.length - 1];
-			complete = compressComplete(tokens);
+			next = tokens[size - 1];
+			complete = calculateComplete(before, next, size);
 			isValid = validate(language, tokens);
 		}
 	}
@@ -42,12 +42,8 @@ class MindReaderNgram implements Comparable<MindReaderNgram> {
 		return compressed;
 	}
 
-	private long compressComplete(int[] tokens) {
-		long compressed = 0;
-		for (int i = tokens.length - 1; i >= 0; i--) {
-			compressed = compressed | ((long) tokens[i] << i * SettingsStatic.MIND_READER_DICTIONARY_WORD_SIZE);
-		}
-		return compressed;
+	private long calculateComplete(long before, long next, int size) {
+		return before | next << (size - 1) * SettingsStatic.MIND_READER_DICTIONARY_WORD_SIZE;
 	}
 
 	private boolean validate(@Nullable Language language, int[] tokens) {

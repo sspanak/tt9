@@ -62,7 +62,8 @@ abstract class UiHandler extends AbstractHandler {
 
 	protected void initTray() {
 		mainView.getView();
-		statusBar = new StatusBar(this, settings, mainView, this::resetStatus).setColorScheme();
+		statusBar = new StatusBar(this, settings, mainView, this::resetStatus, () -> getSuggestionOps().cancelDelayedAccept());
+		statusBar.setColorScheme();
 		createSuggestionBar();
 		getSuggestionOps().setColorScheme();
 	}

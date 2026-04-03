@@ -24,6 +24,7 @@
 	<string name="pref_layout_stealth">Невидимый режим</string>
 	<string name="pref_layout_tray">Только список слов</string>
 	<string name="pref_haptic_feedback_summary">Вибрировать при нажатии виртуальной клавиши. (Невозможно на всех устройствах)</string>
+	<string name="pref_haptic_feedback_problematic_summary">Вибрация может вызывать сбои на вашем устройстве. Включайте на свой риск.</string>
 	<string name="pref_hardware_key_visual_feedback">Визуализация нажатий</string>
 	<string name="pref_hardware_key_visual_feedback_summary">При нажатии физической клавиши соответствующая клавиша на экране будет выделена.</string>
 	<string name="pref_help">Помощь</string>

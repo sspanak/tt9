@@ -107,10 +107,12 @@ class Mode123 extends ModePassthrough {
 		digitSequence = String.valueOf(number);
 
 		if (hold && number < KEY_CHARACTERS.size() && !KEY_CHARACTERS.get(number).isEmpty()) {
-			suggestions.addAll(KEY_CHARACTERS.get(number));
+			suggestions = new ArrayList<>(KEY_CHARACTERS.get(number));
 		} else {
 			autoAcceptTimeout = 0;
-			suggestions.add(digitSequence);
+			ArrayList<String> newSuggestions = new ArrayList<>(1);
+			newSuggestions.add(digitSequence);
+			suggestions = newSuggestions;
 		}
 
 		return true;

@@ -22,7 +22,7 @@ import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 class ModeCheonjiin extends InputMode {
-	// used when we want do display a different set of characters for a given key, for example
+	// used when we want to display a different set of characters for a given key, for example
 	// in email fields
 	protected final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
@@ -31,6 +31,7 @@ class ModeCheonjiin extends InputMode {
 	private final String SPECIAL_CHAR_SEQUENCE_PREFIX = "00";
 
 	// predictions
+	protected boolean containsEmojis = false;
 	protected boolean disablePredictions = false;
 	protected Predictions predictions;
 	@NonNull private String previousJamoSequence = "";
@@ -162,7 +163,10 @@ class ModeCheonjiin extends InputMode {
 			digitSequence = seq.CHARS_1_SEQUENCE;
 		} else {
 			autoAcceptTimeout = 0;
-			suggestions.add(language.getKeyNumeral(number));
+
+			ArrayList<String> newSuggestions = new ArrayList<>(1);
+			newSuggestions.add(language.getKeyNumeral(number));
+			suggestions = newSuggestions;
 		}
 	}
 
@@ -218,6 +222,8 @@ class ModeCheonjiin extends InputMode {
 
 	@Override
 	public void loadSuggestions(String ignored) {
+		containsEmojis = false;
+
 		if (disablePredictions || loadSpecialCharacters() || loadEmojis()) {
 			predictions.reset();
 			onSuggestionsUpdated.run();
@@ -240,8 +246,8 @@ class ModeCheonjiin extends InputMode {
 
 	protected boolean loadEmojis() {
 		if (shouldDisplayEmojis()) {
-			suggestions.clear();
-			suggestions.addAll(new EmojiLanguage(seq).getKeyCharacters(digitSequence.charAt(digitSequence.length() - 1) - '0', getEmojiGroup()));
+			suggestions = new EmojiLanguage(seq).getKeyCharacters(digitSequence.charAt(digitSequence.length() - 1) - '0', getEmojiGroup());
+			containsEmojis = !suggestions.isEmpty();
 			return true;
 		}
 
@@ -271,8 +277,7 @@ class ModeCheonjiin extends InputMode {
 		if (digitSequence.equals(seq.CHARS_0_SEQUENCE) || digitSequence.equals(seq.CHARS_1_SEQUENCE)) {
 			int number = digitSequence.isEmpty() ? Integer.MAX_VALUE : digitSequence.charAt(digitSequence.length() - 1) - '0';
 			if (KEY_CHARACTERS.size() > number) {
-				suggestions.clear();
-				suggestions.addAll(KEY_CHARACTERS.get(number));
+				suggestions = new ArrayList<>(KEY_CHARACTERS.get(number));
 				return true;
 			}
 		}
@@ -295,9 +300,7 @@ class ModeCheonjiin extends InputMode {
 	 * Gets the currently available Predictions and sends them over to the external caller.
 	 */
 	protected void onPredictions() {
-		suggestions.clear();
-		suggestions.addAll(predictions.getList());
-
+		suggestions = predictions.getList();
 		onSuggestionsUpdated.run();
 	}
 
@@ -324,6 +327,12 @@ class ModeCheonjiin extends InputMode {
 
 
 	@Override
+	public boolean containsEmojis() {
+		return containsEmojis;
+	}
+
+
+	@Override
 	public boolean containsGeneratedSuggestions() {
 		return predictions.containsGeneratedWords();
 	}
@@ -344,7 +353,7 @@ class ModeCheonjiin extends InputMode {
 
 	/**
 	 * In Korean typing, the next char may "steal" components from the previous one, in which case,
-	 * we must replace the previous char with a one containing less strokes.
+	 * we must replace the previous char with a one containing fewer strokes.
 	 */
 	protected boolean shouldReplaceLastLetter(int nextNumber) {
 		return !shouldDisplayEmojis() && Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextNumber);

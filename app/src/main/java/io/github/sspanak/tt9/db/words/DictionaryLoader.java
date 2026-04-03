@@ -22,6 +22,7 @@ import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.Tables;
+import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
@@ -39,31 +40,32 @@ public class DictionaryLoader {
 
 	private final AssetManager assets;
 	private final SQLiteOpener sqlite;
+	private final InsertOps insertOps = new InsertOps();
 
 	@NonNull private final DictionaryLoadingBar loadingBar;
 	private Thread loadThread;
 
-	private final HashMap<Integer, Long> lastAutoLoadAttemptTime = new HashMap<>();
+	private static final HashMap<Integer, Long> lastAutoLoadAttemptTime = new HashMap<>();
+	private static boolean skipNextAutoLoad = false;
 	private int currentFile = 0;
-
-
-	public static DictionaryLoader getInstance(Context context) {
-		if (self == null) {
-			self = new DictionaryLoader(context);
-		}
-
-		return self;
-	}
 
 
 	private DictionaryLoader(Context context) {
 		assets = context.getAssets();
 		loadingBar = DictionaryLoadingBar.getInstance(context);
-		sqlite = SQLiteOpener.getInstance(context);
+		sqlite = WordDbOpener.getInstance(context);
 	}
 
 
-	public boolean load(Context context, ArrayList<Language> languages) {
+	public static void abort() {
+		if (self != null) {
+			self.stop();
+			self.loadingBar.showCancelled();
+		}
+	}
+
+
+	public static boolean load(Context context, ArrayList<Language> languages) {
 		if (isRunning()) {
 			return false;
 		}
@@ -73,10 +75,82 @@ public class DictionaryLoader {
 			return true;
 		}
 
-		loadThread = new Thread(() -> loadSync(context, languages));
-		loadThread.start();
+		if (self == null) {
+			self = new DictionaryLoader(context);
+		}
+		self.loadThread = new Thread(() -> {
+			try {
+				self.loadSync(context, languages);
+			} finally {
+				self.loadThread = null;
+				self = null;
+			}
+		});
+		self.loadThread.start();
 
 		return true;
+	}
+
+
+	public static void load(Context context, Language language) {
+		ArrayList<Language> languages = new ArrayList<>(1);
+		languages.add(language);
+		load(context, languages);
+	}
+
+
+	public static boolean autoLoad(@NonNull InputMethodService context, @NonNull SettingsStore settings, @NonNull Language language) {
+		if (!settings.getPredictiveMode() || isRunning()) {
+			return false;
+		}
+
+		if (skipNextAutoLoad) {
+			skipNextAutoLoad = false;
+			return false;
+		}
+
+		final Long lastUpdateTime = lastAutoLoadAttemptTime.get(language.getId());
+		final boolean isItTooSoon = lastUpdateTime != null && System.currentTimeMillis() - lastUpdateTime < SettingsStore.DICTIONARY_AUTO_LOAD_COOLDOWN_TIME;
+		if (isItTooSoon) {
+			return false;
+		}
+
+		DataStore.getLastLanguageUpdateTime(
+			(hash) -> {
+				lastAutoLoadAttemptTime.put(language.getId(), System.currentTimeMillis());
+
+				final boolean noDictionary = hash == null || hash.isEmpty();
+				final boolean isDictionaryOutdated = noDictionary || !hash.equals(new WordFile(context, language, self.assets).getHash());
+				final boolean noNotifications = !(new SettingsStore(context).getNotificationsApproved());
+
+				if (noDictionary || (isDictionaryOutdated && noNotifications)) {
+					load(context, language);
+				} else if (isDictionaryOutdated) {
+					new DictionaryUpdateNotification(context, language).show();
+				}
+			},
+			language
+		);
+
+		return true;
+	}
+
+
+	public static void setSkipNextAutoLoad() {
+		skipNextAutoLoad = true;
+	}
+
+
+	private void stop() {
+		if (loadThread != null) {
+			loadThread.interrupt();
+		}
+		Timer.stop(IMPORT_TIMER);
+	}
+
+
+	public static boolean isRunning() {
+		return self != null && self.loadThread != null && self.loadThread.isAlive();
 	}
 
 
@@ -100,60 +174,6 @@ public class DictionaryLoader {
 	}
 
 
-	public static void load(Context context, Language language) {
-		getInstance(context).load(context, new ArrayList<>() {{ add(language); }});
-	}
-
-
-	public static boolean autoLoad(@NonNull InputMethodService context, @NonNull SettingsStore settings, @NonNull Language language) {
-		if (getInstance(context).isRunning() || !settings.getPredictiveMode()) {
-			return false;
-		}
-
-		final Long lastUpdateTime = self.lastAutoLoadAttemptTime.get(language.getId());
-		final boolean isItTooSoon = lastUpdateTime != null && System.currentTimeMillis() - lastUpdateTime < SettingsStore.DICTIONARY_AUTO_LOAD_COOLDOWN_TIME;
-		if (isItTooSoon) {
-			return false;
-		}
-
-		DataStore.getLastLanguageUpdateTime(
-			(hash) -> {
-				getInstance(context).lastAutoLoadAttemptTime.put(language.getId(), System.currentTimeMillis());
-
-				final boolean noDictionary = hash == null || hash.isEmpty();
-				final boolean isDictionaryOutdated = noDictionary || !hash.equals(new WordFile(context, language, self.assets).getHash());
-				final boolean noNotifications = !(new SettingsStore(context).getNotificationsApproved());
-
-				if (noDictionary || (isDictionaryOutdated && noNotifications)) {
-					load(context, language);
-				} else if (isDictionaryOutdated) {
-					new DictionaryUpdateNotification(context, language).show();
-				}
-			},
-			language
-		);
-
-		return true;
-	}
-
-
-	public void abort() {
-		stop();
-		loadingBar.showCancelled();
-	}
-
-
-	private void stop() {
-		loadThread.interrupt();
-		Timer.stop(IMPORT_TIMER);
-	}
-
-
-	public boolean isRunning() {
-		return loadThread != null && loadThread.isAlive();
-	}
-
-
 	private void importAll(Context context, Language language) {
 		if (language == null) {
 			Logger.e(LOG_TAG, "Failed loading a dictionary for NULL language.");
@@ -162,13 +182,13 @@ public class DictionaryLoader {
 		}
 
 		try {
-			Timer.start();
+			Timer.start(LOG_TAG);
 
 			float progress = 1;
 
 			sqlite.beginTransaction();
 
-			Tables.dropIndexes(sqlite.getDb(), language);
+			Tables.dropWordsIndexes(sqlite.getDb(), language);
 			sendProgressMessage(language, ++progress);
 			logLoadingStep("Indexes dropped", language, Timer.restart());
 
@@ -237,6 +257,8 @@ public class DictionaryLoader {
 				+ e.getClass().getSimpleName() + ": "
 				+ e.getMessage()
 			);
+		} finally {
+			Timer.stop(LOG_TAG);
 		}
 	}
 
@@ -302,14 +324,12 @@ public class DictionaryLoader {
 
 
 	private void saveWordBatch(WordBatch batch) {
-		InsertOps insertOps = new InsertOps(sqlite.getDb(), batch.getLanguage());
-
 		for (int i = 0, end = batch.getWords().size(); i < end; i++) {
-			insertOps.insertWord(batch.getWords().get(i));
+			insertOps.insertWord(sqlite.getDb(), batch.getLanguage(), batch.getWords().get(i));
 		}
 
 		for (int i = 0, end = batch.getPositions().size(); i < end; i++) {
-			insertOps.insertWordPosition(batch.getPositions().get(i));
+			insertOps.insertWordPosition(sqlite.getDb(), batch.getLanguage(), batch.getPositions().get(i));
 		}
 	}
 

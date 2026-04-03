@@ -187,9 +187,9 @@ public class IdeogramPredictions extends WordPredictions {
 			uniqueTranscriptions.add(stripNativeWord(transcriptions.get((i))));
 		}
 
-		words.clear();
-		words.addAll(uniqueTranscriptions);
-		Collections.sort(words);
+		ArrayList<String> transcriptionList = new ArrayList<>(uniqueTranscriptions);
+		Collections.sort(transcriptionList);
+		words = transcriptionList;
 	}
 
 
@@ -212,12 +212,14 @@ public class IdeogramPredictions extends WordPredictions {
 			return;
 		}
 
-		words.clear();
+		ArrayList<String> newWords = new ArrayList<>(transcriptions.size());
 		for (int i = 0; i < transcriptions.size(); i++) {
 			String transcription = transcriptions.get(i);
 			int firstNative = TextTools.lastIndexOfLatin(transcription) + 1;
-			words.add(firstNative >= transcription.length() ? transcription : transcription.substring(firstNative));
+			newWords.add(firstNative >= transcription.length() ? transcription : transcription.substring(firstNative));
 		}
+
+		words = newWords;
 	}
 
 
@@ -246,6 +248,7 @@ public class IdeogramPredictions extends WordPredictions {
 
 
 	public void orderByPairs() {
-		words = rearrangeByPairFrequency(words);
+		final ArrayList<String> snapshot = words;
+		words = rearrangeByPairFrequency(snapshot);
 	}
 }

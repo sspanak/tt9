@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.mindreader;
 
+import android.util.SparseArray;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -11,10 +13,11 @@ import java.util.Set;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-class MindReaderDictionary {
+public class MindReaderDictionary {
 	static final String EMOJI = ":)";
 	static final String GARBAGE = "∅";
 	static final String NUMBER = "\\d";
@@ -32,11 +35,14 @@ class MindReaderDictionary {
 		'.'
 	};
 
-	@NonNull private final Locale locale;
+	@Nullable private final Locale locale;
 	private final int capacity;
-	private final HashMap<String, Integer> index;
+	@NonNull private final HashMap<String, Integer> index; // for indexOf(), contains() and other lookups
+	@NonNull private final MindReaderTrie longIndex = new MindReaderTrie(); // for getLongestWord()
 	private int size = 0;
-	private final String[] tokens;
+	@NonNull private final String[] tokens;
+
+	private boolean dirty;
 
 
 	MindReaderDictionary() {
@@ -44,8 +50,8 @@ class MindReaderDictionary {
 	}
 
 
-	MindReaderDictionary(@Nullable Language language) {
-		this.locale = language == null ? Locale.getDefault() : language.getLocale();
+	public MindReaderDictionary(@Nullable Language language) {
+		this.locale = language == null || !language.hasUpperCase() ? null : language.getLocale();
 		this.capacity = SettingsStatic.MIND_READER_MAX_DICTIONARY_WORDS;
 		this.index = new HashMap<>(capacity);
 		this.tokens = new String[capacity];
@@ -58,6 +64,8 @@ class MindReaderDictionary {
 		for (int p : PUNCTUATION) {
 			addInternal(new String(Character.toChars(p)));
 		}
+
+		dirty = false;
 	}
 
 
@@ -98,8 +106,15 @@ class MindReaderDictionary {
 
 	private void addInternal(@NonNull String token) {
 		tokens[size] = token;
-		index.put(token.toLowerCase(locale), size);
+		addToIndex(token, size);
 		size++;
+	}
+
+
+	private void addToIndex(@NonNull String token, int position) {
+		final String key = locale != null ? token.toLowerCase(locale) : token;
+		index.put(key, position);
+		longIndex.add(key, position);
 	}
 
 
@@ -109,16 +124,16 @@ class MindReaderDictionary {
 		}
 
 		// ignore duplicates
-		String tokenIndex = token.toLowerCase(locale);
-		if (index.containsKey(tokenIndex)) {
+		if (contains(token)) {
 			return;
 		}
 
 		// If it is a new token, add it to the end. Larger index means more recently used, hence
 		// displayed higher in the suggestions list.
 		tokens[size] = token;
-		index.put(tokenIndex, size);
+		addToIndex(token, size);
 		size++;
+		dirty = true;
 	}
 
 
@@ -129,8 +144,42 @@ class MindReaderDictionary {
 	}
 
 
+	public boolean addAllUnsafe(@NonNull SparseArray<String> all) {
+		if (all.size() == 0) {
+			return true;
+		}
+
+		size = Math.min(all.size(), capacity);
+
+		for (int i = 0; i < size; i++) {
+			int idx = all.keyAt(i);
+			if (idx < 0 || idx >= capacity || idx >= size) {
+				Logger.e(getClass().getSimpleName(), "Failed adding multiple MindReader tokens. Index: " + idx + " is out-of-bounds for dictionary capacity: " + capacity);
+				return false;
+			}
+
+			String token = all.valueAt(i);
+			tokens[idx] = token;
+			addToIndex(token, idx);
+		}
+
+		dirty = false;
+
+		return true;
+	}
+
+
 	boolean contains(@Nullable String token) {
-		return token != null && !token.isEmpty() && index.containsKey(token.toLowerCase(locale));
+		if (token == null || token.isEmpty()) {
+			return false;
+		}
+
+		return locale != null ? index.containsKey(token.toLowerCase(locale)) : index.containsKey(token);
+	}
+
+
+	public boolean dirty() {
+		return dirty;
 	}
 
 
@@ -139,8 +188,16 @@ class MindReaderDictionary {
 			return -1;
 		}
 
-		Integer idx = index.get(token.toLowerCase(locale));
+		Integer idx = locale != null ? index.get(token.toLowerCase(locale)) : index.get(token);
 		return idx == null ? -1 : idx;
+	}
+
+
+	@NonNull
+	public String[] getAll() {
+		String[] results = new String[size];
+		System.arraycopy(tokens, 0, results, 0, size);
+		return results;
 	}
 
 
@@ -148,15 +205,23 @@ class MindReaderDictionary {
 	ArrayList<String> getAll(@NonNull Set<Integer> tokenIds, @Nullable String startsWith) {
 		final ArrayList<String> results = new ArrayList<>(tokenIds.size());
 
-		final String prefix = startsWith == null ? null : startsWith.toLowerCase(locale);
+		String prefix = startsWith;
+		if (prefix != null && locale != null) {
+			prefix = prefix.toLowerCase(locale);
+		}
 
 		for (int tokenId : tokenIds) {
 			if (!isWord(tokenId) || tokenId >= size) {
 				continue;
 			}
 
-			if (prefix == null || tokens[tokenId].toLowerCase(locale).startsWith(prefix)) {
+			if (prefix == null) {
 				results.add(tokens[tokenId]);
+			} else {
+				final String tokenLower = locale != null ? tokens[tokenId].toLowerCase(locale) : tokens[tokenId];
+				if (tokenLower.startsWith(prefix)) {
+					results.add(tokens[tokenId]);
+				}
 			}
 		}
 
@@ -178,7 +243,18 @@ class MindReaderDictionary {
 	}
 
 
-	int size() {
+	@Nullable
+	String getLongestWord(@NonNull String text, int end) {
+		return longIndex.getLongestWord(text, end, tokens);
+	}
+
+
+	public void setNotDirty() {
+		dirty = false;
+	}
+
+
+	public int size() {
 		return size;
 	}
 
