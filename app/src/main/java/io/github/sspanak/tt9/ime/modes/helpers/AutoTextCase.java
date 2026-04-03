@@ -20,7 +20,12 @@ public class AutoTextCase {
 	public AutoTextCase(@NonNull SettingsStore settingsStore, @NonNull Sequences sequences, @Nullable InputType inputType) {
 		this.sequences = sequences;
 		settings = settingsStore;
-		isSpecialized = inputType != null && (inputType.isSpecialized() || inputType.isUs() || inputType.isLimited());
+		isSpecialized =
+			inputType != null && (
+				inputType.isLimited()
+				|| inputType.isSpecialized()
+				|| (inputType.isUs() && !inputType.isOwnTestField())
+			);
 		skipNext = false;
 	}
 

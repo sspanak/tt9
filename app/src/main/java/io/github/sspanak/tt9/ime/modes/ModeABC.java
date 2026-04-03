@@ -169,7 +169,7 @@ class ModeABC extends InputMode {
 		allowedTextCases.clear();
 		allowedTextCases.add(CASE_LOWER);
 		if (language.hasUpperCase()) {
-			if (settings.getAutoTextCaseAbc()) {
+			if (settings.getAutoTextCaseAbc() && inputType != null && !inputType.isSpecialized()) {
 				allowedTextCases.add(CASE_CAPITALIZE);
 			}
 			allowedTextCases.add(CASE_UPPER);

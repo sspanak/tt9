@@ -61,6 +61,7 @@ class TestInputBuilder {
 			ViewGroup.LayoutParams.MATCH_PARENT,
 			ViewGroup.LayoutParams.WRAP_CONTENT
 		));
+		editText.setPrivateImeOptions(io.github.sspanak.tt9.hacks.InputType.OWN_TEST_FIELD_TAG);
 
 		final boolean isNumber = (inputType & InputType.TYPE_CLASS_NUMBER) != 0;
 		final boolean isTextUnspecified = inputType == InputType.TYPE_CLASS_TEXT;
