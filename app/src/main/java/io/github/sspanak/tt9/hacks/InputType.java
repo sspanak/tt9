@@ -112,6 +112,19 @@ public class InputType extends StandardInputType {
 	}
 
 
+	/**
+	 * Intended to fix: <a href="https://github.com/sspanak/tt9/issues/1060">#1060</a>. Connection
+	 * restarts in Firefox's URL bar, are actually meant to reset the keyboard, unlike other apps.
+	 * Note that this problem is only present in the new round address bar. As of now it available
+	 * only in the default Firefox, but not in Fennec, Focus, Vivaldi or other derivatives.
+	 */
+	public boolean isFirefoxUrl() {
+		return
+			isAppField("org.mozilla.firefox", 17)
+			&& (field.imeOptions & EditorInfo.IME_FLAG_NO_FULLSCREEN) == EditorInfo.IME_FLAG_NO_FULLSCREEN;
+	}
+
+
 	public boolean isGmailComposeMail() {
 		final String GMAIL = "com.google.android.gm";
 		return
