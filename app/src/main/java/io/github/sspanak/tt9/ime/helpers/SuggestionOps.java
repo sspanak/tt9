@@ -104,7 +104,7 @@ public class SuggestionOps {
 
 
 	public void addGuesses(@NonNull ArrayList<String> guesses) {
-		setVisibility(settings, isEmpty() && guesses.isEmpty(), true);
+		setVisibility(settings, isEmpty() && guesses.isEmpty(), !guesses.isEmpty());
 		if (suggestionBar != null) {
 			suggestionBar.prependGuesses(guesses);
 		}
