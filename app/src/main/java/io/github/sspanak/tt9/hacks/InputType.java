@@ -120,7 +120,7 @@ public class InputType extends StandardInputType {
 	 */
 	public boolean isFirefoxUrl() {
 		return
-			isAppField("org.mozilla.firefox", 17)
+			isAppField("org.mozilla.firefox", EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_URI)
 			&& (field.imeOptions & EditorInfo.IME_FLAG_NO_FULLSCREEN) == EditorInfo.IME_FLAG_NO_FULLSCREEN;
 	}
 
