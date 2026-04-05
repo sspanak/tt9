@@ -114,9 +114,10 @@ public class InputType extends StandardInputType {
 
 	/**
 	 * Intended to fix: <a href="https://github.com/sspanak/tt9/issues/1060">#1060</a>. Connection
-	 * restarts in Firefox's URL bar, are actually meant to reset the keyboard, unlike other apps.
-	 * Note that this problem is only present in the new round address bar. As of now it available
-	 * only in the default Firefox, but not in Fennec, Focus, Vivaldi or other derivatives.
+	 * restarts in Firefox's URL bar are actually meant to reset the keyboard, unlike in other apps.
+	 * Note that this problem is present only in the new round address bar. As of now it is
+	 * available only in the default Firefox, but not in Fennec, Focus, Vivaldi, or other
+	 * derivatives.
 	 */
 	public boolean isFirefoxUrl() {
 		return
