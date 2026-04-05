@@ -561,6 +561,7 @@ AGP
 Ahr
 CHS
 air	150
+cis
 Chu	71
 ait	74
 bit	133
@@ -940,8 +941,8 @@ god	124
 hoe	72
 Goi
 IMG	79
-Ing
 hog	87
+ing
 Hol
 ink	109
 Hom
@@ -1648,6 +1649,7 @@ Ure
 use	163
 Uri
 URL	93
+VPN	80
 urn	90
 ups	88
 TPV
@@ -5512,10 +5514,10 @@ Nare
 Oare
 nape	84
 nard	40
-MASH	65
 Mari	54
 Nash	100
 marg
+mash	65
 nasi	68
 Marj	51
 mark	126
@@ -9967,7 +9969,7 @@ bolls	47
 bolly	10
 colly	23
 Colne
-Colon	69
+colon	69
 bolos	49
 color	138
 anjou	82
@@ -10093,6 +10095,7 @@ booth	95
 annul	74
 annum	98
 conto
+convo
 amour	66
 bonus	123
 boots	108
@@ -10161,6 +10164,7 @@ boron	90
 bosom	78
 boson	80
 corno	43
+Coros
 corms	62
 corns	55
 Corot	55
@@ -11430,6 +11434,7 @@ fends	61
 denim	82
 Denis	98
 demit	21
+Fenix
 Deoli
 Denna
 demob	1
@@ -37739,6 +37744,7 @@ stumer
 Putney	75
 stumps	93
 stumpy	54
+Suunto
 stunts	98
 putout	46
 putsch	74
@@ -139939,6 +139945,7 @@ Dilapidator	1
 dilatations	36
 dilatometer
 filesharing	59
+filesystems	40
 dilettantes	37
 filibusters	64
 filigreeing
