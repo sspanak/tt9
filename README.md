@@ -99,7 +99,7 @@ And if you truly enjoy using TT9, buy me a beer on [Ko-Fi](https://ko-fi.com/ssp
 - Things it will (probably) never have: QWERTY layout, swipe-typing, GIFs, and stickers.
 - Not intended as a clone of TouchPal, Sony Ericsson, KaiOS, Samsung, etc. While it captures the feel of the classics, TT9 offers its own experience and won’t replicate any device or app exactly.
 
-_Note: the Google Play version is almost identical to the lite version, except that it includes extra "premium" features, that are closed-source. Nevertheless, none of the extra components compromises the principles outlined above._
+_Note: the Google Play version is almost identical to the lite version, except that it includes extra "premium" features that are closed-source. Nevertheless, none of the extra components compromises the principles outlined above._
 
 ## 🕮 License
 - The source code, the logo image, and the icons are licensed under the conditions described in [LICENSE.txt](LICENSE.txt).
