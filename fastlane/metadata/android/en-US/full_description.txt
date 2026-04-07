@@ -11,5 +11,4 @@ Philosophy:
 - Things it will (probably) never have: QWERTY layout, swipe-typing, GIFs, and stickers.
 - Not intended as a clone of TouchPal, Sony Ericsson, KaiOS, Samsung, etc. While it captures the feel of the classics, TT9 offers its own experience and won’t replicate any device or app exactly.
 
-
-Thank you for understanding, and enjoy TT9!
+Note: the Google Play version is almost identical to the lite version, except that it includes extra "premium" features that are closed-source. Nevertheless, none of the extra components compromises the principles outlined above.
