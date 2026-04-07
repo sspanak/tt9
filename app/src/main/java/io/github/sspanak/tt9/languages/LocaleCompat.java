@@ -47,6 +47,7 @@ record LocaleCompat(Locale locale) {
 			case "ji", "yi" -> "יי";
 			case "ja" -> "漢";
 			case "ko" -> "한";
+			case "mk" -> "мк";
 			case "ru" -> "ру";
 			case "sr" -> "rs".equals(country) ? "ср" : language;
 			case "th" -> "ไท";
