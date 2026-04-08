@@ -225,6 +225,17 @@ public class AppHacks {
 		return composingTextToRestartTime <= SettingsStore.COMPOSING_TEXT_RESTART_THRESHOLD;
 	}
 
+
+	/**
+	 * In most apps, input connection restarts is of no value to us, it just wastes resources, and
+	 * causes undesired suggestions and InputMode reset. Here, we list the apps, that actually, want
+	 * to reset the keyboard on connection restart.
+	 */
+	public boolean isRestartForbidden() {
+		return inputType == null || !inputType.isFirefoxUrl();
+	}
+
+
 	/**
 	 * When sending messages in Signal, Viber or Google SMS, using their own send button, these apps
 	 * clear the text field, but without notifying the keyboard. This results in the InputMode still
