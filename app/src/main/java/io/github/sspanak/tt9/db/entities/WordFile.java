@@ -189,9 +189,14 @@ public class WordFile extends AssetFile {
 
 
 	public String getFormattedSize() {
-		return String
-			.format(Locale.ROOT, "%1.2f Mb", getSize() / 1048576.0)
-			.replace("0 ", " ");
+		if (getSize() >= 1_000_000) {
+			final float sizeMB = getSize() / 1_000_000f;
+			return String.format(Locale.ROOT, "%1.2f MB", sizeMB)
+				.replace("0 ", " ")
+				.replace(".0 ", " ");
+		} else {
+			return Math.round(getSize() / 1000f) + " KB";
+		}
 	}
 
 

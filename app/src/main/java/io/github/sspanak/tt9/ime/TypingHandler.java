@@ -92,7 +92,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		// ignore multiple calls for the same field, caused by requestShowSelf() -> showWindow(),
 		// or weirdly functioning apps, such as the Qin SMS app
-		if (restart && !languageChanged && mInputMode.getId() == determineInputModeId()) {
+		if (restart && !languageChanged && appHacks.isRestartForbidden() && mInputMode.getId() == determineInputModeId()) {
 			return false;
 		}
 		settings.setDefaultCharOrder(mLanguage, false);

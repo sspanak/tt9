@@ -10,11 +10,15 @@ import io.github.sspanak.tt9.ime.helpers.StandardInputType;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class InputType extends StandardInputType {
+	public static final String OWN_TEST_FIELD_TAG = InputType.class.getCanonicalName() + ".OWN_TEST_FIELD";
+
 	private final boolean isUs;
+	private final boolean isOwnTestField;
 
 	public InputType(@Nullable InputMethodService ims, EditorInfo inputField) {
 		super(ims, inputField);
 		isUs = isAppField(ims != null ? ims.getPackageName() : null, EditorInfo.TYPE_NULL);
+		isOwnTestField = isUs && field != null && OWN_TEST_FIELD_TAG.equals(field.privateImeOptions);
 	}
 
 
@@ -112,6 +116,20 @@ public class InputType extends StandardInputType {
 	}
 
 
+	/**
+	 * Intended to fix: <a href="https://github.com/sspanak/tt9/issues/1060">#1060</a>. Connection
+	 * restarts in Firefox's URL bar are actually meant to reset the keyboard, unlike in other apps.
+	 * Note that this problem is present only in the new round address bar. As of now it is
+	 * available only in the default Firefox, but not in Fennec, Focus, Vivaldi, or other
+	 * derivatives.
+	 */
+	public boolean isFirefoxUrl() {
+		return
+			isAppField("org.mozilla.firefox", EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_URI)
+			&& (field.imeOptions & EditorInfo.IME_FLAG_NO_FULLSCREEN) == EditorInfo.IME_FLAG_NO_FULLSCREEN;
+	}
+
+
 	public boolean isGmailComposeMail() {
 		final String GMAIL = "com.google.android.gm";
 		return
@@ -167,6 +185,11 @@ public class InputType extends StandardInputType {
 	 */
 	boolean isMultilineTextInNonSystemApp() {
 		return field != null && !field.packageName.contains("android") && isMultilineText();
+	}
+
+
+	public boolean isOwnTestField() {
+		return isOwnTestField;
 	}
 
 

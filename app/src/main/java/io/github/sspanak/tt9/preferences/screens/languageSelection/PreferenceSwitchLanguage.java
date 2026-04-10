@@ -46,9 +46,8 @@ public class PreferenceSwitchLanguage extends SwitchPreferenceCompat {
 
 	private String generateSummary(Activity activity, NaturalLanguage language) {
 		// name
-		StringBuilder summary = new StringBuilder(
-			LanguageKind.isHinglish(language) ? language.getName() : language.getLocale().getDisplayLanguage()
-		);
+		final boolean useName = LanguageKind.isHinglish(language) || LanguageKind.isTokiPona(language);
+		StringBuilder summary = new StringBuilder(useName ? language.getName() : language.getLocale().getDisplayLanguage());
 
 		// word count
 		WordFile wordFile = new WordFile(activity, language, activity.getAssets());

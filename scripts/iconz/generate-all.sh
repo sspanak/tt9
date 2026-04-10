@@ -112,6 +112,7 @@ generate_all_cases "NotoSans-Bold.ttf" "ср" "sr" -0.08 -0.08 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "es" "es" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "sv" "sv" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "tm" "tm" -0.15 -0.15 -0.15
+generate_all_cases "NotoSans-Bold.ttf" "tp" "tp" -0.08 -0.08 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "tr" "tr" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "уk" "uk" -0.05 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "vi" "vi" -0.15 -0.15 -0.15

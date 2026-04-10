@@ -30,7 +30,7 @@ public class DropDownOneKeyEmoji extends EnhancedDropDownPreference {
 
 	@Override
 	public DropDownOneKeyEmoji populate(@NonNull SettingsStore settings) {
-		for (OneKeyEmojiOptions.OPTIONS option : OneKeyEmojiOptions.OPTIONS.values()) {
+		for (OneKeyEmojiOptions.OPTIONS option : OneKeyEmojiOptions.getAll(settings)) {
 			add(option.toString(), getOptionTitle(option));
 		}
 		commitOptions();

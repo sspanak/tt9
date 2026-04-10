@@ -1,6 +1,6 @@
 # Traditional T9 ![GitHub Downloads (latest release)](https://img.shields.io/github/downloads/sspanak/tt9/latest/total)
 
-TT9 is a Nokia-style 12-key T9 keyboard for Android. It provides predictive text input in [40+ languages](app/languages/definitions), configurable hotkeys, clipboard, undo/redo, and extensive customization. It works on touchscreens, physical keypads, and TV remote controls. And best of all, it [doesn't spy](docs/privacy.md) on you!
+TT9 is a Nokia-style T9 keyboard for Android. It provides predictive text input in [40+ languages](app/languages/definitions), configurable hotkeys, clipboard, undo/redo, and extensive customization. It works on touchscreens, physical keypads, and TV remote controls. And best of all, it [doesn't spy](docs/privacy.md) on you!
 
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
@@ -29,7 +29,8 @@ This is a modernized version of the [original project](https://github.com/Clam-/
 _If your phone does not have Google Play and does not allow installing custom APKs, please consult the [Installation Guide](docs/installation.md)._
 
 ## ⚙️ System Requirements
-- Android 5.0 or higher.
+- Full version: Android 7.0 or higher
+- Lite version: Android 8.0 or higher
 - Storage space depends on the Android version. The lite version requires at least 6-8 Mb and the full version requires at least 220 Mb.
 - Extra storage space is necessary for language dictionaries in Predictive Mode.
     - Languages with character predictions only (Korean): ~1 Mb per language
@@ -41,18 +42,30 @@ _If your phone does not have Google Play and does not allow installing custom AP
 _Storage usage for the dictionaries depends on the word root count and the average word length in each language. Some languages will require more space, even if they have fewer words than others._
 
 ### ⚠️ Compatibility
-If you own a phone with Android 4.4, the latest TT9 version you can use is [v44.0](https://github.com/sspanak/tt9/releases/tag/v44.0). On devices with Android 4.3 or earlier, please refer to the original Traditional T9 from 2016.
 
-TT9 may not work well on TCL Flip 2, Kyocera phones, especially ones running Android 10 or newer, or other devices that run highly customized Android versions, where all apps are integrated and intended to work with the respective native keyboard. You may experience missing functionality, empty gaps/misaligned items on the screen, or unexpected text/numbers appearing when you try to type.
+#### 1. Check your Android version
+- Android 8.0+ → Install latest version (Play Store, F-Droid, or GitHub)
+- Android 7.x → Install latest full version from GitHub (manual)
+- Android 5–6 → Install full v60.0
+- Android 4.4 → Install full v44.0
+- Android ≤4.3 → Install legacy Traditional T9 Keypad IME from 2016
 
-Compatibility has been verified only on the following devices:
+_On devices without Internet access, always use the full version from GitHub._
+
+#### 2. If your device is unusual
+On heavily customized phones (e.g. TCL Flip 2, Kyocera phones, especially if running Android 10+), you may experience issues:
+  - empty gaps/misaligned items on the screen
+  - unexpected text/numbers appearing when you try to type
+  - incomplete integration with the native apps (e.g. "send" button not working, missing hotkey functions, etc.)
+
+#### 3. Want guaranteed compatibility?
+Use one of the tested phones:
 - Motorola g05 (Android 15)
 - CAT S22 Flip (Android 11)
 - Unihertz Atom L (Android 11)
 - Qin F21 Pro+ (Android 11)
 - Energizer H620SEU (Android 10)
 - Sonim XP3800 (Android 8.1)
-- Vodaphone VFD 500 (Android 6.0)
 
 ## 🤔 How to Use Traditional T9?
 Before using Traditional T9 for the first time you need to configure it and load a dictionary. After that, you can start typing right away in one of the three modes: Predictive, ABC, or Numeric (123). And even if you have mastered the keypad back in the day, you will still find the Predictive mode now offers more powerful and smart new ways of typing with even fewer key presses.
@@ -75,7 +88,7 @@ The best way to support the project is to give it five stars on Google Play. Whi
 
 You can also give the project a star on GitHub. Higher-ranked projects can access development tools for free and apply for funding more easily.
 
-And if you truly enjoy using TT9, buy me a beer on [Ko-Fi](https://ko-fi.com/sspanak) or [PayPal](https://www.paypal.com/donate/?hosted_button_id=LW97X3JM2CRZC).
+And if you truly enjoy using TT9, buy me a beer on [Ko-Fi](https://ko-fi.com/sspanak) or buy Premium on Google Play.
 
 ## 💪 Philosophy
 - No spying, tracking, telemetry, reports, or data collection of any sort.
@@ -86,7 +99,7 @@ And if you truly enjoy using TT9, buy me a beer on [Ko-Fi](https://ko-fi.com/ssp
 - Things it will (probably) never have: QWERTY layout, swipe-typing, GIFs, and stickers.
 - Not intended as a clone of TouchPal, Sony Ericsson, KaiOS, Samsung, etc. While it captures the feel of the classics, TT9 offers its own experience and won’t replicate any device or app exactly.
 
-Thank you for understanding, and enjoy TT9!
+_Note: the Google Play version is almost identical to the lite version, except that it includes extra "premium" features that are closed-source. Nevertheless, none of the extra components compromises the principles outlined above._
 
 ## 🕮 License
 - The source code, the logo image, and the icons are licensed under the conditions described in [LICENSE.txt](LICENSE.txt).

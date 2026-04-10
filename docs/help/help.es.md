@@ -446,9 +446,9 @@ Como dije antes, no hablo tu idioma, así que puede que no note esos errores. Pe
 ### ¿No pueden añadir la función X?
 No.
 
-Cada persona tiene sus propias preferencias. Algunos quieren teclas más grandes, otros un orden diferente, algunos quieren una tecla de acceso rápido para escribir ".com" y otros extrañan su antiguo teléfono o teclado. Pero por favor, entiende que hago esto voluntariamente en mi tiempo libre. Es imposible cumplir con miles de solicitudes diferentes, algunas de las cuales incluso se contradicen entre sí.
+Como dijo una vez Henry Ford: «Puede ser de cualquier color que el cliente quiera, siempre que sea negro».
 
-Henry Ford dijo una vez: "Puede ser de cualquier color que el cliente quiera, siempre que sea negro." De manera similar, Traditional T9 es simple, efectivo y gratuito, pero obtienes lo que ves.
+Cada persona tiene sus propias preferencias. Algunos quieren teclas más grandes, otros un orden diferente, algunos quieren una tecla de acceso rápido para escribir ".com" y otros extrañan su antiguo teléfono o teclado. Pero por favor, entiende que hago esto voluntariamente en mi tiempo libre. Es imposible cumplir con miles de solicitudes diferentes, algunas de las cuales incluso se contradicen entre sí.
 
 ### ¿No pueden hacerlo más similar a mi dispositivo favorito (p. ej., Sony Ericsson, Xperia, Nokia C2, Samsung) o a mi aplicación de teclado favorita?
 No.

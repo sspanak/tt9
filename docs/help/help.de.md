@@ -446,9 +446,9 @@ Wie oben erwähnt: Ich spreche deine Sprache nicht und bemerke solche Fehler mö
 ### Können Sie Funktion X nicht hinzufügen?
 Nein.
 
-Jeder hat seine eigenen Vorlieben. Manche möchten größere Tasten, manche eine andere Anordnung, manche eine Schnellzugriffstaste für ".com", und manche vermissen ihr altes Telefon oder ihre alte Tastatur. Aber bitte versteht, dass ich dies in meiner Freizeit freiwillig mache. Es ist unmöglich, Tausende von unterschiedlichen Wünschen zu erfüllen, von denen einige sich sogar widersprechen.
+Wie Henry Ford einst sagte: „Es kann jede Farbe haben, die der Kunde möchte, solange sie schwarz ist.“
 
-Henry Ford sagte einmal: „Es kann jede Farbe haben, die der Kunde will, solange sie schwarz ist.“ Ebenso ist Traditional T9 schlicht, effektiv und kostenlos – aber du bekommst, was du bekommst.
+Jeder hat seine eigenen Vorlieben. Manche möchten größere Tasten, manche eine andere Anordnung, manche eine Schnellzugriffstaste für ".com", und manche vermissen ihr altes Telefon oder ihre alte Tastatur. Aber bitte versteht, dass ich dies in meiner Freizeit freiwillig mache. Es ist unmöglich, Tausende von unterschiedlichen Wünschen zu erfüllen, von denen einige sich sogar widersprechen.
 
 ### Können Sie die App nicht meinem bevorzugten Gerät (z. B. Sony Ericsson, Xperia, Nokia C2, Samsung) oder meiner bevorzugten Tastatur-App ähnlicher gestalten?
 Nein.
