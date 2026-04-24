@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	style="@style/TTheme.Numpad.CentralBlock.Row.LongSpacebar"
 	android:id="@+id/panel_long_spacebar">
 
@@ -15,7 +16,8 @@
 	<RelativeLayout style="@style/TTheme.Numpad.Key.LongSpace.Overlay.Wrapper">
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber0Long
 			style="@style/TTheme.Numpad.Key.Number"
-			android:id="@+id/soft_key_200" />
+			android:id="@+id/soft_key_200"
+			tools:ignore="Instantiatable" />
 		<include layout="@layout/key_overlay_icons" />
 		<include layout="@layout/key_overlay_number_hold_text" />
 		<include layout="@layout/key_overlay_side_chars" />

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	style="@style/TTheme.Numpad.Column.Fn"
 	android:id="@+id/numpad_column_fn_right">
 
@@ -13,20 +14,23 @@
 	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_6">
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyFilter
 			style="@style/TTheme.Numpad.Key.Large"
-			android:id="@+id/soft_key_filter" />
+			android:id="@+id/soft_key_filter"
+			tools:ignore="Instantiatable" />
 		<include layout="@layout/key_overlay_icons" />
 	</RelativeLayout>
 
 	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_7">
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyRF3
 			style="@style/TTheme.Numpad.Key.Large"
-			android:id="@+id/soft_key_rf3" />
+			android:id="@+id/soft_key_rf3"
+			tools:ignore="Instantiatable" />
 		<include layout="@layout/key_overlay_icons" />
 	</RelativeLayout>
 
 	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_8">
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyOk
 			style="@style/TTheme.Numpad.Key.OK"
-			android:id="@+id/soft_key_numpad_ok" />
+			android:id="@+id/soft_key_numpad_ok"
+			tools:ignore="Instantiatable" />
 	</RelativeLayout>
 </LinearLayout>

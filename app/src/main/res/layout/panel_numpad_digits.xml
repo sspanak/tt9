@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools">
 	<!-- 1-4-7 -->
 	<LinearLayout style="@style/TTheme.Numpad.Column" android:id="@+id/numpad_column_1">
 		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber1
 				style="@style/TTheme.Numpad.Key.Number"
-				android:id="@+id/soft_key_1" />
+				android:id="@+id/soft_key_1"
+				tools:ignore="Instantiatable" />
 			<include layout="@layout/key_overlay_icons" />
 			<include layout="@layout/key_overlay_number_hold_text" />
 			<include layout="@layout/key_overlay_side_chars" />
@@ -14,7 +17,8 @@
 		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber2to9
 				style="@style/TTheme.Numpad.Key.Number"
-				android:id="@+id/soft_key_4" />
+				android:id="@+id/soft_key_4"
+				tools:ignore="Instantiatable" />
 			<include layout="@layout/key_overlay_icons" />
 			<include layout="@layout/key_overlay_number_hold_text" />
 			<include layout="@layout/key_overlay_side_chars" />
@@ -72,7 +76,8 @@
 		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber0
 				style="@style/TTheme.Numpad.Key.Number"
-				android:id="@+id/soft_key_0" />
+				android:id="@+id/soft_key_0"
+				tools:ignore="Instantiatable" />
 			<include layout="@layout/key_overlay_icons" />
 			<include layout="@layout/key_overlay_number_hold_text" />
 			<include layout="@layout/key_overlay_side_chars" />
