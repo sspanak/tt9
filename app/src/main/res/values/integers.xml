@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- value = KeyEvent.KEYCODE_* -->
+	<integer name="hotkey_add_word">0</integer>
+	<integer name="hotkey_backspace">0</integer>
+	<integer name="hotkey_edit_text">0</integer>
+	<integer name="hotkey_edit_word">0</integer>
+	<integer name="hotkey_select_keyboard">0</integer>
+	<integer name="hotkey_show_settings">0</integer>
+	<integer name="hotkey_undo">0</integer>
+	<integer name="hotkey_redo">0</integer>
+	<integer name="hotkey_voice_input">0</integer>
+	<integer name="hotkey_filter_clear">20</integer> <!-- KEYCODE_DPAD_DOWN -->
+	<integer name="hotkey_filter_suggestions">19</integer> <!-- KEYCODE_DPAD_UP -->
+	<integer name="hotkey_previous_suggestion">21</integer> <!-- KEYCODE_DPAD_LEFT -->
+	<integer name="hotkey_next_suggestion">22</integer> <!-- KEYCODE_DPAD_RIGHT -->
+	<integer name="hotkey_command_palette">-17</integer> <!-- KeyEvent.KEYCODE_STAR, negative means "hold" -->
+	<integer name="hotkey_next_input_mode">18</integer> <!-- KeyEvent.KEYCODE_POUND -->
+	<integer name="hotkey_next_language">-18</integer> <!-- KeyEvent.KEYCODE_POUND, negative means "hold" -->
+	<integer name="hotkey_shift">17</integer> <!-- KeyEvent.KEYCODE_STAR -->
+	<integer name="hotkey_space_korean">62</integer> <!-- KeyEvent.KEYCODE_SPACE -->
+	<integer name="hotkey_space_korean_fallback">17</integer> <!-- KeyEvent.KEYCODE_STAR -->
+</resources>
