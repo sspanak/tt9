@@ -22,7 +22,7 @@ public class DropDownKeyPadDebounceTime extends EnhancedDropDownPreference {
 	public EnhancedDropDownPreference populate(@NonNull SettingsStore settings) {
 		add(0, R.string.pref_hack_key_pad_debounce_off);
 
-		int[] values = new int[] { 20, 30, 50, 75, 100, 150, 250, 350 };
+		int[] values = new int[] { 20, 30, 50, 75, 100, 150, 200, 250, 300, 350 };
 		for (int value : values) {
 			add(value, value + " ms");
 		}
