@@ -22,7 +22,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		return
 			keyCode < 0
 			&& (
-				Key.isHotkey(settings, -keyCode)
+				Key.isHotkey(settings, keyCode)
 				|| (Key.isArrowLeft(-keyCode) && InputModeKind.isRecomposing(mInputMode))
 				|| (Key.isArrowRight(-keyCode) && InputModeKind.isRecomposing(mInputMode))
 			);
