@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	style="@style/TTheme.Numpad.Column.Fn"
 	android:id="@+id/numpad_column_fn_left">
 
@@ -14,7 +15,8 @@
 	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_2">
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyAddWord
 			style="@style/TTheme.Numpad.Key.Large"
-			android:id="@+id/soft_key_add_word" />
+			android:id="@+id/soft_key_add_word"
+			tools:ignore="Instantiatable" />
 		<include layout="@layout/key_overlay_icons" />
 	</RelativeLayout>
 

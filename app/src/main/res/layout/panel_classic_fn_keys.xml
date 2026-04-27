@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	style="@style/TTheme.Classic.FnRow"
 	android:id="@+id/classic_row_function_keys">
 
 	<RelativeLayout style="@style/TTheme.Classic.Key.Overlay.Wrapper">
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeySettingsClassic
 			android:id="@+id/soft_key_command_palette"
-			style="@style/TTheme.Numpad.Key.Large" />
+			style="@style/TTheme.Numpad.Key.Large"
+			tools:ignore="Instantiatable" />
 		<include layout="@layout/key_overlay_side_chars" />
 	</RelativeLayout>
 
@@ -21,7 +23,8 @@
 	<RelativeLayout style="@style/TTheme.Classic.Key.Overlay.Wrapper">
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyOkClassic
 			style="@style/TTheme.Numpad.Key.OK"
-			android:id="@+id/soft_key_numpad_ok" />
+			android:id="@+id/soft_key_numpad_ok"
+			tools:ignore="Instantiatable" />
 		<include layout="@layout/key_overlay_side_chars" />
 	</RelativeLayout>
 
@@ -35,6 +38,7 @@
 	<RelativeLayout style="@style/TTheme.Classic.Key.Overlay.Wrapper">
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyBackspace
 			style="@style/TTheme.Numpad.Key.Large"
-			android:id="@+id/soft_key_numpad_backspace" />
+			android:id="@+id/soft_key_numpad_backspace"
+			tools:ignore="Instantiatable" />
 	</RelativeLayout>
 </LinearLayout>

@@ -153,39 +153,43 @@ android {
 		}
 	}
 
-	applicationVariants.configureEach { variant ->
-		def variantName = variant.name.capitalize()
-		tasks.named("javaPreCompile${variantName}")?.configure {dependsOn(updateStatusIcons) }
+	androidComponents {
+		onVariants(selector().all()) { variant ->
+			def variantName = variant.name.capitalize()
 
-		[
-			"merge${variantName}Assets",
-			"lintAnalyze${variantName}",
-			"generate${variantName}LintReportModel",
-			"lintVitalAnalyze${variantName}",
-			"generate${variantName}LintVitalReportModel"
-		].each { taskName ->
-			try {
-				tasks.named(taskName)?.configure {
+			tasks.matching { it.name == "javaPreCompile${variantName}" }.configureEach {
+				dependsOn(updateStatusIcons)
+			}
+
+			[
+				"merge${variantName}Assets",
+				"lintAnalyze${variantName}",
+				"generate${variantName}LintReportModel",
+				"lintVitalAnalyze${variantName}",
+				"generate${variantName}LintVitalReportModel"
+			].each { taskName ->
+				tasks.matching { it.name == taskName }.configureEach {
 					dependsOn(buildDefinition, generateDocs, validateLanguages, buildDictionaryDownloads)
+
+					if (taskName.toLowerCase().contains("full")) {
+						dependsOn(copyDownloadsToAssets)
+					}
 				}
+			}
 
-				if (taskName.toLowerCase().contains("full")) {
-					tasks.named(taskName)?.configure {dependsOn(copyDownloadsToAssets) }
-				}
-			} catch (UnknownTaskException ignored) {}
-		}
+			def assembleTaskName = "assemble${variantName}"
+			tasks.matching { it.name == assembleTaskName }.configureEach {
+				finalizedBy(updateManifest)
+			}
 
-		assembleLiteDebug.finalizedBy(updateManifest)
-		assembleFullDebug.finalizedBy(updateManifest)
-		assemblePremiumDebug.finalizedBy(updateManifest)
-		assembleLiteRelease.finalizedBy(updateManifest)
-		assembleFullRelease.finalizedBy(updateManifest)
-		assemblePremiumRelease.finalizedBy(updateManifest)
+			variant.outputs.forEach { output ->
+				def fullSuffix = variant.flavorName == 'full' ? '-full' : ''
+				def debugSuffix = variant.name.containsIgnoreCase('debug') ? '-debug' : ''
 
-		variant.outputs.configureEach {
-			def fullSuffix = variant.flavorName == 'full' ? '-full' : ''
-			def debugSuffix = variant.name.containsIgnoreCase('debug') ? '-debug' : ''
-			outputFileName = "${APP_NAME}-v${getVerName()}${fullSuffix}${debugSuffix}.apk"
+				output.outputFileName.set(
+					"${APP_NAME}-v${getVerName()}${fullSuffix}${debugSuffix}.apk"
+				)
+			}
 		}
 	}
 }
