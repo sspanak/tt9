@@ -31,6 +31,12 @@ public class SoftKeyBackspace extends BaseSwipeableKey {
 	}
 
 
+	@Override
+	protected boolean allowTwoStepInAccessibility() {
+		return false;
+	}
+
+
 	private boolean isFastDeleteOn() {
 		return tt9 != null && tt9.getSettings().getBackspaceAcceleration();
 	}

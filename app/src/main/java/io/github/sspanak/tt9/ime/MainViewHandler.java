@@ -22,6 +22,7 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 abstract public class MainViewHandler extends HotkeyHandler {
 	private int previousOrientation = Configuration.ORIENTATION_UNDEFINED;
 
+	private boolean touchExplorationEnabled = false;
 	private float normalizedWidth = -1;
 	private float normalizedHeight = -1;
 	private int width = 0;
@@ -36,6 +37,7 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	@Override
 	protected boolean onStart(EditorInfo field, boolean restarting) {
 		resetNormalizedDimensions();
+		touchExplorationEnabled = DeviceInfo.isTouchExplorationEnabled(this);
 		return super.onStart(field, restarting);
 	}
 
@@ -144,6 +146,11 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 	public boolean isTextEditingActive() {
 		return mainView != null && mainView.isTextEditingPaletteShown();
+	}
+
+
+	public boolean isTouchExplorationEnabled() {
+		return touchExplorationEnabled;
 	}
 
 

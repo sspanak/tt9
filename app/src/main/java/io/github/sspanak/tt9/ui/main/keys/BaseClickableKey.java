@@ -1,11 +1,15 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.accessibility.AccessibilityNodeInfo;
+
+import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -29,22 +33,22 @@ public class BaseClickableKey extends com.google.android.material.button.Materia
 
 	public BaseClickableKey(Context context) {
 		super(context);
-		setHapticFeedbackEnabled(false);
-		setOnTouchListener(this);
-		setOnLongClickListener(this);
+		init();
 	}
 
 
 	public BaseClickableKey(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setHapticFeedbackEnabled(false);
-		setOnTouchListener(this);
-		setOnLongClickListener(this);
+		init();
 	}
 
 
 	public BaseClickableKey(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+		init();
+	}
+
+	private void init() {
 		setHapticFeedbackEnabled(false);
 		setOnTouchListener(this);
 		setOnLongClickListener(this);
@@ -66,9 +70,31 @@ public class BaseClickableKey extends com.google.android.material.button.Materia
 	}
 
 
+	/**
+	 * Determines whether the key should allow two-step activation in accessibility mode (i.e. first
+	 * hover to focus, then click to activate). This function is not desirable for the 0-9 keys that
+	 * because it adds extra friction, and no other keyboard does it. For all other keys, it is
+	 * preferable to announce the key action, then allow the user to activate it.
+	 */
+	protected boolean allowTwoStepInAccessibility() {
+		return true;
+	}
+
+
+	@Override
+	public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info) {
+		super.onInitializeAccessibilityNodeInfo(info);
+		info.setLongClickable(false);
+	}
+
+
 	@Override
 	public boolean onTouch(View view, MotionEvent event) {
 		super.onTouchEvent(event);
+
+		if (tt9 != null && tt9.isTouchExplorationEnabled() && allowTwoStepInAccessibility()) {
+			return false;
+		}
 
 		int action = (event.getAction() & MotionEvent.ACTION_MASK);
 
@@ -76,11 +102,7 @@ public class BaseClickableKey extends com.google.android.material.button.Materia
 			return handlePress();
 		} else if (action == MotionEvent.ACTION_UP) {
 			if (!repeat || hold) {
-				hold = false;
-				repeat = false;
-				boolean result = handleRelease();
-				lastPressedKey = ignoreLastPressedKey ? -1 : getId();
-				return result;
+				return performClick();
 			}
 			repeat = false;
 		}
@@ -90,6 +112,10 @@ public class BaseClickableKey extends com.google.android.material.button.Materia
 
 	@Override
 	public boolean onLongClick(View view) {
+		if (tt9 != null && tt9.isTouchExplorationEnabled() && allowTwoStepInAccessibility()) {
+			return true;
+		}
+
 		// sometimes this gets called twice, so we debounce the call to the repeating function
 		final long now = System.currentTimeMillis();
 		if (now - lastLongClickTime < SettingsStore.SOFT_KEY_DOUBLE_CLICK_DELAY) {
@@ -100,6 +126,33 @@ public class BaseClickableKey extends com.google.android.material.button.Materia
 		lastLongClickTime = now;
 		repeatOnLongPress();
 		return true;
+	}
+
+
+
+	@SuppressLint("AccessibilityFocus")
+	@Override
+	public boolean onHoverEvent(MotionEvent event) {
+		if (tt9 != null && tt9.isTouchExplorationEnabled() && !allowTwoStepInAccessibility()) {
+			switch (event.getActionMasked()) {
+				case MotionEvent.ACTION_HOVER_ENTER:
+					// Immediately activate the key for touch-exploration users. Use performClick() so
+					// accessibility click events are still sent.
+					handlePress();
+					performClick();
+
+					// Change the accessibility focus manually, but return true, to prevent incorrect announcements,
+					// such as "actions available", and "double tap to activate".
+					return true;
+				case MotionEvent.ACTION_HOVER_EXIT:
+					// Nothing to do here: we've already handled activation on HOVER_ENTER.
+					// Consume it to avoid extra system behavior.
+					return true;
+			}
+		}
+
+		// Non-accessibility / normal interaction: fall back to default hover handling.
+		return super.onHoverEvent(event);
 	}
 
 
@@ -157,6 +210,18 @@ public class BaseClickableKey extends com.google.android.material.button.Materia
 
 	public boolean isHoldEnabled() {
 		return true;
+	}
+
+
+	@Override
+	public boolean performClick() {
+		super.performClick();
+
+		hold = false;
+		repeat = false;
+		boolean result = handleRelease();
+		lastPressedKey = ignoreLastPressedKey ? -1 : getId();
+		return result;
 	}
 
 
