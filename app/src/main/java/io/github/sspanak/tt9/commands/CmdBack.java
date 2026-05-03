@@ -7,7 +7,7 @@ public class CmdBack implements Command {
 	public static final String ID = "cmd_back";
 	@Override public String getId() { return ID; }
 	@Override public int getIcon() { return R.drawable.ic_keyboard; }
-	@Override public int getName() { return 0; }
+	@Override public int getName() { return R.string.key_back; }
 
 	@Override
 	public boolean run(TraditionalT9 tt9) {

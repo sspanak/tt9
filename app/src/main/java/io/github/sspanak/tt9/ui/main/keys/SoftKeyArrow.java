@@ -22,6 +22,11 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 	public SoftKeyArrow(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 	@Override
+	protected boolean allowTwoStepInAccessibility() {
+		return false;
+	}
+
+	@Override
 	protected boolean handlePress() {
 		editedNext = false;
 		held = false;
