@@ -21,6 +21,13 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 		super(context, attrs, defStyleAttr);
 	}
 
+
+	@Override
+	protected boolean allowTwoStepInAccessibility() {
+		return false;
+	}
+
+
 	private boolean isShiftEnabled() {
 		return tt9 != null
 			&& tt9.getLanguage() != null && tt9.getLanguage().hasUpperCase()
@@ -29,6 +36,7 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 			&& !tt9.isFnPanelVisible();
 	}
 
+
 	private boolean isShiftHidden() {
 		return
 			tt9 != null
@@ -36,11 +44,14 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 			&& tt9.isFnPanelVisible();
 	}
 
+
 	@Override public boolean isDynamic() { return true; }
 	@Override protected String getTitle() { return hasLettersOnAllKeys() ? Characters.SPACE : ""; }
 	@Override protected float getTitleScale() { return hasLettersOnAllKeys() ? 1.3f * Math.min(1, getTT9Height()) * getScreenSizeScale() : super.getTitleScale(); }
 
-	@Override protected int getCentralIcon() {
+
+	@Override
+	protected int getCentralIcon() {
 		if (hasLettersOnAllKeys()) {
 			return 0;
 		}
@@ -53,10 +64,12 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 		};
 	}
 
+
 	@Override
 	protected boolean handleRelease() {
 		return hasLettersOnAllKeys() ? new CmdSpaceKorean().run(tt9) : new CmdShift().run(tt9);
 	}
+
 
 	@Override
 	public void render() {
