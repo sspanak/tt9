@@ -13,6 +13,7 @@ import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownOneKeyEm
 import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownPredictiveAutoAcceptTime;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownZeroKeyCharacter;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.OneKeyEmojiOptions;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 class SettingsTyping extends SettingsPunctuation {
 	SettingsTyping(Context context) { super(context); }
@@ -72,11 +73,11 @@ class SettingsTyping extends SettingsPunctuation {
 		String character = prefs.getString(DropDownZeroKeyCharacter.NAME, DropDownZeroKeyCharacter.DEFAULT);
 
 		// SharedPreferences return a corrupted string when using the real "\n"... :(
-		return  character.equals("\\n") ? "\n" : character;
+		return character.equals("\\n") ? "\n" : character;
 	}
 
 	public boolean areEmojisEnabled() {
-		return getOneKeyEmojiMode() != OneKeyEmojiOptions.OPTIONS.NONE;
+		return getOneKeyEmojiMode() != OneKeyEmojiOptions.OPTIONS.NONE && !DeviceInfo.isTouchExplorationEnabled(context);
 	}
 
 	public OneKeyEmojiOptions.OPTIONS getOneKeyEmojiMode() {
