@@ -139,8 +139,10 @@ public class BaseClickableKey extends com.google.android.material.button.Materia
 				case MotionEvent.ACTION_HOVER_ENTER:
 					// Immediately activate the key for touch-exploration users. Use performClick() so
 					// accessibility click events are still sent.
-					handlePress();
-					performClick();
+					if (!repeat && !hold) {
+						handlePress();
+						performClick();
+					}
 
 					// Return true, to prevent incorrect announcements, such as "actions available", and
 					// "double tap to activate".
