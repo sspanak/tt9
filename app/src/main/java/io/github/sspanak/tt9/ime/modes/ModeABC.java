@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -28,6 +30,7 @@ class ModeABC extends InputMode {
 	private final int textFieldTextCase;
 
 	@Override public int getId() { return MODE_ABC; }
+	@Override @NonNull public String toAccessibilityString(@NonNull Context c) { return language.getName() + ", " + language.getAbcString(); }
 
 
 	protected ModeABC(@NonNull SettingsStore settings, @NonNull Language lang, @Nullable InputType inputType) {

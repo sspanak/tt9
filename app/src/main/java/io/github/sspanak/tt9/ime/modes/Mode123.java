@@ -1,10 +1,13 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -15,6 +18,7 @@ import io.github.sspanak.tt9.util.chars.Characters;
 class Mode123 extends ModePassthrough {
 	@Override public int getId() { return MODE_123; }
 	@Override @NonNull public String toString() { return "123"; }
+	@Override @NonNull public String toAccessibilityString(@NonNull Context ctx) { return ctx.getString(R.string.accessibility_mode_123); }
 
 	@Override public int getSequenceLength() { return digitSequence.length(); }
 	@Override public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextKey, boolean hold) { return true; }
@@ -125,7 +129,7 @@ class Mode123 extends ModePassthrough {
 	 * 	1. TAB
 	 * 	2. Math chars for numeric fields
 	 * 	3. Various punctuation chars for dialer fields, because they are used as dialing shortcuts
-	 * 	at least in Japan. More info and discussion: <a href="https://github.com/sspanak/tt9/issues/241">issue 241 on Github</a>.
+	 * 	at least in Japan. More info and discussion: <a href="https://github.com/sspanak/tt9/issues/241">issue 241 on GitHub</a>.
 	 */
 	@Override public boolean shouldIgnoreText(String text) {
 		return

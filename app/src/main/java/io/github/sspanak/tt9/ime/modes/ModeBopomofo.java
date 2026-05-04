@@ -1,5 +1,8 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.content.Context;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -104,5 +107,11 @@ public class ModeBopomofo extends ModePinyin {
 		return hold
 			|| newSequence.startsWith(seq.CHARS_0_SEQUENCE)
 			|| (newSequence.startsWith(seq.CHARS_1_SEQUENCE) && nextDigit != Sequences.CHARS_1_KEY);
+	}
+
+	@NonNull
+	@Override
+	public String toAccessibilityString(@NonNull Context ctx) {
+		return language.getName() + ", 注音";
 	}
 }

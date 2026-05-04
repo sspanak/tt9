@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -171,6 +173,7 @@ abstract public class InputMode {
 	public int getSequenceLength() { return digitSequence.length(); } // The number of key presses for the current word.
 	public int getAutoAcceptTimeout() { return autoAcceptTimeout; }
 	public void setSequence(@NonNull String sequence) { digitSequence = sequence; }
+	@NonNull abstract public String toAccessibilityString(@NonNull Context ctx);
 
 	/**
 	 * Switches to a new language if the input mode supports it. If the InputMode return "false",
