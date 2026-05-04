@@ -235,6 +235,15 @@
 	<string name="function_next_mode">Next Input Mode</string>
 	<string name="function_select_keyboard">Select Keyboard</string>
 	<string name="function_show_settings">Show Settings</string>
+	<string name="function_txt_select_all">Select all</string>
+	<string name="function_txt_select_previous_char">Select previous character</string>
+	<string name="function_txt_select_previous_word">Select previous word</string>
+	<string name="function_txt_select_next_char">Select next character</string>
+	<string name="function_txt_select_next_word">Select next word</string>
+	<string name="function_txt_select_none">Select none</string>
+	<string name="function_txt_cut">Cut</string>
+	<string name="function_txt_copy">Copy</string>
+	<string name="function_txt_paste">Paste</string>
 	<string name="function_undo">Undo</string>
 	<string name="function_redo">Redo</string>
 	<string name="function_voice_input">Voice Input</string>
