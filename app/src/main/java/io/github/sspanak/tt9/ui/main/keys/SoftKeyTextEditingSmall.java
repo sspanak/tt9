@@ -11,17 +11,22 @@ public class SoftKeyTextEditingSmall extends SoftKeyFnSmall {
 	public SoftKeyTextEditingSmall(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyTextEditingSmall(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
+	private boolean isTextEditingOn() {
+		return tt9 != null && tt9.isTextEditingActive();
+	}
+
 	@Override
 	protected boolean isVisible() {
-		return (tt9 != null && tt9.isTextEditingActive() && getId() != R.id.soft_key_0) || super.isVisible();
+		return (isTextEditingOn() && getId() != R.id.soft_key_0) || super.isVisible();
+	}
+
+	@Override
+	protected String getAccessibilityText() {
+		return isTextEditingOn() ? CommandCollection.getBySoftKey(CommandCollection.COLLECTION_TEXT_EDITING, getId()).getName(tt9) : super.getAccessibilityText();
 	}
 
 	@Override
 	protected int getBottomIconId() {
-		if (tt9 == null || !tt9.isTextEditingActive()) {
-			return super.getBottomIconId();
-		}
-
-		return CommandCollection.getBySoftKey(CommandCollection.COLLECTION_TEXT_EDITING, getId()).getIcon();
+		return isTextEditingOn() ? CommandCollection.getBySoftKey(CommandCollection.COLLECTION_TEXT_EDITING, getId()).getIcon() : super.getBottomIconId();
 	}
 }

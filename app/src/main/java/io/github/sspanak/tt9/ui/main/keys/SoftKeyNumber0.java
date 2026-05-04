@@ -16,7 +16,7 @@ public class SoftKeyNumber0 extends SoftKeyNumberSwipeable {
 
 	@Override
 	protected boolean allowTwoStepInAccessibility() {
-		return tt9 == null || !tt9.isTouchExplorationEnabled() || isFnPanelOn();
+		return tt9 == null || !tt9.isTouchExplorationEnabled();
 	}
 
 
