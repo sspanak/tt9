@@ -21,6 +21,9 @@
 	<string name="accessibility_mode_123">numbers</string>
 	<string name="accessibility_mode_predictive">%1$s - predictive</string>
 	<string name="accessibility_mode_recomposing">Edit word: "%1$s"</string>
+	<string name="accessibility_text_case_lower">lowercase</string>
+	<string name="accessibility_text_case_upper">uppercase</string>
+	<string name="accessibility_text_case_capital">capitalize first letter</string>
 
 	<string name="add_word_add">Add</string>
 	<string name="add_word_confirm">Add word \"%1$s\" to %2$s?</string>
