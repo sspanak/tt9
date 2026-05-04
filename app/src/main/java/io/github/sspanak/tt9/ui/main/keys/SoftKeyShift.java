@@ -9,6 +9,9 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SoftKeyShift extends BaseSoftKeyWithIcons {
+	private final CmdShift shift = new CmdShift();
+	private final CmdSpaceKorean space = new CmdSpaceKorean();
+
 	public SoftKeyShift(Context context) {
 		super(context);
 	}
@@ -46,6 +49,7 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 
 
 	@Override public boolean isDynamic() { return true; }
+	@Override protected String getAccessibilityText() { return hasLettersOnAllKeys() ? space.getName(tt9) : shift.getName(tt9); }
 	@Override protected String getTitle() { return hasLettersOnAllKeys() ? Characters.SPACE : ""; }
 	@Override protected float getTitleScale() { return hasLettersOnAllKeys() ? 1.3f * Math.min(1, getTT9Height()) * getScreenSizeScale() : super.getTitleScale(); }
 
@@ -58,16 +62,16 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 
 		final int textCase = tt9 != null ? tt9.getDisplayTextCase() : InputMode.CASE_UNDEFINED;
 		return switch (textCase) {
-			case InputMode.CASE_CAPITALIZE -> new CmdShift().getIconCaps();
-			case InputMode.CASE_UPPER -> new CmdShift().getIconUp();
-			default -> new CmdShift().getIcon();
+			case InputMode.CASE_CAPITALIZE -> shift.getIconCaps();
+			case InputMode.CASE_UPPER -> shift.getIconUp();
+			default -> shift.getIcon();
 		};
 	}
 
 
 	@Override
 	protected boolean handleRelease() {
-		return hasLettersOnAllKeys() ? new CmdSpaceKorean().run(tt9) : new CmdShift().run(tt9);
+		return hasLettersOnAllKeys() ? space.run(tt9) : shift.run(tt9);
 	}
 
 

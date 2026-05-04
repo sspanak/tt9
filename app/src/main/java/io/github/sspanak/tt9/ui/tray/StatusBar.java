@@ -120,6 +120,22 @@ public class StatusBar {
 	}
 
 
+	public void setAccessibilityTextCase(@NonNull InputMode inputMode) {
+		if (statusView == null) {
+			return;
+		}
+
+		String accessibilityText = switch (inputMode.getTextCase()) {
+			case InputMode.CASE_LOWER -> statusView.getContext().getString(R.string.accessibility_text_case_lower);
+			case InputMode.CASE_UPPER -> statusView.getContext().getString(R.string.accessibility_text_case_upper);
+			case InputMode.CASE_CAPITALIZE -> statusView.getContext().getString(R.string.accessibility_text_case_capital);
+			default -> null;
+		};
+
+		setAccessibilityText(accessibilityText);
+	}
+
+
 	public void setError(String error) {
 		setAccessibilityText(error);
 		setText("❌  " + error);
