@@ -99,13 +99,35 @@ public class StatusBar {
 	}
 
 
+	public void setAccessibilityText(int stringResourceId) {
+		if (statusView != null && stringResourceId != 0) {
+			setText(statusView.getContext().getString(stringResourceId));
+		}
+	}
+
+
+	public void setAccessibilityText(String text) {
+		if (statusView != null && text != null) {
+			statusView.announceForAccessibility(text);
+		}
+	}
+
+
+	public void setAccessibilityText(@NonNull InputMode inputMode) {
+		if (statusView != null ) {
+			statusView.announceForAccessibility(inputMode.toAccessibilityString(statusView.getContext()));
+		}
+	}
+
+
 	public void setError(String error) {
+		setAccessibilityText(error);
 		setText("❌  " + error);
 	}
 
 
 	public void setText(int stringResourceId) {
-		if (statusView != null) {
+		if (statusView != null && stringResourceId != 0) {
 			setText(statusView.getContext().getString(stringResourceId));
 		}
 	}

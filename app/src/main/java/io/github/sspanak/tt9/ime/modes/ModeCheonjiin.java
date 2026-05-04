@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -441,5 +443,12 @@ class ModeCheonjiin extends InputMode {
 	@Override
 	public String toString() {
 		return language.getName();
+	}
+
+
+	@NonNull
+	@Override
+	public String toAccessibilityString(@NonNull Context ignored) {
+		return "천지인";
 	}
 }
