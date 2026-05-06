@@ -135,6 +135,10 @@ public class MindReaderNgramList {
 		final int maxIndex = Math.min(MAX_NGRAM_VARIATIONS.length - 1, Math.max(currentNgram.size - 2, 0));
 		final Set<Integer> results = new LinkedHashSet<>(MAX_NGRAM_VARIATIONS[maxIndex]);
 
+		if (!currentNgram.isValid) {
+			return results;
+		}
+
 		// We want to show more recent first, so we loop from the end to the beginning.
 		for (int i = size - 1; i >= 0; i--) {
 			if (currentNgram.complete == before[i]) {
