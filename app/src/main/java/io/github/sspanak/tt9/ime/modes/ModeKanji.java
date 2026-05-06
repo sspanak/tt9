@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -44,5 +46,11 @@ public class ModeKanji extends ModePinyin {
 	@Override
 	public boolean validateLanguage(@Nullable Language newLanguage) {
 		return LanguageKind.isJapanese(newLanguage);
+	}
+
+	@NonNull
+	@Override
+	public String toAccessibilityString(@NonNull Context c) {
+		return language.getName();
 	}
 }

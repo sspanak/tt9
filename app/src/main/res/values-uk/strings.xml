@@ -7,6 +7,7 @@
 
 	<string name="error_unexpected">Сталася неочікувана помилка.</string>
 
+	<string name="accessibility_text_case_capital">перша літера велика</string>
 	<string name="add_word_add">Додати</string>
 	<string name="add_word_confirm">Додати слово \"%1$s\" в %2$s?</string>
 	<string name="add_word_no_selection">Перемістіть курсор у слово, щоб додати його.</string>
@@ -258,6 +259,7 @@
 	<string name="function_assign_instructions">* Натисніть або утримуйте клавішу, щоб призначити її функції «%1$s».\n\n* Натисніть 0, щоб скасувати.\n\n* Натисніть 2, щоб вимкнути функцію.</string>
 	<string name="pref_bottom_padding_portrait">Проміжок знизу (портрет)</string>
 	<string name="pref_drag_resize">Перетягнути, щоб змінити розмір</string>
+	<string name="function_txt_paste">Вставити</string>
 	<string name="function_undo">Скасувати (Undo)</string>
 	<string name="fn_key_order_column_2">Стовпець 2</string>
 	<string name="fn_key_order_error_wrong_key_count">У стовпці може бути щонайбільше 4 клавіші.</string>
@@ -287,4 +289,17 @@
 	<string name="dictionary_import_raise_import_limits">Збільшити обмеження імпорту</string>
 	<string name="dictionary_import_cancel">Скасувати імпорт</string>
 	<string name="pref_auto_mind_reading">Читання думок</string>
+	<string name="accessibility_mode_123">числа</string>
+	<string name="accessibility_mode_predictive">%1$s – предиктивний режим</string>
+	<string name="accessibility_mode_recomposing">Редагувати слово: %1$s</string>
+	<string name="accessibility_text_case_lower">малі літери</string>
+	<string name="accessibility_text_case_upper">великі літери</string>
+	<string name="function_txt_select_all">Виділити все</string>
+	<string name="function_txt_select_previous_char">Виділити попередній символ</string>
+	<string name="function_txt_select_previous_word">Виділити попереднє слово</string>
+	<string name="function_txt_select_next_char">Виділити наступний символ</string>
+	<string name="function_txt_select_next_word">Виділити наступне слово</string>
+	<string name="function_txt_select_none">Зняти виділення</string>
+	<string name="function_txt_cut">Вирізати</string>
+	<string name="function_txt_copy">Копіювати</string>
 </resources>

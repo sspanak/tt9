@@ -6,6 +6,7 @@
 	<string name="loading">Carregando…</string>
 	<string name="error_unexpected">Um erro inesperado aconteceu.</string>
 
+	<string name="accessibility_text_case_capital">inicial maiúscula</string>
 	<string name="add_word_add">Adicionar</string>
 	<string name="add_word_confirm">Adicionar a palavra \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Mova o cursor dentro de uma palavra para adicioná-la.</string>
@@ -254,6 +255,7 @@
 	<string name="function_previous_suggestion">Sugestão Anterior</string>
 	<string name="pref_bottom_padding_portrait">Espaçamento inferior (retrato)</string>
 	<string name="pref_drag_resize">Arrastar para redimensionar</string>
+	<string name="function_txt_paste">Colar</string>
 	<string name="function_undo">Desfazer</string>
 	<string name="fn_key_order_column_2">Coluna 2</string>
 	<string name="fn_key_order_error_wrong_key_count">A coluna pode conter no máximo 4 teclas.</string>
@@ -283,4 +285,17 @@
 	<string name="dictionary_import_raise_import_limits">Aumentar restrições de importação</string>
 	<string name="dictionary_import_cancel">Cancelar importação</string>
 	<string name="pref_auto_mind_reading">Leitura de mentes</string>
+	<string name="accessibility_mode_123">números</string>
+	<string name="accessibility_mode_predictive">%1$s – texto preditivo</string>
+	<string name="accessibility_mode_recomposing">Editar palavra: %1$s</string>
+	<string name="accessibility_text_case_lower">minúsculas</string>
+	<string name="accessibility_text_case_upper">maiúsculas</string>
+	<string name="function_txt_select_all">Selecionar tudo</string>
+	<string name="function_txt_select_previous_char">Selecionar caractere anterior</string>
+	<string name="function_txt_select_previous_word">Selecionar palavra anterior</string>
+	<string name="function_txt_select_next_char">Selecionar próximo caractere</string>
+	<string name="function_txt_select_next_word">Selecionar próxima palavra</string>
+	<string name="function_txt_select_none">Limpar seleção</string>
+	<string name="function_txt_cut">Cortar</string>
+	<string name="function_txt_copy">Copiar</string>
 </resources>

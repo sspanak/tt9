@@ -8,6 +8,7 @@ import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.os.Build;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -69,5 +70,15 @@ public class DeviceInfo extends HardwareInfo {
 
 		AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 		return am != null && am.getStreamVolume(AudioManager.STREAM_RING) == 0;
+	}
+
+
+	public static boolean isTouchExplorationEnabled(Context context) {
+		if (context == null) {
+			return false;
+		}
+
+		AccessibilityManager am = (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
+		return am != null && am.isTouchExplorationEnabled();
 	}
 }

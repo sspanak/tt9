@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class DropDownOneKeyEmoji extends EnhancedDropDownPreference {
 	public static final String NAME = "pref_one_key_emoji";
@@ -30,6 +31,11 @@ public class DropDownOneKeyEmoji extends EnhancedDropDownPreference {
 
 	@Override
 	public DropDownOneKeyEmoji populate(@NonNull SettingsStore settings) {
+		if (DeviceInfo.isTouchExplorationEnabled(getContext())) {
+			setEnabled(false);
+			return this;
+		}
+
 		for (OneKeyEmojiOptions.OPTIONS option : OneKeyEmojiOptions.getAll(settings)) {
 			add(option.toString(), getOptionTitle(option));
 		}

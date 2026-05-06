@@ -58,10 +58,13 @@ abstract public class CommandHandler extends TextEditingHandler {
 	protected void resetStatus() {
 		if (mainView.isCommandPaletteShown()) {
 			statusBar.setText(R.string.commands_select_command);
+			statusBar.setAccessibilityText(R.string.commands_select_command);
 		} else if (mainView.isTextEditingPaletteShown()) {
 			statusBar.setText(R.string.commands_select_command);
+			statusBar.setAccessibilityText(R.string.commands_select_command);
 		} else {
 			statusBar.setText(mInputMode);
+			statusBar.setAccessibilityText(mInputMode);
 		}
 	}
 
@@ -177,6 +180,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		getDisplayTextCase(mLanguage, mInputMode.getTextCase());
 		setStatusIcon(mInputMode, mLanguage);
 		statusBar.setText(mInputMode);
+		statusBar.setAccessibilityText(mInputMode);
 		mainView.render();
 
 		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {
@@ -238,6 +242,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		getDisplayTextCase(mLanguage, mInputMode.getTextCase());
 		setStatusIcon(mInputMode, mLanguage);
 		statusBar.setText(mInputMode);
+		statusBar.setAccessibilityText(mInputMode);
 		suggestionOps.setLanguage(mLanguage);
 		mainView.render();
 		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {

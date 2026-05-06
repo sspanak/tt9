@@ -18,6 +18,13 @@
 
 	<string name="error_unexpected">Unexpected error occurred.</string>
 
+	<string name="accessibility_mode_123">numbers</string>
+	<string name="accessibility_mode_predictive">%1$s - predictive</string>
+	<string name="accessibility_mode_recomposing">Edit word: "%1$s"</string>
+	<string name="accessibility_text_case_lower">lowercase</string>
+	<string name="accessibility_text_case_upper">uppercase</string>
+	<string name="accessibility_text_case_capital">capitalize first letter</string>
+
 	<string name="add_word_add">Add</string>
 	<string name="add_word_confirm">Add word \"%1$s\" to %2$s?</string>
 	<string name="add_word_no_confirmation">Add Without Confirmation</string>
@@ -156,7 +163,7 @@
 	<string name="dictionary_load_bad_char">Loading failed. Invalid word on line %1$d of language \"%2$s\".</string>
 	<string name="dictionary_load_error">Failed loading the dictionary for language \"%1$s\" (%2$s).</string>
 	<string name="dictionary_load_no_internet">Failed downloading the dictionary for language \"%1$s\". Check the Internet connection.</string>
-	<string name="dictionary_load_cancelled">Dictionary load cancelled.</string>
+	<string name="dictionary_load_cancelled">Dictionary load canceled.</string>
 	<string name="dictionary_loaded">Dictionary load completed.</string>
 	<string name="dictionary_loading">Loading dictionary (%1$s)…</string>
 	<string name="dictionary_loading_indeterminate">Loading dictionary</string>
@@ -180,7 +187,7 @@
 	<string name="dictionary_export_generating_csv_for_language">Exporting CSV (%1$s)…</string>
 
 	<string name="dictionary_import_cancel">Cancel Importing</string>
-	<string name="dictionary_import_canceled">Importing cancelled.</string>
+	<string name="dictionary_import_canceled">Importing canceled.</string>
 	<string name="dictionary_import_custom_words">Import</string>
 	<string name="dictionary_import_custom_words_summary">Import words from a previously exported CSV.</string>
 	<string name="dictionary_import_failed">Importing failed.</string>
@@ -235,6 +242,15 @@
 	<string name="function_next_mode">Next Input Mode</string>
 	<string name="function_select_keyboard">Select Keyboard</string>
 	<string name="function_show_settings">Show Settings</string>
+	<string name="function_txt_select_all">Select all</string>
+	<string name="function_txt_select_previous_char">Select previous character</string>
+	<string name="function_txt_select_previous_word">Select previous word</string>
+	<string name="function_txt_select_next_char">Select next character</string>
+	<string name="function_txt_select_next_word">Select next word</string>
+	<string name="function_txt_select_none">Select none</string>
+	<string name="function_txt_cut">Cut</string>
+	<string name="function_txt_copy">Copy</string>
+	<string name="function_txt_paste">Paste</string>
 	<string name="function_undo">Undo</string>
 	<string name="function_redo">Redo</string>
 	<string name="function_voice_input">Voice Input</string>

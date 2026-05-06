@@ -169,6 +169,14 @@ public class SoftKey extends BaseClickableKey {
 
 
 	/**
+	 * Generates a String describing what the key is for accessibility services, such as TalkBack.
+	 */
+	protected String getAccessibilityText() {
+		return null;
+	}
+
+
+	/**
 	 * getTitle
 	 * Generates the name of the key, for example: "OK", "Backspace", "1", etc...
 	 */
@@ -319,6 +327,7 @@ public class SoftKey extends BaseClickableKey {
 	 */
 	public void render() {
 		setBackgroundTintList(backgroundColor);
+		setContentDescription(getAccessibilityText());
 		setRippleColor(rippleColor);
 		setStrokeColor(borderColor);
 		setStrokeWidth(borderColor.getDefaultColor() == Color.TRANSPARENT ? 0 : 2);

@@ -6,6 +6,7 @@
 	<string name="loading">טוען…</string>
 	<string name="error_unexpected">אירעה שגיאה לא צפויה.</string>
 
+	<string name="accessibility_text_case_capital">אות ראשונה גדולה</string>
 	<string name="add_word_add">הוסף</string>
 	<string name="add_word_confirm">האם להוסיף את המילה \"%1$s\" ל-%2$s?</string>
 	<string name="add_word_no_selection">הזיזו את הסמן בתוך מילה כדי להוסיף אותה.</string>
@@ -253,6 +254,7 @@
 	<string name="function_previous_suggestion">הצעה קודמת</string>
 	<string name="pref_bottom_padding_portrait">ריווח מתחת (תצוגה אנכית)</string>
 	<string name="pref_drag_resize">גרירה לשינוי גודל</string>
+	<string name="function_txt_paste">הדבק</string>
 	<string name="function_undo">ביטול (Undo)</string>
 	<string name="fn_key_order_column_2">עמודה 2</string>
 	<string name="fn_key_order_error_wrong_key_count">העמודה יכולה להכיל לכל היותר 4 מקשים.</string>
@@ -283,4 +285,17 @@
 	<string name="dictionary_import_raise_import_limits">הגדלת מגבלות הייבוא</string>
 	<string name="dictionary_import_cancel">ביטול הייבוא</string>
 	<string name="pref_auto_mind_reading">קריאת מחשבות</string>
+	<string name="accessibility_mode_123">מספרים</string>
+	<string name="accessibility_mode_predictive">%1$s – מצב חיזוי</string>
+	<string name="accessibility_mode_recomposing">עריכת מילה: %1$s</string>
+	<string name="accessibility_text_case_lower">אותיות קטנות</string>
+	<string name="accessibility_text_case_upper">אותיות גדולות</string>
+	<string name="function_txt_select_all">בחר הכול</string>
+	<string name="function_txt_select_previous_char">בחר תו קודם</string>
+	<string name="function_txt_select_previous_word">בחר מילה קודמת</string>
+	<string name="function_txt_select_next_char">בחר תו הבא</string>
+	<string name="function_txt_select_next_word">בחר מילה הבאה</string>
+	<string name="function_txt_select_none">בטל בחירה</string>
+	<string name="function_txt_cut">גזור</string>
+	<string name="function_txt_copy">העתק</string>
 </resources>

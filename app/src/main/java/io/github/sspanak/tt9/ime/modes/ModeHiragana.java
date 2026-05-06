@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -24,5 +26,12 @@ public class ModeHiragana extends ModeKanji {
 	@Override
 	public int getId() {
 		return MODE_HIRAGANA;
+	}
+
+
+	@NonNull
+	@Override
+	public String toAccessibilityString(@NonNull Context c) {
+		return NAME;
 	}
 }
