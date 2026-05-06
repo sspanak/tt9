@@ -4,6 +4,7 @@
 	<string name="loading">Laden…</string>
 	<string name="error_unexpected">Er is een onverwachte fout opgetreden.</string>
 
+	<string name="accessibility_text_case_capital">eerste letter hoofdletter</string>
 	<string name="add_word_add">Toevoegen</string>
 	<string name="add_word_confirm">Voeg woord \"%1$s\" toe aan %2$s?</string>
 	<string name="add_word_no_selection">Verplaats de cursor binnen een woord om het toe te voegen.</string>
@@ -248,6 +249,7 @@
 	<string name="function_next_suggestion">Volgende suggestie</string>
 	<string name="function_next_language">Volgende taal</string>
 	<string name="function_filter_clear">Filter wissen</string>
+	<string name="function_txt_paste">Plakken</string>
 	<string name="function_undo">Ongedaan maken</string>
 	<string name="fn_key_order_column_2">Kolom 2</string>
 	<string name="fn_key_order_error_wrong_key_count">De kolom mag maximaal 4 toetsen bevatten.</string>
@@ -277,4 +279,17 @@
 	<string name="dictionary_import_raise_import_limits">Importbeperkingen verhogen</string>
 	<string name="dictionary_import_cancel">Importeren annuleren</string>
 	<string name="pref_auto_mind_reading">Gedachten lezen</string>
+	<string name="accessibility_mode_123">cijfers</string>
+	<string name="accessibility_mode_predictive">%1$s – voorspellend</string>
+	<string name="accessibility_mode_recomposing">Woord bewerken: %1$s</string>
+	<string name="accessibility_text_case_lower">kleine letters</string>
+	<string name="accessibility_text_case_upper">hoofdletters</string>
+	<string name="function_txt_select_all">Alles selecteren</string>
+	<string name="function_txt_select_previous_char">Vorig teken selecteren</string>
+	<string name="function_txt_select_previous_word">Vorig woord selecteren</string>
+	<string name="function_txt_select_next_char">Volgend teken selecteren</string>
+	<string name="function_txt_select_next_word">Volgend woord selecteren</string>
+	<string name="function_txt_select_none">Selectie opheffen</string>
+	<string name="function_txt_cut">Knippen</string>
+	<string name="function_txt_copy">Kopiëren</string>
 </resources>

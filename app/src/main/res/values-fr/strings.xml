@@ -5,6 +5,7 @@
 	<string name="completed">Fini</string>
 	<string name="loading">Chargement…</string>
 	<string name="error_unexpected">Une erreur inattendue s\'est produite.</string>
+	<string name="accessibility_text_case_capital">mettre la première lettre en majuscule</string>
 	<string name="add_word_add">Ajouter</string>
 	<string name="add_word_no_selection">Déplacez le curseur dans un mot pour l\'ajouter.</string>
 	<string name="add_word_blank">Mot vide non ajouté.</string>
@@ -247,6 +248,7 @@
 	<string name="key_hold_key">(maintenir)</string>
 	<string name="pref_bottom_padding_portrait">Espacement inférieur (portrait)</string>
 	<string name="pref_drag_resize">Faire glisser pour redimensionner</string>
+	<string name="function_txt_paste">Coller</string>
 	<string name="function_undo">Annuler (Undo)</string>
 	<string name="fn_key_order_column_2">Colonne 2</string>
 	<string name="fn_key_order_error_wrong_key_count">La colonne peut contenir au maximum 4 touches.</string>
@@ -276,4 +278,17 @@
 	<string name="dictionary_import_raise_import_limits">Augmenter les restrictions d’importation</string>
 	<string name="dictionary_import_cancel">Annuler l’importation</string>
 	<string name="pref_auto_mind_reading">Lecture des pensées</string>
+	<string name="accessibility_mode_123">chiffres</string>
+	<string name="accessibility_mode_predictive">%1$s – saisie intuitive</string>
+	<string name="accessibility_mode_recomposing">Modifier le mot : %1$s</string>
+	<string name="accessibility_text_case_lower">minuscules</string>
+	<string name="accessibility_text_case_upper">majuscules</string>
+	<string name="function_txt_select_all">Tout sélectionner</string>
+	<string name="function_txt_select_previous_char">Sélectionner le caractère précédent</string>
+	<string name="function_txt_select_previous_word">Sélectionner le mot précédent</string>
+	<string name="function_txt_select_next_char">Sélectionner le caractère suivant</string>
+	<string name="function_txt_select_next_word">Sélectionner le mot suivant</string>
+	<string name="function_txt_select_none">Désélectionner</string>
+	<string name="function_txt_cut">Couper</string>
+	<string name="function_txt_copy">Copier</string>
 </resources>

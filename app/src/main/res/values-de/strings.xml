@@ -4,6 +4,7 @@
 	<string name="loading">Laden…</string>
 	<string name="error_unexpected">Unerwarteter Fehler aufgetreten.</string>
 
+	<string name="accessibility_text_case_capital">Ersten Buchstaben großschreiben</string>
 	<string name="add_word_add">Hinzufügen</string>
 	<string name="add_word_confirm">Wort \"%1$s\" zu %2$s hinzufügen?</string>
 	<string name="add_word_no_selection">Bewegen Sie den Cursor innerhalb eines Wortes, um es hinzuzufügen.</string>
@@ -249,6 +250,7 @@
 	<string name="function_show_settings">Einstellungsbildschirm anzeigen</string>
 	<string name="pref_bottom_padding_portrait">Abstand unten (Hochformat)</string>
 	<string name="pref_drag_resize">Ziehen, um die Größe zu ändern</string>
+	<string name="function_txt_paste">Einfügen</string>
 	<string name="function_undo">Rückgängig machen</string>
 	<string name="fn_key_order_column_2">Spalte 2</string>
 	<string name="fn_key_order_error_wrong_key_count">Die Spalte darf höchstens 4 Tasten enthalten.</string>
@@ -278,4 +280,17 @@
 	<string name="dictionary_import_raise_import_limits">Importbeschränkungen erhöhen</string>
 	<string name="dictionary_import_cancel">Import abbrechen</string>
 	<string name="pref_auto_mind_reading">Gedankenlesen</string>
+	<string name="accessibility_mode_123">Zahlen</string>
+	<string name="accessibility_mode_predictive">%1$s – Vorhersage</string>
+	<string name="accessibility_mode_recomposing">Wort bearbeiten: %1$s</string>
+	<string name="accessibility_text_case_lower">Kleinbuchstaben</string>
+	<string name="accessibility_text_case_upper">Großbuchstaben</string>
+	<string name="function_txt_select_all">Alles auswählen</string>
+	<string name="function_txt_select_previous_char">Vorheriges Zeichen auswählen</string>
+	<string name="function_txt_select_previous_word">Vorheriges Wort auswählen</string>
+	<string name="function_txt_select_next_char">Nächstes Zeichen auswählen</string>
+	<string name="function_txt_select_next_word">Nächstes Wort auswählen</string>
+	<string name="function_txt_select_none">Auswahl aufheben</string>
+	<string name="function_txt_cut">Ausschneiden</string>
+	<string name="function_txt_copy">Kopieren</string>
 </resources>

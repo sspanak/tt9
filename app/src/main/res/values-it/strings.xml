@@ -6,6 +6,7 @@
 	<string name="loading">Caricamento…</string>
 	<string name="error_unexpected">Si è verificato un errore imprevisto.</string>
 
+	<string name="accessibility_text_case_capital">maiuscola iniziale</string>
 	<string name="add_word_add">Aggiungere</string>
 	<string name="add_word_confirm">Aggiungi la parola \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Sposta il cursore dentro un parola per aggiungerla.</string>
@@ -250,6 +251,7 @@
 	<string name="function_show_settings">Mostrare impostazioni</string>
 	<string name="pref_bottom_padding_portrait">Spazio sotto (verticale)</string>
 	<string name="pref_drag_resize">Trascinare per ridimensionare</string>
+	<string name="function_txt_paste">Incolla</string>
 	<string name="function_undo">Annulla (Undo)</string>
 	<string name="fn_key_order_column_2">Colonna 2</string>
 	<string name="fn_key_order_error_wrong_key_count">La colonna può contenere al massimo 4 tasti.</string>
@@ -279,5 +281,18 @@
 	<string name="dictionary_import_raise_import_limits">Aumentare le restrizioni di importazione</string>
 	<string name="dictionary_import_cancel">Annulla importazione</string>
 	<string name="pref_auto_mind_reading">Lettura del pensiero</string>
+	<string name="accessibility_mode_123">numeri</string>
+	<string name="accessibility_mode_predictive">%1$s – scrittura facilitata</string>
+	<string name="accessibility_mode_recomposing">Modifica parola: %1$s</string>
+	<string name="accessibility_text_case_lower">minuscole</string>
+	<string name="accessibility_text_case_upper">maiuscole</string>
+	<string name="function_txt_select_all">Seleziona tutto</string>
+	<string name="function_txt_select_previous_char">Seleziona il carattere precedente</string>
+	<string name="function_txt_select_previous_word">Seleziona la parola precedente</string>
+	<string name="function_txt_select_next_char">Seleziona il carattere successivo</string>
+	<string name="function_txt_select_next_word">Seleziona la parola successiva</string>
+	<string name="function_txt_select_none">Deseleziona</string>
+	<string name="function_txt_cut">Taglia</string>
+	<string name="function_txt_copy">Copia</string>
 </resources>
 

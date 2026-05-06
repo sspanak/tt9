@@ -7,6 +7,7 @@
 
 	<string name="error_unexpected">Įvyko netikėta klaida.</string>
 
+	<string name="accessibility_text_case_capital">pirmą raidę rašyti didžiąja</string>
 	<string name="add_word_add">Pridėti</string>
 	<string name="add_word_confirm">Pridėti žodį \"%1$s\" į \"%2$s\" žodyną?</string>
 	<string name="add_word_no_selection">Perkelkite žymeklį prie žodžio kurį norite pridėti.</string>
@@ -256,6 +257,7 @@
 	<string name="function_assign_instructions">* Paspauskite arba palaikykite klavišą, kad priskirtumėte jį funkcijai „%1$s“.\n\n* Paspauskite 0, kad atšauktumėte.\n\n* Paspauskite 2, kad išjungtumėte funkciją.</string>
 	<string name="pref_bottom_padding_portrait">Tarpas apačioje (portretas)</string>
 	<string name="pref_drag_resize">Vilkti norint pakeisti dydį</string>
+	<string name="function_txt_paste">Įklijuoti</string>
 	<string name="function_undo">Atšaukti (Undo)</string>
 	<string name="fn_key_order_column_2">Stulpelis 2</string>
 	<string name="fn_key_order_error_wrong_key_count">Stulpelyje gali būti daugiausiai 4 klavišai.</string>
@@ -285,4 +287,17 @@
 	<string name="dictionary_import_raise_import_limits">Padidinti importo apribojimus</string>
 	<string name="dictionary_import_cancel">Atšaukti importavimą</string>
 	<string name="pref_auto_mind_reading">Minčių skaitymas</string>
+	<string name="accessibility_mode_123">skaičiai</string>
+	<string name="accessibility_mode_predictive">%1$s – nuspėjamumas</string>
+	<string name="accessibility_mode_recomposing">Redaguoti žodį: %1$s</string>
+	<string name="accessibility_text_case_lower">mažosios raidės</string>
+	<string name="accessibility_text_case_upper">didžiosios raidės</string>
+	<string name="function_txt_select_all">Pasirinkti viską</string>
+	<string name="function_txt_select_previous_char">Pasirinkti ankstesnį simbolį</string>
+	<string name="function_txt_select_previous_word">Pasirinkti ankstesnį žodį</string>
+	<string name="function_txt_select_next_char">Pasirinkti kitą simbolį</string>
+	<string name="function_txt_select_next_word">Pasirinkti kitą žodį</string>
+	<string name="function_txt_select_none">Panaikinti pasirinkimą</string>
+	<string name="function_txt_cut">Iškirpti</string>
+	<string name="function_txt_copy">Kopijuoti</string>
 </resources>

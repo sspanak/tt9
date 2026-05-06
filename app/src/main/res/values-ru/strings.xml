@@ -5,6 +5,7 @@
 	<string name="completed">Выполнено</string>
 	<string name="loading">Загрузка…</string>
 	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
+	<string name="accessibility_text_case_capital">первая буква заглавная</string>
 	<string name="add_word_add">Добавить</string>
 	<string name="add_word_no_selection">Переместите курсор внутрь слова, чтобы добавить его.</string>
 	<string name="add_word_blank">Невозможно добавить слово.</string>
@@ -247,6 +248,7 @@
 	<string name="function_assign_instructions">* Нажмите или удерживайте клавишу, чтобы назначить её на функцию «%1$s».\n\n* Нажмите 0, чтобы отменить.\n\n* Нажмите 2, чтобы отключить функцию.</string>
 	<string name="pref_bottom_padding_portrait">Нижний отступ (портрет)</string>
 	<string name="pref_drag_resize">Перетащить, чтобы изменить размер</string>
+	<string name="function_txt_paste">Вставить</string>
 	<string name="function_undo">Отменить (Undo)</string>
 	<string name="fn_key_order_column_2">Столбец 2</string>
 	<string name="fn_key_order_error_wrong_key_count">В столбце может быть не более 4 клавиш.</string>
@@ -276,4 +278,17 @@
 	<string name="dictionary_import_raise_import_limits">Увеличить ограничения импорта</string>
 	<string name="dictionary_import_cancel">Отменить импорт</string>
 	<string name="pref_auto_mind_reading">Чтение мыслей</string>
+	<string name="accessibility_mode_123">числа</string>
+	<string name="accessibility_mode_predictive">%1$s – режим подсказки</string>
+	<string name="accessibility_mode_recomposing">Редактировать слово: %1$s</string>
+	<string name="accessibility_text_case_lower">строчные буквы</string>
+	<string name="accessibility_text_case_upper">прописные буквы</string>
+	<string name="function_txt_select_all">Выделить всё</string>
+	<string name="function_txt_select_previous_char">Выделить предыдущий символ</string>
+	<string name="function_txt_select_previous_word">Выделить предыдущее слово</string>
+	<string name="function_txt_select_next_char">Выделить следующий символ</string>
+	<string name="function_txt_select_next_word">Выделить следующее слово</string>
+	<string name="function_txt_select_none">Снять выделение</string>
+	<string name="function_txt_cut">Вырезать</string>
+	<string name="function_txt_copy">Копировать</string>
 </resources>
