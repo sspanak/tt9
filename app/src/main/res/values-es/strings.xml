@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_settings">Configuración de Traditional T9</string>
+	<string name="accessibility_text_case_capital">primera letra en mayúscula</string>
 	<string name="add_word_add">Agregar</string>
 	<string name="add_word_confirm">¿Agregar la palabra \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Mueve el cursor dentro de una palabra para añadirla.</string>
@@ -247,6 +248,7 @@
 	<string name="function_assign_instructions">* Presione o mantenga pulsada una tecla para asignarla a la función \"%1$s\".\n\n* Presione 0 para cancelar.\n\n* Presione 2 para desactivar la función.</string>
 	<string name="pref_bottom_padding_portrait">Espacio inferior (vertical)</string>
 	<string name="pref_drag_resize">Arrastrar para cambiar el tamaño</string>
+	<string name="function_txt_paste">Pegar</string>
 	<string name="function_undo">Deshacer</string>
 	<string name="fn_key_order_column_2">Columna 2</string>
 	<string name="fn_key_order_error_wrong_key_count">La columna puede contener como máximo 4 teclas.</string>
@@ -276,4 +278,17 @@
 	<string name="dictionary_import_raise_import_limits">Aumentar restricciones de importación</string>
 	<string name="dictionary_import_cancel">Cancelar importación</string>
 	<string name="pref_auto_mind_reading">Lectura de mente</string>
+	<string name="accessibility_mode_123">números</string>
+	<string name="accessibility_mode_predictive">%1$s – texto predictivo</string>
+	<string name="accessibility_mode_recomposing">Editar palabra: %1$s</string>
+	<string name="accessibility_text_case_lower">minúsculas</string>
+	<string name="accessibility_text_case_upper">mayúsculas</string>
+	<string name="function_txt_select_all">Seleccionar todo</string>
+	<string name="function_txt_select_previous_char">Seleccionar carácter anterior</string>
+	<string name="function_txt_select_previous_word">Seleccionar palabra anterior</string>
+	<string name="function_txt_select_next_char">Seleccionar carácter siguiente</string>
+	<string name="function_txt_select_next_word">Seleccionar palabra siguiente</string>
+	<string name="function_txt_select_none">Quitar selección</string>
+	<string name="function_txt_cut">Cortar</string>
+	<string name="function_txt_copy">Copiar</string>
 </resources>

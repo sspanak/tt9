@@ -4,6 +4,7 @@
 	<string name="loading">Yükleniyor…</string>
 	<string name="error_unexpected">Beklenmeyen bir hata ile karşılaşıldı.</string>
 
+	<string name="accessibility_text_case_capital">ilk harfi büyüt</string>
 	<string name="add_word_add">Ekle</string>
 	<string name="add_word_confirm">\"%1$s\" kelimesi %2$s sözlüğe eklensin mi?</string>
 	<string name="add_word_no_selection">Ekleme yapmak için imleci eklemek istediğiniz kelimeye götürün.</string>
@@ -252,6 +253,7 @@
 	<string name="key_hold_key">(basılı tut)</string>
 	<string name="pref_bottom_padding_portrait">Alttaki boşluk (dikey)</string>
 	<string name="pref_drag_resize">Yeniden boyutlandırmak için sürükle</string>
+	<string name="function_txt_paste">Yapıştır</string>
 	<string name="function_undo">Geri al (Undo)</string>
 	<string name="fn_key_order_column_2">Sütun 2</string>
 	<string name="fn_key_order_error_wrong_key_count">Sütun en fazla 4 tuş içerebilir.</string>
@@ -281,4 +283,17 @@
 	<string name="dictionary_import_raise_import_limits">İçe aktarma kısıtlamalarını artır</string>
 	<string name="dictionary_import_cancel">İçe aktarmayı iptal et</string>
 	<string name="pref_auto_mind_reading">Zihin Okuma</string>
+	<string name="accessibility_mode_123">sayılar</string>
+	<string name="accessibility_mode_predictive">%1$s – tahminli metin</string>
+	<string name="accessibility_mode_recomposing">Kelimeyi düzenle: %1$s</string>
+	<string name="accessibility_text_case_lower">küçük harfler</string>
+	<string name="accessibility_text_case_upper">büyük harfler</string>
+	<string name="function_txt_select_all">Tümünü seç</string>
+	<string name="function_txt_select_previous_char">Önceki karakteri seç</string>
+	<string name="function_txt_select_previous_word">Önceki kelimeyi seç</string>
+	<string name="function_txt_select_next_char">Sonraki karakteri seç</string>
+	<string name="function_txt_select_next_word">Sonraki kelimeyi seç</string>
+	<string name="function_txt_select_none">Seçimi kaldır</string>
+	<string name="function_txt_cut">Kes</string>
+	<string name="function_txt_copy">Kopyala</string>
 </resources>
