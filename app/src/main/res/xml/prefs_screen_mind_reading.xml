@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:orderingFromXml="true">
+	<SwitchPreferenceCompat
+		android:defaultValue="false"
+		android:key="auto_mind_reading"
+		android:summary="@string/pref_auto_mind_reading_summary"
+		android:title="@string/pref_auto_mind_reading" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="true"
+		android:key="auto_mind_reading_sort_predictions_last"
+		android:title="@string/pref_auto_mind_reading_sort_predictions_last"
+		android:summaryOn="@string/pref_auto_mind_reading_sort_predictions_last_summary_on"
+		android:summaryOff="@string/pref_auto_mind_reading_sort_predictions_last_summary_off" />
+</PreferenceScreen>

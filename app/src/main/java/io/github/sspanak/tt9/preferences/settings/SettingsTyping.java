@@ -14,7 +14,7 @@ import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownPredicti
 import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownZeroKeyCharacter;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.OneKeyEmojiOptions;
 
-class SettingsTyping extends SettingsPunctuation {
+class SettingsTyping extends SettingsMindReading {
 	SettingsTyping(Context context) { super(context); }
 
 	public int getAutoAcceptTimeoutAbc() {
@@ -38,10 +38,6 @@ class SettingsTyping extends SettingsPunctuation {
 		return getAutoTextCasePredictive() && prefs.getBoolean("auto_capitals_after_newline", false);
 	}
 
-	public boolean getAutoMindReading() {
-		return prefs.getBoolean("auto_mind_reading", false);
-	}
-
 	public boolean getAutoTrimTrailingSpace() {
 		return prefs.getBoolean("auto_trim_trailing_space", true);
 	}
@@ -54,7 +50,7 @@ class SettingsTyping extends SettingsPunctuation {
 
 	public boolean isAutoAssistanceOn(@Nullable InputMode mode) {
 		return
-			(getAutoMindReading() && (InputModeKind.isPredictive(mode) || InputModeKind.isABC(mode))) ||
+			(getMindReading() && (InputModeKind.isPredictive(mode) || InputModeKind.isABC(mode))) ||
 			(InputModeKind.isPredictive(mode) && (getAutoSpacePredictive() || getAutoTextCasePredictive() || getPredictWordPairs())) ||
 			(InputModeKind.isABC(mode) && (getAutoSpaceAbc() || getAutoTextCaseAbc()));
 	}
