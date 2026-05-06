@@ -389,6 +389,6 @@ public class ModeRecomposing extends InputMode {
 	@NonNull
 	@Override
 	public String toAccessibilityString(@NonNull Context ctx) {
-		return ctx.getString(R.string.accessibility_mode_recomposing);
+		return ctx.getString(R.string.accessibility_mode_recomposing, language.toString());
 	}
 }

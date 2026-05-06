@@ -101,12 +101,12 @@ public class StatusBar {
 
 	public void setAccessibilityText(int stringResourceId) {
 		if (statusView != null && stringResourceId != 0) {
-			setText(statusView.getContext().getString(stringResourceId));
+			setAccessibilityText(statusView.getContext().getString(stringResourceId));
 		}
 	}
 
 
-	public void setAccessibilityText(String text) {
+	public void setAccessibilityText(@Nullable String text) {
 		if (statusView != null && text != null) {
 			statusView.announceForAccessibility(text);
 		}
@@ -114,8 +114,8 @@ public class StatusBar {
 
 
 	public void setAccessibilityText(@NonNull InputMode inputMode) {
-		if (statusView != null ) {
-			statusView.announceForAccessibility(inputMode.toAccessibilityString(statusView.getContext()));
+		if (statusView != null) {
+			setAccessibilityText(inputMode.toAccessibilityString(statusView.getContext()));
 		}
 	}
 
