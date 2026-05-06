@@ -21,10 +21,9 @@
 		android:title="@string/pref_category_usage_stats" />
 
 	<PreferenceCategory app:title="Beta Features" app:singleLineTitle="true">
-		<SwitchPreferenceCompat
-			android:defaultValue="false"
-			android:key="auto_mind_reading"
-			android:summary="@string/pref_auto_mind_reading_summary"
+		<Preference
+			android:fragment="io.github.sspanak.tt9.preferences.screens.mindReading.MindReadingScreen"
+			android:key="screen_mind_reading"
 			android:title="@string/pref_auto_mind_reading" />
 
 		<io.github.sspanak.tt9.preferences.screens.languages.SwitchRaiseImportLimits />

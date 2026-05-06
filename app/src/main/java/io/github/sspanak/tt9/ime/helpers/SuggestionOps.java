@@ -106,7 +106,8 @@ public class SuggestionOps {
 	public void addGuesses(@NonNull ArrayList<String> guesses) {
 		setVisibility(settings, isEmpty() && guesses.isEmpty(), !guesses.isEmpty());
 		if (suggestionBar != null) {
-			suggestionBar.prependGuesses(guesses);
+			boolean append = settings != null && settings.getMindReadingSortPredictionsLast();
+			suggestionBar.addMany(guesses, append);
 		}
 	}
 

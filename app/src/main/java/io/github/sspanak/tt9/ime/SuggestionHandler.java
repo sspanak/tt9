@@ -278,8 +278,10 @@ abstract public class SuggestionHandler extends TypingHandler {
 		}
 
 		suggestionOps.cancelDelayedAccept();
-		appHacks.setComposingText(guesses.get(0));
 		suggestionOps.addGuesses(guesses);
+		if (!settings.getMindReadingSortPredictionsLast()) {
+			appHacks.setComposingText(guesses.get(0));
+		}
 
 		return true;
 	}

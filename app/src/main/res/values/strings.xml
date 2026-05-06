@@ -75,6 +75,9 @@
 	<string name="pref_auto_capitals_after_newline">Automatically Capitalize Every Line</string>
 	<string name="pref_auto_capitals_after_newline_summary">Start every line with a capital letter, even if it is in the middle of a sentence.</string>
 	<string name="pref_auto_mind_reading">Mind Reading</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last">Show Auto-Completions Last</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Show the possible completions at the end of the suggestion list.</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last_summary_off">Show the most probable completions at the beginning of the suggestion list.</string>
 	<string name="pref_auto_mind_reading_summary">Show next-word suggestions before you start typing or after the first letter. Starts empty and learns as you type.</string>
 	<string name="pref_auto_space">Automatic Space</string>
 	<string name="pref_auto_space_summary">Automatically add a space after punctuation or words.</string>

@@ -444,7 +444,7 @@ public class MindReader {
 
 
 	protected boolean isOff() {
-		final boolean off = settings == null || !settings.getAutoMindReading() || settings.isMainLayoutStealth();
+		final boolean off = settings == null || !settings.getMindReading() || settings.isMainLayoutStealth();
 		stats.setOff(off);
 		return off;
 	}
