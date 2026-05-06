@@ -45,6 +45,7 @@
 	<string name="pref_alternative_suggestion_scrolling_summary">הפעל אם לפעמים אי אפשר לראות את כל ההצעות או יש בעיות בגלילתן.</string>
 	<string name="pref_arrows_left_right_summary">הצגת מקשי חצים שמאלה/ימינה לגלילת ההצעות או להזזת סמן הטקסט אופקית.</string>
 	<string name="pref_arrows_up_down_summary">לאפשר החלקה למעלה/למטה על מקש OK לסינון הצעות או להזזת סמן הטקסט אנכית.</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last_summary_off">הצגת ההשלמות הסבירות ביותר בתחילת רשימת ההצעות.</string>
 	<string name="pref_auto_mind_reading_summary">הצגת הצעות למילה הבאה לפני שמתחילים להקליד או לאחר האות הראשונה. מתחיל ללא הצעות ולומד תוך כדי הקלדה.</string>
 	<string name="pref_auto_space">רווח אוטומטי</string>
 	<string name="pref_auto_space_summary">הוסף רווח אוטומטית לאחר סימני פיסוק או מילים.</string>
@@ -300,4 +301,6 @@
 	<string name="function_txt_cut">גזור</string>
 	<string name="function_txt_copy">העתק</string>
 	<string name="accessibility_key_left">חץ שמאלה</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last">הצגת השלמות אוטומטיות אחרונות</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">הצגת השלמות אפשריות בסוף רשימת ההצעות.</string>
 </resources>
