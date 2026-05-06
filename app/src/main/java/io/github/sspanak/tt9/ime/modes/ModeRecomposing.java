@@ -389,6 +389,14 @@ public class ModeRecomposing extends InputMode {
 	@NonNull
 	@Override
 	public String toAccessibilityString(@NonNull Context ctx) {
-		return ctx.getString(R.string.accessibility_mode_recomposing, language.toString());
+		String recomposedWord = textField != null ? textField.getComposingText() : null;
+		if (recomposedWord == null || recomposedWord.isEmpty()) {
+			recomposedWord = prefix + suffix;
+		}
+		if (recomposedWord == null) {
+			recomposedWord = "";
+		}
+
+		return ctx.getString(R.string.accessibility_mode_recomposing, recomposedWord);
 	}
 }
