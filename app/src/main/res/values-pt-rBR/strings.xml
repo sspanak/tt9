@@ -47,6 +47,7 @@
 	<string name="pref_alternative_suggestion_scrolling_summary">Ative se às vezes não conseguir ver todas as sugestões ou tiver problemas para rolá-las.</string>
 	<string name="pref_arrows_left_right_summary">Mostrar as teclas de seta esquerda/direita para rolar as sugestões ou mover o cursor de texto horizontalmente.</string>
 	<string name="pref_arrows_up_down_summary">Permitir deslizar para cima/baixo na tecla OK para filtrar sugestões ou mover o cursor de texto verticalmente.</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last_summary_off">Mostrar as conclusões mais prováveis no início da lista de sugestões.</string>
 	<string name="pref_auto_mind_reading_summary">Mostrar sugestões da próxima palavra antes de começar a digitar ou após a primeira letra. Começa sem sugestões e aprende enquanto você digita.</string>
 	<string name="pref_auto_space">Espaçamento automático</string>
 	<string name="pref_auto_space_summary">Insere um espaçamento após ponto final.</string>
@@ -300,4 +301,6 @@
 	<string name="function_txt_cut">Cortar</string>
 	<string name="function_txt_copy">Copiar</string>
 	<string name="accessibility_key_left">Seta para a esquerda</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last">Mostrar autocompletar por último</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Mostrar possíveis conclusões no final da lista de sugestões.</string>
 </resources>

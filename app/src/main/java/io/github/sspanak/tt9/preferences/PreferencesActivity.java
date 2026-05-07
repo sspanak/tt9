@@ -29,6 +29,7 @@ import io.github.sspanak.tt9.preferences.screens.keypad.KeyPadScreen;
 import io.github.sspanak.tt9.preferences.screens.languageSelection.LanguageSelectionScreen;
 import io.github.sspanak.tt9.preferences.screens.languages.LanguagesScreen;
 import io.github.sspanak.tt9.preferences.screens.main.MainSettingsScreen;
+import io.github.sspanak.tt9.preferences.screens.mindReading.MindReadingScreen;
 import io.github.sspanak.tt9.preferences.screens.modeAbc.ModeAbcScreen;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.ModePredictiveScreen;
 import io.github.sspanak.tt9.preferences.screens.punctuation.PunctuationScreen;
@@ -156,6 +157,7 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 			case KeyPadScreen.NAME -> new KeyPadScreen(this);
 			case LanguagesScreen.NAME -> new LanguagesScreen(this);
 			case LanguageSelectionScreen.NAME -> new LanguageSelectionScreen(this);
+			case MindReadingScreen.NAME -> new MindReadingScreen(this);
 			case ModePredictiveScreen.NAME -> new ModePredictiveScreen(this);
 			case ModeAbcScreen.NAME -> new ModeAbcScreen(this);
 			case PunctuationScreen.NAME -> new PunctuationScreen(this);

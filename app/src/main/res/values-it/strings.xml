@@ -45,6 +45,7 @@
 	<string name="pref_alternative_suggestion_scrolling_summary">Abilitare se a volte non riesci a vedere tutti i suggerimenti o hai problemi a scorrerli.</string>
 	<string name="pref_arrows_left_right_summary">Mostrare i tasti freccia sinistra/destra per scorrere i suggerimenti o spostare il cursore di testo orizzontalmente.</string>
 	<string name="pref_arrows_up_down_summary">Consentire lo scorrimento verso l’alto/il basso sul tasto OK per filtrare i suggerimenti o spostare verticalmente il cursore di testo.</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last_summary_off">Mostra i completamenti più probabili all’inizio dell’elenco dei suggerimenti.</string>
 	<string name="pref_auto_mind_reading_summary">Mostra suggerimenti per la parola successiva prima di iniziare a digitare o dopo la prima lettera. Inizia senza suggerimenti e impara mentre digiti.</string>
 	<string name="pref_auto_space">Spazio automatico</string>
 	<string name="pref_auto_space_summary">Aggiungere automaticamente uno spazio dopo la punteggiatura o le parole.</string>
@@ -296,5 +297,7 @@
 	<string name="function_txt_cut">Taglia</string>
 	<string name="function_txt_copy">Copia</string>
 	<string name="accessibility_key_left">Freccia sinistra</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last">Mostra completamenti automatici alla fine</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Mostra i completamenti possibili alla fine dell’elenco dei suggerimenti.</string>
 </resources>
 

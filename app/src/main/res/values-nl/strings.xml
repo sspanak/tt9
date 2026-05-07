@@ -43,6 +43,7 @@
 	<string name="pref_arrows_left_right">Pijlen links/rechts</string>
 	<string name="pref_arrows_left_right_summary">Linker- en rechterpijltoetsen tonen om suggesties te scrollen of de tekstcursor horizontaal te verplaatsen.</string>
 	<string name="pref_arrows_up_down_summary">Omhoog/omlaag vegen op de OK-toets toestaan om suggesties te filteren of de tekstcursor verticaal te verplaatsen.</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last_summary_off">Toon de meest waarschijnlijke aanvullingen aan het begin van de suggestielijst.</string>
 	<string name="pref_auto_mind_reading_summary">Toon suggesties voor het volgende woord voordat je begint met typen of na de eerste letter. Begint zonder suggesties en leert terwijl je typt.</string>
 	<string name="pref_auto_space">Automatische spatie</string>
 	<string name="pref_auto_space_summary">Automatisch een spatie toevoegen na interpunctie of woorden.</string>
@@ -294,4 +295,6 @@
 	<string name="function_txt_cut">Knippen</string>
 	<string name="function_txt_copy">Kopiëren</string>
 	<string name="accessibility_key_left">Pijl links</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last">Automatische aanvullingen als laatste tonen</string>
+	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Toon mogelijke aanvullingen aan het einde van de suggestielijst.</string>
 </resources>
