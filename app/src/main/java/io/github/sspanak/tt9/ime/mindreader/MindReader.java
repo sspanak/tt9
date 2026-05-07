@@ -398,7 +398,7 @@ public class MindReader {
 			clearCache();
 		}
 
-		if (surroundingText.length < 2 || !surroundingText[1].isEmpty()) {
+		if (surroundingText.length < 2 || !surroundingText[1].trim().isEmpty()) {
 			wordContext.setText("");
 			return false;
 		} else if (InputModeKind.isABC(inputMode)) {
