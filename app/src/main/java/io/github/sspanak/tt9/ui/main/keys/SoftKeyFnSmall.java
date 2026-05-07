@@ -31,6 +31,11 @@ public class SoftKeyFnSmall extends SoftKeyNumberNumpad {
 		}
 	}
 
+	@Override
+	protected String getAccessibilityText() {
+		return CommandCollection.getBySoftKey(CommandCollection.COLLECTION_PALETTE, getId()).getName(tt9);
+	}
+
 	protected int getBottomIconId() {
 		return CommandCollection.getBySoftKey(CommandCollection.COLLECTION_PALETTE, getId()).getIcon();
 	}

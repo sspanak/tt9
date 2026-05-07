@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.commands;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.ime.TraditionalT9;
@@ -26,7 +25,8 @@ public interface Command {
 	/**
 	 * Same as getName(), but returns the actual string.
 	 */
-	default String getName(@NonNull Context context) { return context.getString(getName()); }
+	@Nullable
+	default String getName(@Nullable Context context) { return context == null ? null : context.getString(getName()); }
 
 	/**
 	 * The hard key number (0-9) that triggers this command, or -1 if none.

@@ -8,9 +8,21 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SoftKeyTextRight extends SoftKeyText {
+	private final CmdRedo redo = new CmdRedo();
+
 	public SoftKeyTextRight(Context context) { super(context); }
 	public SoftKeyTextRight(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyTextRight(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+
+	@Override
+	protected boolean handleRelease() {
+		return tt9 != null && tt9.isTextEditingActive() ? redo.run(tt9) : super.handleRelease();
+	}
+
+	@Override
+	protected String getAccessibilityText() {
+		return isTextEditingOn() ? redo.getName(tt9) : super.getAccessibilityText();
+	}
 
 	protected String getKeyChar() {
 		if (tt9 == null) return "";
@@ -22,17 +34,12 @@ public class SoftKeyTextRight extends SoftKeyText {
 	}
 
 	@Override
-	protected boolean handleRelease() {
-		return tt9 != null && tt9.isTextEditingActive() ? new CmdRedo().run(tt9) : super.handleRelease();
-	}
-
-	@Override
 	protected String getTitle() {
 		return isTextEditingOn() ? "" : super.getTitle();
 	}
 
 	@Override
 	protected int getCentralIcon() {
-		return isTextEditingOn() && !shouldHide() ? new CmdRedo().getIcon() : -1;
+		return isTextEditingOn() && !shouldHide() ? redo.getIcon() : -1;
 	}
 }

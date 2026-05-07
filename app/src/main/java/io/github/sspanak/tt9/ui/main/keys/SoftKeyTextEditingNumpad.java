@@ -24,6 +24,15 @@ public class SoftKeyTextEditingNumpad extends SoftKeyNumberNumpad {
 	}
 
 	@Override
+	protected String getAccessibilityText() {
+		if (isTextEditingActive()) {
+			return CommandCollection.getBySoftKey(CommandCollection.COLLECTION_TEXT_EDITING, getId()).getName(tt9);
+		} else {
+			return super.getAccessibilityText();
+		}
+	}
+
+	@Override
 	protected String getTitle() {
 		if (isTextEditingActive()) {
 			return (getNumber() == 0) ? Characters.SPACE : "";

@@ -28,6 +28,11 @@ public class SoftKeyAddWord extends BaseSoftKeyWithIcons {
 	}
 
 	@Override
+	protected String getAccessibilityText() {
+		return addWord.getName(tt9);
+	}
+
+	@Override
 	protected void handleHold() {
 		preventRepeat();
 		if (editWord.isAvailable(tt9) && editWord.run(tt9)) {

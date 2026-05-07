@@ -39,6 +39,11 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 	}
 
 	@Override
+	protected String getAccessibilityText() {
+		return filter.getName(tt9);
+	}
+
+	@Override
 	protected int getCentralIcon() {
 		return duplicateLetter.isAvailable(tt9) ? duplicateLetter.getIcon() : filter.getDynamicIcon(tt9);
 	}

@@ -1,11 +1,14 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
@@ -596,5 +599,12 @@ class ModeWords extends ModeCheonjiin {
 		} else {
 			return modeString;
 		}
+	}
+
+
+	@NonNull
+	@Override
+	public String toAccessibilityString(@NonNull Context ctx) {
+		return ctx.getString(R.string.accessibility_mode_predictive, language.getName());
 	}
 }

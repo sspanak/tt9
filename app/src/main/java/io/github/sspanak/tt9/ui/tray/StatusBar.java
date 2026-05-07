@@ -99,13 +99,51 @@ public class StatusBar {
 	}
 
 
+	public void setAccessibilityText(int stringResourceId) {
+		if (statusView != null && stringResourceId != 0) {
+			setAccessibilityText(statusView.getContext().getString(stringResourceId));
+		}
+	}
+
+
+	public void setAccessibilityText(@Nullable String text) {
+		if (statusView != null && text != null) {
+			statusView.announceForAccessibility(text);
+		}
+	}
+
+
+	public void setAccessibilityText(@NonNull InputMode inputMode) {
+		if (statusView != null) {
+			setAccessibilityText(inputMode.toAccessibilityString(statusView.getContext()));
+		}
+	}
+
+
+	public void setAccessibilityTextCase(@NonNull InputMode inputMode) {
+		if (statusView == null) {
+			return;
+		}
+
+		String accessibilityText = switch (inputMode.getTextCase()) {
+			case InputMode.CASE_LOWER -> statusView.getContext().getString(R.string.accessibility_text_case_lower);
+			case InputMode.CASE_UPPER -> statusView.getContext().getString(R.string.accessibility_text_case_upper);
+			case InputMode.CASE_CAPITALIZE -> statusView.getContext().getString(R.string.accessibility_text_case_capital);
+			default -> null;
+		};
+
+		setAccessibilityText(accessibilityText);
+	}
+
+
 	public void setError(String error) {
+		setAccessibilityText(error);
 		setText("❌  " + error);
 	}
 
 
 	public void setText(int stringResourceId) {
-		if (statusView != null) {
+		if (statusView != null && stringResourceId != 0) {
 			setText(statusView.getContext().getString(stringResourceId));
 		}
 	}

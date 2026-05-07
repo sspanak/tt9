@@ -76,6 +76,11 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	}
 
 	@Override
+	protected String getAccessibilityText() {
+		return getContext().getString(R.string.function_next_mode);
+	}
+
+	@Override
 	protected String getTitle() {
 		return tt9 != null ? tt9.getInputModeName() : getContext().getString(R.string.virtual_key_input_mode);
 	}
