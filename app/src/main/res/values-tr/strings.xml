@@ -283,6 +283,7 @@
 	<string name="dictionary_import_raise_import_limits">İçe aktarma kısıtlamalarını artır</string>
 	<string name="dictionary_import_cancel">İçe aktarmayı iptal et</string>
 	<string name="pref_auto_mind_reading">Zihin Okuma</string>
+	<string name="accessibility_key_right">Sağ ok</string>
 	<string name="accessibility_mode_123">sayılar</string>
 	<string name="accessibility_mode_predictive">%1$s – tahminli metin</string>
 	<string name="accessibility_mode_recomposing">Kelimeyi düzenle: %1$s</string>
@@ -296,4 +297,5 @@
 	<string name="function_txt_select_none">Seçimi kaldır</string>
 	<string name="function_txt_cut">Kes</string>
 	<string name="function_txt_copy">Kopyala</string>
+	<string name="accessibility_key_left">Sol ok</string>
 </resources>

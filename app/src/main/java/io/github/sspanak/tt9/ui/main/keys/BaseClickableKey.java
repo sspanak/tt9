@@ -98,19 +98,18 @@ public class BaseClickableKey extends com.google.android.material.button.Materia
 			return true;
 		}
 
+		super.onTouchEvent(event);
 		int action = (event.getAction() & MotionEvent.ACTION_MASK);
 
 		if (action == MotionEvent.ACTION_DOWN) {
-			super.onTouchEvent(event);
 			return handlePress();
 		} else if (action == MotionEvent.ACTION_UP) {
 			if (!repeat || hold) {
-				return performClick();
+				return release();
 			}
 			repeat = false;
 		}
 
-		super.onTouchEvent(event);
 		return false;
 	}
 
@@ -218,8 +217,16 @@ public class BaseClickableKey extends com.google.android.material.button.Materia
 
 	@Override
 	public boolean performClick() {
-		super.performClick();
+		if (tt9 != null && tt9.isTouchExplorationEnabled()) {
+			super.performClick();
+			return release();
+		}
 
+		return super.performClick();
+	}
+
+
+	private boolean release() {
 		hold = false;
 		repeat = false;
 		boolean result = handleRelease();

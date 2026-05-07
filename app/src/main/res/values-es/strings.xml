@@ -278,6 +278,7 @@
 	<string name="dictionary_import_raise_import_limits">Aumentar restricciones de importación</string>
 	<string name="dictionary_import_cancel">Cancelar importación</string>
 	<string name="pref_auto_mind_reading">Lectura de mente</string>
+	<string name="accessibility_key_right">Flecha derecha</string>
 	<string name="accessibility_mode_123">números</string>
 	<string name="accessibility_mode_predictive">%1$s – texto predictivo</string>
 	<string name="accessibility_mode_recomposing">Editar palabra: %1$s</string>
@@ -291,4 +292,5 @@
 	<string name="function_txt_select_none">Quitar selección</string>
 	<string name="function_txt_cut">Cortar</string>
 	<string name="function_txt_copy">Copiar</string>
+	<string name="accessibility_key_left">Flecha izquierda</string>
 </resources>

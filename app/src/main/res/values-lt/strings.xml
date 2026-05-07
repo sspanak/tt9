@@ -287,6 +287,7 @@
 	<string name="dictionary_import_raise_import_limits">Padidinti importo apribojimus</string>
 	<string name="dictionary_import_cancel">Atšaukti importavimą</string>
 	<string name="pref_auto_mind_reading">Minčių skaitymas</string>
+	<string name="accessibility_key_right">Rodyklė dešinėn</string>
 	<string name="accessibility_mode_123">skaičiai</string>
 	<string name="accessibility_mode_predictive">%1$s – nuspėjamumas</string>
 	<string name="accessibility_mode_recomposing">Redaguoti žodį: %1$s</string>
@@ -300,4 +301,5 @@
 	<string name="function_txt_select_none">Panaikinti pasirinkimą</string>
 	<string name="function_txt_cut">Iškirpti</string>
 	<string name="function_txt_copy">Kopijuoti</string>
+	<string name="accessibility_key_left">Rodyklė kairėn</string>
 </resources>

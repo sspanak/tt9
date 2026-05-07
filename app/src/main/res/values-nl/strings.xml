@@ -279,6 +279,7 @@
 	<string name="dictionary_import_raise_import_limits">Importbeperkingen verhogen</string>
 	<string name="dictionary_import_cancel">Importeren annuleren</string>
 	<string name="pref_auto_mind_reading">Gedachten lezen</string>
+	<string name="accessibility_key_right">Pijl rechts</string>
 	<string name="accessibility_mode_123">cijfers</string>
 	<string name="accessibility_mode_predictive">%1$s – voorspellend</string>
 	<string name="accessibility_mode_recomposing">Woord bewerken: %1$s</string>
@@ -292,4 +293,5 @@
 	<string name="function_txt_select_none">Selectie opheffen</string>
 	<string name="function_txt_cut">Knippen</string>
 	<string name="function_txt_copy">Kopiëren</string>
+	<string name="accessibility_key_left">Pijl links</string>
 </resources>

@@ -21,10 +21,6 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 	public SoftKeyArrow(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyArrow(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
-	@Override
-	protected boolean allowTwoStepInAccessibility() {
-		return false;
-	}
 
 	@Override
 	protected boolean handlePress() {
@@ -72,6 +68,16 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 
 	private boolean onRight() {
 		return new CmdSuggestionNext().run(tt9) || moveCursor.run(tt9, CmdMoveCursor.CURSOR_MOVE_RIGHT);
+	}
+
+
+	@Override
+	protected String getAccessibilityText() {
+		int keyId = getId();
+		if (keyId == R.id.soft_key_left_arrow) return getContext().getString(R.string.accessibility_key_left);
+		if (keyId == R.id.soft_key_right_arrow) return getContext().getString(R.string.accessibility_key_right);
+
+		return super.getAccessibilityText();
 	}
 
 	@Override

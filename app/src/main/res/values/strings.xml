@@ -18,6 +18,8 @@
 
 	<string name="error_unexpected">Unexpected error occurred.</string>
 
+	<string name="accessibility_key_left">Left Arrow</string>
+	<string name="accessibility_key_right">Right Arrow</string>
 	<string name="accessibility_mode_123">numbers</string>
 	<string name="accessibility_mode_predictive">%1$s - predictive</string>
 	<string name="accessibility_mode_recomposing">Edit word: "%1$s"</string>
