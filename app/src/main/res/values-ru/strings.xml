@@ -88,7 +88,6 @@
 	<string name="pref_arrows_left_right_summary">Показывать клавиши со стрелками влево/вправо для прокрутки подсказок или горизонтального перемещения текстового курсора.</string>
 	<string name="pref_arrows_up_down_summary">Разрешить свайп вверх/вниз по клавише OK для фильтрации подсказок или вертикального перемещения текстового курсора.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_off">Показывать наиболее вероятные дополнения в начале списка подсказок.</string>
-	<string name="pref_auto_mind_reading_summary">Показывать варианты следующего слова до начала ввода или после первой буквы. Сначала без подсказок и постепенно обучается по мере ввода.</string>
 	<string name="pref_auto_space">Авто пробел</string>
 	<string name="pref_auto_space_summary">Автоматически добавлять пробел после слов и знаков препинания.</string>
 	<string name="pref_auto_text_case">Авто заглавные буквы</string>
@@ -294,6 +293,10 @@
 	<string name="function_txt_cut">Вырезать</string>
 	<string name="function_txt_copy">Копировать</string>
 	<string name="accessibility_key_left">Стрелка влево</string>
+	<string name="pref_auto_mind_reading_complete_summary">Показывать варианты завершения слов после ввода первой буквы. Сначала использует небольшой словарь и обучается по мере ввода.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Показывать автодополнения последними</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Показывать возможные дополнения в конце списка подсказок.</string>
+	<string name="pref_auto_mind_reading_guess">Предсказание следующего слова</string>
+	<string name="pref_auto_mind_reading_guess_summary">Показывать предсказания следующего слова до начала ввода. Сначала использует небольшой словарь и обучается по мере ввода.</string>
+	<string name="pref_auto_mind_reading_complete">Автодополнение</string>
 </resources>

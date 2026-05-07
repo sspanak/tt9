@@ -94,7 +94,6 @@
 	<string name="pref_arrows_left_right_summary">Mostrar las teclas de flecha izquierda/derecha para desplazarse por las sugerencias o mover el cursor de texto horizontalmente.</string>
 	<string name="pref_arrows_up_down_summary">Permitir deslizar hacia arriba/abajo en la tecla OK para filtrar sugerencias o mover el cursor de texto verticalmente.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_off">Mostrar las completaciones más probables al principio de la lista de sugerencias.</string>
-	<string name="pref_auto_mind_reading_summary">Mostrar sugerencias de la siguiente palabra antes de empezar a escribir o después de la primera letra. Comienza sin sugerencias y aprende mientras escribes.</string>
 	<string name="pref_auto_space">Espacio automático</string>
 	<string name="pref_auto_space_summary">Insertar un espacio automático después de palabras y signos de puntuación.</string>
 	<string name="pref_drag_resize_summary">Arrastrar la barra de estado o la tecla de ajustes para minimizar el teclado o ajustar su posición en la pantalla.</string>
@@ -294,6 +293,10 @@
 	<string name="function_txt_cut">Cortar</string>
 	<string name="function_txt_copy">Copiar</string>
 	<string name="accessibility_key_left">Flecha izquierda</string>
+	<string name="pref_auto_mind_reading_complete_summary">Mostrar completaciones de palabras después de escribir la primera letra. Comienza con un pequeño diccionario y aprende mientras escribes.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Mostrar autocompletados al final</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Mostrar las posibles completaciones al final de la lista de sugerencias.</string>
+	<string name="pref_auto_mind_reading_guess">Predicciones de la siguiente palabra</string>
+	<string name="pref_auto_mind_reading_guess_summary">Mostrar predicciones de la siguiente palabra antes de empezar a escribir. Comienza con un pequeño diccionario y aprende mientras escribes.</string>
+	<string name="pref_auto_mind_reading_complete">Autocompletado</string>
 </resources>
