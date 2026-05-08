@@ -8,10 +8,18 @@ public class SettingsMindReading extends SettingsPunctuation {
 	}
 
 	public boolean getMindReading() {
-		return prefs.getBoolean("auto_mind_reading", false);
+		return getMindReadingComplete() || getMindReadingGuess();
+	}
+
+	public boolean getMindReadingGuess() {
+		return prefs.getBoolean("auto_mind_reading_guess", false);
+	}
+
+	public boolean getMindReadingComplete() {
+		return prefs.getBoolean("auto_mind_reading_complete", false);
 	}
 
 	public boolean getMindReadingSortPredictionsLast() {
-		return prefs.getBoolean("auto_mind_reading_sort_predictions_last", true);
+		return getMindReadingComplete() && prefs.getBoolean("auto_mind_reading_sort_predictions_last", true);
 	}
 }

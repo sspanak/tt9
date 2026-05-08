@@ -134,6 +134,10 @@ public class MindReader {
 	 * user types the first letter of a word.
 	 */
 	public void complete(double loadingId, @NonNull InputMode inputMode, @NonNull String[] surroundingText, int number) {
+		if (settings != null && !settings.getMindReadingComplete()) {
+			return;
+		}
+
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
@@ -197,6 +201,10 @@ public class MindReader {
 	 * a word.
 	 */
 	public void guess(@NonNull InputMode inputMode, @NonNull String[] surroundingText, @Nullable String lastWord, @NonNull Runnable onComplete) {
+		if (settings != null && !settings.getMindReadingGuess()) {
+			return;
+		}
+
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
@@ -258,6 +266,7 @@ public class MindReader {
 		runInThread(this::persistSync);
 	}
 
+
 	/**
 	 * Save the dictionary and the n-grams for the current language to the database.
 	 */
@@ -285,6 +294,10 @@ public class MindReader {
 	 * Set and potentially save the current context, without guessing anything.
 	 */
 	public void setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
+		if (isOff()) {
+			return;
+		}
+
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 

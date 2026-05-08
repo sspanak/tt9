@@ -44,7 +44,6 @@
 	<string name="pref_arrows_left_right_summary">Öneriler arasında gezinmek veya metin imlecini yatay olarak hareket ettirmek için sol/sağ ok tuşlarını göster.</string>
 	<string name="pref_arrows_up_down_summary">OK tuşunda yukarı/aşağı kaydırmaya izin vererek önerileri filtrelemek veya metin imlecini dikey olarak hareket ettirmek.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_off">En olası tamamlamaları öneri listesinin başında göster.</string>
-	<string name="pref_auto_mind_reading_summary">Yazmaya başlamadan önce veya ilk harften sonra sonraki kelime önerilerini göster. Başlangıçta öneri yoktur ve yazdıkça öğrenir.</string>
 	<string name="pref_auto_space">Otomatik Boşluk</string>
 	<string name="pref_auto_space_summary">Seçimlerin sonrasında otomatik olarak boşluk ekler.</string>
 	<string name="pref_auto_text_case">Otomatik Büyük Harf</string>
@@ -299,6 +298,10 @@
 	<string name="function_txt_cut">Kes</string>
 	<string name="function_txt_copy">Kopyala</string>
 	<string name="accessibility_key_left">Sol ok</string>
+	<string name="pref_auto_mind_reading_complete_summary">İlk harfi yazdıktan sonra kelime tamamlamalarını göster. Küçük bir sözlükle başlar ve yazdıkça öğrenir.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Otomatik tamamlamaları sonda göster</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Olası tamamlamaları öneri listesinin sonunda göster.</string>
+	<string name="pref_auto_mind_reading_guess">Sonraki kelime tahminleri</string>
+	<string name="pref_auto_mind_reading_guess_summary">Yazmaya başlamadan önce sonraki kelime tahminlerini göster. Küçük bir sözlükle başlar ve yazdıkça öğrenir.</string>
+	<string name="pref_auto_mind_reading_complete">Otomatik tamamlama</string>
 </resources>

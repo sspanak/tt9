@@ -87,7 +87,6 @@
 	<string name="pref_arrows_left_right_summary">Afficher les flèches gauche/droite pour faire défiler les suggestions ou déplacer le curseur de texte horizontalement.</string>
 	<string name="pref_arrows_up_down_summary">Autoriser le balayage vers le haut/bas sur la touche OK pour filtrer les suggestions ou déplacer le curseur de texte verticalement.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_off">Afficher les complétions les plus probables au début de la liste de suggestions.</string>
-	<string name="pref_auto_mind_reading_summary">Afficher des suggestions de mot suivant avant de commencer à saisir ou après la première lettre. Commence sans suggestions et apprend au fur et à mesure que vous tapez.</string>
 	<string name="pref_auto_space">Espace automatique</string>
 	<string name="pref_auto_text_case">Majuscules automatiques</string>
 	<string name="pref_auto_space_summary">Ajouter automatiquement un espace après signes de ponctuation et mots.</string>
@@ -294,6 +293,10 @@
 	<string name="function_txt_cut">Couper</string>
 	<string name="function_txt_copy">Copier</string>
 	<string name="accessibility_key_left">Flèche gauche</string>
+	<string name="pref_auto_mind_reading_complete_summary">Afficher des complétions de mots après la première lettre. Commence avec un petit dictionnaire et apprend au fur et à mesure que vous tapez.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Afficher les complétions automatiques en dernier</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Afficher les complétions possibles à la fin de la liste de suggestions.</string>
+	<string name="pref_auto_mind_reading_guess">Prédictions du mot suivant</string>
+	<string name="pref_auto_mind_reading_guess_summary">Afficher des prédictions du mot suivant avant de commencer à saisir. Commence avec un petit dictionnaire et apprend au fur et à mesure que vous tapez.</string>
+	<string name="pref_auto_mind_reading_complete">Saisie semi-automatique</string>
 </resources>
