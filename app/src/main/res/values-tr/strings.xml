@@ -298,7 +298,7 @@
 	<string name="function_txt_cut">Kes</string>
 	<string name="function_txt_copy">Kopyala</string>
 	<string name="accessibility_key_left">Sol ok</string>
-	<string name="pref_auto_mind_reading_complete_summary">lk harfi yazdıktan sonra kelime tamamlamalarını göster. Küçük bir sözlükle başlar ve yazdıkça öğrenir.</string>
+	<string name="pref_auto_mind_reading_complete_summary">İlk harfi yazdıktan sonra kelime tamamlamalarını göster. Küçük bir sözlükle başlar ve yazdıkça öğrenir.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Otomatik tamamlamaları sonda göster</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Olası tamamlamaları öneri listesinin sonunda göster.</string>
 	<string name="pref_auto_mind_reading_guess">Sonraki kelime tahminleri</string>
