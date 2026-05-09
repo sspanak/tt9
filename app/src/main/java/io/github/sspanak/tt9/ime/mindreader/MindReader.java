@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +29,7 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.Timer;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class MindReader {
 	private static final String LOG_TAG = MindReader.class.getSimpleName();
@@ -259,6 +261,45 @@ public class MindReader {
 	}
 
 
+	private void importSync(@NonNull Context context, @Nullable Language language) {
+		if (settings == null || language == null || settings.areMindReaderFactoryNgramsImported(language)) {
+			return;
+		}
+
+		final String TIMER_TAG = LOG_TAG + Math.random();
+		Timer.start(TIMER_TAG);
+
+		final String prefix = LanguageKind.isThai(language) ? null : Characters.getChar(language, ".");
+		final ArrayList<String> ngramFileLines = new NgramsFile(context, context.getAssets(), language).getLines();
+
+		if (ngramFileLines.isEmpty()) {
+			Logger.e(LOG_TAG, "Failed importing factory N-grams for " + language.getName() + " after: " + Timer.stop(TIMER_TAG) + " ms.");
+			Timer.stop(TIMER_TAG);
+			return;
+		}
+
+		final StringBuilder phrase = new StringBuilder();
+
+		for (String line : ngramFileLines) {
+			final String adjustedLine = prefix == null ? line : prefix + line;
+			final String[] parts = adjustedLine.split(" ");
+
+			for (int i = 0; i < parts.length; i++) {
+				for (int j = 0; j <= i; j++) {
+					phrase.append(parts[j]).append(' ');
+				}
+
+				phrase.setLength(phrase.length() - 1); // remove the trailing space
+				setContextSync(null, language, new String[] { phrase.toString(), "" }, null);
+				processContext(null, true);
+				phrase.setLength(0);
+			}
+		}
+
+		Logger.d(LOG_TAG, "Imported " + ngrams.size() + " factory N-grams and " + dictionary.size() + " tokens for " + language.getName() + " in: " + Timer.stop(TIMER_TAG) + " ms");
+	}
+
+
 	/**
 	 * Same as persistSync() but runs asynchronously and can be used from the main thread.
 	 */
@@ -349,7 +390,7 @@ public class MindReader {
 	/**
 	 * Clear the current context and cache, and load the dictionary and N-grams for the given language.
 	 */
-	public MindReader setLanguage(@NonNull Language language) {
+	public MindReader setLanguage(@NonNull Context context, @NonNull Language language) {
 		if (isOff()) {
 			return this;
 		}
@@ -371,6 +412,8 @@ public class MindReader {
 
 			clearContextSync();
 			wordContext.setLanguage(language);
+
+			importSync(context, language);
 
 			// save statistics and log
 			final long time = Timer.stop(TIMER_TAG);

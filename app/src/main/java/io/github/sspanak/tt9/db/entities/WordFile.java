@@ -8,44 +8,32 @@ import androidx.annotation.NonNull;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.AssetFile;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.RemoteAssetFile;
 
-public class WordFile extends AssetFile {
+public class WordFile extends RemoteAssetFile {
 	private static final String LOG_TAG = WordFile.class.getSimpleName();
 
-	private final Context context;
 	private final boolean hasSyllables;
 
 	private int lastCharCode;
-	private BufferedReader reader;
 
 	private String hash = null;
-	private String downloadUrl = null;
 	private int words = -1;
 	private long size = -1;
 
 
 	public WordFile(@NonNull Context context, Language language, AssetManager assets) {
-		super(assets, language != null ? language.getDictionaryFile() : "");
-		this.context = context;
+		super(context, assets, language != null ? language.getDictionaryFile() : "");
 		hasSyllables = language != null && language.isTranscribed();
 
 		lastCharCode = 0;
-		reader = null;
 	}
 
 
@@ -66,57 +54,13 @@ public class WordFile extends AssetFile {
 	}
 
 
-	public InputStream getRemoteStream() throws IOException {
-		URLConnection connection = new URL(getDownloadUrl()).openConnection();
-		connection.setConnectTimeout(SettingsStore.DICTIONARY_DOWNLOAD_CONNECTION_TIMEOUT);
-		connection.setReadTimeout(SettingsStore.DICTIONARY_DOWNLOAD_READ_TIMEOUT);
-		return connection.getInputStream();
-	}
+	@Override
+	protected void parseProperties(String rawProperty, String rawValue) {
+		super.parseProperties(rawProperty, rawValue);
 
-
-	public BufferedReader getReader() throws IOException {
-		if (reader != null) {
-			return reader;
-		}
-
-		InputStream stream = exists() ? getStream() : getRemoteStream();
-		ZipInputStream zipStream = new ZipInputStream(stream);
-		ZipEntry entry = zipStream.getNextEntry();
-		if (entry == null) {
-			throw new IOException("Dictionary ZIP file: " + path + " is empty.");
-		}
-		return reader = new BufferedReader(new InputStreamReader(zipStream, StandardCharsets.UTF_8));
-	}
-
-
-	private String getDownloadUrl() {
-		if (downloadUrl == null) {
-			loadProperties();
-		}
-
-		return downloadUrl;
-	}
-
-
-	private void setDownloadUrl(String rawProperty, String rawValue) {
-		if (!rawProperty.equals("revision")) {
-			return;
-		}
-
-		downloadUrl = null;
-
-		String revision = rawValue == null || rawValue.isEmpty() ? "" : rawValue;
-		if (revision.isEmpty()) {
-			Logger.w(LOG_TAG, "Invalid 'revision' property of: " + path + ". Expecting a string, got: '" + rawValue + "'.");
-			return;
-		}
-
-		if (path == null || path.isEmpty()) {
-			Logger.w(LOG_TAG, "Cannot generate a download URL for an empty path.");
-			return;
-		}
-
-		downloadUrl = context.getString(R.string.dictionary_url, revision, new File(path).getName());
+		setHash(rawProperty, rawValue);
+		setSize(rawProperty, rawValue);
+		setWords(rawProperty, rawValue);
 	}
 
 
@@ -214,25 +158,7 @@ public class WordFile extends AssetFile {
 	}
 
 
-	private void loadProperties() {
-		String propertyFilename = path.replaceFirst("\\.\\w+$", "") + ".props.yml";
 
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(assets.open(propertyFilename)))) {
-			for (String line; (line = reader.readLine()) != null; ) {
-				String[] parts = line.split("\\s*:\\s*");
-				if (parts.length < 2) {
-					continue;
-				}
-
-				setDownloadUrl(parts[0], parts[1]);
-				setHash(parts[0], parts[1]);
-				setWords(parts[0], parts[1]);
-				setSize(parts[0], parts[1]);
-			}
-		} catch (Exception e) {
-			Logger.w(LOG_TAG, "Could not read the property file: " + propertyFilename + ". " + e.getMessage());
-		}
-	}
 
 
 	public String getNextSequence() throws IOException {

@@ -14,6 +14,7 @@ public class NullLanguage extends Language {
 		hasUpperCase = false;
 		locale = Locale.ROOT;
 		name = "Nulla Lingua";
+		ngramsFile = "";
 	}
 
 	@Override

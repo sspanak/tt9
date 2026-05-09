@@ -54,6 +54,13 @@ tasks.register('copyDownloadsToAssets', Copy) {
 }
 
 
+tasks.register('copyNgrams', Copy) {
+	from NGRAMS_INPUT_DIR
+	include '**/*.*'
+	into NGRAMS_OUTPUT_DIR
+}
+
+
 tasks.register('generateDocs') {
 	inputs.dir HELP_MARKDOWN_DIR
 	inputs.file PRIVACY_POLICY_MARKDOWN
@@ -169,7 +176,7 @@ android {
 				"generate${variantName}LintVitalReportModel"
 			].each { taskName ->
 				tasks.matching { it.name == taskName }.configureEach {
-					dependsOn(buildDefinition, generateDocs, validateLanguages, buildDictionaryDownloads)
+					dependsOn(buildDefinition, generateDocs, validateLanguages, buildDictionaryDownloads, copyNgrams)
 
 					if (taskName.toLowerCase().contains("full")) {
 						dependsOn(copyDownloadsToAssets)

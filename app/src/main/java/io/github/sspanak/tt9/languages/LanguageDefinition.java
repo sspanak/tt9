@@ -240,4 +240,9 @@ public class LanguageDefinition {
 	public String getDictionaryFile() {
 		return LANGUAGES_DIR + "/dictionaries/" + dictionaryFile;
 	}
+
+
+	public String getNgramsFile() {
+		return LANGUAGES_DIR + "/ngrams/" + dictionaryFile.replace("-utf8", "");
+	}
 }

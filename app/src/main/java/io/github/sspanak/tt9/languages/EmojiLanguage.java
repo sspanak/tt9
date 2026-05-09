@@ -18,7 +18,9 @@ public class EmojiLanguage extends Language {
 		abcString = "emoji";
 		code = "emj";
 		currency = "";
+		dictionaryFile = "";
 		name = "Emoji";
+		ngramsFile = "";
 		seq = sequences == null ? new Sequences() : sequences;
 	}
 
