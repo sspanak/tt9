@@ -16,6 +16,10 @@ public class SettingsMindReading extends SettingsPunctuation {
 		return prefs.getBoolean("mind_reader_factory_ngrams_imported_" + language.getId(), false);
 	}
 
+	public void setMindReaderFactoryNgramsImported(@NonNull Language language) {
+		getPrefsEditor().putBoolean("mind_reader_factory_ngrams_imported_" + language.getId(), true).apply();
+	}
+
 	public boolean getMindReading() {
 		return getMindReadingComplete() || getMindReadingGuess();
 	}

@@ -296,6 +296,8 @@ public class MindReader {
 			}
 		}
 
+		settings.setMindReaderFactoryNgramsImported(language);
+
 		Logger.d(LOG_TAG, "Imported " + ngrams.size() + " factory N-grams and " + dictionary.size() + " tokens for " + language.getName() + " in: " + Timer.stop(TIMER_TAG) + " ms");
 	}
 
