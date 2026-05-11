@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
-import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -261,6 +260,7 @@ public class MindReader {
 	}
 
 
+	@WorkerThread
 	private void importSync(@NonNull Context context, @Nullable Language language) {
 		if (settings == null || language == null || settings.areMindReaderFactoryNgramsImported(language)) {
 			return;
@@ -270,30 +270,9 @@ public class MindReader {
 		Timer.start(TIMER_TAG);
 
 		final String prefix = LanguageKind.isThai(language) ? null : Characters.getChar(language, ".");
-		final ArrayList<String> ngramFileLines = new NgramsFile(context, context.getAssets(), language).getLines();
-
-		if (ngramFileLines.isEmpty()) {
-			Logger.e(LOG_TAG, "Failed importing factory N-grams for " + language.getName() + " after: " + Timer.stop(TIMER_TAG) + " ms.");
-			Timer.stop(TIMER_TAG);
-			return;
-		}
-
-		final StringBuilder phrase = new StringBuilder();
-
-		for (String line : ngramFileLines) {
-			final String adjustedLine = prefix == null ? line : prefix + line;
-			final String[] parts = adjustedLine.split(" ");
-
-			for (int i = 0; i < parts.length; i++) {
-				for (int j = 0; j <= i; j++) {
-					phrase.append(parts[j]).append(' ');
-				}
-
-				phrase.setLength(phrase.length() - 1); // remove the trailing space
-				setContextSync(null, language, new String[] { phrase.toString(), "" }, null);
-				processContext(null, true);
-				phrase.setLength(0);
-			}
+		for (String ngram : new NgramsFile(context, context.getAssets(), language).getLines()) {
+			setContextSync(null, language, new String[] { prefix + ngram, "" }, null);
+			processContext(null, true);
 		}
 
 		settings.setMindReaderFactoryNgramsImported(language);
