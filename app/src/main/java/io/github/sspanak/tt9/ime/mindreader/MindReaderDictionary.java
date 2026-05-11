@@ -202,14 +202,19 @@ public class MindReaderDictionary {
 
 
 	@NonNull
-	ArrayList<String> getAll(@NonNull Set<Integer> tokenIds, @Nullable String startsWith) {
-		final ArrayList<String> results = new ArrayList<>(tokenIds.size());
+	ArrayList<String> getAll(@NonNull Set<Integer> tokenIds, @Nullable String startsWith, int limit) {
+		if (limit <= 0) {
+			return new ArrayList<>();
+		}
+
+		final ArrayList<String> results = new ArrayList<>(Math.min(tokenIds.size(), limit));
 
 		String prefix = startsWith;
 		if (prefix != null && locale != null) {
 			prefix = prefix.toLowerCase(locale);
 		}
 
+		int resultsCount = 0;
 		for (int tokenId : tokenIds) {
 			if (!isWord(tokenId) || tokenId >= size) {
 				continue;
@@ -217,11 +222,17 @@ public class MindReaderDictionary {
 
 			if (prefix == null) {
 				results.add(tokens[tokenId]);
+				resultsCount++;
 			} else {
 				final String tokenLower = locale != null ? tokens[tokenId].toLowerCase(locale) : tokens[tokenId];
 				if (tokenLower.startsWith(prefix)) {
 					results.add(tokens[tokenId]);
+					resultsCount++;
 				}
+			}
+
+			if (resultsCount >= limit) {
+				break;
 			}
 		}
 

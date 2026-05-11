@@ -22,6 +22,7 @@ public class SettingsStatic extends SettingsColors {
 	public final static int LANGUAGE_SEARCH_DEBOUNCE_TIME = 500; // ms
 	public static final int MIND_READER_DICTIONARY_WORD_SIZE = 16; // bits
 	public static final int MIND_READER_MAX_NGRAM_SIZE = 4;
+	public static final int MIND_READER_MAX_UNIGRAM_VARIATIONS = 3000;
 	public static final int MIND_READER_MAX_BIGRAM_SUGGESTIONS = 5;
 	public static final int MIND_READER_MAX_TRIGRAM_SUGGESTIONS = 4;
 	public static final int MIND_READER_MAX_TETRAGRAM_SUGGESTIONS = 4;

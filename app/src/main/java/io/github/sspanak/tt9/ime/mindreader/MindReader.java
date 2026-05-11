@@ -32,6 +32,7 @@ import io.github.sspanak.tt9.util.chars.Characters;
 
 public class MindReader {
 	private static final String LOG_TAG = MindReader.class.getSimpleName();
+	private static final int MAX_WORDS = Math.max(SettingsStore.MIND_READER_MAX_BIGRAM_SUGGESTIONS, Math.max(SettingsStore.MIND_READER_MAX_TRIGRAM_SUGGESTIONS, SettingsStore.MIND_READER_MAX_TETRAGRAM_SUGGESTIONS));
 
 	private static volatile boolean clearCacheOnNextUse = false;
 
@@ -174,10 +175,10 @@ public class MindReader {
 
 			processContext(inputMode, false);
 
-			final Set<Integer> nextTokens = ngrams.getNextTokens(dictionary, wordContext);
+			final Set<Integer> nextTokens = ngrams.getNextTokens(dictionary, wordContext, SettingsStore.MIND_READER_MAX_UNIGRAM_VARIATIONS);
 			ArrayList<String> completions = new ArrayList<>();
 			for (String letter : alternativeLetters) {
-				completions.addAll(dictionary.getAll(nextTokens, letter));
+				completions.addAll(dictionary.getAll(nextTokens, letter, MAX_WORDS - completions.size()));
 			}
 
 			if (requestVersion != completeRequestCount.get()) {
@@ -241,7 +242,7 @@ public class MindReader {
 				// don't be too eager to guess what comes after punctuation, emoji etc...
 				guesses = new ArrayList<>();
 			} else {
-				guesses = dictionary.getAll(ngrams.getNextTokens(dictionary, wordContext), null);
+				guesses = dictionary.getAll(ngrams.getNextTokens(dictionary, wordContext), null, MAX_WORDS);
 			}
 
 			if (requestVersion != guessRequestCount.get()) {

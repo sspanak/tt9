@@ -12,9 +12,11 @@ class MindReaderNgram implements Comparable<MindReaderNgram> {
 	final long complete;
 	final boolean isValid;
 	final int size;
+	final boolean isUnigram;
 
 	MindReaderNgram(@Nullable Language language, int[] tokens) {
 		size = tokens.length;
+		isUnigram = size == 1 || (size == 2 && MindReaderDictionary.isPunctuation(language, tokens[0]) && !MindReaderDictionary.isPunctuation(language, tokens[1]));
 
 		if (size == 0) {
 			before = -1;
