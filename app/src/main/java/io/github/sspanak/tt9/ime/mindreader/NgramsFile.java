@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import io.github.sspanak.tt9.util.RemoteAssetFile;
 public class NgramsFile extends RemoteAssetFile {
 	private static final String LOG_TAG = NgramsFile.class.getSimpleName();
 
-	@NonNull private String revision = "";
+	@Nullable private String revision = null;
 
 
 	public NgramsFile(@NonNull Context context, @NonNull AssetManager assets, @NonNull Language language) {
@@ -45,6 +46,10 @@ public class NgramsFile extends RemoteAssetFile {
 
 	@NonNull
 	public String getRevision() {
+		if (revision == null) {
+			loadProperties();
+		}
+
 		return revision;
 	}
 

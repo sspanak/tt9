@@ -17,7 +17,7 @@ public class SettingsMindReading extends SettingsPunctuation {
 	}
 
 	public void setMindReaderFactoryNgramsRevision(@NonNull Language language, @NonNull String newRevision) {
-		getPrefsEditor().putString("mind_reader_factory_ngrams_imported_" + language.getId(), newRevision).apply();
+		getPrefsEditor().putString("mind_reader_factory_ngrams_revision_" + language.getId(), newRevision).apply();
 	}
 
 	public boolean getMindReading() {
