@@ -263,7 +263,7 @@ public class MindReader {
 
 	@WorkerThread
 	private void importSync(@NonNull Context context, @Nullable Language language) {
-		if (settings == null || language == null || settings.areMindReaderFactoryNgramsImported(language)) {
+		if (settings == null || language == null) {
 			return;
 		}
 
@@ -271,13 +271,19 @@ public class MindReader {
 		Timer.start(TIMER_TAG);
 
 		final String prefix = LanguageKind.isThai(language) ? null : Characters.getChar(language, ".");
-		for (String ngram : new NgramsFile(context, context.getAssets(), language).getLines()) {
+		final NgramsFile ngramsFile = new NgramsFile(context, context.getAssets(), language);
+
+		if (settings.areMindReaderFactoryNgramsImported(language, ngramsFile.getRevision())) {
+			Timer.stop(TIMER_TAG);
+			return;
+		}
+
+		for (String ngram : ngramsFile.getLines()) {
 			setContextSync(null, language, new String[] { prefix + ngram, "" }, null);
 			processContext(null, true);
 		}
 
-		settings.setMindReaderFactoryNgramsImported(language);
-
+		settings.setMindReaderFactoryNgramsRevision(language, ngramsFile.getRevision());
 		Logger.d(LOG_TAG, "Imported " + ngrams.size() + " factory N-grams and " + dictionary.size() + " tokens for " + language.getName() + " in: " + Timer.stop(TIMER_TAG) + " ms");
 	}
 

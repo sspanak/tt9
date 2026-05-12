@@ -14,11 +14,21 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.RemoteAssetFile;
 
 public class NgramsFile extends RemoteAssetFile {
+	private static final String LOG_TAG = NgramsFile.class.getSimpleName();
+
+	@NonNull private String revision = "";
+
+
 	public NgramsFile(@NonNull Context context, @NonNull AssetManager assets, @NonNull Language language) {
 		super(context, assets, language.getNgramsFile());
 	}
 
+
 	public ArrayList<String> getLines() {
+		if (!exists()) {
+			return new ArrayList<>();
+		}
+
 		try (BufferedReader reader = getReader()) {
 			final ArrayList<String> lines = new ArrayList<>();
 			String line;
@@ -27,8 +37,34 @@ public class NgramsFile extends RemoteAssetFile {
 			}
 			return lines;
 		} catch (IOException e) {
-			Logger.e(getClass().getSimpleName(), "Error reading N-grams file. " + e.getMessage());
+			Logger.e(LOG_TAG, "Error reading N-grams file. " + e.getMessage());
 			return new ArrayList<>();
+		}
+	}
+
+
+	@NonNull
+	public String getRevision() {
+		return revision;
+	}
+
+
+	@Override
+	protected void parseProperties(String rawProperty, String rawValue) {
+		super.parseProperties(rawProperty, rawValue);
+		setRevision(rawProperty, rawValue);
+	}
+
+
+	private void setRevision(String rawProperty, String rawValue) {
+		if (!rawProperty.equals("revision")) {
+			return;
+		}
+
+		revision = rawValue == null || rawValue.isEmpty() ? "" : rawValue;
+
+		if (revision.isEmpty()) {
+			Logger.w(LOG_TAG, "Invalid 'revision' property of: " + path + ". Expecting a string, got: '" + rawValue + "'.");
 		}
 	}
 }

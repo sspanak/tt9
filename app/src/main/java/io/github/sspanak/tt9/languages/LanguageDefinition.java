@@ -243,6 +243,6 @@ public class LanguageDefinition {
 
 
 	public String getNgramsFile() {
-		return LANGUAGES_DIR + "/ngrams/" + dictionaryFile.replace("-utf8", "");
+		return LANGUAGES_DIR + "/ngrams/" + dictionaryFile.replace("-utf8", "-ngrams");
 	}
 }

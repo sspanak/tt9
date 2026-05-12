@@ -3,7 +3,6 @@ package io.github.sspanak.tt9.preferences.settings;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.languages.Language;
 
@@ -12,12 +11,13 @@ public class SettingsMindReading extends SettingsPunctuation {
 		super(context);
 	}
 
-	public boolean areMindReaderFactoryNgramsImported(@NonNull Language language) {
-		return prefs.getBoolean("mind_reader_factory_ngrams_imported_" + language.getId(), false);
+	public boolean areMindReaderFactoryNgramsImported(@NonNull Language language, @NonNull String newRevision) {
+		final String current = prefs.getString("mind_reader_factory_ngrams_revision_" + language.getId(), "");
+		return newRevision.equals(current);
 	}
 
-	public void setMindReaderFactoryNgramsImported(@NonNull Language language) {
-		getPrefsEditor().putBoolean("mind_reader_factory_ngrams_imported_" + language.getId(), true).apply();
+	public void setMindReaderFactoryNgramsRevision(@NonNull Language language, @NonNull String newRevision) {
+		getPrefsEditor().putString("mind_reader_factory_ngrams_imported_" + language.getId(), newRevision).apply();
 	}
 
 	public boolean getMindReading() {
