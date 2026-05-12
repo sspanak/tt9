@@ -254,9 +254,10 @@ public class InputType extends StandardInputType {
 
 	/**
 	 * isWhatsApp
-	 * WhatsApp does not replace the composing text when the current text is an emoji and the new
-	 * text is also an emoji. This hacks detects is, so that we can clear the composing text when it
-	 * starts with an emoji, to allow setting the new emoji.
+	 * WhatsApp fails to replace one graphic character with another in the composing text, due to
+	 * its non-standard InputConnection implementation. This hacks detects the app, so that we can
+	 * clear the composing text when it starts with an emoji, to allow setting a new emoji (or other
+	 * character).
 	 */
 	public boolean isWhatsApp() {
 		return isAppField("com.whatsapp", 180225);

@@ -318,6 +318,24 @@ public class TextField extends InputField {
 
 
 	/**
+	 * replaceComposingText
+	 * A compatibility setter for composing text that first erases the previous composing text and
+	 * then sets the new one. Useful for apps with a non-standard InputConnection implementation.
+	 */
+	public void replaceComposingText(CharSequence text) {
+		composingText = text;
+
+		InputConnection connection = getConnection();
+		if (text != null && connection != null && isComposingSupported) {
+			connection.beginBatchEdit();
+			connection.commitText("", 1);
+			connection.setComposingText(text, 1);
+			connection.endBatchEdit();
+		}
+	}
+
+
+	/**
 	 * finishComposingText
 	 * Finish composing text or do nothing if the text field is invalid.
 	 */
