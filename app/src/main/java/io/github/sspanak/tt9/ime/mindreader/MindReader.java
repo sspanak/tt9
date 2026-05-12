@@ -16,6 +16,7 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import io.github.sspanak.tt9.db.mindreader.MindReaderStore;
+import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
@@ -263,7 +264,7 @@ public class MindReader {
 
 	@WorkerThread
 	private void importSync(@NonNull Context context, @Nullable Language language) {
-		if (settings == null || language == null) {
+		if (settings == null || language == null || DictionaryLoader.isRunning()) {
 			return;
 		}
 
@@ -279,6 +280,11 @@ public class MindReader {
 		}
 
 		for (String ngram : ngramsFile.getLines()) {
+			if (DictionaryLoader.isRunning()) {
+				Logger.d(LOG_TAG, "Aborting MindReader factory N-grams import because a dictionary is being loaded. Stopped after: " + Timer.stop(TIMER_TAG) + " ms");
+				return;
+			}
+
 			setContextSync(null, language, new String[] { prefix + ngram, "" }, null);
 			processContext(null, true);
 		}
