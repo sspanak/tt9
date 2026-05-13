@@ -83,7 +83,7 @@ tasks.register('copyNgramsToDownloads', Copy) {
 	include '**/*ngrams.zip'
 	into DICTIONARIES_DOWNLOAD_DIR
 	dependsOn generateNgramsMeta
-	mustRunAfter generateNgramsMeta, copyDownloadsToAssets
+	mustRunAfter generateNgramsMeta, copyDownloadsToAssets, buildDictionaryDownloads
 }
 
 
