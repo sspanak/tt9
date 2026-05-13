@@ -25,7 +25,7 @@ ext.generateNgramsMetadata = { definitionsInputDir, dictionariesInputDir, iconsD
 
 // this cannot be static, because it requires access to exec()
 def generateMetadata(File dictionaryFile, String ngramsInputDir, String ngramsMetaDir) {
-	def filename = dictionaryFile.name.substring(0, dictionaryFile.name.lastIndexOf('.')).replace("-utf8", "-ngrams")
+	def filename = dictionaryFile.name.substring(0, dictionaryFile.name.lastIndexOf('.')).replace("-utf8", "") + "-ngrams"
 
 	try {
 		def ngramFile = new File("${ngramsInputDir}/${filename}.zip")
