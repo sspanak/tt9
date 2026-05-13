@@ -62,7 +62,7 @@ abstract public class RemoteAssetFile extends AssetFile {
 		ZipInputStream zipStream = new ZipInputStream(stream);
 		ZipEntry entry = zipStream.getNextEntry();
 		if (entry == null) {
-			throw new IOException("Dictionary ZIP file: " + path + " is empty.");
+			throw new IOException("ZIP file: " + path + " is empty.");
 		}
 		return reader = new BufferedReader(new InputStreamReader(zipStream, StandardCharsets.UTF_8));
 	}
