@@ -25,7 +25,7 @@ abstract public class Language {
 	protected boolean isTranscribed = false;
 	protected Locale locale = Locale.ROOT;
 	protected String name;
-	protected String ngramsFile;
+	protected String ngramsFile = "";
 
 
 	public int getId() {
