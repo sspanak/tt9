@@ -77,12 +77,15 @@ class ItemTruncateAll extends ItemClickable {
 
 
 	protected void delete(@NonNull ArrayList<Language> languages) {
-		// mind reader operations only take milliseconds, so we can safely chain the deletions
+		// mind reader operations only take milliseconds, so we can safely run it in parallel with
+		// the word deletions and assume it will be done by the time we need to update the UI in
+		// onFinishDeleting()
 		mindReaderStore.truncate(languages, () -> {
 			for (Language language : languages) {
 				activity.getSettings().setMindReaderFactoryNgramsRevision(language, "");
 			}
-			deleterOfWords.deleteLanguages(languages);
 		});
+
+		deleterOfWords.deleteLanguages(languages);
 	}
 }
