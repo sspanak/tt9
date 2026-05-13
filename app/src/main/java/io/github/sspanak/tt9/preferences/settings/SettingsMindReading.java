@@ -2,9 +2,22 @@ package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
+import io.github.sspanak.tt9.languages.Language;
+
 public class SettingsMindReading extends SettingsPunctuation {
 	SettingsMindReading(Context context) {
 		super(context);
+	}
+
+	public boolean areMindReaderFactoryNgramsImported(@NonNull Language language, @NonNull String newRevision) {
+		final String current = prefs.getString("mind_reader_factory_ngrams_revision_" + language.getId(), "");
+		return newRevision.equals(current);
+	}
+
+	public void setMindReaderFactoryNgramsRevision(@NonNull Language language, @NonNull String newRevision) {
+		getPrefsEditor().putString("mind_reader_factory_ngrams_revision_" + language.getId(), newRevision).apply();
 	}
 
 	public boolean getMindReading() {

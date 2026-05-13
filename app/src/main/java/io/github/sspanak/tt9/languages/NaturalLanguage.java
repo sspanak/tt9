@@ -36,6 +36,7 @@ public class NaturalLanguage extends TranscribedLanguage {
 		lang.iconT9 = definition.iconT9;
 		lang.isTranscribed = definition.isTranscribed;
 		lang.name = definition.name.isEmpty() ? lang.name : definition.name;
+		lang.ngramsFile = definition.getNgramsFile();
 		lang.numerals = definition.numerals;
 		lang.setLocale(definition);
 		lang.setLayout(definition);

@@ -5,6 +5,7 @@ plugins {
 apply from: 'constants.gradle'
 apply from: 'build-definitions.gradle'
 apply from: 'build-dictionaries.gradle'
+apply from: 'build-ngrams.gradle'
 apply from: 'validate-languages.gradle'
 apply from: 'help-tools.gradle'
 apply from: 'status-icon-tools.gradle'
@@ -48,9 +49,41 @@ tasks.register('buildDictionaryDownloads') {
 tasks.register('copyDownloadsToAssets', Copy) {
 	from DICTIONARIES_DOWNLOAD_DIR
 	include '**/*.zip'
+	exclude '**/*ngrams.zip'
 	into DICTIONARIES_OUTPUT_DIR
 	dependsOn buildDictionaryDownloads
 	mustRunAfter buildDictionaryDownloads
+}
+
+
+tasks.register('generateNgramsMeta') {
+	inputs.dir NGRAMS_INPUT_DIR
+	outputs.dir NGRAMS_META_OUTPUT_DIR
+
+	dependsOn validateLanguages
+	mustRunAfter validateLanguages
+
+	doLast {
+		generateNgramsMetadata(DEFINITIONS_INPUT_DIR, DICTIONARIES_INPUT_DIR, ICONS_DIR, NGRAMS_INPUT_DIR, NGRAMS_META_OUTPUT_DIR)
+	}
+}
+
+
+tasks.register('copyNgramsToAssets', Copy) {
+	from NGRAMS_INPUT_DIR
+	include '**/*ngrams.zip'
+	into NGRAMS_OUTPUT_DIR
+	dependsOn generateNgramsMeta
+	mustRunAfter generateNgramsMeta
+}
+
+
+tasks.register('copyNgramsToDownloads', Copy) {
+	from NGRAMS_INPUT_DIR
+	include '**/*ngrams.zip'
+	into DICTIONARIES_DOWNLOAD_DIR
+	dependsOn generateNgramsMeta
+	mustRunAfter generateNgramsMeta, copyDownloadsToAssets, buildDictionaryDownloads
 }
 
 
@@ -77,10 +110,11 @@ tasks.register('updateManifest') {
 }
 
 clean {
-	delete LANGUAGES_OUTPUT_DIR
+	delete DOCS_HTML_DIR
 	delete DICTIONARIES_OUTPUT_DIR
 	delete DICTIONARIES_DOWNLOAD_DIR
-	delete DOCS_HTML_DIR
+	delete LANGUAGES_OUTPUT_DIR
+	delete NGRAMS_OUTPUT_DIR
 }
 
 // using the exported Closures directly causes weird values, hence the extra wrappers here
@@ -169,7 +203,7 @@ android {
 				"generate${variantName}LintVitalReportModel"
 			].each { taskName ->
 				tasks.matching { it.name == taskName }.configureEach {
-					dependsOn(buildDefinition, generateDocs, validateLanguages, buildDictionaryDownloads)
+					dependsOn(buildDefinition, generateDocs, validateLanguages, buildDictionaryDownloads, copyNgramsToAssets, copyNgramsToDownloads)
 
 					if (taskName.toLowerCase().contains("full")) {
 						dependsOn(copyDownloadsToAssets)

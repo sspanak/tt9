@@ -16,6 +16,7 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import io.github.sspanak.tt9.db.mindreader.MindReaderStore;
+import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
@@ -28,9 +29,11 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.Timer;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class MindReader {
 	private static final String LOG_TAG = MindReader.class.getSimpleName();
+	private static final int MAX_WORDS = Math.max(SettingsStore.MIND_READER_MAX_BIGRAM_SUGGESTIONS, Math.max(SettingsStore.MIND_READER_MAX_TRIGRAM_SUGGESTIONS, SettingsStore.MIND_READER_MAX_TETRAGRAM_SUGGESTIONS));
 
 	private static volatile boolean clearCacheOnNextUse = false;
 
@@ -173,10 +176,10 @@ public class MindReader {
 
 			processContext(inputMode, false);
 
-			final Set<Integer> nextTokens = ngrams.getNextTokens(dictionary, wordContext);
+			final Set<Integer> nextTokens = ngrams.getNextTokens(dictionary, wordContext, SettingsStore.MIND_READER_MAX_UNIGRAM_VARIATIONS);
 			ArrayList<String> completions = new ArrayList<>();
 			for (String letter : alternativeLetters) {
-				completions.addAll(dictionary.getAll(nextTokens, letter));
+				completions.addAll(dictionary.getAll(nextTokens, letter, MAX_WORDS - completions.size()));
 			}
 
 			if (requestVersion != completeRequestCount.get()) {
@@ -240,7 +243,7 @@ public class MindReader {
 				// don't be too eager to guess what comes after punctuation, emoji etc...
 				guesses = new ArrayList<>();
 			} else {
-				guesses = dictionary.getAll(ngrams.getNextTokens(dictionary, wordContext), null);
+				guesses = dictionary.getAll(ngrams.getNextTokens(dictionary, wordContext), null, MAX_WORDS);
 			}
 
 			if (requestVersion != guessRequestCount.get()) {
@@ -256,6 +259,43 @@ public class MindReader {
 
 			onComplete.run();
 		});
+	}
+
+
+	@WorkerThread
+	private void importSync(@NonNull Context context, @Nullable Language language) {
+		if (settings == null || language == null || DictionaryLoader.isRunning()) {
+			return;
+		}
+
+		final String TIMER_TAG = LOG_TAG + Math.random();
+		Timer.start(TIMER_TAG);
+
+		final String sentenceSeparator = Characters.getChar(language, ".");
+		final String prefix = LanguageKind.isThai(language) ? "" : (sentenceSeparator != null ? sentenceSeparator : "");
+		final NgramsFile ngramsFile = new NgramsFile(context, context.getAssets(), language);
+
+		if (settings.areMindReaderFactoryNgramsImported(language, ngramsFile.getRevision())) {
+			Timer.stop(TIMER_TAG);
+			return;
+		}
+
+		boolean imported = false;
+		for (String ngram : ngramsFile.getLines()) {
+			if (DictionaryLoader.isRunning()) {
+				Logger.d(LOG_TAG, "Aborting MindReader factory N-grams import because a dictionary is being loaded. Stopped after: " + Timer.stop(TIMER_TAG) + " ms");
+				return;
+			}
+
+			setContextSync(null, language, new String[] { prefix + ngram, "" }, null);
+			processContext(null, true);
+			imported = true;
+		}
+
+		if (imported) {
+			settings.setMindReaderFactoryNgramsRevision(language, ngramsFile.getRevision());
+		}
+		Logger.d(LOG_TAG, "Imported " + ngrams.size() + " factory N-grams and " + dictionary.size() + " tokens for " + language.getName() + " in: " + Timer.stop(TIMER_TAG) + " ms");
 	}
 
 
@@ -349,7 +389,7 @@ public class MindReader {
 	/**
 	 * Clear the current context and cache, and load the dictionary and N-grams for the given language.
 	 */
-	public MindReader setLanguage(@NonNull Language language) {
+	public MindReader setLanguage(@NonNull Context context, @NonNull Language language) {
 		if (isOff()) {
 			return this;
 		}
@@ -371,6 +411,8 @@ public class MindReader {
 
 			clearContextSync();
 			wordContext.setLanguage(language);
+
+			importSync(context, language);
 
 			// save statistics and log
 			final long time = Timer.stop(TIMER_TAG);

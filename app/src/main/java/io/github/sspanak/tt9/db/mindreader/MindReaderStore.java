@@ -57,7 +57,7 @@ public class MindReaderStore extends BaseSyncStore {
 		}
 
 		lastLoadNgramsTime = Timer.stop(LOG_TAG);
-		Logger.d(LOG_TAG, "Loaded " + ngrams.size() + " N-grams for: " + language + " in " + lastLoadNgramsTime + " ms.");
+		Logger.d(LOG_TAG, "Loaded " + ngrams.size() + " N-grams for " + language + " in " + lastLoadNgramsTime + " ms.");
 
 		return ngrams;
 	}
@@ -76,7 +76,7 @@ public class MindReaderStore extends BaseSyncStore {
 		}
 
 		lastLoadTokensTime = Timer.stop(LOG_TAG);
-		Logger.d(LOG_TAG, "Loaded " + dictionary.size() + " tokens for: " + language + " in " + lastLoadTokensTime + " ms.");
+		Logger.d(LOG_TAG, "Loaded " + dictionary.size() + " tokens for " + language + " in " + lastLoadTokensTime + " ms.");
 
 		return dictionary;
 	}

@@ -62,7 +62,7 @@ public class MindReaderNgramList {
 
 		// keep only the most recent N-gram variations for a given context,
 		// to prevent the list from growing indefinitely and to keep the predictions relevant
-		removeOldestVariations(ngram, MAX_NGRAM_VARIATIONS[Math.min(MAX_NGRAM_VARIATIONS.length - 1, ngram.size - 2)]);
+		removeOldestVariations(ngram);
 	}
 
 
@@ -133,7 +133,18 @@ public class MindReaderNgramList {
 	Set<Integer> getNextTokens(@NonNull MindReaderDictionary dictionary, @NonNull MindReaderContext current) {
 		final MindReaderNgram currentNgram = current.toEndingNgram(dictionary);
 		final int maxIndex = Math.min(MAX_NGRAM_VARIATIONS.length - 1, Math.max(currentNgram.size - 2, 0));
-		final Set<Integer> results = new LinkedHashSet<>(MAX_NGRAM_VARIATIONS[maxIndex]);
+		return getNextTokens(dictionary, current, MAX_NGRAM_VARIATIONS[maxIndex]);
+	}
+
+
+	@NonNull
+	Set<Integer> getNextTokens(@NonNull MindReaderDictionary dictionary, @NonNull MindReaderContext current, int limit) {
+		if (limit <= 0) {
+			return new LinkedHashSet<>();
+		}
+
+		final MindReaderNgram currentNgram = current.toEndingNgram(dictionary);
+		final Set<Integer> results = new LinkedHashSet<>(limit);
 
 		if (!currentNgram.isValid) {
 			return results;
@@ -145,7 +156,7 @@ public class MindReaderNgramList {
 				results.add(next[i]);
 			}
 
-			if (results.size() >= MAX_NGRAM_VARIATIONS[maxIndex]) {
+			if (results.size() >= limit) {
 				break;
 			}
 		}
@@ -199,7 +210,15 @@ public class MindReaderNgramList {
 	}
 
 
-	private void removeOldestVariations(@NonNull MindReaderNgram ngram, int maxVariations) {
+	private void removeOldestVariations(@NonNull MindReaderNgram ngram) {
+		int maxVariations = MAX_NGRAM_VARIATIONS[0];
+
+		if (ngram.isUnigram) {
+			maxVariations = SettingsStatic.MIND_READER_MAX_UNIGRAM_VARIATIONS;
+		} else if (ngram.size >= 2) {
+			maxVariations = MAX_NGRAM_VARIATIONS[Math.min(MAX_NGRAM_VARIATIONS.length - 1, ngram.size - 2)];
+		}
+
 		for (int i = size - 1, variations = 0; i >= 0; i--) {
 			if (before[i] == ngram.before) {
 				if (variations < maxVariations) {

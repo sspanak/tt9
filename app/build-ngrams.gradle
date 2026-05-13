@@ -1,0 +1,39 @@
+ext.generateNgramsMetadata = { definitionsInputDir, dictionariesInputDir, iconsDir, ngramsInputDir, ngramsMetaDir ->
+	def errorStream = fileTree(dir: definitionsInputDir).getFiles().parallelStream().map { definition ->
+		if (!definition.name.endsWith("yml")) {
+			return ""
+		}
+
+		def (ignore1, ignore2, ignore3, ignore4, ignore5, dictionaryFile, ignore7, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesInputDir, iconsDir)
+		if (!langFileErrorMsg.isEmpty()) {
+			return langFileErrorMsg
+		}
+
+		def errorMessage = generateMetadata(dictionaryFile, ngramsInputDir, ngramsMetaDir)
+		if (!errorMessage.isEmpty()) {
+			return errorMessage
+		}
+
+		return ""
+	}
+
+	String errorsMsg = errorStream.reduce("", String::concat)
+	if (errorsMsg) {
+		throw new GradleException(errorsMsg)
+	}
+}
+
+// this cannot be static, because it requires access to exec()
+def generateMetadata(File dictionaryFile, String ngramsInputDir, String ngramsMetaDir) {
+	def filename = dictionaryFile.name.substring(0, dictionaryFile.name.lastIndexOf('.')).replace("-utf8", "") + "-ngrams"
+
+	try {
+		def ngramFile = new File("${ngramsInputDir}/${filename}.zip")
+		def revision = ngramFile.exists() ? exec("git log --pretty=tformat:%H -n 1 ${ngramFile}") : ""
+		new File(ngramsMetaDir, "${filename}.props.yml").text = "revision: ${revision}"
+
+		return ""
+	} catch (Exception e) {
+		return "Failed writing ngram properties to: '${ngramsMetaDir}/${filename}'. ${e.message}\n"
+	}
+}
