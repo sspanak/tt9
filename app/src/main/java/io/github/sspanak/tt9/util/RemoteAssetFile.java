@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -36,10 +37,19 @@ abstract public class RemoteAssetFile extends AssetFile {
 
 
 	private InputStream getRemoteStream() throws IOException {
-		URLConnection connection = new URL(getDownloadUrl()).openConnection();
-		connection.setConnectTimeout(SettingsStore.DICTIONARY_DOWNLOAD_CONNECTION_TIMEOUT);
-		connection.setReadTimeout(SettingsStore.DICTIONARY_DOWNLOAD_READ_TIMEOUT);
-		return connection.getInputStream();
+		final String url = getDownloadUrl();
+		if (url == null || url.isEmpty()) {
+			throw new IOException("Missing download URL for file: " + path);
+		}
+
+		try {
+			URLConnection connection = new URL(getDownloadUrl()).openConnection();
+			connection.setConnectTimeout(SettingsStore.DICTIONARY_DOWNLOAD_CONNECTION_TIMEOUT);
+			connection.setReadTimeout(SettingsStore.DICTIONARY_DOWNLOAD_READ_TIMEOUT);
+			return connection.getInputStream();
+		} catch (MalformedURLException e) {
+			throw new IOException("Malformed download URL: " + url, e);
+		}
 	}
 
 

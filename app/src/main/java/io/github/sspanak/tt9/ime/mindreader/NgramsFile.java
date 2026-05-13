@@ -26,10 +26,6 @@ public class NgramsFile extends RemoteAssetFile {
 
 
 	public ArrayList<String> getLines() {
-		if (!exists()) {
-			return new ArrayList<>();
-		}
-
 		try (BufferedReader reader = getReader()) {
 			final ArrayList<String> lines = new ArrayList<>();
 			String line;
@@ -38,7 +34,7 @@ public class NgramsFile extends RemoteAssetFile {
 			}
 			return lines;
 		} catch (IOException e) {
-			Logger.e(LOG_TAG, "Error reading N-grams file. " + e.getMessage());
+			Logger.i(LOG_TAG, "Skipping factory n-grams. " + e.getMessage());
 			return new ArrayList<>();
 		}
 	}
@@ -50,7 +46,7 @@ public class NgramsFile extends RemoteAssetFile {
 			loadProperties();
 		}
 
-		return revision;
+		return revision == null ? "" : revision;
 	}
 
 
