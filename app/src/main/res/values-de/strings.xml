@@ -295,10 +295,10 @@
 	<string name="function_txt_cut">Ausschneiden</string>
 	<string name="function_txt_copy">Kopieren</string>
 	<string name="accessibility_key_left">Pfeil links</string>
-	<string name="pref_auto_mind_reading_complete_summary">Wortvervollständigungen nach Eingabe des ersten Buchstabens anzeigen. Beginnt mit einem kleinen Wörterbuch und lernt beim Tippen dazu.</string>
+	<string name="pref_auto_mind_reading_complete_summary">Wortvervollständigungen nach Eingabe des ersten Buchstabens anzeigen. Erfordert in einigen Sprachen Lernzeit.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Autovervollständigungen zuletzt anzeigen</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Mögliche Vervollständigungen am Ende der Vorschlagsliste anzeigen.</string>
 	<string name="pref_auto_mind_reading_guess">Vorhersagen für das nächste Wort</string>
-	<string name="pref_auto_mind_reading_guess_summary">Vorhersagen für das nächste Wort anzeigen, bevor Sie mit dem Tippen beginnen. Beginnt mit einem kleinen Wörterbuch und lernt beim Tippen dazu.</string>
+	<string name="pref_auto_mind_reading_guess_summary">Vorhersagen für das nächste Wort anzeigen, bevor Sie mit dem Tippen beginnen. Erfordert in einigen Sprachen Lernzeit.</string>
 	<string name="pref_auto_mind_reading_complete">Autovervollständigung</string>
 </resources>
