@@ -108,7 +108,7 @@ abstract public class RemoteAssetFile extends AssetFile {
 	protected void loadProperties() {
 		String propertyFilename = path.replaceFirst("\\.\\w+$", "") + ".props.yml";
 
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(assets.open(propertyFilename)))) {
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(assets.open(propertyFilename), StandardCharsets.UTF_8))) {
 			for (String line; (line = reader.readLine()) != null; ) {
 				String[] parts = line.split("\\s*:\\s*");
 				if (parts.length < 2) {
