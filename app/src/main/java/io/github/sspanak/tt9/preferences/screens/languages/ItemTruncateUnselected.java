@@ -22,6 +22,8 @@ class ItemTruncateUnselected extends ItemTruncateAll {
 
 	@Override
 	protected boolean onClick(Preference p) {
+		onStart.run();
+
 		ArrayList<Language> unselectedLanguages = new ArrayList<>();
 		Set<Integer> selectedLanguageIds = new HashSet<>(activity.getSettings().getEnabledLanguageIds());
 		for (Language lang : LanguageCollection.getAll(false)) {

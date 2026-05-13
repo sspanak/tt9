@@ -21,7 +21,7 @@ class ItemTruncateAll extends ItemClickable {
 	protected final PreferencesActivity activity;
 	protected final DictionaryDeleter deleterOfWords;
 	protected final MindReaderStore mindReaderStore;
-	private final Runnable onStart;
+	protected final Runnable onStart;
 	private final Runnable onFinish;
 
 
