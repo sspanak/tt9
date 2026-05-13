@@ -31,8 +31,8 @@ class ItemTruncateUnselected extends ItemTruncateAll {
 		}
 
 		setBusy();
-		deleter.setOnFinish(this::onFinishDeleting);
-		deleter.deleteLanguages(unselectedLanguages);
+		deleterOfWords.setOnFinish(this::onFinishDeleting);
+		delete(unselectedLanguages);
 
 		return true;
 	}
