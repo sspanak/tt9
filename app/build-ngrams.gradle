@@ -4,7 +4,7 @@ ext.generateNgramsMetadata = { definitionsInputDir, dictionariesInputDir, iconsD
 			return ""
 		}
 
-		def (ignore1, ignore2, ignore3, ignore4, ignore5, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesInputDir, iconsDir)
+		def (ignore1, ignore2, ignore3, ignore4, ignore5, dictionaryFile, ignore7, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesInputDir, iconsDir)
 		if (!langFileErrorMsg.isEmpty()) {
 			return langFileErrorMsg
 		}
