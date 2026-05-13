@@ -44,9 +44,12 @@ public class NgramsFile extends RemoteAssetFile {
 	public String getRevision() {
 		if (revision == null) {
 			loadProperties();
+			if (revision == null) {
+				revision = "";
+			}
 		}
 
-		return revision == null ? "" : revision;
+		return revision;
 	}
 
 
