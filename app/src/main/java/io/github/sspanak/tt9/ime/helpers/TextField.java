@@ -306,29 +306,39 @@ public class TextField extends InputField {
 	 * setComposingText
 	 * A fail-safe setter for composing text, which ignores NULL input.
 	 */
-	public void setComposingText(CharSequence text, int position) {
+	public void setComposingText(@Nullable CharSequence text, int position) {
+		if (text == null) {
+			return;
+		}
+
 		composingText = text;
+
 		InputConnection connection = getConnection();
-		if (text != null && connection != null && isComposingSupported) {
+		if (connection != null && isComposingSupported) {
 			connection.setComposingText(text, position);
 		}
 	}
 
-	public void setComposingText(CharSequence text) { setComposingText(text, 1); }
+	public void setComposingText(@Nullable CharSequence text) { setComposingText(text, 1); }
 
 
 	/**
 	 * replaceComposingText
 	 * A compatibility setter for composing text that first erases the previous composing text and
 	 * then sets the new one. Useful for apps with a non-standard InputConnection implementation.
+	 * NULL input is ignored.
 	 */
-	public void replaceComposingText(CharSequence text) {
+	public void replaceComposingText(@Nullable CharSequence text) {
+		if (text == null) {
+			return;
+		}
+
 		composingText = text;
 
 		InputConnection connection = getConnection();
-		if (text != null && connection != null && isComposingSupported) {
+		if (connection != null && isComposingSupported) {
 			connection.beginBatchEdit();
-			connection.commitText("", 1);
+			connection.commitText("", 0);
 			connection.setComposingText(text, 1);
 			connection.endBatchEdit();
 		}
