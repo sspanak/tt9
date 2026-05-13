@@ -48,7 +48,8 @@ tasks.register('buildDictionaryDownloads') {
 
 tasks.register('copyDownloadsToAssets', Copy) {
 	from DICTIONARIES_DOWNLOAD_DIR
-	include '**/*utf8.zip'
+	include '**/*.zip'
+	exclude '**/*ngrams.zip'
 	into DICTIONARIES_OUTPUT_DIR
 	dependsOn buildDictionaryDownloads
 	mustRunAfter buildDictionaryDownloads
