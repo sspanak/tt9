@@ -5,14 +5,10 @@ import android.content.res.AssetManager;
 
 import androidx.annotation.NonNull;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.RemoteAssetFile;
