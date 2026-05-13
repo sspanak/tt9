@@ -271,7 +271,8 @@ public class MindReader {
 		final String TIMER_TAG = LOG_TAG + Math.random();
 		Timer.start(TIMER_TAG);
 
-		final String prefix = LanguageKind.isThai(language) ? null : Characters.getChar(language, ".");
+		final String sentenceSeparator = Characters.getChar(language, ".");
+		final String prefix = LanguageKind.isThai(language) ? "" : (sentenceSeparator != null ? sentenceSeparator : "");
 		final NgramsFile ngramsFile = new NgramsFile(context, context.getAssets(), language);
 
 		if (settings.areMindReaderFactoryNgramsImported(language, ngramsFile.getRevision())) {
