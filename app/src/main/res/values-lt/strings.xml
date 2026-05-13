@@ -302,10 +302,10 @@
 	<string name="function_txt_cut">Iškirpti</string>
 	<string name="function_txt_copy">Kopijuoti</string>
 	<string name="accessibility_key_left">Rodyklė kairėn</string>
-	<string name="pref_auto_mind_reading_complete_summary">Rodyti žodžių užbaigimus įvedus pirmą raidę. Pradeda su mažu žodynu ir mokosi jums rašant.</string>
+	<string name="pref_auto_mind_reading_complete_summary">Rodyti žodžių užbaigimus įvedus pirmą raidę. Kai kurioms kalboms reikia mokymosi laiko.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Rodyti automatinius užbaigimus pabaigoje</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Rodyti galimus užbaigimus pasiūlymų sąrašo pabaigoje.</string>
 	<string name="pref_auto_mind_reading_guess">Kito žodžio prognozės</string>
-	<string name="pref_auto_mind_reading_guess_summary">Rodyti kito žodžio prognozes prieš pradedant rašyti. Pradeda su mažu žodynu ir mokosi jums rašant.</string>
+	<string name="pref_auto_mind_reading_guess_summary">Rodyti kito žodžio prognozes prieš pradedant rašyti. Kai kurioms kalboms reikia mokymosi laiko.</string>
 	<string name="pref_auto_mind_reading_complete">Automatinis užbaigimas</string>
 </resources>
