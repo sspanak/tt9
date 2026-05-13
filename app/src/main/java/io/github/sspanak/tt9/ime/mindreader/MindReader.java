@@ -280,6 +280,7 @@ public class MindReader {
 			return;
 		}
 
+		boolean imported = false;
 		for (String ngram : ngramsFile.getLines()) {
 			if (DictionaryLoader.isRunning()) {
 				Logger.d(LOG_TAG, "Aborting MindReader factory N-grams import because a dictionary is being loaded. Stopped after: " + Timer.stop(TIMER_TAG) + " ms");
@@ -288,9 +289,12 @@ public class MindReader {
 
 			setContextSync(null, language, new String[] { prefix + ngram, "" }, null);
 			processContext(null, true);
+			imported = true;
 		}
 
-		settings.setMindReaderFactoryNgramsRevision(language, ngramsFile.getRevision());
+		if (imported) {
+			settings.setMindReaderFactoryNgramsRevision(language, ngramsFile.getRevision());
+		}
 		Logger.d(LOG_TAG, "Imported " + ngrams.size() + " factory N-grams and " + dictionary.size() + " tokens for " + language.getName() + " in: " + Timer.stop(TIMER_TAG) + " ms");
 	}
 
