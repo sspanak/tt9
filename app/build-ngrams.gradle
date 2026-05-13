@@ -1,19 +1,15 @@
 ext.generateNgramsMetadata = { definitionsInputDir, dictionariesInputDir, iconsDir, ngramsInputDir, ngramsMetaDir ->
-	int errorCount = 0
-
 	def errorStream = fileTree(dir: definitionsInputDir).getFiles().parallelStream().map { definition ->
 		if (!definition.name.endsWith("yml")) {
 			return ""
 		}
 
 		def (ignore1, ignore2, ignore3, ignore4, ignore5, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesInputDir, iconsDir)
-		errorCount += langFileErrorCount
 		if (!langFileErrorMsg.isEmpty()) {
 			return langFileErrorMsg
 		}
 
 		def errorMessage = generateMetadata(dictionaryFile, ngramsInputDir, ngramsMetaDir)
-		errorCount += errorMessage.isEmpty() ? 0 : 1
 		if (!errorMessage.isEmpty()) {
 			return errorMessage
 		}
