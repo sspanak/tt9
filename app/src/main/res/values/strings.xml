@@ -85,9 +85,9 @@
 	<string name="pref_auto_capitals_after_newline_summary">Start every line with a capital letter, even if it is in the middle of a sentence.</string>
 	<string name="pref_auto_mind_reading">Mind Reading</string>
 	<string name="pref_auto_mind_reading_guess">Next-Word Predictions</string>
-	<string name="pref_auto_mind_reading_guess_summary">Show next-word predictions before you start typing. Requires learning time in some languages.</string>
+	<string name="pref_auto_mind_reading_guess_summary">Show next-word predictions before you start typing. Starts with a small dictionary and learns as you type.</string>
 	<string name="pref_auto_mind_reading_complete">Autocomplete</string>
-	<string name="pref_auto_mind_reading_complete_summary">Show word completions after you type the first letter. Requires learning time in some languages.</string>
+	<string name="pref_auto_mind_reading_complete_summary">Show word completions after you type the first letter. Starts with a small dictionary and learns as you type.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Show Auto-Completions Last</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Show the possible completions at the end of the suggestion list.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_off">Show the most probable completions at the beginning of the suggestion list.</string>

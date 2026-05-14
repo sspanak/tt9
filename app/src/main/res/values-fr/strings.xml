@@ -293,10 +293,10 @@
 	<string name="function_txt_cut">Couper</string>
 	<string name="function_txt_copy">Copier</string>
 	<string name="accessibility_key_left">Flèche gauche</string>
-	<string name="pref_auto_mind_reading_complete_summary">Afficher des complétions de mots après la première lettre. Nécessite un temps d’apprentissage dans certaines langues.</string>
+	<string name="pref_auto_mind_reading_complete_summary">Afficher des complétions de mots après la première lettre. Commence avec un petit dictionnaire et apprend au fur et à mesure que vous tapez.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Afficher les complétions automatiques en dernier</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Afficher les complétions possibles à la fin de la liste de suggestions.</string>
 	<string name="pref_auto_mind_reading_guess">Prédictions du mot suivant</string>
-	<string name="pref_auto_mind_reading_guess_summary">Afficher des prédictions du mot suivant avant de commencer à saisir. Nécessite un temps d’apprentissage dans certaines langues.</string>
+	<string name="pref_auto_mind_reading_guess_summary">Afficher des prédictions du mot suivant avant de commencer à saisir. Commence avec un petit dictionnaire et apprend au fur et à mesure que vous tapez.</string>
 	<string name="pref_auto_mind_reading_complete">Saisie semi-automatique</string>
 </resources>
