@@ -8,8 +8,8 @@ import androidx.annotation.WorkerThread;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -33,7 +33,6 @@ import io.github.sspanak.tt9.util.chars.Characters;
 
 public class MindReader {
 	private static final String LOG_TAG = MindReader.class.getSimpleName();
-	private static final int MAX_WORDS = Math.max(SettingsStore.MIND_READER_MAX_BIGRAM_SUGGESTIONS, Math.max(SettingsStore.MIND_READER_MAX_TRIGRAM_SUGGESTIONS, SettingsStore.MIND_READER_MAX_TETRAGRAM_SUGGESTIONS));
 
 	private static volatile boolean clearCacheOnNextUse = false;
 
@@ -161,9 +160,9 @@ public class MindReader {
 			}
 
 			final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
-			final ArrayList<String> alternativeLetters = language.getKeyCharacters(number);
+			final ArrayList<String> initialLetters = language.getKeyCharacters(number);
 
-			if (alternativeLetters.isEmpty()) {
+			if (initialLetters.isEmpty()) {
 				Timer.stop(TIMER_TAG);
 				return;
 			}
@@ -176,11 +175,11 @@ public class MindReader {
 
 			processContext(inputMode, false);
 
-			final Set<Integer> nextTokens = ngrams.getNextTokens(dictionary, wordContext, SettingsStore.MIND_READER_MAX_UNIGRAM_VARIATIONS);
-			ArrayList<String> completions = new ArrayList<>();
-			for (String letter : alternativeLetters) {
-				completions.addAll(dictionary.getAll(nextTokens, letter, MAX_WORDS - completions.size()));
-			}
+			final ArrayList<String> completions = dictionary.getAll(
+				ngrams.getNextTokens(dictionary, wordContext, SettingsStore.MIND_READER_MAX_AMOUNT_UNIGRAMS),
+				initialLetters,
+				SettingsStore.MIND_READER_MAX_UNIGRAM_SUGGESTIONS
+			);
 
 			if (requestVersion != completeRequestCount.get()) {
 				Timer.stop(TIMER_TAG);
@@ -243,7 +242,7 @@ public class MindReader {
 				// don't be too eager to guess what comes after punctuation, emoji etc...
 				guesses = new ArrayList<>();
 			} else {
-				guesses = dictionary.getAll(ngrams.getNextTokens(dictionary, wordContext), null, MAX_WORDS);
+				guesses = dictionary.getAll(ngrams.getNextTokens(dictionary, wordContext), null, Integer.MAX_VALUE);
 			}
 
 			if (requestVersion != guessRequestCount.get()) {
