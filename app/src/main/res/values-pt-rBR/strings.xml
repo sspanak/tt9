@@ -300,10 +300,10 @@
 	<string name="function_txt_cut">Cortar</string>
 	<string name="function_txt_copy">Copiar</string>
 	<string name="accessibility_key_left">Seta para a esquerda</string>
-	<string name="pref_auto_mind_reading_complete_summary">Mostrar conclusões de palavras após digitar a primeira letra. Começa com um pequeno dicionário e aprende enquanto você digita.</string>
+	<string name="pref_auto_mind_reading_complete_summary">Mostrar conclusões de palavras após digitar a primeira letra. Não disponível em todos os idiomas.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Mostrar autocompletar por último</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Mostrar possíveis conclusões no final da lista de sugestões.</string>
 	<string name="pref_auto_mind_reading_guess">Previsões da próxima palavra</string>
-	<string name="pref_auto_mind_reading_guess_summary">Mostrar previsões da próxima palavra antes de começar a digitar. Começa com um pequeno dicionário e aprende enquanto você digita.</string>
+	<string name="pref_auto_mind_reading_guess_summary">Mostrar previsões da próxima palavra antes de começar a digitar. Não disponível em todos os idiomas.</string>
 	<string name="pref_auto_mind_reading_complete">Autocompletar</string>
 </resources>
