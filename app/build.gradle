@@ -34,8 +34,8 @@ tasks.register('buildDefinition') {
 
 tasks.register('buildDictionaryDownloads') {
 	inputs.dir LANGUAGES_INPUT_DIR
-	outputs.dir DICTIONARIES_DOWNLOAD_DIR
 	outputs.dir DICTIONARY_META_OUTPUT_DIR
+	outputs.files(fileTree(DICTIONARIES_DOWNLOAD_DIR) { include '**/*.zip'; exclude '**/*ngrams.zip' })
 
 	dependsOn validateLanguages
 	mustRunAfter validateLanguages
@@ -83,7 +83,7 @@ tasks.register('copyNgramsToDownloads', Copy) {
 	include '**/*ngrams.zip'
 	into DICTIONARIES_DOWNLOAD_DIR
 	dependsOn generateNgramsMeta
-	mustRunAfter generateNgramsMeta, copyDownloadsToAssets, buildDictionaryDownloads
+	mustRunAfter generateNgramsMeta, copyDownloadsToAssets
 }
 
 

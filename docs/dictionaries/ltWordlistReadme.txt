@@ -22,3 +22,7 @@ Additionally used wooorm's dictionaries for spell checking:
 Source: https://github.com/wooorm/dictionaries/tree/main/dictionaries/lt
 Version: 836d7c2032167880e639a1fe522748733e528c2d (2023-11-03)
 License: https://github.com/wooorm/dictionaries/blob/main/dictionaries/lt/license
+
+N-grams for next-word predictions and autocompletion based on the OpenSubtitles v2018 archive (http://www.opensubtitles.org/)
+URL: https://opus.nlpl.eu/datasets/OpenSubtitles
+Additional Notice: P. Lison and J. Tiedemann, 2016, OpenSubtitles2016: Extracting Large Parallel Corpora from Movie and TV Subtitles. In Proceedings of the 10th International Conference on Language Resources and Evaluation (LREC 2016)

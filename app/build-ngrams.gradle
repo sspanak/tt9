@@ -1,3 +1,5 @@
+import java.nio.file.Files
+
 ext.generateNgramsMetadata = { definitionsInputDir, dictionariesInputDir, iconsDir, ngramsInputDir, ngramsMetaDir ->
 	def errorStream = fileTree(dir: definitionsInputDir).getFiles().parallelStream().map { definition ->
 		if (!definition.name.endsWith("yml")) {
