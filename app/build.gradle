@@ -34,8 +34,8 @@ tasks.register('buildDefinition') {
 
 tasks.register('buildDictionaryDownloads') {
 	inputs.dir LANGUAGES_INPUT_DIR
-	outputs.dir DICTIONARIES_DOWNLOAD_DIR
 	outputs.dir DICTIONARY_META_OUTPUT_DIR
+	outputs.files(fileTree(DICTIONARIES_DOWNLOAD_DIR) { include '**/*.zip'; exclude '**/*ngrams.zip' })
 
 	dependsOn validateLanguages
 	mustRunAfter validateLanguages
@@ -78,12 +78,20 @@ tasks.register('copyNgramsToAssets', Copy) {
 }
 
 
-tasks.register('copyNgramsToDownloads', Copy) {
-	from NGRAMS_INPUT_DIR
-	include '**/*ngrams.zip'
-	into DICTIONARIES_DOWNLOAD_DIR
+tasks.register('linkNgramsToDownloads') {
+	inputs.dir NGRAMS_INPUT_DIR
+	outputs.files(
+		fileTree(NGRAMS_INPUT_DIR) { include '**/*ngrams.zip' }.files.collect { src ->
+			new File(DICTIONARIES_DOWNLOAD_DIR, src.name)
+		}
+	)
+
 	dependsOn generateNgramsMeta
-	mustRunAfter generateNgramsMeta, copyDownloadsToAssets, buildDictionaryDownloads
+	mustRunAfter generateNgramsMeta
+
+	doLast {
+		linkNgramFiles(NGRAMS_INPUT_DIR, DICTIONARIES_DOWNLOAD_DIR)
+	}
 }
 
 
@@ -203,7 +211,7 @@ android {
 				"generate${variantName}LintVitalReportModel"
 			].each { taskName ->
 				tasks.matching { it.name == taskName }.configureEach {
-					dependsOn(buildDefinition, generateDocs, validateLanguages, buildDictionaryDownloads, copyNgramsToAssets, copyNgramsToDownloads)
+					dependsOn(buildDefinition, generateDocs, validateLanguages, buildDictionaryDownloads, copyNgramsToAssets, linkNgramsToDownloads)
 
 					if (taskName.toLowerCase().contains("full")) {
 						dependsOn(copyDownloadsToAssets)

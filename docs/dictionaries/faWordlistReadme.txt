@@ -19,3 +19,7 @@ Word frequencies by: Hermit Dave
 Version: 525f9b560de45753a5ea01069454e72e9aa541c6 (2022-02-07)
 Source: https://github.com/hermitdave/FrequencyWords
 License: (MIT) https://github.com/hermitdave/FrequencyWords/blob/master/LICENSE
+
+N-grams for next-word predictions and autocompletion based on the OpenSubtitles v2018 archive (http://www.opensubtitles.org/)
+URL: https://opus.nlpl.eu/datasets/OpenSubtitles
+Additional Notice: P. Lison and J. Tiedemann, 2016, OpenSubtitles2016: Extracting Large Parallel Corpora from Movie and TV Subtitles. In Proceedings of the 10th International Conference on Language Resources and Evaluation (LREC 2016)

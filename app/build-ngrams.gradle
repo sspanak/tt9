@@ -1,3 +1,5 @@
+import java.nio.file.Files
+
 ext.generateNgramsMetadata = { definitionsInputDir, dictionariesInputDir, iconsDir, ngramsInputDir, ngramsMetaDir ->
 	def errorStream = fileTree(dir: definitionsInputDir).getFiles().parallelStream().map { definition ->
 		if (!definition.name.endsWith("yml")) {
@@ -22,6 +24,23 @@ ext.generateNgramsMetadata = { definitionsInputDir, dictionariesInputDir, iconsD
 		throw new GradleException(errorsMsg)
 	}
 }
+
+
+ext.linkNgramFiles = { String inputDir, String outputDir ->
+	def srcDir  = new File(inputDir)
+	def destDir = new File(outputDir)
+	destDir.mkdirs()
+
+	srcDir.listFiles({ f -> f.name.endsWith('ngrams.zip') } as FileFilter)?.each { src ->
+		def dest = new File(destDir, src.name)
+		def link = dest.toPath()
+		def target = link.parent.relativize(src.toPath())
+
+		Files.deleteIfExists(link)
+		Files.createSymbolicLink(link, target)
+	}
+}
+
 
 // this cannot be static, because it requires access to exec()
 def generateMetadata(File dictionaryFile, String ngramsInputDir, String ngramsMetaDir) {
