@@ -29,12 +29,6 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 
 	@Override
-	protected void onInit() {
-		super.onInit();
-	}
-
-
-	@Override
 	protected boolean onStart(EditorInfo field, boolean restarting) {
 		resetNormalizedDimensions();
 		touchExplorationEnabled = DeviceInfo.isTouchExplorationEnabled(this);

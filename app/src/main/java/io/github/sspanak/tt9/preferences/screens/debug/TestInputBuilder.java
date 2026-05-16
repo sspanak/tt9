@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 class TestInputBuilder {
 	@NonNull private final LinearLayout root;
-	ArrayList<EditText> fields = new ArrayList<>();
+	final ArrayList<EditText> fields = new ArrayList<>();
 
 
 	TestInputBuilder(@NonNull LinearLayout root) {

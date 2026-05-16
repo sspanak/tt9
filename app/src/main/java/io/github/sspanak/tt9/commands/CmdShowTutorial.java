@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.commands;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
