@@ -9,7 +9,6 @@ import androidx.annotation.WorkerThread;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -161,7 +160,7 @@ public class MindReader {
 			}
 
 			final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
-			final ArrayList<String> initialLetters = language.getKeyCharacters(number);
+			final ArrayList<String> initialLetters = settings.getOrderedKeyChars(language, number);
 
 			if (initialLetters.isEmpty()) {
 				Timer.stop(TIMER_TAG);
