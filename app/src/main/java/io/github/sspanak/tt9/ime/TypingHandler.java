@@ -106,8 +106,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 		updateShiftState(surroundingText[0], false, false);
 		mindReader
 			.setLanguage(mLanguage)
-			.setContext(mInputMode, mLanguage, surroundingText, null)
-			.seed(getFinalContext(), mLanguage);
+			.seed(getFinalContext(), mLanguage)
+			.setContext(mInputMode, mLanguage, surroundingText, null);
 
 		return true;
 	}
