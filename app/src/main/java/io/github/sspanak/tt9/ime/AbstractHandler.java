@@ -14,6 +14,7 @@ abstract public class AbstractHandler extends InputMethodService {
 	abstract public boolean onHotkey(int keyCode, boolean repeat, boolean validateOnly);
 	abstract protected boolean onNumber(int key, boolean hold, int repeat);
 	abstract public boolean onOK();
+	abstract protected boolean onOK(int fromKey);
 	abstract public boolean onText(String text, boolean validateOnly); // used for "#", "*" and whatnot
 
 	// lifecycle
