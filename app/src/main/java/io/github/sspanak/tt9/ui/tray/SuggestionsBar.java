@@ -52,7 +52,8 @@ public class SuggestionsBar {
 	@NonNull private final List<String> visibleSuggestions = new ArrayList<>();
 
 	private final DefaultItemAnimator animator = new DefaultItemAnimator();
-	private final Runnable onItemClick;
+	@NonNull private final Runnable onItemClick;
+	@NonNull private final Runnable onItemLongClick;
 	@Nullable private final RecyclerView mView;
 	private final SettingsStore settings;
 	private SuggestionsAdapter mSuggestionsAdapter;
@@ -61,8 +62,9 @@ public class SuggestionsBar {
 	private final Handler displayHandler = new Handler(Looper.getMainLooper());
 
 
-	public SuggestionsBar(@NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull Runnable onItemClick) {
+	public SuggestionsBar(@NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull Runnable onItemClick, @NonNull Runnable onItemLongClick) {
 		this.onItemClick = onItemClick;
+		this.onItemLongClick = onItemLongClick;
 		this.settings = settings;
 
 		mView = mainView.getView() != null ? mainView.getView().findViewById(R.id.suggestions_bar) : null;
@@ -108,7 +110,8 @@ public class SuggestionsBar {
 
 		mSuggestionsAdapter = new SuggestionsAdapter(
 			context,
-			this::handleItemClick,
+			(position) -> handleItemAction(position, false),
+			(position) -> handleItemAction(position, true),
 			suggestionLayout,
 			R.id.suggestion_list_item,
 			visibleSuggestions
@@ -526,12 +529,11 @@ public class SuggestionsBar {
 		}
 	}
 
-
 	/**
 	 * handleItemClick
 	 * Passes through suggestion selected using the touchscreen.
 	 */
-	private void handleItemClick(int position) {
+	private void handleItemAction(int position, boolean isLongClick) {
 		if (containsStem() && position == 0) {
 			return;
 		}
@@ -540,6 +542,8 @@ public class SuggestionsBar {
 		selectedIndex = position;
 		if (appendHiddenSuggestionsIfNeeded(false)) {
 			render();
+		} else if (isLongClick) {
+			onItemLongClick.run();
 		} else {
 			onItemClick.run();
 		}

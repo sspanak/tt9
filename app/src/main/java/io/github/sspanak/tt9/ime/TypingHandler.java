@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ime;
 import android.inputmethodservice.InputMethodService;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
@@ -33,7 +34,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected InputType inputType = new InputType(null, null);
 	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(null, null);
-	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null, null, null);
+	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null, null, null, null);
 
 	@Nullable private Handler shiftStateDebounceHandler;
 
@@ -57,7 +58,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected void createSuggestionBar() {
-		suggestionOps = new SuggestionOps(this, settings, mainView, appHacks, inputType, textField, statusBar, this::onAcceptSuggestionsDelayed, this::onOK);
+		suggestionOps = new SuggestionOps(this, settings, mainView, appHacks, inputType, textField, statusBar, this::onAcceptSuggestionsDelayed, this::onOK, () -> onOK(KeyEvent.KEYCODE_UNKNOWN));
 	}
 
 
