@@ -28,6 +28,9 @@ class SettingsTyping extends SettingsMindReading {
 	public boolean getAutoTextCaseAbc() {
 		return prefs.getBoolean("auto_text_case_abc_v2", true);
 	}
+	public boolean getAutoCapitalsAfterNewlineAbc() {
+		return getAutoTextCaseAbc() && prefs.getBoolean("auto_capitals_after_newline_abc", false);
+	}
 
 	public int getAutoAcceptTimeoutPredictive() {
 		int time = getStringifiedInt(DropDownPredictiveAutoAcceptTime.NAME, DropDownPredictiveAutoAcceptTime.DEFAULT);
@@ -35,8 +38,8 @@ class SettingsTyping extends SettingsMindReading {
 	}
 	public boolean getAutoSpacePredictive() { return prefs.getBoolean("auto_space_predictive", true); }
 	public boolean getAutoTextCasePredictive() { return prefs.getBoolean("auto_text_case_predictive", true); }
-	public boolean getAutoCapitalsAfterNewline() {
-		return getAutoTextCasePredictive() && prefs.getBoolean("auto_capitals_after_newline", false);
+	public boolean getAutoCapitalsAfterNewlinePredictive() {
+		return getAutoTextCasePredictive() && prefs.getBoolean("auto_capitals_after_newline_predictive", false);
 	}
 
 	public boolean getAutoTrimTrailingSpace() {

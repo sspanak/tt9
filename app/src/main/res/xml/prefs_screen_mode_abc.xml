@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<io.github.sspanak.tt9.preferences.screens.modeAbc.DropDownAbcAutoAcceptTime android:title="@string/pref_abc_auto_accept" />
-
 	<SwitchPreferenceCompat
 		android:defaultValue="true"
 		android:key="auto_space_abc_v2"
@@ -13,6 +11,15 @@
 		android:key="auto_text_case_abc_v2"
 		android:summary="@string/pref_auto_text_case_summary"
 		android:title="@string/pref_auto_text_case" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="false"
+		android:dependency="auto_text_case_abc_v2"
+		android:key="auto_capitals_after_newline_abc"
+		android:summary="@string/pref_auto_capitals_after_newline_summary"
+		android:title="@string/pref_auto_capitals_after_newline" />
+
+	<io.github.sspanak.tt9.preferences.screens.modeAbc.DropDownAbcAutoAcceptTime android:title="@string/pref_abc_auto_accept" />
 
 	<SwitchPreferenceCompat
 		android:defaultValue="false"

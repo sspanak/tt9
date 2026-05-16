@@ -107,7 +107,9 @@ public class AutoTextCase {
 			return InputMode.CASE_LOWER;
 		}
 
-		if (isStartOfText || isStartOfSentence) {
+		final boolean isAfterNewline = beforeCursor != null && settings.getAutoCapitalsAfterNewlineAbc() && beforeCursor.endsWith("\n");
+
+		if (isStartOfText || isStartOfSentence || isAfterNewline) {
 			return InputMode.CASE_CAPITALIZE;
 		}
 
@@ -148,7 +150,7 @@ public class AutoTextCase {
 
 		// start of text
 		String before = beforeCursor == null && textField != null ? textField.getStringBeforeCursor() : beforeCursor;
-		if (before == null || before.isEmpty() || (settings.getAutoCapitalsAfterNewline() && before.endsWith("\n"))) {
+		if (before == null || before.isEmpty() || (settings.getAutoCapitalsAfterNewlinePredictive() && before.endsWith("\n"))) {
 			return InputMode.CASE_CAPITALIZE;
 		}
 

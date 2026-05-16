@@ -22,7 +22,7 @@
 	<SwitchPreferenceCompat
 		android:defaultValue="false"
 		android:dependency="auto_text_case_predictive"
-		android:key="auto_capitals_after_newline"
+		android:key="auto_capitals_after_newline_predictive"
 		android:summary="@string/pref_auto_capitals_after_newline_summary"
 		android:title="@string/pref_auto_capitals_after_newline" />
 
