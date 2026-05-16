@@ -16,16 +16,19 @@ public class MindReaderStats {
 
 	private volatile long countComplete = 0;
 	private volatile long countGuess = 0;
+	private volatile long countSeed = 0;
 	private volatile long countSetContext = 0;
 	private volatile long countSetLanguage = 0;
 
 	private volatile long totalComplete = 0;
 	private volatile long totalGuess = 0;
+	private volatile long totalSeed = 0;
 	private volatile long totalSetContext = 0;
 	private volatile long totalSetLanguage = 0;
 
 	private volatile long slowestComplete = 0;
 	private volatile long slowestGuess = 0;
+	private volatile long slowestSeed = 0;
 	private volatile long slowestSetContext = 0;
 	private volatile long slowestSetLanguage = 0;
 
@@ -59,9 +62,9 @@ public class MindReaderStats {
 
 
 	synchronized void resetTimings() {
-		countComplete = countGuess = countSetContext = countSetLanguage = 0;
-		totalComplete = totalGuess = totalSetContext = totalSetLanguage = 0;
-		slowestComplete = slowestGuess = slowestSetContext = slowestSetLanguage = 0;
+		countComplete = countGuess = countSeed = countSetContext = countSetLanguage = 0;
+		totalComplete = totalGuess = totalSeed = totalSetContext = totalSetLanguage = 0;
+		slowestComplete = slowestGuess = slowestSeed = slowestSetContext = slowestSetLanguage = 0;
 		slowestLoadNgrams = slowestLoadTokens = slowestSaveNgrams = slowestSaveTokens = 0;
 	}
 
@@ -108,6 +111,13 @@ public class MindReaderStats {
 	}
 
 
+	synchronized void setSeedTime(long time) {
+		countSeed++;
+		totalSeed += time;
+		slowestSeed = Math.max(slowestSeed, time);
+	}
+
+
 	@NonNull
 	private String generate() {
 		final StringBuilder sb = new StringBuilder();
@@ -127,6 +137,10 @@ public class MindReaderStats {
 				.append(".  Avg: ").append(countGuess == 0 ? 0 : totalGuess / countGuess)
 				.append(" ms.  Max: ")
 				.append(slowestGuess).append(" ms\n");
+			sb.append("Seed: ").append(countSeed)
+				.append(".  Avg: ").append(countSeed == 0 ? 0 : totalSeed / countSeed)
+				.append(" ms.  Max: ")
+				.append(slowestSeed).append(" ms\n");
 			sb.append("Context: ").append(countSetContext)
 				.append(".  Avg: ").append(countSetContext == 0 ? 0 : totalSetContext / countSetContext)
 				.append(" ms.  Max: ")

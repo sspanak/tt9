@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ime.mindreader;
 
 import android.content.Context;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
@@ -261,40 +262,50 @@ public class MindReader {
 	}
 
 
-	@WorkerThread
-	private void importSync(@NonNull Context context, @Nullable Language language) {
-		if (settings == null || language == null || DictionaryLoader.isRunning()) {
+	@MainThread
+	public void seed(@NonNull Context context, @Nullable Language language) {
+		if (settings == null || language == null) {
 			return;
 		}
 
-		final String TIMER_TAG = LOG_TAG + Math.random();
-		Timer.start(TIMER_TAG);
-
-		final String sentenceSeparator = Characters.getChar(language, ".");
-		final String prefix = LanguageKind.isThai(language) ? "" : (sentenceSeparator != null ? sentenceSeparator : "");
-		final NgramsFile ngramsFile = new NgramsFile(context, context.getAssets(), language);
-
-		if (settings.areMindReaderFactoryNgramsImported(language, ngramsFile.getRevision())) {
-			Timer.stop(TIMER_TAG);
-			return;
-		}
-
-		boolean imported = false;
-		for (String ngram : ngramsFile.getLines()) {
-			if (DictionaryLoader.isRunning()) {
-				Logger.d(LOG_TAG, "Aborting MindReader factory N-grams import because a dictionary is being loaded. Stopped after: " + Timer.stop(TIMER_TAG) + " ms");
+		runInThread(() -> {
+			if (!language.equals(wordContext.language)) {
+				Logger.e(LOG_TAG, "Cannot import MindReader factory N-grams. Language is not set. Use setLanguage() first.");
 				return;
 			}
 
-			setContextSync(null, language, new String[] { prefix + ngram, "" }, null);
-			processContext(null, true);
-			imported = true;
-		}
+			final String TIMER_TAG = LOG_TAG + Math.random();
+			Timer.start(TIMER_TAG);
 
-		if (imported) {
-			settings.setMindReaderFactoryNgramsRevision(language, ngramsFile.getRevision());
-		}
-		Logger.d(LOG_TAG, "Imported " + ngrams.size() + " factory N-grams and " + dictionary.size() + " tokens for " + language.getName() + " in: " + Timer.stop(TIMER_TAG) + " ms");
+			final String sentenceSeparator = Characters.getChar(language, ".");
+			final String prefix = LanguageKind.isThai(language) ? "" : (sentenceSeparator != null ? sentenceSeparator : "");
+			final NgramsFile ngramsFile = new NgramsFile(context, context.getAssets(), language);
+
+			if (settings.areMindReaderFactoryNgramsImported(language, ngramsFile.getRevision())) {
+				Logger.d(LOG_TAG, "Factory N-grams for " + language.getName() + " are up-to-date. Import stopped after: " + Timer.stop(TIMER_TAG) + " ms");
+				return;
+			}
+
+			boolean imported = false;
+			for (String ngram : ngramsFile.getLines()) {
+				if (DictionaryLoader.isRunning()) {
+					Logger.d(LOG_TAG, "Aborting MindReader factory N-grams import due to dictionary loading, to prevent invalid results. Stopped after: " + Timer.stop(TIMER_TAG) + " ms");
+					return;
+				}
+
+				setContextSync(null, language, new String[]{prefix + ngram, ""}, null);
+				processContext(null, true);
+				imported = true;
+			}
+
+			if (imported) {
+				settings.setMindReaderFactoryNgramsRevision(language, ngramsFile.getRevision());
+			}
+
+			long time = Timer.stop(TIMER_TAG);
+			stats.update(this).setSeedTime(time);
+			Logger.d(LOG_TAG, "Imported " + ngrams.size() + " factory N-grams and " + dictionary.size() + " tokens for " + language.getName() + " in: " + time + " ms");
+		});
 	}
 
 
@@ -332,9 +343,9 @@ public class MindReader {
 	/**
 	 * Set and potentially save the current context, without guessing anything.
 	 */
-	public void setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
+	public MindReader setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
 		if (isOff()) {
-			return;
+			return this;
 		}
 
 		final String TIMER_TAG = LOG_TAG + Math.random();
@@ -342,7 +353,7 @@ public class MindReader {
 
 		if (inputNotMindReadable) {
 			Timer.stop(TIMER_TAG);
-			return;
+			return this;
 		}
 
 		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
@@ -359,6 +370,7 @@ public class MindReader {
 			}
 		});
 
+		return this;
 	}
 
 
@@ -388,7 +400,7 @@ public class MindReader {
 	/**
 	 * Clear the current context and cache, and load the dictionary and N-grams for the given language.
 	 */
-	public MindReader setLanguage(@NonNull Context context, @NonNull Language language) {
+	public MindReader setLanguage(@NonNull Language language) {
 		if (isOff()) {
 			return this;
 		}
@@ -404,14 +416,11 @@ public class MindReader {
 
 			Timer.start(TIMER_TAG);
 
-			// @todo: test database upgrade
 			persistSync();
 			restoreSync(language);
 
 			clearContextSync();
 			wordContext.setLanguage(language);
-
-			importSync(context, language);
 
 			// save statistics and log
 			final long time = Timer.stop(TIMER_TAG);
