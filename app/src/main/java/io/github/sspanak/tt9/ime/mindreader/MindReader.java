@@ -263,9 +263,9 @@ public class MindReader {
 
 
 	@MainThread
-	public void seed(@NonNull Context context, @Nullable Language language) {
+	public MindReader seed(@NonNull Context context, @Nullable Language language) {
 		if (settings == null || language == null) {
-			return;
+			return this;
 		}
 
 		runInThread(() -> {
@@ -302,10 +302,14 @@ public class MindReader {
 				settings.setMindReaderFactoryNgramsRevision(language, ngramsFile.getRevision());
 			}
 
+			clearContext();
+
 			long time = Timer.stop(TIMER_TAG);
 			stats.update(this).setSeedTime(time);
 			Logger.d(LOG_TAG, "Imported " + ngrams.size() + " factory N-grams and " + dictionary.size() + " tokens for " + language.getName() + " in: " + time + " ms");
 		});
+
+		return this;
 	}
 
 
