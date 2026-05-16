@@ -264,7 +264,7 @@ public class MindReader {
 
 	@MainThread
 	public MindReader seed(@NonNull Context context, @Nullable Language language) {
-		if (settings == null || language == null) {
+		if (isOff() || language == null) {
 			return this;
 		}
 
