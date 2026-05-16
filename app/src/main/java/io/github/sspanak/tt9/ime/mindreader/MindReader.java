@@ -289,6 +289,7 @@ public class MindReader {
 			boolean imported = false;
 			for (String ngram : ngramsFile.getLines()) {
 				if (DictionaryLoader.isRunning()) {
+					clearContextSync();
 					Logger.d(LOG_TAG, "Aborting MindReader factory N-grams import due to dictionary loading, to prevent invalid results. Stopped after: " + Timer.stop(TIMER_TAG) + " ms");
 					return;
 				}
@@ -302,7 +303,7 @@ public class MindReader {
 				settings.setMindReaderFactoryNgramsRevision(language, ngramsFile.getRevision());
 			}
 
-			clearContext();
+			clearContextSync();
 
 			long time = Timer.stop(TIMER_TAG);
 			stats.update(this).setSeedTime(time);
