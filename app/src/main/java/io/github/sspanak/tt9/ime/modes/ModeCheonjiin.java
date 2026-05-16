@@ -198,7 +198,7 @@ class ModeCheonjiin extends InputMode {
 
 		final int nextChar = nextNumber + '0';
 		final int repeatingDigits = digitSequence.length() > 1 && digitSequence.charAt(digitSequence.length() - 1) == nextChar ? Cheonjiin.getRepeatingEndingDigits(digitSequence) : 0;
-		final int keyCharsCount = nextNumber == 0 ? 2 : language.getKeyCharacters(nextNumber).size();
+		final int keyCharsCount = nextNumber == 0 ? 2 : settings.getOrderedKeyChars(language, nextNumber).size();
 
 		if (repeatingDigits == 0 || keyCharsCount < 2) {
 			return 0;

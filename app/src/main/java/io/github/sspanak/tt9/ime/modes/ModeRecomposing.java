@@ -329,7 +329,7 @@ public class ModeRecomposing extends InputMode {
 		suggestionRecommendation = 0;
 
 		final Text letterAtPos = position >= 0 && position < originalWord.length() ? new Text(language, originalWord.charAt(position)) : new Text(null);
-		final ArrayList<String> keyChars = language.getKeyCharacters(numberAtPosition);
+		final ArrayList<String> keyChars = settings.getOrderedKeyChars(language, numberAtPosition);
 		keyChars.add(language.getKeyNumeral(numberAtPosition));
 
 
@@ -392,9 +392,6 @@ public class ModeRecomposing extends InputMode {
 		String recomposedWord = textField != null ? textField.getComposingText() : null;
 		if (recomposedWord == null || recomposedWord.isEmpty()) {
 			recomposedWord = prefix + suffix;
-		}
-		if (recomposedWord == null) {
-			recomposedWord = "";
 		}
 
 		return ctx.getString(R.string.accessibility_mode_recomposing, recomposedWord);
