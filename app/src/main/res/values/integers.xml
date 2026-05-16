@@ -5,6 +5,7 @@
 	<integer name="hotkey_backspace">0</integer>
 	<integer name="hotkey_edit_text">0</integer>
 	<integer name="hotkey_edit_word">0</integer>
+	<integer name="hotkey_hide_keyboard">0</integer>
 	<integer name="hotkey_select_keyboard">0</integer>
 	<integer name="hotkey_show_settings">0</integer>
 	<integer name="hotkey_undo">0</integer>
