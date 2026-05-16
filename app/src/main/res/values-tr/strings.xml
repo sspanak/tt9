@@ -170,6 +170,7 @@
 	<string name="function_filter_clear">Filtre temizle</string>
 	<string name="function_edit_text">Pano araçları</string>
 	<string name="function_edit_word">Kelimeyi düzenle</string>
+	<string name="function_hide_keyboard">Klavyeyi gizle</string>
 	<string name="function_filter_suggestions">Tahminleri filtrele</string>
 	<string name="function_filter_suggestions_not_available">Bu dilde filtreleme mümkün değil.</string>
 	<string name="function_previous_suggestion">Önceki tahmin</string>

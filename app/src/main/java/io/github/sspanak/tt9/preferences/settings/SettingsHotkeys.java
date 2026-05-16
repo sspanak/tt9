@@ -11,6 +11,7 @@ import io.github.sspanak.tt9.commands.CmdEditText;
 import io.github.sspanak.tt9.commands.CmdEditWord;
 import io.github.sspanak.tt9.commands.CmdFilterClear;
 import io.github.sspanak.tt9.commands.CmdFilterSuggestions;
+import io.github.sspanak.tt9.commands.CmdHideKeyboard;
 import io.github.sspanak.tt9.commands.CmdNextInputMode;
 import io.github.sspanak.tt9.commands.CmdNextLanguage;
 import io.github.sspanak.tt9.commands.CmdRedo;
@@ -110,6 +111,9 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 	}
 	public int getKeyFilterSuggestions() {
 		return getFunctionKey(CmdFilterSuggestions.ID);
+	}
+	public int getKeyHideKeyboard() {
+		return getFunctionKey(CmdHideKeyboard.ID);
 	}
 	public int getKeyPreviousSuggestion() {
 		return getFunctionKey(CmdSuggestionPrevious.ID);

@@ -102,6 +102,7 @@
 	<string name="function_filter_clear">Удалить фильтр</string>
 	<string name="function_edit_text">Инструменты буфера обмена</string>
 	<string name="function_edit_word">Редактировать слово</string>
+	<string name="function_hide_keyboard">Скрыть клавиатуру</string>
 	<string name="function_filter_suggestions">Фильтровать слова</string>
 	<string name="function_filter_suggestions_not_available">Фильтрация невозможна на этом языке.</string>
 	<string name="function_previous_suggestion">Предыдущее слово</string>

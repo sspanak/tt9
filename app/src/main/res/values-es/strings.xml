@@ -113,6 +113,7 @@
 	<string name="function_filter_clear">Limpiar el filtro</string>
 	<string name="function_edit_text">Herramientas del portapapeles</string>
 	<string name="function_edit_word">Editar palabra</string>
+	<string name="function_hide_keyboard">Ocultar teclado</string>
 	<string name="function_filter_suggestions">Filtrar sugerencias</string>
 	<string name="function_filter_suggestions_not_available">No es posible filtrar en este idioma.</string>
 	<string name="function_previous_suggestion">Sugerencia previa</string>
