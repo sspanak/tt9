@@ -19,11 +19,11 @@
 		android:summary="@string/pref_auto_capitals_after_newline_summary"
 		android:title="@string/pref_auto_capitals_after_newline" />
 
-	<io.github.sspanak.tt9.preferences.screens.modeAbc.DropDownAbcAutoAcceptTime android:title="@string/pref_abc_auto_accept" />
-
 	<SwitchPreferenceCompat
 		android:defaultValue="false"
 		android:key="show_suggestions_abc"
 		android:summary="@string/pref_show_suggestions_abc_summary"
 		android:title="@string/pref_show_suggestions_abc" />
+
+	<io.github.sspanak.tt9.preferences.screens.modeAbc.DropDownAbcAutoAcceptTime android:title="@string/pref_abc_auto_accept" />
 </androidx.preference.PreferenceScreen>
