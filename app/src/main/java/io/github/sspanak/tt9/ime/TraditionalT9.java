@@ -84,7 +84,9 @@ public class TraditionalT9 extends PremiumHandler {
 	@Override
 	public void onFinishInputView(boolean finishingInput) {
 		super.onFinishInputView(finishingInput);
-		onFinishTyping();
+		if (finishingInput) {
+			onFinishTyping();
+		}
 	}
 
 
