@@ -260,7 +260,9 @@ public class InputType extends StandardInputType {
 	 * character).
 	 */
 	public boolean isWhatsApp() {
-		return isAppField("com.whatsapp", 180225);
+		return
+			isAppField("com.whatsapp", 180225) // standard chat field
+			|| isAppField("com.whatsapp", 147457); // the "add a caption" field when sharing media
 	}
 
 
