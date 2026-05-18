@@ -99,6 +99,7 @@
 	<string name="function_show_command_palette">Списък с команди</string>
 	<string name="function_filter_clear">Изчистване на филтър</string>
 	<string name="function_edit_word">Редактиране на дума</string>
+	<string name="function_hide_keyboard">Скриване на клавиатурата</string>
 	<string name="function_filter_suggestions">Филтриране на думи</string>
 	<string name="function_filter_suggestions_not_available">Филтрирането не е възможно на този език.</string>
 	<string name="function_previous_suggestion">Предишна дума</string>

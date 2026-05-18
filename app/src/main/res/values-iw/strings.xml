@@ -235,6 +235,7 @@
 	<string name="punctuation_order_forbidden_char">תו אסור:%1$s</string>
 	<string name="punctuation_order_forbidden_chars">תווים אסורים:%1$s</string>
 	<string name="function_edit_word">עריכת מילה</string>
+	<string name="function_hide_keyboard">הסתר מקלדת</string>
 	<string name="function_filter_suggestions">סינון הצעות</string>
 	<string name="function_filter_suggestions_not_available">לא ניתן לסנן בשפה זו.</string>
 	<string name="pref_category_geometry">גיאומטריה</string>

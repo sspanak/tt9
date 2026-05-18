@@ -19,6 +19,7 @@ import io.github.sspanak.tt9.commands.CmdEditText;
 import io.github.sspanak.tt9.commands.CmdEditWord;
 import io.github.sspanak.tt9.commands.CmdFilterClear;
 import io.github.sspanak.tt9.commands.CmdFilterSuggestions;
+import io.github.sspanak.tt9.commands.CmdHideKeyboard;
 import io.github.sspanak.tt9.commands.CmdNextInputMode;
 import io.github.sspanak.tt9.commands.CmdNextLanguage;
 import io.github.sspanak.tt9.commands.CmdRedo;
@@ -46,6 +47,7 @@ public class Hotkey {
 		defaults.put(CmdEditWord.ID, R.integer.hotkey_edit_word);
 		defaults.put(CmdFilterClear.ID, R.integer.hotkey_filter_clear);
 		defaults.put(CmdFilterSuggestions.ID, R.integer.hotkey_filter_suggestions);
+		defaults.put(CmdHideKeyboard.ID, R.integer.hotkey_hide_keyboard);
 		defaults.put(CmdNextInputMode.ID, R.integer.hotkey_next_input_mode);
 		defaults.put(CmdNextLanguage.ID, R.integer.hotkey_next_language);
 		defaults.put(CmdSelectKeyboard.ID, R.integer.hotkey_select_keyboard);

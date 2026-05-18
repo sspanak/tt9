@@ -84,6 +84,7 @@ public class CommandCollection {
 			hotkeys.add(new CmdEditText());
 			hotkeys.add(new CmdFilterClear());
 			hotkeys.add(new CmdFilterSuggestions());
+			hotkeys.add(new CmdHideKeyboard());
 			hotkeys.add(new CmdSuggestionPrevious());
 			hotkeys.add(new CmdSuggestionNext());
 			hotkeys.add(new CmdNextInputMode());

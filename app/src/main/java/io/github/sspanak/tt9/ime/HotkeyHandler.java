@@ -172,6 +172,10 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return onKeyFilterSuggestions(validateOnly, repeat);
 		}
 
+		if (keyCode == settings.getKeyHideKeyboard()) {
+			return onKeyHideKeyboard(validateOnly);
+		}
+
 		if (keyCode == settings.getKeyNextLanguage()) {
 			return onKeyNextLanguage(validateOnly);
 		}
@@ -399,6 +403,19 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		mainView.renderDynamicKeys();
+
+		return true;
+	}
+
+
+	public boolean onKeyHideKeyboard(boolean validateOnly) {
+		if (!isInputViewShown() || shouldBeOff()) {
+			return false;
+		}
+
+		if (!validateOnly) {
+			requestHideSelf(0);
+		}
 
 		return true;
 	}
