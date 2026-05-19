@@ -26,7 +26,6 @@
 	<string name="accessibility_text_case_lower">lowercase</string>
 	<string name="accessibility_text_case_upper">uppercase</string>
 	<string name="accessibility_text_case_capital">capitalize first letter</string>
-	<string name="accessibility_toggle_predictive_mode">toggle predictive mode</string>
 
 	<string name="add_word_add">Add</string>
 	<string name="add_word_confirm">Add word \"%1$s\" to %2$s?</string>
@@ -251,7 +250,9 @@
 	<string name="function_next_language">Next Language</string>
 	<string name="function_next_mode">Next Input Mode</string>
 	<string name="function_select_keyboard">Select Keyboard</string>
+	<string name="function_show_emojis">Show Emojis</string>
 	<string name="function_show_settings">Show Settings</string>
+	<string name="function_toggle_predictive_mode">Toggle predictive mode</string>
 	<string name="function_txt_select_all">Select all</string>
 	<string name="function_txt_select_previous_char">Select previous character</string>
 	<string name="function_txt_select_previous_word">Select previous word</string>

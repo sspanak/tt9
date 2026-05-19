@@ -8,7 +8,7 @@
 	<string name="error_unexpected">Сталася неочікувана помилка.</string>
 
 	<string name="accessibility_text_case_capital">перша літера велика</string>
-	<string name="accessibility_toggle_predictive_mode">перемкнути предиктивний режим</string>
+	<string name="function_toggle_predictive_mode">Перемкнути предиктивний режим</string>
 	<string name="add_word_add">Додати</string>
 	<string name="add_word_confirm">Додати слово \"%1$s\" в %2$s?</string>
 	<string name="add_word_no_selection">Перемістіть курсор у слово, щоб додати його.</string>
@@ -156,6 +156,7 @@
 	<string name="function_next_mode">Наступний режим введення</string>
 	<string name="function_reassign">Перепризначити</string>
 	<string name="function_add_word">Додати слово</string>
+	<string name="function_show_emojis">Показувати емодзі</string>
 	<string name="function_show_settings">Показати налаштування</string>
 	<string name="function_redo">Повторити (Redo)</string>
 	<string name="function_voice_input">Голосове введення</string>

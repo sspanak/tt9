@@ -8,7 +8,7 @@
 	<string name="error_unexpected">Įvyko netikėta klaida.</string>
 
 	<string name="accessibility_text_case_capital">pirmą raidę rašyti didžiąja</string>
-	<string name="accessibility_toggle_predictive_mode">perjungti nuspėjamumo režimą</string>
+	<string name="function_toggle_predictive_mode">Perjungti nuspėjamumo režimą</string>
 	<string name="add_word_add">Pridėti</string>
 	<string name="add_word_confirm">Pridėti žodį \"%1$s\" į \"%2$s\" žodyną?</string>
 	<string name="add_word_no_selection">Perkelkite žymeklį prie žodžio kurį norite pridėti.</string>
@@ -122,6 +122,7 @@
 	<string name="function_next_mode">Kitas įvedimo režimas</string>
 	<string name="function_reassign">Perpriskirti</string>
 	<string name="function_add_word">Pridėti žodį</string>
+	<string name="function_show_emojis">Rodyti jaustukus</string>
 	<string name="function_show_settings">Rodyti nustatymus</string>
 	<string name="function_redo">Pakartoti (Redo)</string>
 	<string name="function_voice_input">Balso įvestis</string>

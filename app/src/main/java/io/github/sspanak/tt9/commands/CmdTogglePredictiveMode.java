@@ -9,7 +9,7 @@ import io.github.sspanak.tt9.ime.modes.InputModeKind;
 public class CmdTogglePredictiveMode implements Command {
 	@Override public String getId() { return "cmd_toggle_predictive_mode"; }
 	@Override public int getIcon() { return 0; }
-	@Override public int getName() { return R.string.accessibility_toggle_predictive_mode; }
+	@Override public int getName() { return R.string.function_toggle_predictive_mode; }
 
 	@Override
 	public boolean isAvailable(@Nullable TraditionalT9 tt9) {

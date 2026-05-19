@@ -6,7 +6,7 @@
 	<string name="loading">Зареждане…</string>
 	<string name="error_unexpected">Възникна неочаквана грешка.</string>
 	<string name="accessibility_text_case_capital">главна първа буква</string>
-	<string name="accessibility_toggle_predictive_mode">превключване на предсказващ режим</string>
+	<string name="function_toggle_predictive_mode">Превключване на предсказващ режим</string>
 	<string name="add_word_add">Добави</string>
 	<string name="add_word_no_selection">Преместете показалеца върху дума, за да я добавите към речника.</string>
 	<string name="add_word_blank">Не може да се въведе празна дума.</string>
@@ -107,6 +107,7 @@
 	<string name="function_next_suggestion">Следваща дума</string>
 	<string name="function_next_language">Следващ eзик</string>
 	<string name="function_next_mode">Следващ режим на писане</string>
+	<string name="function_show_emojis">Показване на емоджита</string>
 	<string name="function_show_settings">Настройки</string>
 	<string name="function_reset_keys_title">Възстанови стандартните бутони</string>
 	<string name="function_reset_keys_done">Възстановени са стандартните „бързи“ бутони.</string>

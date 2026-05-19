@@ -6,7 +6,7 @@
 	<string name="loading">Chargement…</string>
 	<string name="error_unexpected">Une erreur inattendue s\'est produite.</string>
 	<string name="accessibility_text_case_capital">mettre la première lettre en majuscule</string>
-	<string name="accessibility_toggle_predictive_mode">activer ou désactiver la saisie intuitive</string>
+	<string name="function_toggle_predictive_mode">Activer ou désactiver la saisie intuitive</string>
 	<string name="add_word_add">Ajouter</string>
 	<string name="add_word_no_selection">Déplacez le curseur dans un mot pour l\'ajouter.</string>
 	<string name="add_word_blank">Mot vide non ajouté.</string>
@@ -110,6 +110,7 @@
 	<string name="function_next_mode">Mode de saisie suivant</string>
 	<string name="function_reassign">Réattribuer</string>
 	<string name="function_add_word">Ajouter un mot</string>
+	<string name="function_show_emojis">Afficher les emojis</string>
 	<string name="function_show_settings">Afficher les paramètres</string>
 	<string name="function_redo">Restaurer (Redo)</string>
 	<string name="function_voice_input">Saisie vocale</string>

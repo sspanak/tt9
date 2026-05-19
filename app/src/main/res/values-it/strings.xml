@@ -7,7 +7,7 @@
 	<string name="error_unexpected">Si è verificato un errore imprevisto.</string>
 
 	<string name="accessibility_text_case_capital">maiuscola iniziale</string>
-	<string name="accessibility_toggle_predictive_mode">attiva/disattiva scrittura facilitata</string>
+	<string name="function_toggle_predictive_mode">Attiva/disattiva scrittura facilitata</string>
 	<string name="add_word_add">Aggiungere</string>
 	<string name="add_word_confirm">Aggiungi la parola \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Sposta il cursore dentro un parola per aggiungerla.</string>
@@ -250,6 +250,7 @@
 	<string name="function_next_language">Lingua successiva</string>
 	<string name="function_next_mode">Modalità di input successiva</string>
 	<string name="function_select_keyboard">Selezionare tastiera</string>
+	<string name="function_show_emojis">Mostra emoji</string>
 	<string name="function_show_settings">Mostrare impostazioni</string>
 	<string name="pref_bottom_padding_portrait">Spazio sotto (verticale)</string>
 	<string name="pref_drag_resize">Trascinare per ridimensionare</string>

@@ -6,7 +6,7 @@
 	<string name="loading">Загрузка…</string>
 	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
 	<string name="accessibility_text_case_capital">первая буква заглавная</string>
-	<string name="accessibility_toggle_predictive_mode">переключить режим подсказки</string>
+	<string name="function_toggle_predictive_mode">Переключить режим подсказки</string>
 	<string name="add_word_add">Добавить</string>
 	<string name="add_word_no_selection">Переместите курсор внутрь слова, чтобы добавить его.</string>
 	<string name="add_word_blank">Невозможно добавить слово.</string>
@@ -112,6 +112,7 @@
 	<string name="function_next_mode">Следующий режим ввода</string>
 	<string name="function_reassign">Назначить заново</string>
 	<string name="function_add_word">Добавить слово</string>
+	<string name="function_show_emojis">Показывать эмодзи</string>
 	<string name="function_show_settings">Настройки</string>
 	<string name="function_redo">Повторить (Redo)</string>
 	<string name="function_voice_input">Голосовой ввод</string>

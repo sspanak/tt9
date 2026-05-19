@@ -5,7 +5,7 @@
 	<string name="error_unexpected">Unerwarteter Fehler aufgetreten.</string>
 
 	<string name="accessibility_text_case_capital">Ersten Buchstaben großschreiben</string>
-	<string name="accessibility_toggle_predictive_mode">Textvorhersage umschalten</string>
+	<string name="function_toggle_predictive_mode">Textvorhersage umschalten</string>
 	<string name="add_word_add">Hinzufügen</string>
 	<string name="add_word_confirm">Wort \"%1$s\" zu %2$s hinzufügen?</string>
 	<string name="add_word_no_selection">Bewegen Sie den Cursor innerhalb eines Wortes, um es hinzuzufügen.</string>
@@ -249,6 +249,7 @@
 	<string name="function_previous_suggestion">Vorheriger Vorschlag</string>
 	<string name="function_next_suggestion">Nächster Vorschlag</string>
 	<string name="function_filter_clear">Filter löschen</string>
+	<string name="function_show_emojis">Emojis anzeigen</string>
 	<string name="function_show_settings">Einstellungsbildschirm anzeigen</string>
 	<string name="pref_bottom_padding_portrait">Abstand unten (Hochformat)</string>
 	<string name="pref_drag_resize">Ziehen, um die Größe zu ändern</string>

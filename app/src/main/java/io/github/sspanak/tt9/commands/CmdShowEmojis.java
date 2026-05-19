@@ -12,7 +12,7 @@ import io.github.sspanak.tt9.ime.helpers.Key;
 public class CmdShowEmojis implements Command {
 	@Override public String getId() { return "cmd_show_emojis"; }
 	@Override public int getIcon() { return R.drawable.ic_fn_show_emoijs; }
-	@Override public int getName() { return 0; }
+	@Override public int getName() { return R.string.function_show_emojis; }
 
 	@Override public boolean isAvailable(@Nullable TraditionalT9 tt9) {
 		return
