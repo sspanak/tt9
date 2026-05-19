@@ -152,9 +152,10 @@ class MainLayoutNumpad extends MainLayoutClassic {
 		addKey(R.id.soft_key_rf3);
 		addKey(R.id.soft_key_numpad_ok);
 
-		// hidden Fn
-		addKey(R.id.soft_key_left_arrow_large);
-		addKey(R.id.soft_key_right_arrow_large);
+		// extra Fn keys
+		addKey(R.id.soft_key_extra_left_arrow);
+		addKey(R.id.soft_key_extra_right_arrow);
+		addKey(R.id.soft_key_extra_text_editing);
 
 		return keys;
 	}

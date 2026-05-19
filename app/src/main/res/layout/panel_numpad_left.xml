@@ -37,14 +37,21 @@
 	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_L">
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
 			style="@style/TTheme.Numpad.Key.Large"
-			android:id="@+id/soft_key_left_arrow_large"
+			android:id="@+id/soft_key_extra_left_arrow"
 			android:text="@string/key_dpad_left"/>
 	</RelativeLayout>
 
 	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_R">
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
 			style="@style/TTheme.Numpad.Key.Large"
-			android:id="@+id/soft_key_right_arrow_large"
+			android:id="@+id/soft_key_extra_right_arrow"
 			android:text="@string/key_dpad_right"/>
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_C">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyShowTextEditing
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_extra_text_editing" />
+		<include layout="@layout/key_overlay_icons" />
 	</RelativeLayout>
 </LinearLayout>

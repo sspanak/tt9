@@ -24,9 +24,9 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 
 
 	private void determineDirection() {
-		if (getId() == R.id.soft_key_left_arrow || getId() == R.id.soft_key_left_arrow_large) {
+		if (getId() == R.id.soft_key_left_arrow || getId() == R.id.soft_key_extra_left_arrow) {
 			direction = -1;
-		} else if (getId() == R.id.soft_key_right_arrow || getId() == R.id.soft_key_right_arrow_large) {
+		} else if (getId() == R.id.soft_key_right_arrow || getId() == R.id.soft_key_extra_right_arrow) {
 			direction = 1;
 		}
 	}
