@@ -35,10 +35,6 @@ public class SoftKeyShowTextEditing extends BaseSoftKeyWithIcons {
 
 	@Override
 	protected String getAccessibilityText() {
-		if (tt9 == null) {
-			return null;
-		}
-
 		return editText.isActive(tt9) ? back.getName(tt9) : editText.getName(tt9);
 	}
 
