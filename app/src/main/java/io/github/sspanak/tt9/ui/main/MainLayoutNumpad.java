@@ -242,4 +242,8 @@ class MainLayoutNumpad extends MainLayoutClassic {
 		reorderFnKeys();
 		setKeyColumnWidth(tt9.getSettings().getNumpadFnKeyScale());
 	}
+
+
+	@Override
+	protected void afterRender() {}
 }
