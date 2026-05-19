@@ -16,10 +16,41 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 
 	private boolean held;
 	private boolean editedNext;
+	private int direction = 0;
 
 	public SoftKeyArrow(Context context) { super(context); }
 	public SoftKeyArrow(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyArrow(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+
+
+	private void determineDirection() {
+		if (getId() == R.id.soft_key_left_arrow || getId() == R.id.soft_key_left_arrow_large) {
+			direction = -1;
+		} else if (getId() == R.id.soft_key_right_arrow || getId() == R.id.soft_key_right_arrow_large) {
+			direction = 1;
+		}
+	}
+
+
+	private boolean isLeft() {
+		if (direction == 0) {
+			determineDirection();
+		}
+		return direction < 0;
+	}
+
+
+	private boolean isRight() {
+		if (direction == 0) {
+			determineDirection();
+		}
+		return direction > 0;
+	}
+
+
+	public boolean isSmall() {
+		return getId() == R.id.soft_key_left_arrow || getId() == R.id.soft_key_right_arrow;
+	}
 
 
 	@Override
@@ -33,7 +64,7 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 	protected void handleHold() {
 		if (editNextLetter.isAvailable(tt9)) {
 			preventRepeat();
-			editedNext = editNextLetter.run(tt9, getId() == R.id.soft_key_left_arrow);
+			editedNext = editNextLetter.run(tt9, isLeft());
 		} else {
 			held = true;
 			moveCursor();
@@ -55,9 +86,8 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 			return false;
 		}
 
-		int keyId = getId();
-		if (keyId == R.id.soft_key_left_arrow) return onLeft();
-		if (keyId == R.id.soft_key_right_arrow) return onRight();
+		if (isLeft()) return onLeft();
+		if (isRight()) return onRight();
 
 		return false;
 	}
@@ -73,23 +103,30 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 
 	@Override
 	protected String getAccessibilityText() {
-		int keyId = getId();
-		if (keyId == R.id.soft_key_left_arrow) return getContext().getString(R.string.accessibility_key_left);
-		if (keyId == R.id.soft_key_right_arrow) return getContext().getString(R.string.accessibility_key_right);
+		if (isLeft()) return getContext().getString(R.string.accessibility_key_left);
+		if (isRight()) return getContext().getString(R.string.accessibility_key_right);
 
 		return super.getAccessibilityText();
 	}
 
-	@Override
-	public void render() {
-		final int visibility = tt9 != null && tt9.getSettings().getArrowsLeftRight() ? VISIBLE : GONE;
 
+	private void setSmallVisibility() {
+		if (tt9 == null || !tt9.getSettings().isMainLayoutNumpad() || !isSmall()) {
+			return;
+		}
+
+		final int visibility = tt9 != null && tt9.getSettings().getArrowsLeftRight() ? VISIBLE : GONE;
 		setVisibility(visibility);
 		getOverlayWrapper();
 		if (overlay != null) {
 			overlay.setVisibility(visibility);
 		}
+	}
 
+
+	@Override
+	public void render() {
+		setSmallVisibility();
 		super.render();
 	}
 }

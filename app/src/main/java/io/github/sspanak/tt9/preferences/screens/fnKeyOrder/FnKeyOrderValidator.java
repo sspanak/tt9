@@ -57,7 +57,7 @@ public class FnKeyOrderValidator {
 
 
 	private boolean validateDigits(String text, int side) {
-		if (text == null || !text.matches("^[1-8]*$")) {
+		if (text == null || !text.matches("^[1-8CcEeLlRrTt]*$")) {
 			error = R.string.fn_key_order_error_unsupported_key_code;
 			errorSide = side;
 			return false;
@@ -72,16 +72,15 @@ public class FnKeyOrderValidator {
 			return true;
 		}
 
-		Set<Integer> digits = new HashSet<>();
+		Set<Character> keyCodes = new HashSet<>();
 
 		for (char c : text.toCharArray()) {
-			int digit = Character.getNumericValue(c);
-			if (digits.contains(digit)) {
+			if (keyCodes.contains(c)) {
 				error = R.string.fn_key_order_error_duplicate_key;
 				errorSide = side;
 				return false;
 			}
-			digits.add(digit);
+			keyCodes.add(c);
 		}
 
 		return true;
