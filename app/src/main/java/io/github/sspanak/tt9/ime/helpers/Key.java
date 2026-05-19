@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.HashMap;
 
@@ -141,12 +142,31 @@ public class Key {
 
 
 	public static int numberToCode(int number) {
-		if (number >= 0 && number <= 9) {
-			return KeyEvent.KEYCODE_0 + number;
-		} else {
+		return numberToCode(null, number);
+	}
+
+
+	public static int numberToCode(@Nullable SettingsStore settings, int number) {
+		if (number < 0 || number > 9) {
 			return -1;
 		}
+
+		int code = KeyEvent.KEYCODE_0 + number;
+		if (settings != null && settings.getUpsideDownKeys()) {
+			code = switch (code) {
+				case KeyEvent.KEYCODE_1 -> KeyEvent.KEYCODE_7;
+				case KeyEvent.KEYCODE_2 -> KeyEvent.KEYCODE_8;
+				case KeyEvent.KEYCODE_3 -> KeyEvent.KEYCODE_9;
+				case KeyEvent.KEYCODE_7 -> KeyEvent.KEYCODE_1;
+				case KeyEvent.KEYCODE_8 -> KeyEvent.KEYCODE_2;
+				case KeyEvent.KEYCODE_9 -> KeyEvent.KEYCODE_3;
+				default -> code;
+			};
+		}
+
+		return code;
 	}
+
 
 	@SuppressLint("GestureBackNavigation") // we are not handling anything here, the warning makes no sense
 	public static String codeToName(@NonNull Context context, int keyCode) {

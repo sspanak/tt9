@@ -94,6 +94,10 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		}
 	}
 
+	public boolean areEmojiCategoriesVisible() {
+		return false; // only in premium
+	}
+
 	public boolean isFilteringFuzzy() {
 		return mInputMode.isStemFilterFuzzy();
 	}

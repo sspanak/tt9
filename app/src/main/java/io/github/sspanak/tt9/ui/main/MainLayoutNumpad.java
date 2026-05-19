@@ -155,6 +155,7 @@ class MainLayoutNumpad extends MainLayoutClassic {
 		// extra Fn keys
 		addKey(R.id.soft_key_extra_left_arrow);
 		addKey(R.id.soft_key_extra_right_arrow);
+		addKey(R.id.soft_key_extra_show_emojis);
 		addKey(R.id.soft_key_extra_text_editing);
 		addKey(R.id.soft_key_extra_voice_input);
 

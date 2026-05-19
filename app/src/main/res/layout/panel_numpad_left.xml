@@ -61,4 +61,11 @@
 			android:id="@+id/soft_key_extra_voice_input" />
 		<include layout="@layout/key_overlay_icons" />
 	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_E">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyShowEmojis
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_extra_show_emojis" />
+		<include layout="@layout/key_overlay_icons" />
+	</RelativeLayout>
 </LinearLayout>

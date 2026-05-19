@@ -55,7 +55,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		stopWaitingForSpaceTrimKey();
 
-		if (hold && onHotkey(-Key.numberToCode(key), false, false)) {
+		if (hold && onHotkey(-Key.numberToCode(settings, key), false, false)) {
 			return true;
 		}
 

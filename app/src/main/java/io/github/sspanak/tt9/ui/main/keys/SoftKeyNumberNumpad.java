@@ -35,15 +35,6 @@ public class SoftKeyNumberNumpad extends BaseSwipeableKey {
 		put(R.id.soft_key_9, 9);
 	}};
 
-	private final static SparseArray<Integer> UPSIDE_DOWN_NUMBERS = new SparseArray<>() {{
-		put(1, 7);
-		put(2, 8);
-		put(3, 9);
-		put(7, 1);
-		put(8, 2);
-		put(9, 3);
-	}};
-
 
 	public SoftKeyNumberNumpad(Context context) { super(context); }
 	public SoftKeyNumberNumpad(Context context, AttributeSet attrs) { super(context, attrs); }
@@ -63,7 +54,7 @@ public class SoftKeyNumberNumpad extends BaseSwipeableKey {
 	protected void handleHold() {
 		preventRepeat();
 
-		int keyCode = Key.numberToCode(getUpsideDownNumber(getId()));
+		int keyCode = Key.numberToCode(tt9 != null ? tt9.getSettings() : null, getNumber());
 		if (keyCode < 0 || !validateTT9Handler()) {
 			return;
 		}
@@ -76,7 +67,7 @@ public class SoftKeyNumberNumpad extends BaseSwipeableKey {
 
 	@Override
 	protected boolean handleRelease() {
-		int keyCode = Key.numberToCode(getUpsideDownNumber(getId()));
+		int keyCode = Key.numberToCode(tt9 != null ? tt9.getSettings() : null, getNumber());
 		if (keyCode < 0 || !validateTT9Handler()) {
 			return false;
 		}
@@ -95,17 +86,6 @@ public class SoftKeyNumberNumpad extends BaseSwipeableKey {
 
 	protected int getNumber(int keyId) {
 		return NUMBERS.get(keyId, -1);
-	}
-
-
-	protected int getUpsideDownNumber(int keyId) {
-		int number = getNumber(keyId);
-
-		if (tt9 == null || !tt9.getSettings().getUpsideDownKeys()) {
-			return number;
-		}
-
-		return UPSIDE_DOWN_NUMBERS.get(number, number);
 	}
 
 
