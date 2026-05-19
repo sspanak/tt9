@@ -37,6 +37,7 @@ public class SettingsVirtualNumpad extends SettingsCustomKeyActions {
 		put('C', R.id.soft_key_wrapper_C);
 		put('E', R.id.soft_key_wrapper_E);
 		put('L', R.id.soft_key_wrapper_L);
+		put('N', R.id.soft_key_wrapper_N);
 		put('R', R.id.soft_key_wrapper_R);
 		put('T', R.id.soft_key_wrapper_T);
 		put('V', R.id.soft_key_wrapper_V);
