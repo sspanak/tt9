@@ -6,6 +6,7 @@
 	<string name="loading">Chargement…</string>
 	<string name="error_unexpected">Une erreur inattendue s\'est produite.</string>
 	<string name="accessibility_text_case_capital">mettre la première lettre en majuscule</string>
+	<string name="accessibility_toggle_predictive_mode">activer ou désactiver la saisie intuitive</string>
 	<string name="add_word_add">Ajouter</string>
 	<string name="add_word_no_selection">Déplacez le curseur dans un mot pour l\'ajouter.</string>
 	<string name="add_word_blank">Mot vide non ajouté.</string>

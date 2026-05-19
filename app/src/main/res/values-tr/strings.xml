@@ -5,6 +5,7 @@
 	<string name="error_unexpected">Beklenmeyen bir hata ile karşılaşıldı.</string>
 
 	<string name="accessibility_text_case_capital">ilk harfi büyüt</string>
+	<string name="accessibility_toggle_predictive_mode">tahminli modu değiştir</string>
 	<string name="add_word_add">Ekle</string>
 	<string name="add_word_confirm">\"%1$s\" kelimesi %2$s sözlüğe eklensin mi?</string>
 	<string name="add_word_no_selection">Ekleme yapmak için imleci eklemek istediğiniz kelimeye götürün.</string>

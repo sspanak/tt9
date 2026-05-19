@@ -68,4 +68,10 @@
 			android:id="@+id/soft_key_extra_show_emojis" />
 		<include layout="@layout/key_overlay_icons" />
 	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_T">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyTogglePredictiveMode
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_extra_toggle_predictive_mode" />
+	</RelativeLayout>
 </LinearLayout>

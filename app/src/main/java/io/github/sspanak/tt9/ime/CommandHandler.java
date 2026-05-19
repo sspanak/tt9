@@ -189,6 +189,19 @@ abstract public class CommandHandler extends TextEditingHandler {
 	}
 
 
+	public void togglePredictiveMode() {
+		if (mLanguage.isTranscribed()) {
+			return;
+		}
+
+		if (InputModeKind.isPredictive(mInputMode) && allowedInputModes.contains(InputMode.MODE_ABC)) {
+			setInputMode(InputMode.MODE_ABC);
+		} else if (InputModeKind.isABC(mInputMode) && allowedInputModes.contains(InputMode.MODE_PREDICTIVE)) {
+			setInputMode(InputMode.MODE_PREDICTIVE);
+		}
+	}
+
+
 	protected boolean changeLang() {
 		suggestionOps.cancelDelayedAccept();
 		stopVoiceInput();

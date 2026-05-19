@@ -5,6 +5,7 @@
 	<string name="error_unexpected">Unerwarteter Fehler aufgetreten.</string>
 
 	<string name="accessibility_text_case_capital">Ersten Buchstaben großschreiben</string>
+	<string name="accessibility_toggle_predictive_mode">Textvorhersage umschalten</string>
 	<string name="add_word_add">Hinzufügen</string>
 	<string name="add_word_confirm">Wort \"%1$s\" zu %2$s hinzufügen?</string>
 	<string name="add_word_no_selection">Bewegen Sie den Cursor innerhalb eines Wortes, um es hinzuzufügen.</string>
