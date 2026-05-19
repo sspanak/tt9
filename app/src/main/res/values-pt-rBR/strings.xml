@@ -260,7 +260,7 @@
 	<string name="function_undo">Desfazer</string>
 	<string name="fn_key_order_column_2">Coluna 2</string>
 	<string name="fn_key_order_error_wrong_key_count">A coluna pode conter no máximo 4 teclas.</string>
-	<string name="fn_key_order_error_unsupported_key_code">Apenas os códigos de tecla de 1 a 8 são permitidos.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Apenas as teclas listadas abaixo são permitidas.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Uma tecla não pode estar nas duas colunas.</string>
 	<string name="fn_key_order_column_1">Coluna 1</string>
 	<string name="pref_quick_switch_language">Alternância rápida de idioma</string>

@@ -255,7 +255,7 @@
 	<string name="function_undo">Rückgängig machen</string>
 	<string name="fn_key_order_column_2">Spalte 2</string>
 	<string name="fn_key_order_error_wrong_key_count">Die Spalte darf höchstens 4 Tasten enthalten.</string>
-	<string name="fn_key_order_error_unsupported_key_code">Nur Tastencodes 1–8 sind erlaubt.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Nur die unten aufgeführten Tasten sind erlaubt.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Eine Taste kann nicht in beiden Spalten platziert werden.</string>
 	<string name="fn_key_order_column_1">Spalte 1</string>
 	<string name="pref_quick_switch_language">Schneller Sprachwechsel</string>
