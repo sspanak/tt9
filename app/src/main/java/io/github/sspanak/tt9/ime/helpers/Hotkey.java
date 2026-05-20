@@ -54,7 +54,7 @@ public class Hotkey {
 		defaults.put(CmdNextLanguage.ID, R.integer.hotkey_next_language);
 		defaults.put(CmdSelectKeyboard.ID, R.integer.hotkey_select_keyboard);
 		defaults.put(CmdShift.ID, R.integer.hotkey_shift);
-		defaults.put(CmdShowEmojis.ID, R.integer.hotkey_show_settings);
+		defaults.put(CmdShowEmojis.ID, R.integer.hotkey_show_emojis);
 		defaults.put(CmdShowSettings.ID, R.integer.hotkey_show_settings);
 		defaults.put(CmdSpaceKorean.ID, R.integer.hotkey_space_korean);
 		defaults.put(CmdSuggestionNext.ID, R.integer.hotkey_next_suggestion);
