@@ -34,13 +34,13 @@ public class SettingsVirtualNumpad extends SettingsCustomKeyActions {
 		put('6', R.id.soft_key_wrapper_6);
 		put('7', R.id.soft_key_wrapper_7);
 		put('8', R.id.soft_key_wrapper_8);
-		put('C', R.id.soft_key_wrapper_C);
-		put('E', R.id.soft_key_wrapper_E);
-		put('L', R.id.soft_key_wrapper_L);
-		put('N', R.id.soft_key_wrapper_N);
-		put('R', R.id.soft_key_wrapper_R);
-		put('T', R.id.soft_key_wrapper_T);
-		put('V', R.id.soft_key_wrapper_V);
+		put('C', R.id.soft_key_wrapper_c);
+		put('E', R.id.soft_key_wrapper_e);
+		put('L', R.id.soft_key_wrapper_l);
+		put('N', R.id.soft_key_wrapper_n);
+		put('R', R.id.soft_key_wrapper_r);
+		put('T', R.id.soft_key_wrapper_t);
+		put('V', R.id.soft_key_wrapper_v);
 	}};
 
 	SettingsVirtualNumpad(Context context) {
