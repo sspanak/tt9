@@ -535,10 +535,6 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
-		if (!validateOnly) {
-			new CmdShowEmojis().run(getFinalContext());
-		}
-
 		return validateOnly || cmd.run(getFinalContext());
 	}
 
