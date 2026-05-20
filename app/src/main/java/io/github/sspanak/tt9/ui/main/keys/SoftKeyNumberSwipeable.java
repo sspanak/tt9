@@ -165,7 +165,9 @@ public class SoftKeyNumberSwipeable extends SoftKeyNumber {
 
 	@Override
 	public boolean isDynamic() {
-		return getSwipeCommand(false) instanceof CmdNextInputMode || getSwipeCommand(true) instanceof CmdNextInputMode;
+		return
+			getSwipeCommand(false) instanceof CmdNextInputMode || getSwipeCommand(true) instanceof CmdNextInputMode
+			|| getSwipeCommand(false) instanceof CmdTogglePredictiveMode || getSwipeCommand(true) instanceof CmdTogglePredictiveMode;
 	}
 
 
