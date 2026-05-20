@@ -5,11 +5,21 @@ import androidx.annotation.Nullable;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
+import io.github.sspanak.tt9.ui.StatusIcon;
 
 public class CmdTogglePredictiveMode implements Command {
-	@Override public String getId() { return "cmd_toggle_predictive_mode"; }
-	@Override public int getIcon() { return 0; }
+	public static final String ID = "key_toggle_predictive_mode";
+	@Override public String getId() { return ID; }
+	@Override public int getIcon() { return StatusIcon.getCachedResourceId(); }
 	@Override public int getName() { return R.string.function_toggle_predictive_mode; }
+
+	public void invalidateIcon(@Nullable TraditionalT9 tt9) {
+		new StatusIcon(
+			tt9 != null ? tt9.getInputMode() : null,
+			tt9 != null ? tt9.getLanguage() : null,
+			tt9 != null ? tt9.getDisplayTextCase() : 0
+		);
+	}
 
 	@Override
 	public boolean isAvailable(@Nullable TraditionalT9 tt9) {

@@ -25,10 +25,12 @@ import io.github.sspanak.tt9.commands.CmdNextLanguage;
 import io.github.sspanak.tt9.commands.CmdRedo;
 import io.github.sspanak.tt9.commands.CmdSelectKeyboard;
 import io.github.sspanak.tt9.commands.CmdShift;
+import io.github.sspanak.tt9.commands.CmdShowEmojis;
 import io.github.sspanak.tt9.commands.CmdShowSettings;
 import io.github.sspanak.tt9.commands.CmdSpaceKorean;
 import io.github.sspanak.tt9.commands.CmdSuggestionNext;
 import io.github.sspanak.tt9.commands.CmdSuggestionPrevious;
+import io.github.sspanak.tt9.commands.CmdTogglePredictiveMode;
 import io.github.sspanak.tt9.commands.CmdUndo;
 import io.github.sspanak.tt9.commands.CmdVoiceInput;
 
@@ -52,10 +54,12 @@ public class Hotkey {
 		defaults.put(CmdNextLanguage.ID, R.integer.hotkey_next_language);
 		defaults.put(CmdSelectKeyboard.ID, R.integer.hotkey_select_keyboard);
 		defaults.put(CmdShift.ID, R.integer.hotkey_shift);
+		defaults.put(CmdShowEmojis.ID, R.integer.hotkey_show_settings);
 		defaults.put(CmdShowSettings.ID, R.integer.hotkey_show_settings);
 		defaults.put(CmdSpaceKorean.ID, R.integer.hotkey_space_korean);
 		defaults.put(CmdSuggestionNext.ID, R.integer.hotkey_next_suggestion);
 		defaults.put(CmdSuggestionPrevious.ID, R.integer.hotkey_previous_suggestion);
+		defaults.put(CmdTogglePredictiveMode.ID, R.integer.hotkey_toggle_predictive_mode);
 		defaults.put(CmdUndo.ID, R.integer.hotkey_undo);
 		defaults.put(CmdRedo.ID, R.integer.hotkey_redo);
 		defaults.put(CmdVoiceInput.ID, R.integer.hotkey_voice_input);

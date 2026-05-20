@@ -7,13 +7,13 @@ import io.github.sspanak.tt9.commands.CmdBack;
 import io.github.sspanak.tt9.commands.CmdEditText;
 import io.github.sspanak.tt9.commands.CmdTxtCut;
 
-public class SoftKeyShowTextEditing extends BaseSoftKeyWithIcons {
+public class SoftKeyEditText extends BaseSoftKeyWithIcons {
 	private final CmdBack back = new CmdBack();
 	private final CmdEditText editText = new CmdEditText();
 
-	public SoftKeyShowTextEditing(Context context) { super(context); }
-	public SoftKeyShowTextEditing(Context context, AttributeSet attrs) { super(context, attrs); }
-	public SoftKeyShowTextEditing(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+	public SoftKeyEditText(Context context) { super(context); }
+	public SoftKeyEditText(Context context, AttributeSet attrs) { super(context, attrs); }
+	public SoftKeyEditText(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 
 	private boolean isKeySmall() {

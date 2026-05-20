@@ -32,7 +32,7 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 	}
 
 
-	private boolean isLeft() {
+	public boolean isLeft() {
 		if (direction == 0) {
 			determineDirection();
 		}
@@ -40,7 +40,7 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 	}
 
 
-	private boolean isRight() {
+	public boolean isRight() {
 		if (direction == 0) {
 			determineDirection();
 		}

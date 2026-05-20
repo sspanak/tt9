@@ -49,7 +49,7 @@
 	</RelativeLayout>
 
 	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_c">
-		<io.github.sspanak.tt9.ui.main.keys.SoftKeyShowTextEditing
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyEditText
 			style="@style/TTheme.Numpad.Key.Large"
 			android:id="@+id/soft_key_extra_text_editing"
 			tools:ignore="Instantiatable" />

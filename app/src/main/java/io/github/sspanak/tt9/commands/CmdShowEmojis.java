@@ -8,16 +8,18 @@ import androidx.annotation.Nullable;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ime.helpers.Key;
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
 
 public class CmdShowEmojis implements Command {
-	@Override public String getId() { return "cmd_show_emojis"; }
+	public static final String ID = "key_show_emojis";
+	@Override public String getId() { return ID; }
 	@Override public int getIcon() { return R.drawable.ic_fn_show_emojis; }
 	@Override public int getName() { return R.string.function_show_emojis; }
 
 	@Override public boolean isAvailable(@Nullable TraditionalT9 tt9) {
 		return
 			tt9 != null
-			&& !tt9.isInputTypeNumeric()
+			&& InputModeKind.isPredictive(tt9.getInputMode())
 			&& !tt9.areEmojiCategoriesVisible()
 			&& !tt9.isTouchExplorationEnabled();
 	}
