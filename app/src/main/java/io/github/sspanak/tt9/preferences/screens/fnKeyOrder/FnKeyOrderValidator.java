@@ -74,7 +74,7 @@ public class FnKeyOrderValidator {
 
 		Set<Character> keyCodes = new HashSet<>();
 
-		for (char c : text.toCharArray()) {
+		for (char c : text.toUpperCase().toCharArray()) {
 			if (keyCodes.contains(c)) {
 				error = R.string.fn_key_order_error_duplicate_key;
 				errorSide = side;
@@ -92,9 +92,12 @@ public class FnKeyOrderValidator {
 			return true;
 		}
 
-		for (int i = 0; i < column.length(); i++) {
-			char c = column.charAt(i);
-			if (otherColumn.indexOf(c) != -1) {
+		String columnUpper = column.toUpperCase();
+		String otherColumnUpper = otherColumn.toUpperCase();
+
+		for (int i = 0; i < columnUpper.length(); i++) {
+			char c = columnUpper.charAt(i);
+			if (otherColumnUpper.indexOf(c) != -1) {
 				error = R.string.fn_key_order_error_key_on_both_sides;
 				errorSide = ERROR_SIDE_BOTH;
 				return false;
