@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.commands;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.ui.UI;
 
 public class CmdSelectKeyboard implements Command {
 	public static final String ID = "key_select_keyboard";
@@ -12,11 +13,14 @@ public class CmdSelectKeyboard implements Command {
 	@Override public int getPaletteKey() { return R.id.soft_key_8; }
 
 	@Override public boolean run(TraditionalT9 tt9) {
-		if (tt9 != null) {
-			tt9.selectKeyboard();
-			return true;
+		if (tt9 == null) {
+			return false;
 		}
 
-		return false;
+		tt9.getSuggestionOps().cancelDelayedAccept();
+		tt9.stopVoiceInput();
+		UI.showChangeKeyboardDialog(tt9);
+
+		return true;
 	}
 }

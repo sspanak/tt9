@@ -190,7 +190,7 @@ abstract class KeyPadHandler extends UiHandler {
 	}
 
 
-	protected void resetKeyRepeat() {
+	public void resetKeyRepeat() {
 		numKeyRepeatCounter = 0;
 		keyRepeatCounter = 0;
 		lastNumKeyCode = 0;

@@ -27,7 +27,7 @@ public class CommandCollection {
 	@Nullable
 	public static Command getById(int collectionType, @Nullable String commandId) {
 		if (NullCommand.ID.equals(commandId)) {
-			return new NullCommand();
+			return NullCommand.self;
 		}
 
 		Collection<Command> commands = collectionType == COLLECTION_HOTKEYS ? getHotkeyCommands() : getAll(collectionType).values();
@@ -52,7 +52,7 @@ public class CommandCollection {
 	@NonNull
 	public static Command getBySoftKey(int collectionType, int keyId) {
 		Command cmd = getAll(collectionType).get(keyId);
-		return cmd != null ? cmd : new NullCommand();
+		return cmd != null ? cmd : NullCommand.self;
 	}
 
 
@@ -64,13 +64,13 @@ public class CommandCollection {
 			}
 		}
 
-		return new NullCommand();
+		return NullCommand.self;
 	}
 
 
 	@NonNull public static Command getByHotkey(@NonNull SettingsStore settings, int keyCode) {
 		if (keyCode == KeyEvent.KEYCODE_UNKNOWN) {
-			return new NullCommand();
+			return NullCommand.self;
 		}
 
 		for (Command cmd : getHotkeyCommands()) {
@@ -79,7 +79,7 @@ public class CommandCollection {
 			}
 		}
 
-		return new NullCommand();
+		return NullCommand.self;
 	}
 
 

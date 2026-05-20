@@ -63,7 +63,7 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	@Override
 	protected void handleHold() {
 		preventRepeat();
-		if (nextLanguage.run(tt9)) {
+		if (nextLanguage.isAvailable(tt9) && nextLanguage.run(tt9)) {
 			vibrate(Vibration.getHoldVibration());
 		}
 	}

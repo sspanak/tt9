@@ -15,11 +15,11 @@ public class CmdTxtCut implements Command {
 
 	@Override
 	public boolean run(@Nullable TraditionalT9 tt9) {
-		if (tt9 == null) {
-			return false;
+		if (tt9 != null && new CmdTxtCopy().run(tt9)) {
+			tt9.getSuggestionOps().clear();
+			return true;
 		}
 
-		tt9.cut();
-		return true;
+		return false;
 	}
 }

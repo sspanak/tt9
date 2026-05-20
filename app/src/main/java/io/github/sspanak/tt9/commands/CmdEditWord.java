@@ -6,9 +6,13 @@ import androidx.annotation.Nullable;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
+import io.github.sspanak.tt9.ime.modes.ModeRecomposing;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.util.Logger;
 
 public class CmdEditWord implements Command {
 	public static final String ID = "key_edit_word";
@@ -23,8 +27,9 @@ public class CmdEditWord implements Command {
 	public boolean isAvailable(@Nullable TraditionalT9 tt9) {
 		return
 			tt9 != null
+			&& !tt9.shouldBeOff()
 			&& tt9.getSettings().getWordEditing()
-			&& tt9.getSettings().getPredictiveMode()
+			&& InputModeKind.isPredictive(tt9.getInputMode())
 			&& tt9.getLanguage() != null
 			&& !tt9.getLanguage().isTranscribed();
 	}
@@ -32,11 +37,47 @@ public class CmdEditWord implements Command {
 
 	@Override
 	public boolean run(@Nullable TraditionalT9 tt9) {
-		return tt9 != null && tt9.onKeyEditWord(false);
+		if (tt9 == null || !validate(tt9, tt9.getSettings(), tt9.getLanguage())) {
+			return false;
+		}
+
+		final int previousMode = tt9.getInputMode().getId();
+		if (previousMode == InputMode.MODE_RECOMPOSING) {
+			Logger.d(getClass().getSimpleName(), "Already in recomposing mode. Nothing to do.");
+			return true;
+		}
+
+		String word = tt9.getSuggestionOps().getCurrent(tt9.getLanguage(), tt9.getInputMode().getSequenceLength());
+		if (word.isEmpty()) {
+			word = tt9.getTextField().recomposeSurroundingWord(tt9.getLanguage());
+		} else {
+			tt9.getSuggestionOps().set(null);
+		}
+
+		if (word.isEmpty()) {
+			UI.toastShortSingle(tt9, R.string.edit_word_no_selection);
+			return true;
+		}
+
+		tt9.setInputMode(InputMode.MODE_RECOMPOSING);
+		if (tt9.getInputMode().setWordStem(word, false)) {
+			((ModeRecomposing) tt9.getInputMode()).setOnFinishListener(() -> tt9.setInputMode(previousMode));
+			tt9.getSuggestions(0, "", null);
+		} else {
+			tt9.getTextField().finishComposingText();
+			tt9.setInputMode(previousMode);
+			String languageName = tt9.getLanguage() != null ? tt9.getLanguage().getName() : "";
+			UI.toastShortSingle(
+				tt9,
+				"edit_word_invalid_characters",
+				tt9.getString(R.string.edit_word_invalid_characters, word, languageName)
+			);
+		}
+		return true;
 	}
 
 
-	public static boolean validate(@NonNull TraditionalT9 tt9, @NonNull SettingsStore settings, @Nullable Language language) {
+	private boolean validate(@NonNull TraditionalT9 tt9, @NonNull SettingsStore settings, @Nullable Language language) {
 		if (tt9.isVoiceInputActive() || !settings.getPredictiveMode()) {
 			return false;
 		}

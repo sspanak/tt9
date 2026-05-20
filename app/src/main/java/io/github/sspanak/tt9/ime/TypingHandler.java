@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.commands.CmdSuggestionNext;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
@@ -35,6 +36,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(null, null);
 	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null, null, null, null);
+
+	@NonNull protected CmdSuggestionNext cmdNextSuggestion = new CmdSuggestionNext();
 
 	@Nullable private Handler shiftStateDebounceHandler;
 
@@ -229,7 +232,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		if (mInputMode.shouldSelectNextSuggestion() && !mInputMode.noSuggestions()) {
-			scrollSuggestions(false);
+			cmdNextSuggestion.run(getFinalContext());
 			suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
 			final double loadingId = Math.random();
@@ -467,18 +470,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// location. This prevents undesired deletion of the space, in the middle of the text.
 		if (CursorOps.isMovedFar(newSelStart, newSelEnd, oldSelStart, oldSelEnd)) {
 			stopWaitingForSpaceTrimKey();
-		}
-	}
-
-
-	protected void scrollSuggestions(boolean backward) {
-		suggestionOps.cancelDelayedAccept();
-		suggestionOps.scrollTo(backward ? -1 : 1);
-		mInputMode.setWordStem(suggestionOps.getCurrent(), true);
-		if (InputModeKind.isRecomposing(mInputMode)) {
-			appHacks.setComposingTextPartsWithHighlightedJoining(mInputMode.getWordStem() + suggestionOps.getCurrent(), mInputMode.getRecomposingSuffix());
-		} else {
-			appHacks.setComposingTextWithHighlightedStem(suggestionOps.getCurrent(), mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
 		}
 	}
 

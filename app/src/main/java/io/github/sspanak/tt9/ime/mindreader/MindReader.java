@@ -280,7 +280,7 @@ public class MindReader {
 			final String prefix = LanguageKind.isThai(language) ? "" : (sentenceSeparator != null ? sentenceSeparator : "");
 			final NgramsFile ngramsFile = new NgramsFile(context, context.getAssets(), language);
 
-			if (settings.areMindReaderFactoryNgramsImported(language, ngramsFile.getRevision())) {
+			if (settings == null || settings.areMindReaderFactoryNgramsImported(language, ngramsFile.getRevision())) {
 				Logger.d(LOG_TAG, "Factory N-grams for " + language.getName() + " are up-to-date. Import stopped after: " + Timer.stop(TIMER_TAG) + " ms");
 				return;
 			}

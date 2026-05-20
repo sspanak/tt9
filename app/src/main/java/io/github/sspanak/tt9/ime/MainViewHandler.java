@@ -7,13 +7,19 @@ import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
+import io.github.sspanak.tt9.hacks.AppHacks;
+import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.helpers.TextSelection;
+import io.github.sspanak.tt9.ime.mindreader.MindReader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.MainView;
+import io.github.sspanak.tt9.ui.tray.StatusBar;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 /**
@@ -98,9 +104,11 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		return false; // only in premium
 	}
 
+
 	public boolean isFilteringFuzzy() {
 		return mInputMode.isStemFilterFuzzy();
 	}
+
 
 	public boolean isFilteringOn() {
 		String stem = mInputMode.getWordStem();
@@ -153,17 +161,29 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 
 	public boolean isVoiceInputActive() {
-		return voiceInputOps != null && voiceInputOps.isListening();
+		return voiceInputOps.isListening();
 	}
 
 
 	public boolean isVoiceInputMissing() {
-		return !(new VoiceInputOps(this, null, null, null, null)).isAvailable();
+		return !voiceInputOps.isAvailable();
 	}
 
 
 	public String getABCString() {
 		return mLanguage == null ? "ABC" : mLanguage.getAbcString().toUpperCase(mLanguage.getLocale());
+	}
+
+
+	@NonNull
+	public ArrayList<Integer> getAllowedInputModes() {
+		return new ArrayList<>(allowedInputModes);
+	}
+
+
+	@NonNull
+	public AppHacks getAppHacks() {
+		return appHacks;
 	}
 
 
@@ -204,8 +224,15 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 
+	@Nullable
 	public MainView getMainView() {
 		return mainView;
+	}
+
+
+	@NonNull
+	public MindReader getMindReader() {
+		return mindReader;
 	}
 
 
@@ -213,10 +240,27 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		return settings;
 	}
 
+	@Nullable
+	public StatusBar getStatusBar() {
+		return statusBar;
+	}
+
 
 	@Nullable
 	public TextSelection getTextSelection() {
 		return textSelection;
+	}
+
+
+	@NonNull
+	public TextField getTextField() {
+		return textField;
+	}
+
+
+	@NonNull
+	public VoiceInputOps getVoiceInputOps() {
+		return voiceInputOps;
 	}
 
 

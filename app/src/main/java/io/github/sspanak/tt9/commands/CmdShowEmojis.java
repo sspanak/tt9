@@ -20,8 +20,7 @@ public class CmdShowEmojis implements Command {
 	@Override public boolean isAvailable(@Nullable TraditionalT9 tt9) {
 		return
 			tt9 != null
-			&& !tt9.shouldBeOff()
-			&& tt9.isInputViewShown()
+			&& isAvailableStd(tt9)
 			&& InputModeKind.isPredictive(tt9.getInputMode())
 			&& !tt9.areEmojiCategoriesVisible()
 			&& !tt9.isTouchExplorationEnabled();
@@ -42,12 +41,6 @@ public class CmdShowEmojis implements Command {
 		secondPress1(tt9, keyCode);
 
 		return true;
-	}
-
-
-	@Override
-	public boolean runFromHotkey(@Nullable TraditionalT9 tt9, int keyCode, boolean validateOnly) {
-		return isAvailable(tt9) && (validateOnly || run(tt9));
 	}
 
 
