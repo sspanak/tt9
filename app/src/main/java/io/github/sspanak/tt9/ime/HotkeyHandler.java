@@ -7,6 +7,7 @@ import io.github.sspanak.tt9.commands.CmdMoveCursor;
 import io.github.sspanak.tt9.commands.CmdShowEmojis;
 import io.github.sspanak.tt9.commands.CmdTogglePredictiveMode;
 import io.github.sspanak.tt9.commands.Command;
+import io.github.sspanak.tt9.commands.CommandCollection;
 import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -151,54 +152,6 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	private boolean onDynamicKey(int keyCode, boolean repeat, boolean validateOnly) {
-		if (keyCode == settings.getKeyAddWord()) {
-			return onKeyAddWord(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyCommandPalette()) {
-			return onKeyCommandPalette(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyEditText()) {
-			return onKeyEditText(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyEditWord()) {
-			return onKeyEditWord(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyFilterClear()) {
-			return onKeyFilterClear(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyFilterSuggestions()) {
-			return onKeyFilterSuggestions(validateOnly, repeat);
-		}
-
-		if (keyCode == settings.getKeyHideKeyboard()) {
-			return onKeyHideKeyboard(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyNextLanguage()) {
-			return onKeyNextLanguage(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyNextInputMode()) {
-			return onKeyNextInputMode(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyPreviousSuggestion()) {
-			return onKeyScrollSuggestion(validateOnly, true);
-		}
-
-		if (keyCode == settings.getKeyNextSuggestion()) {
-			return onKeyScrollSuggestion(validateOnly, false);
-		}
-
-		if (keyCode == settings.getKeySelectKeyboard()) {
-			return onKeySelectKeyboard(validateOnly);
-		}
-
 		if (keyCode == settings.getKeyShift()) {
 			return
 				onKeyNextTextCase(validateOnly)
@@ -207,35 +160,80 @@ public abstract class HotkeyHandler extends CommandHandler {
 				|| (keyCode == settings.getKeySpaceKorean() && onKeySpaceKorean(validateOnly));
 		}
 
-		if (keyCode == settings.getKeySpaceKorean()) {
-			return onKeySpaceKorean(validateOnly);
-		}
+		return CommandCollection.getByHotkey(settings, keyCode).runFromHotkey(getFinalContext(), keyCode, validateOnly);
 
-		if (keyCode == settings.getKeyShowEmojis()) {
-			return onKeyShowEmojis(validateOnly);
-		}
 
-		if (keyCode == settings.getKeyShowSettings()) {
-			return onKeyShowSettings(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyTogglePredictiveMode()) {
-			return onKeyTogglePredictiveMode(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyUndo()) {
-			return onKeyUndo(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyRedo()) {
-			return onKeyRedo(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyVoiceInput()) {
-			return onKeyVoiceInput(validateOnly);
-		}
-
-		return false;
+//		if (keyCode == settings.getKeyAddWord()) {
+//			return onKeyAddWord(validateOnly);
+//		}
+//
+//		if (keyCode == settings.getKeyCommandPalette()) {
+//			return onKeyCommandPalette(validateOnly);
+//		}
+//
+//		if (keyCode == settings.getKeyEditText()) {
+//			return onKeyEditText(validateOnly);
+//		}
+//
+//		if (keyCode == settings.getKeyEditWord()) {
+//			return onKeyEditWord(validateOnly);
+//		}
+//
+//		if (keyCode == settings.getKeyFilterClear()) {
+//			return onKeyFilterClear(validateOnly);
+//		}
+//
+//		if (keyCode == settings.getKeyFilterSuggestions()) {
+//			return onKeyFilterSuggestions(validateOnly, repeat);
+//		}
+//
+//		if (keyCode == settings.getKeyHideKeyboard()) {
+//			return onKeyHideKeyboard(validateOnly);
+//		}
+//
+//		if (keyCode == settings.getKeyNextLanguage()) {
+//			return onKeyNextLanguage(validateOnly);
+//		}
+//
+//		if (keyCode == settings.getKeyNextInputMode()) {
+//			return onKeyNextInputMode(validateOnly);
+//		}
+//
+//		if (keyCode == settings.getKeyPreviousSuggestion()) {
+//			return onKeyScrollSuggestion(validateOnly, true);
+//		}
+//
+//		if (keyCode == settings.getKeyNextSuggestion()) {
+//			return onKeyScrollSuggestion(validateOnly, false);
+//		}
+//
+//		if (keyCode == settings.getKeySelectKeyboard()) {
+//			return onKeySelectKeyboard(validateOnly);
+//		}
+//
+//		if (keyCode == settings.getKeySpaceKorean()) {
+//			return onKeySpaceKorean(validateOnly);
+//		}
+//
+//		if (keyCode == settings.getKeyShowSettings()) {
+//			return onKeyShowSettings(validateOnly);
+//		}
+//
+//		if (keyCode == settings.getKeyTogglePredictiveMode()) {
+//			return onKeyTogglePredictiveMode(validateOnly);
+//		}
+//
+//		if (keyCode == settings.getKeyUndo()) {
+//			return onKeyUndo(validateOnly);
+//		}
+//
+//		if (keyCode == settings.getKeyRedo()) {
+//			return onKeyRedo(validateOnly);
+//		}
+//
+//		if (keyCode == settings.getKeyVoiceInput()) {
+//			return onKeyVoiceInput(validateOnly);
+//		}
 	}
 
 
@@ -525,17 +523,6 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		return true;
-	}
-
-
-	private boolean onKeyShowEmojis(boolean validateOnly) {
-		Command cmd = new CmdShowEmojis();
-
-		if (!isInputViewShown() || shouldBeOff() || !cmd.isAvailable(getFinalContext())) {
-			return false;
-		}
-
-		return validateOnly || cmd.run(getFinalContext());
 	}
 
 

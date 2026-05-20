@@ -62,7 +62,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
-	protected boolean shouldBeOff() {
+	public boolean shouldBeOff() {
 		return getCurrentInputConnection() == null || InputModeKind.isPassthrough(mInputMode);
 	}
 

@@ -48,4 +48,6 @@ public interface Command {
 	 * @return true if the command was executed successfully, false otherwise.
 	 */
 	default boolean run(@Nullable TraditionalT9 tt9) { return false; }
+
+	default boolean runFromHotkey(@Nullable TraditionalT9 tt9, int keyCode, boolean validateOnly) { return false; }
 }

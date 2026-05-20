@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.commands;
 
+import android.view.KeyEvent;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -7,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class CommandCollection {
 	public static final int COLLECTION_HOTKEYS = 1;
@@ -56,6 +60,21 @@ public class CommandCollection {
 	public static Command getByHardKey(int collectionType, int keyCode) {
 		for (Command cmd : getAll(collectionType).values()) {
 			if (cmd.getHardKey() == keyCode) {
+				return cmd;
+			}
+		}
+
+		return new NullCommand();
+	}
+
+
+	@NonNull public static Command getByHotkey(@NonNull SettingsStore settings, int keyCode) {
+		if (keyCode == KeyEvent.KEYCODE_UNKNOWN) {
+			return new NullCommand();
+		}
+
+		for (Command cmd : getHotkeyCommands()) {
+			if (keyCode == settings.getFunctionKey(cmd.getId())) {
 				return cmd;
 			}
 		}
