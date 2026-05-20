@@ -10,6 +10,8 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.commands.CmdShift;
 import io.github.sspanak.tt9.commands.CmdSpaceKorean;
 import io.github.sspanak.tt9.commands.Command;
+import io.github.sspanak.tt9.commands.CommandCollection;
+import io.github.sspanak.tt9.commands.NullCommand;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -132,15 +134,16 @@ public class PreferenceHotkey extends ScreenPreference implements DialogInterfac
 
 
 	private boolean onReassign(DialogInterface dialog, int keyCode) {
-		String otherFunction = settings.getFunction(keyCode);
-		if (otherFunction == null || otherFunction.equals(getKey())) {
+		Command otherFunction = CommandCollection.getByHotkey(settings, keyCode);
+		String otherFunctionId = otherFunction.getId();
+		if (otherFunction instanceof NullCommand || otherFunctionId.equals(getKey())) {
 			return false;
 		}
 
 		// "Shift" and "Korean Space" can be the same key. It is properly handled in HotkeyHandler.
 		if (
-			(getKey().equals(CmdSpaceKorean.ID) && otherFunction.equals(CmdShift.ID))
-			|| (getKey().equals(CmdShift.ID) && otherFunction.equals(CmdSpaceKorean.ID))
+			(getKey().equals(CmdSpaceKorean.ID) && otherFunctionId.equals(CmdShift.ID))
+			|| (getKey().equals(CmdShift.ID) && otherFunctionId.equals(CmdSpaceKorean.ID))
 		) {
 			return false;
 		}
@@ -148,8 +151,8 @@ public class PreferenceHotkey extends ScreenPreference implements DialogInterfac
 
 		dialog.dismiss();
 
-		PreferenceHotkey otherHotkey = HotkeysScreen.hotkeys.get(otherFunction);
-		CharSequence prettyOtherFunction = otherHotkey != null ? otherHotkey.getTitle() : otherFunction;
+		PreferenceHotkey otherHotkey = HotkeysScreen.hotkeys.get(otherFunctionId);
+		CharSequence prettyOtherFunction = otherHotkey != null ? otherHotkey.getTitle() : otherFunctionId;
 		String question = getContext().getString(
 			R.string.function_already_assigned,
 			Key.codeToName(getContext(), keyCode),
@@ -164,7 +167,7 @@ public class PreferenceHotkey extends ScreenPreference implements DialogInterfac
 			.setPositiveButton(
 				getContext().getString(R.string.function_reassign),
 				() -> {
-					settings.setFunctionKey(otherFunction, KeyEvent.KEYCODE_UNKNOWN);
+					settings.setFunctionKey(otherFunctionId, KeyEvent.KEYCODE_UNKNOWN);
 					if (otherHotkey != null) {
 						otherHotkey.populate(KeyEvent.KEYCODE_UNKNOWN);
 					}

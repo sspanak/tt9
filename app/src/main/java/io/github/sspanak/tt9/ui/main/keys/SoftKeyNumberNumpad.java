@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.commands.CommandCollection;
+import io.github.sspanak.tt9.commands.NullCommand;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -104,7 +105,8 @@ public class SoftKeyNumberNumpad extends BaseSwipeableKey {
 			return null;
 		}
 
-		String currentCommandId = tt9.getSettings().getFunction(-Key.numberToCode(getNumber()));
+		Command cmd = CommandCollection.getByHotkey(tt9.getSettings(), -Key.numberToCode(getNumber()));
+		String currentCommandId = cmd instanceof NullCommand ? null : cmd.getId();
 		if (holdCommand == null || !holdCommand.getId().equals(currentCommandId)) {
 			holdCommand = CommandCollection.getById(CommandCollection.COLLECTION_HOTKEYS, currentCommandId);
 			resetIconCache();

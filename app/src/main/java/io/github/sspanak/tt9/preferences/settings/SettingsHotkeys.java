@@ -158,21 +158,6 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 	}
 
 
-	public String getFunction(int keyCode) {
-		if (keyCode == KeyEvent.KEYCODE_UNKNOWN) {
-			return null;
-		}
-
-		for (Command cmd : CommandCollection.getHotkeyCommands()) {
-			if (keyCode == getFunctionKey(cmd.getId())) {
-				return cmd.getId();
-			}
-		}
-
-		return null;
-	}
-
-
 	private boolean isValidFunction(String functionName) {
 		for (Command cmd : CommandCollection.getHotkeyCommands()) {
 			if (cmd.getId().equals(functionName)) {

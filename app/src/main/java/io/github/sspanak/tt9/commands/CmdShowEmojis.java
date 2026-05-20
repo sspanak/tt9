@@ -16,13 +16,17 @@ public class CmdShowEmojis implements Command {
 	@Override public int getIcon() { return R.drawable.ic_fn_show_emojis; }
 	@Override public int getName() { return R.string.function_show_emojis; }
 
+
 	@Override public boolean isAvailable(@Nullable TraditionalT9 tt9) {
 		return
 			tt9 != null
+			&& !tt9.shouldBeOff()
+			&& tt9.isInputViewShown()
 			&& InputModeKind.isPredictive(tt9.getInputMode())
 			&& !tt9.areEmojiCategoriesVisible()
 			&& !tt9.isTouchExplorationEnabled();
 	}
+
 
 	@Override
 	public boolean run(@Nullable TraditionalT9 tt9) {
@@ -40,6 +44,13 @@ public class CmdShowEmojis implements Command {
 		return true;
 	}
 
+
+	@Override
+	public boolean runFromHotkey(@Nullable TraditionalT9 tt9, int keyCode, boolean validateOnly) {
+		return isAvailable(tt9) && (validateOnly || run(tt9));
+	}
+
+
 	private void firstPress1(@NonNull TraditionalT9 tt9, int keyCode1) {
 		final boolean useHold = tt9.getLanguage() != null && tt9.getLanguage().hasLettersOnAllKeys();
 
@@ -50,6 +61,7 @@ public class CmdShowEmojis implements Command {
 		}
 		tt9.onKeyUp(keyCode1, new KeyEvent(KeyEvent.ACTION_UP, keyCode1));
 	}
+
 
 	private void secondPress1(@NonNull TraditionalT9 tt9, int keyCode1) {
 		tt9.onKeyDown(keyCode1, new KeyEvent(KeyEvent.ACTION_DOWN, keyCode1));
