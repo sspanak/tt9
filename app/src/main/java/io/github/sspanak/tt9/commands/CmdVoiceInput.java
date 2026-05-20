@@ -14,6 +14,22 @@ public class CmdVoiceInput implements Command {
 	@Override public int getHardKey() { return 3; }
 	@Override public int getPaletteKey() { return R.id.soft_key_3; }
 
+	public boolean isActive(@Nullable TraditionalT9 tt9) {
+		return tt9 != null && tt9.isVoiceInputActive();
+	}
+
+	@Override
+	public boolean isAvailable(@Nullable TraditionalT9 tt9) {
+		return
+			tt9 != null
+			&& !tt9.shouldBeOff()
+			&& !isMissing(tt9);
+	}
+
+	public boolean isMissing(@Nullable TraditionalT9 tt9) {
+		return tt9 != null && tt9.isVoiceInputMissing();
+	}
+
 	@Override
 	public boolean run(TraditionalT9 tt9) {
 		if (tt9 != null) {
@@ -21,18 +37,5 @@ public class CmdVoiceInput implements Command {
 			return true;
 		}
 		return false;
-	}
-
-	public boolean isActive(@Nullable TraditionalT9 tt9) {
-		return tt9 != null && tt9.isVoiceInputActive();
-	}
-
-	@Override
-	public boolean isAvailable(@Nullable TraditionalT9 tt9) {
-		return !isMissing(tt9);
-	}
-
-	public boolean isMissing(@Nullable TraditionalT9 tt9) {
-		return tt9 != null && tt9.isVoiceInputMissing();
 	}
 }

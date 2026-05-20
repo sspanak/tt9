@@ -2,8 +2,12 @@ package io.github.sspanak.tt9.commands;
 
 import androidx.annotation.Nullable;
 
+import java.util.LinkedList;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.util.sys.Clipboard;
 
 public class CmdTxtPaste implements Command {
 	public static final String ID = "key_txt_paste";
@@ -19,7 +23,21 @@ public class CmdTxtPaste implements Command {
 			return false;
 		}
 
-		tt9.paste();
+		if (!tt9.getSuggestionOps().isEmpty()) {
+			tt9.getSuggestionOps().clear();
+			return true;
+		}
+
+		LinkedList<CharSequence> clips = Clipboard.getAll(tt9);
+		if (clips.isEmpty()) {
+			UI.toast(tt9, R.string.commands_clipboard_is_empty);
+			return true;
+		}
+
+		tt9.getInputMode().reset();
+		tt9.getSuggestionOps().setClipboardItems(clips);
+		tt9.getAppHacks().setComposingTextWithHighlightedStem(tt9.getSuggestionOps().getCurrent(), null, false);
+
 		return true;
 	}
 }

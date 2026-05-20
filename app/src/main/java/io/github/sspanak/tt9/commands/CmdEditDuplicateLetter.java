@@ -14,10 +14,15 @@ public class CmdEditDuplicateLetter implements Command {
 	@Override public int getIcon() { return R.drawable.ic_fn_edit_duplicate_letter; }
 	@Override public int getName() { return 0; }
 
+
 	@Override
 	public boolean isAvailable(@Nullable TraditionalT9 tt9) {
-		return tt9 != null && InputModeKind.isRecomposing(tt9.getInputMode());
+		return
+			tt9 != null
+			&& !tt9.shouldBeOff()
+			&& InputModeKind.isRecomposing(tt9.getInputMode());
 	}
+
 
 	@Override
 	public boolean run(@Nullable TraditionalT9 tt9) {

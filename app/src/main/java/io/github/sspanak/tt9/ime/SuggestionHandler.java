@@ -82,7 +82,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 	}
 
 
-	protected void onAcceptSuggestionManually(String word, int fromKey) {
+	public void onAcceptSuggestionManually(String word, int fromKey) {
 		mInputMode.onAcceptSuggestion(word);
 		if (Clipboard.contains(word)) {
 			Clipboard.copy(this, word);
@@ -120,7 +120,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 	 * is still loading. Note that onComplete is called even if the loading was skipped.
 	 */
 	@Override
-	protected void getSuggestions(double loadingId, @Nullable String currentWord, @Nullable Runnable onComplete) {
+	public void getSuggestions(double loadingId, @Nullable String currentWord, @Nullable Runnable onComplete) {
 		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.isRunning()) {
 			mInputMode.reset();
 			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
@@ -136,7 +136,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 
 	@WorkerThread
-	protected void handleSuggestionsAsync() {
+	public void handleSuggestionsAsync() {
 		handleSuggestionsAsync(0, null);
 	}
 

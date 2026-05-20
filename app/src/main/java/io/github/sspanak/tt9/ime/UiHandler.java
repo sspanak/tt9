@@ -96,7 +96,7 @@ abstract class UiHandler extends AbstractHandler {
 	}
 
 
-	protected int getDisplayTextCase(@Nullable Language language, int modeTextCase) {
+	public int getDisplayTextCase(@Nullable Language language, int modeTextCase) {
 		boolean hasUpperCase = language != null && language.hasUpperCase();
 		if (!hasUpperCase) {
 			return displayTextCase = InputMode.CASE_UNDEFINED;
@@ -116,7 +116,7 @@ abstract class UiHandler extends AbstractHandler {
 	}
 
 
-	protected void setStatusIcon(@Nullable InputMode mode, @Nullable Language language) {
+	public void setStatusIcon(@Nullable InputMode mode, @Nullable Language language) {
 		if (!settings.isStatusIconEnabled()) {
 			return;
 		}
@@ -143,7 +143,7 @@ abstract class UiHandler extends AbstractHandler {
 	 * WARNING! Calling this may cause a restart, which will cause InputMode to be recreated. Depending
 	 * on how much time the restart takes, this may erase the current user input.
 	 */
-	protected void forceShowWindow() {
+	public void forceShowWindow() {
 		if (isInputViewShown() || !shouldBeVisible()) {
 			return;
 		}

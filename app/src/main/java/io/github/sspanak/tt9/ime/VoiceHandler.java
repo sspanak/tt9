@@ -3,6 +3,9 @@ package io.github.sspanak.tt9.ime;
 import android.Manifest;
 import android.view.KeyEvent;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
@@ -14,9 +17,10 @@ import io.github.sspanak.tt9.util.Ternary;
 
 abstract class VoiceHandler extends SuggestionHandler {
 	private final static String LOG_TAG = VoiceHandler.class.getSimpleName();
-	private AutoTextCase autoTextCase;
-	protected VoiceInputOps voiceInputOps;
-	private String beforeSpeech = "";
+
+	@Nullable private AutoTextCase autoTextCase;
+	@NonNull protected VoiceInputOps voiceInputOps = new VoiceInputOps(this, null, null, null, null);
+	@NonNull private String beforeSpeech = "";
 
 
 	@Override
@@ -86,7 +90,7 @@ abstract class VoiceHandler extends SuggestionHandler {
 	}
 
 
-	protected void stopVoiceInput() {
+	public void stopVoiceInput() {
 		if (voiceInputOps.isListening()) {
 			statusBar.setText(R.string.voice_input_stopping);
 			voiceInputOps.stop();

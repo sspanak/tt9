@@ -55,7 +55,7 @@ public class SoftKeyNumberNumpad extends BaseSwipeableKey {
 	protected void handleHold() {
 		preventRepeat();
 
-		int keyCode = Key.numberToCode(tt9 != null ? tt9.getSettings() : null, getNumber());
+		int keyCode = Key.numberToCode(getNumber());
 		if (keyCode < 0 || !validateTT9Handler()) {
 			return;
 		}
