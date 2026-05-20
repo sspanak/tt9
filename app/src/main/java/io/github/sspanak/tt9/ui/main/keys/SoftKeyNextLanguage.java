@@ -12,15 +12,9 @@ public class SoftKeyNextLanguage extends BaseSoftKeyWithIcons {
 	public SoftKeyNextLanguage(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyNextLanguage(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
-	@Override
-	protected boolean handleRelease() {
-		return nextLanguage.run(tt9);
-	}
-
-	@Override
-	protected int getCentralIcon() {
-		return nextLanguage.getIcon();
-	}
+	@Override protected boolean handleRelease() { return nextLanguage.run(tt9); }
+	@Override protected String getAccessibilityText() { return nextLanguage.getName(tt9); }
+	@Override protected int getCentralIcon() { return nextLanguage.getIcon(); }
 
 	@Override
 	public void render() {

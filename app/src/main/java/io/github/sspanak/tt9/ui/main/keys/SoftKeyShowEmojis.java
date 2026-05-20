@@ -13,7 +13,8 @@ public class SoftKeyShowEmojis extends BaseSoftKeyWithIcons {
 	public SoftKeyShowEmojis(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 	@Override protected boolean handlePress() { return showEmojis.run(tt9); }
-	@Override	protected int getCentralIcon() { return showEmojis.getIcon(); }
+	@Override protected String getAccessibilityText() { return showEmojis.getName(tt9); }
+	@Override protected int getCentralIcon() { return showEmojis.getIcon(); }
 
 	@Override
 	public void render() {
