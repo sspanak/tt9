@@ -40,10 +40,17 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 	}
 
 
-	private void setVisibility() {
+	private boolean setVisibility() {
 		if (tt9 != null && tt9.getSettings().isMainLayoutClassic()) { // no change for other layouts
-			setVisibility(tt9.isFnPanelVisible() ? GONE : VISIBLE);
+			final boolean isVisible = !tt9.isFnPanelVisible();
+
+			getOverlayWrapper();
+			overlay.setVisibility(isVisible ? VISIBLE : GONE);
+
+			return isVisible;
 		}
+
+		return true;
 	}
 
 
@@ -76,8 +83,10 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 
 	@Override
 	public void render() {
-		getOverlayWrapper();
-		setVisibility();
+		if (!setVisibility()) {
+			return;
+		}
+
 		resetIconCache();
 		setEnabled(isShiftEnabled() || hasLettersOnAllKeys());
 		super.render();
