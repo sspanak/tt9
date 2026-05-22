@@ -64,7 +64,7 @@
 	<string name="pref_category_keypad_onscreen">Экранные клавиши</string>
 	<string name="pref_category_predictive_mode">Режим подсказки</string>
 	<string name="pref_category_key_appearance">Клавиши</string>
-	<string name="pref_category_key_chars_summary">Добавляйте дополнительные буквы на клавиши 2–9. Меняйте порядок, добавляйте и удаляйте специальные символы на клавишах 0 и</string>
+	<string name="pref_category_key_chars_summary">Добавляйте дополнительные буквы на клавиши 2–9. Меняйте порядок, добавляйте и удаляйте специальные символы на клавишах 0 и 1</string>
 	<string name="pref_category_keypad">Клавиатура</string>
 	<string name="char_space">Пробел</string>
 	<string name="char_newline">Новая строка</string>
