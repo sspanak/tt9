@@ -81,7 +81,7 @@ abstract class AbstractPreferenceCharList extends TextInputPreference {
 		}
 
 		String chars = forbiddenCharList.substring(0, forbiddenCharList.length() - 1);
-		int message = chars.length() > 2 ? R.string.punctuation_order_forbidden_chars : R.string.punctuation_order_forbidden_char;
+		int message = chars.length() > 2 ? R.string.key_chars_error_forbidden_chars : R.string.key_chars_error_forbidden_char;
 		return getContext().getString(message, chars);
 	}
 
@@ -104,7 +104,7 @@ abstract class AbstractPreferenceCharList extends TextInputPreference {
 			return "";
 		}
 
-		int message = missingCharList.length() == 3 ? R.string.punctuation_order_mandatory_char_missing : R.string.punctuation_order_mandatory_chars_missing;
+		int message = missingCharList.length() == 3 ? R.string.key_chars_error_mandatory_char_missing : R.string.key_chars_error_mandatory_chars_missing;
 		String chars = missingCharList.substring(0, missingCharList.length() - 1);
 		return getContext().getString(message, chars);
 	}

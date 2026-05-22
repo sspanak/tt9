@@ -27,7 +27,7 @@ class ItemRestoreDefaultPunctuation extends ItemClickable {
 	ItemRestoreDefaultPunctuation setLanguage(@Nullable Language language) {
 		this.language = language;
 		if (item != null && language != null) {
-			item.setTitle(item.getContext().getString(R.string.punctuation_order_restore_default_for, language.getName()));
+			item.setTitle(item.getContext().getString(R.string.key_chars_restore_default_for, language.getName()));
 		}
 		return this;
 	}

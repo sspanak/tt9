@@ -29,7 +29,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 	@Override
 	protected int getTitle() {
-		return R.string.pref_category_punctuation_order;
+		return R.string.pref_category_key_chars;
 	}
 
 	@Override
@@ -120,7 +120,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 		for (AbstractPreferenceCharList charList : charLists) {
 			if (charList == null || !charList.validateCurrentChars()) {
-				UI.toastShortSingle(activity, R.string.punctuation_order_save_error);
+				UI.toastShortSingle(activity, R.string.key_chars_save_error);
 				return;
 			}
 		}

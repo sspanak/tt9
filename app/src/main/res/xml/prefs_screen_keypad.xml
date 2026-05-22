@@ -17,7 +17,8 @@
 		<Preference
 			android:fragment="io.github.sspanak.tt9.preferences.screens.punctuation.PunctuationScreen"
 			android:key="screen_punctuation"
-			android:title="@string/pref_category_punctuation_order" />
+			android:title="@string/pref_category_key_chars"
+			android:summary="@string/pref_category_key_chars_summary" />
 
 		<SwitchPreferenceCompat
 			android:defaultValue="false"

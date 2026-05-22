@@ -18,7 +18,7 @@ public class ItemPunctuationOrderSave extends ItemClickable {
 
 	ItemPunctuationOrderSave setLanguage(@Nullable Language language) {
 		if (item != null && language != null) {
-			item.setTitle(item.getContext().getString(R.string.punctuation_order_save, language.getName()));
+			item.setTitle(item.getContext().getString(R.string.key_chars_save, language.getName()));
 		}
 		return this;
 	}
