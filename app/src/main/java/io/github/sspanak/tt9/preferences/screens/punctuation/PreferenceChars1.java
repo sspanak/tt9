@@ -46,7 +46,7 @@ public class PreferenceChars1 extends AbstractPreferenceCharList {
 
 	public boolean validateCurrentChars() {
 		if (currentChars.isEmpty()) {
-			setError(getContext().getString(R.string.punctuation_order_cannot_be_empty));
+			setError(getContext().getString(R.string.key_chars_error_cannot_be_empty));
 			return false;
 		}
 
