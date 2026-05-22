@@ -278,7 +278,7 @@
 	<string name="key_chars_error_forbidden_chars">Forbidden characters:%1$s</string>
 	<string name="key_chars_restore_default_for">Restore default characters for %1$s</string>
 	<string name="key_chars_save">Save Characters for %1$s</string>
-	<string name="key_chars_save_error">Failed saving the character list.</string>
+	<string name="key_chars_save_error">Failed to save the character list.</string>
 
 	<string name="key_chars_key_0">0 Key</string>
 	<string name="key_chars_include_newline">Include Newline</string>
