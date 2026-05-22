@@ -21,15 +21,21 @@ import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyAddWord;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyBackspace;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyCommandPalette;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyFilter;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyLF4;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyNextLanguage;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumberNumpad;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyOk;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyRF3;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyShift;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyShowEmojis;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyEditText;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyTogglePredictiveMode;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyVoiceInput;
 import io.github.sspanak.tt9.util.ThemedContextBuilder;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
@@ -362,20 +368,23 @@ abstract public class BaseMainLayout {
 		final SettingsStore cfg = tt9.getSettings();
 
 		for (SoftKey key : getKeys()) {
-			final int keyId = key.getId();
-
 			if (
 				(key instanceof SoftKeyAddWord && keyCode == cfg.getKeyAddWord())
+				|| (key instanceof SoftKeyArrow && ((SoftKeyArrow) key).isLeft() && (Key.isArrowLeft(keyCode) || keyCode == cfg.getKeyPreviousSuggestion()))
+				|| (key instanceof SoftKeyArrow && ((SoftKeyArrow) key).isRight() && (Key.isArrowRight(keyCode) || keyCode == cfg.getKeyNextSuggestion()))
 				|| (key instanceof SoftKeyBackspace && Key.isBackspace(cfg, keyCode))
 				|| (key instanceof SoftKeyCommandPalette && keyCode == cfg.getKeyCommandPalette())
-				|| (key instanceof SoftKeyLF4 && (keyCode == cfg.getKeyNextInputMode() || keyCode == cfg.getKeyNextLanguage()))
+				|| (key instanceof SoftKeyEditText && keyCode == cfg.getKeyEditText())
 				|| (key instanceof SoftKeyFilter && (keyCode == cfg.getKeyFilterSuggestions() || keyCode == cfg.getKeyFilterClear()))
+				|| (key instanceof SoftKeyLF4 && (keyCode == cfg.getKeyNextInputMode() || keyCode == cfg.getKeyNextLanguage()))
+				|| (key instanceof SoftKeyNextLanguage && keyCode == cfg.getKeyNextLanguage())
 				|| (key instanceof SoftKeyOk && Key.isOK(keyCode))
+				|| (key instanceof SoftKeyRF3 && (keyCode == cfg.getKeyEditText() || keyCode == cfg.getKeyVoiceInput()))
 				|| (key instanceof SoftKeySettings && keyCode == cfg.getKeyShowSettings())
 				|| (key instanceof SoftKeyShift && keyCode == cfg.getKeyShift())
-				|| (key instanceof SoftKeyRF3 && (keyCode == cfg.getKeyEditText() || keyCode == cfg.getKeyVoiceInput()))
-				|| (keyId == R.id.soft_key_left_arrow && (Key.isArrowLeft(keyCode) || keyCode == cfg.getKeyPreviousSuggestion()))
-				|| (keyId == R.id.soft_key_right_arrow && (Key.isArrowRight(keyCode) || keyCode == cfg.getKeyNextSuggestion()))
+				|| (key instanceof SoftKeyShowEmojis && keyCode == cfg.getKeyShowEmojis())
+				|| (key instanceof SoftKeyTogglePredictiveMode && keyCode == cfg.getKeyTogglePredictiveMode())
+				|| (key instanceof SoftKeyVoiceInput && keyCode == cfg.getKeyVoiceInput())
 			) {
 				key.renderClick();
 				return;

@@ -2,6 +2,7 @@
 <resources>
 	<string name="app_settings">Configuración de Traditional T9</string>
 	<string name="accessibility_text_case_capital">primera letra en mayúscula</string>
+	<string name="function_toggle_predictive_mode">Alternar texto predictivo</string>
 	<string name="add_word_add">Agregar</string>
 	<string name="add_word_confirm">¿Agregar la palabra \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Mueve el cursor dentro de una palabra para añadirla.</string>
@@ -122,6 +123,7 @@
 	<string name="function_next_mode">Modo de entrada siguiente</string>
 	<string name="function_reassign">Reasignar</string>
 	<string name="function_add_word">Agregar palabra</string>
+	<string name="function_show_emojis">Mostrar emojis</string>
 	<string name="function_show_settings">Mostrar configuración</string>
 	<string name="function_redo">Rehacer</string>
 	<string name="function_voice_input">Entrada por voz</string>
@@ -253,7 +255,7 @@
 	<string name="function_undo">Deshacer</string>
 	<string name="fn_key_order_column_2">Columna 2</string>
 	<string name="fn_key_order_error_wrong_key_count">La columna puede contener como máximo 4 teclas.</string>
-	<string name="fn_key_order_error_unsupported_key_code">Solo se permiten los códigos de tecla del 1 al 8.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Solo se permiten las teclas indicadas a continuación.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Una tecla no puede colocarse en ambas columnas.</string>
 	<string name="fn_key_order_column_1">Columna 1</string>
 	<string name="pref_quick_switch_language">Cambio rápido de idioma</string>

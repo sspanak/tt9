@@ -4,6 +4,9 @@ import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.commands.CmdMoveCursor;
+import io.github.sspanak.tt9.commands.CmdShowEmojis;
+import io.github.sspanak.tt9.commands.CmdTogglePredictiveMode;
+import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -55,7 +58,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		stopWaitingForSpaceTrimKey();
 
-		if (hold && onHotkey(-Key.numberToCode(key), false, false)) {
+		if (hold && onHotkey(-Key.numberToCode(settings, key), false, false)) {
 			return true;
 		}
 
@@ -208,8 +211,16 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return onKeySpaceKorean(validateOnly);
 		}
 
+		if (keyCode == settings.getKeyShowEmojis()) {
+			return onKeyShowEmojis(validateOnly);
+		}
+
 		if (keyCode == settings.getKeyShowSettings()) {
 			return onKeyShowSettings(validateOnly);
+		}
+
+		if (keyCode == settings.getKeyTogglePredictiveMode()) {
+			return onKeyTogglePredictiveMode(validateOnly);
 		}
 
 		if (keyCode == settings.getKeyUndo()) {
@@ -517,6 +528,17 @@ public abstract class HotkeyHandler extends CommandHandler {
 	}
 
 
+	private boolean onKeyShowEmojis(boolean validateOnly) {
+		Command cmd = new CmdShowEmojis();
+
+		if (!isInputViewShown() || shouldBeOff() || !cmd.isAvailable(getFinalContext())) {
+			return false;
+		}
+
+		return validateOnly || cmd.run(getFinalContext());
+	}
+
+
 	private boolean onKeyShowSettings(boolean validateOnly) {
 		if (!isInputViewShown() || shouldBeOff()) {
 			return false;
@@ -550,6 +572,17 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		// type a space when there is nothing to accept
 		return onText(Characters.getSpace(mLanguage), validateOnly);
+	}
+
+
+	private boolean onKeyTogglePredictiveMode(boolean validateOnly) {
+		final Command cmd = new CmdTogglePredictiveMode();
+
+		if (!isInputViewShown() || shouldBeOff() || !cmd.isAvailable(getFinalContext())) {
+			return false;
+		}
+
+		return validateOnly || cmd.run(getFinalContext());
 	}
 
 

@@ -7,9 +7,11 @@
 	<integer name="hotkey_edit_word">0</integer>
 	<integer name="hotkey_hide_keyboard">0</integer>
 	<integer name="hotkey_select_keyboard">0</integer>
+	<integer name="hotkey_show_emojis">0</integer>
 	<integer name="hotkey_show_settings">0</integer>
 	<integer name="hotkey_undo">0</integer>
 	<integer name="hotkey_redo">0</integer>
+	<integer name="hotkey_toggle_predictive_mode">0</integer>
 	<integer name="hotkey_voice_input">0</integer>
 	<integer name="hotkey_filter_clear">20</integer> <!-- KEYCODE_DPAD_DOWN -->
 	<integer name="hotkey_filter_suggestions">19</integer> <!-- KEYCODE_DPAD_UP -->

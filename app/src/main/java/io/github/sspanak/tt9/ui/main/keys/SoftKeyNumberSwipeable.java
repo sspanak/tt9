@@ -9,6 +9,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.commands.CmdFilterSuggestions;
 import io.github.sspanak.tt9.commands.CmdMoveCursor;
 import io.github.sspanak.tt9.commands.CmdNextInputMode;
+import io.github.sspanak.tt9.commands.CmdTogglePredictiveMode;
 import io.github.sspanak.tt9.commands.CmdVoiceInput;
 import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.commands.CommandCollection;
@@ -61,6 +62,9 @@ public class SoftKeyNumberSwipeable extends SoftKeyNumber {
 		if (cmd instanceof CmdNextInputMode) {
 			((CmdNextInputMode) cmd).invalidateIcon(tt9);
 		}
+		if (cmd instanceof CmdTogglePredictiveMode) {
+			((CmdTogglePredictiveMode) cmd).invalidateIcon(tt9);
+		}
 
 		return cmd != null ? cmd.getIcon() : super.getCornerIcon(position);
 	}
@@ -68,7 +72,12 @@ public class SoftKeyNumberSwipeable extends SoftKeyNumber {
 
 	@Override
 	protected float getCornerElementScale(int position) {
-		if ((position == ICON_POSITION_BOTTOM_LEFT || position == ICON_POSITION_BOTTOM_RIGHT) && !(getSwipeCommand(position == ICON_POSITION_BOTTOM_LEFT) instanceof CmdNextInputMode)) {
+		Command cornerCommand = getSwipeCommand(position == ICON_POSITION_BOTTOM_LEFT);
+
+		if ((position == ICON_POSITION_BOTTOM_LEFT || position == ICON_POSITION_BOTTOM_RIGHT)
+			&& !(cornerCommand instanceof CmdNextInputMode)
+			&& !(cornerCommand instanceof CmdTogglePredictiveMode)
+		) {
 			return super.getCornerElementScale(position) * 0.75f;
 		}
 
@@ -156,7 +165,9 @@ public class SoftKeyNumberSwipeable extends SoftKeyNumber {
 
 	@Override
 	public boolean isDynamic() {
-		return getSwipeCommand(false) instanceof CmdNextInputMode || getSwipeCommand(true) instanceof CmdNextInputMode;
+		return
+			getSwipeCommand(false) instanceof CmdNextInputMode || getSwipeCommand(true) instanceof CmdNextInputMode
+			|| getSwipeCommand(false) instanceof CmdTogglePredictiveMode || getSwipeCommand(true) instanceof CmdTogglePredictiveMode;
 	}
 
 

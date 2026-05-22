@@ -17,10 +17,12 @@ import io.github.sspanak.tt9.commands.CmdNextLanguage;
 import io.github.sspanak.tt9.commands.CmdRedo;
 import io.github.sspanak.tt9.commands.CmdSelectKeyboard;
 import io.github.sspanak.tt9.commands.CmdShift;
+import io.github.sspanak.tt9.commands.CmdShowEmojis;
 import io.github.sspanak.tt9.commands.CmdShowSettings;
 import io.github.sspanak.tt9.commands.CmdSpaceKorean;
 import io.github.sspanak.tt9.commands.CmdSuggestionNext;
 import io.github.sspanak.tt9.commands.CmdSuggestionPrevious;
+import io.github.sspanak.tt9.commands.CmdTogglePredictiveMode;
 import io.github.sspanak.tt9.commands.CmdUndo;
 import io.github.sspanak.tt9.commands.CmdVoiceInput;
 import io.github.sspanak.tt9.commands.Command;
@@ -136,8 +138,14 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 	public int getKeySpaceKorean() {
 		return getFunctionKey(CmdSpaceKorean.ID);
 	}
+	public int getKeyShowEmojis() {
+		return getFunctionKey(CmdShowEmojis.ID);
+	}
 	public int getKeyShowSettings() {
 		return getFunctionKey(CmdShowSettings.ID);
+	}
+	public int getKeyTogglePredictiveMode() {
+		return getFunctionKey(CmdTogglePredictiveMode.ID);
 	}
 	public int getKeyUndo() {
 		return getFunctionKey(CmdUndo.ID);

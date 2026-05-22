@@ -7,6 +7,7 @@
 	<string name="error_unexpected">אירעה שגיאה לא צפויה.</string>
 
 	<string name="accessibility_text_case_capital">אות ראשונה גדולה</string>
+	<string name="function_toggle_predictive_mode">החלפת מצב חיזוי</string>
 	<string name="add_word_add">הוסף</string>
 	<string name="add_word_confirm">האם להוסיף את המילה \"%1$s\" ל-%2$s?</string>
 	<string name="add_word_no_selection">הזיזו את הסמן בתוך מילה כדי להוסיף אותה.</string>
@@ -115,6 +116,7 @@
 	<string name="function_next_mode">מצב קלט הבא</string>
 	<string name="function_reassign">הקצה מחדש</string>
 	<string name="function_add_word">לחצן הוספת מילה</string>
+	<string name="function_show_emojis">הצג אימוג׳ים</string>
 	<string name="function_show_settings">לחצן הצגת הגדרות</string>
 	<string name="function_redo">ביצוע חוזר (Redo)</string>
 	<string name="function_voice_input">קלט קולי</string>
@@ -259,7 +261,7 @@
 	<string name="function_undo">ביטול (Undo)</string>
 	<string name="fn_key_order_column_2">עמודה 2</string>
 	<string name="fn_key_order_error_wrong_key_count">העמודה יכולה להכיל לכל היותר 4 מקשים.</string>
-	<string name="fn_key_order_error_unsupported_key_code">רק קודי מקשים 1–8 מותרים.</string>
+	<string name="fn_key_order_error_unsupported_key_code">רק המקשים המפורטים למטה מותרים.</string>
 	<string name="fn_key_order_error_key_on_both_sides">לא ניתן למקם מקש אחד בשתי העמודות.</string>
 	<string name="fn_key_order_column_1">עמודה 1</string>
 	<string name="pref_quick_switch_language">החלפה מהירה של שפות</string>

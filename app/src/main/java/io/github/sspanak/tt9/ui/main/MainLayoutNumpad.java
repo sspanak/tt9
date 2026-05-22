@@ -77,7 +77,7 @@ class MainLayoutNumpad extends MainLayoutClassic {
 		final View rightColumn = view.findViewById(R.id.numpad_column_fn_right);
 
 		for (SoftKey key : getKeys()) {
-			if (key instanceof SoftKeyArrow) {
+			if (key instanceof SoftKeyArrow && ((SoftKeyArrow) key).isSmall()) {
 				continue;
 			}
 
@@ -151,6 +151,15 @@ class MainLayoutNumpad extends MainLayoutClassic {
 		addKey(R.id.soft_key_filter);
 		addKey(R.id.soft_key_rf3);
 		addKey(R.id.soft_key_numpad_ok);
+
+		// extra Fn keys
+		addKey(R.id.soft_key_extra_left_arrow);
+		addKey(R.id.soft_key_extra_right_arrow);
+		addKey(R.id.soft_key_extra_next_language);
+		addKey(R.id.soft_key_extra_show_emojis);
+		addKey(R.id.soft_key_extra_text_editing);
+		addKey(R.id.soft_key_extra_toggle_predictive_mode);
+		addKey(R.id.soft_key_extra_voice_input);
 
 		return keys;
 	}

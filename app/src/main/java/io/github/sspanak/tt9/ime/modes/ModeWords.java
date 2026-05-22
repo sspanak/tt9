@@ -203,6 +203,7 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	public void reset() {
 		basicReset();
+		containsEmojis = false;
 		digitSequence = "";
 		disablePredictions = false;
 		stem = "";

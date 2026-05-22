@@ -6,6 +6,7 @@
 	<string name="loading">Загрузка…</string>
 	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
 	<string name="accessibility_text_case_capital">первая буква заглавная</string>
+	<string name="function_toggle_predictive_mode">Переключить режим подсказки</string>
 	<string name="add_word_add">Добавить</string>
 	<string name="add_word_no_selection">Переместите курсор внутрь слова, чтобы добавить его.</string>
 	<string name="add_word_blank">Невозможно добавить слово.</string>
@@ -111,6 +112,7 @@
 	<string name="function_next_mode">Следующий режим ввода</string>
 	<string name="function_reassign">Назначить заново</string>
 	<string name="function_add_word">Добавить слово</string>
+	<string name="function_show_emojis">Показывать эмодзи</string>
 	<string name="function_show_settings">Настройки</string>
 	<string name="function_redo">Повторить (Redo)</string>
 	<string name="function_voice_input">Голосовой ввод</string>
@@ -253,7 +255,7 @@
 	<string name="function_undo">Отменить (Undo)</string>
 	<string name="fn_key_order_column_2">Столбец 2</string>
 	<string name="fn_key_order_error_wrong_key_count">В столбце может быть не более 4 клавиш.</string>
-	<string name="fn_key_order_error_unsupported_key_code">Разрешены только коды клавиш от 1 до 8.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Разрешены только перечисленные ниже клавиши.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Одна клавиша не может находиться в обеих колонках.</string>
 	<string name="fn_key_order_column_1">Столбец 1</string>
 	<string name="pref_quick_switch_language">Быстрое переключение языков</string>

@@ -5,6 +5,7 @@
 	<string name="error_unexpected">Unerwarteter Fehler aufgetreten.</string>
 
 	<string name="accessibility_text_case_capital">Ersten Buchstaben großschreiben</string>
+	<string name="function_toggle_predictive_mode">Textvorhersage umschalten</string>
 	<string name="add_word_add">Hinzufügen</string>
 	<string name="add_word_confirm">Wort \"%1$s\" zu %2$s hinzufügen?</string>
 	<string name="add_word_no_selection">Bewegen Sie den Cursor innerhalb eines Wortes, um es hinzuzufügen.</string>
@@ -248,6 +249,7 @@
 	<string name="function_previous_suggestion">Vorheriger Vorschlag</string>
 	<string name="function_next_suggestion">Nächster Vorschlag</string>
 	<string name="function_filter_clear">Filter löschen</string>
+	<string name="function_show_emojis">Emojis anzeigen</string>
 	<string name="function_show_settings">Einstellungsbildschirm anzeigen</string>
 	<string name="pref_bottom_padding_portrait">Abstand unten (Hochformat)</string>
 	<string name="pref_drag_resize">Ziehen, um die Größe zu ändern</string>
@@ -255,7 +257,7 @@
 	<string name="function_undo">Rückgängig machen</string>
 	<string name="fn_key_order_column_2">Spalte 2</string>
 	<string name="fn_key_order_error_wrong_key_count">Die Spalte darf höchstens 4 Tasten enthalten.</string>
-	<string name="fn_key_order_error_unsupported_key_code">Nur Tastencodes 1–8 sind erlaubt.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Nur die unten aufgeführten Tasten sind erlaubt.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Eine Taste kann nicht in beiden Spalten platziert werden.</string>
 	<string name="fn_key_order_column_1">Spalte 1</string>
 	<string name="pref_quick_switch_language">Schneller Sprachwechsel</string>

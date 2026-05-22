@@ -33,4 +33,56 @@
 			android:id="@+id/soft_key_lf4" />
 		<include layout="@layout/key_overlay_lf4" />
 	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_l">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_extra_left_arrow"
+			android:text="@string/key_dpad_left"/>
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_r">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_extra_right_arrow"
+			android:text="@string/key_dpad_right"/>
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_c">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyEditText
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_extra_text_editing"
+			tools:ignore="Instantiatable" />
+		<include layout="@layout/key_overlay_icons" />
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_v">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyVoiceInput
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_extra_voice_input"
+			tools:ignore="Instantiatable" />
+		<include layout="@layout/key_overlay_icons" />
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_e">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyShowEmojis
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_extra_show_emojis"
+			tools:ignore="Instantiatable" />
+		<include layout="@layout/key_overlay_icons" />
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_t">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyTogglePredictiveMode
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_extra_toggle_predictive_mode" />
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_n">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyNextLanguage
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_extra_next_language"
+			tools:ignore="Instantiatable" />
+		<include layout="@layout/key_overlay_icons" />
+	</RelativeLayout>
 </LinearLayout>

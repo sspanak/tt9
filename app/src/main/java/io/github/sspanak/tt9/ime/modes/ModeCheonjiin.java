@@ -211,6 +211,7 @@ class ModeCheonjiin extends InputMode {
 	@Override
 	public void reset() {
 		basicReset();
+		containsEmojis = false;
 		digitSequence = "";
 		previousJamoSequence = "";
 		disablePredictions = false;

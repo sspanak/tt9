@@ -15,6 +15,8 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyLF4 extends BaseSwipeableKey {
+	private final CmdNextLanguage nextLanguage = new CmdNextLanguage();
+
 	public SoftKeyLF4(Context context) {
 		super(context);
 		isSwipeable = true;
@@ -54,7 +56,7 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	@Override
 	protected void handleHold() {
 		preventRepeat();
-		if (new CmdNextLanguage().run(tt9)) {
+		if (nextLanguage.run(tt9)) {
 			vibrate(Vibration.getHoldVibration());
 		}
 	}
@@ -104,7 +106,7 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 
 	@Override
 	public boolean isHoldEnabled() {
-		return tt9 != null && !tt9.isInputModeNumeric();
+		return nextLanguage.isAvailable(tt9);
 	}
 
 	@Override

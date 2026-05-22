@@ -11,6 +11,11 @@ public class CmdNextLanguage implements Command {
 	public int getIcon() { return R.drawable.ic_fn_next_language; }
 	public int getName() { return R.string.function_next_language; }
 
+	@Override
+	public boolean isAvailable(@Nullable TraditionalT9 tt9) {
+		return tt9 != null && tt9.getSettings().areEnabledLanguagesMoreThanN(1) && !tt9.isInputModeNumeric();
+	}
+
 	public boolean run(@Nullable TraditionalT9 tt9) {
 		return tt9 != null && tt9.onKeyNextLanguage(false);
 	}

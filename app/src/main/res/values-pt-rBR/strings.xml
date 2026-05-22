@@ -7,6 +7,7 @@
 	<string name="error_unexpected">Um erro inesperado aconteceu.</string>
 
 	<string name="accessibility_text_case_capital">inicial maiúscula</string>
+	<string name="function_toggle_predictive_mode">Alternar modo preditivo</string>
 	<string name="add_word_add">Adicionar</string>
 	<string name="add_word_confirm">Adicionar a palavra \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Mova o cursor dentro de uma palavra para adicioná-la.</string>
@@ -108,6 +109,7 @@
 	<string name="function_next_mode">Próximo modo de entrada</string>
 	<string name="function_reassign">Reatribuir</string>
 	<string name="function_add_word">Adicionar palavra</string>
+	<string name="function_show_emojis">Mostrar emojis</string>
 	<string name="function_show_settings">Entrar em Configurações</string>
 	<string name="function_redo">Refazer</string>
 	<string name="function_voice_input">Entrada por Voz</string>
@@ -260,7 +262,7 @@
 	<string name="function_undo">Desfazer</string>
 	<string name="fn_key_order_column_2">Coluna 2</string>
 	<string name="fn_key_order_error_wrong_key_count">A coluna pode conter no máximo 4 teclas.</string>
-	<string name="fn_key_order_error_unsupported_key_code">Apenas os códigos de tecla de 1 a 8 são permitidos.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Apenas as teclas listadas abaixo são permitidas.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Uma tecla não pode estar nas duas colunas.</string>
 	<string name="fn_key_order_column_1">Coluna 1</string>
 	<string name="pref_quick_switch_language">Alternância rápida de idioma</string>

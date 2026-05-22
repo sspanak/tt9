@@ -92,7 +92,9 @@ public class CommandCollection {
 			hotkeys.add(new CmdSelectKeyboard());
 			hotkeys.add(new CmdShift());
 			hotkeys.add(new CmdSpaceKorean());
+			hotkeys.add(new CmdShowEmojis());
 			hotkeys.add(new CmdShowSettings());
+			hotkeys.add(new CmdTogglePredictiveMode());
 			hotkeys.add(new CmdUndo());
 			hotkeys.add(new CmdRedo());
 			hotkeys.add(new CmdVoiceInput());
