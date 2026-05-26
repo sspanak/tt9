@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.Text;
 
 public class PreferenceChars2to9 extends AbstractPreferenceCharList {
@@ -67,7 +66,7 @@ public class PreferenceChars2to9 extends AbstractPreferenceCharList {
 
 	@Override
 	void onLanguageChange(Language language) {
-		if (LanguageKind.isKorean(language)) {
+		if (language == null || language.isTranscribed()) {
 			setEnabled(false);
 			return;
 		}
