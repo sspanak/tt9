@@ -106,9 +106,16 @@ abstract public class Predictions {
 	 * Takes a list of words and appends them to the old list of words, if they are missing.
 	 */
 	protected void suggestMissingWords(ArrayList<String> newWords, ArrayList<String> oldWords) {
+		final ArrayList<String> oldWordsLowerCase = new ArrayList<>();
+		for (String oldWord : oldWords) {
+			oldWordsLowerCase.add(oldWord.toLowerCase(language.getLocale()));
+		}
+
 		for (String newWord : newWords) {
-			if (!oldWords.contains(newWord) && !oldWords.contains(newWord.toLowerCase(language.getLocale()))) {
+			String newWordLowerCase = newWord.toLowerCase(language.getLocale());
+			if (!oldWordsLowerCase.contains(newWordLowerCase)) {
 				oldWords.add(newWord);
+				oldWordsLowerCase.add(newWordLowerCase);
 			}
 		}
 	}
