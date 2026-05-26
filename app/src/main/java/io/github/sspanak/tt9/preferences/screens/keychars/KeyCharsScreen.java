@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 import io.github.sspanak.tt9.ui.UI;
@@ -58,11 +59,20 @@ public class KeyCharsScreen extends BaseScreenFragment {
 
 		initLanguageList();
 		Language initalLanguage = languageList != null ? LanguageCollection.getLanguage(languageList.getValue()) : null;
+		init2to9Section(initalLanguage);
 		initResetDefaults(initalLanguage);
 		initSaveButton(initalLanguage);
 		initIncludeSwitches(initalLanguage);
 		loadCharLists(initalLanguage);
 		resetFontSize(false);
+	}
+
+
+	private void init2to9Section(@Nullable Language language) {
+		final Preference category = findPreference("category_extra_chars_2_to_9");
+		if (category != null) {
+			category.setVisible(!LanguageKind.isKorean(language));
+		}
 	}
 
 
@@ -137,6 +147,7 @@ public class KeyCharsScreen extends BaseScreenFragment {
 	private void onLanguageChanged(@Nullable String newLanguageId) {
 		Language language = LanguageCollection.getLanguage(newLanguageId);
 
+		init2to9Section(language);
 		initIncludeSwitches(language);
 		restoreDefaults.setLanguage(language);
 		saveOrder.setLanguage(language);

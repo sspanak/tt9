@@ -39,7 +39,7 @@
 			android:title="@string/key_chars_after_group"/>
 	</PreferenceCategory>
 
-	<PreferenceCategory android:title="@string/key_chars_key_2_9">
+	<PreferenceCategory android:key="category_extra_chars_2_to_9" android:title="@string/key_chars_key_2_9">
 		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars2to9 android:key="extra_chars_2" />
 		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars2to9 android:key="extra_chars_3" />
 		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars2to9 android:key="extra_chars_4" />
