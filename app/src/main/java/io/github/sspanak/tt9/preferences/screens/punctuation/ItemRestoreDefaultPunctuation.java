@@ -38,7 +38,7 @@ class ItemRestoreDefaultPunctuation extends ItemClickable {
 			return false;
 		}
 
-		settings.setDefaultCharOrder(language, true);
+		settings.setDefaultChars(language, true);
 
 		if (onClick != null) {
 			onClick.accept(String.valueOf(language.getId()));

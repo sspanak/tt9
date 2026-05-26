@@ -200,7 +200,7 @@
 	<string name="dictionary_import_running">Importazione CSV…</string>
 	<string name="function_reset_keys_done">Impostazioni predefinite dei tasti ripristinate.</string>
 	<string name="help_url_copied">Il link è copiato.</string>
-	<string name="key_chars_key_2_9">Tasti 2–9</string>
+	<string name="key_chars_key_2_9">Tasti #2–#9</string>
 	<string name="language_selection_language_loaded">(caricata)</string>
 	<string name="language_selection_title">Abilita lingue</string>
 	<string name="language_selection_words">parole</string>
@@ -216,10 +216,11 @@
 	<string name="key_chars_error_mandatory_char_missing">Carattere obbligatorio mancante:%1$s</string>
 	<string name="key_chars_error_mandatory_chars_missing">Caratteri obbligatori mancanti:%1$s</string>
 	<string name="key_chars_save_error">Salvataggio dell’elenco dei caratteri non riuscito.</string>
-	<string name="key_chars_key_1">Tasto 1</string>
-	<string name="key_chars_key_0">Tasto 0</string>
+	<string name="key_chars_key_1">Tasto #1</string>
+	<string name="key_chars_key_0">Tasto #0</string>
 	<string name="fn_key_order_restore_default">Ripristina ordine predefinito</string>
 	<string name="language">Lingua</string>
+	<string name="key_chars_error_only_letters_allowed">Sono consentite solo lettere.</string>
 	<string name="key_chars_restore_default_for">Ripristina i caratteri predefiniti per %1$s</string>
 	<string name="key_chars_save">Salva i caratteri per %1$s</string>
 	<string name="key_chars_error_forbidden_char">Carattere vietato:%1$s</string>

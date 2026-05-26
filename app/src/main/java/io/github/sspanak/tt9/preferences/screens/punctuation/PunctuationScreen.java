@@ -52,6 +52,9 @@ public class PunctuationScreen extends BaseScreenFragment {
 		for (int i = 0; i < PreferenceCharsExtra.NAMES.length; i++) {
 			charLists.add(findPreference(PreferenceCharsExtra.NAMES[i]));
 		}
+		for (int i = 0; i < PreferenceChars2to9.NAMES.length; i++) {
+			charLists.add(findPreference(PreferenceChars2to9.NAMES[i]));
+		}
 
 		initLanguageList();
 		Language initalLanguage = languageList != null ? LanguageCollection.getLanguage(languageList.getValue()) : null;
@@ -153,7 +156,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 		if (activity != null) {
 			for (Language lang : LanguageCollection.getAll(activity.getSettings().getEnabledLanguageIds())) {
-				activity.getSettings().setDefaultCharOrder(lang, false);
+				activity.getSettings().setDefaultChars(lang, false);
 			}
 		}
 		onLanguageChanged(String.valueOf(initialLanguage.getId()));

@@ -1,0 +1,115 @@
+package io.github.sspanak.tt9.preferences.screens.punctuation;
+
+import android.content.Context;
+import android.util.AttributeSet;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.util.Text;
+
+public class PreferenceChars2to9 extends AbstractPreferenceCharList {
+	public static final String NAME_PREFIX = "extra_chars_";
+	public static final String[] NAMES = {
+		NAME_PREFIX + 2,
+		NAME_PREFIX + 3,
+		NAME_PREFIX + 4,
+		NAME_PREFIX + 5,
+		NAME_PREFIX + 6,
+		NAME_PREFIX + 7,
+		NAME_PREFIX + 8,
+		NAME_PREFIX + 9
+	};
+
+	public PreferenceChars2to9(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+		super(context, attrs, defStyleAttr, defStyleRes);
+		setTitleForSelectedLanguage(context);
+	}
+
+	public PreferenceChars2to9(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+		setTitleForSelectedLanguage(context);
+	}
+
+	public PreferenceChars2to9(@NonNull Context context, @Nullable AttributeSet attrs) {
+		super(context, attrs);
+		setTitleForSelectedLanguage(context);
+	}
+
+	public PreferenceChars2to9(@NonNull Context context) {
+		super(context);
+		setTitleForSelectedLanguage(context);
+	}
+
+
+	private void setTitleForSelectedLanguage(@NonNull Context context) {
+		setTitle(context.getString(R.string.key_key) + " #" + getNumber());
+	}
+
+
+	private int getNumber() {
+		String key = getKey();
+		if (key == null || key.isEmpty()) {
+			return -1;
+		}
+
+		if (key.startsWith(NAMES[0])) return 2;
+		if (key.startsWith(NAMES[1])) return 3;
+		if (key.startsWith(NAMES[2])) return 4;
+		if (key.startsWith(NAMES[3])) return 5;
+		if (key.startsWith(NAMES[4])) return 6;
+		if (key.startsWith(NAMES[5])) return 7;
+		if (key.startsWith(NAMES[6])) return 8;
+		if (key.startsWith(NAMES[7])) return 9;
+
+		return -1;
+	}
+
+
+	@Override
+	void onLanguageChange(Language language) {
+		super.onLanguageChange(language);
+		setTitleForSelectedLanguage(getContext());
+	}
+
+
+	@NonNull
+	@Override
+	protected String getChars() {
+		return getSettings().getCharsExtra(language, getKey());
+	}
+
+
+	@NonNull
+	@Override
+	protected char[] getForbiddenChars() {
+		return new char[0];
+	}
+
+
+	@NonNull
+	@Override
+	protected char[] getMandatoryChars() {
+		return new char[0];
+	}
+
+
+	@Override
+	public boolean validateCurrentChars() {
+		if (new Text(currentChars).isAlphabetic()) {
+			setError("");
+			return true;
+		}
+
+		setError(getContext().getString(R.string.key_chars_error_only_letters_allowed));
+		return false;
+	}
+
+
+	@Override
+	public void saveCurrentChars() {
+		getSettings().saveCharsExtra(language, getKey(), currentChars);
+	}
+}

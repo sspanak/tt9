@@ -276,19 +276,20 @@
 	<string name="key_chars_error_mandatory_chars_missing">Missing mandatory characters:%1$s</string>
 	<string name="key_chars_error_forbidden_char">Forbidden character:%1$s</string>
 	<string name="key_chars_error_forbidden_chars">Forbidden characters:%1$s</string>
+	<string name="key_chars_error_only_letters_allowed">Only letters are allowed.</string>
 	<string name="key_chars_restore_default_for">Restore default characters for %1$s</string>
 	<string name="key_chars_save">Save Characters for %1$s</string>
 	<string name="key_chars_save_error">Failed to save the character list.</string>
 
-	<string name="key_chars_key_0">0 Key</string>
+	<string name="key_chars_key_0">Key #0</string>
 	<string name="key_chars_include_newline">Include Newline</string>
 	<string name="key_chars_include_tab">Include Tab</string>
 	<string name="key_chars_whitespace_will_be_added_automatically">Space character will be automatically added at the beginning of the list.</string>
-	<string name="key_chars_key_1">1 Key</string>
+	<string name="key_chars_key_1">Key #1</string>
 	<string name="key_chars_initial_chars">Initial characters</string>
 	<string name="key_chars_group">Grouped characters (optional)</string>
 	<string name="key_chars_after_group">After the group (optional)</string>
-	<string name="key_chars_key_2_9">2–9 Keys</string>
+	<string name="key_chars_key_2_9">Keys #2–#9</string>
 
 	<string name="language_selection_language_loaded">(loaded)</string>
 	<string name="language_selection_title">Enable Languages</string>

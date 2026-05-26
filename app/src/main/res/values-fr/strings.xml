@@ -214,7 +214,7 @@
 	<string name="dictionary_import_progress">Importation de CSV (%1$s)…</string>
 	<string name="dictionary_import_running">Importation de CSV…</string>
 	<string name="help_url_copied">Le lien est copié.</string>
-	<string name="key_chars_key_2_9">Touches 2 à 9</string>
+	<string name="key_chars_key_2_9">Touches #2 à #9</string>
 	<string name="language_selection_language_loaded">(chargée)</string>
 	<string name="language_selection_title">Activer les langues</string>
 	<string name="language_selection_words">mots</string>
@@ -230,10 +230,11 @@
 	<string name="key_chars_error_mandatory_char_missing">Caractère obligatoire manquant :%1$s</string>
 	<string name="key_chars_error_mandatory_chars_missing">Caractères obligatoires manquants :%1$s</string>
 	<string name="key_chars_save_error">Échec de l’enregistrement de la liste des caractères.</string>
-	<string name="key_chars_key_1">Touche 1</string>
-	<string name="key_chars_key_0">Touche 0</string>
+	<string name="key_chars_key_1">Touche #1</string>
+	<string name="key_chars_key_0">Touche #0</string>
 	<string name="fn_key_order_restore_default">Restaurer l’ordre par défaut</string>
 	<string name="language">Langue</string>
+	<string name="key_chars_error_only_letters_allowed">Seules les lettres sont autorisées.</string>
 	<string name="key_chars_restore_default_for">Réinitialiser les caractères de %1$s</string>
 	<string name="key_chars_save">Enregistrer les caractères pour %1$s</string>
 	<string name="key_chars_error_forbidden_char">Caractère interdit:%1$s</string>

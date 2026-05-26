@@ -202,7 +202,7 @@
 	<string name="dictionary_import_running">CSV importieren…</string>
 	<string name="function_reset_keys_done">Standardtasteneinstellungen wurden wiederhergestellt.</string>
 	<string name="help_url_copied">Der Link ist kopiert.</string>
-	<string name="key_chars_key_2_9">Tasten 2–9</string>
+	<string name="key_chars_key_2_9">Tasten #2–#9</string>
 	<string name="language_selection_language_loaded">(geladen)</string>
 	<string name="language_selection_title">Sprachen aktivieren</string>
 	<string name="language_selection_words">Wörter</string>
@@ -218,10 +218,11 @@
 	<string name="key_chars_error_mandatory_char_missing">Fehlendes erforderliches Zeichen:%1$s</string>
 	<string name="key_chars_error_mandatory_chars_missing">Fehlende erforderliche Zeichen:%1$s</string>
 	<string name="key_chars_save_error">Zeichenliste konnte nicht gespeichert werden.</string>
-	<string name="key_chars_key_1">Taste 1</string>
-	<string name="key_chars_key_0">Taste 0</string>
+	<string name="key_chars_key_1">Taste #1</string>
+	<string name="key_chars_key_0">Taste #0</string>
 	<string name="fn_key_order_restore_default">Standardreihenfolge wiederherstellen</string>
 	<string name="language">Sprache</string>
+	<string name="key_chars_error_only_letters_allowed">Nur Buchstaben sind erlaubt.</string>
 	<string name="key_chars_restore_default_for">Standardzeichen für %1$s wiederherstellen</string>
 	<string name="key_chars_save">Zeichen für %1$s speichern</string>
 	<string name="key_chars_error_forbidden_char">Verbotenes Zeichen:%1$s</string>

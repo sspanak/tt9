@@ -99,7 +99,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (restart && !languageChanged && appHacks.isRestartForbidden() && mInputMode.getId() == determineInputModeId()) {
 			return false;
 		}
-		settings.setDefaultCharOrder(mLanguage, false);
+		settings.setDefaultChars(mLanguage, false);
 		resetKeyRepeat();
 		mInputMode = determineInputMode();
 		determineTextCase();

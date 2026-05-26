@@ -203,7 +203,7 @@
 	<string name="dictionary_import_running">CSV importeren…</string>
 	<string name="function_reset_keys_done">Standaardtoetsinstellingen hersteld.</string>
 	<string name="help_url_copied">Link is gekopieerd.</string>
-	<string name="key_chars_key_2_9">Toetsen 2–9</string>
+	<string name="key_chars_key_2_9">Toetsen #2–#9</string>
 	<string name="language_selection_language_loaded">(geladen)</string>
 	<string name="language_selection_title">Talen inschakelen</string>
 	<string name="language_selection_words">woorden</string>
@@ -219,10 +219,11 @@
 	<string name="key_chars_error_mandatory_char_missing">Ontbrekend verplicht teken:%1$s</string>
 	<string name="key_chars_error_mandatory_chars_missing">Ontbrekende verplichte tekens:%1$s</string>
 	<string name="key_chars_save_error">Opslaan van de tekenlijst mislukt.</string>
-	<string name="key_chars_key_1">Toets 1</string>
-	<string name="key_chars_key_0">Toets 0</string>
+	<string name="key_chars_key_1">Toets #1</string>
+	<string name="key_chars_key_0">Toets #0</string>
 	<string name="fn_key_order_restore_default">Standaardvolgorde herstellen</string>
 	<string name="language">Taal</string>
+	<string name="key_chars_error_only_letters_allowed">Alleen letters zijn toegestaan.</string>
 	<string name="key_chars_restore_default_for">Standaardtekens voor %1$s herstellen</string>
 	<string name="key_chars_save">Tekens voor %1$s opslaan</string>
 	<string name="key_chars_error_forbidden_char">Verboden teken:%1$s</string>

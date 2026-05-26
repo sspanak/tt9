@@ -103,7 +103,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		mLanguage = LanguageCollection.getLanguage(langId);
 		validateLanguages();
 
-		settings.setDefaultCharOrder(mLanguage, false); // initialize default order, if missing
+		settings.setDefaultChars(mLanguage, false); // initialize default order, if missing
 
 		// for languages that do not have ABC or Predictive, make sure we remain in valid state
 		mInputMode = InputMode

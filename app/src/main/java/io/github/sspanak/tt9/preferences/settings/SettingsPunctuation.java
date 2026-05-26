@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceChars2to9;
 import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -31,7 +32,7 @@ class SettingsPunctuation extends SettingsInput {
 	}
 
 
-	public void setDefaultCharOrder(@NonNull Language language, boolean overwrite) {
+	public void setDefaultChars(@NonNull Language language, boolean overwrite) {
 		if (overwrite) {
 			setIncludeNewlineInChars0(language, true);
 			setIncludeTabInChars0(language, true);
@@ -175,7 +176,9 @@ class SettingsPunctuation extends SettingsInput {
 				chars.addAll(getCharsExtraAsList(language, CHARS_AFTER_GROUP_1));
 			}
 			default -> {
-				return language.getKeyCharacters(number);
+				chars = language.getKeyCharacters(number);
+				chars.addAll(getCharsExtraAsList(language, PreferenceChars2to9.NAME_PREFIX + number));
+				return chars;
 			}
 		}
 

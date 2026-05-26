@@ -218,7 +218,7 @@
 	<string name="dictionary_import_progress">CSV İçe aktarılıyor (%1$s)…</string>
 	<string name="dictionary_import_running">CSV İçe aktarılıyor…</string>
 	<string name="help_url_copied">Bağlantı kopyalandı.</string>
-	<string name="key_chars_key_2_9">2–9 Tuşları</string>
+	<string name="key_chars_key_2_9">Tuşları #2–#9</string>
 	<string name="language_selection_language_loaded">(yüklendi)</string>
 	<string name="language_selection_title">Dilleri etkinleştir</string>
 	<string name="language_selection_words">kelime</string>
@@ -234,10 +234,11 @@
 	<string name="key_chars_error_mandatory_char_missing">Zorunlu karakter eksik:%1$s</string>
 	<string name="key_chars_error_mandatory_chars_missing">Zorunlu karakterler eksik:%1$s</string>
 	<string name="key_chars_save_error">Karakter listesi kaydedilemedi.</string>
-	<string name="key_chars_key_1">1 Tuşu</string>
-	<string name="key_chars_key_0">0 Tuşu</string>
+	<string name="key_chars_key_1">Tuşu #1</string>
+	<string name="key_chars_key_0">Tuşu #0</string>
 	<string name="fn_key_order_restore_default">Varsayılan sırayı geri yükle</string>
 	<string name="language">Dil</string>
+	<string name="key_chars_error_only_letters_allowed">Yalnızca harflere izin verilir.</string>
 	<string name="key_chars_restore_default_for">%1$s için varsayılan karakterleri geri yükle</string>
 	<string name="key_chars_save">%1$s için karakterleri kaydet</string>
 	<string name="key_chars_error_forbidden_char">Yasaklı karakter:%1$s</string>
