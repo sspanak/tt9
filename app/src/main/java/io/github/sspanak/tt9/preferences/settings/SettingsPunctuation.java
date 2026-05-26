@@ -176,9 +176,11 @@ class SettingsPunctuation extends SettingsInput {
 				chars.addAll(getCharsExtraAsList(language, CHARS_AFTER_GROUP_1));
 			}
 			default -> {
-				chars = language.getKeyCharacters(number);
+			default -> {
+				chars = new ArrayList<>(language.getKeyCharacters(number));
 				chars.addAll(getCharsExtraAsList(language, PreferenceChars2to9.NAME_PREFIX + number));
 				return chars;
+			}
 			}
 		}
 
