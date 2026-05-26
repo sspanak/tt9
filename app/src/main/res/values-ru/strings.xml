@@ -237,6 +237,7 @@
 	<string name="fn_key_order_restore_default">Восстановить порядок по умолчанию</string>
 	<string name="language">Язык</string>
 	<string name="key_chars_error_only_letters_allowed">Разрешены только буквы.</string>
+	<string name="key_chars_error_repeating_letters_not_allowed">Повторяющиеся буквы не допускаются.</string>
 	<string name="key_chars_restore_default_for">Восстановить символы по умолчанию для %1$s</string>
 	<string name="key_chars_save">Сохранить символы для %1$s</string>
 	<string name="key_chars_error_forbidden_char">Запрещённый символ:%1$s</string>

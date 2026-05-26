@@ -235,6 +235,7 @@
 	<string name="fn_key_order_restore_default">שחזר את הסדר המוגדר כברירת מחדל</string>
 	<string name="language">שפה</string>
 	<string name="key_chars_error_only_letters_allowed">רק אותיות מותרות.</string>
+	<string name="key_chars_error_repeating_letters_not_allowed">אותיות חוזרות אינן מותרות.</string>
 	<string name="key_chars_restore_default_for">שחזר תווי ברירת מחדל עבור %1$s</string>
 	<string name="key_chars_save">שמור תווים עבור %1$s</string>
 	<string name="key_chars_error_forbidden_char">תו אסור:%1$s</string>

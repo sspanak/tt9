@@ -246,6 +246,7 @@
 	<string name="fn_key_order_restore_default">Atkurti numatytąją tvarką</string>
 	<string name="language">Kalba</string>
 	<string name="key_chars_error_only_letters_allowed">Leidžiamos tik raidės.</string>
+	<string name="key_chars_error_repeating_letters_not_allowed">Pasikartojančios raidės neleidžiamos.</string>
 	<string name="key_chars_restore_default_for">Atkurti numatytuosius %1$s simbolius</string>
 	<string name="key_chars_save">Išsaugoti %1$s simbolius</string>
 	<string name="key_chars_error_forbidden_char">Draudžiamas simbolis:%1$s</string>

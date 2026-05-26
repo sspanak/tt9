@@ -237,6 +237,7 @@
 	<string name="fn_key_order_restore_default">Restaurar ordem padrão</string>
 	<string name="language">Idioma</string>
 	<string name="key_chars_error_only_letters_allowed">Apenas letras são permitidas.</string>
+	<string name="key_chars_error_repeating_letters_not_allowed">Letras repetidas não são permitidas.</string>
 	<string name="key_chars_restore_default_for">Restaurar caracteres padrão para %1$s</string>
 	<string name="key_chars_save">Salvar caracteres para %1$s</string>
 	<string name="key_chars_error_forbidden_char">Caractere proibido:%1$s</string>

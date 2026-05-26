@@ -223,6 +223,7 @@
 	<string name="fn_key_order_restore_default">Standardreihenfolge wiederherstellen</string>
 	<string name="language">Sprache</string>
 	<string name="key_chars_error_only_letters_allowed">Nur Buchstaben sind erlaubt.</string>
+	<string name="key_chars_error_repeating_letters_not_allowed">Doppelte Buchstaben sind nicht erlaubt.</string>
 	<string name="key_chars_restore_default_for">Standardzeichen für %1$s wiederherstellen</string>
 	<string name="key_chars_save">Zeichen für %1$s speichern</string>
 	<string name="key_chars_error_forbidden_char">Verbotenes Zeichen:%1$s</string>

@@ -224,6 +224,7 @@
 	<string name="fn_key_order_restore_default">Standaardvolgorde herstellen</string>
 	<string name="language">Taal</string>
 	<string name="key_chars_error_only_letters_allowed">Alleen letters zijn toegestaan.</string>
+	<string name="key_chars_error_repeating_letters_not_allowed">Herhaalde letters zijn niet toegestaan.</string>
 	<string name="key_chars_restore_default_for">Standaardtekens voor %1$s herstellen</string>
 	<string name="key_chars_save">Tekens voor %1$s opslaan</string>
 	<string name="key_chars_error_forbidden_char">Verboden teken:%1$s</string>

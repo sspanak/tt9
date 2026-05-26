@@ -235,6 +235,7 @@
 	<string name="fn_key_order_restore_default">Възстанови реда по подразбиране</string>
 	<string name="language">Език</string>
 	<string name="key_chars_error_only_letters_allowed">Разрешени са само букви.</string>
+	<string name="key_chars_error_repeating_letters_not_allowed">Не са разрешени повтарящи се букви.</string>
 	<string name="key_chars_restore_default_for">Възстанови стандартните символи за %1$s</string>
 	<string name="key_chars_save">Запази символите за %1$s</string>
 	<string name="key_chars_error_forbidden_char">Забранен символ:%1$s</string>

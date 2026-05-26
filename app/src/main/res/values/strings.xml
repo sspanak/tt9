@@ -277,6 +277,7 @@
 	<string name="key_chars_error_forbidden_char">Forbidden character:%1$s</string>
 	<string name="key_chars_error_forbidden_chars">Forbidden characters:%1$s</string>
 	<string name="key_chars_error_only_letters_allowed">Only letters are allowed.</string>
+	<string name="key_chars_error_repeating_letters_not_allowed">Repeating letters are not allowed.</string>
 	<string name="key_chars_restore_default_for">Restore default characters for %1$s</string>
 	<string name="key_chars_save">Save Characters for %1$s</string>
 	<string name="key_chars_save_error">Failed to save the character list.</string>
