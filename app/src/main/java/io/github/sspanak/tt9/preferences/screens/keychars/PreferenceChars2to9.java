@@ -103,10 +103,10 @@ public class PreferenceChars2to9 extends AbstractPreferenceCharList {
 	public boolean validateCurrentChars() {
 		String error = "";
 
-		if (Text.containsRepeatingChars(currentChars)) {
-			error = getContext().getString(R.string.key_chars_error_repeating_letters_not_allowed);
-		} else if (!new Text(currentChars).isAlphabetic()) {
+		if (!new Text(currentChars).isAlphabetic()) {
 			error = getContext().getString(R.string.key_chars_error_only_letters_allowed);
+		} else if (Text.containsRepeatingChars(currentChars)) {
+			error = getContext().getString(R.string.key_chars_error_repeating_letters_not_allowed);
 		}
 
 		setError(error);
