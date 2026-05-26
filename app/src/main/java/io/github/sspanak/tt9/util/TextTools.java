@@ -37,12 +37,13 @@ public class TextTools {
 			return false;
 		}
 
-		char previous = str.charAt(0);
-		for (int i = 1, end = str.length(); i < end; i++) {
-			if (str.charAt(i) == previous) {
+		final java.util.HashSet<Integer> seen = new java.util.HashSet<>();
+		for (int i = 0; i < str.length(); ) {
+			final int cp = str.codePointAt(i);
+			if (!seen.add(cp)) {
 				return true;
 			}
-			previous = str.charAt(i);
+			i += Character.charCount(cp);
 		}
 
 		return false;
