@@ -67,13 +67,8 @@ public class PreferenceChars2to9 extends AbstractPreferenceCharList {
 
 	@Override
 	void onLanguageChange(Language language) {
-		if (language == null || language.isTranscribed()) {
-			setEnabled(false);
-			return;
-		}
-
-		setEnabled(true);
 		super.onLanguageChange(language);
+		setEnabled(language != null && !language.isTranscribed());
 		setTitleForSelectedLanguage(getContext());
 	}
 

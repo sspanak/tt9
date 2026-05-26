@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ime.modes.predictions;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.languages.Language;
@@ -106,13 +107,19 @@ abstract public class Predictions {
 	 * Takes a list of words and appends them to the old list of words, if they are missing.
 	 */
 	protected void suggestMissingWords(ArrayList<String> newWords, ArrayList<String> oldWords) {
-		final ArrayList<String> oldWordsLowerCase = new ArrayList<>();
-		for (String oldWord : oldWords) {
-			oldWordsLowerCase.add(oldWord.toLowerCase(language.getLocale()));
+		HashSet<String> oldWordsLowerCase;
+
+		if (language.hasUpperCase()) {
+			oldWordsLowerCase = new HashSet<>(oldWords.size());
+			for (String oldWord : oldWords) {
+				oldWordsLowerCase.add(oldWord.toLowerCase(language.getLocale()));
+			}
+		} else {
+			oldWordsLowerCase = new HashSet<>(oldWords);
 		}
 
 		for (String newWord : newWords) {
-			String newWordLowerCase = newWord.toLowerCase(language.getLocale());
+			String newWordLowerCase = language.hasUpperCase() ? newWord.toLowerCase(language.getLocale()) : newWord;
 			if (!oldWordsLowerCase.contains(newWordLowerCase)) {
 				oldWords.add(newWord);
 				oldWordsLowerCase.add(newWordLowerCase);
