@@ -15,7 +15,7 @@
 			android:title="@string/pref_category_predictive_mode" />
 
 		<Preference
-			android:fragment="io.github.sspanak.tt9.preferences.screens.punctuation.PunctuationScreen"
+			android:fragment="io.github.sspanak.tt9.preferences.screens.keychars.KeyCharsScreen"
 			android:key="screen_punctuation"
 			android:title="@string/pref_category_key_chars"
 			android:summary="@string/pref_category_key_chars_summary" />

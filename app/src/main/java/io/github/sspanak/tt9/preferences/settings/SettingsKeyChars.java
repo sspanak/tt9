@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceChars2to9;
+import io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars2to9;
 import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-class SettingsPunctuation extends SettingsInput {
+class SettingsKeyChars extends SettingsInput {
 	private final static String CHARS_1_PREFIX = "punctuation_order_key_1_initial_";
 	public final static String CHARS_GROUP_1 = "punctuation_order_key_1_group";
 	public final static String CHARS_AFTER_GROUP_1 = "punctuation_order_key_1_after_group";
@@ -27,7 +27,7 @@ class SettingsPunctuation extends SettingsInput {
 	public final static char[] FORBIDDEN_CHARS_0 = new char[] {' ', '\n', '\t'};
 
 
-	SettingsPunctuation(Context context) {
+	SettingsKeyChars(Context context) {
 		super(context);
 	}
 
@@ -176,11 +176,9 @@ class SettingsPunctuation extends SettingsInput {
 				chars.addAll(getCharsExtraAsList(language, CHARS_AFTER_GROUP_1));
 			}
 			default -> {
-			default -> {
 				chars = new ArrayList<>(language.getKeyCharacters(number));
 				chars.addAll(getCharsExtraAsList(language, PreferenceChars2to9.NAME_PREFIX + number));
 				return chars;
-			}
 			}
 		}
 

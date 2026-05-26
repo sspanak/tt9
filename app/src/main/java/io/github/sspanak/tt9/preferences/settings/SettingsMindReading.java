@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.languages.Language;
 
-public class SettingsMindReading extends SettingsPunctuation {
+public class SettingsMindReading extends SettingsKeyChars {
 	SettingsMindReading(Context context) {
 		super(context);
 	}

@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.screens.punctuation;
+package io.github.sspanak.tt9.preferences.screens.keychars;
 
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
@@ -12,15 +12,15 @@ import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 import io.github.sspanak.tt9.ui.UI;
 
-public class PunctuationScreen extends BaseScreenFragment {
-	public static final String NAME = "Punctuation";
+public class KeyCharsScreen extends BaseScreenFragment {
+	public static final String NAME = "KeyChars";
 	@Nullable private DropDownPunctuationOrderLanguage languageList;
 	private ItemRestoreDefaultPunctuation restoreDefaults;
 	private ItemPunctuationOrderSave saveOrder;
 	private final ArrayList<AbstractPreferenceCharList> charLists = new ArrayList<>();
 
-	public PunctuationScreen() { super(); }
-	public PunctuationScreen(@Nullable PreferencesActivity activity) { super(activity); }
+	public KeyCharsScreen() { super(); }
+	public KeyCharsScreen(@Nullable PreferencesActivity activity) { super(activity); }
 
 	@Override
 	public String getName() {
@@ -34,7 +34,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 	@Override
 	protected int getXml() {
-		return R.xml.prefs_screen_punctuation;
+		return R.xml.prefs_screen_key_chars;
 	}
 
 

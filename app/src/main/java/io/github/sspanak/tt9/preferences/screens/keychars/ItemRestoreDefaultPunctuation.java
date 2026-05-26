@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.screens.punctuation;
+package io.github.sspanak.tt9.preferences.screens.keychars;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
