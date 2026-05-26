@@ -51,20 +51,16 @@ public class PreferenceChars2to9 extends AbstractPreferenceCharList {
 
 	private int getNumber() {
 		String key = getKey();
-		if (key == null || key.isEmpty()) {
+		if (key == null || !key.startsWith(NAME_PREFIX)) {
 			return -1;
 		}
 
-		if (key.startsWith(NAMES[0])) return 2;
-		if (key.startsWith(NAMES[1])) return 3;
-		if (key.startsWith(NAMES[2])) return 4;
-		if (key.startsWith(NAMES[3])) return 5;
-		if (key.startsWith(NAMES[4])) return 6;
-		if (key.startsWith(NAMES[5])) return 7;
-		if (key.startsWith(NAMES[6])) return 8;
-		if (key.startsWith(NAMES[7])) return 9;
-
-		return -1;
+		try {
+			int n = Integer.parseInt(key.substring(NAME_PREFIX.length()));
+			return (n >= 2 && n <= 9) ? n : -1;
+		} catch (NumberFormatException e) {
+			return -1;
+		}
 	}
 
 
