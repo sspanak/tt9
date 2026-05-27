@@ -57,6 +57,10 @@ class SettingsKeyChars extends SettingsInput {
 			saveCharsExtra(language, CHARS_GROUP_1, "");
 			saveCharsExtra(language, CHARS_AFTER_GROUP_1, "");
 		}
+
+		for (int i = 2; overwrite && i <= 9; i++) {
+			saveCharsExtra(language, PreferenceChars2to9.NAME_PREFIX + i, "");
+		}
 	}
 
 
