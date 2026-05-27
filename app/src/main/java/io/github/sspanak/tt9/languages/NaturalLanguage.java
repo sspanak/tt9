@@ -9,6 +9,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
+import io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars2to9;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -277,7 +279,7 @@ public class NaturalLanguage extends TranscribedLanguage {
 	}
 
 
-	public void updateKeyCharacters(int key, @NonNull String newCharacters) {
+	public void updateKeyCharacters(int key, @NonNull String newCharacters, boolean updateReverseMapping) {
 		if (key < 0 || key >= layout.size()) {
 			return;
 		}
@@ -288,6 +290,22 @@ public class NaturalLanguage extends TranscribedLanguage {
 		}
 
 		layout.set(key, newKeyCharacters);
+
+		if (updateReverseMapping) {
+			generateCharacterKeyMap();
+		}
+	}
+
+
+	public void updateKeyCharacters(@NonNull SettingsStore settings) {
+		for (int key = 2; key <= 9 && key < layout.size(); key++) {
+			updateKeyCharacters(
+				key,
+				settings.getCharsExtra(this, PreferenceChars2to9.NAME_PREFIX + key),
+				false
+			);
+		}
+
 		generateCharacterKeyMap();
 	}
 }

@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.util.Text;
 
 public class PreferenceChars2to9 extends AbstractPreferenceCharList {
@@ -112,8 +111,5 @@ public class PreferenceChars2to9 extends AbstractPreferenceCharList {
 	@Override
 	public void saveCurrentChars() {
 		getSettings().saveCharsExtra(language, getKey(), currentChars);
-		if (language instanceof NaturalLanguage) {
-			((NaturalLanguage) language).updateKeyCharacters(getNumber(), currentChars);
-		}
 	}
 }

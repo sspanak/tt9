@@ -8,6 +8,7 @@ import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Ternary;
 
@@ -104,6 +105,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		validateLanguages();
 
 		settings.setDefaultChars(mLanguage, false); // initialize default order, if missing
+		((NaturalLanguage) mLanguage).updateKeyCharacters(settings); // and update the layout for 2..9 keys, if needed
 
 		// for languages that do not have ABC or Predictive, make sure we remain in valid state
 		mInputMode = InputMode

@@ -179,11 +179,7 @@ class SettingsKeyChars extends SettingsInput {
 				}
 				chars.addAll(getCharsExtraAsList(language, CHARS_AFTER_GROUP_1));
 			}
-			default -> {
-				chars = new ArrayList<>(language.getKeyCharacters(number));
-				chars.addAll(getCharsExtraAsList(language, PreferenceChars2to9.NAME_PREFIX + number));
-				return chars;
-			}
+			default -> chars = language.getKeyCharacters(number);
 		}
 
 		return chars;
