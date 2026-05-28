@@ -73,6 +73,7 @@
 	<string name="dictionary_cancel_load">Laden annuleren</string>
 	<string name="dictionary_load_bad_char">Laden mislukt. Ongeldig woord op regel %1$d van taal \"%2$s\".</string>
 	<string name="dictionary_load_error">Het laden van het woordenboek voor de taal \"%1$s\" is mislukt (%2$s).</string>
+	<string name="dictionary_load_error_short">Laden van %1$s mislukt</string>
 	<string name="dictionary_load_no_internet">Het downloaden van het woordenboek voor de taal \"%1$s\" is mislukt. Controleer de internetverbinding.</string>
 	<string name="dictionary_load_cancelled">Laden geannuleerd.</string>
 	<string name="dictionary_loaded">Woordenboek laden voltooid.</string>

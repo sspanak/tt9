@@ -3,7 +3,6 @@ package io.github.sspanak.tt9.preferences.settings;
 import android.content.Context;
 import android.view.Gravity;
 
-import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownAlignment;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownBottomPaddingPortrait;
@@ -53,14 +52,6 @@ public class SettingsUI extends SettingsTyping {
 		}
 	}
 
-	public boolean getNotificationsApproved() {
-		return !DeviceInfo.AT_LEAST_ANDROID_13 || getStringifiedInt("pref_asked_for_notifications_version", 0) == Integer.MAX_VALUE;
-	}
-
-	public boolean shouldAskForNotifications() {
-		return DeviceInfo.AT_LEAST_ANDROID_13 && getStringifiedInt("pref_asked_for_notifications_version", 0) < BuildConfig.VERSION_CODE;
-	}
-
 	public int getBottomPaddingPortrait() {
 		return getStringifiedInt(DropDownBottomPaddingPortrait.NAME, DropDownBottomPaddingPortrait.DEFAULT);
 	}
@@ -85,14 +76,6 @@ public class SettingsUI extends SettingsTyping {
 		) {
 			getPrefsEditor().putString(DropDownBottomPaddingPortrait.NAME, Integer.toString(paddingDp)).apply();
 		}
-	}
-
-	public void setNotificationsApproved(boolean yes) {
-		getPrefsEditor().putString(
-			"pref_asked_for_notifications_version",
-			Integer.toString(yes ? Integer.MAX_VALUE : BuildConfig.VERSION_CODE)
-		);
-		getPrefsEditor().apply();
 	}
 
 	public boolean isStatusIconEnabled() {

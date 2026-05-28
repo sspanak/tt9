@@ -32,6 +32,7 @@ import io.github.sspanak.tt9.ui.notifications.DictionaryLoadingBar;
 import io.github.sspanak.tt9.ui.notifications.DictionaryUpdateNotification;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class DictionaryLoader {
 	private static final String LOG_TAG = "DictionaryLoader";
@@ -119,7 +120,7 @@ public class DictionaryLoader {
 
 				final boolean noDictionary = hash == null || hash.isEmpty();
 				final boolean isDictionaryOutdated = noDictionary || !hash.equals(new WordFile(context, language, context.getAssets()).getHash());
-				final boolean noNotifications = !(new SettingsStore(context).getNotificationsApproved());
+				final boolean noNotifications = DeviceInfo.AT_LEAST_ANDROID_13;
 
 				if (noDictionary || (isDictionaryOutdated && noNotifications)) {
 					load(context, language);

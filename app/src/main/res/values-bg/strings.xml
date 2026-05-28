@@ -123,6 +123,7 @@
 	<string name="key_key">Бутон</string>
 	<string name="key_hold_key">(задръж)</string>
 	<string name="dictionary_loading_indeterminate">Зареждане на речник</string>
+	<string name="dictionary_load_error_short">Неуспешно зареждане на %1$s</string>
 	<string name="dictionary_load_no_internet">Неуспешно изтегляне на речника за език „%1$s“. Проверете връзката с интернет.</string>
 	<string name="dictionary_load_cancelled">Зареждането е отменено.</string>
 	<string name="pref_category_typing">Писане</string>

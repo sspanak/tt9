@@ -149,7 +149,7 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 
 	private void generateCancelMsg() {
 		title = "";
-		message = resources.getString(R.string.dictionary_load_cancelled);
+		message = shortMessage = resources.getString(R.string.dictionary_load_cancelled);
 		progress = maxProgress = 0;
 
 		renderMessage();
@@ -169,6 +169,7 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 			message = resources.getString(R.string.dictionary_load_error, lang.getName(), errorType);
 		}
 
+		shortMessage = resources.getString(R.string.dictionary_load_error_short, lang != null ? lang.getName() : new NullLanguage().getName());
 		title = generateTitle(-1);
 		progress = maxProgress = 0;
 

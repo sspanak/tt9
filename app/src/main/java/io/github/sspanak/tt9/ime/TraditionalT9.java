@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ime;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,7 +18,6 @@ import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
-import io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.SupremeExecutor;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -190,8 +188,6 @@ public class TraditionalT9 extends PremiumHandler {
 			onText(onAfterStartText.toString(), false);
 			onAfterStartText.setLength(0);
 		}
-
-		askForNotifications();
 	}
 
 
@@ -224,14 +220,6 @@ public class TraditionalT9 extends PremiumHandler {
 		super.onFinishTyping();
 		getDisplayTextCase();
 		setStatusIcon(mInputMode, mLanguage);
-	}
-
-
-	private void askForNotifications() {
-		if (settings.shouldAskForNotifications() && !InputModeKind.isPassthrough(mInputMode) && !inputType.isUs()) {
-			settings.setNotificationsApproved(false);
-			RequestPermissionDialog.show(this, Manifest.permission.POST_NOTIFICATIONS);
-		}
 	}
 
 
