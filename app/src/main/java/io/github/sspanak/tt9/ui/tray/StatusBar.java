@@ -174,8 +174,11 @@ public class StatusBar {
 
 
 	private void onLoading() {
-		setText("[ " + loadingBar.getShortMessage() + " ]");
-		if (loadingBar.isCancelled() || loadingBar.isFailed() || !loadingBar.inProgress()) {
+		if (loadingBar.inProgress()) {
+			setText("[ " + loadingBar.getShortMessage() + " ]");
+		} else if (loadingBar.isCancelled() || loadingBar.isFailed()) {
+			setError(loadingBar.getShortMessage());
+		} else {
 			onLoadingFinished.run();
 		}
 	}

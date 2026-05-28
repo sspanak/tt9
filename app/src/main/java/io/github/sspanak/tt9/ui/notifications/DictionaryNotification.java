@@ -97,7 +97,9 @@ public abstract class DictionaryNotification {
 			.setOngoing(false)
 			.setStyle(bigMessage);
 
-		manager.notify(NOTIFICATION_ID, notificationBuilder.build());
+		if (!DeviceInfo.AT_LEAST_ANDROID_13) {
+			manager.notify(NOTIFICATION_ID, notificationBuilder.build());
+		}
 	}
 
 
@@ -112,7 +114,9 @@ public abstract class DictionaryNotification {
 			.setContentText(message);
 
 		try {
-			manager.notify(NOTIFICATION_ID, notificationBuilder.build());
+			if (!DeviceInfo.AT_LEAST_ANDROID_13) {
+				manager.notify(NOTIFICATION_ID, notificationBuilder.build());
+			}
 		} catch (SecurityException e) {
 			Logger.e(getClass().getSimpleName(), "Failed to show dictionary notification. " + e);
 		}

@@ -93,6 +93,7 @@
 	<string name="dictionary_cancel_load">ביטול טעינה</string>
 	<string name="dictionary_load_bad_char">הטעינה נכשלה. מילה לא חוקית בשורה %1$d עבור \"%2$s\".</string>
 	<string name="dictionary_load_error">נכשלה טעינת המילון עבור \"%1$s\" (%2$s).</string>
+	<string name="dictionary_load_error_short">טעינת %1$s נכשלה</string>
 	<string name="dictionary_load_no_internet">נכשל בהורדת המילון עבור השפה \"%1$s\". בדוק את חיבור האינטרנט.</string>
 	<string name="dictionary_load_cancelled">טעינת המילון בוטלה</string>
 	<string name="dictionary_loaded">טעינת המילון הושלמה.</string>

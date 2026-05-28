@@ -25,13 +25,6 @@ La carga del diccionario puede saturar teléfonos de gama baja. Al usar la versi
 
 Puede evitar lo anterior usando la versión "full".
 
-#### Notas para Android 13 o superior
-Por defecto, las notificaciones para las aplicaciones recién instaladas están deshabilitadas. Se recomienda habilitarlas. De esta manera, recibirá notificaciones cuando haya actualizaciones de diccionario, y una vez que elija instalarlas, TT9 mostrará el progreso de la carga. Las nuevas actualizaciones se lanzan como máximo una vez al mes, por lo que no tiene que preocuparse por recibir demasiados mensajes.
-
-Puede habilitar las notificaciones yendo a Configuración → Idiomas y activando las Notificaciones de Diccionario.
-
-_Si decide mantenerlas desactivadas, TT9 seguirá funcionando sin problemas, pero tendrá que gestionar los diccionarios manualmente._
-
 ## Configuración
 En la pantalla de Configuración, puedes elegir los idiomas para escribir, configurar las teclas rápidas del teclado, cambiar la apariencia de la aplicación o mejorar la compatibilidad con tu teléfono.
 
@@ -412,8 +405,6 @@ Para mitigar este problema, ve a Configuración → Apariencia, y habilita "Icon
 
 ### Problemas generales en los teléfonos Xiaomi
 Xiaomi ha introducido varios permisos no estándar en sus teléfonos que impiden que el teclado virtual en pantalla de Traditional T9 funcione correctamente. Más precisamente, las teclas "Mostrar Configuración" y "Agregar Palabra" pueden no realizar sus funciones respectivas. Para solucionarlo, debes otorgar los permisos "Mostrar ventana emergente" y "Mostrar ventana emergente mientras se ejecuta en segundo plano" a TT9 desde la configuración de tu teléfono. [Esta guía](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi) para otra aplicación explica cómo hacerlo.
-
-También se recomienda encarecidamente otorgar el permiso de "Notificación permanente". Esto es similar al permiso de "Notificaciones" introducido en Android 13. Consulta [arriba](#notas-para-android-13-o-superior) para obtener más información sobre por qué lo necesitas.
 
 _Los problemas con Xiaomi se han discutido en [este issue de GitHub](https://github.com/sspanak/tt9/issues/490)._
 

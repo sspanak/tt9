@@ -25,13 +25,6 @@ Le chargement du dictionnaire peut saturer les téléphones bas de gamme. Avec l
 
 Vous pouvez éviter cela en utilisant la version "complète" à la place.
 
-#### Remarques pour Android 13 ou version supérieure
-Par défaut, les notifications pour les applications nouvellement installées sont désactivées. Il est recommandé de les activer. Cela vous permet d’être informé des mises à jour des dictionnaires, et une fois que vous choisissez de les installer, TT9 affichera la progression du chargement. Les nouvelles mises à jour sont publiées au maximum une fois par mois, vous n’avez donc pas à craindre un excès de notifications.
-
-Vous pouvez activer les notifications en allant dans Paramètres → Langues et en activant Notifications de Dictionnaire.
-
-_Si vous choisissez de les garder désactivées, TT9 continuera de fonctionner sans problème, mais vous devrez gérer manuellement les dictionnaires._
-
 ## Paramètres
 Sur l’écran des paramètres, vous pouvez choisir les langues de saisie, configurer les touches de raccourci du pavé numérique, changer l'apparence de l'application ou améliorer la compatibilité avec votre téléphone.
 
@@ -412,8 +405,6 @@ Pour atténuer ce problème, allez dans Paramètres → Apparence et activez « 
 
 ### Problèmes généraux sur les téléphones Xiaomi
 Xiaomi a introduit plusieurs autorisations non standard sur ses téléphones, ce qui empêche le clavier virtuel de Traditional T9 de fonctionner correctement. Plus précisément, les touches « Afficher les paramètres » et « Ajouter un mot » peuvent ne pas fonctionner. Pour corriger cela, vous devez accorder les autorisations « Afficher les fenêtres contextuelles » et « Afficher les fenêtres contextuelles en arrière-plan » à TT9 dans les paramètres de votre téléphone. [Ce guide](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi) pour une autre application explique comment le faire.
-
-Il est également fortement recommandé d'accorder l'autorisation « Notification permanente ». Cela est similaire à l'autorisation de « Notifications » introduite dans Android 13. Voir [ci-dessus](#remarques-pour-android-13-ou-version-supérieure) pour plus d'informations sur son importance.
 
 _Les problèmes Xiaomi ont été discutés dans [ce problème GitHub](https://github.com/sspanak/tt9/issues/490)._
 

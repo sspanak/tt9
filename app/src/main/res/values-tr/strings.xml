@@ -70,6 +70,7 @@
 	<string name="dictionary_cancel_load">Yüklemeyi İptal Et</string>
 	<string name="dictionary_load_bad_char">Yükleme başarısız. \"%2$s\" dilinde %1$d. satırda geçersiz kelime.</string>
 	<string name="dictionary_load_error">“%1$s” dili için sözlük yüklenemedi (%2$s).</string>
+	<string name="dictionary_load_error_short">%1$s yüklenemedi</string>
 	<string name="dictionary_load_no_internet">“%1$s” dili için sözlük indirilemedi. İnternet bağlantısını kontrol edin.</string>
 	<string name="dictionary_load_cancelled">Yükleme iptal edildi.</string>
 	<string name="dictionary_loaded">Sözlük başarıyla yüklendi.</string>

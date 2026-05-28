@@ -25,13 +25,6 @@ O carregamento do dicionário pode sobrecarregar telefones de baixo desempenho. 
 
 Você pode evitar isso usando a versão “completa”.
 
-#### Observação para Android 13 ou superior
-Por padrão, as notificações para aplicativos recém-instalados estão desativadas. Recomenda-se ativá-las. Isso permite que você seja informado sobre atualizações dos dicionários, e, uma vez que escolha instalá-las, o TT9 exibirá o progresso do carregamento. As novas atualizações são publicadas no máximo uma vez por mês, portanto, você não precisa se preocupar com excesso de notificações.
-
-Você pode ativar as notificações indo em Configurações → Idiomas e ativando Notificações de Dicionário.
-
-_Se optar por mantê-las desativadas, o TT9 continuará funcionando sem problemas, mas você terá que gerenciar os dicionários manualmente._
-
 ## Configurações
 Na tela de Configurações, você pode escolher idiomas para digitação, configurar atalhos do teclado, mudar a aparência do aplicativo ou melhorar a compatibilidade com seu telefone.
 
@@ -412,8 +405,6 @@ Para mitigar esse problema, vá para Configurações → Aparência e ative "Íc
 
 ### Problemas gerais em telefones Xiaomi
 A Xiaomi introduziu várias permissões não padrão em seus celulares, o que impede o teclado virtual na tela do Traditional T9 de funcionar corretamente. Mais especificamente, as teclas "Exibir Configurações" e "Adicionar Palavra" podem não executar suas funções respectivas. Para corrigir isso, você deve conceder as permissões "Exibir janela pop-up" e "Exibir janela pop-up em segundo plano" ao TT9 nas configurações do seu telefone. [Este guia](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi) para outro aplicativo explica como fazer isso.
-
-É também altamente recomendável conceder a permissão "Notificação Permanente". Isso é semelhante à permissão "Notificações" introduzida no Android 13. Veja [acima](#observação-para-android-13-ou-superior) para mais informações sobre por que você precisa dela.
 
 _Os problemas com Xiaomi foram discutidos nesta [issue do GitHub](https://github.com/sspanak/tt9/issues/490)._
 

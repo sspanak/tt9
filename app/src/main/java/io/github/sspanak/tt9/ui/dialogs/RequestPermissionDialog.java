@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.sys.Permissions;
 
@@ -61,10 +60,6 @@ public class RequestPermissionDialog extends AppCompatActivity {
 		if (permissions[0].equals(Manifest.permission.RECORD_AUDIO) && grantResults[0] == PackageManager.PERMISSION_DENIED) {
 			UI.toastLong(this, R.string.voice_input_mic_permission_is_needed);
 		}
-
-		if (permissions[0].equals(Manifest.permission.POST_NOTIFICATIONS)) {
-			new SettingsStore(this).setNotificationsApproved(grantResults[0] == PackageManager.PERMISSION_GRANTED);
-		}
 	}
 
 
@@ -79,13 +74,6 @@ public class RequestPermissionDialog extends AppCompatActivity {
 	private void render(@NonNull String permission) {
 		if (permission.equals(Manifest.permission.RECORD_AUDIO) && permissions.noRecordAudio()) {
 			permissions.requestRecordAudio();
-		} else if (permission.equals(Manifest.permission.POST_NOTIFICATIONS)) {
-			if (permissions.noPostNotifications()) {
-				permissions.requestPostNotifications();
-			} else {
-				new SettingsStore(this).setNotificationsApproved(true);
-				finish();
-			}
 		} else {
 			finish();
 		}

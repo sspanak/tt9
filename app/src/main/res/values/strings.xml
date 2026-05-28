@@ -171,6 +171,7 @@
 	<string name="dictionary_cancel_load">Cancel Loading</string>
 	<string name="dictionary_load_bad_char">Loading failed. Invalid word on line %1$d of language \"%2$s\".</string>
 	<string name="dictionary_load_error">Failed loading the dictionary for language \"%1$s\" (%2$s).</string>
+	<string name="dictionary_load_error_short">Failed to load %1$s</string>
 	<string name="dictionary_load_no_internet">Failed downloading the dictionary for language \"%1$s\". Check the Internet connection.</string>
 	<string name="dictionary_load_cancelled">Dictionary load canceled.</string>
 	<string name="dictionary_loaded">Dictionary load completed.</string>

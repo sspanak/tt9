@@ -25,13 +25,6 @@ Dictionary loading may saturate low-end phones. When using the TT9 "lite" versio
 
 You can avoid the above by using the "full" version instead.
 
-#### Notes for Android 13 or higher
-By default, the notifications for newly installed apps are disabled. It is recommended to enable them. This way you will get notified when there are dictionary updates, and once you choose to install them, TT9 will show the loading progress. New updates are released at most once a month, so you don't have to worry about getting too much spam.
-
-You can enable the notifications by going to Settings → Languages and toggling Dictionary Notifications.
-
-_If you decide to keep them off, TT9 will continue to work without problems, but you will have to manage the dictionaries manually._
-
 ## Settings
 On the Settings screen, you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
 
@@ -413,8 +406,6 @@ To mitigate this problem, go to Settings → Appearance, and enable "Status Icon
 
 ### General problems on Xiaomi phones
 Xiaomi has introduced several non-standard permissions on their phones, which prevent Traditional T9's virtual on-screen keyboard from working properly. More precisely, the "Show Settings" and the "Add Word" keys may not perform their respective functions. To fix this, you must grant the "Display pop-up window" and "Display pop-up window while running in the background" permissions to TT9 from your phone's settings. [This guide](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi) for another application explains how to do it.
-
-It is also highly recommended to grant the "Permanent notification" permission. This is similar to the "Notifications" permission introduced in Android 13. See [above](#notes-for-android-13-or-higher) for more information on why you need it.
 
 _The Xiaomi problems have been discussed in [this GitHub issue](https://github.com/sspanak/tt9/issues/490)._
 

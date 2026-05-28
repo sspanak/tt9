@@ -91,6 +91,7 @@
 	<string name="dictionary_cancel_load">Cancelar Carregamento</string>
 	<string name="dictionary_load_bad_char">Falha no carregamento. Palavra inválida na linha %1$d do idioma \"%2$s\".</string>
 	<string name="dictionary_load_error">Falha no carregamento do dicionário para o idioma \"%1$s\" (%2$s).</string>
+	<string name="dictionary_load_error_short">Falha ao carregar %1$s</string>
 	<string name="dictionary_load_no_internet">Falha ao baixar o dicionário para o idioma \"%1$s\". Verifique a conexão com a Internet.</string>
 	<string name="dictionary_load_cancelled">Carregamento de dicionário cancelado.</string>
 	<string name="dictionary_loaded">Dicionário carregado com sucesso.</string>

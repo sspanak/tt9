@@ -73,6 +73,7 @@
 	<string name="dictionary_cancel_load">Laden abbrechen</string>
 	<string name="dictionary_load_bad_char">Laden fehlgeschlagen. Ungültiges Wort in Zeile %1$d der Sprache „%2$s“.</string>
 	<string name="dictionary_load_error">Fehler beim Laden des Wörterbuchs für die Sprache „%1$s“ (%2$s).</string>
+	<string name="dictionary_load_error_short">%1$s konnte nicht geladen werden</string>
 	<string name="dictionary_load_no_internet">Fehler beim Herunterladen des Wörterbuchs für die Sprache „%1$s“. Überprüfen Sie die Internetverbindung.</string>
 	<string name="dictionary_load_cancelled">Laden abgebrochen.</string>
 	<string name="dictionary_loaded">Wörterbuch laden abgeschlossen.</string>

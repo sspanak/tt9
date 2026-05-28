@@ -25,13 +25,6 @@ Das Laden des Wörterbuchs kann bei leistungsschwachen Geräten zum Absturz füh
 
 Sie können dies vermeiden, indem Sie stattdessen die "Voll"-Version verwenden.
 
-#### Hinweise für Android 13 oder höher
-Für neu installierte Apps sind die Benachrichtigungen standardmäßig deaktiviert. Es wird empfohlen, diese zu aktivieren, um benachrichtigt zu werden, wenn Wörterbuchaktualisierungen verfügbar sind. Sobald Sie sich dafür entscheiden, sie zu installieren, zeigt TT9 den Fortschritt an. Es werden maximal einmal pro Monat neue Updates veröffentlicht, sodass Sie sich keine Sorgen über zu viele Benachrichtigungen machen müssen.
-
-Sie können die Benachrichtigungen aktivieren, indem Sie zu Einstellungen → Sprachen gehen und Wörterbuchbenachrichtigungen aktivieren.
-
-_Wenn Sie sich entscheiden, die Benachrichtigungen deaktiviert zu lassen, funktioniert TT9 weiterhin einwandfrei. Sie müssen jedoch die Wörterbücher manuell verwalten._
-
 ## Einstellungen
 Im Einstellungsbildschirm können Sie Sprachen für die Eingabe wählen, die Hotkeys der Tastatur konfigurieren, das Erscheinungsbild der Anwendung ändern oder die Kompatibilität mit Ihrem Telefon verbessern.
 
@@ -412,8 +405,6 @@ Um dieses Problem zu lindern, gehen Sie zu Einstellungen → Erscheinungsbild un
 
 ### Allgemeine Probleme auf Xiaomi-Telefonen
 Xiaomi hat mehrere nicht-standardmäßige Berechtigungen eingeführt, die das ordnungsgemäße Funktionieren von Traditional T9s virtueller Bildschirmtastatur verhindern können. Genauer gesagt funktionieren die Tasten „Einstellungen anzeigen“ und „Wort hinzufügen“ möglicherweise nicht wie vorgesehen. Um dies zu beheben, müssen Sie die Berechtigungen „Pop-up-Fenster anzeigen“ und „Pop-up-Fenster im Hintergrund anzeigen“ für TT9 in den Einstellungen Ihres Telefons erteilen. [Dieser Leitfaden](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi) für eine andere Anwendung erklärt, wie Sie dies tun.
-
-Es wird auch dringend empfohlen, die Berechtigung „Dauerhafte Benachrichtigung“ zu erteilen. Dies ähnelt der Benachrichtigungsberechtigung, die in Android 13 eingeführt wurde. Weitere Informationen finden Sie [oben](#hinweise-für-android-13-oder-höher).
 
 _Die Xiaomi-Probleme wurden in [diesem GitHub-Problem](https://github.com/sspanak/tt9/issues/490) besprochen._
 
