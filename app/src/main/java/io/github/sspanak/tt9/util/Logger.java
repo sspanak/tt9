@@ -2,6 +2,11 @@ package io.github.sspanak.tt9.util;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.Arrays;
+
 import io.github.sspanak.tt9.BuildConfig;
 
 public class Logger {
@@ -22,31 +27,38 @@ public class Logger {
 		}
 	}
 
-	static public void v(String tag, String msg)  {
+	public static void ex(@NonNull String tag, @Nullable String prefix, @NonNull Throwable e) {
+		StringBuilder errorMsg = new StringBuilder(prefix == null ? "" : prefix + " ");
+		errorMsg.append(e.getMessage()).append("\nStack trace:");
+		Arrays.stream(e.getStackTrace()).forEach(element -> errorMsg.append("\n").append(element.toString()));
+		Logger.e(tag, errorMsg.toString());
+	}
+
+	public static void v(String tag, String msg)  {
 		if (LEVEL <= Log.VERBOSE) {
 			Log.d(TAG_PREFIX + tag, msg);
 		}
 	}
 
-	static public void d(String tag, String msg)  {
+	public static void d(String tag, String msg)  {
 		if (LEVEL <= Log.DEBUG) {
 			Log.d(TAG_PREFIX + tag, msg);
 		}
 	}
 
-	static public void i(String tag,  String msg)  {
+	public static void i(String tag,  String msg)  {
 		if (LEVEL <= Log.INFO) {
 			Log.i(TAG_PREFIX + tag, msg);
 		}
 	}
 
-	static public void w(String tag, String msg)  {
+	public static void w(String tag, String msg)  {
 		if (LEVEL <= Log.WARN) {
 			Log.w(TAG_PREFIX + tag, msg);
 		}
 	}
 
-	static public void e(String tag, String msg)  {
+	public static void e(String tag, String msg)  {
 		if (LEVEL <= Log.ERROR) {
 			Log.e(TAG_PREFIX + tag, msg);
 		}

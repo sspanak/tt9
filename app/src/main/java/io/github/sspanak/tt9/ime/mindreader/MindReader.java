@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -517,14 +516,6 @@ public class MindReader {
 	}
 
 
-	private void logThreadError(@NonNull Exception e) {
-		StringBuilder errorMsg = new StringBuilder("Error in MindReader task. ");
-		errorMsg.append(e.getMessage()).append("\nStack trace:");
-		Arrays.stream(e.getStackTrace()).forEach(element -> errorMsg.append("\n").append(element.toString()));
-		Logger.e(LOG_TAG, errorMsg.toString());
-	}
-
-
 	private void logState(long processingTime, @Nullable List<String> words) {
 		if (!Logger.isDebugLevel()) {
 			return;
@@ -562,7 +553,7 @@ public class MindReader {
 				try {
 					runnable.run();
 				} catch (Exception e) {
-					logThreadError(e);
+					Logger.ex(LOG_TAG, "Error in MindReader task.", e);
 				}
 			});
 		} catch (RejectedExecutionException e) {

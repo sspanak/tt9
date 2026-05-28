@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
@@ -42,10 +43,21 @@ public class DataStore {
 
 	@Nullable
 	private static Future<?> runInThread(@NonNull Runnable action) {
-		if (executor != null) {
-			return executor.submit(action);
-		} else {
-			Logger.e(LOG_TAG, "Cannot run a datastore task without an ExecutorService.");
+		if (executor == null || executor.isShutdown() || executor.isTerminated()) {
+			Logger.e(LOG_TAG, "Cannot run a DataStore task when the executor is shutdown or NULL.");
+			return null;
+		}
+
+		try {
+			return executor.submit(() -> {
+				try {
+					action.run();
+				} catch (Exception e) {
+					Logger.ex(LOG_TAG, "Error in DataStore task.", e);
+				}
+			});
+		} catch (RejectedExecutionException e) {
+			Logger.e(LOG_TAG, "Failed running async DataStore task. " + e);
 			return null;
 		}
 	}
