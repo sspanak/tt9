@@ -216,7 +216,7 @@
 	<string name="dictionary_import_progress">Importando CSV (%1$s)…</string>
 	<string name="dictionary_import_running">Importando CSV…</string>
 	<string name="help_url_copied">O link foi copiado.</string>
-	<string name="key_chars_key_2_9">Teclas 2–9</string>
+	<string name="key_chars_key_2_9">Teclas #2–#9</string>
 	<string name="language_selection_language_loaded">(carregado)</string>
 	<string name="language_selection_title">Habilitar idiomas</string>
 	<string name="language_selection_words">palavras</string>
@@ -232,10 +232,12 @@
 	<string name="key_chars_error_mandatory_char_missing">Caractere obrigatório ausente:%1$s</string>
 	<string name="key_chars_error_mandatory_chars_missing">Caracteres obrigatórios ausentes:%1$s</string>
 	<string name="key_chars_save_error">Falha ao salvar a lista de caracteres.</string>
-	<string name="key_chars_key_1">Tecla 1</string>
-	<string name="key_chars_key_0">Tecla 0</string>
+	<string name="key_chars_key_1">Tecla #1</string>
+	<string name="key_chars_key_0">Tecla #0</string>
 	<string name="fn_key_order_restore_default">Restaurar ordem padrão</string>
 	<string name="language">Idioma</string>
+	<string name="key_chars_error_only_letters_allowed">Apenas letras são permitidas.</string>
+	<string name="key_chars_error_repeating_letters_not_allowed">Letras repetidas não são permitidas.</string>
 	<string name="key_chars_restore_default_for">Restaurar caracteres padrão para %1$s</string>
 	<string name="key_chars_save">Salvar caracteres para %1$s</string>
 	<string name="key_chars_error_forbidden_char">Caractere proibido:%1$s</string>

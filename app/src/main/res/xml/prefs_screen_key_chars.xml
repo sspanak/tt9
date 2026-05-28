@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<io.github.sspanak.tt9.preferences.screens.keychars.DropDownPunctuationOrderLanguage android:title="@string/language" />
+
+	<PreferenceCategory android:title="@string/key_chars_key_0">
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceIncludeNewline
+			android:key="punctuation_order_include_newline"
+			android:title="@string/key_chars_include_newline" />
+
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceIncludeTab
+			android:key="punctuation_order_include_tab"
+			android:title="@string/key_chars_include_tab" />
+
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars0
+			android:key="punctuation_order_special_chars"
+			android:title="@string/key_chars_initial_chars"
+			android:summary="@string/key_chars_whitespace_will_be_added_automatically" />
+
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceCharsExtra
+			android:key="punctuation_order_key_0_group"
+			android:title="@string/key_chars_group"/>
+
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceCharsExtra
+			android:key="punctuation_order_key_0_after_group"
+			android:title="@string/key_chars_after_group"/>
+	</PreferenceCategory>
+
+	<PreferenceCategory android:title="@string/key_chars_key_1">
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars1
+			android:key="punctuation_order_sentence"
+			android:title="@string/key_chars_initial_chars" />
+
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceCharsExtra
+			android:key="punctuation_order_key_1_group"
+			android:title="@string/key_chars_group"/>
+
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceCharsExtra
+			android:key="punctuation_order_key_1_after_group"
+			android:title="@string/key_chars_after_group"/>
+	</PreferenceCategory>
+
+	<PreferenceCategory android:key="category_extra_chars_2_to_9" android:title="@string/key_chars_key_2_9">
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars2to9 android:key="extra_chars_2" />
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars2to9 android:key="extra_chars_3" />
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars2to9 android:key="extra_chars_4" />
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars2to9 android:key="extra_chars_5" />
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars2to9 android:key="extra_chars_6" />
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars2to9 android:key="extra_chars_7" />
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars2to9 android:key="extra_chars_8" />
+		<io.github.sspanak.tt9.preferences.screens.keychars.PreferenceChars2to9 android:key="extra_chars_9" />
+	</PreferenceCategory>
+
+	<PreferenceCategory>
+		<Preference
+			android:key="punctuation_order_reset_defaults"
+			android:title="@string/key_chars_restore_default_for" />
+
+		<Preference
+			android:key="punctuation_order_save"
+			android:title="@string/key_chars_save" />
+	</PreferenceCategory>
+
+</PreferenceScreen>

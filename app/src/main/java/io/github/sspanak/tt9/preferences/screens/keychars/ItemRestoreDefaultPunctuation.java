@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.screens.punctuation;
+package io.github.sspanak.tt9.preferences.screens.keychars;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,7 +38,7 @@ class ItemRestoreDefaultPunctuation extends ItemClickable {
 			return false;
 		}
 
-		settings.setDefaultCharOrder(language, true);
+		settings.setDefaultChars(language, true);
 
 		if (onClick != null) {
 			onClick.accept(String.valueOf(language.getId()));

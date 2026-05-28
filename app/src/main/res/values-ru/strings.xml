@@ -216,7 +216,7 @@
 	<string name="dictionary_import_progress">Импортирование CSV (%1$s)…</string>
 	<string name="dictionary_import_running">Импортирование CSV…</string>
 	<string name="help_url_copied">Ссылка скопирована.</string>
-	<string name="key_chars_key_2_9">Клавиши 2–9</string>
+	<string name="key_chars_key_2_9">Клавиши #2–#9</string>
 	<string name="language_selection_language_loaded">(загружен)</string>
 	<string name="language_selection_title">Включить языки</string>
 	<string name="language_selection_words">слов</string>
@@ -232,10 +232,12 @@
 	<string name="key_chars_error_mandatory_char_missing">Отсутствует обязательный символ:%1$s</string>
 	<string name="key_chars_error_mandatory_chars_missing">Отсутствуют обязательные символы:%1$s</string>
 	<string name="key_chars_save_error">Не удалось сохранить список символов.</string>
-	<string name="key_chars_key_1">Клавиша 1</string>
-	<string name="key_chars_key_0">Клавиша 0</string>
+	<string name="key_chars_key_1">Клавиша #1</string>
+	<string name="key_chars_key_0">Клавиша #0</string>
 	<string name="fn_key_order_restore_default">Восстановить порядок по умолчанию</string>
 	<string name="language">Язык</string>
+	<string name="key_chars_error_only_letters_allowed">Разрешены только буквы.</string>
+	<string name="key_chars_error_repeating_letters_not_allowed">Повторяющиеся буквы не допускаются.</string>
 	<string name="key_chars_restore_default_for">Восстановить символы по умолчанию для %1$s</string>
 	<string name="key_chars_save">Сохранить символы для %1$s</string>
 	<string name="key_chars_error_forbidden_char">Запрещённый символ:%1$s</string>

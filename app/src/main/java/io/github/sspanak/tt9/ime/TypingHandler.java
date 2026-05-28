@@ -26,6 +26,7 @@ import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
@@ -99,7 +100,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (restart && !languageChanged && appHacks.isRestartForbidden() && mInputMode.getId() == determineInputModeId()) {
 			return false;
 		}
-		settings.setDefaultCharOrder(mLanguage, false);
+		settings.setDefaultChars(mLanguage, false);
+		((NaturalLanguage) mLanguage).updateKeyCharacters(settings);
 		resetKeyRepeat();
 		mInputMode = determineInputMode();
 		determineTextCase();

@@ -32,6 +32,24 @@ public class TextTools {
 	}
 
 
+	public static boolean containsRepeatingChars(String str) {
+		if (str == null || str.isEmpty()) {
+			return false;
+		}
+
+		final java.util.HashSet<Integer> seen = new java.util.HashSet<>();
+		for (int i = 0; i < str.length(); ) {
+			final int cp = str.codePointAt(i);
+			if (!seen.add(cp)) {
+				return true;
+			}
+			i += Character.charCount(cp);
+		}
+
+		return false;
+	}
+
+
 	public static boolean endsWithSpace(String str) {
 		return str != null && !str.isEmpty() && Character.isWhitespace(str.charAt(str.length() - 1));
 	}

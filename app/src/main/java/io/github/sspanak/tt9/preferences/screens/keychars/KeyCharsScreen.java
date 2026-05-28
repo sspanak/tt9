@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.screens.punctuation;
+package io.github.sspanak.tt9.preferences.screens.keychars;
 
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
@@ -12,15 +12,15 @@ import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 import io.github.sspanak.tt9.ui.UI;
 
-public class PunctuationScreen extends BaseScreenFragment {
-	public static final String NAME = "Punctuation";
+public class KeyCharsScreen extends BaseScreenFragment {
+	public static final String NAME = "KeyChars";
 	@Nullable private DropDownPunctuationOrderLanguage languageList;
 	private ItemRestoreDefaultPunctuation restoreDefaults;
 	private ItemPunctuationOrderSave saveOrder;
 	private final ArrayList<AbstractPreferenceCharList> charLists = new ArrayList<>();
 
-	public PunctuationScreen() { super(); }
-	public PunctuationScreen(@Nullable PreferencesActivity activity) { super(activity); }
+	public KeyCharsScreen() { super(); }
+	public KeyCharsScreen(@Nullable PreferencesActivity activity) { super(activity); }
 
 	@Override
 	public String getName() {
@@ -34,7 +34,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 	@Override
 	protected int getXml() {
-		return R.xml.prefs_screen_punctuation;
+		return R.xml.prefs_screen_key_chars;
 	}
 
 
@@ -52,14 +52,26 @@ public class PunctuationScreen extends BaseScreenFragment {
 		for (int i = 0; i < PreferenceCharsExtra.NAMES.length; i++) {
 			charLists.add(findPreference(PreferenceCharsExtra.NAMES[i]));
 		}
+		for (int i = 0; i < PreferenceChars2to9.NAMES.length; i++) {
+			charLists.add(findPreference(PreferenceChars2to9.NAMES[i]));
+		}
 
 		initLanguageList();
 		Language initalLanguage = languageList != null ? LanguageCollection.getLanguage(languageList.getValue()) : null;
+		init2to9Section(initalLanguage);
 		initResetDefaults(initalLanguage);
 		initSaveButton(initalLanguage);
 		initIncludeSwitches(initalLanguage);
 		loadCharLists(initalLanguage);
 		resetFontSize(false);
+	}
+
+
+	private void init2to9Section(@Nullable Language language) {
+		final Preference category = findPreference("category_extra_chars_2_to_9");
+		if (category != null) {
+			category.setVisible(language != null && !language.isTranscribed());
+		}
 	}
 
 
@@ -134,6 +146,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 	private void onLanguageChanged(@Nullable String newLanguageId) {
 		Language language = LanguageCollection.getLanguage(newLanguageId);
 
+		init2to9Section(language);
 		initIncludeSwitches(language);
 		restoreDefaults.setLanguage(language);
 		saveOrder.setLanguage(language);
@@ -153,7 +166,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 		if (activity != null) {
 			for (Language lang : LanguageCollection.getAll(activity.getSettings().getEnabledLanguageIds())) {
-				activity.getSettings().setDefaultCharOrder(lang, false);
+				activity.getSettings().setDefaultChars(lang, false);
 			}
 		}
 		onLanguageChanged(String.valueOf(initialLanguage.getId()));
