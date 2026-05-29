@@ -102,6 +102,7 @@ public class SystemSettings {
 			}
 		} else if (originalNavigationBarColor != null) {
 			window.setNavigationBarColor(originalNavigationBarColor); // Android 12-14
+			originalNavigationBarColor = null;
 		}
 	}
 }
