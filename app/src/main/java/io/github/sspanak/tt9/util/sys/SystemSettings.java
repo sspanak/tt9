@@ -96,7 +96,7 @@ public class SystemSettings {
 			WindowInsetsControllerCompat insetsController = new WindowInsetsControllerCompat(window, window.getDecorView());
 			insetsController.setAppearanceLightNavigationBars(!settings.getDarkTheme());
 
-			if (!DeviceInfo.AT_LEAST_ANDROID_15) { // Android 12-14
+			if (DeviceInfo.AT_LEAST_ANDROID_12 && !DeviceInfo.AT_LEAST_ANDROID_15) { // Android 12-14
 				originalNavigationBarColor = originalNavigationBarColor == null ? window.getNavigationBarColor() : originalNavigationBarColor;
 				window.setNavigationBarColor(settings.getKeyboardBackground());
 			}
