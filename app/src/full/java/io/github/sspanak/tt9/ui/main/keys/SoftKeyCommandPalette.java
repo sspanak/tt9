@@ -18,6 +18,11 @@ public class SoftKeyCommandPalette extends BaseKeyboardResizeKey {
 	}
 
 	@Override
+	protected String getAccessibilityText() {
+		return tt9 != null ? command.getName(tt9) : null;
+	}
+
+	@Override
 	protected int getNoEmojiTitle() {
 		return command.getIconText();
 	}

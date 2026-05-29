@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -28,6 +30,7 @@ class ModeABC extends InputMode {
 	private final int textFieldTextCase;
 
 	@Override public int getId() { return MODE_ABC; }
+	@Override @NonNull public String toAccessibilityString(@NonNull Context c) { return language.getName() + ", " + language.getAbcString(); }
 
 
 	protected ModeABC(@NonNull SettingsStore settings, @NonNull Language lang, @Nullable InputType inputType) {
@@ -64,7 +67,10 @@ class ModeABC extends InputMode {
 			autoAcceptTimeout = 0;
 			digitSequence = String.valueOf(number);
 			shouldSelectNextLetter = false;
-			suggestions.add(language.getKeyNumeral(number));
+
+			ArrayList<String> newSuggestions = new ArrayList<>(1);
+			newSuggestions.add(language.getKeyNumeral(number));
+			suggestions = newSuggestions;
 		} else if (repeat > 0 && !suggestions.isEmpty()) {
 			autoAcceptTimeout = settings.getAutoAcceptTimeoutAbc();
 			shouldSelectNextLetter = true;
@@ -73,8 +79,10 @@ class ModeABC extends InputMode {
 			autoAcceptTimeout = settings.getAutoAcceptTimeoutAbc();
 			digitSequence = String.valueOf(number);
 			shouldSelectNextLetter = false;
-			suggestions.addAll(KEY_CHARACTERS.size() > number ? KEY_CHARACTERS.get(number) : settings.getOrderedKeyChars(language, number));
-			suggestions.add(language.getKeyNumeral(number));
+
+			ArrayList<String> newSuggestions = new ArrayList<>(KEY_CHARACTERS.size() > number ? KEY_CHARACTERS.get(number) : settings.getOrderedKeyChars(language, number));
+			newSuggestions.add(language.getKeyNumeral(number));
+			suggestions = newSuggestions;
 		}
 
 		return true;
@@ -144,7 +152,7 @@ class ModeABC extends InputMode {
 
 	private void refreshSuggestions() {
 		if (digitSequence.isEmpty()) {
-			suggestions.clear();
+			suggestions = new ArrayList<>();
 		} else {
 			onNumber(digitSequence.charAt(0) - '0', false, 0);
 		}
@@ -164,7 +172,7 @@ class ModeABC extends InputMode {
 		allowedTextCases.clear();
 		allowedTextCases.add(CASE_LOWER);
 		if (language.hasUpperCase()) {
-			if (settings.getAutoTextCaseAbc()) {
+			if (settings.getAutoTextCaseAbc() && inputType != null && !inputType.isSpecialized()) {
 				allowedTextCases.add(CASE_CAPITALIZE);
 			}
 			allowedTextCases.add(CASE_UPPER);

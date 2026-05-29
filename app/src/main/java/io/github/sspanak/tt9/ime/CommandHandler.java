@@ -1,28 +1,24 @@
 package io.github.sspanak.tt9.ime;
 
-import android.view.KeyEvent;
-
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.commands.CmdAddWord;
-import io.github.sspanak.tt9.commands.CmdEditWord;
+import io.github.sspanak.tt9.commands.CmdCommandPalette;
+import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.commands.CommandCollection;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
-import io.github.sspanak.tt9.ime.modes.ModeRecomposing;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.ui.UI;
-import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
-import io.github.sspanak.tt9.ui.dialogs.ChangeLanguageDialog;
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Ternary;
-import io.github.sspanak.tt9.util.sys.DeviceInfo;
-import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 abstract public class CommandHandler extends TextEditingHandler {
+	private final CmdCommandPalette cmdPalette = new CmdCommandPalette();
+
+
 	@Override
 	protected Ternary onBack() {
-		if (hideCommandPalette()) {
+		if (cmdPalette.hideCommandPalette(getFinalContext())) {
 			return Ternary.TRUE;
 		} else {
 			return super.onBack();
@@ -37,7 +33,10 @@ abstract public class CommandHandler extends TextEditingHandler {
 		}
 
 		if (!shouldBeOff() && mainView.isCommandPaletteShown()) {
-			CommandCollection.getByHardKey(CommandCollection.COLLECTION_PALETTE, key).run(getFinalContext());
+			Command cmd = CommandCollection.getByHardKey(CommandCollection.COLLECTION_PALETTE, key);
+			if (cmd.isAvailable(getFinalContext())) {
+				cmd.run(getFinalContext());
+			}
 			return true;
 		}
 
@@ -47,113 +46,25 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 	@Override
 	protected boolean navigateBack() {
-		return hideCommandPalette() || super.navigateBack();
+		return cmdPalette.hideCommandPalette(getFinalContext()) || super.navigateBack();
 	}
 
 
-	protected void resetStatus() {
+	public void resetStatus() {
 		if (mainView.isCommandPaletteShown()) {
 			statusBar.setText(R.string.commands_select_command);
+			statusBar.setAccessibilityText(R.string.commands_select_command);
 		} else if (mainView.isTextEditingPaletteShown()) {
 			statusBar.setText(R.string.commands_select_command);
+			statusBar.setAccessibilityText(R.string.commands_select_command);
 		} else {
 			statusBar.setText(mInputMode);
+			statusBar.setAccessibilityText(mInputMode);
 		}
 	}
 
 
-	public void addWord() {
-		if (!CmdAddWord.validate(getFinalContext(), settings, mLanguage)) {
-			return;
-		}
-
-		suggestionOps.cancelDelayedAccept();
-		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
-		mainView.showKeyboard();
-		resetStatus();
-
-		new AddWordDialog(getFinalContext(), mLanguage, textField.getSurroundingWord(mLanguage)).show();
-	}
-
-
-	protected void editWord() {
-		if (!CmdEditWord.validate(getFinalContext(), settings, mLanguage)) {
-			return;
-		}
-
-		final int previousMode = mInputMode.getId();
-		if (previousMode == InputMode.MODE_RECOMPOSING) {
-			Logger.d(getClass().getSimpleName(), "Already in recomposing mode. Nothing to do.");
-			return;
-		}
-
-		String word = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
-		if (word.isEmpty()) {
-			word = textField.recomposeSurroundingWord(mLanguage);
-		} else {
-			suggestionOps.set(null);
-		}
-
-		if (word.isEmpty()) {
-			UI.toastShortSingle(this, R.string.edit_word_no_selection);
-			return;
-		}
-
-		setInputMode(InputMode.MODE_RECOMPOSING);
-		if (mInputMode.setWordStem(word, false)) {
-			((ModeRecomposing) mInputMode).setOnFinishListener(() -> setInputMode(previousMode));
-			getSuggestions(0, "", null);
-		} else {
-			textField.finishComposingText();
-			setInputMode(previousMode);
-			UI.toastShortSingle(
-				this,
-				"edit_word_invalid_characters",
-				getString(R.string.edit_word_invalid_characters, word, mLanguage.getName())
-			);
-		}
-	}
-
-
-	public void selectKeyboard() {
-		suggestionOps.cancelDelayedAccept();
-		stopVoiceInput();
-		UI.showChangeKeyboardDialog(this);
-	}
-
-
-	public void nextKeyboard() {
-		suggestionOps.cancelDelayedAccept();
-		stopVoiceInput();
-
-		if (DeviceInfo.AT_LEAST_ANDROID_9) {
-			switchToPreviousInputMethod();
-			return;
-		}
-
-		try {
-			switchInputMethod(SystemSettings.getPreviousIME(this));
-		} catch (Exception e) {
-			Logger.d(getClass().getSimpleName(), "Could not switch to previous input method. " + e);
-		}
-	}
-
-
-	protected int nextInputMode() {
-		if (InputModeKind.isPassthrough(mInputMode) || voiceInputOps.isListening()) {
-			return mInputMode.getId();
-		}
-
-		if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123) && !InputModeKind.is123(mInputMode)) {
-			return InputMode.MODE_123;
-		} else {
-			final int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
-			return allowedInputModes.get(nextModeIndex);
-		}
-	}
-
-
-	protected void setInputMode(int modeId) {
+	public void setInputMode(int modeId) {
 		if (!allowedInputModes.contains(modeId) && modeId != InputMode.MODE_RECOMPOSING) {
 			return;
 		}
@@ -173,25 +84,12 @@ abstract public class CommandHandler extends TextEditingHandler {
 		getDisplayTextCase(mLanguage, mInputMode.getTextCase());
 		setStatusIcon(mInputMode, mLanguage);
 		statusBar.setText(mInputMode);
+		statusBar.setAccessibilityText(mInputMode);
 		mainView.render();
 
 		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {
 			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
 		}
-	}
-
-
-	protected boolean changeLang() {
-		suggestionOps.cancelDelayedAccept();
-		stopVoiceInput();
-		return new ChangeLanguageDialog(getFinalContext(), this::setLang).show();
-	}
-
-
-	protected void nextLang() {
-		int previous = mEnabledLanguages.indexOf(mLanguage.getId());
-		int next = (previous + 1) % mEnabledLanguages.size();
-		setLang(mEnabledLanguages.get(next));
 	}
 
 
@@ -206,8 +104,8 @@ abstract public class CommandHandler extends TextEditingHandler {
 		mLanguage = LanguageCollection.getLanguage(langId);
 		validateLanguages();
 
-		detectRTL();
-		settings.setDefaultCharOrder(mLanguage, false); // initialize default order, if missing
+		settings.setDefaultChars(mLanguage, false); // initialize default order, if missing
+		((NaturalLanguage) mLanguage).updateKeyCharacters(settings); // and update the layout for 2..9 keys, if needed
 
 		// for languages that do not have ABC or Predictive, make sure we remain in valid state
 		mInputMode = InputMode
@@ -224,7 +122,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			DictionaryLoader.autoLoad(this, settings, mLanguage);
 		}
 
-		mindReader.setLanguage(mLanguage);
+		mindReader.setLanguage(mLanguage).seed(getFinalContext(), mLanguage);
 
 		forceShowWindow();
 	}
@@ -234,6 +132,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		getDisplayTextCase(mLanguage, mInputMode.getTextCase());
 		setStatusIcon(mInputMode, mLanguage);
 		statusBar.setText(mInputMode);
+		statusBar.setAccessibilityText(mInputMode);
 		suggestionOps.setLanguage(mLanguage);
 		mainView.render();
 		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {
@@ -242,7 +141,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 	}
 
 
-	protected boolean nextTextCase() {
+	public boolean nextTextCase() {
 		final String currentWord = !suggestionOps.isEmpty() && mInputMode.isTyping() ? suggestionOps.getCurrent() : "";
 
 		if (!mInputMode.nextTextCase(currentWord, displayTextCase)) {
@@ -250,7 +149,9 @@ abstract public class CommandHandler extends TextEditingHandler {
 		}
 
 		mInputMode.skipNextTextCaseDetection();
-		settings.saveTextCase(mInputMode.getTextCase());
+		if (!InputModeKind.isRecomposing(mInputMode)) {
+			settings.saveTextCase(mInputMode.getTextCase());
+		}
 
 		if (currentWord.isEmpty() && !suggestionOps.isEmpty()) {
 			// if we have set the suggestions from a different source, e.g. Clipboard or MindReader,
@@ -259,7 +160,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			appHacks.setComposingText(suggestionOps.getCurrent());
 			return true;
 		} else if (currentWord.isEmpty() || (currentWord.length() == 1 && !Character.isAlphabetic(currentWord.charAt(0)))) {
-			// if there are no suggestions or they are special chars, we don't need to adjust their text case
+			// if there are no suggestions, or they are special chars, we don't need to adjust their text case
 			return true;
 		}
 
@@ -278,52 +179,5 @@ abstract public class CommandHandler extends TextEditingHandler {
 		}
 
 		return true;
-	}
-
-
-	public void showSettings() {
-		suggestionOps.cancelDelayedAccept();
-		stopVoiceInput();
-		UI.showSettingsScreen(this, null);
-	}
-
-
-	public void showCommandPalette() {
-		if (mainView.isCommandPaletteShown()) {
-			return;
-		}
-
-		suggestionOps.cancelDelayedAccept();
-		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
-		mInputMode.reset();
-
-		mainView.showCommandPalette();
-		resetStatus();
-	}
-
-
-	public boolean hideCommandPalette() {
-		if (!mainView.isCommandPaletteShown()) {
-			return false;
-		}
-
-		mainView.showKeyboard();
-		if (voiceInputOps.isListening()) {
-			stopVoiceInput();
-		} else {
-			resetStatus();
-		}
-
-		return true;
-	}
-
-
-	protected boolean undo() {
-		return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, false, true);
-	}
-
-
-	protected boolean redo() {
-		return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, true, true);
 	}
 }

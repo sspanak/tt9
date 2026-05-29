@@ -84,7 +84,9 @@ public class TraditionalT9 extends PremiumHandler {
 	@Override
 	public void onFinishInputView(boolean finishingInput) {
 		super.onFinishInputView(finishingInput);
-		onFinishTyping();
+		if (finishingInput) {
+			onFinishTyping();
+		}
 	}
 
 
@@ -164,7 +166,6 @@ public class TraditionalT9 extends PremiumHandler {
 			onStop();
 		}	else {
 			backgroundTasks.removeCallbacksAndMessages(null);
-			settings.setDonationsVisible(true);
 			initUi(mInputMode);
 		}
 
@@ -178,7 +179,7 @@ public class TraditionalT9 extends PremiumHandler {
 		final InputType newInputType = new InputType(this, field);
 
 		if (newInputType.isText()) {
-			DataStore.loadWordPairs(DictionaryLoader.getInstance(this), LanguageCollection.getAll(settings.getEnabledLanguageIds()));
+			DataStore.loadWordPairs(LanguageCollection.getAll(settings.getEnabledLanguageIds()));
 		}
 
 		if (!newInputType.isUs()) {
@@ -349,14 +350,16 @@ public class TraditionalT9 extends PremiumHandler {
 	private void runHeavyInitTasks() {
 		LanguageCollection.init(getApplicationContext());
 		DataStore.init(getApplicationContext());
+		mindReader.init(getApplicationContext()); // create the database tables, if they don't exist already
 		Logger.d(LOG_TAG, "Heavy initialization tasks completed successfully");
 	}
 
 
 	private void runBackgroundTasks() {
 		SupremeExecutor.submit(() -> {
+			mindReader.persist();
 			voiceInputOps.forceAlternativeInput(false).enableOfflineMode();
-			if (!DictionaryLoader.getInstance(this).isRunning()) {
+			if (!DictionaryLoader.isRunning()) {
 				DataStore.saveWordPairs();
 				DataStore.normalizeNext();
 			}

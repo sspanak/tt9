@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.commands;
 
+import android.view.KeyEvent;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -7,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class CommandCollection {
 	public static final int COLLECTION_HOTKEYS = 1;
@@ -23,7 +27,7 @@ public class CommandCollection {
 	@Nullable
 	public static Command getById(int collectionType, @Nullable String commandId) {
 		if (NullCommand.ID.equals(commandId)) {
-			return new NullCommand();
+			return NullCommand.self;
 		}
 
 		Collection<Command> commands = collectionType == COLLECTION_HOTKEYS ? getHotkeyCommands() : getAll(collectionType).values();
@@ -48,7 +52,7 @@ public class CommandCollection {
 	@NonNull
 	public static Command getBySoftKey(int collectionType, int keyId) {
 		Command cmd = getAll(collectionType).get(keyId);
-		return cmd != null ? cmd : new NullCommand();
+		return cmd != null ? cmd : NullCommand.self;
 	}
 
 
@@ -60,7 +64,22 @@ public class CommandCollection {
 			}
 		}
 
-		return new NullCommand();
+		return NullCommand.self;
+	}
+
+
+	@NonNull public static Command getByHotkey(@NonNull SettingsStore settings, int keyCode) {
+		if (keyCode == KeyEvent.KEYCODE_UNKNOWN) {
+			return NullCommand.self;
+		}
+
+		for (Command cmd : getHotkeyCommands()) {
+			if (keyCode == settings.getFunctionKey(cmd.getId())) {
+				return cmd;
+			}
+		}
+
+		return NullCommand.self;
 	}
 
 
@@ -84,6 +103,7 @@ public class CommandCollection {
 			hotkeys.add(new CmdEditText());
 			hotkeys.add(new CmdFilterClear());
 			hotkeys.add(new CmdFilterSuggestions());
+			hotkeys.add(new CmdHideKeyboard());
 			hotkeys.add(new CmdSuggestionPrevious());
 			hotkeys.add(new CmdSuggestionNext());
 			hotkeys.add(new CmdNextInputMode());
@@ -91,7 +111,9 @@ public class CommandCollection {
 			hotkeys.add(new CmdSelectKeyboard());
 			hotkeys.add(new CmdShift());
 			hotkeys.add(new CmdSpaceKorean());
+			hotkeys.add(new CmdShowEmojis());
 			hotkeys.add(new CmdShowSettings());
+			hotkeys.add(new CmdTogglePredictiveMode());
 			hotkeys.add(new CmdUndo());
 			hotkeys.add(new CmdRedo());
 			hotkeys.add(new CmdVoiceInput());

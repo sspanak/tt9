@@ -1,0 +1,291 @@
+package io.github.sspanak.tt9.ime.mindreader;
+
+import android.util.SparseArray;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Locale;
+
+import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
+import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.TextTools;
+import io.github.sspanak.tt9.util.chars.Characters;
+
+public class MindReaderDictionary {
+	static final String EMOJI = ":)";
+	static final String GARBAGE = "∅";
+	static final String NUMBER = "\\d";
+	static final String SPACE = " ";
+	static final String PUNCTUATION_OTHER = "|";
+	static final int[] PUNCTUATION = {
+		Characters.AR_QUESTION_MARK.codePointAt(0),
+		Characters.GR_QUESTION_MARK.codePointAt(0),
+		Characters.ZH_QUESTION_MARK.codePointAt(0),
+		Characters.ZH_EXCLAMATION_MARK.codePointAt(0),
+		Characters.ZH_FULL_STOP.codePointAt(0),
+		'!',
+		'?',
+		',',
+		'.'
+	};
+
+	@Nullable private final Locale locale;
+	private final int capacity;
+	@NonNull private final HashMap<String, Integer> index; // for indexOf(), contains() and other lookups
+	@NonNull private final MindReaderTrie longIndex = new MindReaderTrie(); // for getLongestWord()
+	private int size = 0;
+	@NonNull private final String[] tokens;
+
+	private boolean dirty;
+
+
+	MindReaderDictionary() {
+		this(null);
+	}
+
+
+	public MindReaderDictionary(@Nullable Language language) {
+		this.locale = language == null || !language.hasUpperCase() ? null : language.getLocale();
+		this.capacity = SettingsStatic.MIND_READER_MAX_DICTIONARY_WORDS;
+		this.index = new HashMap<>(capacity);
+		this.tokens = new String[capacity];
+
+		addInternal(GARBAGE);
+		addInternal(EMOJI);
+		addInternal(NUMBER);
+		addInternal(SPACE);
+		addInternal(PUNCTUATION_OTHER);
+		for (int p : PUNCTUATION) {
+			addInternal(new String(Character.toChars(p)));
+		}
+
+		dirty = false;
+	}
+
+
+	static boolean isGarbage(int tokenId) { return tokenId == 0; }
+	static boolean isEmoji(int tokenId) { return tokenId == 1; }
+	static boolean isNumber(int tokenId) { return tokenId == 2; }
+	static boolean isPunctuation(@Nullable Language language, int tokenId) {
+		return
+			tokenId == 4
+			|| (tokenId >= 5 && tokenId < 5 + PUNCTUATION.length)
+			|| (LanguageKind.usesSpaceAsPunctuation(language) && tokenId == 3);
+	}
+	static boolean isWord(int tokenId) { return tokenId >= 5 + PUNCTUATION.length; }
+
+
+	static boolean isSpecialChar(@Nullable Language language, @Nullable String token) {
+		if (token == null || token.isEmpty()) {
+			return false;
+		}
+
+		if (token.equals(EMOJI) || token.equals(NUMBER) || token.equals(PUNCTUATION_OTHER)) {
+			return true;
+		}
+
+		if (LanguageKind.usesSpaceAsPunctuation(language) && token.equals(SPACE)) {
+			return true;
+		}
+
+		for (int p : PUNCTUATION) {
+			if (token.codePointAt(0) == p && TextTools.isSingleCodePoint(token)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+	private void addInternal(@NonNull String token) {
+		tokens[size] = token;
+		addToIndex(token, size);
+		size++;
+	}
+
+
+	private void addToIndex(@NonNull String token, int position) {
+		final String key = locale != null ? token.toLowerCase(locale) : token;
+		index.put(key, position);
+		longIndex.add(key, position);
+	}
+
+
+	private void add(@Nullable Language language, @Nullable String token) {
+		if (token == null || token.isEmpty() || size >= capacity || GARBAGE.equals(token) || isSpecialChar(language, token)) {
+			return;
+		}
+
+		// ignore duplicates
+		if (contains(token)) {
+			return;
+		}
+
+		// If it is a new token, add it to the end. Larger index means more recently used, hence
+		// displayed higher in the suggestions list.
+		tokens[size] = token;
+		addToIndex(token, size);
+		size++;
+		dirty = true;
+	}
+
+
+	void addAll(@Nullable Language language, @NonNull String[] tokens) {
+		for (String token : tokens) {
+			add(language, token);
+		}
+	}
+
+
+	public boolean addAllUnsafe(@NonNull SparseArray<String> all) {
+		if (all.size() == 0) {
+			return true;
+		}
+
+		size = Math.min(all.size(), capacity);
+
+		for (int i = 0; i < size; i++) {
+			int idx = all.keyAt(i);
+			if (idx < 0 || idx >= capacity || idx >= size) {
+				Logger.e(getClass().getSimpleName(), "Failed adding multiple MindReader tokens. Index: " + idx + " is out-of-bounds for dictionary capacity: " + capacity);
+				return false;
+			}
+
+			String token = all.valueAt(i);
+			tokens[idx] = token;
+			addToIndex(token, idx);
+		}
+
+		dirty = false;
+
+		return true;
+	}
+
+
+	boolean contains(@Nullable String token) {
+		if (token == null || token.isEmpty()) {
+			return false;
+		}
+
+		return locale != null ? index.containsKey(token.toLowerCase(locale)) : index.containsKey(token);
+	}
+
+
+	public boolean dirty() {
+		return dirty;
+	}
+
+
+	private int indexOf(@Nullable String token) {
+		if (token == null || token.isEmpty()) {
+			return -1;
+		}
+
+		Integer idx = locale != null ? index.get(token.toLowerCase(locale)) : index.get(token);
+		return idx == null ? -1 : idx;
+	}
+
+
+	@NonNull
+	public String[] getAll() {
+		String[] results = new String[size];
+		System.arraycopy(tokens, 0, results, 0, size);
+		return results;
+	}
+
+
+	@NonNull
+	ArrayList<String> getAll(@NonNull LinkedHashSet<Integer> tokenIds, @Nullable ArrayList<String> startsWith, int limit) {
+		if (limit <= 0 || tokenIds.isEmpty()) {
+			return new ArrayList<>();
+		}
+
+		if (startsWith != null && locale != null) {
+			startsWith.replaceAll(s -> s.toLowerCase(locale));
+		}
+
+		final ArrayList<String> results = new ArrayList<>(Math.min(tokenIds.size(), limit));
+
+		int resultsCount = 0;
+		for (int tokenId : tokenIds) {
+			if (!isWord(tokenId) || tokenId >= size) {
+				continue;
+			}
+
+			if (startsWith == null || startsWith.isEmpty()) {
+				results.add(tokens[tokenId]);
+				resultsCount++;
+				if (resultsCount > limit) {
+					return results;
+				}
+			} else {
+				final String tokenLower = locale != null ? tokens[tokenId].toLowerCase(locale) : tokens[tokenId];
+				for (String prefix : startsWith) {
+					if (tokenLower.startsWith(prefix)) {
+						results.add(tokens[tokenId]);
+						resultsCount++;
+					}
+					if (resultsCount > limit) {
+						return results;
+					}
+				}
+			}
+		}
+
+		return results;
+	}
+
+
+	/**
+	 * Similar to index of, but works with an array of tokens. It returns the index of each token in
+	 * the array, or 0 (GARBAGE) if the token is not found.
+	 */
+	int[] getIndices(@NonNull String[] tokens) {
+		final int[] indices = new int[tokens.length];
+		for (int i = 0; i < tokens.length; i++) {
+			final int idx = indexOf(tokens[i]);
+			indices[i] = idx == -1 ? 0 : idx;
+		}
+		return indices;
+	}
+
+
+	@Nullable
+	String getLongestWord(@NonNull String text, int end) {
+		return longIndex.getLongestWord(text, end, tokens);
+	}
+
+
+	public void setNotDirty() {
+		dirty = false;
+	}
+
+
+	public int size() {
+		return size;
+	}
+
+
+	@NonNull
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder("[");
+		for (int i = 0; i < tokens.length; i++) {
+			if (tokens[i] != null || (tokens[i] == null && i < tokens.length - 2 && tokens[i + 1] != null)) {
+				str.append(tokens[i]).append(", ");
+			}
+		}
+
+		str.setLength(str.length() - 2);
+		str.append("]");
+
+		return str.toString();
+	}
+}

@@ -1,47 +1,54 @@
 package io.github.sspanak.tt9.ime;
 
+import android.content.res.Configuration;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import io.github.sspanak.tt9.ime.helpers.OrientationListener;
-import io.github.sspanak.tt9.ime.modes.InputMode;
+import java.util.ArrayList;
+
+import io.github.sspanak.tt9.hacks.AppHacks;
+import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.helpers.TextSelection;
+import io.github.sspanak.tt9.ime.mindreader.MindReader;
+import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.MainView;
+import io.github.sspanak.tt9.ui.tray.StatusBar;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 /**
  * Informational methods for the on-screen keyboard
  **/
 abstract public class MainViewHandler extends HotkeyHandler {
-	OrientationListener orientationListener;
+	private int previousOrientation = Configuration.ORIENTATION_UNDEFINED;
 
+	private boolean touchExplorationEnabled = false;
 	private float normalizedWidth = -1;
 	private float normalizedHeight = -1;
 	private int width = 0;
 
 
 	@Override
-	protected void onInit() {
-		super.onInit();
-
-		if (orientationListener == null) {
-			orientationListener = new OrientationListener(this, this::onOrientationChanged);
-			orientationListener.start();
-		}
+	protected boolean onStart(EditorInfo field, boolean restarting) {
+		resetNormalizedDimensions();
+		touchExplorationEnabled = DeviceInfo.isTouchExplorationEnabled(this);
+		return super.onStart(field, restarting);
 	}
 
 
 	@Override
-	protected boolean onStart(EditorInfo field, boolean restarting) {
-		resetNormalizedDimensions();
-		return super.onStart(field, restarting);
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		if (newConfig.orientation != previousOrientation) {
+			previousOrientation = newConfig.orientation;
+			onOrientationChanged();
+		}
 	}
 
 
@@ -88,18 +95,20 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	@Override
 	protected void cleanUp() {
 		super.cleanUp();
-		if (orientationListener != null) {
-			orientationListener.stop();
-			orientationListener = null;
-		}
 		if (mainView != null) {
 			mainView.destroy();
 		}
 	}
 
+	public boolean areEmojiCategoriesVisible() {
+		return false; // only in premium
+	}
+
+
 	public boolean isFilteringFuzzy() {
 		return mInputMode.isStemFilterFuzzy();
 	}
+
 
 	public boolean isFilteringOn() {
 		String stem = mInputMode.getWordStem();
@@ -146,18 +155,35 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 
+	public boolean isTouchExplorationEnabled() {
+		return touchExplorationEnabled;
+	}
+
+
 	public boolean isVoiceInputActive() {
-		return voiceInputOps != null && voiceInputOps.isListening();
+		return voiceInputOps.isListening();
 	}
 
 
 	public boolean isVoiceInputMissing() {
-		return !(new VoiceInputOps(this, null, null, null, null)).isAvailable();
+		return !voiceInputOps.isAvailable();
 	}
 
 
 	public String getABCString() {
 		return mLanguage == null ? "ABC" : mLanguage.getAbcString().toUpperCase(mLanguage.getLocale());
+	}
+
+
+	@NonNull
+	public ArrayList<Integer> getAllowedInputModes() {
+		return new ArrayList<>(allowedInputModes);
+	}
+
+
+	@NonNull
+	public AppHacks getAppHacks() {
+		return appHacks;
 	}
 
 
@@ -198,8 +224,15 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 
+	@Nullable
 	public MainView getMainView() {
 		return mainView;
+	}
+
+
+	@NonNull
+	public MindReader getMindReader() {
+		return mindReader;
 	}
 
 
@@ -207,10 +240,27 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		return settings;
 	}
 
+	@Nullable
+	public StatusBar getStatusBar() {
+		return statusBar;
+	}
+
 
 	@Nullable
 	public TextSelection getTextSelection() {
 		return textSelection;
+	}
+
+
+	@NonNull
+	public TextField getTextField() {
+		return textField;
+	}
+
+
+	@NonNull
+	public VoiceInputOps getVoiceInputOps() {
+		return voiceInputOps;
 	}
 
 

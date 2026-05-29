@@ -51,7 +51,7 @@ public class SyllablePredictions extends Predictions {
 		areThereDbWords = !dbWords.isEmpty();
 
 		if (loadAttempts == 0) {
-			words.clear();
+			words = new ArrayList<>();
 		} else {
 			onWordsChanged.run();
 			return;
@@ -64,14 +64,14 @@ public class SyllablePredictions extends Predictions {
 
 		if (areThereDbWords) {
 			lastWord = dbWords.get(0);
-			words.addAll(dbWords);
+			words = new ArrayList<>(dbWords);
 		} else {
 			if (lastStableWord.isEmpty() && !lastWord.isEmpty()) {
 				lastStableWord = lastWord;
 				lastStableSequenceLength = digitSequence.length();
 			}
 			lastWord = "";
-			words.addAll(generateWordVariations(lastStableWord));
+			words = generateWordVariations(lastStableWord);
 		}
 
 		if (retryAllowed && !areThereDbWords) {

@@ -16,7 +16,6 @@ import io.github.sspanak.tt9.util.chars.Characters;
 public class TextTools {
 	private static final Pattern COMBINING_STRING = Pattern.compile("^\\p{M}+$");
 	private static final Pattern CONTAINS_PUNCTUATION = Pattern.compile("\\p{Punct}");
-	private static final Pattern ENDS_WITH_SPACE = Pattern.compile("\\s+$");
 	private static final Pattern NEXT_IS_PUNCTUATION = Pattern.compile("^\\p{Punct}");
 	private static final Pattern IS_CHINESE = Pattern.compile("[\\p{script=Han}" + String.join("", Characters.PunctuationChinese) + "]+");
 	private static final Pattern IS_JAPANESE = Pattern.compile("[\\p{script=Hiragana}\\p{script=Katakana}\\p{script=Han}" + String.join("", Characters.PunctuationChinese) + "]+");
@@ -33,8 +32,26 @@ public class TextTools {
 	}
 
 
+	public static boolean containsRepeatingChars(String str) {
+		if (str == null || str.isEmpty()) {
+			return false;
+		}
+
+		final java.util.HashSet<Integer> seen = new java.util.HashSet<>();
+		for (int i = 0; i < str.length(); ) {
+			final int cp = str.codePointAt(i);
+			if (!seen.add(cp)) {
+				return true;
+			}
+			i += Character.charCount(cp);
+		}
+
+		return false;
+	}
+
+
 	public static boolean endsWithSpace(String str) {
-		return str != null && !str.isEmpty() && ENDS_WITH_SPACE.matcher(str).find();
+		return str != null && !str.isEmpty() && Character.isWhitespace(str.charAt(str.length() - 1));
 	}
 
 

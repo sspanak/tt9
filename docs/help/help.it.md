@@ -447,9 +447,9 @@ Come detto sopra, non parlo la tua lingua e potrei non accorgermi di questi erro
 ### Non potete aggiungere la funzionalità X?
 No.
 
-Ognuno ha le proprie preferenze. Alcuni vogliono tasti più grandi, altri in un ordine diverso, alcuni vogliono un tasto di scelta rapida per digitare ".com" e altri sentono la mancanza del loro vecchio telefono o tastiera. Ma per favore, capisci che sto lavorando a questo progetto nel mio tempo libero e su base volontaria. È impossibile soddisfare migliaia di richieste diverse, alcune delle quali si contraddicono tra loro.
+Come disse una volta Henry Ford: «Può essere di qualsiasi colore desideri il cliente, purché sia nero».
 
-Henry Ford una volta disse: "Il cliente può avere l'auto di qualsiasi colore desideri, purché sia nera." Allo stesso modo, Traditional T9 è essenziale, efficace e gratuito, ma quello che vedi è quello che ottieni.
+Ognuno ha le proprie preferenze. Alcuni vogliono tasti più grandi, altri in un ordine diverso, alcuni vogliono un tasto di scelta rapida per digitare ".com" e altri sentono la mancanza del loro vecchio telefono o tastiera. Ma per favore, capisci che sto lavorando a questo progetto nel mio tempo libero e su base volontaria. È impossibile soddisfare migliaia di richieste diverse, alcune delle quali si contraddicono tra loro.
 
 ### Non potete renderlo più simile al mio dispositivo preferito (ad esempio Sony Ericsson, Xperia, Nokia C2, Samsung) o alla mia app di tastiera preferita?
 No.

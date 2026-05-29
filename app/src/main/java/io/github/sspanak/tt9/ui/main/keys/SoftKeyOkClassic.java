@@ -66,7 +66,7 @@ public class SoftKeyOkClassic extends SoftKeyOk {
 
 
 	private void onUp() {
-		if (duplicateLetter.run(tt9) || filter.run(tt9, getLastPressedKey() == getId())) {
+		if (duplicateLetter.run(tt9) || filter.runFromHotkey(tt9, false, getLastPressedKey() == getId())) {
 			return;
 		}
 
@@ -75,7 +75,7 @@ public class SoftKeyOkClassic extends SoftKeyOk {
 
 
 	private void onDown() {
-		if (!clear.run(tt9)) {
+		if (!clear.runFromHotkey(tt9, false)) {
 			moveCursor.run(tt9, CmdMoveCursor.CURSOR_MOVE_DOWN);
 		}
 	}

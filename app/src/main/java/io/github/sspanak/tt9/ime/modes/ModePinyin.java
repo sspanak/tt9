@@ -1,5 +1,8 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.content.Context;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.hacks.InputType;
@@ -24,5 +27,11 @@ public class ModePinyin extends ModeIdeograms {
 	@Override
 	protected String getPreferredChar() {
 		return Characters.getChar(language, settings.getDoubleZeroChar());
+	}
+
+	@NonNull
+	@Override
+	public String toAccessibilityString(@NonNull Context ctx) {
+		return language.getName() + ", 拼音";
 	}
 }

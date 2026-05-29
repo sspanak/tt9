@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -16,6 +18,7 @@ class ModePassthrough extends InputMode {
 	@Override public int getId() { return MODE_PASSTHROUGH; }
 	@Override public int getSequenceLength() { return 0; }
 	@Override @NonNull public String toString() { return "--"; }
+	@Override @NonNull public String toAccessibilityString(@NonNull Context ctx) { return toString(); }
 
 	@Override public boolean onNumber(int n, boolean h, int r, @NonNull String[] s) { return false; }
 	@Override public boolean shouldIgnoreText(String t) { return true; }

@@ -8,9 +8,21 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SoftKeyTextLeft extends SoftKeyText {
+	private final CmdUndo undo = new CmdUndo();
+
 	public SoftKeyTextLeft(Context context) { super(context); }
 	public SoftKeyTextLeft(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyTextLeft(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+
+	@Override
+	protected boolean handleRelease() {
+		return isTextEditingOn() ? undo.run(tt9) : super.handleRelease();
+	}
+
+	@Override
+	protected String getAccessibilityText() {
+		return isTextEditingOn() ? undo.getName(tt9) : super.getAccessibilityText();
+	}
 
 	@Override
 	protected String getKeyChar() {
@@ -23,17 +35,12 @@ public class SoftKeyTextLeft extends SoftKeyText {
 	}
 
 	@Override
-	protected boolean handleRelease() {
-		return isTextEditingOn() ? new CmdUndo().run(tt9) : super.handleRelease();
-	}
-
-	@Override
 	protected String getTitle() {
 		return isTextEditingOn() ? "" : super.getTitle();
 	}
 
 	@Override
 	protected int getCentralIcon() {
-		return isTextEditingOn() && !shouldHide() ? new CmdUndo().getIcon() : -1;
+		return isTextEditingOn() && !shouldHide() ? undo.getIcon() : -1;
 	}
 }

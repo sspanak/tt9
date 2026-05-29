@@ -52,7 +52,8 @@ public class SuggestionsBar {
 	@NonNull private final List<String> visibleSuggestions = new ArrayList<>();
 
 	private final DefaultItemAnimator animator = new DefaultItemAnimator();
-	private final Runnable onItemClick;
+	@NonNull private final Runnable onItemClick;
+	@NonNull private final Runnable onItemLongClick;
 	@Nullable private final RecyclerView mView;
 	private final SettingsStore settings;
 	private SuggestionsAdapter mSuggestionsAdapter;
@@ -61,8 +62,9 @@ public class SuggestionsBar {
 	private final Handler displayHandler = new Handler(Looper.getMainLooper());
 
 
-	public SuggestionsBar(@NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull Runnable onItemClick) {
+	public SuggestionsBar(@NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull Runnable onItemClick, @NonNull Runnable onItemLongClick) {
 		this.onItemClick = onItemClick;
+		this.onItemLongClick = onItemLongClick;
 		this.settings = settings;
 
 		mView = mainView.getView() != null ? mainView.getView().findViewById(R.id.suggestions_bar) : null;
@@ -108,7 +110,8 @@ public class SuggestionsBar {
 
 		mSuggestionsAdapter = new SuggestionsAdapter(
 			context,
-			this::handleItemClick,
+			(position) -> handleItemAction(position, false),
+			(position) -> handleItemAction(position, true),
 			suggestionLayout,
 			R.id.suggestion_list_item,
 			visibleSuggestions
@@ -237,25 +240,28 @@ public class SuggestionsBar {
 	}
 
 
-	public void prependGuesses(@NonNull List<String> guesses) {
-		if (guesses.isEmpty()) {
+	public void addMany(@NonNull List<String> extra, boolean append) {
+		if (extra.isEmpty()) {
 			return;
 		}
 
 		if (suggestions == null || suggestions.isEmpty()) {
-			setMany(guesses, 0, false);
+			setMany(extra, 0, false);
 			containsOnlyGuesses = true;
 			return;
 		} else {
 			containsOnlyGuesses = false;
 		}
 
-		final ArrayList<String> combined = new ArrayList<>(guesses.size() + suggestions.size());
-		combined.addAll(guesses);
+		final List<String> firstList = append ? suggestions : extra;
+		final List<String> secondList = append ? extra : suggestions;
+		final ArrayList<String> combined = new ArrayList<>(extra.size() + suggestions.size());
 
-		for (String old : suggestions) {
-			if (!guesses.contains(old)) {
-				combined.add(old);
+		combined.addAll(firstList);
+
+		for (String s : secondList) {
+			if (!firstList.contains(s)) {
+				combined.add(s);
 			}
 		}
 
@@ -276,7 +282,7 @@ public class SuggestionsBar {
 		setStem(newSuggestions, containsGenerated);
 
 		boolean onlySpecialChars = newSuggestions != null && !newSuggestions.isEmpty() && !(new Text(newSuggestions.get(0)).isAlphabetic());
-		addMany(newSuggestions, mView == null || onlySpecialChars ? Integer.MAX_VALUE : SettingsStore.SUGGESTIONS_MAX);
+		addManyVisible(newSuggestions, mView == null || onlySpecialChars ? Integer.MAX_VALUE : SettingsStore.SUGGESTIONS_MAX);
 
 		selectedIndex = Math.max(Math.min(selectedIndex, visibleSuggestions.size() - 1), 0);
 
@@ -332,13 +338,13 @@ public class SuggestionsBar {
 	 * for performance reasons, hence the "limit" parameter. When they are too many, the SHOW_MORE_SUGGESTION,
 	 * will be displayed at the end.
 	 */
-	private void addMany(List<String> newSuggestions, int limit) {
+	private void addManyVisible(List<String> newSuggestions, int limit) {
 		if (newSuggestions == null) {
 			return;
 		}
 
 		for (int i = 0, end = Math.min(limit, newSuggestions.size()); i < end; i++) {
-			add(newSuggestions.get(i));
+			addVisible(newSuggestions.get(i));
 		}
 
 		if (newSuggestions.size() > limit) {
@@ -347,7 +353,7 @@ public class SuggestionsBar {
 	}
 
 
-	private void add(@NonNull String suggestion) {
+	private void addVisible(@NonNull String suggestion) {
 		// shorten the stem variations
 		if (!stem.isEmpty() && suggestion.length() == stem.length() + 1 && suggestion.toLowerCase().startsWith(stem.toLowerCase())) {
 			String trimmedSuggestion = suggestion.substring(stem.length());
@@ -386,7 +392,7 @@ public class SuggestionsBar {
 
 
 	/**
-	 * If addMany() constrained the visible suggestions, the end of the list will contain
+	 * If addManyVisible() constrained the visible suggestions, the end of the list will contain
 	 * the SHOW_MORE_SUGGESTION. This method will remove the SHOW_MORE_SUGGESTION, prepare
 	 * all hidden suggestions for displaying, and will scroll correctly to the new visible suggestion.
 	 * After that, you must call render(), to visualize the changes.
@@ -397,7 +403,7 @@ public class SuggestionsBar {
 		}
 
 		visibleSuggestions.clear();
-		addMany(suggestions, Integer.MAX_VALUE);
+		addManyVisible(suggestions, Integer.MAX_VALUE);
 		selectedIndex = scrollBack || selectedIndex >= visibleSuggestions.size() ? visibleSuggestions.size() - 1 : selectedIndex;
 		selectedIndex = Math.max(selectedIndex, 0);
 
@@ -523,12 +529,11 @@ public class SuggestionsBar {
 		}
 	}
 
-
 	/**
 	 * handleItemClick
 	 * Passes through suggestion selected using the touchscreen.
 	 */
-	private void handleItemClick(int position) {
+	private void handleItemAction(int position, boolean isLongClick) {
 		if (containsStem() && position == 0) {
 			return;
 		}
@@ -537,6 +542,8 @@ public class SuggestionsBar {
 		selectedIndex = position;
 		if (appendHiddenSuggestionsIfNeeded(false)) {
 			render();
+		} else if (isLongClick) {
+			onItemLongClick.run();
 		} else {
 			onItemClick.run();
 		}

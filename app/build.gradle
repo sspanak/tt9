@@ -5,6 +5,7 @@ plugins {
 apply from: 'constants.gradle'
 apply from: 'build-definitions.gradle'
 apply from: 'build-dictionaries.gradle'
+apply from: 'build-ngrams.gradle'
 apply from: 'validate-languages.gradle'
 apply from: 'help-tools.gradle'
 apply from: 'status-icon-tools.gradle'
@@ -33,8 +34,8 @@ tasks.register('buildDefinition') {
 
 tasks.register('buildDictionaryDownloads') {
 	inputs.dir LANGUAGES_INPUT_DIR
-	outputs.dir DICTIONARIES_DOWNLOAD_DIR
 	outputs.dir DICTIONARY_META_OUTPUT_DIR
+	outputs.files(fileTree(DICTIONARIES_DOWNLOAD_DIR) { include '**/*.zip'; exclude '**/*ngrams.zip' })
 
 	dependsOn validateLanguages
 	mustRunAfter validateLanguages
@@ -48,9 +49,41 @@ tasks.register('buildDictionaryDownloads') {
 tasks.register('copyDownloadsToAssets', Copy) {
 	from DICTIONARIES_DOWNLOAD_DIR
 	include '**/*.zip'
+	exclude '**/*ngrams.zip'
 	into DICTIONARIES_OUTPUT_DIR
 	dependsOn buildDictionaryDownloads
 	mustRunAfter buildDictionaryDownloads
+}
+
+
+tasks.register('generateNgramsMeta') {
+	inputs.dir NGRAMS_INPUT_DIR
+	outputs.dir NGRAMS_META_OUTPUT_DIR
+
+	dependsOn validateLanguages
+	mustRunAfter validateLanguages
+
+	doLast {
+		generateNgramsMetadata(DEFINITIONS_INPUT_DIR, DICTIONARIES_INPUT_DIR, ICONS_DIR, NGRAMS_INPUT_DIR, NGRAMS_META_OUTPUT_DIR)
+	}
+}
+
+
+tasks.register('copyNgramsToAssets', Copy) {
+	from NGRAMS_INPUT_DIR
+	include '**/*ngrams.zip'
+	into NGRAMS_OUTPUT_DIR
+	dependsOn generateNgramsMeta
+	mustRunAfter generateNgramsMeta
+}
+
+
+tasks.register('copyNgramsToDownloads', Copy) {
+	from NGRAMS_INPUT_DIR
+	include '**/*ngrams.zip'
+	into DICTIONARIES_DOWNLOAD_DIR
+	dependsOn generateNgramsMeta
+	mustRunAfter generateNgramsMeta, copyDownloadsToAssets
 }
 
 
@@ -77,10 +110,11 @@ tasks.register('updateManifest') {
 }
 
 clean {
-	delete LANGUAGES_OUTPUT_DIR
+	delete DOCS_HTML_DIR
 	delete DICTIONARIES_OUTPUT_DIR
 	delete DICTIONARIES_DOWNLOAD_DIR
-	delete DOCS_HTML_DIR
+	delete LANGUAGES_OUTPUT_DIR
+	delete NGRAMS_OUTPUT_DIR
 }
 
 // using the exported Closures directly causes weird values, hence the extra wrappers here
@@ -153,39 +187,43 @@ android {
 		}
 	}
 
-	applicationVariants.configureEach { variant ->
-		def variantName = variant.name.capitalize()
-		tasks.named("javaPreCompile${variantName}")?.configure {dependsOn(updateStatusIcons) }
+	androidComponents {
+		onVariants(selector().all()) { variant ->
+			def variantName = variant.name.capitalize()
 
-		[
-			"merge${variantName}Assets",
-			"lintAnalyze${variantName}",
-			"generate${variantName}LintReportModel",
-			"lintVitalAnalyze${variantName}",
-			"generate${variantName}LintVitalReportModel"
-		].each { taskName ->
-			try {
-				tasks.named(taskName)?.configure {
-					dependsOn(buildDefinition, generateDocs, validateLanguages, buildDictionaryDownloads)
+			tasks.matching { it.name == "javaPreCompile${variantName}" }.configureEach {
+				dependsOn(updateStatusIcons)
+			}
+
+			[
+				"merge${variantName}Assets",
+				"lintAnalyze${variantName}",
+				"generate${variantName}LintReportModel",
+				"lintVitalAnalyze${variantName}",
+				"generate${variantName}LintVitalReportModel"
+			].each { taskName ->
+				tasks.matching { it.name == taskName }.configureEach {
+					dependsOn(buildDefinition, generateDocs, validateLanguages, buildDictionaryDownloads, copyNgramsToAssets, copyNgramsToDownloads)
+
+					if (taskName.toLowerCase().contains("full")) {
+						dependsOn(copyDownloadsToAssets)
+					}
 				}
+			}
 
-				if (taskName.toLowerCase().contains("full")) {
-					tasks.named(taskName)?.configure {dependsOn(copyDownloadsToAssets) }
-				}
-			} catch (UnknownTaskException ignored) {}
-		}
+			def assembleTaskName = "assemble${variantName}"
+			tasks.matching { it.name == assembleTaskName }.configureEach {
+				finalizedBy(updateManifest)
+			}
 
-		assembleLiteDebug.finalizedBy(updateManifest)
-		assembleFullDebug.finalizedBy(updateManifest)
-		assemblePremiumDebug.finalizedBy(updateManifest)
-		assembleLiteRelease.finalizedBy(updateManifest)
-		assembleFullRelease.finalizedBy(updateManifest)
-		assemblePremiumRelease.finalizedBy(updateManifest)
+			variant.outputs.forEach { output ->
+				def fullSuffix = variant.flavorName == 'full' ? '-full' : ''
+				def debugSuffix = variant.name.containsIgnoreCase('debug') ? '-debug' : ''
 
-		variant.outputs.configureEach {
-			def fullSuffix = variant.flavorName == 'full' ? '-full' : ''
-			def debugSuffix = variant.name.containsIgnoreCase('debug') ? '-debug' : ''
-			outputFileName = "${APP_NAME}-v${getVerName()}${fullSuffix}${debugSuffix}.apk"
+				output.outputFileName.set(
+					"${APP_NAME}-v${getVerName()}${fullSuffix}${debugSuffix}.apk"
+				)
+			}
 		}
 	}
 }

@@ -13,10 +13,15 @@ public class CmdEditAdjacentLetter implements Command {
 	@Override public int getIcon() { return 0; }
 	@Override public int getName() { return 0; }
 
+
 	@Override
 	public boolean isAvailable(@Nullable TraditionalT9 tt9) {
-		return tt9 != null && InputModeKind.isRecomposing(tt9.getInputMode());
+		return
+			tt9 != null
+			&& !tt9.shouldBeOff()
+			&& InputModeKind.isRecomposing(tt9.getInputMode());
 	}
+
 
 	public boolean run(@Nullable TraditionalT9 tt9, boolean left) {
 		if (tt9 == null || !isAvailable(tt9)) {
@@ -25,5 +30,10 @@ public class CmdEditAdjacentLetter implements Command {
 
 		((ModeRecomposing) tt9.getInputMode()).skipLetter(left);
 		return true;
+	}
+
+
+	public boolean runFromHotkey(@Nullable TraditionalT9 tt9, boolean validateOnly, boolean left) {
+		return isAvailable(tt9) && (validateOnly || run(tt9, left));
 	}
 }

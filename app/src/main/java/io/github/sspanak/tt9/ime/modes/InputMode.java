@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -41,7 +43,7 @@ abstract public class InputMode {
 	protected final boolean isEmailMode;
 	@NonNull protected Language language = new NullLanguage();
 	protected final SettingsStore settings;
-	@NonNull protected final ArrayList<String> suggestions = new ArrayList<>();
+	@NonNull protected volatile ArrayList<String> suggestions = new ArrayList<>();
 	@NonNull protected Runnable onSuggestionsUpdated = () -> {};
 	@NonNull protected Sequences seq = new Sequences();
 
@@ -137,11 +139,9 @@ abstract public class InputMode {
 
 	@NonNull
 	public ArrayList<String> getSuggestions() {
-		// The new list prevents concurrent modification. With a maximum size of 20 Strings, copying
-		// should take microseconds, so any performance impact is negligible.
-		ArrayList<String> thisThreadSuggestions = new ArrayList<>(suggestions);
-		ArrayList<String> newSuggestions = new ArrayList<>(thisThreadSuggestions.size());
-		for (String s : thisThreadSuggestions) {
+		ArrayList<String> snapshot = suggestions;
+		ArrayList<String> newSuggestions = new ArrayList<>(snapshot.size());
+		for (String s : snapshot) {
 			newSuggestions.add(adjustSuggestionTextCase(s, textCase));
 		}
 
@@ -165,6 +165,7 @@ abstract public class InputMode {
 
 	// Utility
 	abstract public int getId();
+	public boolean containsEmojis() { return false; }
 	public boolean containsGeneratedSuggestions() { return false; }
 
 	public boolean isTyping() { return !digitSequence.isEmpty(); }
@@ -172,6 +173,7 @@ abstract public class InputMode {
 	public int getSequenceLength() { return digitSequence.length(); } // The number of key presses for the current word.
 	public int getAutoAcceptTimeout() { return autoAcceptTimeout; }
 	public void setSequence(@NonNull String sequence) { digitSequence = sequence; }
+	@NonNull abstract public String toAccessibilityString(@NonNull Context ctx);
 
 	/**
 	 * Switches to a new language if the input mode supports it. If the InputMode return "false",
@@ -198,7 +200,7 @@ abstract public class InputMode {
 
 	public void reset() {
 		autoAcceptTimeout = -1;
-		suggestions.clear();
+		suggestions = new ArrayList<>();
 	}
 
 	// recomposing
@@ -252,14 +254,14 @@ abstract public class InputMode {
 	 * special character list, or the whitespace list.
 	 */
 	protected boolean loadSpecialCharacters() {
-		suggestions.clear();
-
 		if (digitSequence.equals(seq.CHARS_0_SEQUENCE) || digitSequence.equals(seq.CHARS_1_SEQUENCE)) {
-			suggestions.addAll(settings.getOrderedKeyChars(language, digitSequence.charAt(0) - '0'));
+			suggestions = settings.getOrderedKeyChars(language, digitSequence.charAt(0) - '0');
 		} else if (digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE)) {
-			suggestions.addAll(settings.getCharsExtraAsList(language, SettingsStore.CHARS_GROUP_0));
+			suggestions = settings.getCharsExtraAsList(language, SettingsStore.CHARS_GROUP_0);
 		} else if (digitSequence.equals(seq.CHARS_GROUP_1_SEQUENCE)) {
-			suggestions.addAll(settings.getCharsExtraAsList(language, SettingsStore.CHARS_GROUP_1));
+			suggestions = settings.getCharsExtraAsList(language, SettingsStore.CHARS_GROUP_1);
+		} else {
+			suggestions = new ArrayList<>();
 		}
 
 		return true;

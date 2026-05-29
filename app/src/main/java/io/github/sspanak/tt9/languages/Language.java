@@ -25,6 +25,7 @@ abstract public class Language {
 	protected boolean isTranscribed = false;
 	protected Locale locale = Locale.ROOT;
 	protected String name;
+	protected String ngramsFile = "";
 
 
 	public int getId() {
@@ -63,6 +64,10 @@ abstract public class Language {
 
 	@NonNull public String getName() {
 		return name;
+	}
+
+	@NonNull public String getNgramsFile() {
+		return ngramsFile;
 	}
 
 	final public boolean hasABC() {

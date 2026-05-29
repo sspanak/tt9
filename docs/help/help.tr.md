@@ -446,9 +446,9 @@ Yukarıda belirttiğim gibi, senin dilini konuşmadığım için bu hataları fa
 ### X özelliğini ekleyemez misiniz?
 Hayır.
 
-Herkesin kendi tercihleri vardır. Kimisi daha büyük tuşlar ister, kimisi farklı bir düzen, kimisi ".com" yazmak için bir kısayol tuşu ister ve kimisi de eski telefonunu veya klavyesini özler. Ancak lütfen anlayın ki, bu projeyi boş zamanlarımda gönüllü olarak yürütüyorum. Birbirleriyle çelişen binlerce farklı isteği yerine getirmek imkansızdır.
+Henry Ford’un bir zamanlar söylediği gibi: “Müşteri istediği herhangi bir renkte olabilir, yeter ki siyah olsun.”
 
-Henry Ford bir keresinde şöyle demiştir: "Müşteri istediği herhangi bir rengi seçebilir, yeter ki siyah olsun." Benzer şekilde, Traditional T9 sade, etkili ve ücretsizdir; ne alıyorsanız onu kullanırsınız.
+Herkesin kendi tercihleri vardır. Kimisi daha büyük tuşlar ister, kimisi farklı bir düzen, kimisi ".com" yazmak için bir kısayol tuşu ister ve kimisi de eski telefonunu veya klavyesini özler. Ancak lütfen anlayın ki, bu projeyi boş zamanlarımda gönüllü olarak yürütüyorum. Birbirleriyle çelişen binlerce farklı isteği yerine getirmek imkansızdır.
 
 ### Uygulamayı favori cihazıma (ör. Sony Ericsson, Xperia, Nokia C2, Samsung) veya favori klavye uygulamama daha benzer hâle getiremez misiniz?
 Hayır.

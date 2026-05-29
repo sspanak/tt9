@@ -30,6 +30,11 @@ public class SoftKeySettings extends BaseKeyboardResizeKey {
 	}
 
 	@Override
+	protected String getAccessibilityText() {
+		return tt9 != null ? command.getName(tt9) : null;
+	}
+
+	@Override
 	protected int getCentralIcon() {
 		final int icon = super.getCentralIcon();
 		return icon != -1 ? icon : getCommand().getIcon();

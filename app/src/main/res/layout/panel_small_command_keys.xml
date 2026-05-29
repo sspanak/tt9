@@ -6,7 +6,8 @@
 
 	<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextEditingSmall
 		style="@style/TTheme.CommandPalette.Key"
-		android:id="@+id/soft_key_1" />
+		android:id="@+id/soft_key_1"
+		tools:ignore="Instantiatable" />
 
 	<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextEditingSmall
 		style="@style/TTheme.CommandPalette.Key"

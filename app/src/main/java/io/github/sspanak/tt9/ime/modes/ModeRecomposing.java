@@ -1,10 +1,13 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
@@ -112,7 +115,7 @@ public class ModeRecomposing extends InputMode {
 		numberAtPosition = getCurrentSequenceNumber();
 
 		// here, order is irrelevant
-		suggestions.clear();
+		suggestions = new ArrayList<>();
 
 		if (suffix.isEmpty() && !prefix.isEmpty()) {
 			prefix = prefix.substring(0, prefix.length() - 1);
@@ -152,7 +155,6 @@ public class ModeRecomposing extends InputMode {
 		wordAfterBackspace = new Text(language, word).duplicateCharAt(position);
 
 		position++;
-		suggestions.clear();
 
 		loadSuggestions("");
 	}
@@ -169,14 +171,13 @@ public class ModeRecomposing extends InputMode {
 
 		if (currentWord.isEmpty() || digitSequence.isEmpty()) {
 			Logger.d(LOG_TAG, "Cannot recompose an empty word. Use setWordStem() first.");
-			suggestions.clear();
+			suggestions = new ArrayList<>();
 		} else if (numberAtPosition == END_OF_WORD) {
 			resetWithoutSelfDestruct();
 		} else if (numberAtPosition == 0) { // Space aborts the process
 			finish();
 			return;
 		} else {
-			suggestions.clear();
 			loadLettersForPosition(currentWord, CASE_UNDEFINED);
 			loadSuffixForPosition(currentWord);
 		}
@@ -240,7 +241,6 @@ public class ModeRecomposing extends InputMode {
 
 		wordAfterBackspace = null;
 		numberAtPosition = getCurrentSequenceNumber();
-		suggestions.clear();
 		loadLettersForPosition(composingText, textCaseAtNewPosition);
 		super.loadSuggestions("");
 	}
@@ -329,7 +329,7 @@ public class ModeRecomposing extends InputMode {
 		suggestionRecommendation = 0;
 
 		final Text letterAtPos = position >= 0 && position < originalWord.length() ? new Text(language, originalWord.charAt(position)) : new Text(null);
-		final ArrayList<String> keyChars = language.getKeyCharacters(numberAtPosition);
+		final ArrayList<String> keyChars = settings.getOrderedKeyChars(language, numberAtPosition);
 		keyChars.add(language.getKeyNumeral(numberAtPosition));
 
 
@@ -340,13 +340,16 @@ public class ModeRecomposing extends InputMode {
 		}
 		final boolean isUpperCase = textCase == CASE_UPPER;
 
+		ArrayList<String> newSuggestions = new ArrayList<>(keyChars.size());
 		for (int i = 0; i < keyChars.size(); i++) {
 			String suggestionChar = isUpperCase ? keyChars.get(i).toUpperCase(language.getLocale()) : keyChars.get(i);
-			suggestions.add(suggestionChar);
+			newSuggestions.add(suggestionChar);
 			if (suggestionChar.toLowerCase(language.getLocale()).equals(letterAtPos.toLowerCase())) {
 				suggestionRecommendation = i;
 			}
 		}
+
+		suggestions = newSuggestions;
 	}
 
 
@@ -380,5 +383,17 @@ public class ModeRecomposing extends InputMode {
 	public String toString() {
 		final String originalWord = textField != null ? textField.getComposingText() : "";
 		return originalWord + " => " + prefix + "?" + suffix;
+	}
+
+
+	@NonNull
+	@Override
+	public String toAccessibilityString(@NonNull Context ctx) {
+		String recomposedWord = textField != null ? textField.getComposingText() : null;
+		if (recomposedWord == null || recomposedWord.isEmpty()) {
+			recomposedWord = prefix + suffix;
+		}
+
+		return ctx.getString(R.string.accessibility_mode_recomposing, recomposedWord);
 	}
 }

@@ -35,7 +35,7 @@ public class SuggestionOps {
 	@Nullable private StatusBar statusBar;
 
 
-	public SuggestionOps(@Nullable InputMethodService ims, @Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable AppHacks appHacks, @Nullable InputType inputType, @Nullable TextField textField, @Nullable StatusBar statusBar, @Nullable Consumer<String> onDelayedAccept, @Nullable Runnable onSuggestionClick) {
+	public SuggestionOps(@Nullable InputMethodService ims, @Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable AppHacks appHacks, @Nullable InputType inputType, @Nullable TextField textField, @Nullable StatusBar statusBar, @Nullable Consumer<String> onDelayedAccept, @Nullable Runnable onSuggestionClick, @Nullable Runnable onSuggestionLongClick) {
 		delayedAcceptHandler = new Handler(Looper.getMainLooper());
 		this.onDelayedAccept = onDelayedAccept != null ? onDelayedAccept : s -> {};
 
@@ -45,8 +45,8 @@ public class SuggestionOps {
 		this.statusBar = statusBar;
 		this.textField = textField != null ? textField : new TextField(ims, settings, null);
 
-		if (settings != null && mainView != null && onSuggestionClick != null) {
-			suggestionBar = new SuggestionsBar(settings, mainView, onSuggestionClick);
+		if (settings != null && mainView != null && onSuggestionClick != null && onSuggestionLongClick != null) {
+			suggestionBar = new SuggestionsBar(settings, mainView, onSuggestionClick, onSuggestionLongClick);
 		}
 	}
 
@@ -104,9 +104,10 @@ public class SuggestionOps {
 
 
 	public void addGuesses(@NonNull ArrayList<String> guesses) {
-		setVisibility(settings, isEmpty() && guesses.isEmpty(), true);
+		setVisibility(settings, isEmpty() && guesses.isEmpty(), !guesses.isEmpty());
 		if (suggestionBar != null) {
-			suggestionBar.prependGuesses(guesses);
+			boolean append = settings != null && settings.getMindReadingSortPredictionsLast();
+			suggestionBar.addMany(guesses, append);
 		}
 	}
 

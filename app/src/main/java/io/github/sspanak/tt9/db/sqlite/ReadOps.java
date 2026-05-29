@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDoneException;
 import android.database.sqlite.SQLiteStatement;
 import android.os.CancellationSignal;
 import android.os.OperationCanceledException;
+import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -407,5 +408,31 @@ public class ReadOps {
 		}
 
 		return pairs;
+	}
+
+
+	@NonNull public SparseArray<String> getMindReaderTokens(@NonNull SQLiteDatabase db, int langId) {
+		SparseArray<String> tokens = new SparseArray<>();
+
+		try (Cursor cursor = db.query(Tables.getMindReaderTokens(langId), new String[]{"idx", "token"}, null, null, null, null, "idx")) {
+			while (cursor.moveToNext()) {
+				tokens.put(cursor.getInt(0), cursor.getString(1));
+			}
+		}
+
+		return tokens;
+	}
+
+
+	@NonNull public ArrayList<long[]> getMindReaderNgrams(@NonNull SQLiteDatabase db, int langId) {
+		ArrayList<long[]> ngrams = new ArrayList<>();
+
+		try (Cursor cursor = db.query(Tables.getMindReaderNgrams(langId), new String[]{ "idx", "before", "next" }, null, null, null, null, "idx")) {
+			while (cursor.moveToNext()) {
+				ngrams.add(new long[]{cursor.getLong(0), cursor.getLong(1), cursor.getLong(2)});
+			}
+		}
+
+		return ngrams;
 	}
 }

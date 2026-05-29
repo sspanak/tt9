@@ -107,13 +107,16 @@ public class WordPredictions extends Predictions {
 			return;
 		}
 
-		words.clear();
-		suggestStem();
+		ArrayList<String> newWords = new ArrayList<>();
+		suggestStem(newWords);
 		dbWords = localeWordsSorter.shouldSort(stem, digitSequence) ? localeWordsSorter.sort(dbWords) : dbWords;
 		dbWords = rearrangeByPairFrequency(dbWords);
-		suggestMissingWords(generatePossibleStemVariations(dbWords));
-		suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords);
-		words = insertPunctuationCompletions(words);
+		suggestMissingWords(generatePossibleStemVariations(dbWords), newWords);
+		suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords, newWords);
+		if (digitSequence.length() == 1 && digitSequence.charAt(0) >= '2' && digitSequence.charAt(0) <= '9') {
+			suggestMissingWords(settings.getOrderedKeyChars(language, digitSequence.charAt(0) - '0'), newWords);
+		}
+		words = insertPunctuationCompletions(newWords);
 
 		onWordsChanged.run();
 	}
@@ -124,9 +127,9 @@ public class WordPredictions extends Predictions {
 	 * Add the current stem filter to the predictions list, when it has length of X and
 	 * the user has pressed X keys (otherwise, it makes no sense to add it).
 	 */
-	private void suggestStem() {
+	private void suggestStem(@NonNull ArrayList<String> newWords) {
 		if (!stem.isEmpty() && stem.length() == digitSequence.length()) {
-			words.add(stem);
+			newWords.add(stem);
 		}
 	}
 

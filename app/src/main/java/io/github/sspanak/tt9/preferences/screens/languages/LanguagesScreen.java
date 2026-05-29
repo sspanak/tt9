@@ -132,7 +132,7 @@ public class LanguagesScreen extends BaseScreenFragment {
 		truncateUnselectedItem.refreshStatus();
 		truncateAllItem.refreshStatus();
 
-		if (DictionaryLoader.getInstance(activity).isRunning()) {
+		if (DictionaryLoader.isRunning()) {
 			loadItem.refreshStatus();
 			ItemClickable.disableOthers(clickables, loadItem);
 		} else if (isProcessorRunning()) {

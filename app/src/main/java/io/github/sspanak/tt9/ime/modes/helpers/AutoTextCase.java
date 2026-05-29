@@ -20,7 +20,12 @@ public class AutoTextCase {
 	public AutoTextCase(@NonNull SettingsStore settingsStore, @NonNull Sequences sequences, @Nullable InputType inputType) {
 		this.sequences = sequences;
 		settings = settingsStore;
-		isSpecialized = inputType != null && (inputType.isSpecialized() || inputType.isUs() || inputType.isLimited());
+		isSpecialized =
+			inputType != null && (
+				inputType.isLimited()
+				|| inputType.isSpecialized()
+				|| (inputType.isUs() && !inputType.isOwnTestField())
+			);
 		skipNext = false;
 	}
 
@@ -95,6 +100,11 @@ public class AutoTextCase {
 			return InputMode.CASE_UPPER;
 		}
 
+		final boolean isAfterNewline = beforeCursor != null && settings.getAutoCapitalsAfterNewlineAbc() && beforeCursor.endsWith("\n");
+		if (isAfterNewline) {
+			return InputMode.CASE_CAPITALIZE;
+		}
+
 		final boolean isStartOfText = beforeCursor == null || beforeCursor.isEmpty();
 		final boolean isStartOfSentence = Text.isStartOfSentence(beforeCursor);
 
@@ -143,7 +153,7 @@ public class AutoTextCase {
 
 		// start of text
 		String before = beforeCursor == null && textField != null ? textField.getStringBeforeCursor() : beforeCursor;
-		if (before == null || before.isEmpty() || (settings.getAutoCapitalsAfterNewline() && before.endsWith("\n"))) {
+		if (before == null || before.isEmpty() || (settings.getAutoCapitalsAfterNewlinePredictive() && before.endsWith("\n"))) {
 			return InputMode.CASE_CAPITALIZE;
 		}
 

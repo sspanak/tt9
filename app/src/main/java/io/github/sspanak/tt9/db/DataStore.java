@@ -15,7 +15,6 @@ import java.util.function.Consumer;
 import io.github.sspanak.tt9.db.entities.AddWordResult;
 import io.github.sspanak.tt9.db.entities.CustomWord;
 import io.github.sspanak.tt9.db.wordPairs.WordPairStore;
-import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.db.words.WordStore;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -166,8 +165,8 @@ public class DataStore {
 	}
 
 
-	public static void loadWordPairs(DictionaryLoader dictionaryLoader, ArrayList<Language> languages) {
-		runInThread(() -> pairs.load(dictionaryLoader, languages));
+	public static void loadWordPairs(ArrayList<Language> languages) {
+		runInThread(() -> pairs.load(languages));
 	}
 
 

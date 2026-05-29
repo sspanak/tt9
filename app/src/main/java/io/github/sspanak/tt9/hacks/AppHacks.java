@@ -74,10 +74,10 @@ public class AppHacks {
 		}
 
 		if (inputType.isWhatsApp() && Text.isGraphic(word)) {
-			textField.setComposingText("");
+			textField.replaceComposingText(word);
+		} else {
+			textField.setComposingText(word);
 		}
-
-		textField.setComposingText(word);
 	}
 
 
@@ -113,9 +113,11 @@ public class AppHacks {
 			return;
 		}
 
-		// if the composing text starts with an emoji, reset to empty before settings new composing text
+		// manually delete and set the composing text for WhatsApp, because it fails to do so with
+		// graphic characters
 		if (inputType.isWhatsApp() && Text.isGraphic(word.toString())) {
-			textField.setComposingText("");
+			textField.replaceComposingText(word.toString());
+			return;
 		}
 
 		// disable composing text for stupid search fields in eBay or Deezer, which restart the connection
@@ -224,6 +226,17 @@ public class AppHacks {
 	private boolean isComposingCausingRestarts() {
 		return composingTextToRestartTime <= SettingsStore.COMPOSING_TEXT_RESTART_THRESHOLD;
 	}
+
+
+	/**
+	 * In most apps, input connection restarts is of no value to us, it just wastes resources, and
+	 * causes undesired suggestions and InputMode reset. Here, we list the apps, that actually, want
+	 * to reset the keyboard on connection restart.
+	 */
+	public boolean isRestartForbidden() {
+		return inputType == null || !inputType.isFirefoxUrl();
+	}
+
 
 	/**
 	 * When sending messages in Signal, Viber or Google SMS, using their own send button, these apps

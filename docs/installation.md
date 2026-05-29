@@ -1,14 +1,14 @@
 # Traditional T9 Installation Guide
 Traditional T9 has two variants: "lite" and "full". The "lite" version is the standard one, available on all app stores and GitHub, while the "full" version is only on GitHub.
 
-The "lite" version is meant to take minimum storage space and for fast upgrades over the air. The APK is about 2 Mb and contains no language files. It downloads them on demand from GitHub. But excluding that, it uses no Internet at all.
+The "lite" version is meant to take minimum storage space and for fast upgrades over the air. The APK is about 3 MB and contains no language files. It downloads them on demand from GitHub.
 
-The "full" version has all language files bundled in the APK, making it about 70 Mb. It is a good choice when working offline and for devices where network traffic is expensive or very slow. It is also the recommended choice on low-end or 3G devices, because they may not be able to keep a stable Internet connection under a heavy load.
+The "full" version has all language files bundled in the APK. It is a good choice when working offline and for devices where network traffic is expensive or very slow. It is also the recommended choice on low-end or 3G devices, because they may not be able to keep a stable Internet connection when downloading and processing the language files. The file size is more than 220 MB.
 
 _The "lite" version is available since release 34.0. Before that, the APK always included all available languages, meaning all older versions were always "full"._
 
 ## Devices with Google
-On devices with Google Services, the recommended way of installing Traditional T9 is from the Play Store. New releases usually appear one working day after the release on GitHub.
+On devices with Google Services, the recommended way of installing Traditional T9 is from the Play Store.
 
 _Google Play Store uses the .aab file format, which is incompatible with the .apk format in all other sources. This means you must first uninstall Traditional T9 if you want to switch to or from the Play Store._
 
@@ -23,9 +23,7 @@ If you don't have F-droid, get the official F-droid APK from https://f-droid.org
 After you get F-droid working, just open it, search for "Traditional T9" and install it.
 
 ### From Uptodown
-Uptodown is another Play Store alternative, very similar to F-droid. What is different is, the new releases appear within 1-2 days after the GitHub release.
-
-If you don't have the Uptodown Store, download and install it from [uptodown.com](https://uptodown-android.en.uptodown.com/android).
+Uptodown is another Play Store alternative, very similar to F-droid. If you don't have the Uptodown Store, download and install it from [uptodown.com](https://uptodown-android.en.uptodown.com/android).
 
 ### From GitHub
 GitHub is the primary release platform. All new releases are published there first. Also, it is the only place where you can find the "full" version. However, it is not an application store, which means you will have to manually check for and install updates. And, it requires a bit more technical skill than the other options.

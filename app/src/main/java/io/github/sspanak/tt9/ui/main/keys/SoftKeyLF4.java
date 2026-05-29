@@ -15,6 +15,8 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyLF4 extends BaseSwipeableKey {
+	private final CmdNextLanguage nextLanguage = new CmdNextLanguage();
+
 	public SoftKeyLF4(Context context) {
 		super(context);
 		isSwipeable = true;
@@ -41,11 +43,17 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 		return tt9 != null && tt9.getSettings().areEnabledLanguagesMoreThanN(1);
 	}
 
-	private boolean isKeyHidden() {
-		return
-			tt9 != null
-			&& tt9.getSettings().isMainLayoutClassic()
-			&& tt9.isFnPanelVisible();
+	private boolean setVisibility() {
+		if (tt9 != null && tt9.getSettings().isMainLayoutClassic()) { // no change for other layouts
+			final boolean isVisible = !tt9.isFnPanelVisible();
+
+			getOverlayWrapper();
+			overlay.setVisibility(isVisible ? VISIBLE : GONE);
+
+			return isVisible;
+		}
+
+		return true;
 	}
 
 	private boolean isKeySmall() {
@@ -55,7 +63,7 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	@Override
 	protected void handleHold() {
 		preventRepeat();
-		if (new CmdNextLanguage().run(tt9)) {
+		if (nextLanguage.isAvailable(tt9) && nextLanguage.run(tt9)) {
 			vibrate(Vibration.getHoldVibration());
 		}
 	}
@@ -73,6 +81,11 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	@Override
 	protected void handleEndSwipeY(float position, float delta) {
 		new CmdSelectKeyboard().run(tt9);
+	}
+
+	@Override
+	protected String getAccessibilityText() {
+		return getContext().getString(R.string.function_next_mode);
 	}
 
 	@Override
@@ -100,17 +113,13 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 
 	@Override
 	public boolean isHoldEnabled() {
-		return tt9 != null && !tt9.isInputModeNumeric();
+		return nextLanguage.isAvailable(tt9);
 	}
 
 	@Override
 	public void render() {
-		getOverlayWrapper();
-		if (isKeyHidden()) {
-			overlay.setVisibility(GONE);
+		if (!setVisibility()) {
 			return;
-		} else {
-			overlay.setVisibility(VISIBLE);
 		}
 
 		if (tt9 != null && tt9.isInputModeNumeric()) {

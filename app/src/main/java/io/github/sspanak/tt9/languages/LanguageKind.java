@@ -55,6 +55,7 @@ public class LanguageKind {
 	public static boolean isKorean(Language language) { return language != null && language.getId() == KOREAN; }
 	public static boolean isLithuanian(Language language) { return language != null && language.getId() == 668300; }
 	public static boolean isThai(Language language) { return language != null && language.getId() == 282900; }
+	public static boolean isTokiPona(Language language) { return language != null && language.getId() == 545300; }
 	public static boolean isTurkish(Language language) { return language != null && language.getId() == 610900; }
 	public static boolean isUkrainian(Language language) { return language != null && language.getId() == 54645; }
 	public static boolean isVietnamese(Language language) { return language != null && language.getId() == 481590; }

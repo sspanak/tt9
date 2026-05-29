@@ -13,8 +13,9 @@ import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownOneKeyEm
 import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownPredictiveAutoAcceptTime;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownZeroKeyCharacter;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.OneKeyEmojiOptions;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
-class SettingsTyping extends SettingsPunctuation {
+class SettingsTyping extends SettingsMindReading {
 	SettingsTyping(Context context) { super(context); }
 
 	public int getAutoAcceptTimeoutAbc() {
@@ -27,6 +28,9 @@ class SettingsTyping extends SettingsPunctuation {
 	public boolean getAutoTextCaseAbc() {
 		return prefs.getBoolean("auto_text_case_abc_v2", true);
 	}
+	public boolean getAutoCapitalsAfterNewlineAbc() {
+		return getAutoTextCaseAbc() && prefs.getBoolean("auto_capitals_after_newline_abc", false);
+	}
 
 	public int getAutoAcceptTimeoutPredictive() {
 		int time = getStringifiedInt(DropDownPredictiveAutoAcceptTime.NAME, DropDownPredictiveAutoAcceptTime.DEFAULT);
@@ -34,12 +38,8 @@ class SettingsTyping extends SettingsPunctuation {
 	}
 	public boolean getAutoSpacePredictive() { return prefs.getBoolean("auto_space_predictive", true); }
 	public boolean getAutoTextCasePredictive() { return prefs.getBoolean("auto_text_case_predictive", true); }
-	public boolean getAutoCapitalsAfterNewline() {
-		return getAutoTextCasePredictive() && prefs.getBoolean("auto_capitals_after_newline", false);
-	}
-
-	public boolean getAutoMindReading() {
-		return prefs.getBoolean("auto_mind_reading", false);
+	public boolean getAutoCapitalsAfterNewlinePredictive() {
+		return getAutoTextCasePredictive() && prefs.getBoolean("auto_capitals_after_newline_predictive", false);
 	}
 
 	public boolean getAutoTrimTrailingSpace() {
@@ -54,7 +54,7 @@ class SettingsTyping extends SettingsPunctuation {
 
 	public boolean isAutoAssistanceOn(@Nullable InputMode mode) {
 		return
-			(getAutoMindReading() && (InputModeKind.isPredictive(mode) || InputModeKind.isABC(mode))) ||
+			(getMindReading() && (InputModeKind.isPredictive(mode) || InputModeKind.isABC(mode))) ||
 			(InputModeKind.isPredictive(mode) && (getAutoSpacePredictive() || getAutoTextCasePredictive() || getPredictWordPairs())) ||
 			(InputModeKind.isABC(mode) && (getAutoSpaceAbc() || getAutoTextCaseAbc()));
 	}
@@ -72,11 +72,11 @@ class SettingsTyping extends SettingsPunctuation {
 		String character = prefs.getString(DropDownZeroKeyCharacter.NAME, DropDownZeroKeyCharacter.DEFAULT);
 
 		// SharedPreferences return a corrupted string when using the real "\n"... :(
-		return  character.equals("\\n") ? "\n" : character;
+		return character.equals("\\n") ? "\n" : character;
 	}
 
 	public boolean areEmojisEnabled() {
-		return getOneKeyEmojiMode() != OneKeyEmojiOptions.OPTIONS.NONE;
+		return getOneKeyEmojiMode() != OneKeyEmojiOptions.OPTIONS.NONE && !DeviceInfo.isTouchExplorationEnabled(context);
 	}
 
 	public OneKeyEmojiOptions.OPTIONS getOneKeyEmojiMode() {
@@ -100,6 +100,10 @@ class SettingsTyping extends SettingsPunctuation {
 		final boolean showInAbc = prefs.getBoolean("show_suggestions_abc", false);
 
 		return inputMode != InputMode.MODE_ABC || showInAbc;
+	}
+
+	public boolean getWordEditing() {
+		return prefs.getBoolean("word_editing", false);
 	}
 
 	public boolean getUpsideDownKeys() { return prefs.getBoolean(SwitchUpsideDownKeys.NAME, SwitchUpsideDownKeys.DEFAULT); }

@@ -19,3 +19,7 @@ Word frequencies obtained from Helium314 dictionaries:
 URL: https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists_experimental
 Version: 02004f7120cdb42819ed71d5494f6cd232517a2d (2023-09-16)
 License: https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/LICENSE
+
+N-grams for next-word predictions and autocompletion based on the OpenSubtitles v2018 archive (http://www.opensubtitles.org/)
+URL: https://opus.nlpl.eu/datasets/OpenSubtitles
+Additional Notice: P. Lison and J. Tiedemann, 2016, OpenSubtitles2016: Extracting Large Parallel Corpora from Movie and TV Subtitles. In Proceedings of the 10th International Conference on Language Resources and Evaluation (LREC 2016)

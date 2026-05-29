@@ -12,6 +12,7 @@ import java.util.Locale;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.customWords.CustomWordsImporter;
 import io.github.sspanak.tt9.db.entities.CustomWordFile;
+import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemProcessCustomWordsAbstract;
 import io.github.sspanak.tt9.ui.notifications.DictionaryProgressNotification;
@@ -36,6 +37,9 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 	@Override
 	protected boolean onClick(Preference p) {
+		// Prevent factory words autoload when the browse file activity pops up
+		DictionaryLoader.setSkipNextAutoLoad();
+
 		setDefaultHandlers();
 		getProcessor().setCancelHandler(this::onCancel);
 		getProcessor().setFailureHandler(this::onFailure);
@@ -63,7 +67,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 			setAndNotifyReady();
 			DictionaryProgressNotification.getInstance(activity).showMessage("", statusMsg, statusMsg);
 
-			item.setTitle(R.string.dictionary_import_custom_words);
+			setDefaultTitle();
 			item.setSummary(statusMsg);
 		});
 	}
@@ -77,9 +81,19 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 		activity.runOnUiThread(() -> item.setSummary(loadingMsg));
 	}
 
+	@Override
+	protected void onFinishProcessing(String fileName) {
+		super.onFinishProcessing(fileName);
+		activity.runOnUiThread(this::setDefaultTitle);
+	}
+
 	private void onFailure(String error) {
 		lastError = error;
 		onFinishProcessing(null);
+	}
+
+	private void setDefaultTitle() {
+		item.setTitle(R.string.dictionary_import_custom_words);
 	}
 
 	@Override

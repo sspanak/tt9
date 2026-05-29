@@ -1,0 +1,264 @@
+package io.github.sspanak.tt9.ime.mindreader;
+
+import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+
+import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
+
+public class MindReaderNgramList {
+	private final int[] MAX_NGRAM_VARIATIONS;
+
+	private long[] before;
+	private int[] next;
+	private final HashMap<Long, Integer> index = new HashMap<>();
+	private final int initialCapacity;
+	private int size;
+
+	private boolean dirty;
+
+
+	public MindReaderNgramList() {
+		MAX_NGRAM_VARIATIONS = new int[] {
+			SettingsStatic.MIND_READER_MAX_BIGRAM_SUGGESTIONS,
+			SettingsStatic.MIND_READER_MAX_TRIGRAM_SUGGESTIONS,
+			SettingsStatic.MIND_READER_MAX_TETRAGRAM_SUGGESTIONS
+		};
+
+		initialCapacity = SettingsStatic.MIND_READER_NGRAMS_INITIAL_CAPACITY;
+		before = new long[initialCapacity];
+		next = new int[initialCapacity];
+		size = 0;
+
+		dirty = false;
+	}
+
+
+	void add(@NonNull MindReaderNgram ngram) {
+		if (!ngram.isValid || ngram.size < 2) {
+			return;
+		}
+
+		dirty = true;
+
+		// if we re-insert an N-gram, move it to the end to mark it as most recently used
+		final int idx = indexOf(ngram);
+		if (idx != -1) {
+			moveToEnd(idx);
+			return;
+		}
+
+		if (size >= before.length) {
+			expand();
+		}
+
+		before[size] = ngram.before;
+		next[size] = ngram.next;
+		index.put(getIndex(ngram.before, ngram.next), size);
+		size++;
+
+		// keep only the most recent N-gram variations for a given context,
+		// to prevent the list from growing indefinitely and to keep the predictions relevant
+		removeOldestVariations(ngram);
+	}
+
+
+	public void addAllUnsafe(@NonNull ArrayList<long[]> rawNgrams) {
+		if (rawNgrams.isEmpty()) {
+			return;
+		}
+
+		before = new long[rawNgrams.size()];
+		next = new int[rawNgrams.size()];
+		index.clear();
+		size = 0;
+		dirty = false;
+
+		for (long[] raw : rawNgrams) {
+			if (raw.length < 3) {
+				continue;
+			}
+
+			before[size] = raw[1];
+			next[size] = (int) raw[2];
+			index.put(getIndex(before[size], next[size]), size);
+			size++;
+		}
+	}
+
+
+	private void expand() {
+		long[] newBeforeStorage = new long[before.length + initialCapacity];
+		int[] newNextStorage = new int[next.length + initialCapacity];
+
+		System.arraycopy(before, 0, newBeforeStorage, 0, before.length);
+		System.arraycopy(next, 0, newNextStorage, 0, next.length);
+
+		before = newBeforeStorage;
+		next = newNextStorage;
+	}
+
+
+	private int indexOf(@NonNull MindReaderNgram ngram) {
+		Integer idx = index.get(getIndex(ngram.before, ngram.next));
+		return idx != null ? idx : -1;
+	}
+
+
+	public long[] getBefore() {
+		long[] results = new long[size];
+		System.arraycopy(before, 0, results, 0, size);
+		return results;
+	}
+
+
+	private long getIndex(long before, int next) {
+		final long mask = (1L << SettingsStatic.MIND_READER_DICTIONARY_WORD_SIZE) - 1L;
+		final long maskedNext = ((long) next) & mask;
+		return (before << SettingsStatic.MIND_READER_DICTIONARY_WORD_SIZE) | maskedNext;
+	}
+
+
+	public int[] getNext() {
+		int[] results = new int[size];
+		System.arraycopy(next, 0, results, 0, size);
+		return results;
+	}
+
+
+	@NonNull
+	LinkedHashSet<Integer> getNextTokens(@NonNull MindReaderDictionary dictionary, @NonNull MindReaderContext current) {
+		final MindReaderNgram currentNgram = current.toEndingNgram(dictionary);
+		final int maxIndex = Math.min(MAX_NGRAM_VARIATIONS.length - 1, Math.max(currentNgram.size - 2, 0));
+		return getNextTokens(dictionary, current, MAX_NGRAM_VARIATIONS[maxIndex]);
+	}
+
+
+	@NonNull
+	LinkedHashSet<Integer> getNextTokens(@NonNull MindReaderDictionary dictionary, @NonNull MindReaderContext current, int limit) {
+		if (limit <= 0) {
+			return new LinkedHashSet<>();
+		}
+
+		final MindReaderNgram currentNgram = current.toEndingNgram(dictionary);
+		final LinkedHashSet<Integer> results = new LinkedHashSet<>(limit);
+
+		if (!currentNgram.isValid) {
+			return results;
+		}
+
+		// We want to show more recent first, so we loop from the end to the beginning.
+		for (int i = size - 1; i >= 0; i--) {
+			if (currentNgram.complete == before[i]) {
+				results.add(next[i]);
+			}
+
+			if (results.size() >= limit) {
+				break;
+			}
+		}
+
+		return results;
+	}
+
+
+	private void moveToEnd(int position) {
+		if (position < 0 || position >= size) {
+			return;
+		}
+
+		long beforeValue = before[position];
+		int nextValue = next[position];
+
+		// shift elements one position to the left
+		System.arraycopy(before, position + 1, before, position, size - position - 1);
+		System.arraycopy(next, position + 1, next, position, size - position - 1);
+
+		for (int i = position; i < size - 1; i++) {
+			index.put(getIndex(before[i], next[i]), i);
+		}
+
+		// place the target element at the end
+		before[size - 1] = beforeValue;
+		next[size - 1] = nextValue;
+		index.put(getIndex(beforeValue, nextValue), size - 1);
+	}
+
+
+	private void removeAt(int position) {
+		if (position < 0 || position >= size) {
+			return;
+		}
+
+		// remove the target element
+		long beforeValue = before[position];
+		int nextValue = next[position];
+		index.remove(getIndex(beforeValue, nextValue));
+
+		// shift all following elements one position to the left.
+		System.arraycopy(before, position + 1, before, position, size - position - 1);
+		System.arraycopy(next, position + 1, next, position, size - position - 1);
+
+		for (int i = position; i < size - 1; i++) {
+			index.put(getIndex(before[i], next[i]), i);
+		}
+
+		size--;
+	}
+
+
+	private void removeOldestVariations(@NonNull MindReaderNgram ngram) {
+		int maxVariations = MAX_NGRAM_VARIATIONS[0];
+
+		if (ngram.isUnigram) {
+			maxVariations = SettingsStatic.MIND_READER_MAX_AMOUNT_UNIGRAMS;
+		} else if (ngram.size >= 2) {
+			maxVariations = MAX_NGRAM_VARIATIONS[Math.min(MAX_NGRAM_VARIATIONS.length - 1, ngram.size - 2)];
+		}
+
+		for (int i = size - 1, variations = 0; i >= 0; i--) {
+			if (before[i] == ngram.before) {
+				if (variations < maxVariations) {
+					variations++;
+				} else {
+					removeAt(i);
+				}
+			}
+		}
+	}
+
+
+	int capacity() {
+		return before.length;
+	}
+
+
+	public boolean dirty() {
+		return dirty;
+	}
+
+
+	public void setNotDirty() {
+		dirty = false;
+	}
+
+
+	public int size() {
+		return size;
+	}
+
+
+	@Override
+	@NonNull
+	public String toString() {
+		final StringBuilder str = new StringBuilder();
+
+		for (int i = 0; i < size; i++) {
+			str.append("{").append(before[i]).append(", ").append(next[i]).append("}, ");
+		}
+
+		return str.substring(0, Math.max(0, str.length() - 2));
+	}
+}

@@ -12,18 +12,37 @@ public class Tables {
 
 	static final String LANGUAGES_META = "languages_meta";
 	static final String CUSTOM_WORDS = "custom_words";
+	private static final String MIND_READER_NGRAMS_TABLE_BASE_NAME = "mind_reader_ngrams_";
+	private static final String MIND_READER_TOKENS_TABLE_BASE_NAME = "mind_reader_tokens_";
 	private static final String POSITIONS_TABLE_BASE_NAME = "word_positions_";
 	private static final String WORDS_TABLE_BASE_NAME = "words_";
 	private static final String WORD_PAIRS_TABLE_BASE_NAME = "word_pairs_";
+
+	static String getMindReaderNgrams(int langId) { return MIND_READER_NGRAMS_TABLE_BASE_NAME + langId; }
+	static String getMindReaderTokens(int langId) { return MIND_READER_TOKENS_TABLE_BASE_NAME + langId; }
 
 	static String getWords(int langId) { return WORDS_TABLE_BASE_NAME + langId; }
 	static String getWordPositions(int langId) { return POSITIONS_TABLE_BASE_NAME + langId; }
 	static String getWordPairs(int langId) { return WORD_PAIRS_TABLE_BASE_NAME + langId; }
 
 
-	static String[] getCreateQueries(ArrayList<Language> languages) {
-		int languageCount = languages.size();
-		String[] queries = new String[languageCount * 3 + 3];
+	public static String[] getMindReaderCreateQueries(@NonNull ArrayList<Language> languages) {
+		final int languageCount = languages.size();
+		final String[] queries = new String[languageCount * 2];
+
+		int queryId = 0;
+		for (Language language : languages) {
+			queries[queryId++] = createMindReaderNgrams(language.getId());
+			queries[queryId++] = createMindReaderTokens(language.getId());
+		}
+
+		return queries;
+	}
+
+
+	static String[] getWordsCreateQueries(@NonNull ArrayList<Language> languages) {
+		final int languageCount = languages.size();
+		final String[] queries = new String[languageCount * 3 + 3];
 
 		queries[0] = createCustomWords();
 		queries[1] = createCustomWordsIndex();
@@ -49,7 +68,7 @@ public class Tables {
 	}
 
 
-	public static void dropIndexes(@NonNull SQLiteDatabase db, @NonNull Language language) {
+	public static void dropWordsIndexes(@NonNull SQLiteDatabase db, @NonNull Language language) {
 		CompiledQueryCache
 			.execute(db, dropWordsIndex(language.getId()))
 			.execute(dropWordPositionsIndex(language.getId()));
@@ -117,5 +136,22 @@ public class Tables {
 			"positionsToNormalize TEXT NULL," +
 			"fileHash TEXT NOT NULL DEFAULT 0 " +
 		")";
+	}
+
+	private static String createMindReaderNgrams(int langId) {
+		return "CREATE TABLE IF NOT EXISTS " + getMindReaderNgrams(langId) + " (" +
+			"idx INTEGER NOT NULL DEFAULT 0, " +
+			"before INTEGER NOT NULL DEFAULT 0, " +
+			"next INTEGER NOT NULL DEFAULT 0, " +
+			"PRIMARY KEY (idx) " +
+		") WITHOUT ROWID";
+	}
+
+	private static String createMindReaderTokens(int langId) {
+		return "CREATE TABLE IF NOT EXISTS " + getMindReaderTokens(langId) + " (" +
+			"idx INTEGER NOT NULL, " +
+			"token TEXT NOT NULL, " +
+			"PRIMARY KEY (idx) " +
+		") WITHOUT ROWID";
 	}
 }

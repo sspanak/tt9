@@ -448,9 +448,9 @@ But with your help, we can fix them and make the dictionary better for everyone!
 ### Can't you add feature X?
 No.
 
-Everyone has their preferences. Some want larger keys, some in a different order, some want a shortcut key for typing ".com," and some miss their old phone or keyboard. But please understand that I am doing voluntary work in my free time. It is impossible to fulfill thousands of different wishes, some of which contradict each other.
+Just like Henry Ford once said, "It can be any color the customer wants, as long as it is black."
 
-Henry Ford once said, "It can be any color the customer wants, as long as it is black." Similarly, Traditional T9 is unadorned, effective, and free but you get what you get.
+Everyone has their preferences. Some want larger keys, some in a different order, some want a shortcut key for typing ".com," and some miss their old phone or keyboard. But please understand that I am doing voluntary work in my free time. It is impossible to fulfill thousands of different wishes, some of which contradict each other.
 
 ### Can't you make it more similar to my favorite device (e.g. Sony Ericsson, Xperia, Nokia C2, Samsung), or my favorite keyboard app?
 No.

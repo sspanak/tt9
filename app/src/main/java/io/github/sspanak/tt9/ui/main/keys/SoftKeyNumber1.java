@@ -17,6 +17,12 @@ public class SoftKeyNumber1 extends SoftKeyNumberSwipeable {
 
 
 	@Override
+	protected boolean allowTwoStepInAccessibility() {
+		return tt9 == null || !tt9.isTouchExplorationEnabled() || isFnPanelOn();
+	}
+
+
+	@Override
 	protected String getTitle() {
 		if (isFnPanelOn()) {
 			return super.getTitle();
@@ -52,6 +58,13 @@ public class SoftKeyNumber1 extends SoftKeyNumberSwipeable {
 
 	@Override
 	protected String getHoldText() {
+		// The hold text causes screen readers to announce too much unnecessary information, so we
+		// disable it in accessibility mode. The user can still use the hold functionality, but it
+		// won't be announced.
+		if (!allowTwoStepInAccessibility()) {
+			return null;
+		}
+
 		if (isFnPanelOn()) {
 			return super.getHoldText();
 		}

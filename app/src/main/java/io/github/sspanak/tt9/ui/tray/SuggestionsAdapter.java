@@ -18,6 +18,7 @@ import java.util.function.Consumer;
 
 public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.ViewHolder> {
 	private final Consumer<Integer> onItemClick;
+	private final Consumer<Integer> onItemLongClick;
 	private final int layout;
 	private final int textViewResourceId;
 	private final LayoutInflater mInflater;
@@ -30,8 +31,9 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 	private int selectedIndex = 0;
 
 
-	public SuggestionsAdapter(Context context, Consumer<Integer> onItemClick, int layout, int textViewResourceId, List<String> suggestions) {
+	public SuggestionsAdapter(Context context, @NonNull Consumer<Integer> onItemClick, @NonNull Consumer<Integer> onItemLongClick, int layout, int textViewResourceId, List<String> suggestions) {
 		this.onItemClick = onItemClick;
+		this.onItemLongClick = onItemLongClick;
 		this.layout = layout;
 		this.textViewResourceId = textViewResourceId;
 		this.mInflater = LayoutInflater.from(context);
@@ -56,6 +58,10 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 		holder.suggestionItem.setTextColor(selectedIndex == position ? colorHighlight : colorDefault);
 		holder.suggestionItem.setBackgroundColor(selectedIndex == position ? backgroundHighlight : Color.TRANSPARENT);
 		holder.suggestionItem.setOnClickListener(v -> onItemClick.accept((int) v.getTag()));
+		holder.suggestionItem.setOnLongClickListener(v -> {
+			onItemLongClick.accept((int) v.getTag());
+			return true;
+		});
 	}
 
 

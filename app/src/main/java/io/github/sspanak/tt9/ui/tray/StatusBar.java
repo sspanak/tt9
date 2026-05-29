@@ -29,9 +29,10 @@ public class StatusBar {
 
 	@NonNull private final DictionaryLoadingBar loadingBar;
 	@NonNull private final Runnable onLoadingFinished;
+	@NonNull private final Runnable onSwipe;
 
 
-	public StatusBar(@NonNull Context context, @NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull Runnable onDictionaryLoadingFinished) {
+	public StatusBar(@NonNull Context context, @NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull Runnable onDictionaryLoadingFinished, @NonNull Runnable onSwipe) {
 		this.mainView = mainView;
 		this.settings = settings;
 		statusView = mainView.getView() != null ? mainView.getView().findViewById(R.id.status_bar) : null;
@@ -42,6 +43,7 @@ public class StatusBar {
 		loadingBar = DictionaryLoadingBar.getInstance(context);
 		loadingBar.setOnStatusChange2(this::onLoading);
 		onLoadingFinished = onDictionaryLoadingFinished;
+		this.onSwipe = onSwipe;
 	}
 
 
@@ -49,11 +51,14 @@ public class StatusBar {
 	 * Handle double-click and drag resizing
 	 */
 	private boolean onTouch(View v, MotionEvent event) {
+		final int action = event.getActionMasked();
+
 		if (!isShown) {
+			if (action == MotionEvent.ACTION_MOVE || action == MotionEvent.ACTION_DOWN) {
+				onSwipe.run();
+			}
 			return false;
 		}
-
-		int action = event.getAction();
 
 		switch (action) {
 			case MotionEvent.ACTION_DOWN:
@@ -94,13 +99,51 @@ public class StatusBar {
 	}
 
 
+	public void setAccessibilityText(int stringResourceId) {
+		if (statusView != null && stringResourceId != 0) {
+			setAccessibilityText(statusView.getContext().getString(stringResourceId));
+		}
+	}
+
+
+	public void setAccessibilityText(@Nullable String text) {
+		if (statusView != null && text != null) {
+			statusView.announceForAccessibility(text);
+		}
+	}
+
+
+	public void setAccessibilityText(@NonNull InputMode inputMode) {
+		if (statusView != null) {
+			setAccessibilityText(inputMode.toAccessibilityString(statusView.getContext()));
+		}
+	}
+
+
+	public void setAccessibilityTextCase(@NonNull InputMode inputMode) {
+		if (statusView == null) {
+			return;
+		}
+
+		String accessibilityText = switch (inputMode.getTextCase()) {
+			case InputMode.CASE_LOWER -> statusView.getContext().getString(R.string.accessibility_text_case_lower);
+			case InputMode.CASE_UPPER -> statusView.getContext().getString(R.string.accessibility_text_case_upper);
+			case InputMode.CASE_CAPITALIZE -> statusView.getContext().getString(R.string.accessibility_text_case_capital);
+			default -> null;
+		};
+
+		setAccessibilityText(accessibilityText);
+	}
+
+
 	public void setError(String error) {
+		setAccessibilityText(error);
 		setText("❌  " + error);
 	}
 
 
 	public void setText(int stringResourceId) {
-		if (statusView != null) {
+		if (statusView != null && stringResourceId != 0) {
 			setText(statusView.getContext().getString(stringResourceId));
 		}
 	}

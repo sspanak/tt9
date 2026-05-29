@@ -15,7 +15,6 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
-import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
@@ -49,7 +48,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			suggestionHandler = null;
 		}
 
-		mindReader.clearContext().stats.update();
+		mindReader.clearContext();
 		super.onFinishTyping();
 	}
 
@@ -83,7 +82,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 	}
 
 
-	protected void onAcceptSuggestionManually(String word, int fromKey) {
+	public void onAcceptSuggestionManually(String word, int fromKey) {
 		mInputMode.onAcceptSuggestion(word);
 		if (Clipboard.contains(word)) {
 			Clipboard.copy(this, word);
@@ -121,8 +120,8 @@ abstract public class SuggestionHandler extends TypingHandler {
 	 * is still loading. Note that onComplete is called even if the loading was skipped.
 	 */
 	@Override
-	protected void getSuggestions(double loadingId, @Nullable String currentWord, @Nullable Runnable onComplete) {
-		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.getInstance(this).isRunning()) {
+	public void getSuggestions(double loadingId, @Nullable String currentWord, @Nullable Runnable onComplete) {
+		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.isRunning()) {
 			mInputMode.reset();
 			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
 			if (onComplete != null) {
@@ -137,7 +136,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 
 	@WorkerThread
-	protected void handleSuggestionsAsync() {
+	public void handleSuggestionsAsync() {
 		handleSuggestionsAsync(0, null);
 	}
 
@@ -214,26 +213,20 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 	@Override
 	protected void autoCompleteOnNumber(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number) {
-		if (mLanguage.hasLettersOnAllKeys()) {
+		if (mLanguage.hasLettersOnAllKeys() || mLanguage.isTranscribed()) {
 			return;
 		}
 
 		if (mLanguage.hasSpaceBetweenWords()) {
 			autoCompleteOnNumberRegularLanguage(loadingId, surroundingText, lastWord, number);
 		} else {
-			autoCompleteOnNumberNoSpaceLanguage(loadingId, surroundingText, lastWord, number);
+			autoCompleteOnNumberNoSpaceLanguage(loadingId, surroundingText, number);
 		}
 	}
 
 
-	private void autoCompleteOnNumberNoSpaceLanguage(double loadingId, @NonNull String[] surroundingText, @Nullable String lastWord, int number) {
-		if (lastWord == null) {
-			return;
-		}
-
-		if (!mInputMode.isTyping()) {
-			guessNextWord(surroundingText, lastWord);
-		} else if (mInputMode.getSequenceLength() == 1) {
+	private void autoCompleteOnNumberNoSpaceLanguage(double loadingId, @NonNull String[] surroundingText, int number) {
+		if (mInputMode.getSequenceLength() == 1) {
 			autoCompleteWord(loadingId, surroundingText, number);
 		}
 	}
@@ -255,7 +248,8 @@ abstract public class SuggestionHandler extends TypingHandler {
 		mindReader
 			.setCurrentGuessHandler(null)
 			.setTextCase(mInputMode.getTextCaseRaw())
-			.complete(loadingId, mInputMode, (NaturalLanguage) mLanguage, surroundingText, number);
+			.setLanguage(mLanguage)
+			.complete(loadingId, mInputMode, surroundingText, number);
 	}
 
 
@@ -263,7 +257,8 @@ abstract public class SuggestionHandler extends TypingHandler {
 	protected void guessNextWord(@NonNull String[] surroundingText, @Nullable String lastWord) {
 		mindReader
 			.setTextCase(mInputMode.getTextCaseRaw())
-			.guess(mInputMode, mLanguage, surroundingText, lastWord, this::handleGuessesAsync);
+			.setLanguage(mLanguage)
+			.guess(mInputMode, surroundingText, lastWord, this::handleGuessesAsync);
 	}
 
 
@@ -283,8 +278,10 @@ abstract public class SuggestionHandler extends TypingHandler {
 		}
 
 		suggestionOps.cancelDelayedAccept();
-		appHacks.setComposingText(guesses.get(0));
 		suggestionOps.addGuesses(guesses);
+		if (!settings.getMindReadingSortPredictionsLast()) {
+			appHacks.setComposingText(guesses.get(0));
+		}
 
 		return true;
 	}

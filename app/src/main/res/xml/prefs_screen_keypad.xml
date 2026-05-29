@@ -15,9 +15,10 @@
 			android:title="@string/pref_category_predictive_mode" />
 
 		<Preference
-			android:fragment="io.github.sspanak.tt9.preferences.screens.punctuation.PunctuationScreen"
-			android:key="screen_punctuation"
-			android:title="@string/pref_category_punctuation_order" />
+			android:fragment="io.github.sspanak.tt9.preferences.screens.keychars.KeyCharsScreen"
+			android:key="screen_key_chars"
+			android:title="@string/pref_category_key_chars"
+			android:summary="@string/pref_category_key_chars_summary" />
 
 		<SwitchPreferenceCompat
 			android:defaultValue="false"
@@ -33,10 +34,7 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/pref_category_keypad_onscreen" android:key="category_virtual_keys">
-		<SwitchPreferenceCompat
-			android:key="pref_haptic_feedback"
-			android:title="@string/pref_haptic_feedback"
-			android:summary="@string/pref_haptic_feedback_summary"/>
+		<io.github.sspanak.tt9.preferences.screens.keypad.SwitchHapticFeedback />
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/pref_category_keypad_hardware">

@@ -16,6 +16,7 @@ import io.github.sspanak.tt9.db.entities.CustomWordFile;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
+import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
@@ -116,13 +117,13 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 				Logger.i(getClass().getSimpleName(), "Imported " + file.getName() + " in " + Timer.get(getClass().getSimpleName()) + " ms");
 			}
 		} else {
-			Logger.e(getClass().getSimpleName(), "Failed to import " + file.getName());
+			Logger.e(getClass().getSimpleName(), "Failed to import " + file.getName() + ". File breaks the validation constraints. Stopped after " + Timer.get(getClass().getSimpleName()) + " ms");
 		}
 	}
 
 
 	private boolean openDb(Context context) {
-		sqlite = SQLiteOpener.getInstance(context);
+		sqlite = WordDbOpener.getInstance(context);
 		if (sqlite.getDb() != null) {
 			return true;
 		}

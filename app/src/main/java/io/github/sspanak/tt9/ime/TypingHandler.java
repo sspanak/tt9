@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ime;
 import android.inputmethodservice.InputMethodService;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
@@ -10,7 +11,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.mindReading.MindReader;
+import io.github.sspanak.tt9.commands.CmdSuggestionNext;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
@@ -19,11 +20,13 @@ import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.helpers.TextSelection;
+import io.github.sspanak.tt9.ime.mindreader.MindReader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
@@ -33,7 +36,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected InputType inputType = new InputType(null, null);
 	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(null, null);
-	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null, null, null);
+	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null, null, null, null);
+
+	@NonNull protected CmdSuggestionNext cmdNextSuggestion = new CmdSuggestionNext();
 
 	@Nullable private Handler shiftStateDebounceHandler;
 
@@ -57,11 +62,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected void createSuggestionBar() {
-		suggestionOps = new SuggestionOps(this, settings, mainView, appHacks, inputType, textField, statusBar, this::onAcceptSuggestionsDelayed, this::onOK);
+		suggestionOps = new SuggestionOps(this, settings, mainView, appHacks, inputType, textField, statusBar, this::onAcceptSuggestionsDelayed, this::onOK, () -> onOK(KeyEvent.KEYCODE_UNKNOWN));
 	}
 
 
-	protected boolean shouldBeOff() {
+	public boolean shouldBeOff() {
 		return getCurrentInputConnection() == null || InputModeKind.isPassthrough(mInputMode);
 	}
 
@@ -92,10 +97,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		// ignore multiple calls for the same field, caused by requestShowSelf() -> showWindow(),
 		// or weirdly functioning apps, such as the Qin SMS app
-		if (restart && !languageChanged && mInputMode.getId() == determineInputModeId()) {
+		if (restart && !languageChanged && appHacks.isRestartForbidden() && mInputMode.getId() == determineInputModeId()) {
 			return false;
 		}
-		settings.setDefaultCharOrder(mLanguage, false);
+		settings.setDefaultChars(mLanguage, false);
+		((NaturalLanguage) mLanguage).updateKeyCharacters(settings);
 		resetKeyRepeat();
 		mInputMode = determineInputMode();
 		determineTextCase();
@@ -106,6 +112,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		updateShiftState(surroundingText[0], false, false);
 		mindReader
 			.setLanguage(mLanguage)
+			.seed(getFinalContext(), mLanguage)
 			.setContext(mInputMode, mLanguage, surroundingText, null);
 
 		return true;
@@ -215,7 +222,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			lastWord = suggestionOps.acceptIncompleteAndKeepList();
 			mInputMode.onAcceptSuggestion(lastWord);
 			surroundingChars = autoCorrectSpace(lastWord, surroundingChars, false, key);
-			mindReader.setContext(mInputMode, mLanguage, surroundingChars, lastWord).saveContext(mInputMode);
+			mindReader.setContext(mInputMode, mLanguage, surroundingChars, lastWord);
 		}
 
 		// Auto-adjust the text case before each word/char, if the InputMode supports it.
@@ -227,7 +234,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		if (mInputMode.shouldSelectNextSuggestion() && !mInputMode.noSuggestions()) {
-			scrollSuggestions(false);
+			cmdNextSuggestion.run(getFinalContext());
 			suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
 			final double loadingId = Math.random();
@@ -265,6 +272,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 				-1
 			);
 		}
+
+		mindReader.setContext(mInputMode, mLanguage, surroundingChars, text);
 
 		// "type" and accept the new word
 		mInputMode.onAcceptSuggestion(text);
@@ -419,7 +428,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	 * suggestions. Otherwise, reset the InputMode.
 	 */
 	private void recompose(int backspaceRepeat, boolean isTextSelected) {
-		if (!settings.getBackspaceRecomposing() || backspaceRepeat > 0 || isFnPanelVisible() || isTextSelected || !suggestionOps.isEmpty() || DictionaryLoader.getInstance(this).isRunning()) {
+		if (!settings.getBackspaceRecomposing() || backspaceRepeat > 0 || isFnPanelVisible() || isTextSelected || !suggestionOps.isEmpty() || DictionaryLoader.isRunning()) {
 			return;
 		}
 
@@ -463,18 +472,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// location. This prevents undesired deletion of the space, in the middle of the text.
 		if (CursorOps.isMovedFar(newSelStart, newSelEnd, oldSelStart, oldSelEnd)) {
 			stopWaitingForSpaceTrimKey();
-		}
-	}
-
-
-	protected void scrollSuggestions(boolean backward) {
-		suggestionOps.cancelDelayedAccept();
-		suggestionOps.scrollTo(backward ? -1 : 1);
-		mInputMode.setWordStem(suggestionOps.getCurrent(), true);
-		if (InputModeKind.isRecomposing(mInputMode)) {
-			appHacks.setComposingTextPartsWithHighlightedJoining(mInputMode.getWordStem() + suggestionOps.getCurrent(), mInputMode.getRecomposingSuffix());
-		} else {
-			appHacks.setComposingTextWithHighlightedStem(suggestionOps.getCurrent(), mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
 		}
 	}
 

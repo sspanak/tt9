@@ -446,9 +446,9 @@ Comme indiqué ci-dessus, je ne parle pas ta langue et je ne remarque donc pas f
 ### Ne pouvez-vous pas ajouter la fonctionnalité X ?
 Non.
 
-Chacun a ses préférences. Certains veulent des touches plus grandes, d'autres dans un ordre différent, certains veulent une touche de raccourci pour taper ".com", et d'autres regrettent leur ancien téléphone ou clavier. Mais veuillez comprendre que je fais ce travail bénévolement sur mon temps libre. Il est impossible de satisfaire des milliers de demandes différentes, dont certaines se contredisent même.
+Comme Henry Ford l’a dit un jour : « Elle peut être de n’importe quelle couleur que le client souhaite, tant qu’elle est noire. »
 
-Henry Ford a dit un jour : "Le client peut choisir n'importe quelle couleur, tant que c'est noir." De la même manière, Traditional T9 est simple, efficace et gratuit, mais vous obtenez ce qui est proposé.
+Chacun a ses préférences. Certains veulent des touches plus grandes, d'autres dans un ordre différent, certains veulent une touche de raccourci pour taper ".com", et d'autres regrettent leur ancien téléphone ou clavier. Mais veuillez comprendre que je fais ce travail bénévolement sur mon temps libre. Il est impossible de satisfaire des milliers de demandes différentes, dont certaines se contredisent même.
 
 ### Ne pouvez-vous pas le rendre plus similaire à mon appareil préféré (par exemple Sony Ericsson, Xperia, Nokia C2, Samsung) ou à mon application de clavier préférée ?
 Non.

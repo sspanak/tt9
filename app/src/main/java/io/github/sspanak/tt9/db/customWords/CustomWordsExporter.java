@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
-import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
+import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
 
 public class CustomWordsExporter extends AbstractExporter {
 	private static CustomWordsExporter customWordsExporterSelf;
@@ -42,7 +42,7 @@ public class CustomWordsExporter extends AbstractExporter {
 	@NonNull
 	@Override
 	protected byte[] getFileContents(Activity activity) throws Exception {
-		SQLiteDatabase db = SQLiteOpener.getInstance(activity).getDb();
+		SQLiteDatabase db = WordDbOpener.getInstance(activity).getDb();
 		if (db == null) {
 			throw new Exception("Could not open database");
 		}
