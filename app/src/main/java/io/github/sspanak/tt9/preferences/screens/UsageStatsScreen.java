@@ -9,6 +9,7 @@ import io.github.sspanak.tt9.db.mindreader.MindReaderStore;
 import io.github.sspanak.tt9.db.words.SlowQueryStats;
 import io.github.sspanak.tt9.ime.mindreader.MindReader;
 import io.github.sspanak.tt9.ime.mindreader.MindReaderStats;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemText;
@@ -97,7 +98,12 @@ public class UsageStatsScreen extends BaseScreenFragment {
 
 		new MindReaderStore(activity.getApplicationContext()).truncate(
 			LanguageCollection.getAll(),
-			() -> UI.toastLongFromAsync(activity.getApplicationContext(), "Truncated all MindReader tables.")
+			() -> {
+				for (Language language : LanguageCollection.getAll()) {
+					activity.getSettings().setMindReaderFactoryNgramsRevision(language, "");
+				}
+				UI.toastLongFromAsync(activity.getApplicationContext(), "Truncated all MindReader tables.");
+			}
 		);
 		return true;
 	}

@@ -23,10 +23,10 @@ public class SettingsStatic extends SettingsColors {
 	public static final int MIND_READER_DICTIONARY_WORD_SIZE = 16; // bits
 	public static final int MIND_READER_MAX_AMOUNT_UNIGRAMS = 3000;
 	public static final int MIND_READER_MAX_NGRAM_SIZE = 4;
-	public static final int MIND_READER_MAX_UNIGRAM_SUGGESTIONS = 6;
+	public static final int MIND_READER_MAX_UNIGRAM_SUGGESTIONS = 5;
 	public static final int MIND_READER_MAX_BIGRAM_SUGGESTIONS = 5;
 	public static final int MIND_READER_MAX_TRIGRAM_SUGGESTIONS = 4;
-	public static final int MIND_READER_MAX_TETRAGRAM_SUGGESTIONS = 4;
+	public static final int MIND_READER_MAX_TETRAGRAM_SUGGESTIONS = 3;
 	public static final int MIND_READER_NGRAMS_INITIAL_CAPACITY = 1000;
 	public static final int MIND_READER_MAX_DICTIONARY_WORDS = (int) Math.pow(2, MIND_READER_DICTIONARY_WORD_SIZE);
 	public final static int RESIZE_THROTTLING_TIME = 60; // ms
