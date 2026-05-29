@@ -25,6 +25,7 @@ import io.github.sspanak.tt9.db.sqlite.Tables;
 import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -64,7 +65,7 @@ public class DictionaryLoader {
 	}
 
 
-	public static boolean load(Context context, ArrayList<Language> languages) {
+	public static boolean load(@NonNull Context context, @NonNull SettingsStore settings, @Nullable ArrayList<Language> languages) {
 		if (isRunning()) {
 			return false;
 		}
@@ -79,7 +80,7 @@ public class DictionaryLoader {
 		}
 		self.loadThread = new Thread(() -> {
 			try {
-				self.loadSync(context, languages);
+				self.loadSync(context, settings, languages);
 			} finally {
 				self.loadThread = null;
 				self = null;
@@ -91,10 +92,10 @@ public class DictionaryLoader {
 	}
 
 
-	public static void load(Context context, Language language) {
+	public static void load(@NonNull Context context, @NonNull SettingsStore settings, @Nullable Language language) {
 		ArrayList<Language> languages = new ArrayList<>(1);
 		languages.add(language);
-		load(context, languages);
+		load(context, settings, languages);
 	}
 
 
@@ -123,7 +124,7 @@ public class DictionaryLoader {
 				final boolean noNotifications = DeviceInfo.AT_LEAST_ANDROID_13;
 
 				if (noDictionary || (isDictionaryOutdated && noNotifications)) {
-					load(context, language);
+					load(context, settings, language);
 				} else if (isDictionaryOutdated) {
 					new DictionaryUpdateNotification(context, language).show();
 				}
@@ -153,7 +154,7 @@ public class DictionaryLoader {
 	}
 
 
-	private void loadSync(Context context, ArrayList<Language> languages) {
+	private void loadSync(@NonNull Context context, @NonNull SettingsStore settings, @NonNull ArrayList<Language> languages) {
 		currentFile = 0;
 		Timer.start(IMPORT_TIMER);
 
@@ -165,7 +166,7 @@ public class DictionaryLoader {
 				sendProgressMessage(lang, 0);
 				break;
 			}
-			importAll(context, lang);
+			importAll(context, settings, lang);
 			currentFile++;
 		}
 
@@ -173,7 +174,7 @@ public class DictionaryLoader {
 	}
 
 
-	private void importAll(Context context, Language language) {
+	private void importAll(@NonNull Context context, @NonNull SettingsStore settings, @Nullable Language language) {
 		if (language == null) {
 			Logger.e(LOG_TAG, "Failed loading a dictionary for NULL language.");
 			loadingBar.showError(InvalidLanguageException.class.getSimpleName(), null, -1);
@@ -195,6 +196,9 @@ public class DictionaryLoader {
 			sendProgressMessage(language, ++progress);
 			logLoadingStep("Storage cleared", language, Timer.restart());
 
+			if (language instanceof NaturalLanguage) {
+				((NaturalLanguage) language).updateKeyCharacters(settings);
+			}
 			int lettersCount = importLetters(language);
 			sendProgressMessage(language, ++progress);
 			logLoadingStep("Letters imported", language, Timer.restart());

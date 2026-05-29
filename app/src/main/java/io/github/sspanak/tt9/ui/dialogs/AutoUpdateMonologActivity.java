@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 
 public class AutoUpdateMonologActivity extends AppCompatActivity {
@@ -31,7 +32,7 @@ public class AutoUpdateMonologActivity extends AppCompatActivity {
 		if (language == null) {
 			Logger.e(getClass().getSimpleName(), "Auto-updating is not possible. Intent parameter '" + PARAMETER_LANGUAGE + "' is invalid: " + languageId);
 		} else {
-			DictionaryLoader.load(this, language);
+			DictionaryLoader.load(this, new SettingsStore(getApplicationContext()), language);
 		}
 	}
 
