@@ -67,7 +67,7 @@ class ItemLoadDictionary extends ItemClickable {
 		ArrayList<Language> languages = LanguageCollection.getAll(activity.getSettings().getEnabledLanguageIds());
 
 		setBusy();
-		if (!DictionaryLoader.load(activity, languages)) {
+		if (!DictionaryLoader.load(activity, activity.getSettings(), languages)) {
 			DictionaryLoader.abort();
 			setReady();
 			onFinish.run();
