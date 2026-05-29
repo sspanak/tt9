@@ -222,7 +222,7 @@ public class MindReaderDictionary {
 			if (startsWith == null || startsWith.isEmpty()) {
 				results.add(tokens[tokenId]);
 				resultsCount++;
-				if (resultsCount > limit) {
+				if (resultsCount >= limit) {
 					return results;
 				}
 			} else {
@@ -232,7 +232,7 @@ public class MindReaderDictionary {
 						results.add(tokens[tokenId]);
 						resultsCount++;
 					}
-					if (resultsCount > limit) {
+					if (resultsCount >= limit) {
 						return results;
 					}
 				}
