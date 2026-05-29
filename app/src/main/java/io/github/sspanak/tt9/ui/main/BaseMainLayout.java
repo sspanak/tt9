@@ -287,7 +287,7 @@ abstract public class BaseMainLayout {
 		int width = tt9.getSettings().getWidthPercent(!isLandscape);
 
 		return
-			DeviceInfo.AT_LEAST_ANDROID_15
+			DeviceInfo.AT_LEAST_ANDROID_12
 			&& ((isLandscape && width >= 75) || (!isLandscape && width >= 65));
 	}
 
