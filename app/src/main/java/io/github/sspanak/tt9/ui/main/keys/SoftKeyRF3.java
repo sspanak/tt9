@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.commands.CmdBack;
 import io.github.sspanak.tt9.commands.CmdEditText;
-import io.github.sspanak.tt9.commands.CmdTxtCut;
 import io.github.sspanak.tt9.commands.CmdVoiceInput;
 
 public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
@@ -85,7 +84,7 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 			return voiceInput.getIcon();
 		}
 
-		return new CmdTxtCut().getIcon();
+		return editText.getIcon();
 	}
 
 

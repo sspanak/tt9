@@ -10,7 +10,7 @@ import io.github.sspanak.tt9.util.sys.Clipboard;
 public class CmdEditText implements Command {
 	public static final String ID = "key_edit_text";
 	@Override public String getId() { return ID; }
-	@Override public int getIcon() { return R.drawable.ic_txt_cut; }
+	@Override public int getIcon() { return R.drawable.ic_fn_edit_text; }
 	@Override public int getName() { return R.string.function_edit_text; }
 	@Override public int getHardKey() { return 5; }
 	@Override public int getPaletteKey() { return R.id.soft_key_5; }
