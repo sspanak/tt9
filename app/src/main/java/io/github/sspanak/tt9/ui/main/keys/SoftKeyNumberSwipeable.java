@@ -154,7 +154,7 @@ public class SoftKeyNumberSwipeable extends SoftKeyNumber {
 		Command cachedCommand = left ? swipeCommand[0] : swipeCommand[1];
 
 		if (cachedCommand == null || !cachedCommand.getId().equals(currentCommandId)) {
-			cachedCommand = CommandCollection.getById(CommandCollection.COLLECTION_HOTKEYS, currentCommandId);
+			cachedCommand = CommandCollection.getById(CommandCollection.COLLECTION_SWIPE, currentCommandId);
 			swipeCommand[left ? 0 : 1] = cachedCommand;
 			resetIconCache();
 		}
