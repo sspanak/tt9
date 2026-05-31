@@ -19,6 +19,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class SystemSettings {
 	private static InputMethodManager inputManager;
+	private static Integer originalNavigationBarColor = null;
 	private static String packageName;
 
 
@@ -90,10 +91,18 @@ public class SystemSettings {
 
 		window.setNavigationBarContrastEnforced(!enableBlending);
 
-		// See: <a href="https://stackoverflow.com/a/77240330">the only working solution</a>.
 		if (enableBlending) {
+			// See: <a href="https://stackoverflow.com/a/77240330">the only working solution for the insets</a>.
 			WindowInsetsControllerCompat insetsController = new WindowInsetsControllerCompat(window, window.getDecorView());
 			insetsController.setAppearanceLightNavigationBars(!settings.getDarkTheme());
+
+			if (DeviceInfo.AT_LEAST_ANDROID_12 && !DeviceInfo.AT_LEAST_ANDROID_15) { // Android 12-14
+				originalNavigationBarColor = originalNavigationBarColor == null ? window.getNavigationBarColor() : originalNavigationBarColor;
+				window.setNavigationBarColor(settings.getKeyboardBackground());
+			}
+		} else if (originalNavigationBarColor != null) {
+			window.setNavigationBarColor(originalNavigationBarColor); // Android 12-14
+			originalNavigationBarColor = null;
 		}
 	}
 }
