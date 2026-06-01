@@ -276,7 +276,7 @@ public class MindReader {
 			Timer.start(TIMER_TAG);
 
 			final String sentenceSeparator = Characters.getChar(language, ".");
-			final String prefix = LanguageKind.isThai(language) ? "" : (sentenceSeparator != null ? sentenceSeparator : "");
+			final String prefix = sentenceSeparator != null ? sentenceSeparator : "";
 			final NgramsFile ngramsFile = new NgramsFile(context, context.getAssets(), language);
 
 			if (settings == null || settings.areMindReaderFactoryNgramsImported(language, ngramsFile.getRevision())) {
@@ -292,7 +292,12 @@ public class MindReader {
 					return;
 				}
 
-				setContextSync(null, language, new String[]{prefix + ngram, ""}, null);
+				if (language.hasSpaceBetweenWords()) {
+					setContextSync(null, language, new String[]{prefix + ngram, ""}, null);
+				} else {
+					wordContext.setTokens(ngram.split(" "));
+				}
+
 				processContext(null, true);
 				imported = true;
 			}
@@ -346,9 +351,9 @@ public class MindReader {
 	/**
 	 * Set and potentially save the current context, without guessing anything.
 	 */
-	public MindReader setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
+	public void setContext(@Nullable InputMode inputMode, @NonNull Language language, @NonNull String[] surroundingText, @Nullable String lastWord) {
 		if (isOff()) {
-			return this;
+			return;
 		}
 
 		final String TIMER_TAG = LOG_TAG + Math.random();
@@ -356,7 +361,7 @@ public class MindReader {
 
 		if (inputNotMindReadable) {
 			Timer.stop(TIMER_TAG);
-			return this;
+			return;
 		}
 
 		final String[] adjustedSurroundingText = MindReaderContext.handleStartOfSentenceInSurroundingText(language, surroundingText);
@@ -372,8 +377,6 @@ public class MindReader {
 				Timer.stop(TIMER_TAG);
 			}
 		});
-
-		return this;
 	}
 
 
