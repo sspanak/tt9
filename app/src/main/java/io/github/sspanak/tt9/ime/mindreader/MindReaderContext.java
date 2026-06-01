@@ -23,6 +23,7 @@ class MindReaderContext {
 	@Nullable private String lastAppendedWord = null;
 	@NonNull private final StringBuilder raw = new StringBuilder();
 	@NonNull private String[] tokens = new String[0];
+	private boolean tokenized = false;
 	@Nullable private String unusedBeforeCursor = null;
 
 
@@ -47,6 +48,7 @@ class MindReaderContext {
 		raw.append(language == null || language.hasSpaceBetweenWords() ? lastWord.trim() : lastWord);
 		lastAppendedWord = lastWord;
 		tokens = new String[0];
+		tokenized = false;
 		unusedBeforeCursor = textBefore;
 
 		return true;
@@ -152,9 +154,31 @@ class MindReaderContext {
 		raw.append(beforeCursor.trim());
 		lastAppendedWord = null;
 		tokens = new String[0];
+		tokenized = false;
 		unusedBeforeCursor = null;
 
 		return true;
+	}
+
+
+	/**
+	 * Set new context text, replacing the old one. This is used for languages without space between words,
+	 * where the text has already been tokenized and separated with spaces. The tokens are assumed to
+	 * be valid and are set directly, without checking the database.
+	 */
+	void setTokens(@NonNull String[] newTokens) {
+		if (newTokens.length == 0) {
+			return;
+		}
+
+		tokens = newTokens;
+		tokenized = true;
+		lastAppendedWord = tokens[tokens.length - 1];
+		raw.setLength(0);
+
+		// The actual content of "raw" is just for debugging. We set something, to ensure the tokens
+		// can be saved later
+		raw.append(1);
 	}
 
 
@@ -185,8 +209,11 @@ class MindReaderContext {
 	 */
 	@NonNull
 	String[] tokenize(@NonNull MindReaderDictionary dictionary) {
-		tokens = ContextTokenizer.tokenize(dictionary, language, raw.toString(), unusedBeforeCursor, MAX_TOKENS);
-		rectifyTokens(dictionary);
+		if (!tokenized) {
+			tokens = ContextTokenizer.tokenize(dictionary, language, raw.toString(), unusedBeforeCursor, MAX_TOKENS);
+			rectifyTokens(dictionary);
+			tokenized = true;
+		}
 
 		return tokens;
 	}
