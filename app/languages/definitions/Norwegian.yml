@@ -1,5 +1,6 @@
 locale: nb-NO
 dictionaryFile: nb-utf8.csv
+ngramFile: nb-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_no
 layout:

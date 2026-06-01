@@ -1,5 +1,6 @@
 locale: sv-SE
 dictionaryFile: sv-utf8.csv
+ngramFile: sv-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_sv
 layout:

@@ -1,6 +1,7 @@
 locale: fa-IR
 currency: ﷼
 dictionaryFile: fa-utf8.csv
+ngramFile: fa-ngrams.zip
 iconABC: ic_lang_alifba
 iconT9: ic_lang_fa
 abcString: أﺏﺕ

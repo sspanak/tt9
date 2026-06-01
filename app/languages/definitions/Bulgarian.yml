@@ -1,5 +1,6 @@
 locale: bg-BG
 dictionaryFile: bg-utf8.csv
+ngramFile: bg-ngrams.zip
 iconABC: ic_lang_cyrillic
 iconT9: ic_lang_bg
 layout:

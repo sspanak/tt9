@@ -1,5 +1,6 @@
 locale: da-DK
 dictionaryFile: da-utf8.csv
+ngramFile: da-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_da
 layout:

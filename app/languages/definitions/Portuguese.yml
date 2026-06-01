@@ -1,5 +1,6 @@
 locale: pt-PT
 dictionaryFile: pt-PT-utf8.csv
+ngramFile: pt-PT-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_pt
 name: Português / PT

@@ -1,5 +1,6 @@
 locale: in-ID
 dictionaryFile: id-utf8.csv
+ngramFile: id-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_id
 name: Bahasa Indonesia

@@ -34,6 +34,7 @@ public class LanguageDefinition {
 	public final ArrayList<ArrayList<String>> layout = new ArrayList<>();
 	public String locale = "";
 	public String name = "";
+	public String ngramFile = "";
 	@NonNull public final HashMap<Integer, String> numerals = new HashMap<>();
 
 	private boolean inLayout = false;
@@ -168,6 +169,9 @@ public class LanguageDefinition {
 			case "numerals":
 				setNumerals(value);
 				return;
+			case "ngramFile":
+				ngramFile = value;
+				return;
 		}
 	}
 
@@ -243,6 +247,6 @@ public class LanguageDefinition {
 
 
 	public String getNgramsFile() {
-		return LANGUAGES_DIR + "/ngrams/" + dictionaryFile.replace("-utf8", "").replaceFirst("(\\.\\w+)$", "-ngrams$1");
+		return LANGUAGES_DIR + "/ngrams/" + ngramFile;
 	}
 }

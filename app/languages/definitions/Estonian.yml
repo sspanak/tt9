@@ -1,5 +1,6 @@
 locale: et-EE
 dictionaryFile: et-utf8.csv
+ngramFile: et-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_et
 layout:

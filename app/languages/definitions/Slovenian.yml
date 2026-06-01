@@ -1,5 +1,6 @@
 locale: sl-SI
 dictionaryFile: sl-utf8.csv
+ngramFile: sl-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_sl
 layout:

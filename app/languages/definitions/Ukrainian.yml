@@ -1,6 +1,7 @@
 locale: uk-UA
 currency: ₴
 dictionaryFile: uk-utf8.csv
+ngramFile: uk-ngrams.zip
 iconABC: ic_lang_cyrillic
 iconT9: ic_lang_uk
 layout:

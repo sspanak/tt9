@@ -1,6 +1,7 @@
 locale: vi-VN
 currency: ₫
 dictionaryFile: vi-utf8.csv
+ngramFile: vi-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_vi
 abcString: abc

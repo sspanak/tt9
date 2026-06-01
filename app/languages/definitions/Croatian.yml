@@ -1,5 +1,6 @@
 locale: hr-HR
 dictionaryFile: hr-utf8.csv
+ngramFile: hr-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_hr
 layout:

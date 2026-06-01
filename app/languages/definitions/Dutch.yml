@@ -1,5 +1,6 @@
 locale: nl-NL
 dictionaryFile: nl-utf8.csv
+ngramFile: nl-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_nl
 layout:

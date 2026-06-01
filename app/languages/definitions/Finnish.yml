@@ -1,5 +1,6 @@
 locale: fi-FI
 dictionaryFile: fi-utf8.csv
+ngramFile: fi-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_su
 layout:

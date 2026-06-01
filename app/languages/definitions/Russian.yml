@@ -1,6 +1,7 @@
 locale: ru-RU
 currency: ₽
 dictionaryFile: ru-utf8.csv
+ngramFile: ru-ngrams.zip
 iconABC: ic_lang_cyrillic
 iconT9: ic_lang_ru
 layout:
