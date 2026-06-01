@@ -1,7 +1,7 @@
 apply from: 'dictionary-tools.gradle'
 
 
-ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir, iconsDir ->
+ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir, iconsDir, ngramsDir ->
 	int errorCount = 0
 
 	def errorStream = fileTree(dir: definitionsDir).getFiles().parallelStream().map { definition ->
@@ -13,7 +13,7 @@ ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir, ic
 			return "Too many errors! Skipping: ${definition}\n"
 		}
 
-		def (alphabet, sounds, _, isAlphabeticLanguage, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesDir, iconsDir)
+		def (alphabet, sounds, _, isAlphabeticLanguage, locale, dictionaryFile, ignore, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesDir, iconsDir, ngramsDir)
 
 		def languageHash = DictionaryTools.getLanguageHash(definition, dictionaryFile)
 		def validationFile = new File("${validationDir}/${definition.name.replace(".yml", "")}.txt")
@@ -46,13 +46,14 @@ ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir, ic
 }
 
 
-ext.parseLanguageDefintion = { File languageFile, String dictionariesDir, String iconsDir ->
+ext.parseLanguageDefintion = { File languageFile, String dictionariesDir, String iconsDir, String ngramsDir ->
 	String alphabet = ''
 	int layoutKey = 0
 	HashMap<String, String> sounds = new HashMap<>()
 	HashMap<String, String> layoutSounds = new HashMap<>()
 
 	File dictionaryFile
+	File ngramFile
 	int errorCount = 0
 	String errorMsg = ""
 
@@ -67,6 +68,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir, String
 	String iconT9 = ""
 	String localeString = ""
 	String dictionaryFileName = ""
+	String ngramFileName = ""
 
 	final String INVALID_FILE = "Language '${languageFile.name}' is invalid."
 
@@ -76,6 +78,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir, String
 			&& !rawLine.startsWith("abcString")
 			&& !rawLine.startsWith("currency")
 			&& !rawLine.startsWith("dictionaryFile")
+			&& !rawLine.startsWith("ngramFile")
 			&& !rawLine.startsWith("filterBySounds")
 			&& !rawLine.startsWith("hasABC")
 			&& !rawLine.startsWith("hasSpaceBetweenWords")
@@ -132,6 +135,10 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir, String
 
 		if (line.startsWith("iconT9")) {
 			iconT9 = line.replaceFirst("^icon[^:]+:", "").trim()
+		}
+
+		if (line.startsWith("ngramFile")) {
+			ngramFileName = line.replace("ngramFile:", "").trim()
 		}
 
 		if (line.startsWith("numerals")) {
@@ -232,6 +239,14 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir, String
 		errorMsg += "Could not find dictionary file: '${dictionaryFileName}' in: '${dictionariesDir}'. Make sure 'dictionaryFile' is set correctly in: '${languageFile.name}'.\n"
 	}
 
+	if (!ngramFileName.isEmpty()) {
+		ngramFile = new File("$ngramsDir/${ngramFileName}")
+		if (!ngramFile.exists()) {
+			errorCount++
+			errorMsg += "Could not find ngram file: '${ngramFileName}' in: '${ngramsDir}'. Make sure 'ngramFile' is set correctly in: '${languageFile.name}'.\n"
+		}
+	}
+
 	String[] localeParts = localeString.split(("[-_]"))
 	Locale locale = Locale.of(localeParts[0], localeParts.length > 1 ? localeParts[1] : "")
 
@@ -241,7 +256,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir, String
 		}
 	}
 
-	return [alphabet, sounds, filterBySounds, !hasSounds, locale, dictionaryFile, errorCount, errorMsg]
+	return [alphabet, sounds, filterBySounds, !hasSounds, locale, dictionaryFile, ngramFile, errorCount, errorMsg]
 }
 
 

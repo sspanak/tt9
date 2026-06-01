@@ -1,5 +1,6 @@
 locale: pl-PL
 dictionaryFile: pl-utf8.csv
+ngramFile: pl-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_pl
 layout:

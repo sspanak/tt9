@@ -1,5 +1,6 @@
 locale: en
 dictionaryFile: en-utf8.csv
+ngramFile: en-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_en
 layout:

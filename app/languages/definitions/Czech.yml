@@ -1,5 +1,6 @@
 locale: cs-CZ
 dictionaryFile: cz-utf8.csv
+ngramFile: cz-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_cz
 layout:

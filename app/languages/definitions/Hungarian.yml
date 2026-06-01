@@ -1,5 +1,6 @@
 locale: hu-HU
 dictionaryFile: hu-utf8.csv
+ngramFile: hu-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_mg
 abcString: abc

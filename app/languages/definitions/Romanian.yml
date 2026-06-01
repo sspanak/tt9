@@ -1,5 +1,6 @@
 locale: ro-RO
 dictionaryFile: ro-utf8.csv
+ngramFile: ro-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_ro
 layout:

@@ -1,6 +1,7 @@
 locale: tr-TR
 currency: ₺
 dictionaryFile: tr-utf8.csv
+ngramFile: tr-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_tr
 layout:

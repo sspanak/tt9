@@ -1,5 +1,6 @@
 locale: el-GR
 dictionaryFile: gr-utf8.csv
+ngramFile: gr-ngrams.zip
 iconABC: ic_lang_alfabeta
 iconT9: ic_lang_el
 layout:

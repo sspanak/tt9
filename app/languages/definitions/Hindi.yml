@@ -1,6 +1,7 @@
 locale: hi-IN
 currency: ₹
 dictionaryFile: hi-utf8.csv
+ngramFile: hi-ngrams.zip
 iconABC: ic_lang_hi_abc
 iconT9: ic_lang_hi
 abcString: कखग

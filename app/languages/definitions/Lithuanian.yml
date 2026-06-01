@@ -1,5 +1,6 @@
 locale: lt-LT
 dictionaryFile: lt-utf8.csv
+ngramFile: lt-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_lt
 layout:

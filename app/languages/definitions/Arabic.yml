@@ -1,6 +1,7 @@
 locale: ar-JO
 currency: ﷼
 dictionaryFile: ar-utf8.csv
+ngramFile: ar-ngrams.zip
 iconABC: ic_lang_alifba
 iconT9: ic_lang_ar
 abcString: أﺏﺕ

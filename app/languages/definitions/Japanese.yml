@@ -1,5 +1,6 @@
 locale: ja-JP
 dictionaryFile: ja-romaji.csv
+ngramFile: ja-ngrams.zip
 name: 日本語 / ローマ字
 iconT9: ic_lang_kanji
 hasABC: no

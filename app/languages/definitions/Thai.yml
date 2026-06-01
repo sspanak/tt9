@@ -1,6 +1,7 @@
 locale: th-TH
 currency: ฿
 dictionaryFile: th-utf8.csv
+ngramFile: th-ngrams.zip
 iconABC: ic_lang_th_abc
 iconT9: ic_lang_th
 abcString: กขค

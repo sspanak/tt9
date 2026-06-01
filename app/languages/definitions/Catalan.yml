@@ -1,5 +1,6 @@
 locale: ca-ES
 dictionaryFile: ca-utf8.csv
+ngramFile: ca-ngrams.zip
 iconABC: ic_lang_latin
 iconT9: ic_lang_ca
 layout:
