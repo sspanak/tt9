@@ -156,6 +156,23 @@ _**Note 2:** To send messages with OK in messaging applications, you must enable
 #### Add Word Key:
 Add a new word to the dictionary for the current language.
 
+#### Edit Word Key:
+Edit the word where the text cursor is located.
+
+When in edit mode, you have the following options:
+- **Press 1-9 key:** Replace the currently selected letter with another one.
+- **Press and hold the Left/Right key:** Go to the previous/next letter.
+- **Press the OK key:** Continue to the next letter. If there are no more letters, it will finish editing and save the word, and automatically add a space after it (if the respective setting is enabled).
+- **Press the Backspace key:** Delete the current letter.
+- **Press the Filter key:** Duplicate the current letter. For example, if the current letter is "a", pressing Filter will change it to "aa".
+- **Press the 0-key:** Finish editing and save the word.
+
+**Touchscreen devices:**
+- **Tap a letter from the suggestion list:** Same as selecting the letter and pressing OK.
+- **Tap and hold the last letter of the word:** Select the letter, finish editing, but do not automatically add a space after it.
+
+You can also use the editing mode to type new words. For example, if you want to type "Anakin", which is not in the dictionary, just press the respective keys, 2-6-2-5-4-6. This will produce a nonsense word that you can easily turn into "Anakin" by replacing the letters with the correct ones.
+
 #### Backspace Key (Back, Del, or Backspace):
 Just deletes text.
 
@@ -179,6 +196,9 @@ _In number-only fields, changing the mode is not possible. In such cases, the ke
 #### Clipboard Tools Key:
 Show the clipboard tools panel, which allows you to select, cut, copy, and paste text. You can close the panel by pressing the "✱" key again or, in most applications, by pressing the Back button. Details are available [below](#clipboard-tools).
 
+#### Hide Keyboard Key:
+Hide the keyboard. To show it again, just start typing, or tap on a text or a number field.
+
 #### Next Language Key (Default: hold #):
 Change the typing language, when multiple languages have been enabled from the Settings.
 
@@ -189,8 +209,16 @@ Open the Android Change Keyboard dialog where you can select between all install
 - **When typing text:** Toggle between uppercase and lowercase.
 - **When typing special characters with the 0-key**: Display the next character group.
 
+#### Show Emojis Key:
+_Predictive mode only._
+
+Show the emoji panel. A shortcut for pressing the 1-key multiple times in Predictive mode.
+
 #### Show Settings Key:
 Open the Settings configuration screen. It is where you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
+
+#### Toggle Predictive Mode Key:
+Switches between Predictive Mode and ABC mode. Effectively, it is the same as toggling the Predictive mode on and off.
 
 #### Undo Key:
 Reverts the last action. Same as pressing Ctrl+Z on a computer or Cmd+Z on a Mac.
@@ -211,13 +239,14 @@ Show a list of all commands (or functions).
 Many phones have only two or three "free" buttons that can be used as hotkeys. But, Traditional T9 has many more functions, meaning there is simply no room for all of them on the keypad. The Command Palette resolves this problem. It allows invoking the additional functions (or commands) using key combos.
 
 Below is a list of the possible commands:
-- **Show the Settings Screen (Default Combo: hold ✱, 1-key).** Same as pressing [Show Settings](#show-settings-key).
-- **Add a Word (Default Combo: hold ✱, 2-key).** Same as pressing [Add Word](#add-word-key).
+- **Add a Word (Default Combo: hold ✱, 1-key).** Same as pressing [Add Word](#add-word-key).
+- **Edit a Word (Default Combo: hold ✱, 2-key).** Same as pressing [Edit Word](#edit-word-key).
 - **Voice Input (Default Combo: hold ✱, 3-key).** Same as pressing [Voice Input](#voice-input-key).
 - **Undo (Default Combo: hold ✱, 4-key).** Same as pressing [Undo](#undo-key).
 - **Clipboard Tools (Default Combo: hold ✱, 5-key).** Same as pressing [Clipboard Tools](#clipboard-tools-key)
 - **Redo (Default Combo: hold ✱, 6-key).** Same as pressing [Redo](#redo-key).
 - **Select a Different Keyboard (Default Combo: hold ✱, 8-key).** Same as pressing [Select Keyboard](#select-keyboard-key).
+- **Show the Settings Screen (Default Combo: hold ✱, 9-key).** Same as pressing [Show Settings](#show-settings-key).
 
 _This key does not do anything when the Screen Layout is set to "Virtual Keypad" because all keys for all possible functions are already available on the screen._
 

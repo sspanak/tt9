@@ -102,9 +102,5 @@ class SettingsTyping extends SettingsMindReading {
 		return inputMode != InputMode.MODE_ABC || showInAbc;
 	}
 
-	public boolean getWordEditing() {
-		return prefs.getBoolean("word_editing", false);
-	}
-
 	public boolean getUpsideDownKeys() { return prefs.getBoolean(SwitchUpsideDownKeys.NAME, SwitchUpsideDownKeys.DEFAULT); }
 }

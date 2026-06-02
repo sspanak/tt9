@@ -156,6 +156,23 @@ _**Not 2:** Mesajlaşma uygulamalarında OK ile mesaj göndermek için, uygulama
 #### Kelime Ekle Tușu:
 Mevcut dil için sözlüğe yeni bir kelime ekleyin.
 
+#### Kelime Düzenle Tușu:
+Metin imlecinin bulunduğu kelimeyi düzenler.
+
+Düzenleme modunda aşağıdaki seçeneklere sahipsiniz:
+- **1-9 tușuna basın:** Seçili harfi başka bir harfle değiştirir.
+- **Sol/Sağ tușunu basılı tutun:** Önceki/sonraki harfe gider.
+- **OK tușuna basın:** Sonraki harfe geçer. Başka harf yoksa düzenlemeyi bitirir, kelimeyi kaydeder ve ardından otomatik olarak bir boşluk ekler (ilgili ayar etkinse).
+- **Backspace tușuna basın:** Geçerli harfi siler.
+- **Filtre tușuna basın:** Geçerli harfi kopyalar. Örneğin geçerli harf "a" ise, Filtre'ye basmak onu "aa" yapar.
+- **0 tușuna basın:** Düzenlemeyi bitirir ve kelimeyi kaydeder.
+
+**Dokunmatik ekranlı cihazlar:**
+- **Öneri listesinden bir harfe dokunun:** Harfi seçip OK tușuna basmakla aynıdır.
+- **Kelimenin son harfine dokunup basılı tutun:** Harfi seçer, düzenlemeyi bitirir, ancak ardından otomatik boşluk eklemez.
+
+Düzenleme modunu yeni kelimeler yazmak için de kullanabilirsiniz. Örneğin sözlükte olmayan "Anakin" kelimesini yazmak istiyorsanız, yalnızca ilgili tușlara basın: 2-6-2-5-4-6. Bu, kolayca doğru harflerle değiştirip "Anakin"e dönüştürebileceğiniz anlamsız bir kelime üretir.
+
 #### Silme Tușu (Geri, Sil veya Backspace):
 Sadece metni siler.
 
@@ -179,6 +196,9 @@ _Sadece sayı alanlarında, mod değiştirme mümkün değildir. Böyle durumlar
 #### Panoya Araçları tuşu:
 Pano Araçları paneli açılır ve bu panel metin seçme, kesme, kopyalama ve yapıştırma işlemlerini yapmanıza olanak tanır. Paneli kapatmak için yeniden "✱" tuşuna veya çoğu uygulamada Geri tuşuna basabilirsiniz. Ayrıntılar için [aşağıda](#pano-araçları) bakın.
 
+#### Klavyeyi Gizle Tușu:
+Klavyeyi gizler. Yeniden göstermek için yazmaya başlayın veya bir metin ya da sayı alanına dokunun.
+
 #### Sonraki Dil Tușu (Varsayılan: # basılı tut):
 Birden fazla dil Ayarlardan etkinleştirildiğinde yazma dilini değiştirmek.
 
@@ -189,8 +209,16 @@ Android Klavye Değiştirme iletişim kutusunu açarak yüklü tüm klavyeler ar
 - **Metin yazarken:** Büyük ve küçük harfler arasında geçiş yapın.
 - **Özel karakterler yazarken:** 0-tușu ile sonraki karakter grubunu gösterin.
 
+#### Emojileri Göster Tușu:
+_Yalnızca Tahmin modunda._
+
+Emoji panelini açar. Tahmin modunda 1 tușuna birden çok kez basmak için bir kısayoldur.
+
 #### Ayarlar Tușu:
 Ayarlar yapılandırma ekranını açar. Bu, yazma dillerini seçebileceğiniz, tuş takımı kısayol tușlarını yapılandırabileceğiniz, uygulama görünümünü değiştirebileceğiniz veya telefonunuzla uyumluluğu geliştirebileceğiniz yerdir.
+
+#### Tahmin Modunu Değiştir Tușu:
+Tahmin modu ile ABC modu arasında geçiş yapar. Pratikte, Tahmin modunu açıp kapatmakla aynıdır.
 
 #### Geri Alma Tuşu:
 Son işlemi geri alır. Bilgisayarda Ctrl+Z veya Mac’te Cmd+Z tuşlarına basmakla aynıdır.
@@ -211,13 +239,14 @@ Tüm komutları (veya işlevleri) içeren bir liste gösterir.
 Birçok telefonda kısayol tuşları için yalnızca iki veya üç "boș" tuş bulunur. Ancak, Traditional T9 daha fazla işlev sunar ve bu, tüm işlevler için tuș takımında yeterli yer olmadığı anlamına gelir. Komut Paleti bu sorunu çözer. Ek işlevleri (veya komutları) tuş kombinasyonlarıyla çağırmanızı sağlar.
 
 İşte olası komutların listesi:
-- **Ayarlar Ekranını Göster (Varsayılan Kombinasyon: ✱ basılı tut, 1-tușu).** [Ayarlar Tușu](#ayarlar-tușu)'na basmakla aynıdır.
-- **Kelime Ekle (Varsayılan Kombinasyon: ✱ basılı tut, 2-tușu).** [Kelime Ekle Tușu](#kelime-ekle-tușu)'na basmakla aynıdır.
+- **Kelime Ekle (Varsayılan Kombinasyon: ✱ basılı tut, 1-tușu).** [Kelime Ekle Tușu](#kelime-ekle-tușu)'na basmakla aynıdır.
+- **Kelime Düzenle (Varsayılan Kombinasyon: ✱ basılı tut, 2-tușu).** [Kelime Düzenle Tușu](#kelime-düzenle-tușu)'na basmakla aynıdır.
 - **Sesli Giriş (Varsayılan Kombinasyon: ✱ basılı tut, 3-tușu).** [Sesli Giriş Tușu](#sesli-giriş-tușu)'na basmakla aynıdır.
 - **Geri al (Varsayılan Kombinasyon: ✱ basılı tut, 4-tușu).** [Geri Alma Tuşu](#geri-alma-tuşu)'na basmakla aynıdır.
 - **Pano araçları (Varsayılan Kombinasyon: ✱ basılı tut, 5-tușu).** [Panoya Araçları tuşu](#panoya-araçları-tuşu)'na basmakla aynıdır.
 - **Yinele (Varsayılan Kombinasyon: ✱ basılı tut, 6-tușu).** [Yinele Tuşu](#yinele-tuşu)'na basmakla aynıdır.
 - **Farklı bir Klavye Seç (Varsayılan Kombinasyon: ✱ basılı tut, 8-tușu).** [Klavye Seç Tușu](#klavye-seç-tușu)'na basmakla aynıdır.
+- **Ayarlar Ekranını Göster (Varsayılan Kombinasyon: ✱ basılı tut, 9-tușu).** [Ayarlar Tușu](#ayarlar-tușu)'na basmakla aynıdır.
 
 _Ekran Düzeni "Sanal Tuș Takımı" olarak ayarlandığında bu tuș hiçbir şey yapmaz çünkü tüm işlevler için tüm tușlar zaten ekranda mevcuttur._
 

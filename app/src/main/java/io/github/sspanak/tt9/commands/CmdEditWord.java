@@ -28,7 +28,6 @@ public class CmdEditWord implements Command {
 		return
 			tt9 != null
 			&& !tt9.shouldBeOff()
-			&& tt9.getSettings().getWordEditing()
 			&& InputModeKind.isPredictive(tt9.getInputMode())
 			&& tt9.getLanguage() != null
 			&& !tt9.getLanguage().isTranscribed();
