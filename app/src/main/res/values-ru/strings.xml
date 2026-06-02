@@ -301,10 +301,11 @@
 	<string name="function_txt_cut">Вырезать</string>
 	<string name="function_txt_copy">Копировать</string>
 	<string name="accessibility_key_left">Стрелка влево</string>
-	<string name="pref_auto_mind_reading_complete_summary">Показывать варианты завершения слов после ввода первой буквы. Не для всех языков.</string>
+	<string name="pref_auto_mind_reading_complete_summary">Показывать варианты завершения слов после ввода первой буквы. (Не для всех языков)</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Показывать автодополнения последними</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Показывать возможные дополнения в конце списка подсказок.</string>
+	<string name="pref_auto_mind_reading_summary">Настроить предсказания следующего слова. (На менее производительных устройствах эта функция может замедлять ввод и быстрее разряжать батарею)</string>
 	<string name="pref_auto_mind_reading_guess">Предсказание следующего слова</string>
-	<string name="pref_auto_mind_reading_guess_summary">Показывать предсказания следующего слова до начала ввода. Не для всех языков.</string>
+	<string name="pref_auto_mind_reading_guess_summary">Показывать предсказания следующего слова до начала ввода. (Не для всех языков)</string>
 	<string name="pref_auto_mind_reading_complete">Автодополнение</string>
 </resources>

@@ -303,10 +303,11 @@
 	<string name="function_txt_cut">Ausschneiden</string>
 	<string name="function_txt_copy">Kopieren</string>
 	<string name="accessibility_key_left">Pfeil links</string>
-	<string name="pref_auto_mind_reading_complete_summary">Wortvervollständigungen nach Eingabe des ersten Buchstabens anzeigen. Nicht in allen Sprachen verfügbar.</string>
+	<string name="pref_auto_mind_reading_complete_summary">Wortvervollständigungen nach Eingabe des ersten Buchstabens anzeigen. (Nicht in allen Sprachen verfügbar)</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Autovervollständigungen zuletzt anzeigen</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Mögliche Vervollständigungen am Ende der Vorschlagsliste anzeigen.</string>
+	<string name="pref_auto_mind_reading_summary">Vorhersagen für das nächste Wort konfigurieren. (Auf leistungsschwächeren Geräten kann diese Funktion das Tippen verlangsamen und den Akku schneller entladen)</string>
 	<string name="pref_auto_mind_reading_guess">Vorhersagen für das nächste Wort</string>
-	<string name="pref_auto_mind_reading_guess_summary">Vorhersagen für das nächste Wort anzeigen, bevor Sie mit dem Tippen beginnen. Nicht in allen Sprachen verfügbar.</string>
+	<string name="pref_auto_mind_reading_guess_summary">Vorhersagen für das nächste Wort anzeigen, bevor Sie mit dem Tippen beginnen. (Nicht in allen Sprachen verfügbar)</string>
 	<string name="pref_auto_mind_reading_complete">Autovervollständigung</string>
 </resources>
