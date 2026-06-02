@@ -156,6 +156,23 @@ _**Nota 2:** Per inviare messaggi con OK nelle applicazioni di messaggistica, è
 #### Tasto Aggiungi Parola:
 Aggiunge una nuova parola al dizionario per la lingua corrente.
 
+#### Tasto Modifica Parola:
+Modifica la parola in cui si trova il cursore di testo.
+
+In modalità modifica, sono disponibili le seguenti opzioni:
+- **Premi un tasto da 1 a 9:** Sostituisce la lettera attualmente selezionata con un'altra.
+- **Tieni premuto il tasto Sinistra/Destra:** Passa alla lettera precedente/successiva.
+- **Premi il tasto OK:** Continua con la lettera successiva. Se non ci sono altre lettere, la modifica termina, la parola viene salvata e viene aggiunto automaticamente uno spazio dopo (se l'impostazione corrispondente è abilitata).
+- **Premi il tasto Backspace:** Elimina la lettera corrente.
+- **Premi il tasto Filtra:** Duplica la lettera corrente. Ad esempio, se la lettera corrente è "a", premendo Filtra diventa "aa".
+- **Premi il tasto 0:** Termina la modifica e salva la parola.
+
+**Dispositivi touchscreen:**
+- **Tocca una lettera nell'elenco dei suggerimenti:** Equivale a selezionare la lettera e premere OK.
+- **Tocca e tieni premuta l'ultima lettera della parola:** Seleziona la lettera, termina la modifica, ma non aggiunge automaticamente uno spazio dopo.
+
+Puoi anche usare la modalità modifica per digitare nuove parole. Ad esempio, se vuoi digitare "Anakin", che non è presente nel dizionario, premi semplicemente i tasti corrispondenti: 2-6-2-5-4-6. Verrà prodotta una parola senza senso che puoi facilmente trasformare in "Anakin" sostituendo le lettere con quelle corrette.
+
 #### Tasto Backspace (Indietro, Canc, o Backspace):
 Cancella semplicemente il testo.
 
@@ -179,6 +196,9 @@ _Nei campi a soli numeri, cambiare modalità non è possibile. In questi casi, i
 #### Tasto Strumenti degli appunti:
 Mostra il pannello degli strumenti degli appunti, che consente di selezionare, tagliare, copiare e incollare testo. È possibile chiudere il pannello premendo di nuovo il tasto "✱" o, nella maggior parte delle applicazioni, il tasto Indietro. Per maggiori dettagli, vedi [sotto](#strumenti-degli-appunti).
 
+#### Tasto Nascondi Tastiera:
+Nasconde la tastiera. Per mostrarla di nuovo, basta iniziare a digitare oppure toccare un campo di testo o numerico.
+
 #### Tasto Lingua Successiva (Default: tenere premuto #):
 Cambiare la lingua di digitazione quando sono state abilitate più lingue nelle impostazioni.
 
@@ -189,8 +209,16 @@ Apre la finestra di dialogo Cambia Tastiera di Android, dove è possibile selezi
 - **Quando si digita testo:** Passa tra maiuscole e minuscole.
 - **Quando si digitano caratteri speciali con il tasto 0**: Mostra il gruppo di caratteri successivo.
 
+#### Tasto Mostra Emoji:
+_Solo in modalità Predittiva._
+
+Mostra il pannello emoji. È una scorciatoia per premere più volte il tasto 1 in modalità Predittiva.
+
 #### Tasto Mostra Impostazioni:
 Apre la schermata di configurazione Impostazioni. Qui è possibile scegliere le lingue per digitare, configurare i tasti rapidi del tastierino, cambiare l’aspetto dell’applicazione o migliorare la compatibilità con il proprio telefono.
+
+#### Tasto Attiva/Disattiva Modalità Predittiva:
+Passa tra Modalità Predittiva e modalità ABC. In pratica, equivale ad attivare o disattivare la modalità Predittiva.
 
 #### Tasto Annulla:
 Annulla l’ultima azione. Equivale a premere Ctrl+Z su un computer o Cmd+Z su un Mac.
@@ -211,13 +239,14 @@ Mostra un elenco di tutti i comandi (o funzioni).
 Molti telefoni hanno solo due o tre pulsanti "liberi" che possono essere usati come tasti rapidi. Tuttavia, Traditional T9 ha molte più funzioni, il che significa che semplicemente non c’è spazio per tutte sul tastierino. La Tavolozza Comandi risolve questo problema. Permette di invocare le funzioni aggiuntive (o comandi) usando combinazioni di tasti.
 
 Di seguito è riportato un elenco dei comandi possibili:
-- **Mostra la schermata delle impostazioni (Combinazione predefinita: tenere premuto ✱, tasto 1).** Uguale a premere [Mostra Impostazioni](#tasto-mostra-impostazioni).
-- **Aggiungi una parola (Combinazione predefinita: tenere premuto ✱, tasto 2).** Uguale a premere [Aggiungi Parola](#tasto-aggiungi-parola).
+- **Aggiungi una parola (Combinazione predefinita: tenere premuto ✱, tasto 1).** Uguale a premere [Aggiungi Parola](#tasto-aggiungi-parola).
+- **Modifica una parola (Combinazione predefinita: tenere premuto ✱, tasto 2).** Uguale a premere [Modifica Parola](#tasto-modifica-parola).
 - **Input Vocale (Combinazione predefinita: tenere premuto ✱, tasto 3).** Uguale a premere [Input Vocale](#tasto-input-vocale).
 - **Annulla (Combinazione predefinita: tenere premuto ✱, tasto 4).** Uguale a premere [Tasto Annulla](#tasto-annulla).
 - **Strumenti degli appunti (Combinazione predefinita: tenere premuto ✱, tasto 5).** Uguale a premere [Strumenti degli appunti](#tasto-strumenti-degli-appunti).
 - **Ripristina (Combinazione predefinita: tenere premuto ✱, tasto 6).** Uguale a premere [Tasto Ripristina](#tasto-ripristina).
 - **Seleziona una Tastiera Diversa (Combinazione predefinita: tenere premuto ✱, tasto 8).** Uguale a premere [Seleziona Tastiera](#tasto-seleziona-tastiera).
+- **Mostra la schermata delle impostazioni (Combinazione predefinita: tenere premuto ✱, tasto 9).** Uguale a premere [Mostra Impostazioni](#tasto-mostra-impostazioni).
 
 _Questo tasto non fa nulla quando il Layout dello Schermo è impostato su "Tastierino Virtuale" perché tutti i tasti per tutte le funzioni possibili sono già disponibili sullo schermo._
 

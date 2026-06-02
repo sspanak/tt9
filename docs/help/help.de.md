@@ -156,6 +156,23 @@ _**Hinweis 2:** Um Nachrichten mit OK in Nachrichtenanwendungen zu senden, müss
 #### Wort hinzufügen Taste:
 Fügt ein neues Wort zum Wörterbuch für die aktuelle Sprache hinzu.
 
+#### Wort bearbeiten Taste:
+Bearbeitet das Wort, an dem sich der Textcursor befindet.
+
+Im Bearbeitungsmodus haben Sie folgende Optionen:
+- **Taste 1-9 drücken:** Ersetzt den aktuell ausgewählten Buchstaben durch einen anderen.
+- **Links-/Rechts-Taste gedrückt halten:** Zum vorherigen/nächsten Buchstaben wechseln.
+- **OK-Taste drücken:** Zum nächsten Buchstaben wechseln. Wenn keine Buchstaben mehr vorhanden sind, wird die Bearbeitung beendet, das Wort gespeichert und automatisch ein Leerzeichen angehängt (falls die entsprechende Einstellung aktiviert ist).
+- **Rücktaste drücken:** Löscht den aktuellen Buchstaben.
+- **Filtertaste drücken:** Dupliziert den aktuellen Buchstaben. Wenn der aktuelle Buchstabe z. B. "a" ist, wird durch Drücken von Filtern daraus "aa".
+- **0-Taste drücken:** Bearbeitung beenden und Wort speichern.
+
+**Touchscreen-Geräte:**
+- **Auf einen Buchstaben in der Vorschlagsliste tippen:** Entspricht dem Auswählen des Buchstabens und dem Drücken von OK.
+- **Den letzten Buchstaben des Wortes antippen und halten:** Wählt den Buchstaben aus, beendet die Bearbeitung, hängt aber nicht automatisch ein Leerzeichen an.
+
+Sie können den Bearbeitungsmodus auch nutzen, um neue Wörter einzugeben. Wenn Sie z. B. "Anakin" tippen möchten, das nicht im Wörterbuch vorhanden ist, drücken Sie einfach die entsprechenden Tasten: 2-6-2-5-4-6. Dadurch entsteht zunächst ein unsinniges Wort, das Sie durch Ersetzen der Buchstaben leicht in "Anakin" umwandeln können.
+
 #### Rückschritt Taste (Zurück, Löschen oder Rückschritt):
 Löscht Text.
 
@@ -179,6 +196,9 @@ _In reinen Zahlenfeldern ist ein Wechsel des Modus nicht möglich. In solchen F�
 #### Zwischenablage-Werkzeuge Taste:
 Zeigt das Zwischenablage-Werkzeugfeld, mit dem Sie Text auswählen, ausschneiden, kopieren und einfügen können. Sie können das Fenster schließen, indem Sie erneut die „✱“-Taste drücken oder in den meisten Anwendungen die Zurück-Taste drücken. Details sind [unten](#zwischenablage-werkzeuge) verfügbar.
 
+#### Tastatur ausblenden Taste:
+Blendet die Tastatur aus. Um sie wieder anzuzeigen, tippen Sie einfach weiter oder tippen Sie auf ein Text- oder Zahlenfeld.
+
 #### Nächste Sprache Taste (Standard: Halten #):
 Die Eingabesprache ändern, wenn mehrere Sprachen in den Einstellungen aktiviert wurden.
 
@@ -189,8 +209,16 @@ Die Eingabesprache ändern, wenn mehrere Sprachen in den Einstellungen aktiviert
 - **Beim Tippen von Text:** Umschalten zwischen Groß- und Kleinschreibung.
 - **Beim Tippen von Sonderzeichen mit der 0-Taste**: Zeigt die nächste Zeichenkategorie an.
 
+#### Emojis anzeigen Taste:
+_Nur im Prädiktiven Modus._
+
+Öffnet das Emoji-Panel. Eine Abkürzung für mehrfaches Drücken der 1-Taste im prädiktiven Modus.
+
 #### Einstellungen anzeigen Taste:
 Öffnet den Einstellungsbildschirm. Hier können Sie die Sprachen für das Tippen auswählen, die Hotkeys der Tastatur konfigurieren, das Erscheinungsbild der Anwendung ändern oder die Kompatibilität mit Ihrem Telefon verbessern.
+
+#### Prädiktiven Modus umschalten Taste:
+Wechselt zwischen Prädiktivem Modus und ABC-Modus. Entspricht effektiv dem Ein- bzw. Ausschalten des Prädiktiven Modus.
 
 #### Rückgängig-Taste:
 Macht die letzte Aktion rückgängig. Entspricht dem Drücken von Strg+Z auf einem Computer oder Cmd+Z auf einem Mac.
@@ -211,13 +239,14 @@ Zeigt eine Liste aller Befehle (oder Funktionen) an.
 Viele Telefone verfügen nur über zwei oder drei "freie" Tasten, die als Hotkeys verwendet werden können. Traditional T9 hat jedoch viele weitere Funktionen, sodass auf der Tastatur einfach kein Platz für alle vorhanden ist. Die Befehlsübersicht löst dieses Problem. Es ermöglicht das Ausführen zusätzlicher Funktionen (oder Befehle) durch Tastenkombinationen.
 
 Im Folgenden finden Sie eine Liste der möglichen Befehle:
-- **Einstellungsbildschirm anzeigen (Standardkombination: Halten ✱, Taste 1).** Entspricht dem Drücken der Taste [Einstellungen anzeigen](#einstellungen-anzeigen-taste).
-- **Wort hinzufügen (Standardkombination: Halten ✱, Taste 2).** Entspricht dem Drücken der Taste [Wort hinzufügen](#wort-hinzufügen-taste).
+- **Wort hinzufügen (Standardkombination: Halten ✱, Taste 1).** Entspricht dem Drücken der Taste [Wort hinzufügen](#wort-hinzufügen-taste).
+- **Wort bearbeiten (Standardkombination: Halten ✱, Taste 2).** Entspricht dem Drücken der Taste [Wort bearbeiten](#wort-bearbeiten-taste).
 - **Spracheingabe (Standardkombination: Halten ✱, Taste 3).** Entspricht dem Drücken der Taste [Spracheingabe](#spracheingabe-taste).
 - **Rückgängig (Standardkombination: ✱ halten, Taste 4).** Entspricht dem Drücken [Rückgängig-Taste](#rückgängig-taste)
 - **Zwischenablage-Werkzeuge (Standardkombination: Halten ✱, Taste 5).** Entspricht dem Drücken der Taste [Zwischenablage-Werkzeuge](#zwischenablage-werkzeuge-taste).
 - **Wiederholen (Standardkombination: ✱ halten, Taste 6).** Entspricht dem Drücken [Wiederholen-Taste](#wiederholen-taste)
 - **Andere Tastatur auswählen (Standardkombination: Halten ✱, Taste 8).** Entspricht dem Drücken der Taste [Tastatur auswählen](#tastatur-auswählen-taste).
+- **Einstellungsbildschirm anzeigen (Standardkombination: Halten ✱, Taste 9).** Entspricht dem Drücken der Taste [Einstellungen anzeigen](#einstellungen-anzeigen-taste).
 
 _Diese Taste hat keine Funktion, wenn das Bildschirm-Layout auf „Virtuelle Tastatur“ eingestellt ist, da alle Tasten für alle möglichen Funktionen bereits auf dem Bildschirm verfügbar sind._
 
