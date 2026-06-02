@@ -10,7 +10,6 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.ime.modes.ModeRecomposing;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Logger;
 
@@ -28,7 +27,7 @@ public class CmdEditWord implements Command {
 		return
 			tt9 != null
 			&& !tt9.shouldBeOff()
-			&& InputModeKind.isPredictive(tt9.getInputMode())
+			&& (InputModeKind.isPredictive(tt9.getInputMode()) || InputModeKind.isABC(tt9.getInputMode()))
 			&& tt9.getLanguage() != null
 			&& !tt9.getLanguage().isTranscribed();
 	}
@@ -36,7 +35,7 @@ public class CmdEditWord implements Command {
 
 	@Override
 	public boolean run(@Nullable TraditionalT9 tt9) {
-		if (tt9 == null || !validate(tt9, tt9.getSettings(), tt9.getLanguage())) {
+		if (tt9 == null || !validate(tt9, tt9.getLanguage())) {
 			return false;
 		}
 
@@ -76,8 +75,8 @@ public class CmdEditWord implements Command {
 	}
 
 
-	private boolean validate(@NonNull TraditionalT9 tt9, @NonNull SettingsStore settings, @Nullable Language language) {
-		if (tt9.isVoiceInputActive() || !settings.getPredictiveMode()) {
+	private boolean validate(@NonNull TraditionalT9 tt9, @Nullable Language language) {
+		if (tt9.isVoiceInputActive()) {
 			return false;
 		}
 
