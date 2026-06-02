@@ -8,7 +8,6 @@ import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 
@@ -26,7 +25,7 @@ public class CmdAddWord implements Command {
 		return
 			tt9 != null
 			&& !tt9.shouldBeOff()
-			&& InputModeKind.isPredictive(tt9.getInputMode())
+			&& (InputModeKind.isPredictive(tt9.getInputMode()) || InputModeKind.isABC(tt9.getInputMode()))
 			&& tt9.getLanguage() != null
 			&& !tt9.getLanguage().isTranscribed();
 	}
@@ -34,7 +33,7 @@ public class CmdAddWord implements Command {
 
 	@Override
 	public boolean run(@Nullable TraditionalT9 tt9) {
-		if (tt9 == null || tt9.getMainView() == null || !validate(tt9, tt9.getSettings(), tt9.getLanguage()) || tt9.getLanguage() == null) {
+		if (tt9 == null || tt9.getMainView() == null || !validate(tt9, tt9.getLanguage()) || tt9.getLanguage() == null) {
 			return false;
 		}
 
@@ -53,8 +52,8 @@ public class CmdAddWord implements Command {
 	}
 
 
-	private boolean validate(@NonNull TraditionalT9 tt9, @NonNull SettingsStore settings, @Nullable Language language) {
-		if (tt9.isVoiceInputActive() || !settings.getPredictiveMode()) {
+	private boolean validate(@NonNull TraditionalT9 tt9, @Nullable Language language) {
+		if (tt9.isVoiceInputActive()) {
 			return false;
 		}
 
