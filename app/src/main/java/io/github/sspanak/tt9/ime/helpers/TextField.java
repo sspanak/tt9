@@ -292,6 +292,7 @@ public class TextField extends InputField {
 		InputConnection connection = getConnection();
 		if (text != null && connection != null) {
 			connection.commitText(text, 1);
+			composingText = "";
 		}
 	}
 

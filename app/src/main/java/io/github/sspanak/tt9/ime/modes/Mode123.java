@@ -22,7 +22,7 @@ class Mode123 extends ModePassthrough {
 	@Override @NonNull public String toAccessibilityString(@NonNull Context ctx) { return ctx.getString(R.string.accessibility_mode_123); }
 
 	@Override public int getSequenceLength() { return digitSequence.length(); }
-	@Override public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextKey, boolean hold) { return true; }
+	@Override public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextKey, boolean hold) { return !currentWord.isEmpty(); }
 
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
