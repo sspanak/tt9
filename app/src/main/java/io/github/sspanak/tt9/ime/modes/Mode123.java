@@ -11,6 +11,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
@@ -42,7 +43,10 @@ class Mode123 extends ModePassthrough {
 			final boolean isSigned = inputType.isSignedNumber() || inputType.isUnspecifiedNumber();
 			setSpecificSpecialCharacters(Characters.getAllForDecimal(isDecimal, isSigned), false);
 		} else if (isEmailMode) {
-			setSpecificSpecialCharacters(Characters.Email, true);
+			final ArrayList<ArrayList<String>> emailChars = new ArrayList<>();
+			emailChars.add(Characters.Email);
+			emailChars.add(Characters.Email); // simulate two groups for easier handling in setSpecificSpecialCharacters
+			setSpecificSpecialCharacters(emailChars, true);
 		} else {
 			setDefaultSpecialCharacters();
 		}
@@ -61,16 +65,15 @@ class Mode123 extends ModePassthrough {
 	/**
 	 * setDefaultSpecialCharacters
 	 * Special characters for when the user has selected 123 mode in a text field. In this case, we just
-	 * use the default list, but reorder it a bit for convenience. We enforce English characters, to
-	 * ensure number field compatibility with all apps and websites.
+	 * use the default list, but reorder it a bit for convenience.
 	 */
 	private void setDefaultSpecialCharacters() {
-		Language english = LanguageCollection.getByLocale("en");
+		Language sortLang = language instanceof NullLanguage ? LanguageCollection.getDefault() : language;
 		KEY_CHARACTERS.add(
-			TextTools.removeLettersFromList(orderCharsForNumericField(settings.getOrderedKeyChars(english, 0)))
+			TextTools.removeLettersFromList(orderCharsForNumericField(settings.getOrderedKeyChars(sortLang, 0)))
 		);
 		KEY_CHARACTERS.add(
-			TextTools.removeLettersFromList(orderCharsForNumericField(settings.getOrderedKeyChars(english, 1)))
+			TextTools.removeLettersFromList(orderCharsForNumericField(settings.getOrderedKeyChars(sortLang, 1)))
 		);
 	}
 
