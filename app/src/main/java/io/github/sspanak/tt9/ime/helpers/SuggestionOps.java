@@ -222,13 +222,17 @@ public class SuggestionOps {
 	public void commitCurrent(boolean entireSuggestion, boolean clearList) {
 		if (!isEmpty()) {
 			if (entireSuggestion) {
-				if (appHacks == null) {
-					textField.setComposingText(getCurrent());
+				// getCurrent() is somewhat resource-intensive, so we want to minimize the calls to it.
+				// Hence, the more complicated if-else structure
+				final String current = getCurrent();
+				if (textField.getComposingText().equals(current)) {
+					textField.finishComposingText();
 				} else {
-					appHacks.setComposingText(getCurrent());
+					textField.setText(current);
 				}
+			} else {
+				textField.finishComposingText();
 			}
-			textField.finishComposingText();
 		}
 
 
