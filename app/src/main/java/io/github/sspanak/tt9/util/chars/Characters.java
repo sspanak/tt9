@@ -27,9 +27,9 @@ public class Characters extends Emoji {
 	/**
 	 * The English punctuation filtered to contain only valid email characters.
 	 */
-	public static final ArrayList<ArrayList<String>> Email = new ArrayList<>(Arrays.asList(
-		new ArrayList<>(Arrays.asList("@", "_", " ", "#", "%", "{", "}", "|", "^", "/", "=", "*", "+")),
-		new ArrayList<>(Arrays.asList(".", "-", "&", "~", "`", "'", "!", "?"))
+	public static final ArrayList<String> Email = new ArrayList<>(Arrays.asList(
+		"@", "_", " ", "#", "%", "{", "}", "|", "^", "/", "=", "*", "+",
+		".", "-", "&", "~", "`", "'", "!", "?"
 	));
 
 
@@ -174,7 +174,7 @@ public class Characters extends Emoji {
 
 
 	/**
-	 * Orders a list of characters according according to the order of another list. Any characters
+	 * Orders a list of characters according to the order of another list. Any characters
 	 * from "unordered" list that are not present in the "order" list will be ignored. In email mode,
 	 * email-specific characters will be moved to the beginning of the list.
 	 */
@@ -185,8 +185,8 @@ public class Characters extends Emoji {
 		}
 
 		if (isEmailMode) {
-			if (unordered.contains("@")) ordered.add("@");
-			if (unordered.contains("_")) ordered.add("_");
+			if (unordered.contains("@") && order.contains("@")) ordered.add("@");
+			if (unordered.contains("_") && order.contains("_")) ordered.add("_");
 		}
 
 		for (String ch : order) {
