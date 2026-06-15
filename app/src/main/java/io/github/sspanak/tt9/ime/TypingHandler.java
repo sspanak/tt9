@@ -161,7 +161,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@Override
 	public boolean onBackspace(int repeat) {
 		// Dialer fields seem to handle backspace on their own, and we must ignore it,
-		// otherwise, keyDown race condition occur for all keys.
+		// otherwise, a keyDown race condition occurs for all keys.
 		if (InputModeKind.isPassthrough(mInputMode)) {
 			return false;
 		}
