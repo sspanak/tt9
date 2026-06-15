@@ -162,20 +162,29 @@ public class InputType extends StandardInputType {
 
 
 	/**
-	 * Determines whether to enable the MindReader for the current field. The likely candidates are
-	 * multiline text fields, that do not have TYPE_TEXT_FLAG_NO_SUGGESTIONS (app does not want learning),
-	 * and are not of type URL, password, and others where predictions make no sense.
+	 * Determines whether to disable the MindReader for the current field. The likely candidates are
+	 * fields that require no "learning", multiline text fields, that do not have TYPE_TEXT_FLAG_NO_SUGGESTIONS,
+	 * password or numeric fields, and others where predictions make no sense.
 	 */
 	public boolean notMindReadableText() {
-		return
-			field == null
-			|| (field.inputType & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS
-			|| !isMultilineText()
-			|| isEmail()
-			|| isNumeric()
-			|| isPassword()
-			|| isPersonName()
-			|| isUri();
+		if (field == null) {
+			return true;
+		}
+
+		final boolean noSuggestions = (field.inputType & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
+		boolean noPersonalizedLearning = DeviceInfo.AT_LEAST_ANDROID_10 && (field.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) == EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING;
+
+		if (noSuggestions && !DeviceInfo.AT_LEAST_ANDROID_10) {
+			noPersonalizedLearning = true;
+		}
+
+		return noPersonalizedLearning
+		|| (isMultilineText() && noSuggestions)
+		|| isEmail()
+		|| isNumeric()
+		|| isPassword()
+		|| isPersonName()
+		|| (!isMultilineText() && !isUri()); // allow in URL fields, because they are often used for search
 	}
 
 
