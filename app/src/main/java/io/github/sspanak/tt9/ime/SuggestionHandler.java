@@ -42,14 +42,16 @@ abstract public class SuggestionHandler extends TypingHandler {
 
 
 	@Override
-	protected void onFinishTyping() {
+	protected void onFinishTyping(boolean willExitInput) {
 		if (suggestionHandler != null) {
 			suggestionHandler.removeCallbacksAndMessages(null);
 			suggestionHandler = null;
 		}
 
+		suggestionOps.cancelDelayedAccept();
+		suggestionOps.clear();
 		mindReader.clearContext();
-		super.onFinishTyping();
+		super.onFinishTyping(willExitInput);
 	}
 
 

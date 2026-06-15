@@ -56,7 +56,7 @@ public class TraditionalT9 extends PremiumHandler {
 	public void onComputeInsets(Insets outInsets) {
 		super.onComputeInsets(outInsets);
 		if (settings.clearInsets() && shouldBeVisible()) {
-			// otherwise the MainView wouldn't show up on Sonim XP3900
+			// otherwise the MainView wouldn't show up on Sonim XP3900,
 			// or it expands the application window past the edge of the screen
 			outInsets.contentTopInsets = 0;
 		}
@@ -82,9 +82,7 @@ public class TraditionalT9 extends PremiumHandler {
 	@Override
 	public void onFinishInputView(boolean finishingInput) {
 		super.onFinishInputView(finishingInput);
-		if (finishingInput) {
-			onFinishTyping();
-		}
+		onFinishTyping(finishingInput);
 	}
 
 
@@ -194,8 +192,7 @@ public class TraditionalT9 extends PremiumHandler {
 	@Override
 	protected void onStop() {
 		stopVoiceInput();
-		onFinishTyping();
-		suggestionOps.clear();
+		onFinishTyping(true);
 		statusBar.setText(mInputMode);
 
 		if (isInputViewShown()) {
@@ -216,8 +213,8 @@ public class TraditionalT9 extends PremiumHandler {
 
 
 	@Override
-	protected void onFinishTyping() {
-		super.onFinishTyping();
+	protected void onFinishTyping(boolean willExitInput) {
+		super.onFinishTyping(willExitInput);
 		getDisplayTextCase();
 		setStatusIcon(mInputMode, mLanguage);
 	}

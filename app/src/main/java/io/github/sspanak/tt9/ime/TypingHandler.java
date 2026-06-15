@@ -143,21 +143,25 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
-	protected void onFinishTyping() {
+	protected void onFinishTyping(boolean willExitInput) {
 		if (shiftStateDebounceHandler != null) {
 			shiftStateDebounceHandler.removeCallbacksAndMessages(null);
 			shiftStateDebounceHandler = null;
 		}
-		suggestionOps.cancelDelayedAccept();
-		mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
-		setInputField(null);
+
+		if (willExitInput) {
+			mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
+			setInputField(null);
+		} else {
+			mInputMode.reset();
+		}
 	}
 
 
 	@Override
 	public boolean onBackspace(int repeat) {
-		// Dialer fields seem to handle backspace on their own and we must ignore it,
-		// otherwise, keyDown race condition occur for all keys.
+		// Dialer fields seem to handle backspace on their own, and we must ignore it,
+		// otherwise, a keyDown race condition occurs for all keys.
 		if (InputModeKind.isPassthrough(mInputMode)) {
 			return false;
 		}
@@ -346,7 +350,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	/**
 	 * determineLanguage
 	 * Restore the last language or auto-select a more appropriate one, if the application hints so.
-	 * In case the settings are not valid, we will fallback to the default language.
+	 * In case the settings are not valid, we will fall back to the default language.
 	 */
 	private boolean determineLanguage() {
 		mEnabledLanguages = settings.getEnabledLanguageIds();
