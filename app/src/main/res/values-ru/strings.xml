@@ -4,6 +4,7 @@
 	<string name="pref_font_size_large">Крупный</string>
 	<string name="completed">Выполнено</string>
 	<string name="loading">Загрузка…</string>
+	<string name="version_info">%1$s\nСоздано Димо Караивановым и участниками со всего мира.</string>
 	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
 	<string name="accessibility_text_case_capital">первая буква заглавная</string>
 	<string name="function_toggle_predictive_mode">Переключить режим подсказки</string>

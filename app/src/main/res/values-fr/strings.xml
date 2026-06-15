@@ -4,6 +4,7 @@
 	<string name="pref_font_size_large">Grande</string>
 	<string name="completed">Fini</string>
 	<string name="loading">Chargement…</string>
+	<string name="version_info">%1$s\nCréé par Dimo Karaivanov et des contributeurs du monde entier.</string>
 	<string name="error_unexpected">Une erreur inattendue s\'est produite.</string>
 	<string name="accessibility_text_case_capital">mettre la première lettre en majuscule</string>
 	<string name="function_toggle_predictive_mode">Activer ou désactiver la saisie intuitive</string>

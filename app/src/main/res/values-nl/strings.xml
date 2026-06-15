@@ -2,6 +2,7 @@
 <resources>
 	<string name="app_settings">TT9 Opties</string>
 	<string name="loading">Laden…</string>
+	<string name="version_info">%1$s\nGemaakt door Dimo Karaivanov en bijdragers van over de hele wereld.</string>
 	<string name="error_unexpected">Er is een onverwachte fout opgetreden.</string>
 
 	<string name="accessibility_text_case_capital">eerste letter hoofdletter</string>

@@ -4,6 +4,7 @@
 	<string name="pref_font_size_large">Grande</string>
 	<string name="completed">Concluído</string>
 	<string name="loading">Carregando…</string>
+	<string name="version_info">%1$s\nCriado por Dimo Karaivanov e colaboradores de todo o mundo.</string>
 	<string name="error_unexpected">Um erro inesperado aconteceu.</string>
 
 	<string name="accessibility_text_case_capital">inicial maiúscula</string>

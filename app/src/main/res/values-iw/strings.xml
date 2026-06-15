@@ -4,6 +4,7 @@
 	<string name="pref_font_size_large">גדול</string>
 	<string name="completed">הסתיים</string>
 	<string name="loading">טוען…</string>
+	<string name="version_info">%1$s\nנוצר על ידי דימו קראיבנוב ותורמים מכל רחבי העולם.</string>
 	<string name="error_unexpected">אירעה שגיאה לא צפויה.</string>
 
 	<string name="accessibility_text_case_capital">אות ראשונה גדולה</string>

@@ -23,6 +23,7 @@
 	<string name="pref_font_size_large">Grande</string>
 	<string name="completed">Terminado</string>
 	<string name="loading">Cargando…</string>
+	<string name="version_info">%1$s\nCreado por Dimo Karaivanov y colaboradores de todo el mundo.</string>
 	<string name="error_unexpected">Ocurrió un error inesperado.</string>
 	<string name="add_word_exist">La palabra \"%1$s\" ya esta en el diccionario.</string>
 	<string name="add_word_success">\"%1$s\" añadida.</string>

@@ -4,6 +4,7 @@
 	<string name="pref_font_size_large">Голям</string>
 	<string name="completed">Завършено</string>
 	<string name="loading">Зареждане…</string>
+	<string name="version_info">%1$s\nСъздадено от Димо Караиванов и сътрудници от цял свят.</string>
 	<string name="error_unexpected">Възникна неочаквана грешка.</string>
 	<string name="accessibility_text_case_capital">главна първа буква</string>
 	<string name="function_toggle_predictive_mode">Превключване на предсказващ режим</string>

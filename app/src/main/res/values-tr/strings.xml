@@ -2,6 +2,7 @@
 <resources>
 	<string name="app_settings">TT9 Ayarlar</string>
 	<string name="loading">Yükleniyor…</string>
+	<string name="version_info">%1$s\nDimo Karaivanov ve dünyanın dört bir yanındaki katkıda bulunanlar tarafından geliştirildi.</string>
 	<string name="error_unexpected">Beklenmeyen bir hata ile karşılaşıldı.</string>
 
 	<string name="accessibility_text_case_capital">ilk harfi büyüt</string>

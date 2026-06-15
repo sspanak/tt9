@@ -2,6 +2,7 @@
 <resources>
 	<string name="app_settings">TT9 Einstellungen</string>
 	<string name="loading">Laden…</string>
+	<string name="version_info">%1$s\nEntwickelt von Dimo Karaivanov und Mitwirkenden aus aller Welt.</string>
 	<string name="error_unexpected">Unerwarteter Fehler aufgetreten.</string>
 
 	<string name="accessibility_text_case_capital">Ersten Buchstaben großschreiben</string>

@@ -5,6 +5,7 @@
 	<string name="completed">Виконано</string>
 	<string name="loading">Завантаження…</string>
 
+	<string name="version_info">%1$s\nСтворено Дімо Караівановим та учасниками з усього світу.</string>
 	<string name="error_unexpected">Сталася неочікувана помилка.</string>
 
 	<string name="accessibility_text_case_capital">перша літера велика</string>

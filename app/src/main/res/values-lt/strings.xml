@@ -5,6 +5,7 @@
 	<string name="completed">Baigta</string>
 	<string name="loading">Įkeliama…</string>
 
+	<string name="version_info">%1$s\nSukūrė Dimo Karaivanov ir bendradarbiai iš viso pasaulio.</string>
 	<string name="error_unexpected">Įvyko netikėta klaida.</string>
 
 	<string name="accessibility_text_case_capital">pirmą raidę rašyti didžiąja</string>

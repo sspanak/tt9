@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.preferences.screens.main;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.BuildConfig;
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
 import io.github.sspanak.tt9.preferences.screens.debug.DebugScreen;
@@ -28,7 +29,9 @@ class ItemVersionInfo extends ItemClickable {
 
 	ItemVersionInfo populate() {
 		if (item != null) {
-			item.setSummary(BuildConfig.VERSION_FULL);
+			item.setSummary(
+				item.getContext().getString(R.string.version_info, BuildConfig.VERSION_FULL)
+			);
 		}
 		return this;
 	}
