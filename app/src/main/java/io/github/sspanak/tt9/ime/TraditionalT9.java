@@ -193,7 +193,6 @@ public class TraditionalT9 extends PremiumHandler {
 	protected void onStop() {
 		stopVoiceInput();
 		onFinishTyping(true);
-		suggestionOps.clear();
 		statusBar.setText(mInputMode);
 
 		if (isInputViewShown()) {

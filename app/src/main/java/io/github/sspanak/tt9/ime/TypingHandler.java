@@ -148,7 +148,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			shiftStateDebounceHandler.removeCallbacksAndMessages(null);
 			shiftStateDebounceHandler = null;
 		}
-		suggestionOps.cancelDelayedAccept();
+
 		if (willExitInput) {
 			mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
 			setInputField(null);
