@@ -53,18 +53,7 @@ public class NaturalLanguage extends TranscribedLanguage {
 			throw new Exception("Invalid definition. Locale cannot be empty.");
 		}
 
-		if (definition.locale.equals("en")) {
-			locale = Locale.ENGLISH;
-		} else {
-			String[] parts = definition.locale.split("-", 2);
-			if (parts.length == 2) {
-				locale = new Locale(parts[0], parts[1]);
-			} else if (parts.length == 1) {
-				locale = new Locale(parts[0]);
-			} else {
-				throw new Exception("Unrecognized locale format: '" + definition.locale + "'.");
-			}
-		}
+		locale = definition.locale.equals("en") ? Locale.ENGLISH : Locale.forLanguageTag(definition.locale);
 	}
 
 

@@ -66,8 +66,12 @@ public class LanguageCollection {
 
 	@Nullable
 	public static NaturalLanguage getByLanguageCode(String languageCode) {
+		if (languageCode == null || languageCode.isEmpty()) {
+			return null;
+		}
+
 		for (NaturalLanguage lang : self.languages.values()) {
-			if (lang.getLocale().getLanguage().equals(new Locale(languageCode).getLanguage())) {
+			if (lang.getLocale().getLanguage().equals(Locale.forLanguageTag(languageCode).getLanguage())) {
 				return lang;
 			}
 		}
