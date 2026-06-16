@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.preferences.custom;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ public class KeyboardPreviewSwitchPreference extends Preference {
 	private static final int PREVIEW_RESUME_DELAY = 500; //ms
 
 	@Nullable private Runnable onBeforePreviewCallback;
+	@NonNull private final Handler previewHandler = new Handler(Looper.getMainLooper());
 	@Nullable private SwitchCompat switchView;
 	@Nullable private EditText text1;
 	@Nullable private EditText text2;
@@ -75,7 +77,8 @@ public class KeyboardPreviewSwitchPreference extends Preference {
 	public void resume() {
 		if (switchView != null && switchView.isChecked()) {
 			// wait for any popups to close, then show the keyboard
-			new Handler().postDelayed(this::showKeyboard, PREVIEW_RESUME_DELAY);
+			previewHandler.removeCallbacksAndMessages(null);
+			previewHandler.postDelayed(this::showKeyboard, PREVIEW_RESUME_DELAY);
 		}
 	}
 
@@ -130,15 +133,18 @@ public class KeyboardPreviewSwitchPreference extends Preference {
 
 			InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 			if (imm != null) {
-				imm.showSoftInput(targetField, InputMethodManager.SHOW_FORCED);
+				imm.showSoftInput(targetField, 0);
 			}
 		});
 	}
+
 
 	private void hideKeyboard() {
 		if (text1 == null) {
 			return;
 		}
+
+		previewHandler.removeCallbacksAndMessages(null);
 
 		InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 		if (imm != null) {
