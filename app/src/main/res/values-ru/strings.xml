@@ -280,6 +280,8 @@
 	<string name="tutorial_classic_OK_swipe">Когда нет подсказок, свайп вверх/вниз перемещает курсор.\n\nКогда есть подсказки, свайп вверх фильтрует их, а свайп вниз очищает фильтр.</string>
 	<string name="tutorial_classic_add_word">Свайп влево — добавить слово.</string>
 	<string name="pref_hack_auto_disable_composing">Автоматически скрывать вводимый текст</string>
+	<string name="pref_hack_send_with_enter_in_chat_apps">Отправка по OK в чатах</string>
+	<string name="pref_hack_send_with_enter_in_chat_apps_summary">Отправка сообщений в чатах нажатием OK или центральной кнопки D-pad.</string>
 	<string name="pref_show_suggestions_abc">Показывать подсказки букв</string>
 	<string name="pref_auto_trim_trailing_space">Автоматически удалять конечные пробелы</string>
 	<string name="edit_word_invalid_characters">Невозможно редактировать «%1$s», когда язык — «%2$s».</string>

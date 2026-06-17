@@ -112,9 +112,7 @@ Limpa o filtro de sugestões, se aplicado.
 - Quando sugestões são exibidas, insere a sugestão selecionada.
 - Caso contrário, executa a ação padrão do aplicativo (por exemplo, enviar uma mensagem, acessar uma URL, ou inserir uma quebra de linha).
 
-_**Nota**: Cada aplicativo decide qual função executar ao pressionar OK, e o TT9 não tem controle sobre esse comportamento._
-
-_**Nota 2**: Para enviar mensagens com OK em aplicativos de mensagens, você deve ativar a configuração “Enviar com Enter” ou uma configuração semelhante. Se o aplicativo não tiver tal configuração, provavelmente ele não suporta o envio por este método. Nesse caso, use o aplicativo KeyMapper do [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) ou [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). Ele pode detectar aplicativos de mensagens e simular uma tecla no botão de envio da mensagem. Consulte o [guia de início rápido](https://docs.keymapper.club/quick-start/) para mais informações._
+_**Nota**: Para enviar mensagens com a tecla OK em aplicativos de bate-papo, acesse Configurações → Teclado, role até a seção «Compatibilidade» e ative «Enviar mensagens com OK»._
 
 #### Tecla 0:
 - **No modo 123:**

@@ -112,9 +112,7 @@ Uygulanan öneri filtresini temizleyin.
 - Öneriler görüntüleniyorsa, şu anki seçili öneriyi yazın.
 - Aksi halde, mevcut uygulama için varsayılan işlemi gerçekleştirin (örneğin, bir mesaj gönderin, bir URL'ye gidin veya yeni satıra geçin).
 
-_**Not:** Her uygulama, OK tuşuna basıldığında ne yapılacağını kendisi belirler ve TT9'un üzerinde kontrolü yoktur._
-
-_**Not 2:** Mesajlaşma uygulamalarında OK ile mesaj göndermek için, uygulamanın "ENTER ile Gönder" veya benzer isimli ayarını etkinleştirmeniz gerekir. Uygulamada böyle bir ayar yoksa, muhtemelen bu şekilde mesaj göndermeyi desteklemiyordur. Bu durumda, [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) veya [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/) üzerinden KeyMapper uygulamasını kullanın. KeyMapper, sohbet uygulamalarını algılayabilir ve bir fiziksel tuşa basıldığında veya basılı tutulduğunda mesaj gönderme butonuna dokunmayı simüle edebilir. Daha fazla bilgi için [hızlı başlangıç kılavuzuna](https://docs.keymapper.club/quick-start/) göz atın._
+_**Not:** Sohbet uygulamalarında mesajları OK tuşuyla göndermek için Ayarlar → Tuş Takımı bölümüne gidin, aşağı kaydırarak «Uyumluluk» bölümünü bulun ve «Mesajları OK ile gönder» seçeneğini etkinleştirin._
 
 #### 0-tușu:
 - **123 modunda:**

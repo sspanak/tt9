@@ -112,9 +112,7 @@ Entfernt den Vorschlagsfilter, falls aktiviert.
 - Wenn Vorschläge angezeigt werden, wird der aktuell ausgewählte Vorschlag getippt.
 - Andernfalls wird die Standardaktion für die aktuelle Anwendung ausgeführt (z. B. eine Nachricht senden, zu einer URL gehen oder eine neue Zeile eingeben).
 
-_**Hinweis:** Jede Anwendung entscheidet selbst, was passiert, wenn OK gedrückt wird, und TT9 hat darauf keinen Einfluss._
-
-_**Hinweis 2:** Um Nachrichten mit OK in Nachrichtenanwendungen zu senden, müssen Sie deren Einstellung „Mit ENTER senden“ oder eine ähnlich benannte Option aktivieren. Wenn die Anwendung keine solche Einstellung hat, unterstützt sie möglicherweise nicht das Senden von Nachrichten auf diese Weise. Verwenden Sie in diesem Fall die App KeyMapper aus dem [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) oder aus [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). Diese erkennt Chat-Apps und simuliert beim Drücken oder Halten einer physischer Taste einen Tastendruck auf die Senden-Taste. Weitere Informationen finden Sie im [Schnellstart-Handbuch](https://docs.keymapper.club/quick-start/)._
+_**Hinweis:** Um Nachrichten in Chat-Anwendungen mit der OK-Taste zu senden, gehen Sie zu Einstellungen → Tastenfeld, scrollen Sie zum Abschnitt „Kompatibilität“ und aktivieren Sie „Nachrichten mit OK senden“._
 
 #### 0-Taste:
 - **Im 123 Modus:**

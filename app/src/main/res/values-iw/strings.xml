@@ -287,6 +287,8 @@
 	<string name="tutorial_classic_OK_swipe">כאשר אין הצעות, החלקה למעלה/למטה להזזת הסמן.\n\nכאשר יש הצעות, החלקה למעלה לסינון ההצעות או למטה לניקוי הסינון.</string>
 	<string name="tutorial_classic_add_word">החלקה שמאלה כדי להוסיף מילה.</string>
 	<string name="pref_hack_auto_disable_composing">השבתת חיבור טקסט אוטומטית</string>
+	<string name="pref_hack_send_with_enter_in_chat_apps">שליחה עם OK באפליקציות צ\'אט</string>
+	<string name="pref_hack_send_with_enter_in_chat_apps_summary">שליחת הודעות באפליקציות צ\'אט באמצעות לחיצה על OK או על הכפתור המרכזי של ה־D-Pad.</string>
 	<string name="pref_show_suggestions_abc">הצגת הצעות לאותיות</string>
 	<string name="pref_auto_trim_trailing_space">הסרה אוטומטית של רווחים בסוף</string>
 	<string name="edit_word_invalid_characters">לא ניתן לערוך \"%1$s\" כאשר השפה היא \"%2$s\".</string>

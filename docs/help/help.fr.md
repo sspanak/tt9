@@ -112,9 +112,7 @@ Efface le filtre des suggestions, si appliqué.
 - Lorsque des suggestions sont affichées, saisit la suggestion sélectionnée.
 - Sinon, exécute l’action par défaut de l’application (par exemple, envoyer un message, accéder à une URL, ou insérer un retour à la ligne).
 
-_**Remarque** : Chaque application décide de la fonction à effectuer lorsqu’OK est pressé, et TT9 n'a aucun contrôle sur ce comportement._
-
-_**Remarque 2** : Pour envoyer des messages avec OK dans les applications de messagerie, vous devez activer leur paramètre "Envoyer avec Entrée" ou un paramètre similaire. Si l'application n'a pas de tel paramètre, elle ne supporte probablement pas l'envoi par cette méthode. Dans ce cas, utilisez l'application KeyMapper depuis le [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) ou [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). Elle peut détecter les applications de messagerie et simuler une touche sur le bouton d'envoi de message. Consultez le [guide de démarrage rapide](https://docs.keymapper.club/quick-start/) pour plus d'informations._
+_**Remarque** : Pour envoyer des messages avec la touche OK dans les applications de messagerie, accédez à Paramètres → Clavier, faites défiler jusqu’à la section « Compatibilité » et activez l’option « Envoyer les messages avec OK »._
 
 #### Touche 0 :
 - **En mode 123 :**

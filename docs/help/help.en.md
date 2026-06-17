@@ -112,9 +112,7 @@ Clear the suggestion filter, if applied.
 - When suggestions are displayed, type the currently selected suggestion.
 - Otherwise, perform the default action for the current application (e.g. send a message, go to a URL, or just type a new line).
 
-_**Note:** Every application decides on its own what to do when OK is pressed and TT9 has no control over this._
-
-_**Note 2:** To send messages with OK in messaging applications, you must enable their "Send with ENTER" or similarly named setting. If the application has no such setting, it probably does not support sending messages this way. If so, use the KeyMapper app from the [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) or from [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). It can detect chat apps and simulate a touch on the send message button upon pressing or holding a physical key. Check out the [quick-start guide](https://docs.keymapper.club/quick-start/) for more info._
+_**Note:** To send messages with OK in chat applications, please go to Settings → Keypad, scroll down to the "Compatibility" section, and enable "Send messages with OK"._
 
 #### 0-key:
 - **In 123 mode:**

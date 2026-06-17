@@ -164,9 +164,13 @@ public class AppHacks {
 	 * Runs non-standard actions for certain apps and fields. Use instead of inputConnection.performEditorAction(action).
 	 * Returns "true" if the action was handled, "false" otherwise.
 	 */
-	public boolean onAction(int action) {
+	public boolean onAction(@NonNull SettingsStore settings, int action) {
 		if (inputType != null && textField != null && inputType.isSonimSearchField(action)) {
 			return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+		}
+
+		if (inputType != null && textField != null && settings.getSendWithEnterInChatApps() && inputType.isChatField()) {
+			return textField.performAction(EditorInfo.IME_ACTION_SEND);
 		}
 
 		return false;
@@ -204,9 +208,13 @@ public class AppHacks {
 	 * depending on the connected application and input field. On invalid connection or field,
 	 * it does nothing and return "false", signaling the system we have ignored the key press.
 	 */
-	public boolean onEnter() {
+	public boolean onEnter(@NonNull SettingsStore settings) {
 		if (inputType == null || textField == null) {
 			return false;
+		}
+
+		if (settings.getSendWithEnterInChatApps() && inputType.isChatField()) {
+			return textField.performAction(EditorInfo.IME_ACTION_SEND);
 		}
 
 		if (inputType.isTermux() || inputType.isMultilineTextInNonSystemApp()) {

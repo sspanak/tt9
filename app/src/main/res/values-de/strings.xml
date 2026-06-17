@@ -282,6 +282,8 @@
 	<string name="tutorial_classic_OK_swipe">Wenn es keine Vorschläge gibt, nach oben/unten wischen, um den Cursor zu bewegen.\n\nWenn Vorschläge vorhanden sind, nach oben wischen, um sie zu filtern, oder nach unten, um den Filter zu entfernen.</string>
 	<string name="tutorial_classic_add_word">Nach links wischen, um ein Wort hinzuzufügen.</string>
 	<string name="pref_hack_auto_disable_composing">Texterstellung automatisch deaktivieren</string>
+	<string name="pref_hack_send_with_enter_in_chat_apps">Mit OK in Chat-Apps senden</string>
+	<string name="pref_hack_send_with_enter_in_chat_apps_summary">Nachrichten in Chat-Apps durch Drücken von OK oder der mittleren Taste des Steuerkreuzes senden.</string>
 	<string name="pref_show_suggestions_abc">Buchstabenvorschläge anzeigen</string>
 	<string name="pref_auto_trim_trailing_space">Nachfolgende Leerzeichen automatisch entfernen</string>
 	<string name="edit_word_invalid_characters">„%1$s“ kann nicht bearbeitet werden, wenn die Sprache „%2$s“ ist.</string>

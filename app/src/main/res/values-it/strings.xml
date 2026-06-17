@@ -283,6 +283,8 @@
 	<string name="tutorial_classic_OK_swipe">Quando non ci sono suggerimenti, scorri verso l’alto/il basso per spostare il cursore.\n\nQuando ci sono suggerimenti, scorri verso l’alto per filtrarli o verso il basso per rimuovere il filtro.</string>
 	<string name="tutorial_classic_add_word">Scorri verso sinistra per aggiungere una parola.</string>
 	<string name="pref_hack_auto_disable_composing">Disattivare automaticamente la composizione del testo</string>
+	<string name="pref_hack_send_with_enter_in_chat_apps">Invia con OK nelle app di chat</string>
+	<string name="pref_hack_send_with_enter_in_chat_apps_summary">Inviare messaggi nelle app di chat premendo OK o il pulsante centrale del D-pad.</string>
 	<string name="pref_show_suggestions_abc">Mostra suggerimenti di lettere</string>
 	<string name="pref_auto_trim_trailing_space">Rimuovere automaticamente gli spazi finali</string>
 	<string name="edit_word_invalid_characters">Impossibile modificare \"%1$s\" quando la lingua è \"%2$s\".</string>

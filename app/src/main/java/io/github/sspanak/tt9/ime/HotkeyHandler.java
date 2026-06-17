@@ -99,7 +99,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		boolean actionPerformed;
 
 		if (action == TextField.IME_ACTION_ENTER) {
-			actionPerformed = appHacks.onEnter();
+			actionPerformed = appHacks.onEnter(settings);
 			if (actionPerformed) {
 				forceShowWindow();
 			}
@@ -109,7 +109,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return actionPerformed;
 		}
 
-		actionPerformed = appHacks.onAction(action) || textField.performAction(action);
+		actionPerformed = appHacks.onAction(settings, action) || textField.performAction(action);
 		updateShiftState(null, true, false);
 
 		return actionPerformed;
