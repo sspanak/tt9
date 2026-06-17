@@ -62,6 +62,12 @@
 
 	<PreferenceCategory android:title="@string/pref_category_hacks">
 		<SwitchPreferenceCompat
+			android:defaultValue="false"
+			android:key="hack_send_with_enter_in_chat_apps"
+			android:title="@string/pref_hack_send_with_enter_in_chat_apps"
+			android:summary="@string/pref_hack_send_with_enter_in_chat_apps_summary"/>
+
+		<SwitchPreferenceCompat
 			android:defaultValue="true"
 			android:key="pref_allow_composing_text"
 			android:summary="@string/pref_allow_composing_text_summary"

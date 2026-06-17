@@ -94,7 +94,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return true;
 		}
 
-		int action = textField.getAction();
+		int action = appHacks.getEditorAction(settings);
 
 		boolean actionPerformed;
 
@@ -110,7 +110,9 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		actionPerformed = appHacks.onAction(action) || textField.performAction(action);
-		updateShiftState(null, true, false);
+		if (!actionPerformed) {
+			updateShiftState(null, true, false);
+		}
 
 		return actionPerformed;
 	}

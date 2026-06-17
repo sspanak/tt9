@@ -112,9 +112,7 @@ Cancella il filtro di suggerimento, se applicato.
 - Quando sono visualizzati i suggerimenti, digita il suggerimento attualmente selezionato.
 - Altrimenti, esegue l'azione predefinita per l'applicazione corrente (ad esempio invia un messaggio, vai a un URL o digita una nuova riga).
 
-_**Nota:** Ogni applicazione decide autonomamente cosa fare quando si preme OK e TT9 non ha alcun controllo su questo._
-
-_**Nota 2:** Per inviare messaggi con OK nelle applicazioni di messaggistica, è necessario abilitare l'impostazione "Invia con INVIO" o una simile. Se l'applicazione non dispone di questa impostazione, probabilmente non supporta l'invio dei messaggi in questo modo. In tal caso, utilizzare l'app KeyMapper dal [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) o da [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). KeyMapper può rilevare le app di chat e simulare un tocco sul pulsante di invio del messaggio premendo o tenendo premuto un tasto fisico. Consultare la [guida rapida](https://docs.keymapper.club/quick-start/) per ulteriori informazioni._
+_**Nota:** Per inviare messaggi con il tasto OK nelle applicazioni di chat, andare su Impostazioni → Tastierino, scorrere fino alla sezione «Compatibilità» e attivare «Invia messaggi con OK»._
 
 #### Tasto 0:
 - **In modalità 123:**

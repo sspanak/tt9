@@ -285,6 +285,8 @@
 	<string name="tutorial_classic_OK_swipe">Öneri yokken, imleci hareket ettirmek için yukarı/aşağı kaydırın.\n\nÖneriler varken, filtrelemek için yukarı, filtreyi temizlemek için aşağı kaydırın.</string>
 	<string name="tutorial_classic_add_word">Bir kelime eklemek için sola kaydırın.</string>
 	<string name="pref_hack_auto_disable_composing">Otomatik olarak metin girişini gizle</string>
+	<string name="pref_hack_send_with_enter_in_chat_apps">Sohbet uygulamalarında OK ile gönder</string>
+	<string name="pref_hack_send_with_enter_in_chat_apps_summary">Sohbet uygulamalarında OK veya D-Pad orta tuşuna basarak mesaj gönderme. (Bazı uygulamalarda desteklenmez)</string>
 	<string name="pref_show_suggestions_abc">Harf önerilerini göster</string>
 	<string name="pref_auto_trim_trailing_space">Sondaki boşlukları otomatik olarak kaldır</string>
 	<string name="edit_word_invalid_characters">Dil \"%2$s\" iken \"%1$s\" düzenlenemez.</string>

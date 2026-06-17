@@ -289,6 +289,8 @@
 	<string name="tutorial_classic_OK_swipe">Kai nėra pasiūlymų, braukite aukštyn/žemyn, kad perkeltumėte žymeklį.\n\nKai yra pasiūlymų, braukite aukštyn, kad juos filtruotumėte, arba žemyn, kad išvalytumėte filtrą.</string>
 	<string name="tutorial_classic_add_word">Braukite kairėn, kad pridėtumėte žodį.</string>
 	<string name="pref_hack_auto_disable_composing">Automatiškai išjungti teksto komponavimą</string>
+	<string name="pref_hack_send_with_enter_in_chat_apps">Siųsti su OK pokalbių programėlėse</string>
+	<string name="pref_hack_send_with_enter_in_chat_apps_summary">Žinučių siuntimas pokalbių programėlėse paspaudus OK arba centrinį D-pad mygtuką. (Nepalaikoma kai kuriose programėlėse)</string>
 	<string name="pref_show_suggestions_abc">Rodyti raidžių pasiūlymus</string>
 	<string name="pref_auto_trim_trailing_space">Automatiškai šalinti pabaigos tarpus</string>
 	<string name="edit_word_invalid_characters">Negalima redaguoti „%1$s“, kai kalba yra „%2$s“.</string>

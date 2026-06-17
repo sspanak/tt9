@@ -280,6 +280,8 @@
 	<string name="tutorial_classic_OK_swipe">Lorsqu’il n’y a pas de suggestions, balayer vers le haut/bas pour déplacer le curseur.\n\nLorsqu’il y a des suggestions, balayer vers le haut pour les filtrer ou vers le bas pour effacer le filtre.</string>
 	<string name="tutorial_classic_add_word">Balayer vers la gauche pour ajouter un mot.</string>
 	<string name="pref_hack_auto_disable_composing">Désactiver automatiquement la composition de texte</string>
+	<string name="pref_hack_send_with_enter_in_chat_apps">Envoyer avec OK dans les applications de chat</string>
+	<string name="pref_hack_send_with_enter_in_chat_apps_summary">Envoyer des messages dans les applications de chat en appuyant sur OK ou sur le bouton central du pavé directionnel. (Non pris en charge dans certaines applications)</string>
 	<string name="pref_show_suggestions_abc">Afficher les suggestions de lettres</string>
 	<string name="pref_auto_trim_trailing_space">Supprimer automatiquement les espaces de fin</string>
 	<string name="edit_word_invalid_characters">Impossible de modifier « %1$s » lorsque la langue est « %2$s ».</string>

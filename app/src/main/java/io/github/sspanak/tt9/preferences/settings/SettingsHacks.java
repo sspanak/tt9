@@ -110,4 +110,8 @@ class SettingsHacks extends SettingsAddedWords {
 	public void setMessengerReplyExtraPadding(boolean enabled) {
 		getPrefsEditor().putBoolean("hack_messenger_reply_extra_padding", enabled).apply();
 	}
+
+	public boolean getSendWithEnterInChatApps() {
+		return prefs.getBoolean("hack_send_with_enter_in_chat_apps", false);
+	}
 }

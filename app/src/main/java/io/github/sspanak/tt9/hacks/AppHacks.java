@@ -256,6 +256,22 @@ public class AppHacks {
 	}
 
 
+	public int getEditorAction(@NonNull SettingsStore settings) {
+		int action = textField != null ? textField.getAction() : EditorInfo.IME_ACTION_UNSPECIFIED;
+
+		if (
+			action != EditorInfo.IME_ACTION_GO && action != EditorInfo.IME_ACTION_SEARCH
+			&& action != EditorInfo.IME_ACTION_PREVIOUS && action != EditorInfo.IME_ACTION_NEXT
+			&& settings.getSendWithEnterInChatApps()
+			&& inputType != null && inputType.isChatField()
+		) {
+			return EditorInfo.IME_ACTION_SEND;
+		}
+
+		return action;
+	}
+
+
 	/**
 	 * For Deezer, eBay and other apps' search fields, where the input connection gets restarted on
 	 * every key press. The restart causes initialization of a new TextField object, losing the previous
