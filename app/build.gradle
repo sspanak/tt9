@@ -130,13 +130,13 @@ def getVersionString = { flavor -> return flavor == 'debug' ? getDebugVersion() 
 
 android {
 	namespace = PACKAGE_NAME
-	compileSdk = 36
+	compileSdk = 37
 
 	defaultConfig {
 		applicationId = PACKAGE_NAME
 		buildFeatures.buildConfig = true
 		minSdk = 24
-		targetSdk = 36
+		targetSdk = 37
 		versionCode = getVerCode()
 		versionName = getVerName()
 
@@ -230,6 +230,6 @@ android {
 
 dependencies {
 	implementation 'androidx.preference:preference:1.2.1'
-	implementation 'com.google.android.material:material:1.13.0'
-	premiumImplementation 'com.android.billingclient:billing:8.3.0'
+	implementation 'com.google.android.material:material:1.14.0'
+	premiumImplementation 'com.android.billingclient:billing:9.0.0'
 }
