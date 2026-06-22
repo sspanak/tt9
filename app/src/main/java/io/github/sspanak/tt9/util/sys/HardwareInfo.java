@@ -60,7 +60,7 @@ public class HardwareInfo {
 
 	public static boolean isFoldable(@NonNull Context context) {
 		if (IS_FOLDABLE == null) {
-			IS_FOLDABLE = DeviceInfo.AT_LEAST_ANDROID_15 && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE);
+			IS_FOLDABLE = DeviceInfo.AT_LEAST_ANDROID_11 && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE);
 		}
 
 		return IS_FOLDABLE;
