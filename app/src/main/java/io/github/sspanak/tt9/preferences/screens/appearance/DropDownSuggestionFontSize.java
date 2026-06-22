@@ -20,7 +20,7 @@ public class DropDownSuggestionFontSize extends EnhancedDropDownPreference imple
 	@Override
 	public EnhancedDropDownPreference populate(@NonNull SettingsStore settings) {
 		commitPercentRange(70, 150, 5);
-		setValue(String.valueOf(settings.getSuggestionFontSizePercent()));
+		initValue(settings);
 		onLayoutChange(settings.getMainViewLayout());
 
 		return this;
@@ -29,6 +29,10 @@ public class DropDownSuggestionFontSize extends EnhancedDropDownPreference imple
 	@Override
 	protected String getName() {
 		return NAME;
+	}
+
+	protected void initValue(@NonNull SettingsStore settings) {
+		setValue(String.valueOf(settings.getSuggestionFontSizePercent(true)));
 	}
 
 	public void onLayoutChange(int mainViewLayout) {

@@ -20,7 +20,7 @@ public class DropDownNumpadKeyFontSize extends EnhancedDropDownPreference implem
 	@Override
 	public EnhancedDropDownPreference populate(@NonNull SettingsStore settings) {
 		commitPercentRange(80, 130, 5);
-		setValue(String.valueOf(settings.getNumpadKeyFontSizePercent()));
+		initValue(settings);
 		onLayoutChange(settings.getMainViewLayout());
 
 		return this;
@@ -29,6 +29,10 @@ public class DropDownNumpadKeyFontSize extends EnhancedDropDownPreference implem
 	@Override
 	protected String getName() {
 		return NAME;
+	}
+
+	protected void initValue(@NonNull SettingsStore settings) {
+		setValue(String.valueOf(settings.getNumpadKeyFontSizePercent(true)));
 	}
 
 	public void onLayoutChange(int mainViewLayout) {

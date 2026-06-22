@@ -18,6 +18,7 @@ import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.LegacyDb;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.screens.appearanceUnfolded.AppearanceUnfoldedScreen;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 import io.github.sspanak.tt9.preferences.screens.UsageStatsScreen;
 import io.github.sspanak.tt9.preferences.screens.appearance.AppearanceScreen;
@@ -25,6 +26,7 @@ import io.github.sspanak.tt9.preferences.screens.debug.DebugScreen;
 import io.github.sspanak.tt9.preferences.screens.deleteWords.DeleteWordsScreen;
 import io.github.sspanak.tt9.preferences.screens.fnKeyOrder.FnKeyOrderScreen;
 import io.github.sspanak.tt9.preferences.screens.hotkeys.HotkeysScreen;
+import io.github.sspanak.tt9.preferences.screens.keychars.KeyCharsScreen;
 import io.github.sspanak.tt9.preferences.screens.keypad.KeyPadScreen;
 import io.github.sspanak.tt9.preferences.screens.languageSelection.LanguageSelectionScreen;
 import io.github.sspanak.tt9.preferences.screens.languages.LanguagesScreen;
@@ -32,7 +34,6 @@ import io.github.sspanak.tt9.preferences.screens.main.MainSettingsScreen;
 import io.github.sspanak.tt9.preferences.screens.mindReading.MindReadingScreen;
 import io.github.sspanak.tt9.preferences.screens.modeAbc.ModeAbcScreen;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.ModePredictiveScreen;
-import io.github.sspanak.tt9.preferences.screens.keychars.KeyCharsScreen;
 import io.github.sspanak.tt9.preferences.screens.setup.SetupScreen;
 import io.github.sspanak.tt9.ui.PremiumPreferencesActivity;
 import io.github.sspanak.tt9.util.Logger;
@@ -150,6 +151,7 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 
 		return switch (name) {
 			case AppearanceScreen.NAME -> new AppearanceScreen(this);
+			case AppearanceUnfoldedScreen.NAME -> new AppearanceUnfoldedScreen(this);
 			case DebugScreen.NAME -> new DebugScreen(this);
 			case DeleteWordsScreen.NAME -> new DeleteWordsScreen(this);
 			case FnKeyOrderScreen.NAME -> new FnKeyOrderScreen(this);

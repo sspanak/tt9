@@ -213,7 +213,7 @@ public class SoftKey extends BaseClickableKey {
 	 */
 	protected float getTitleScale() {
 		float keyboardSizeScale = Math.max(0.7f, Math.min(getTT9Width(), getTT9Height()));
-		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent() / 100f : 1;
+		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent(null) / 100f : 1;
 		return keyboardSizeScale * getScreenSizeScale() * settingsScale;
 	}
 

@@ -275,7 +275,7 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 	public float getNormalizedWidth() {
 		if (normalizedWidth < 0) {
-			normalizedWidth = settings.getWidthPercent(!DeviceInfo.isLandscapeOrientation(this)) / 100f;
+			normalizedWidth = settings.getWidthPercent(!DeviceInfo.isLandscapeOrientation(this), null) / 100f;
 		}
 		return normalizedWidth;
 	}
@@ -283,7 +283,7 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 	public float getNormalizedHeight() {
 		if (normalizedHeight < 0) {
-			normalizedHeight = (float) settings.getNumpadKeyHeight() / (float) settings.getNumpadKeyDefaultHeight();
+			normalizedHeight = (float) settings.getNumpadKeyHeight(null) / (float) settings.getNumpadKeyDefaultHeight();
 		}
 		return normalizedHeight;
 	}
