@@ -1,5 +1,8 @@
 package io.github.sspanak.tt9.util;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -24,5 +27,13 @@ public class SupremeExecutor {
 
 	public static void execute(@NonNull Runnable task) {
 		get().execute(task);
+	}
+
+	public static void executeOnMainThread(@NonNull Runnable task) {
+		if (Looper.myLooper() == Looper.getMainLooper()) {
+			task.run();
+		} else {
+			new Handler(Looper.getMainLooper()).post(task);
+		}
 	}
 }

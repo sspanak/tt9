@@ -15,18 +15,28 @@ import io.github.sspanak.tt9.ui.tray.StatusBar;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
+import io.github.sspanak.tt9.util.sys.FoldDetector;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 abstract class UiHandler extends AbstractHandler {
 	private final static String LOG_TAG = "UiHandler";
 
 	@NonNull protected final AppHacks appHacks = new AppHacks();
+	@Nullable protected FoldDetector foldDetector = null;
 	protected SettingsStore settings;
 
 	protected int displayTextCase = InputMode.CASE_UNDEFINED;
 	protected boolean isMainViewShown = false;
 	protected MainView mainView = null;
 	protected StatusBar statusBar = null;
+
+
+	protected void cleanUp() {
+		if (foldDetector != null) {
+			foldDetector.destroy();
+			foldDetector = null;
+		}
+	}
 
 
 	@Override
@@ -50,6 +60,10 @@ abstract class UiHandler extends AbstractHandler {
 
 	@Override
 	protected void onInit() {
+		if (foldDetector == null) {
+			foldDetector = new FoldDetector(this, this::onFoldStateChanged);
+		}
+
 		if (mainView == null) {
 			mainView = new MainView(getFinalContext());
 			initTray();
@@ -57,6 +71,11 @@ abstract class UiHandler extends AbstractHandler {
 			mainView.destroy();
 			mainView.getView();
 		}
+	}
+
+
+	private void onFoldStateChanged(boolean folded) {
+		Logger.d(LOG_TAG, "====+> Fold state changed: " + (folded ? "folded" : "unfolded"));
 	}
 
 
