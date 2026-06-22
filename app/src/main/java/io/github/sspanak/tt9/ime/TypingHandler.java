@@ -79,6 +79,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected void cleanUp() {
+		super.cleanUp();
 		InputConnectionAsync.destroy();
 		mindReader.destroy();
 	}
