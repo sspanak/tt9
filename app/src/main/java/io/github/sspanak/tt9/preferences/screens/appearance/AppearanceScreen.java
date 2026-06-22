@@ -45,6 +45,11 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 			return;
 		}
 
+		UnfoldedAppearanceLink unfoldedLink = findPreference(UnfoldedAppearanceLink.NAME);
+		if (unfoldedLink != null) {
+			unfoldedLink.populate(activity);
+		}
+
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
 		(new ItemSuggestionSmoothScroll(findPreference(ItemSuggestionSmoothScroll.NAME), activity.getSettings())).populate();
 
