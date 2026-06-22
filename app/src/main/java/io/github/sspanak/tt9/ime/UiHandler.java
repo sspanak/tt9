@@ -61,7 +61,7 @@ abstract class UiHandler extends AbstractHandler {
 	@Override
 	protected void onInit() {
 		if (foldDetector == null) {
-			foldDetector = new FoldDetector(this, this::onFoldStateChanged);
+			foldDetector = new FoldDetector(this, (folded) -> settings.setFolded(folded));
 		}
 
 		if (mainView == null) {
@@ -71,11 +71,6 @@ abstract class UiHandler extends AbstractHandler {
 			mainView.destroy();
 			mainView.getView();
 		}
-	}
-
-
-	private void onFoldStateChanged(boolean folded) {
-		Logger.d(LOG_TAG, "====+> Fold state changed: " + (folded ? "folded" : "unfolded"));
 	}
 
 

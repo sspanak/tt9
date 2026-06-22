@@ -30,14 +30,19 @@ public class DropDownKeyHeight extends EnhancedDropDownPreference implements Ite
 			add(String.valueOf(Math.round(baseSize * i / 100.0)), i + " ％");
 		}
 		commitOptions();
-		setValue(String.valueOf(settings.getNumpadKeyHeight()));
-		onLayoutChange(settings.getMainViewLayout());
 
+		onLayoutChange(settings.getMainViewLayout());
+		initValue(settings);
 		return this;
 	}
 
 	@Override
 	protected String getName() {
 		return NAME;
+	}
+
+
+	protected void initValue(@NonNull SettingsStore settings) {
+		setValue(String.valueOf(settings.getNumpadKeyHeight(true)));
 	}
 }

@@ -117,7 +117,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		getView();
 		setSoftKeysVisibility();
 		setPadding();
-		setWidth(tt9.getSettings().getWidthPercent(isPortrait), tt9.getSettings().getAlignment());
+		setWidth(tt9.getSettings().getWidthPercent(isPortrait, null), tt9.getSettings().getAlignment(null));
 		setBackgroundBlending();
 		enableClickHandlers();
 		renderKeys(false);

@@ -92,14 +92,14 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 		boolean right = deltaX > 0;
 		SettingsStore settings = tt9.getSettings();
 
-		if (settings.getAlignment() == Gravity.START && right) {
-			settings.setAlignment(Gravity.CENTER_HORIZONTAL);
-		} else if (settings.getAlignment() == Gravity.END && !right) {
-			settings.setAlignment(Gravity.CENTER_HORIZONTAL);
-		} else if (settings.getAlignment() == Gravity.CENTER_HORIZONTAL && right) {
-			settings.setAlignment(Gravity.END);
-		} else if (settings.getAlignment() == Gravity.CENTER_HORIZONTAL && !right) {
-			settings.setAlignment(Gravity.START);
+		if (settings.getAlignment(null) == Gravity.START && right) {
+			settings.setAlignment(Gravity.CENTER_HORIZONTAL, null);
+		} else if (settings.getAlignment(null) == Gravity.END && !right) {
+			settings.setAlignment(Gravity.CENTER_HORIZONTAL, null);
+		} else if (settings.getAlignment(null) == Gravity.CENTER_HORIZONTAL && right) {
+			settings.setAlignment(Gravity.END, null);
+		} else if (settings.getAlignment(null) == Gravity.CENTER_HORIZONTAL && !right) {
+			settings.setAlignment(Gravity.START, null);
 		}
 
 		render();

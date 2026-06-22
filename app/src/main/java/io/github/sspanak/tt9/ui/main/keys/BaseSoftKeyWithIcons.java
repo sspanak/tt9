@@ -62,7 +62,7 @@ public class BaseSoftKeyWithIcons extends BaseSoftKeyCustomizable {
 	protected float getCentralIconScale() {
 		float keyboardSizeScale = Math.max(0.7f, Math.min(getTT9Width(), getTT9Height()));
 		keyboardSizeScale = Math.min(1.15f, keyboardSizeScale);
-		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent() / 100f : 1;
+		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent(null) / 100f : 1;
 		return keyboardSizeScale * getScreenSizeScale() * settingsScale;
 	}
 
@@ -95,7 +95,7 @@ public class BaseSoftKeyWithIcons extends BaseSoftKeyCustomizable {
 	@Override
 	protected float getCornerElementScale(int position) {
 		float keyboardSizeScale = Math.min(1, Math.max(getTT9Width(), getTT9Height()));
-		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent() / 100f : 1;
+		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent(null) / 100f : 1;
 		return keyboardSizeScale * getScreenSizeScale() * settingsScale;
 	}
 

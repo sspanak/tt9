@@ -67,6 +67,8 @@
 	<string name="pref_category_predictive_mode">Predictive Mode</string>
 	<string name="pref_category_setup">Initial Setup</string>
 	<string name="pref_category_typing">Typing</string>
+	<string name="pref_category_unfolded_appearance">Unfolded Appearance</string>
+	<string name="pref_category_unfolded_appearance_summary">Configure the appearance when the device is opened.</string>
 	<string name="pref_category_usage_stats" translatable="false">Usage Stats</string>
 
 	<string name="pref_abc_auto_accept">Automatic Letter Selection</string>
