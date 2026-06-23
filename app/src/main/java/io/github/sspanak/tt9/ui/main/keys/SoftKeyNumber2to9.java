@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -27,6 +28,18 @@ public class SoftKeyNumber2to9 extends SoftKeyNumberSwipeable {
 	@Override
 	protected boolean allowTwoStepInAccessibility() {
 		return tt9 == null || !tt9.isTouchExplorationEnabled() || isFnPanelOn();
+	}
+
+
+	@Override
+	public boolean isDynamic() {
+		// allow refreshing the text case of the virtual keys when editing words, for the languages
+		// that have upper case letters
+		return
+			tt9 != null
+			&& InputModeKind.isRecomposing(tt9.getInputMode())
+			&& tt9.getLanguage() != null && tt9.getLanguage().hasUpperCase()
+			&& tt9.getSettings().isMainLayoutLarge();
 	}
 
 
