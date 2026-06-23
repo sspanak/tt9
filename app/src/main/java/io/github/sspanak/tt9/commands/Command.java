@@ -53,7 +53,12 @@ public interface Command {
 	/**
 	 * A standard availability check for commands that just require the keyboard to be active.
 	 */
-	default boolean isAvailableStd(@Nullable TraditionalT9 tt9) { return tt9 != null && !tt9.shouldBeOff() && tt9.isInputViewShown(); }
+	default boolean isAvailableStd(@Nullable TraditionalT9 tt9) {
+		return
+			tt9 != null
+			&& !tt9.shouldBeOff()
+			&& (tt9.getSettings().isMainLayoutLarge() || tt9.isInputViewShown());
+	}
 
 
 	/**
