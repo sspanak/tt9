@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ime;
 
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
@@ -61,7 +62,7 @@ abstract class UiHandler extends AbstractHandler {
 	@Override
 	protected void onInit() {
 		if (foldDetector == null) {
-			foldDetector = new FoldDetector(this, (folded) -> settings.setFolded(folded));
+			foldDetector = new FoldDetector(this, () -> settings.setFolded(foldDetector.isFolded()));
 		}
 
 		if (mainView == null) {
@@ -71,6 +72,17 @@ abstract class UiHandler extends AbstractHandler {
 			mainView.destroy();
 			mainView.getView();
 		}
+	}
+
+
+	@Override
+	protected boolean onStart(EditorInfo inputField, boolean restarting) {
+		if (getFinalContext().getInputType().isOwnSwitchPreviewField()) {
+			settings.setFolded(SettingsStore.isFoldedPreview);
+		} else if (foldDetector != null) {
+			settings.setFolded(foldDetector.isFolded());
+		}
+		return true;
 	}
 
 
@@ -151,7 +163,7 @@ abstract class UiHandler extends AbstractHandler {
 
 	/**
 	 * forceShowWindow
-	 * Some applications may hide our window and it remains invisible until the screen is touched or OK is pressed.
+	 * Some applications may hide our window, and it remains invisible until the screen is touched or OK is pressed.
 	 * This is fine for touchscreen keyboards, but the hardware keyboard allows typing even when the window and the suggestions
 	 * are invisible. This function forces the InputMethodManager to show our window.
 	 * WARNING! Calling this may cause a restart, which will cause InputMode to be recreated. Depending

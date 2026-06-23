@@ -107,7 +107,7 @@ abstract public class ScreenWithPreviewKeyboardHeaderFragment extends BaseScreen
 	}
 
 
-	private void onBeforePreview() {
+	protected void onBeforePreview() {
 		AbstractColorScheme scheme = getInitialPreviewScheme();
 		if (activity != null && scheme != null) {
 			activity.getSettings().setPreviewScheme(scheme);
