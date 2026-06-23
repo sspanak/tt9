@@ -15,6 +15,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.util.Logger;
 
 public class KeyboardPreviewSwitchPreference extends Preference {
@@ -57,6 +58,14 @@ public class KeyboardPreviewSwitchPreference extends Preference {
 		text1 = view.findViewById(R.id.preview_text_field_1);
 		text2 = view.findViewById(R.id.preview_text_field_2);
 		switchView = view.findViewById(R.id.switchWidget);
+
+		if (text1 != null) {
+			text1.setPrivateImeOptions(InputType.OWN_SWITCH_PREVIEW_FIELD_FLAG);
+		}
+
+		if (text2 != null) {
+			text2.setPrivateImeOptions(InputType.OWN_SWITCH_PREVIEW_FIELD_FLAG);
+		}
 
 		if (automatic) {
 			return;

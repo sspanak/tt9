@@ -1,11 +1,13 @@
 package io.github.sspanak.tt9.preferences.screens.appearanceUnfolded;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.screens.ScreenWithPreviewKeyboardHeaderFragment;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class AppearanceUnfoldedScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 	public static final String NAME = "AppearanceUnfolded";
@@ -19,47 +21,57 @@ public class AppearanceUnfoldedScreen extends ScreenWithPreviewKeyboardHeaderFra
 
 	@Override
 	protected void onCreate() {
-		createGeometrySection();
-		createKeysSection();
+		if (activity != null) {
+			EnhancedDropDownPreference[] dropdowns = getDropDowns();
+			initOptions(activity.getSettings(), dropdowns);
+			enablePreviewOnChange(dropdowns);
+		}
 		resetFontSize(false);
 	}
 
 
-	private void createGeometrySection() {
-		if (activity == null) {
-			return;
-		}
-
-		DropDownAlignmentUnfolded alignment = findPreference(DropDownAlignmentUnfolded.NAME);
-		DropDownBottomPaddingPortraitUnfolded bottomPadding = findPreference(DropDownBottomPaddingPortraitUnfolded.NAME);
-		DropDownNumpadFnKeyScaleUnfolded fnKeyScale = findPreference(DropDownNumpadFnKeyScaleUnfolded.NAME);
-		DropDownSuggestionFontSizeUnfolded fontSize = findPreference(DropDownSuggestionFontSizeUnfolded.NAME);
-		DropDownKeyHeightUnfolded height = findPreference(DropDownKeyHeightUnfolded.NAME);
-		DropDownNumpadKeyFontSizeUnfolded keyFontSize = findPreference(DropDownNumpadKeyFontSizeUnfolded.NAME);
-		DropDownWidthUnfolded width = findPreference(DropDownWidthUnfolded.NAME);
-
-		EnhancedDropDownPreference[] dropdowns = {
-			alignment,
-			bottomPadding,
-			fnKeyScale,
-			fontSize,
-			height,
-			keyFontSize,
-			width
+	@NonNull private EnhancedDropDownPreference[] getDropDowns() {
+		return new EnhancedDropDownPreference[] {
+			findPreference(DropDownAlignmentUnfolded.NAME),
+			findPreference(DropDownBottomPaddingPortraitUnfolded.NAME),
+			findPreference(DropDownNumpadFnKeyScaleUnfolded.NAME),
+			findPreference(DropDownSuggestionFontSizeUnfolded.NAME),
+			findPreference(DropDownKeyHeightUnfolded.NAME),
+			findPreference(DropDownNumpadKeyFontSizeUnfolded.NAME),
+			findPreference(DropDownWidthUnfolded.NAME)
 		};
+	}
 
+
+	private void initOptions(@NonNull SettingsStore settings, @NonNull EnhancedDropDownPreference[] dropdowns) {
 		for (EnhancedDropDownPreference item : dropdowns) {
 			if (item != null) {
-				item.populate(activity.getSettings()).preview();
+				item.populate(settings).preview();
 			}
 		}
 	}
 
 
-	private void createKeysSection() {
-		if (activity == null) {
-			return;
+	private void enablePreviewOnChange(@NonNull EnhancedDropDownPreference[] dropdowns) {
+		for (EnhancedDropDownPreference dropdown : dropdowns) {
+			if (dropdown != null) {
+				dropdown.setOnChangeListener(this::previewDropDownChange);
+			}
 		}
 	}
 
+
+	private void previewDropDownChange(String s) {
+		previewKeyboard();
+	}
+
+
+	@Override
+	protected void onBeforePreview() {
+		if (activity != null) {
+			SettingsStore.isFoldedPreview = false;
+		}
+
+		super.onBeforePreview();
+	}
 }

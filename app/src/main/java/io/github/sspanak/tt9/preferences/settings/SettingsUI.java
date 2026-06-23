@@ -43,7 +43,8 @@ public class SettingsUI extends SettingsTyping {
 	private int DEFAULT_WIDTH_LANDSCAPE = 0;
 	private Boolean DEFAULT_QUICK_SWITCH_LANGUAGE = null;
 
-	protected boolean isFolded = true;
+	private static boolean isFolded = true;
+	public static boolean isFoldedPreview = true;
 
 
 	SettingsUI(Context context) {
@@ -102,7 +103,7 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public void setFolded(boolean folded) {
-		this.isFolded = folded;
+		isFolded = folded;
 	}
 
 	protected boolean getFoldedAuto(@Nullable Boolean folded) {
