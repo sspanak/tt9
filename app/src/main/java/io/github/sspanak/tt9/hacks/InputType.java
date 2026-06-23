@@ -10,15 +10,18 @@ import io.github.sspanak.tt9.ime.helpers.StandardInputType;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class InputType extends StandardInputType {
+	public static final String OWN_SWITCH_PREVIEW_FIELD_FLAG = InputType.class.getCanonicalName() + ".OWN_PREVIEW_FIELD";
 	public static final String OWN_TEST_FIELD_TAG = InputType.class.getCanonicalName() + ".OWN_TEST_FIELD";
 
 	private final boolean isUs;
+	private final boolean isOwnSwitchPreviewField;
 	private final boolean isOwnTestField;
 
 	public InputType(@Nullable InputMethodService ims, EditorInfo inputField) {
 		super(ims, inputField);
-		isUs = isAppField(ims != null ? ims.getPackageName() : null, EditorInfo.TYPE_NULL);
-		isOwnTestField = isUs && field != null && OWN_TEST_FIELD_TAG.equals(field.privateImeOptions);
+		isUs = ims != null && field != null && ims.getPackageName().equals(field.packageName);
+		isOwnSwitchPreviewField = isUs && OWN_SWITCH_PREVIEW_FIELD_FLAG.equals(field.privateImeOptions);
+		isOwnTestField = isUs && OWN_TEST_FIELD_TAG.equals(field.privateImeOptions);
 	}
 
 
@@ -194,6 +197,11 @@ public class InputType extends StandardInputType {
 	 */
 	boolean isMultilineTextInNonSystemApp() {
 		return field != null && !field.packageName.contains("android") && isMultilineText();
+	}
+
+
+	public boolean isOwnSwitchPreviewField() {
+		return isOwnSwitchPreviewField;
 	}
 
 

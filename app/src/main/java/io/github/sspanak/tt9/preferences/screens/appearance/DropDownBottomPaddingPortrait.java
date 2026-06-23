@@ -23,13 +23,17 @@ public class DropDownBottomPaddingPortrait extends EnhancedDropDownPreference im
 	@Override
 	public EnhancedDropDownPreference populate(@NonNull SettingsStore settings) {
 		commitRange(0, DEFAULT + DEFAULT_API_35, 8, " dp");
-		setValue(String.valueOf(settings.getBottomPaddingPortrait()));
+		initValue(settings);
 		return this;
 	}
 
 	@Override
 	protected String getName() {
 		return NAME;
+	}
+
+	protected void initValue(@NonNull SettingsStore settings) {
+		setValue(String.valueOf(settings.getBottomPaddingPortrait(true)));
 	}
 
 	@Override

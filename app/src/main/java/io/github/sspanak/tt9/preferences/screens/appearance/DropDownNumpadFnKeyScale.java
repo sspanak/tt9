@@ -29,7 +29,7 @@ public class DropDownNumpadFnKeyScale extends EnhancedDropDownPreference impleme
 		add("0.477", "155 ％"); // whatever...
 		commitOptions();
 
-		setValue(getClosestOption(settings.getNumpadFnKeyScale(), values));
+		setValue(getClosestOption(getSettingsValue(settings), values));
 		onLayoutChange(settings.getMainViewLayout());
 
 		return this;
@@ -55,6 +55,10 @@ public class DropDownNumpadFnKeyScale extends EnhancedDropDownPreference impleme
 		}
 
 		return closest;
+	}
+
+	protected float getSettingsValue(@NonNull SettingsStore settings) {
+		return settings.getNumpadFnKeyScale(true);
 	}
 
 	public void onLayoutChange(int mainViewLayout) {

@@ -19,6 +19,7 @@ public class HardwareInfo {
 	public static final boolean IS_SONIM = Build.MANUFACTURER.equals("Sonimtech");
 	public static final boolean IS_XIAOMI = Build.MANUFACTURER.equals("Xiaomi");
 
+	private static Boolean IS_FOLDABLE = null;
 	private static Boolean NO_TOUCH_SCREEN = null;
 
 	private static Resources resources;
@@ -55,6 +56,16 @@ public class HardwareInfo {
 	public static float getScreenWidthDp(Context context) {
 		return getScreenWidth(context) / getScreenPixelDensity(context);
 	}
+
+
+	public static boolean isFoldable(@NonNull Context context) {
+		if (IS_FOLDABLE == null) {
+			IS_FOLDABLE = DeviceInfo.AT_LEAST_ANDROID_11 && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE);
+		}
+
+		return IS_FOLDABLE;
+	}
+
 
 
 	public static boolean noBackspaceKey() {

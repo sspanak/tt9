@@ -9,6 +9,7 @@ import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.items.ItemSwitch;
 import io.github.sspanak.tt9.preferences.screens.ScreenWithPreviewKeyboardHeaderFragment;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 	final public static String NAME = "Appearance";
@@ -43,6 +44,11 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 	protected void createMainSection() {
 		if (activity == null) {
 			return;
+		}
+
+		UnfoldedAppearanceLink unfoldedLink = findPreference(UnfoldedAppearanceLink.NAME);
+		if (unfoldedLink != null) {
+			unfoldedLink.populate(activity);
 		}
 
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
@@ -196,5 +202,15 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 	private boolean previewSwitchChange(Preference p, Object o) {
 		previewDropDownChange(null);
 		return true;
+	}
+
+
+	@Override
+	protected void onBeforePreview() {
+		if (activity != null) {
+			SettingsStore.isFoldedPreview = true;
+		}
+
+		super.onBeforePreview();
 	}
 }

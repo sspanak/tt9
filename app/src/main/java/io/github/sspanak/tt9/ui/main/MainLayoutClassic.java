@@ -84,7 +84,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		final double maxScreenHeight = isLandscape ? screenHeight * 0.6 : screenHeight * 0.75;
 		final int maxKeyHeight = (int) Math.round(maxScreenHeight / 5);
 
-		final int defaultHeight = Math.min(tt9.getSettings().getNumpadKeyHeight(), maxKeyHeight);
+		final int defaultHeight = Math.min(tt9.getSettings().getNumpadKeyHeight(null), maxKeyHeight);
 		final int textKeyHeight = getTextKeyHeight(defaultHeight);
 
 		return new int[] {defaultHeight, textKeyHeight, textKeyHeight};
@@ -343,7 +343,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		enableClickHandlers();
 		setKeyHeight(keyHeights[0], keyHeights[1], keyHeights[2]);
 		setPadding();
-		setWidth(tt9.getSettings().getWidthPercent(isPortrait), tt9.getSettings().getAlignment());
+		setWidth(tt9.getSettings().getWidthPercent(isPortrait, null), tt9.getSettings().getAlignment(null));
 		setBackgroundBlending();
 		renderKeys(false);
 		afterRender();

@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ime;
 
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
@@ -15,18 +16,28 @@ import io.github.sspanak.tt9.ui.tray.StatusBar;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
+import io.github.sspanak.tt9.util.sys.FoldDetector;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 abstract class UiHandler extends AbstractHandler {
 	private final static String LOG_TAG = "UiHandler";
 
 	@NonNull protected final AppHacks appHacks = new AppHacks();
+	@Nullable protected FoldDetector foldDetector = null;
 	protected SettingsStore settings;
 
 	protected int displayTextCase = InputMode.CASE_UNDEFINED;
 	protected boolean isMainViewShown = false;
 	protected MainView mainView = null;
 	protected StatusBar statusBar = null;
+
+
+	protected void cleanUp() {
+		if (foldDetector != null) {
+			foldDetector.destroy();
+			foldDetector = null;
+		}
+	}
 
 
 	@Override
@@ -50,6 +61,10 @@ abstract class UiHandler extends AbstractHandler {
 
 	@Override
 	protected void onInit() {
+		if (foldDetector == null) {
+			foldDetector = new FoldDetector(this, () -> settings.setFolded(foldDetector.isFolded()));
+		}
+
 		if (mainView == null) {
 			mainView = new MainView(getFinalContext());
 			initTray();
@@ -57,6 +72,17 @@ abstract class UiHandler extends AbstractHandler {
 			mainView.destroy();
 			mainView.getView();
 		}
+	}
+
+
+	@Override
+	protected boolean onStart(EditorInfo inputField, boolean restarting) {
+		if (getFinalContext().getInputType().isOwnSwitchPreviewField()) {
+			settings.setFolded(SettingsStore.isFoldedPreview);
+		} else if (foldDetector != null) {
+			settings.setFolded(foldDetector.isFolded());
+		}
+		return true;
 	}
 
 
@@ -137,7 +163,7 @@ abstract class UiHandler extends AbstractHandler {
 
 	/**
 	 * forceShowWindow
-	 * Some applications may hide our window and it remains invisible until the screen is touched or OK is pressed.
+	 * Some applications may hide our window, and it remains invisible until the screen is touched or OK is pressed.
 	 * This is fine for touchscreen keyboards, but the hardware keyboard allows typing even when the window and the suggestions
 	 * are invisible. This function forces the InputMethodManager to show our window.
 	 * WARNING! Calling this may cause a restart, which will cause InputMode to be recreated. Depending
