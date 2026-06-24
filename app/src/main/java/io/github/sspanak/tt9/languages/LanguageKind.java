@@ -39,7 +39,7 @@ public class LanguageKind {
 	public static boolean isEnglish(Language language) { return language != null && language.getLocale().equals(Locale.ENGLISH); }
 	public static boolean isEstonian(Language language) { return language != null && language.getId() == 169605; }
 	public static boolean isChinese(Language language) { return isChineseBopomofo(language) || isChinesePinyin(language); }
-	public static boolean isChineseBopomofo(Language language) { return language != null && (language.getId() == 774426 || language.getId() == 368922); }
+	public static boolean isChineseBopomofo(Language language) { return language != null && language.getId() == 774426; }
 	public static boolean isChinesePinyin(Language language) { return language != null && language.getId() == 462106; }
 	public static boolean isFarsi(Language language) { return language != null && language.getId() == 599078; }
 	public static boolean isFrench(Language language) { return language != null && language.getId() == 596550; }
