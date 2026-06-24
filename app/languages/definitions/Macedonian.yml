@@ -1,5 +1,6 @@
 locale: mk-MK
 dictionaryFile: mk-utf8.csv
+ngramFile: mk-ngrams.zip
 iconABC: ic_lang_cyrillic
 iconT9: ic_lang_mk
 layout:
