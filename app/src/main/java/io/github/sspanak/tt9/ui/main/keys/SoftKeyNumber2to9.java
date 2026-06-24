@@ -176,7 +176,7 @@ public class SoftKeyNumber2to9 extends SoftKeyNumberSwipeable {
 			// used to seeing just "ABC", "DEF", etc.
 			(isLatinBased && currentLetter > 'z')
 			// Cyrillic. Same as above.
-			|| currentLetter == 'ѝ' || currentLetter == 'ґ' || currentLetter == 'љ' || currentLetter == 'њ' || currentLetter == 'ћ'
+			|| currentLetter == 'ѝ' || currentLetter == 'ґ' || currentLetter == 'ѐ' || currentLetter == 'љ' || currentLetter == 'њ' || currentLetter == 'ћ'
 			// Korean double consonants
 			|| (currentLetter == 'ㄲ' || currentLetter == 'ㄸ' || currentLetter == 'ㅃ' || currentLetter == 'ㅆ' || currentLetter == 'ㅉ')
 			// Greek diacritics and ending sigma
