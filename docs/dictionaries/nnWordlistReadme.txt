@@ -46,3 +46,17 @@ When using this dictionary in academic work, please cite:
 
 Norsk ordbank – nynorsk 2012. (2022). University of Bergen and The Language
 Council of Norway. Retrieved from https://www.nb.no/sprakbanken/
+
+=====
+
+Given names list from Wiktionary
+URL: https://en.wiktionary.org/w/index.php?title=Category:Norwegian_Nynorsk_given_names
+License: https://creativecommons.org/licenses/by-sa/4.0/ (Creative Commons Attribution-ShareAlike License)
+Version: 2026-06-25
+
+=====
+
+Cities in Norway from Wikipedia
+URL: https://nn.wikipedia.org/wiki/Byar_i_Noreg
+License: https://creativecommons.org/licenses/by-sa/4.0/ (Creative Commons Attribution-ShareAlike License)
+Version: 2026-06-25
