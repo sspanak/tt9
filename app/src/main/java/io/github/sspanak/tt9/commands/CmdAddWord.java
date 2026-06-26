@@ -24,6 +24,7 @@ public class CmdAddWord implements Command {
 	public boolean isAvailable(@Nullable TraditionalT9 tt9) {
 		return
 			tt9 != null
+			&& tt9.getSettings().getPredictiveMode()
 			&& !tt9.shouldBeOff()
 			&& (InputModeKind.isPredictive(tt9.getInputMode()) || InputModeKind.isABC(tt9.getInputMode()))
 			&& tt9.getLanguage() != null
