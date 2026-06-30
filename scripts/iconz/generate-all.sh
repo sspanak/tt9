@@ -94,6 +94,7 @@ generate_all_cases "NotoSans-Bold.ttf" "id" "id" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "ga" "ga" -0.1 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "it" "it" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "sw" "sw" -0.15 -0.15 -0.15
+generate_all_cases "NotoSans-Bold.ttf" "la" "la" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "lv" "lv" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "lt" "lt" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "no" "no" -0.15 -0.15 -0.15
