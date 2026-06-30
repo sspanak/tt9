@@ -53,7 +53,7 @@ record LocaleCompat(Locale locale) {
 			case "uk" -> "ук";
 			case "zgh" -> "dz".equals(country) ? "tm" : "ⵜⵎ";
 			case "zh" -> switch (country) {
-				case "cn" -> "拼";
+				case "cn" -> "简";
 				case "tw" -> "注";
 				default -> country;
 			};

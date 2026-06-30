@@ -1,7 +1,7 @@
 locale: zh-CN
-dictionaryFile: zh-pinyin.csv
-iconT9: ic_lang_zh_pinyin
-name: 中文 / 简体
+dictionaryFile: zh-simplified-pinyin.csv
+iconT9: ic_lang_zh_simplified_pinyin
+name: 简中 / 拼音
 hasABC: no
 hasSpaceBetweenWords: no
 hasUpperCase: no
