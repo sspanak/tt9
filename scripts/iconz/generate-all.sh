@@ -46,7 +46,8 @@ generate_async NotoSansJP-Bold.ttf ア -0.15 katakana
 generate_async NotoSansJP-Bold.ttf 漢 -0.17 kanji
 generate_async NotoSansKR-Bold.ttf 한 -0.17 ko
 generate_async NotoSansSC-Bold.ttf ㄅ -0.17 zh_bopomofo
-generate_async NotoSansSC-Bold.ttf 拼 -0.17 zh_pinyin
+generate_async NotoSansSC-Bold.ttf 简 -0.17 zh_simplified_pinyin
+generate_async NotoSansSC-Bold.ttf 繁 -0.17 zh_traditional_pinyin
 generate_async NotoSansSC-Bold.ttf 注 -0.17 zh_traditional
 
 # Greek
