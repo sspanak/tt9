@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
@@ -14,7 +15,7 @@ public class SoftKeyBackspace extends BaseSwipeableKey {
 	private int repeat = 0;
 
 	private boolean isActionPerformed = false;
-	private final Handler waitForSwipe = new Handler();
+	private final Handler waitForSwipe = new Handler(Looper.getMainLooper());
 
 
 	public SoftKeyBackspace(Context context) {
