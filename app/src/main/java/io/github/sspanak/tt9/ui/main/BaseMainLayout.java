@@ -284,7 +284,7 @@ abstract public class BaseMainLayout {
 		}
 
 		boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9);
-		int width = tt9.getSettings().getWidthPercent(!isLandscape);
+		int width = tt9.getSettings().getWidthPercent(!isLandscape, null);
 
 		return
 			DeviceInfo.AT_LEAST_ANDROID_12

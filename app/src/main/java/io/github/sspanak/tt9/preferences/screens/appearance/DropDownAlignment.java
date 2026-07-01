@@ -25,7 +25,7 @@ public class DropDownAlignment extends EnhancedDropDownPreference {
 		add(Gravity.CENTER_HORIZONTAL, R.string.virtual_numpad_alignment_center);
 		add(Gravity.END, R.string.virtual_numpad_alignment_right);
 		commitOptions();
-		setValue(String.valueOf(settings.getAlignment()));
+		initValue(settings);
 
 		return this;
 	}
@@ -33,5 +33,9 @@ public class DropDownAlignment extends EnhancedDropDownPreference {
 	@Override
 	protected String getName() {
 		return NAME;
+	}
+
+	protected void initValue(@NonNull SettingsStore settings) {
+		setValue(String.valueOf(settings.getAlignment(true)));
 	}
 }
