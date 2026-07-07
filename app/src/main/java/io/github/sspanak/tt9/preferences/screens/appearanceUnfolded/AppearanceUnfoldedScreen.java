@@ -21,6 +21,7 @@ public class AppearanceUnfoldedScreen extends ScreenWithPreviewKeyboardHeaderFra
 
 	@Override
 	protected void onCreate() {
+		super.onCreate();
 		if (activity != null) {
 			EnhancedDropDownPreference[] dropdowns = getDropDowns();
 			initOptions(activity.getSettings(), dropdowns);
