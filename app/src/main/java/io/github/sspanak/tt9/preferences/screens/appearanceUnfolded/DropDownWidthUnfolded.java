@@ -25,6 +25,6 @@ public class DropDownWidthUnfolded extends DropDownWidth {
 
 	@Override
 	protected float getSettingsValue(@NonNull SettingsStore settings) {
-		return settings.getWidthPercent(DeviceInfo.isLandscapeOrientation(getContext()), false);
+		return settings.getWidthPercent(!DeviceInfo.isLandscapeOrientation(getContext()), false);
 	}
 }

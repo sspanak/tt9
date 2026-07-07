@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.util.Consumer;
 import androidx.window.java.layout.WindowInfoTrackerCallbackAdapter;
 import androidx.window.layout.DisplayFeature;
 import androidx.window.layout.FoldingFeature;
@@ -18,7 +19,7 @@ import io.github.sspanak.tt9.util.SupremeExecutor;
  * it will never notify about changes and will always return true for isFolded() method.
  */
 public class FoldDetector {
-	@NonNull private final Runnable externalCallback;
+	@NonNull private Runnable externalCallback;
 	@Nullable private final WindowInfoTrackerCallbackAdapter windowInfoTracker;
 	private boolean isFolded = true;
 
@@ -35,19 +36,19 @@ public class FoldDetector {
 		windowInfoTracker.addWindowLayoutInfoListener(
 			context,
 			SupremeExecutor::executeOnMainThread,
-			this::onLayoutInfoChanged
+			onLayoutInfoChanged
 		);
 	}
 
 
 	public void destroy() {
 		if (windowInfoTracker != null) {
-			windowInfoTracker.removeWindowLayoutInfoListener(this::onLayoutInfoChanged);
+			windowInfoTracker.removeWindowLayoutInfoListener(onLayoutInfoChanged);
 		}
 	}
 
 
-	private void onLayoutInfoChanged(@NonNull WindowLayoutInfo layoutInfo) {
+	private final Consumer<WindowLayoutInfo> onLayoutInfoChanged = (@NonNull WindowLayoutInfo layoutInfo) -> {
 		isFolded = true;
 
 		for (DisplayFeature feature : layoutInfo.getDisplayFeatures()) {
@@ -58,7 +59,7 @@ public class FoldDetector {
 		}
 
 		externalCallback.run();
-	}
+	};
 
 
 	private boolean isFolded(@NonNull FoldingFeature foldFeature) {

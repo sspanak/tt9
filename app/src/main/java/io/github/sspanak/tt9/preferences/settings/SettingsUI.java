@@ -124,6 +124,7 @@ public class SettingsUI extends SettingsTyping {
 	public void setAlignment(int alignment, @Nullable Boolean folded) {
 		if (alignment != Gravity.CENTER_HORIZONTAL && alignment != Gravity.START && alignment != Gravity.END) {
 			Logger.w(getClass().getSimpleName(), "Ignoring invalid numpad key alignment: " + alignment);
+			return;
 		}
 
 		getPrefsEditor().putString(

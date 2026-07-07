@@ -37,6 +37,6 @@ public class DropDownWidth extends EnhancedDropDownPreference {
 	}
 
 	protected float getSettingsValue(@NonNull SettingsStore settings) {
-		return settings.getWidthPercent(DeviceInfo.isLandscapeOrientation(getContext()), true);
+		return settings.getWidthPercent(!DeviceInfo.isLandscapeOrientation(getContext()), true);
 	}
 }
