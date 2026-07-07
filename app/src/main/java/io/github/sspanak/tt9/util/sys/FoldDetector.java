@@ -49,16 +49,19 @@ public class FoldDetector {
 
 
 	private final Consumer<WindowLayoutInfo> onLayoutInfoChanged = (@NonNull WindowLayoutInfo layoutInfo) -> {
-		isFolded = true;
+		boolean newIsFolded = true;
 
 		for (DisplayFeature feature : layoutInfo.getDisplayFeatures()) {
 			if (feature instanceof FoldingFeature) {
-				isFolded = isFolded((FoldingFeature) feature);
+				newIsFolded = isFolded((FoldingFeature) feature);
 				break;
 			}
 		}
 
-		externalCallback.run();
+		if (newIsFolded != isFolded) {
+			isFolded = newIsFolded;
+			externalCallback.run();
+		}
 	};
 
 
