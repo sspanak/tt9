@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.commands.CmdSuggestionNext;
+import io.github.sspanak.tt9.commands.CmdSuggestionPrevious;
+import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
@@ -39,6 +41,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null, null, null, null);
 
 	@NonNull protected CmdSuggestionNext cmdNextSuggestion = new CmdSuggestionNext();
+	@NonNull protected CmdSuggestionPrevious cmdPreviousSuggestion = new CmdSuggestionPrevious();
 
 	@Nullable private Handler shiftStateDebounceHandler;
 
@@ -240,7 +243,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		if (mInputMode.shouldSelectNextSuggestion() && !mInputMode.noSuggestions()) {
-			cmdNextSuggestion.run(getFinalContext());
+			final Command scroll = LanguageKind.isRTL(mLanguage) ? cmdPreviousSuggestion : cmdNextSuggestion;
+			scroll.run(getFinalContext());
 			suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
 			final double loadingId = Math.random();
