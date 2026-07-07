@@ -29,11 +29,13 @@ public class SupremeExecutor {
 		get().execute(task);
 	}
 
+	private static final Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
+
 	public static void executeOnMainThread(@NonNull Runnable task) {
 		if (Looper.myLooper() == Looper.getMainLooper()) {
 			task.run();
 		} else {
-			new Handler(Looper.getMainLooper()).post(task);
+			MAIN_HANDLER.post(task);
 		}
 	}
 }
