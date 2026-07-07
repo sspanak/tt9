@@ -62,7 +62,7 @@ abstract class UiHandler extends AbstractHandler {
 	@Override
 	protected void onInit() {
 		if (foldDetector == null) {
-			foldDetector = new FoldDetector(this, () -> settings.setFolded(foldDetector.isFolded()));
+			foldDetector = new FoldDetector(this, () -> settings.setFolded(foldDetector == null || foldDetector.isFolded()));
 		}
 
 		if (mainView == null) {

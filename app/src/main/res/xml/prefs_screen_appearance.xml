@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" app:orderingFromXml="true">
-	<PreferenceCategory app:title="@string/pref_category_unfolded_appearance">
+	<PreferenceCategory app:key="category_unfolded_appearance" app:title="@string/pref_category_unfolded_appearance">
 		<io.github.sspanak.tt9.preferences.screens.appearance.UnfoldedAppearanceLink />
 	</PreferenceCategory>
 
