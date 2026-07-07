@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+	app:orderingFromXml="true">
+
+	<PreferenceCategory app:key="category_keyboard_geometry" app:title="@string/pref_category_geometry">
+		<io.github.sspanak.tt9.preferences.screens.appearanceUnfolded.DropDownAlignmentUnfolded app:title="@string/pref_numpad_alignment" />
+		<io.github.sspanak.tt9.preferences.screens.appearanceUnfolded.DropDownWidthUnfolded app:title="@string/pref_numpad_width" />
+		<io.github.sspanak.tt9.preferences.screens.appearanceUnfolded.DropDownKeyHeightUnfolded app:title="@string/pref_numpad_key_height" />
+		<io.github.sspanak.tt9.preferences.screens.appearanceUnfolded.DropDownBottomPaddingPortraitUnfolded app:title="@string/pref_bottom_padding_portrait" />
+		<io.github.sspanak.tt9.preferences.screens.appearanceUnfolded.DropDownSuggestionFontSizeUnfolded app:title="@string/pref_suggestion_font_size" />
+	</PreferenceCategory>
+
+	<PreferenceCategory app:key="category_keyboard_keys" app:title="@string/pref_category_key_appearance">
+		<io.github.sspanak.tt9.preferences.screens.appearanceUnfolded.DropDownNumpadFnKeyScaleUnfolded app:title="@string/pref_numpad_fn_key_width" />
+		<io.github.sspanak.tt9.preferences.screens.appearanceUnfolded.DropDownNumpadKeyFontSizeUnfolded app:title="@string/pref_numpad_key_font_size" />
+	</PreferenceCategory>
+</PreferenceScreen>

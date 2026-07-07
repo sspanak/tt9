@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.hacks.AppHacks;
+import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.mindreader.MindReader;
@@ -213,8 +214,9 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 
-	public int getTextCase() {
-		return mInputMode.getTextCase();
+	@NonNull
+	public InputType getInputType() {
+		return inputType;
 	}
 
 
@@ -243,6 +245,11 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	@Nullable
 	public StatusBar getStatusBar() {
 		return statusBar;
+	}
+
+
+	public int getTextCase() {
+		return mInputMode.getTextCase();
 	}
 
 
@@ -275,7 +282,7 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 	public float getNormalizedWidth() {
 		if (normalizedWidth < 0) {
-			normalizedWidth = settings.getWidthPercent(!DeviceInfo.isLandscapeOrientation(this)) / 100f;
+			normalizedWidth = settings.getWidthPercent(!DeviceInfo.isLandscapeOrientation(this), null) / 100f;
 		}
 		return normalizedWidth;
 	}
@@ -283,7 +290,7 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 	public float getNormalizedHeight() {
 		if (normalizedHeight < 0) {
-			normalizedHeight = (float) settings.getNumpadKeyHeight() / (float) settings.getNumpadKeyDefaultHeight();
+			normalizedHeight = (float) settings.getNumpadKeyHeight(null) / (float) settings.getNumpadKeyDefaultHeight();
 		}
 		return normalizedHeight;
 	}

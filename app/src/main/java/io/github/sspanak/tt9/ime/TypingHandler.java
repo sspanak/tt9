@@ -79,6 +79,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected void cleanUp() {
+		super.cleanUp();
 		InputConnectionAsync.destroy();
 		mindReader.destroy();
 	}
@@ -98,6 +99,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// ignore multiple calls for the same field, caused by requestShowSelf() -> showWindow(),
 		// or weirdly functioning apps, such as the Qin SMS app
 		if (restart && !languageChanged && appHacks.isRestartForbidden() && mInputMode.getId() == determineInputModeId()) {
+			super.onStart(field, restarting);
 			return false;
 		}
 		settings.setDefaultChars(mLanguage, false);
@@ -115,7 +117,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			.seed(getFinalContext(), mLanguage)
 			.setContext(mInputMode, mLanguage, surroundingText, null);
 
-		return true;
+		return super.onStart(field, restarting);
 	}
 
 

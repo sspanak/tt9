@@ -22,7 +22,7 @@ public class DropDownWidth extends EnhancedDropDownPreference {
 	public DropDownWidth populate(@NonNull SettingsStore settings) {
 		commitPercentRange(SettingsStore.MIN_WIDTH_PERCENT, 100, 5);
 
-		float currentValue = settings.getWidthPercent(DeviceInfo.isLandscapeOrientation(getContext()));
+		float currentValue = getSettingsValue(settings);
 		currentValue = Math.round(currentValue / 5f) * 5f;
 		currentValue = Math.max(Math.min(currentValue, 100f), 50f);
 
@@ -34,5 +34,9 @@ public class DropDownWidth extends EnhancedDropDownPreference {
 	@Override
 	protected String getName() {
 		return NAME;
+	}
+
+	protected float getSettingsValue(@NonNull SettingsStore settings) {
+		return settings.getWidthPercent(!DeviceInfo.isLandscapeOrientation(getContext()), true);
 	}
 }

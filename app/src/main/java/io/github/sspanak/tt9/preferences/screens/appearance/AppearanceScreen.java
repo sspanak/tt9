@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.preferences.screens.appearance;
 
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
 
 import io.github.sspanak.tt9.R;
@@ -9,6 +10,7 @@ import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.items.ItemSwitch;
 import io.github.sspanak.tt9.preferences.screens.ScreenWithPreviewKeyboardHeaderFragment;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 	final public static String NAME = "Appearance";
@@ -24,6 +26,7 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 	protected void onCreate() {
 		super.onCreate();
 		createMainSection();
+		createUnfoldedAppearanceSection();
 		createHacksSection();
 		enablePreviewOnChange();
 		resetFontSize(true);
@@ -127,6 +130,24 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 	}
 
 
+	private void createUnfoldedAppearanceSection() {
+		if (activity == null) {
+			return;
+		}
+
+
+		UnfoldedAppearanceLink unfoldedLink = findPreference(UnfoldedAppearanceLink.NAME);
+		if (unfoldedLink != null) {
+			unfoldedLink.populate(activity);
+		}
+
+		PreferenceCategory category = findPreference("category_unfolded_appearance");
+		if (category != null) {
+			category.setVisible(unfoldedLink != null && unfoldedLink.isVisible());
+		}
+	}
+
+
 	private void createHacksSection() {
 		if (activity == null) {
 			return;
@@ -196,5 +217,15 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 	private boolean previewSwitchChange(Preference p, Object o) {
 		previewDropDownChange(null);
 		return true;
+	}
+
+
+	@Override
+	protected void onBeforePreview() {
+		if (activity != null) {
+			SettingsStore.isFoldedPreview = true;
+		}
+
+		super.onBeforePreview();
 	}
 }
