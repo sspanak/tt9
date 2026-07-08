@@ -233,5 +233,5 @@ dependencies {
 	implementation "androidx.window:window:1.5.1"
 	implementation "androidx.window:window-java:1.5.1"
 	implementation 'com.google.android.material:material:1.14.0'
-	premiumImplementation 'com.android.billingclient:billing:9.0.0'
+	premiumImplementation 'com.android.billingclient:billing:9.1.0'
 }
