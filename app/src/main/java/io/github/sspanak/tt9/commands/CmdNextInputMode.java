@@ -37,7 +37,7 @@ public class CmdNextInputMode implements Command {
 
 
 	public boolean run(@Nullable TraditionalT9 tt9) {
-		if (tt9 == null) {
+		if (tt9 == null || !isAvailable(tt9)) {
 			return false;
 		}
 
