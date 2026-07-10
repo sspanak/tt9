@@ -1,5 +1,10 @@
-static def execThing (String cmd) {
-	return cmd.execute().text.trim()
+static def execThing(String cmd) {
+	def proc = cmd.execute()
+	proc.waitFor()
+	if (proc.exitValue() != 0) {
+		throw new GradleException("execThing('${cmd}') failed. ${proc.err.text}")
+	}
+	return proc.text.trim()
 }
 
 static def getCurrentGitHash() {
