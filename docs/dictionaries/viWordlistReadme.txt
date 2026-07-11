@@ -15,10 +15,14 @@ Version: a5fa019 (2019-05-05)
 URL: https://github.com/wooorm/dictionaries/blob/main/dictionaries/vi/index.dic
 License: https://github.com/wooorm/dictionaries/blob/main/dictionaries/vi/license
 
-Word frequencies obtained from Helium314 dictionaries:
-URL: https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists_experimental
-Version: 02004f7120cdb42819ed71d5494f6cd232517a2d (2023-09-16)
-License: https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/LICENSE
+Word frequencies obtained from Luong Hieu Thi's blog:
+URL: https://www.hieuthi.com/blog/2017/04/03/vietnamese-syllables-usage.html
+Version: 2026-07-11
+
+Vietnamese shortenings from Wiktionary
+URL: https://en.wiktionary.org/wiki/Category:Vietnamese_shortenings
+Version: 2026-07-11
+License: CC BY-SA 4.0
 
 N-grams for next-word predictions and autocompletion based on the OpenSubtitles v2018 archive (http://www.opensubtitles.org/)
 URL: https://opus.nlpl.eu/datasets/OpenSubtitles
