@@ -168,6 +168,26 @@ android {
 		targetCompatibility JavaVersion.VERSION_17
 	}
 
+	ndkVersion '28.2.13676358'
+	externalNativeBuild {
+		cmake {
+			path 'src/main/cpp/CMakeLists.txt'
+			version '3.22.1'
+		}
+	}
+
+	sourceSets {
+		full {
+			java.srcDirs += 'src/full/java'
+		}
+		lite {
+			java.srcDirs += 'src/full/java'
+		}
+		premium {
+			java.srcDirs += 'src/full/java'
+		}
+	}
+
 	flavorDimensions = ['app']
 	productFlavors {
 		full {

@@ -42,3 +42,5 @@ t9build.properties
 proguard/
 *.sublime-project
 *.sublime-workspace
+.cxx/
+gradle/gradle-daemon-jvm.properties
