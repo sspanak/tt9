@@ -22,6 +22,12 @@ jobs:
         java-version: 21
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v3
+    - name: Setup Android NDK
+      uses: android-actions/setup-android@v3
+    - name: Install NDK and CMake
+      run: |
+        sdkmanager "ndk;28.2.13676358"
+        sdkmanager "cmake;3.22.1"
 
     # validate and build
     - name: Generate Documents

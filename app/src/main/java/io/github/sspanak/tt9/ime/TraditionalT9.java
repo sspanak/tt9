@@ -343,7 +343,7 @@ public class TraditionalT9 extends PremiumHandler {
 	private void runBackgroundTasks() {
 		SupremeExecutor.submit(() -> {
 			mindReader.persist();
-			voiceInputOps.forceAlternativeInput(false).enableOfflineMode();
+			voiceInputOps.enableOfflineMode();
 			if (!DictionaryLoader.isRunning()) {
 				DataStore.saveWordPairs();
 				DataStore.normalizeNext();

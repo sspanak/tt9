@@ -200,4 +200,18 @@ abstract class UiHandler extends AbstractHandler {
 			showWindow(true);
 		}
 	}
+
+	/**
+	 * Force-shows the IME window for voice input, bypassing passthrough/stealth guards.
+	 * Uses SHOW_FORCED so the system cannot ignore the request.
+	 */
+	protected void forceShowWindowForVoice() {
+		if (isInputViewShown()) {
+			return;
+		}
+		if (DeviceInfo.AT_LEAST_ANDROID_9) {
+			requestShowSelf(InputMethodManager.SHOW_FORCED);
+		}
+		showWindow(true);
+	}
 }

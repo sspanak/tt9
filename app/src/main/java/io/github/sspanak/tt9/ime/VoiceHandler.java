@@ -3,9 +3,6 @@ package io.github.sspanak.tt9.ime;
 import android.Manifest;
 import android.view.KeyEvent;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
@@ -18,9 +15,10 @@ import io.github.sspanak.tt9.util.Ternary;
 abstract class VoiceHandler extends SuggestionHandler {
 	private final static String LOG_TAG = VoiceHandler.class.getSimpleName();
 
-	@Nullable private AutoTextCase autoTextCase;
-	@NonNull protected VoiceInputOps voiceInputOps = new VoiceInputOps(this, null, null, null, null);
-	@NonNull private String beforeSpeech = "";
+	private AutoTextCase autoTextCase;
+	protected VoiceInputOps voiceInputOps;
+	private String beforeSpeech = "";
+	private boolean wasForceShown = false;
 
 
 	@Override
@@ -81,6 +79,13 @@ abstract class VoiceHandler extends SuggestionHandler {
 			return;
 		}
 
+		// Force the keyboard window visible so the user can see "Speak" feedback
+		// even in text fields where TT9 is normally hidden (passthrough / stealth mode)
+		wasForceShown = !isInputViewShown();
+		if (wasForceShown) {
+			forceShowWindowForVoice();
+		}
+
 		statusBar.setText(R.string.loading);
 		suggestionOps.cancelDelayedAccept();
 		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
@@ -107,7 +112,7 @@ abstract class VoiceHandler extends SuggestionHandler {
 
 
 	private String autoCapitalize(String str) {
-		if (autoTextCase == null || !settings.isAutoTextCaseOn(mInputMode)) {
+		if (autoTextCase == null) {
 			return str;
 		}
 
@@ -118,6 +123,7 @@ abstract class VoiceHandler extends SuggestionHandler {
 	private void onVoiceInputStopped(String text) {
 		onText(autoCapitalize(text), false);
 		resetStatus();
+		hideIfForceShown();
 		 if (!mainView.isCommandPaletteShown()) {
 			 mainView.render(); // re-enable the function keys
 		 }
@@ -130,18 +136,17 @@ abstract class VoiceHandler extends SuggestionHandler {
 
 
 	private void onVoiceInputError(VoiceInputError error) {
-		if (error.isStartTimeout()) {
-			Logger.i(LOG_TAG, "Google SpeechRecognizer timed out. Enforcing alternative listening mode for the current session.");
-			voiceInputOps.forceAlternativeInput(true).listen(mLanguage);
-		} else if (error.isLanguageMissing() && voiceInputOps.enableOfflineMode(mLanguage, false)) {
+		if (error.isLanguageMissing() && voiceInputOps.enableOfflineMode(mLanguage, false)) {
 			Logger.i(LOG_TAG, "Voice input package for language '" + mLanguage.getName() + "' is missing. Enforcing online mode for the current session.");
 			voiceInputOps.listen(mLanguage);
 		} else if (error.isIrrelevantToUser()) {
 			Logger.i(LOG_TAG, "Ignoring voice input. " + error.debugMessage);
 			resetStatus(); // re-enable the function keys
+			hideIfForceShown();
 		} else {
 			Logger.e(LOG_TAG, "Failed to listen. " + error.debugMessage);
 			statusBar.setError(error.toString());
+			hideIfForceShown();
 			if (error.isNoPermission()) {
 				RequestPermissionDialog.show(this, Manifest.permission.RECORD_AUDIO);
 			}
@@ -150,5 +155,12 @@ abstract class VoiceHandler extends SuggestionHandler {
 		 if (!mainView.isCommandPaletteShown()) {
 			 mainView.render(); // re-enable the function keys
 		 }
+	}
+
+	private void hideIfForceShown() {
+		if (wasForceShown && !shouldBeVisible()) {
+			hideWindow();
+		}
+		wasForceShown = false;
 	}
 }

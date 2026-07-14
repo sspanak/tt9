@@ -18,3 +18,8 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+# Keep Whisper GGML JNI callback — called from native C++ during inference
+-keep class io.github.sspanak.tt9.ggml.WhisperGGML {
+    public void invokePartialResult(java.lang.String);
+}
