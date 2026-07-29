@@ -153,6 +153,8 @@
 	<string name="pref_one_key_emoji">Emojis on 1-key</string>
 	<string name="pref_one_key_emoji_none">No emojis</string>
 	<string name="pref_one_key_emoji_simple">Brief list</string>
+	<string name="pref_predict_top_words">Learn Popular Words</string>
+	<string name="pref_predict_top_words_summary">Remember commonly used words to improve suggestion accuracy.</string>
 	<string name="pref_predict_word_pairs">Learn Word Pairs</string>
 	<string name="pref_predict_word_pairs_summary">Remember commonly used phrases to improve the suggestions accuracy.</string>
 	<string name="pref_predictive_auto_accept">Automatic Word Selection</string>

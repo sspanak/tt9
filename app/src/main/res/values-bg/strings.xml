@@ -37,6 +37,7 @@
 	<string name="pref_numpad_shape_long_space">Дълъг интервал</string>
 	<string name="pref_numpad_width">Ширина</string>
 	<string name="pref_one_key_emoji_simple">Кратък списък</string>
+	<string name="pref_predict_top_words_summary">Запомня често използваните думи, за да подобри точността на предложенията.</string>
 	<string name="pref_predict_word_pairs">Запомняне на двойки думи</string>
 	<string name="pref_predict_word_pairs_summary">Запомняй често ползвани фрази, за по-точно подсказване на думи.</string>
 	<string name="pref_predictive_auto_accept">Автоматичен избор на думи</string>
@@ -315,4 +316,5 @@
 	<string name="pref_pref_auto_mind_reading_in_all_fields">Активиране във всички текстови полета</string>
 	<string name="pref_category_unfolded_appearance">Изглед при разгънато устройство</string>
 	<string name="pref_category_unfolded_appearance_summary">Настройки на изгледа при разгънато устройство.</string>
+	<string name="pref_predict_top_words">Запомняне на често използвани думи</string>
 </resources>

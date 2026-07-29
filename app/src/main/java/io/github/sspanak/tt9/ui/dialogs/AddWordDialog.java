@@ -33,7 +33,8 @@ public class AddWordDialog extends PopupDialog {
 		DataStore.put(
 			(result) -> UI.toastLongFromAsync(context, result.toHumanFriendlyString(context)),
 			language,
-			word
+			word,
+			settings.getPredictTopWords()
 		);
 	}
 

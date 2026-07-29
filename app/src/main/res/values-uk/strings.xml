@@ -91,6 +91,7 @@
 	<string name="pref_numpad_shape_long_space">Довгий пробіл</string>
 	<string name="pref_numpad_width">Ширина</string>
 	<string name="pref_one_key_emoji_simple">Короткий список</string>
+	<string name="pref_predict_top_words_summary">Запам’ятовує поширені слова, щоб підвищити точність підказок.</string>
 	<string name="pref_predict_word_pairs">Запам’ятовувати пари слів</string>
 	<string name="pref_predict_word_pairs_summary">Запам\'ятовувати часто вживані фрази для покращення пропозицій слів.</string>
 	<string name="pref_predictive_auto_accept">Автоматичний вибір слів</string>
@@ -326,4 +327,5 @@
 	<string name="pref_pref_auto_mind_reading_in_all_fields">Увімкнути в усіх текстових полях</string>
 	<string name="pref_category_unfolded_appearance">Вигляд у розгорнутому режимі</string>
 	<string name="pref_category_unfolded_appearance_summary">Налаштування вигляду, коли пристрій розгорнуто.</string>
+	<string name="pref_predict_top_words">Запам’ятовувати поширені слова</string>
 </resources>

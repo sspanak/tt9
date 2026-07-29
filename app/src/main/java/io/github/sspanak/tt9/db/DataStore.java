@@ -96,8 +96,8 @@ public class DataStore {
 	}
 
 
-	public static void put(Consumer<AddWordResult> statusHandler, Language language, String word) {
-		runInThread(() -> statusHandler.accept(words.put(language, word)));
+	public static void put(Consumer<AddWordResult> statusHandler, Language language, String word, boolean makeTopWord) {
+		runInThread(() -> statusHandler.accept(words.put(language, word, makeTopWord)));
 	}
 
 
