@@ -129,9 +129,13 @@ public class TextSelection {
 			return "";
 		}
 
+		int start = Math.max(0, Math.min(extractedText.selectionStart, extractedText.selectionEnd));
+		int end = Math.min(extractedText.text.length(), Math.max(extractedText.selectionStart, extractedText.selectionEnd));
 
-		int start = Math.min(extractedText.selectionStart, extractedText.selectionEnd);
-		int end = Math.max(extractedText.selectionStart, extractedText.selectionEnd);
+		if (start >= end) {
+			return "";
+		}
+
 		return extractedText.text.subSequence(start, end);
 	}
 }
