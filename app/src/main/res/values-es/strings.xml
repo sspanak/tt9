@@ -313,4 +313,6 @@
 	<string name="pref_auto_mind_reading_guess_summary">Mostrar predicciones de la siguiente palabra antes de empezar a escribir. (No disponible en todos los idiomas)</string>
 	<string name="pref_auto_mind_reading_complete">Autocompletado</string>
 	<string name="pref_pref_auto_mind_reading_in_all_fields">Activar en todos los campos de texto</string>
+	<string name="pref_category_unfolded_appearance">Apariencia en modo desplegado</string>
+	<string name="pref_category_unfolded_appearance_summary">Configura la apariencia cuando el dispositivo está desplegado.</string>
 </resources>

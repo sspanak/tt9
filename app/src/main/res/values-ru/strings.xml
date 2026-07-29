@@ -313,4 +313,6 @@
 	<string name="pref_auto_mind_reading_guess_summary">Показывать предсказания следующего слова до начала ввода. (Не для всех языков)</string>
 	<string name="pref_auto_mind_reading_complete">Автодополнение</string>
 	<string name="pref_pref_auto_mind_reading_in_all_fields">Включить во всех текстовых полях</string>
+	<string name="pref_category_unfolded_appearance">Вид в развернутом режиме</string>
+	<string name="pref_category_unfolded_appearance_summary">Настройка внешнего вида в развернутом режиме.</string>
 </resources>

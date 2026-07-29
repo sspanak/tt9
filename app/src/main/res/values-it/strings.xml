@@ -316,5 +316,7 @@
 	<string name="pref_auto_mind_reading_guess_summary">Mostra predizioni della parola successiva prima di iniziare a digitare. (Non disponibile in tutte le lingue)</string>
 	<string name="pref_auto_mind_reading_complete">Completamento automatico</string>
 	<string name="pref_pref_auto_mind_reading_in_all_fields">Abilita in tutti i campi di testo</string>
+	<string name="pref_category_unfolded_appearance">Aspetto in modalità aperta</string>
+	<string name="pref_category_unfolded_appearance_summary">Configura l\'aspetto quando il dispositivo è aperto.</string>
 </resources>
 
