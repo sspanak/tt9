@@ -35,4 +35,8 @@ public class SettingsMindReading extends SettingsKeyChars {
 	public boolean getMindReadingSortPredictionsLast() {
 		return getMindReadingComplete() && prefs.getBoolean("auto_mind_reading_sort_predictions_last", true);
 	}
+
+	public boolean getMindReadingInAllFields() {
+		return prefs.getBoolean("auto_mind_reading_in_all_fields", false);
+	}
 }
