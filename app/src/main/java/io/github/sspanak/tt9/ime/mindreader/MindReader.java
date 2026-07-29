@@ -395,7 +395,7 @@ public class MindReader {
 		}
 
 		autoTextCase = settings != null ? new AutoTextCase(settings, new Sequences(), inputType) : null;
-		inputNotMindReadable = inputType == null || inputType.notMindReadableText();
+		inputNotMindReadable = inputType == null || inputType.notMindReadableText(settings);
 
 		if (inputNotMindReadable) {
 			Logger.d(LOG_TAG, "The current input field is not mind-readable.");

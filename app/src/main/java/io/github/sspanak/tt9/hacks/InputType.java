@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.ime.helpers.StandardInputType;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class InputType extends StandardInputType {
@@ -201,9 +202,13 @@ public class InputType extends StandardInputType {
 	 * fields that require no "learning", multiline text fields, that do not have TYPE_TEXT_FLAG_NO_SUGGESTIONS,
 	 * password or numeric fields, and others where predictions make no sense.
 	 */
-	public boolean notMindReadableText() {
-		if (field == null) {
+	public boolean notMindReadableText(@NonNull SettingsStore settings) {
+		if (field == null || isEmail() || isPassword()) {
 			return true;
+		}
+
+		if (settings.getMindReadingInAllFields() && isText()) {
+			return false;
 		}
 
 		final boolean noSuggestions = (field.inputType & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
@@ -215,9 +220,7 @@ public class InputType extends StandardInputType {
 
 		return noPersonalizedLearning
 		|| (isMultilineText() && noSuggestions)
-		|| isEmail()
 		|| isNumeric()
-		|| isPassword()
 		|| isPersonName()
 		|| (!isMultilineText() && !isUri()); // allow in URL fields, because they are often used for search
 	}

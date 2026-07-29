@@ -19,4 +19,10 @@
 		android:title="@string/pref_auto_mind_reading_sort_predictions_last"
 		android:summaryOn="@string/pref_auto_mind_reading_sort_predictions_last_summary_on"
 		android:summaryOff="@string/pref_auto_mind_reading_sort_predictions_last_summary_off" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="false"
+		android:key="auto_mind_reading_in_all_fields"
+		android:title="@string/pref_pref_auto_mind_reading_in_all_fields"
+		android:summary="@string/pref_pref_auto_mind_reading_in_all_fields_summary" />
 </PreferenceScreen>
