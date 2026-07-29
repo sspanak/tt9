@@ -80,6 +80,7 @@
 	<string name="pref_numpad_shape_long_space">Barra de espaço longa</string>
 	<string name="pref_numpad_width">Largura</string>
 	<string name="pref_one_key_emoji_simple">Lista breve</string>
+	<string name="pref_predict_top_words_summary">Memoriza palavras usadas com frequência para melhorar a precisão das sugestões.</string>
 	<string name="pref_predict_word_pairs">Aprender pares de palavras</string>
 	<string name="pref_predict_word_pairs_summary">Lembrar de frases comumente usadas para melhorar as sugestões de palavras.</string>
 	<string name="pref_predictive_auto_accept">Seleção automática de palavras</string>
@@ -322,4 +323,5 @@
 	<string name="pref_pref_auto_mind_reading_in_all_fields">Ativar em todos os campos de texto</string>
 	<string name="pref_category_unfolded_appearance">Aparência no modo aberto</string>
 	<string name="pref_category_unfolded_appearance_summary">Configura a aparência quando o dispositivo está aberto.</string>
+	<string name="pref_predict_top_words">Aprender palavras frequentes</string>
 </resources>

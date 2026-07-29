@@ -282,7 +282,7 @@ public class WordPredictions extends Predictions {
 	 * because it is in a popular word pair.
 	 */
 	protected void makeTopWord(String word, String sequence) {
-		if (!word.equals(lastEnforcedTopWord)) {
+		if (settings.getPredictTopWords() && !word.equals(lastEnforcedTopWord)) {
 			DataStore.makeTopWord(language, word, sequence);
 		}
 	}

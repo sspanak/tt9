@@ -152,7 +152,7 @@ public class WordStore extends BaseSyncStore {
 	}
 
 
-	@NonNull public AddWordResult put(Language language, String word) {
+	@NonNull public AddWordResult put(Language language, String word, boolean makeTopWord) {
 		if (word == null || word.isEmpty()) {
 			return new AddWordResult(AddWordResult.CODE_BLANK_WORD, word);
 		}
@@ -173,7 +173,9 @@ public class WordStore extends BaseSyncStore {
 			}
 
 			if (InsertOps.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
-				makeTopWord(language, word, sequence);
+				if (makeTopWord) {
+					makeTopWord(language, word, sequence);
+				}
 			} else {
 				throw new Exception("SQLite INSERT failure.");
 			}

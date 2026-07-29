@@ -29,6 +29,13 @@
 	<SwitchPreferenceCompat
 		android:defaultValue="true"
 		android:dependency="pref_predictive_mode"
+		android:key="pref_predict_top_words"
+		android:summary="@string/pref_predict_top_words_summary"
+		android:title="@string/pref_predict_top_words" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="true"
+		android:dependency="pref_predict_top_words"
 		android:key="pref_predict_word_pairs"
 		android:summary="@string/pref_predict_word_pairs_summary"
 		android:title="@string/pref_predict_word_pairs" />

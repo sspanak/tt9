@@ -78,6 +78,7 @@
 	<string name="pref_numpad_shape_long_space">מקש רווח ארוך</string>
 	<string name="pref_numpad_width">רוחב</string>
 	<string name="pref_one_key_emoji_simple">רשימה קצרה</string>
+	<string name="pref_predict_top_words_summary">זוכר מילים נפוצות כדי לשפר את דיוק ההצעות.</string>
 	<string name="pref_predict_word_pairs">ללמוד צמדי מילים</string>
 	<string name="pref_predict_word_pairs_summary">לזכור ביטויים נפוצים כדי לשפר את דיוק ההצעות.</string>
 	<string name="pref_predictive_auto_accept">בחירת מילים אוטומטית</string>
@@ -322,4 +323,5 @@
 	<string name="pref_pref_auto_mind_reading_in_all_fields">הפעל בכל שדות הטקסט</string>
 	<string name="pref_category_unfolded_appearance">מראה במצב פתוח</string>
 	<string name="pref_category_unfolded_appearance_summary">הגדרת המראה כאשר המכשיר פתוח.</string>
+	<string name="pref_predict_top_words">זכירת מילים נפוצות</string>
 </resources>

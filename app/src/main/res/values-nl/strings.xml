@@ -58,6 +58,7 @@
 	<string name="pref_numpad_shape_long_space">Lange spatiebalk</string>
 	<string name="pref_numpad_width">Breedte</string>
 	<string name="pref_one_key_emoji_simple">Korte lijst</string>
+	<string name="pref_predict_top_words_summary">Onthoud veelgebruikte woorden om de nauwkeurigheid van suggesties te verbeteren.</string>
 	<string name="pref_predict_word_pairs">Woordenparen leren</string>
 	<string name="pref_predict_word_pairs_summary">Veelgebruikte zinnen onthouden om de nauwkeurigheid van suggesties te verbeteren.</string>
 	<string name="pref_predictive_auto_accept">Automatische woordselectie</string>
@@ -316,4 +317,5 @@
 	<string name="pref_pref_auto_mind_reading_in_all_fields">In alle tekstvelden inschakelen</string>
 	<string name="pref_category_unfolded_appearance">Weergave uitgeklapt</string>
 	<string name="pref_category_unfolded_appearance_summary">De weergave instellen wanneer het apparaat is uitgeklapt.</string>
+	<string name="pref_predict_top_words">Veelgebruikte woorden leren</string>
 </resources>

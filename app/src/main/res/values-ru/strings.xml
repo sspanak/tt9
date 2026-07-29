@@ -40,6 +40,7 @@
 	<string name="pref_numpad_shape_long_space">Длинный пробел</string>
 	<string name="pref_numpad_width">Ширина</string>
 	<string name="pref_one_key_emoji_simple">Краткий список</string>
+	<string name="pref_predict_top_words_summary">Запоминает часто используемые слова для повышения точности подсказок.</string>
 	<string name="pref_predict_word_pairs">Запоминать пары слов</string>
 	<string name="pref_predict_word_pairs_summary">Запоминать часто используемые фразы для улучшения предложений слов.</string>
 	<string name="pref_predictive_auto_accept">Автоматический выбор слов</string>
@@ -315,4 +316,5 @@
 	<string name="pref_pref_auto_mind_reading_in_all_fields">Включить во всех текстовых полях</string>
 	<string name="pref_category_unfolded_appearance">Вид в развернутом режиме</string>
 	<string name="pref_category_unfolded_appearance_summary">Настройка внешнего вида в развернутом режиме.</string>
+	<string name="pref_predict_top_words">Запоминать часто используемые слова</string>
 </resources>

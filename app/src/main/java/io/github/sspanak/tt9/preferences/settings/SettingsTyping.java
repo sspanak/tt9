@@ -91,8 +91,12 @@ class SettingsTyping extends SettingsMindReading {
 		return prefs.getBoolean("pref_predictive_mode", true);
 	}
 
+	public boolean getPredictTopWords() {
+		return prefs.getBoolean("pref_predict_top_words", true);
+	}
+
 	public boolean getPredictWordPairs() {
-		return prefs.getBoolean("pref_predict_word_pairs", true);
+		return getPredictTopWords() && prefs.getBoolean("pref_predict_word_pairs", true);
 	}
 
 	public boolean getShowSuggestions() {

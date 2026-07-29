@@ -61,6 +61,7 @@
 	<string name="pref_numpad_shape_long_space">Barra spaziatrice lunga</string>
 	<string name="pref_numpad_width">Larghezza</string>
 	<string name="pref_one_key_emoji_simple">Elenco breve</string>
+	<string name="pref_predict_top_words_summary">Memorizza le parole usate più spesso per migliorare la precisione dei suggerimenti.</string>
 	<string name="pref_predict_word_pairs">Memorizzare coppie di parole</string>
 	<string name="pref_predict_word_pairs_summary">Ricordare frasi comunemente usate per migliorare i suggerimenti di parole.</string>
 	<string name="pref_predictive_auto_accept">Selezione automatica delle parole</string>
@@ -318,5 +319,6 @@
 	<string name="pref_pref_auto_mind_reading_in_all_fields">Abilita in tutti i campi di testo</string>
 	<string name="pref_category_unfolded_appearance">Aspetto in modalità aperta</string>
 	<string name="pref_category_unfolded_appearance_summary">Configura l\'aspetto quando il dispositivo è aperto.</string>
+	<string name="pref_predict_top_words">Memorizza le parole più usate</string>
 </resources>
 
