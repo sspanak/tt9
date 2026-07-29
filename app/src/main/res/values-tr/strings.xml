@@ -318,4 +318,6 @@
 	<string name="pref_auto_mind_reading_guess_summary">Yazmaya başlamadan önce sonraki kelime tahminlerini göster. (Tüm dillerde mevcut değil)</string>
 	<string name="pref_auto_mind_reading_complete">Otomatik tamamlama</string>
 	<string name="pref_pref_auto_mind_reading_in_all_fields">Tüm metin alanlarında etkinleştir</string>
+	<string name="pref_category_unfolded_appearance">Açık mod görünümü</string>
+	<string name="pref_category_unfolded_appearance_summary">Cihaz açıldığında görünümü yapılandırır.</string>
 </resources>

@@ -313,4 +313,6 @@
 	<string name="pref_auto_mind_reading_guess_summary">Afficher des prédictions du mot suivant avant de commencer à saisir. (Non disponible dans toutes les langues)</string>
 	<string name="pref_auto_mind_reading_complete">Saisie semi-automatique</string>
 	<string name="pref_pref_auto_mind_reading_in_all_fields">Activer dans tous les champs de texte</string>
+	<string name="pref_category_unfolded_appearance">Apparence en mode déplié</string>
+	<string name="pref_category_unfolded_appearance_summary">Configure l\'apparence lorsque l\'appareil est déplié.</string>
 </resources>

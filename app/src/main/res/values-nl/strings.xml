@@ -314,4 +314,6 @@
 	<string name="pref_auto_mind_reading_guess_summary">Toon voorspellingen voor het volgende woord voordat je begint met typen. (Niet beschikbaar in alle talen)</string>
 	<string name="pref_auto_mind_reading_complete">Automatisch aanvullen</string>
 	<string name="pref_pref_auto_mind_reading_in_all_fields">In alle tekstvelden inschakelen</string>
+	<string name="pref_category_unfolded_appearance">Weergave uitgeklapt</string>
+	<string name="pref_category_unfolded_appearance_summary">De weergave instellen wanneer het apparaat is uitgeklapt.</string>
 </resources>

@@ -320,4 +320,6 @@
 	<string name="pref_auto_mind_reading_guess_summary">Mostrar previsões da próxima palavra antes de começar a digitar. (Não disponível em todos os idiomas)</string>
 	<string name="pref_auto_mind_reading_complete">Autocompletar</string>
 	<string name="pref_pref_auto_mind_reading_in_all_fields">Ativar em todos os campos de texto</string>
+	<string name="pref_category_unfolded_appearance">Aparência no modo aberto</string>
+	<string name="pref_category_unfolded_appearance_summary">Configura a aparência quando o dispositivo está aberto.</string>
 </resources>

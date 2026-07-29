@@ -324,4 +324,6 @@
 	<string name="pref_auto_mind_reading_guess_summary">Показувати передбачення наступного слова до початку введення. (Не для всіх мов)</string>
 	<string name="pref_auto_mind_reading_complete">Автодоповнення</string>
 	<string name="pref_pref_auto_mind_reading_in_all_fields">Увімкнути в усіх текстових полях</string>
+	<string name="pref_category_unfolded_appearance">Вигляд у розгорнутому режимі</string>
+	<string name="pref_category_unfolded_appearance_summary">Налаштування вигляду, коли пристрій розгорнуто.</string>
 </resources>

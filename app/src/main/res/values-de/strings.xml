@@ -315,4 +315,6 @@
 	<string name="pref_auto_mind_reading_guess_summary">Vorhersagen für das nächste Wort anzeigen, bevor Sie mit dem Tippen beginnen. (Nicht in allen Sprachen verfügbar)</string>
 	<string name="pref_auto_mind_reading_complete">Autovervollständigung</string>
 	<string name="pref_pref_auto_mind_reading_in_all_fields">In allen Textfeldern aktivieren</string>
+	<string name="pref_category_unfolded_appearance">Darstellung im aufgeklappten Zustand</string>
+	<string name="pref_category_unfolded_appearance_summary">Darstellung bei aufgeklapptem Gerät konfigurieren.</string>
 </resources>

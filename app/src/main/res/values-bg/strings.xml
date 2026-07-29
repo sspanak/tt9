@@ -313,4 +313,6 @@
 	<string name="pref_auto_mind_reading_guess_summary">Показване на предсказвания за следваща дума преди да започнете да пишете. (Не е възможно на всички езици)</string>
 	<string name="pref_auto_mind_reading_complete">Автодовършване</string>
 	<string name="pref_pref_auto_mind_reading_in_all_fields">Активиране във всички текстови полета</string>
+	<string name="pref_category_unfolded_appearance">Изглед при разгънато устройство</string>
+	<string name="pref_category_unfolded_appearance_summary">Настройки на изгледа при разгънато устройство.</string>
 </resources>

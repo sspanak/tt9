@@ -322,4 +322,6 @@
 	<string name="pref_auto_mind_reading_guess_summary">Rodyti kito žodžio prognozes prieš pradedant rašyti. (Prieinama ne visomis kalbomis)</string>
 	<string name="pref_auto_mind_reading_complete">Automatinis užbaigimas</string>
 	<string name="pref_pref_auto_mind_reading_in_all_fields">Įjungti visuose teksto laukuose</string>
+	<string name="pref_category_unfolded_appearance">Išskleisto įrenginio išvaizda</string>
+	<string name="pref_category_unfolded_appearance_summary">Išvaizdos nustatymai, kai įrenginys išskleistas.</string>
 </resources>

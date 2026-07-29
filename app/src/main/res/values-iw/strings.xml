@@ -320,4 +320,6 @@
 	<string name="pref_auto_mind_reading_guess_summary">הצגת חיזויים למילה הבאה לפני שמתחילים להקליד. (לא זמין בכל השפות)</string>
 	<string name="pref_auto_mind_reading_complete">השלמה אוטומטית</string>
 	<string name="pref_pref_auto_mind_reading_in_all_fields">הפעל בכל שדות הטקסט</string>
+	<string name="pref_category_unfolded_appearance">מראה במצב פתוח</string>
+	<string name="pref_category_unfolded_appearance_summary">הגדרת המראה כאשר המכשיר פתוח.</string>
 </resources>
