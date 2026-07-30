@@ -313,14 +313,14 @@
 	<string name="function_txt_copy">העתק</string>
 	<string name="accessibility_key_left">חץ שמאלה</string>
 	<string name="pref_auto_mind_reading_complete_summary">הצגת השלמות מילים לאחר הקלדת האות הראשונה. (לא זמין בכל השפות)</string>
-	<string name="pref_pref_auto_mind_reading_in_all_fields_summary">אפליקציות מסוימות עשויות לבקש שלא להציג חיזוי מילים בשדות טקסט מסוימים. אפשרות זו מתעלמת מבקשות אלה ומפעילה חיזוי בכל שדות הטקסט.</string>
+	<string name="pref_auto_mind_reading_in_all_fields_summary">אפליקציות מסוימות עשויות לבקש שלא להציג חיזוי מילים בשדות טקסט מסוימים. אפשרות זו מתעלמת מבקשות אלה ומפעילה חיזוי בכל שדות הטקסט.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">הצגת השלמות אוטומטיות אחרונות</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">הצגת השלמות אפשריות בסוף רשימת ההצעות.</string>
 	<string name="pref_auto_mind_reading_summary">הגדרת חיזוי המילה הבאה. (במכשירים חלשים יותר, תכונה זו עלולה לגרום להשהיה בהקלדה ולצרוך את הסוללה מהר יותר)</string>
 	<string name="pref_auto_mind_reading_guess">חיזוי המילה הבאה</string>
 	<string name="pref_auto_mind_reading_guess_summary">הצגת חיזויים למילה הבאה לפני שמתחילים להקליד. (לא זמין בכל השפות)</string>
 	<string name="pref_auto_mind_reading_complete">השלמה אוטומטית</string>
-	<string name="pref_pref_auto_mind_reading_in_all_fields">הפעל בכל שדות הטקסט</string>
+	<string name="pref_auto_mind_reading_in_all_fields">הפעל בכל שדות הטקסט</string>
 	<string name="pref_category_unfolded_appearance">מראה במצב פתוח</string>
 	<string name="pref_category_unfolded_appearance_summary">הגדרת המראה כאשר המכשיר פתוח.</string>
 	<string name="pref_predict_top_words">זכירת מילים נפוצות</string>

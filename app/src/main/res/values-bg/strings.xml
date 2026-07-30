@@ -306,14 +306,14 @@
 	<string name="function_txt_copy">Копиране</string>
 	<string name="accessibility_key_left">Стрелка наляво</string>
 	<string name="pref_auto_mind_reading_complete_summary">Показване на довършвания на думи след въвеждане на първата буква. (Не е възможно на всички езици)</string>
-	<string name="pref_pref_auto_mind_reading_in_all_fields_summary">Някои приложения могат да поискат без предсказване на думи в определени текстови полета. Тази опция игнорира тези заявки и активира предсказванията във всички текстови полета.</string>
+	<string name="pref_auto_mind_reading_in_all_fields_summary">Някои приложения могат да поискат без предсказване на думи в определени текстови полета. Тази опция игнорира тези заявки и активира предсказванията във всички текстови полета.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Показване на автодовършванията последни</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Показване на възможните довършвания в края на списъка с предложения.</string>
 	<string name="pref_auto_mind_reading_summary">Настройване на предсказванията за следваща дума. (При устройства с по-ниска производителност тази функция може да забави писането и да увеличи разхода на батерия)</string>
 	<string name="pref_auto_mind_reading_guess">Предсказване на следваща дума</string>
 	<string name="pref_auto_mind_reading_guess_summary">Показване на предсказвания за следваща дума преди да започнете да пишете. (Не е възможно на всички езици)</string>
 	<string name="pref_auto_mind_reading_complete">Автодовършване</string>
-	<string name="pref_pref_auto_mind_reading_in_all_fields">Активиране във всички текстови полета</string>
+	<string name="pref_auto_mind_reading_in_all_fields">Активиране във всички текстови полета</string>
 	<string name="pref_category_unfolded_appearance">Изглед при разгънато устройство</string>
 	<string name="pref_category_unfolded_appearance_summary">Настройки на изгледа при разгънато устройство.</string>
 	<string name="pref_predict_top_words">Запомняне на често използвани думи</string>

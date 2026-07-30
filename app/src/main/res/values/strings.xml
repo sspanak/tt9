@@ -93,8 +93,8 @@
 	<string name="pref_auto_mind_reading_guess_summary">Show next-word predictions before you start typing. (Not available in all languages)</string>
 	<string name="pref_auto_mind_reading_complete">Autocomplete</string>
 	<string name="pref_auto_mind_reading_complete_summary">Show word completions after you type the first letter. (Not available in all languages)</string>
-	<string name="pref_pref_auto_mind_reading_in_all_fields">Enable in All Text Fields</string>
-	<string name="pref_pref_auto_mind_reading_in_all_fields_summary">Some apps may request no word predictions in specific text fields. This option ignores such app requests, and enables predictions in all text fields.</string>
+	<string name="pref_auto_mind_reading_in_all_fields">Enable in All Text Fields</string>
+	<string name="pref_auto_mind_reading_in_all_fields_summary">Some apps may request no word predictions in specific text fields. This option ignores such app requests, and enables predictions in all text fields.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Show Auto-Completions Last</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Show the possible completions at the end of the suggestion list.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_off">Show the most probable completions at the beginning of the suggestion list.</string>
