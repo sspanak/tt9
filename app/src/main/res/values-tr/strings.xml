@@ -311,14 +311,14 @@
 	<string name="function_txt_copy">Kopyala</string>
 	<string name="accessibility_key_left">Sol ok</string>
 	<string name="pref_auto_mind_reading_complete_summary">İlk harfi yazdıktan sonra kelime tamamlamalarını göster. (Tüm dillerde mevcut değil)</string>
-	<string name="pref_pref_auto_mind_reading_in_all_fields_summary">Bazı uygulamalar belirli metin alanlarında kelime tahminlerinin gösterilmemesini isteyebilir. Bu seçenek bu istekleri yok sayar ve tahminleri tüm metin alanlarında etkinleştirir.</string>
+	<string name="pref_auto_mind_reading_in_all_fields_summary">Bazı uygulamalar belirli metin alanlarında kelime tahminlerinin gösterilmemesini isteyebilir. Bu seçenek bu istekleri yok sayar ve tahminleri tüm metin alanlarında etkinleştirir.</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last">Otomatik tamamlamaları sonda göster</string>
 	<string name="pref_auto_mind_reading_sort_predictions_last_summary_on">Olası tamamlamaları öneri listesinin sonunda göster.</string>
 	<string name="pref_auto_mind_reading_summary">Sonraki kelime tahminlerini yapılandırın. (Düşük performanslı cihazlarda bu özellik yazmayı yavaşlatabilir ve pili daha hızlı tüketebilir)</string>
 	<string name="pref_auto_mind_reading_guess">Sonraki kelime tahminleri</string>
 	<string name="pref_auto_mind_reading_guess_summary">Yazmaya başlamadan önce sonraki kelime tahminlerini göster. (Tüm dillerde mevcut değil)</string>
 	<string name="pref_auto_mind_reading_complete">Otomatik tamamlama</string>
-	<string name="pref_pref_auto_mind_reading_in_all_fields">Tüm metin alanlarında etkinleştir</string>
+	<string name="pref_auto_mind_reading_in_all_fields">Tüm metin alanlarında etkinleştir</string>
 	<string name="pref_category_unfolded_appearance">Açık mod görünümü</string>
 	<string name="pref_category_unfolded_appearance_summary">Cihaz açıldığında görünümü yapılandırır.</string>
 	<string name="pref_predict_top_words">Sık kullanılan kelimeleri hatırla</string>

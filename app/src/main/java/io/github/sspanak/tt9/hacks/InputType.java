@@ -202,12 +202,12 @@ public class InputType extends StandardInputType {
 	 * fields that require no "learning", multiline text fields, that do not have TYPE_TEXT_FLAG_NO_SUGGESTIONS,
 	 * password or numeric fields, and others where predictions make no sense.
 	 */
-	public boolean notMindReadableText(@NonNull SettingsStore settings) {
-		if (field == null || isEmail() || isPassword()) {
+	public boolean notMindReadableText(@Nullable SettingsStore settings) {
+		if (field == null || isEmail() || isPassword() || isNumeric() || isPersonName()) {
 			return true;
 		}
 
-		if (settings.getMindReadingInAllFields() && isText()) {
+		if (settings != null && settings.getMindReadingInAllFields() && isText()) {
 			return false;
 		}
 
@@ -218,11 +218,10 @@ public class InputType extends StandardInputType {
 			noPersonalizedLearning = true;
 		}
 
-		return noPersonalizedLearning
-		|| (isMultilineText() && noSuggestions)
-		|| isNumeric()
-		|| isPersonName()
-		|| (!isMultilineText() && !isUri()); // allow in URL fields, because they are often used for search
+		return
+			noPersonalizedLearning
+			|| (isMultilineText() && noSuggestions)
+			|| (!isMultilineText() && !isUri()); // allow in URL fields, because they are often used for search
 	}
 
 
