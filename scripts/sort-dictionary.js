@@ -103,8 +103,9 @@ function dictionarySort(a, b) {
 	const kb = b.sortKey;
 
 	for (let i = 0; i < ka.length; i++) {
-	if (ka[i] !== kb[i])
-		return ka[i] - kb[i];
+		if (ka[i] !== kb[i]) {
+			return ka[i] - kb[i];
+		}
 	}
 
 	return 0;
