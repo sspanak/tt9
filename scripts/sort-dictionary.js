@@ -43,9 +43,11 @@ async function readWords(fileName, letterWeights, locale) {
 	}
 
 	for await (const line of createInterface({ input: createReadStream(fileName) })) {
-		const [word, frequency] = line.split("\t");
+		let [word, frequency] = line.split("\t");
+		frequency = Number.parseInt(frequency);
+
 		words.push({
-			frequency: Number.isNaN(Number.parseInt(frequency)) ? 0 : Number.parseInt(frequency),
+			frequency: Number.isNaN(frequency) ? 0 : frequency,
 			sortKey: makeSortKey(word, letterWeights, locale),
 			word,
 		});
