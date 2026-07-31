@@ -35,7 +35,7 @@ function validateInput() {
 }
 
 
-async function readWords(fileName) {
+async function readWords(fileName, letterWeights, locale) {
 	const words = [];
 
 	if (!fileName) {
@@ -45,8 +45,9 @@ async function readWords(fileName) {
 	for await (const line of createInterface({ input: createReadStream(fileName) })) {
 		const [word, frequency] = line.split("\t");
 		words.push({
+			frequency: Number.isNaN(Number.parseInt(frequency)) ? 0 : Number.parseInt(frequency),
+			sortKey: makeSortKey(word, letterWeights, locale),
 			word,
-			frequency: Number.isNaN(Number.parseInt(frequency)) ? 0 : Number.parseInt(frequency)
 		});
 	}
 
@@ -82,20 +83,28 @@ async function readDefinition(fileName) {
 }
 
 
-function dictionarySort(a, b, letterWeights, locale) {
-	if (a.word.length !== b.word.length) {
-		return a.word.length - b.word.length;
+function makeSortKey(word, letterWeights, locale) {
+	const lower = word.toLocaleLowerCase(locale);
+
+	const key = new Array(lower.length + 1);
+	key[0] = lower.length;
+
+	for (let i = 0; i < lower.length; i++) {
+		key[i + 1] = letterWeights.get(lower[i]);
+		key[i + 1] = key[i + 1] === undefined ? 0 : key[i + 1];
 	}
 
-	for (let i = 0, end = a.word.length; i < end; i++) {
-		const charA = a.word.toLocaleLowerCase(locale).charAt(i);
-		const charB = b.word.toLocaleLowerCase(locale).charAt(i);
-		const distance = letterWeights.get(charA) - letterWeights.get(charB);
+	return key;
+}
 
 
-		if (distance !== 0) {
-			return distance;
-		}
+function dictionarySort(a, b) {
+	const ka = a.sortKey;
+	const kb = b.sortKey;
+
+	for (let i = 0; i < ka.length; i++) {
+	if (ka[i] !== kb[i])
+		return ka[i] - kb[i];
 	}
 
 	return 0;
@@ -103,12 +112,9 @@ function dictionarySort(a, b, letterWeights, locale) {
 
 
 async function work({ definitionFile, wordsFile, locale }) {
-	return Promise.all([
-		readWords(wordsFile),
-		readDefinition(definitionFile)
-	]).then(([words, letterWeights]) =>
-		words.sort((a, b) => dictionarySort(a, b, letterWeights, locale))
-	);
+	const letterWeights = await readDefinition(definitionFile);
+	const words = await readWords(wordsFile, letterWeights, locale);
+	return words.sort((a, b) => dictionarySort(a, b));
 }
 
 
