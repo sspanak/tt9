@@ -148,6 +148,7 @@ public class NaturalLanguage extends TranscribedLanguage {
 
 		return switch (getLocale().getLanguage()) {
 			case "fi" -> "su";
+			case "nb", "nn" -> "no";
 			case "sw" -> "ki";
 			case "zgh" -> "tam";
 			default -> getLocale().toString();
