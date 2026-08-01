@@ -81,7 +81,6 @@ public class AppHacks {
 	}
 
 
-
 	public void setComposingTextWithHighlightedStem(@NonNull String word, @Nullable String stem, boolean isStemFilterFuzzy) {
 		final HighlightedText highText =
 			new HighlightedText(word, true, false)
@@ -269,6 +268,15 @@ public class AppHacks {
 		}
 
 		return action;
+	}
+
+
+	/**
+	 * Determines whether the composing text in the connected app should be forced to our state,
+	 * before committing or calling finishComposingText().
+	 */
+	public boolean shouldRefreshComposingTextBeforeCommit(@NonNull String currentSuggestion) {
+		return inputType != null && inputType.isWhatsApp() && Text.isGraphic(currentSuggestion);
 	}
 
 
