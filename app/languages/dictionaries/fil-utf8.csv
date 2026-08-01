@@ -327,6 +327,7 @@ po	196
 qo
 PR	106
 PS
+QQ
 QR
 RS
 Rp
@@ -425,8 +426,255 @@ XV
 Xu
 Yu	111
 YZ
+.ac
+.ba
+.bb
+.ca
+.cc
+.ad
+.ae
+.af
+.bd
+.be
+.bf
+.cd
+.cf
+.ag
+.ai
+.bg
+.bh
+.bi
+.cg
+.ch
+.ci
+.al
+.bj
+.ck
+.cl
+.am
+.ao
+.bm
+.bn
+.bo
+.cm
+.cn
+.co
+.aq
+.ar
+.as
+.bq
+.br
+.bs
+.cr
+.at
+.au
+.bt
+.cu
+.cv
+.aw
+.ax
+.az
+.bw
+.by
+.bz
+.cw
+.cx
+.cy
+.cz
+.ec
+.de
+.ee
+.eg
+.eh
+.fi
+.dj
+.dk
+.fj
+.fk
+.dm
+.do
+.fm
+.fo
+.er
+.es
+.fr
+.et
+.eu
+.dz
+.ga
+.gd
+.ge
+.gf
+.id
+.ie
+.gg
+.gh
+.gi
+.gl
+.hk
+.il
+.gm
+.gn
+.hm
+.hn
+.im
+.in
+.io
+.gp
+.gq
+.gr
+.gs
+.hr
+.iq
+.ir
+.is
+.gt
+.gu
+.ht
+.hu
+.it
+.gw
+.gy
+.la
+.lb
+.lc
+.je
+.ke
+.kg
+.kh
+.ki
+.li
+.lk
+.jm
+.jo
+.km
+.kn
+.jp
+.kp
+.kr
+.lr
+.ls
+.lt
+.lu
+.lv
+.kw
+.ky
+.kz
+.ly
 -na	249
+.ma
+.mc
+.na
+.nc
+.md
+.me
+.ne
+.nf
 -ng	255
+.mg
+.mh
+.ng
+.ni
+.mk
+.ml
+.nl
+.mm
+.mn
+.mo
+.no
+.om
+.mp
+.mq
+.mr
+.ms
+.np
+.nr
+.mt
+.mu
+.mv
+.nu
+.mw
+.mx
+.my
+.mz
+.nz
+.pa
+.qa
+.sa
+.sb
+.sc
+.pe
+.pf
+.re
+.sd
+.se
+.pg
+.ph
+.sg
+.sh
+.si
+.pk
+.pl
+.sk
+.sl
+.pm
+.pn
+.ro
+.sm
+.sn
+.so
+.pr
+.ps
+.rs
+.sr
+.ss
+.pt
+.ru
+.st
+.su
+.sv
+.pw
+.py
+.rw
+.sx
+.sy
+.sz
+.tc
+.ua
+.va
+.vc
+.td
+.tf
+.ve
+.tg
+.th
+.ug
+.vg
+.vi
+.tj
+.tk
+.tl
+.uk
+.tm
+.tn
+.to
+.vn
+.tr
+.us
+.tt
+.tv
+.vu
+.tw
+.tz
+.uy
+.uz
+.za
+.wf
+.ye
+.zm
+.ws
+.yt
+.zw
 A-B
 C-D
 C-V
@@ -486,7 +734,7 @@ Ado	75
 Bem
 Ben	133
 Beo
-Ceo
+CEO
 Ber	86
 Ces
 ads	111
@@ -536,6 +784,7 @@ Ale	98
 Aki
 Ali	135
 Blg
+CLI
 All	155
 Blk
 Alm
@@ -771,6 +1020,7 @@ Ema
 Doe
 End	132
 Ene
+DNG
 Dog	119
 Doi
 Emi
@@ -897,6 +1147,7 @@ Hey	110
 Gia
 Iha	101
 iga
+GIF
 Hie
 Igi
 gig	97
@@ -950,6 +1201,7 @@ hom
 imo	96
 Gor
 Hop	126
+iOS
 Got	125
 Gov	115
 Hot	140
@@ -975,6 +1227,7 @@ Ist
 hpy
 iqw
 Gub
+HTC
 Hua
 Hub	101
 Ita	95
@@ -1259,10 +1512,12 @@ may	217
 naw
 Me-	157
 Mea
+NEC
 Oda
 Med	93
 Ned
 Nee
+ODF
 Off	149
 mee
 odd	78
@@ -1277,9 +1532,9 @@ Mdo
 Men	128
 Neo
 Mer
+NES
 Nep
 Ner
-Nes
 Met	109
 Net	127
 Mew
@@ -1336,6 +1591,7 @@ Oki
 Oli
 Olo
 Oks	91
+OLX
 mo-	208
 Nob
 Ona
@@ -1357,9 +1613,9 @@ Ono
 nmn	120
 nom	78
 noo	133
+MMS
 Nor	91
 Nos	84
-mms
 mop	76
 Not	146
 Nov
@@ -1373,6 +1629,7 @@ osa
 Ore
 mre
 mph
+MSN
 Opo	120
 Oro	111
 mpo
@@ -1575,10 +1832,10 @@ Poe	126
 Rod	105
 Soe
 roe
+PNG	87
 Poh	106
 Roh
 Roi
-png	87
 qng	77
 qoh
 rng
@@ -1643,6 +1900,7 @@ Sue
 pud
 Pti
 Pui
+SVG
 Suh
 pug
 puh
@@ -1688,6 +1946,7 @@ Tag	155
 Tai
 tbi
 ubi
+TCL
 Taj
 Val	105
 tak	94
@@ -1909,6 +2168,7 @@ Zsa
 yrs	107
 Xue
 Yue
+ZTE
 Yuh
 Yui
 Zui
@@ -1918,6 +2178,14 @@ Wun
 yun	178
 Yup
 Xyz
+www	80
+.biz
+.com
+.edu
+.gov
+.int
+.net
+.org
 -San	166
 -yon	160
 a-ng
@@ -2707,6 +2975,7 @@ Arme
 Arne
 Brod	85
 asod
+APNG
 Apog	90
 Asog
 armi
@@ -2786,6 +3055,7 @@ Buds	85
 Atet
 Avic
 Buga	87
+AVIF
 Avid	85
 Buhi
 atig
@@ -3297,6 +3567,7 @@ doom
 doon	155
 Door	113
 Dont
+Doov
 Foot	108
 font	104
 Emmy
@@ -3787,6 +4058,7 @@ Ikay
 ikaw	180
 ilaw	137
 ilay
+IKEA
 Glee
 Glen	92
 Iker
@@ -3932,6 +4204,7 @@ inyo	171
 grab	109
 Grad	84
 Graf
+iPad	107
 Ipag
 Isah
 isag
@@ -3980,7 +4253,7 @@ isla	139
 Isle
 Isko
 Irma
-Ipod	101
+iPod	101
 isod
 Ipog
 Ipoh
@@ -4039,6 +4312,7 @@ Hulo
 gulo	133
 itlo
 iuko
+Hulu
 Huly
 ito-	220
 huma
@@ -4546,6 +4820,7 @@ Joed
 knee	83
 koed
 Jodi	97
+Kodi
 kndi
 Joel	125
 Joem
@@ -5320,6 +5595,7 @@ Orly
 Orme
 Opol
 Orpa
+Oppo
 Opps
 orte
 opus
@@ -6405,6 +6681,7 @@ Teng	107
 tenk
 Tenn
 Ueno
+Temu
 Tent	101
 vent
 Temy
@@ -7018,10 +7295,12 @@ Wynn
 -cock	79
 -araw	195
 -ayon	186
+.info
 -labo	100
 -Lucy	108
 -otso	110
 -para	210
+.tech
 -ugat	150
 -Toni	127
 -Tsao
@@ -13254,6 +13533,7 @@ Maano
 maamo	81
 naano	202
 Nacor
+macOS
 Macoy
 Obasa
 mbasa
@@ -15112,6 +15392,7 @@ Redge
 Pedji
 Reema
 Reena
+Redmi
 Refol
 Seems
 Reese
@@ -16200,8 +16481,8 @@ rubyo
 Rue-l
 Steak	86
 steal	82
+Steam	108
 Sudan
-steam	108
 Rudas
 Rueda
 Ruffa
@@ -16365,6 +16646,7 @@ stool
 sunok
 rumor	76
 Sunny
+Quora
 sumpa	123
 Store	126
 Storm	104
@@ -16923,6 +17205,7 @@ vicar
 tibaw
 tibay	113
 Viado
+Viber
 vibes	100
 vices
 Tibet
@@ -16950,8 +17233,8 @@ tiara
 Thatl
 Victo
 Vidad
+Tidal	78
 Vidal
-tidal	78
 Video	164
 Tides
 Theft	85
@@ -19953,6 +20236,7 @@ Boards	91
 anaser
 Amarga
 anarki
+Amarok
 Anasta
 Bocuae
 ambush
@@ -21561,6 +21845,7 @@ effort	121
 deeper
 deeply
 Dedumo
+Deezer
 Dehado	92
 Edgado
 edible
@@ -24220,7 +24505,7 @@ Gringa
 isinga
 ipinid
 Gringo
-iphone	118
+iPhone	118
 isinop
 isinu-
 ipinta	81
@@ -24386,6 +24671,7 @@ Guavez
 itatwa
 itawad
 itawag	98
+Huawei
 itawid
 Guazon
 itayon
@@ -28755,6 +29041,7 @@ Opkors
 Ornabo
 Orocan
 Orobia
+OsmAnd
 Orodio
 Osmena
 Osmeña
@@ -28853,6 +29140,7 @@ munini
 mungot
 Nuondu
 nunong
+numpad
 munsik
 Munsod
 munson
@@ -30112,6 +30400,7 @@ Reebok
 Redaon
 Refazo
 Seeded
+Reddit
 Pedere
 Pedero
 refers
@@ -31123,6 +31412,7 @@ skulls
 plural	80
 Skylab
 Skyler
+Skynet
 Skyp-e
 Skyway	82
 Ro-bin
@@ -31470,6 +31760,7 @@ rowers
 rowing
 Soyosa
 spaces
+SpaceX
 Pradas
 Praful
 Praise	92
@@ -32863,7 +33154,7 @@ Tikman	103
 tiktak
 tiktik	94
 tiltil
-tiktok
+TikTok
 Viktor
 tikwas
 Vilyay
@@ -33647,6 +33938,7 @@ Tumala
 tumali
 tumako
 tumalo	83
+Tumblr
 Tumana
 tumama	121
 tumaob	76
@@ -33777,6 +34069,7 @@ Twenty	100
 twice-	101
 Tygart
 twists
+Twitch
 Tykerb
 Twofus
 tyrano
@@ -33948,6 +34241,7 @@ Ze-xin
 webcam	91
 Webber
 webera
+WeChat
 Wealth	94
 weasel
 Yearly
@@ -33986,6 +34280,7 @@ Xiabao
 Wicked
 Xiaobo
 Xiamen
+Xiaomi
 whammy
 Xiaoyu
 Xiaozu
@@ -34102,6 +34397,7 @@ Yvette
 Yuichi
 Zuleta
 Yukiko
+Yulong
 Yumang
 yumaon
 yumari
@@ -36017,6 +36313,7 @@ Alcarde
 Alcasid
 Alcasin
 Albarka
+Alcatel
 alabwab
 Akbayan	86
 Alcazar
@@ -36294,6 +36591,7 @@ Altasin
 Altavas
 Blueboy
 Aludino
+Bluesky
 akti-bo
 Altijar
 aktitud
@@ -38052,6 +38350,7 @@ Datches
 Davalos
 datapwa
 Davi-de
+favicon
 Fathers	89
 Datihan
 datigan
@@ -38512,6 +38811,7 @@ dipagod
 dipalak
 dipanay
 disanay
+Discord
 disapat
 disapir
 disapyo
@@ -39007,6 +39307,7 @@ Eronnie
 Frontal
 fronton
 esopago
+Dropbox
 erosion
 Erorita
 droplet
@@ -48333,6 +48634,7 @@ Moy-moy
 Noy-noy
 onwards
 nowhere	87
+Mozilla
 Ora-cle
 Oracare
 msabing
@@ -49600,6 +49902,7 @@ Paltrow
 salusoy
 pakupya
 Palutan
+Rakuten
 paktura
 paluwal
 saluyan
@@ -52352,6 +52655,7 @@ Protect	85
 protein	103
 Protest	86
 Provide	84
+Spotify
 protina	133
 proving
 provost
@@ -53177,6 +53481,7 @@ Pyramid	102
 Syrians
 Syrin-x
 systema	92
+systemd
 Systems	103
 syuting
 T-aoist
@@ -55290,7 +55595,7 @@ you-han	112
 wounded
 younger	93
 Youssif
-Youtube	137
+YouTube	137
 Youzhny
 Woygnet
 Wozniak
@@ -55771,6 +56076,7 @@ Balising
 aalising
 baliskad
 Balisong	75
+Calisota
 balisuso
 Balitaan	98
 balitang	116
@@ -59964,6 +60270,7 @@ ducation
 Dubduban
 etcetera
 Dublanko
+Duckburg
 dublihin
 fuckshit
 evaluate
@@ -61899,6 +62206,7 @@ hollywod
 Holmberg
 hologram
 Holmiyum
+Inkscape
 holsters
 inlunsad
 injuries	84
@@ -64484,6 +64792,7 @@ Lingunan
 Lingunin
 Kiniyeme
 Limlauco
+LinkedIn
 limliman
 kimkimin
 Khomeini
@@ -70741,6 +71050,7 @@ modeling	84
 modelong	107
 Nofeonte
 Moderate
+OneDrive
 Modified	83
 Onesimus
 Onga-sis
@@ -70926,6 +71236,7 @@ openings
 openness
 opensang
 opensiba	91
+openSUSE
 operahan
 operahin
 Operandi
@@ -75221,6 +75532,7 @@ Rockwell
 Pobo-can
 pmangkin
 sobrahan
+Snapchat
 Socrates
 Robred-o
 Soapdish
@@ -78289,6 +78601,7 @@ Zialcita
 Xiaojing
 Xiaoting
 Whatever	100
+WhatsApp
 whe-ther
 Wheelers
 widening
@@ -82209,6 +82522,7 @@ dumadalaw	98
 dumadaloy	115
 dumadanak
 dumadaong
+Dumbdroid
 dumagsang
 Dumaguete	90
 dumalisay
@@ -82217,6 +82531,7 @@ dumangkal
 dumaraang
 dumaraing
 dumaranas	97
+dumbphone
 functions	87
 Dumausdos
 Fundation
@@ -84004,6 +84319,7 @@ horspower
 imprudent
 hostage-s
 hostaging
+Instagram
 installed
 installer
 instances
@@ -87660,6 +87976,7 @@ nabin-bin
 nabinbing
 Nabingwit
 mabingwit
+Macintosh
 mabistong
 nabistong
 Nabitawan	88
@@ -97729,6 +98046,7 @@ side-trip	124
 sidelight
 sidelined
 Sidelines
+Sidephone
 ridership
 sidewalks
 Rheinette
@@ -98292,6 +98610,7 @@ pintasera
 pintasero
 sinubukan	127
 sintensya
+Pinterest
 Sinugalan
 sinugatan	80
 sinuggest
@@ -119493,6 +119812,7 @@ potensya-l
 potentials
 rotisserie
 round-trip	119
+SoundCloud
 soundbytes
 roundtable
 soundtrack	94
