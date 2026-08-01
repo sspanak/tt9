@@ -79,6 +79,7 @@ generate_async NotoSansThai-Bold.ttf กข -0.15 th_abc
 
 generate_all_cases "NotoSans-Bold.ttf" "br" "br" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "бг" "bg" -0.15 -0.15 -0.15
+generate_all_cases "NotoSans-Bold.ttf" "бе" "be" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "ca" "ca" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "hr" "hr" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "cz" "cz" -0.15 -0.15 -0.15
