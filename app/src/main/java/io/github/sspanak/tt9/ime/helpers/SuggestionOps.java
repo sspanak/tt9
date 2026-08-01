@@ -225,6 +225,11 @@ public class SuggestionOps {
 				// getCurrent() is somewhat resource-intensive, so we want to minimize the calls to it.
 				// Hence, the more complicated if-else structure
 				final String current = getCurrent();
+
+				if (appHacks != null && appHacks.shouldRefreshComposingTextBeforeCommit(current)) {
+					textField.replaceComposingText(current);
+				}
+
 				if (textField.getComposingText().equals(current)) {
 					textField.finishComposingText();
 				} else {
