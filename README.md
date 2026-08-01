@@ -1,6 +1,6 @@
 # Traditional T9 ![GitHub Downloads (latest release)](https://img.shields.io/github/downloads/sspanak/tt9/latest/total)
 
-TT9 is a Nokia-style T9 keyboard for Android. It provides predictive text input in [40+ languages](app/languages/definitions), configurable hotkeys, clipboard, undo/redo, and extensive customization. It works on touchscreens, physical keypads, and TV remote controls. And best of all, it [doesn't spy](docs/privacy.md) on you!
+TT9 is a Nokia-style T9 keyboard for Android. It provides predictive text input in [50+ languages](app/languages/definitions), configurable hotkeys, clipboard, undo/redo, and extensive customization. It works on touchscreens, physical keypads, and TV remote controls. And best of all, it [doesn't spy](docs/privacy.md) on you!
 
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
@@ -31,7 +31,7 @@ _If your phone does not have Google Play and does not allow installing custom AP
 ## ⚙️ System Requirements
 - Full version: Android 7.0 or higher
 - Lite version: Android 8.0 or higher
-- Storage space depends on the Android version. The lite version requires at least 6-8 Mb and the full version requires at least 220 Mb.
+- Storage space depends on the Android version. The lite version requires at least 6-8 Mb and the full version requires at least 265 Mb.
 - Extra storage space is necessary for language dictionaries in Predictive Mode.
     - Languages with character predictions only (Korean): ~1 Mb per language
     - Tiny languages (< 100k words; Kiswahili, Indonesian, Vietnamese): 5-6 Mb per language.
