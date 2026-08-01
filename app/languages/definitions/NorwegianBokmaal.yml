@@ -2,7 +2,7 @@ locale: nb-NO
 dictionaryFile: nb-utf8.csv
 ngramFile: nb-ngrams.zip
 iconABC: ic_lang_latin
-iconT9: ic_lang_no
+iconT9: ic_lang_nb
 layout:
   - [SPECIAL] # 0
   - [PUNCTUATION_FR] # 1
