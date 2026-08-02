@@ -34,8 +34,9 @@ record LocaleCompat(Locale locale) {
 
 		return switch (language) {
 			case "ar" -> "ع";
+			case "be" -> "бе";
 			case "bg" -> "бг";
-			case "be", "ca", "ga", "la", "nn", "nb", "sw" -> language;
+			case "ca", "ga", "la", "nn", "nb", "sw" -> language;
 			case "en" -> "in".equals(country) ? "hn" : language; // en-IN = Hinglish
 			case "fa" -> "ف";
 			case "fi" -> "su";
