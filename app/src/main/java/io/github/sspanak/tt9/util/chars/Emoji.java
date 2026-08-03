@@ -13,19 +13,23 @@ class Emoji extends Punctuation {
 	final private static ArrayList<ArrayList<String>> Emoji = new ArrayList<>(Arrays.asList(
 		// positive
 		new ArrayList<>(Arrays.asList(
-			"🙂", "😀", "🤣", "🤓", "😎", "😛", "😉"
+		  "🙂", "😊", "😁", "😆", "😅", "🤣", "😛", "😉", "🤓", "😎"
 		)),
 		// negative
 		new ArrayList<>(Arrays.asList(
-			"🙁", "😢", "😭", "😱", "😲", "😳", "😐", "😠"
+			"🙁", "😟", "😢", "😭", "😧", "😱", "😲", "😳", "😠", "😐"
 		)),
 		// hands
 		new ArrayList<>(Arrays.asList(
-			"👍", "👋", "✌️", "👏", "🖖", "🤘", "🤝", "💪", "👎"
+			"👍", "👎", "👋", "👏", "🤞", "✌️", "💪", "🤝", "🤘", "🖖"
 		)),
-		// emotions
+		// love
 		new ArrayList<>(Arrays.asList(
-			"❤", "🤗", "😍", "😘", "😇", "😈", "🍺", "🎉", "🥱", "🤔", "🥶", "😬"
+			"❤", "🤗", "😘", "😍", "🤩", "🫂", "🫶", "❤️‍🔥", "💗", "💋"
+		))
+		// misc
+		new ArrayList<>(Arrays.asList(
+			"😬", "🥺", "😇", "😈", "🥱", "🤔", "🥶", "🥵", "🔥", "🎉"
 		))
 	));
 
