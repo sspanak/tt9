@@ -30,3 +30,17 @@ Notice:
 
 	DETAILS AT http://www.gnu.org
 --------------------------------------------------------------------
+
+Latin word frequencies by Thibault Clérice
+License: CC-BY-4.0
+Notice:
+@software{thibault_clerice_2020_corpus_latin,
+  author       = {Clérice, Thibault},
+  title        = {Corpus Latin antiquité et antiquité tardive lemmatisé},
+  month        = apr,
+  year         = 2021,
+  publisher    = {Zenodo},
+  version      = {0.1.3},
+  doi          = {10.5281/zenodo.4337145},
+  url          = {https://doi.org/10.5281/zenodo.4337145}
+}
