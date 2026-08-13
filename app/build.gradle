@@ -109,6 +109,31 @@ tasks.register('updateManifest') {
 	}
 }
 
+/**
+ * gradle sometimes produces a version-control-info.textproto file with NO_VALID_GIT_FOUND in it.
+ * This is irrelevant when using the app, but prevents validation on the F-droid build server.
+ * As per: https://issuetracker.google.com/issues/393183845?pli=1, the extractVersionControlInfo task,
+ * runs `git rev-parse HEAD` and fills in the revision. In case it failed, we do the same manually.
+ */
+tasks.matching { it.name =~ /extract.*VersionControlInfo/ }.configureEach { t ->
+	def moduleDir = layout.projectDirectory.asFile
+
+	t.doLast {
+		t.outputs.files.asFileTree.matching { include '**/version-control-info.textproto' }.each { file ->
+			def content = file.text
+			if (content.contains('NO_VALID_GIT_FOUND')) {
+				def proc = new ProcessBuilder('git', 'rev-parse', 'HEAD').directory(moduleDir).redirectErrorStream(true).start()
+				def revision = proc.inputStream.text.trim()
+				proc.waitFor()
+				logger.warn("'${file}' contains NO_VALID_GIT_FOUND. Manually patching with revision ${revision}")
+				file.text = "repositories {\n  system: GIT\n  local_root_path: \".\"\n  revision: \"${revision}\"\n}"
+			}
+		}
+	}
+
+	t.outputs.upToDateWhen { false }
+}
+
 clean {
 	delete DOCS_HTML_DIR
 	delete DICTIONARIES_OUTPUT_DIR
