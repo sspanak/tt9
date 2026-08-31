@@ -260,6 +260,17 @@ public class InputType extends StandardInputType {
 
 
 	/**
+	 * The Shein store app has a search field that is defined with some random inputType flags, which
+	 * causes us to detect it as a limited field, which disables Predictive mode. This hack detects
+	 * the particular field and allows enabling Predictive mode.
+	 * Bug report: <a href="https://github.com/sspanak/tt9/issues/1191">#1191</a>
+	 */
+	private boolean isSheinSearchField() {
+		return isAppField("com.zzkko", EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+	}
+
+
+	/**
 	 * Simulate the behavior of the Sonim native keyboard. In search fields with integrated lists,
 	 * ENTER is used to select an item from the list. But some of them have actionId = NEXT, instead of NONE,
 	 * which normally means "navigate to the next button or field". This hack correctly allows selection
@@ -352,7 +363,7 @@ public class InputType extends StandardInputType {
 	 */
 	@Override
 	public boolean isDefectiveText() {
-		return isDuoLingoReportBug() || isAndroid15ContactsField();
+		return isDuoLingoReportBug() || isAndroid15ContactsField() || isSheinSearchField();
 	}
 
 
