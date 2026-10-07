@@ -30,7 +30,7 @@ public class SoftKeyTogglePredictiveMode extends BaseSoftKeyCustomizable {
 		}
 
 		if (InputModeKind.isPredictive(tt9.getInputMode())) {
-			return "T9";
+			return tt9.getInputModeName();
 		} else if (tt9.isInputModeNumeric()) {
 			return "--";
 		} else {
