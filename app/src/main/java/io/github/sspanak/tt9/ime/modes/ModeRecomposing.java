@@ -161,6 +161,12 @@ public class ModeRecomposing extends InputMode {
 
 
 	@Override
+	protected boolean loadEmojisIfNeeded() {
+		return false;
+	}
+
+
+	@Override
 	public void loadSuggestions(String w) {
 		String currentWord = textField == null ? "" : textField.getComposingText();
 

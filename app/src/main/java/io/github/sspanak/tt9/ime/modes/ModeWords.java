@@ -330,7 +330,7 @@ class ModeWords extends ModeCheonjiin {
 	public void loadSuggestions(String currentWord) {
 		containsEmojis = false;
 
-		if (disablePredictions || loadPreferredChar() || loadSpecialCharacters() || loadEmojis()) {
+		if (disablePredictions || loadPreferredChar() || loadSpecialCharacters() || loadEmojisIfNeeded()) {
 			predictions.reset();
 			onSuggestionsUpdated.run();
 			return;

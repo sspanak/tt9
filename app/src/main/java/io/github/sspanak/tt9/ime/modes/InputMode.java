@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
+import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NullLanguage;
@@ -39,6 +40,7 @@ abstract public class InputMode {
 
 	// data
 	protected int autoAcceptTimeout = -1;
+	protected boolean containsEmojis = false;
 	@NonNull protected String digitSequence = "";
 	protected final boolean isEmailMode;
 	@NonNull protected Language language = new NullLanguage();
@@ -165,7 +167,7 @@ abstract public class InputMode {
 
 	// Utility
 	abstract public int getId();
-	public boolean containsEmojis() { return false; }
+	public boolean containsEmojis() { return containsEmojis; }
 	public boolean containsGeneratedSuggestions() { return false; }
 
 	public boolean isTyping() { return !digitSequence.isEmpty(); }
@@ -195,11 +197,13 @@ abstract public class InputMode {
 	public boolean shouldAddTrailingSpace(@NonNull String previousChars, @NonNull String nextChars, boolean isWordAcceptedManually, int nextKey) { return false; }
 	public boolean shouldAddPrecedingSpace(@NonNull String previousChars) { return false; }
 	public boolean shouldDeletePrecedingSpace(@NonNull String previousChars) { return false; }
+	protected boolean shouldDisplayEmojis() { return !isEmailMode && settings.areEmojisEnabled() && digitSequence.startsWith(seq.EMOJI_SEQUENCE); }
 	public boolean shouldIgnoreText(String text) { return text == null || text.isEmpty(); }
 	public boolean shouldSelectNextSuggestion() { return false; }
 
 	public void reset() {
 		autoAcceptTimeout = -1;
+		containsEmojis = false;
 		suggestions = new ArrayList<>();
 	}
 
@@ -247,6 +251,29 @@ abstract public class InputMode {
 
 	// Based on the internal logic of the mode (punctuation or grammar rules), re-adjust the text case for when getSuggestions() is called.
 	protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
+
+
+	protected boolean loadEmojisIfNeeded() {
+		if (shouldDisplayEmojis()) {
+			suggestions = new EmojiLanguage(seq).getKeyCharacters(digitSequence.charAt(digitSequence.length() - 1) - '0', getEmojiGroup());
+			containsEmojis = !suggestions.isEmpty();
+			return true;
+		}
+
+		return false;
+	}
+
+
+	public void loadEmojis() {
+		reset();
+		digitSequence = seq.EMOJI_SEQUENCE;
+		loadEmojisIfNeeded();
+	}
+
+
+	protected int getEmojiGroup() {
+		return digitSequence.length() - seq.EMOJI_SEQUENCE.length();
+	}
 
 
 	/**

@@ -21,5 +21,6 @@ class ModePassthrough extends InputMode {
 	@Override @NonNull public String toAccessibilityString(@NonNull Context ctx) { return toString(); }
 
 	@Override public boolean onNumber(int n, boolean h, int r, @NonNull String[] s) { return false; }
+	@Override protected boolean shouldDisplayEmojis() { return false; }
 	@Override public boolean shouldIgnoreText(String t) { return true; }
 }

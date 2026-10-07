@@ -11,11 +11,13 @@ import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
+import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 class ModeABC extends InputMode {
@@ -47,6 +49,18 @@ class ModeABC extends InputMode {
 
 	@Override
 	public boolean onBackspace() {
+		if (digitSequence.startsWith(seq.EMOJI_SEQUENCE)) {
+			digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
+			loadEmojisIfNeeded();
+
+			if (digitSequence.length() >= seq.EMOJI_SEQUENCE.length()) {
+				return true;
+			} else {
+				reset();
+				return false;
+			}
+		}
+
 		if (!suggestions.isEmpty()) {
 			reset();
 		}
@@ -71,6 +85,15 @@ class ModeABC extends InputMode {
 			ArrayList<String> newSuggestions = new ArrayList<>(1);
 			newSuggestions.add(language.getKeyNumeral(number));
 			suggestions = newSuggestions;
+		} else if (shouldDisplayEmojis() && number == Sequences.CHARS_1_KEY) {
+			autoAcceptTimeout = -1;
+			shouldSelectNextLetter = false;
+			if (seq.startsWithEmojiSequence(digitSequence)) {
+				digitSequence = EmojiLanguage.validateEmojiSequence(seq, digitSequence, number);
+			} else {
+				digitSequence += String.valueOf(number);
+			}
+			loadEmojisIfNeeded();
 		} else if (repeat > 0 && !suggestions.isEmpty()) {
 			autoAcceptTimeout = settings.getAutoAcceptTimeoutAbc();
 			shouldSelectNextLetter = true;
@@ -208,10 +231,15 @@ class ModeABC extends InputMode {
 
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(String word) {
+		final boolean shouldDisplayEmojis = shouldDisplayEmojis();
+		final boolean wordContainsEmojis = TextTools.isGraphic(word);
+
 		return
 			!shouldSelectNextLetter
-			&& word != null && !word.isEmpty()
-			&& !Characters.PLACEHOLDER.equals(word);
+			&& (
+				(shouldDisplayEmojis && !wordContainsEmojis) ||
+				(!shouldDisplayEmojis && word != null && !word.isEmpty() && !Characters.PLACEHOLDER.equals(word))
+			);
 	}
 
 
