@@ -1,17 +1,16 @@
-static def execThing(String cmd) {
-	def proc = cmd.execute()
-	proc.waitFor()
-	if (proc.exitValue() != 0) {
-		throw new GradleException("execThing('${cmd}') failed. ${proc.err.text}")
+def execThing(String cmd) {
+	def commandProvider = providers.exec { commandLine("bash", "-c", cmd) }
+	if (commandProvider.result.get().exitValue != 0) {
+		throw new GradleException("Command failed: $cmd\n${commandProvider.standardError.asText.get()}")
 	}
-	return proc.text.trim()
+	return commandProvider.standardOutput.asText.get().trim()
 }
 
-static def getCurrentGitHash() {
+def getCurrentGitHash() {
 	return execThing('git rev-parse --short=8 HEAD')
 }
 
-static def generateVersionName() {
+def generateVersionName() {
 	// major version
 	String versionTagsRaw = execThing('git tag --list v[0-9]*')
 	int versionTagsCount = versionTagsRaw == "" ? 0 : versionTagsRaw.split('\n').size()

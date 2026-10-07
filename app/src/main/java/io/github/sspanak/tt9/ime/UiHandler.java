@@ -174,7 +174,9 @@ abstract class UiHandler extends AbstractHandler {
 			return;
 		}
 
-		if (DeviceInfo.AT_LEAST_ANDROID_9) {
+		if (DeviceInfo.AT_LEAST_ANDROID_17) {
+			requestShowSelf(0);
+		} else if (DeviceInfo.AT_LEAST_ANDROID_9) {
 			requestShowSelf(DeviceInfo.isSonimGen2(getApplicationContext()) ? 0 : InputMethodManager.SHOW_IMPLICIT);
 		} else {
 			showWindow(true);
