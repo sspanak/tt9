@@ -17,7 +17,8 @@ public class CmdShowEmojis implements Command {
 		return
 			tt9 != null
 			&& isAvailableStd(tt9)
-			&& tt9.getInputType().isText()
+			&& !InputModeKind.isNumeric(tt9.getInputMode())
+			&& !InputModeKind.isRecomposing(tt9.getInputMode())
 			&& !tt9.areEmojiCategoriesVisible()
 			&& !tt9.isTouchExplorationEnabled();
 	}

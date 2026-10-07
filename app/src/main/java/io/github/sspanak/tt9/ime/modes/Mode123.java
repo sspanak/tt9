@@ -126,14 +126,6 @@ class Mode123 extends ModePassthrough {
 	}
 
 
-	protected boolean shouldDisplayEmojis() {
-		return
-			!isEmailMode
-			&& settings.areEmojisEnabled()
-			&& digitSequence.startsWith(seq.EMOJI_SEQUENCE);
-	}
-
-
 	/**
 	 * shouldIgnoreText
 	 * Since this is a numeric mode, we allow typing only numbers and:

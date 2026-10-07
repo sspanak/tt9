@@ -49,6 +49,18 @@ class ModeABC extends InputMode {
 
 	@Override
 	public boolean onBackspace() {
+		if (digitSequence.startsWith(seq.EMOJI_SEQUENCE)) {
+			digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
+			loadEmojisIfNeeded();
+
+			if (digitSequence.length() >= seq.EMOJI_SEQUENCE.length()) {
+				return true;
+			} else {
+				reset();
+				return false;
+			}
+		}
+
 		if (!suggestions.isEmpty()) {
 			reset();
 		}
@@ -219,14 +231,15 @@ class ModeABC extends InputMode {
 
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(String word) {
-		final boolean wordContainsEmojis = TextTools.isGraphic(word);
 		final boolean shouldDisplayEmojis = shouldDisplayEmojis();
+		final boolean wordContainsEmojis = TextTools.isGraphic(word);
 
 		return
 			!shouldSelectNextLetter
-			&& (!shouldDisplayEmojis || !wordContainsEmojis)
-			&& word != null && !word.isEmpty()
-			&& !Characters.PLACEHOLDER.equals(word);
+			&& (
+				(shouldDisplayEmojis && !wordContainsEmojis) ||
+				(!shouldDisplayEmojis && word != null && !word.isEmpty() && !Characters.PLACEHOLDER.equals(word))
+			);
 	}
 
 
