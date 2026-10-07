@@ -224,7 +224,7 @@ class ModeABC extends InputMode {
 
 		return
 			!shouldSelectNextLetter
-			&& (!shouldDisplayEmojis && wordContainsEmojis || shouldDisplayEmojis && !wordContainsEmojis)
+			&& (!shouldDisplayEmojis || !wordContainsEmojis)
 			&& word != null && !word.isEmpty()
 			&& !Characters.PLACEHOLDER.equals(word);
 	}
