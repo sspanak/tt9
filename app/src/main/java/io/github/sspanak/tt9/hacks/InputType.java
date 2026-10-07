@@ -55,12 +55,12 @@ public class InputType extends StandardInputType {
 
 	/**
 	 * isAndroid15ContactsField
-	 * "First Name" and "Last Name" fields in Android 15 are specified absolutely incorrectly.
+	 * "First Name" and "Last Name" fields in Android 15+ are specified absolutely incorrectly.
 	 * Thank you for wasting my time, Google!
 	 */
 	private boolean isAndroid15ContactsField() {
 		return
-			isAppInput("com.google.android.contacts", 8288)
+			field != null && field.packageName.equals("com.google.android.contacts")
 			&& field.privateImeOptions != null && field.privateImeOptions.contains("requestPhoneticOutput");
 	}
 
