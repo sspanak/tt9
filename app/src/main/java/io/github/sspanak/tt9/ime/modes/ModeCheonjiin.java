@@ -210,7 +210,6 @@ class ModeCheonjiin extends InputMode {
 	@Override
 	public void reset() {
 		basicReset();
-
 		digitSequence = "";
 		previousJamoSequence = "";
 		disablePredictions = false;
