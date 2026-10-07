@@ -33,7 +33,6 @@ class ModeCheonjiin extends InputMode {
 	private final String SPECIAL_CHAR_SEQUENCE_PREFIX = "00";
 
 	// predictions
-	protected boolean containsEmojis = false;
 	protected boolean disablePredictions = false;
 	protected Predictions predictions;
 	@NonNull private String previousJamoSequence = "";
@@ -211,7 +210,7 @@ class ModeCheonjiin extends InputMode {
 	@Override
 	public void reset() {
 		basicReset();
-		containsEmojis = false;
+
 		digitSequence = "";
 		previousJamoSequence = "";
 		disablePredictions = false;
@@ -227,7 +226,7 @@ class ModeCheonjiin extends InputMode {
 	public void loadSuggestions(String ignored) {
 		containsEmojis = false;
 
-		if (disablePredictions || loadSpecialCharacters() || loadEmojis()) {
+		if (disablePredictions || loadSpecialCharacters() || loadEmojisIfNeeded()) {
 			predictions.reset();
 			onSuggestionsUpdated.run();
 			return;
@@ -244,30 +243,6 @@ class ModeCheonjiin extends InputMode {
 			.setDigitSequence(currentSeq)
 			.setLanguage(language)
 			.load();
-	}
-
-
-	protected boolean loadEmojis() {
-		if (shouldDisplayEmojis()) {
-			suggestions = new EmojiLanguage(seq).getKeyCharacters(digitSequence.charAt(digitSequence.length() - 1) - '0', getEmojiGroup());
-			containsEmojis = !suggestions.isEmpty();
-			return true;
-		}
-
-		return false;
-	}
-
-
-	protected int getEmojiGroup() {
-		return digitSequence.length() - seq.EMOJI_SEQUENCE.length();
-	}
-
-
-	protected boolean shouldDisplayEmojis() {
-		return
-			!isEmailMode
-			&& settings.areEmojisEnabled()
-			&& digitSequence.startsWith(seq.EMOJI_SEQUENCE);
 	}
 
 
@@ -326,12 +301,6 @@ class ModeCheonjiin extends InputMode {
 		autoAcceptTimeout = -1;
 		onPredictions();
 		predictions.setWordsChangedHandler(this::onPredictions);
-	}
-
-
-	@Override
-	public boolean containsEmojis() {
-		return containsEmojis;
 	}
 
 

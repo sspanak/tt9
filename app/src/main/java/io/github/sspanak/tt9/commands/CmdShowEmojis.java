@@ -1,13 +1,9 @@
 package io.github.sspanak.tt9.commands;
 
-import android.view.KeyEvent;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
-import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 
 public class CmdShowEmojis implements Command {
@@ -21,7 +17,7 @@ public class CmdShowEmojis implements Command {
 		return
 			tt9 != null
 			&& isAvailableStd(tt9)
-			&& InputModeKind.isPredictive(tt9.getInputMode())
+			&& tt9.getInputType().isText()
 			&& !tt9.areEmojiCategoriesVisible()
 			&& !tt9.isTouchExplorationEnabled();
 	}
@@ -33,31 +29,11 @@ public class CmdShowEmojis implements Command {
 			return false;
 		}
 
-		final int keyCode = Key.numberToCode(tt9.getSettings(), 1);
-
 		if (!tt9.getInputMode().containsEmojis()) {
-			firstPress1(tt9, keyCode);
+			tt9.getInputMode().loadEmojis();
+			tt9.getSuggestions(0, null, null);
 		}
-		secondPress1(tt9, keyCode);
 
 		return true;
-	}
-
-
-	private void firstPress1(@NonNull TraditionalT9 tt9, int keyCode1) {
-		final boolean useHold = tt9.getLanguage() != null && tt9.getLanguage().hasLettersOnAllKeys();
-
-		if (useHold) {
-			tt9.onKeyLongPress(keyCode1, new KeyEvent(KeyEvent.ACTION_DOWN, keyCode1));
-		} else {
-			tt9.onKeyDown(keyCode1, new KeyEvent(KeyEvent.ACTION_DOWN, keyCode1));
-		}
-		tt9.onKeyUp(keyCode1, new KeyEvent(KeyEvent.ACTION_UP, keyCode1));
-	}
-
-
-	private void secondPress1(@NonNull TraditionalT9 tt9, int keyCode1) {
-		tt9.onKeyDown(keyCode1, new KeyEvent(KeyEvent.ACTION_DOWN, keyCode1));
-		tt9.onKeyUp(keyCode1, new KeyEvent(KeyEvent.ACTION_UP, keyCode1));
 	}
 }
