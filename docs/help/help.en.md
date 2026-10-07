@@ -208,9 +208,7 @@ Open the Android Change Keyboard dialog where you can select between all install
 - **When typing special characters with the 0-key**: Display the next character group.
 
 #### Show Emojis Key:
-_Predictive mode only._
-
-Show the emoji panel. A shortcut for pressing the 1-key multiple times in Predictive mode.
+Show the emoji panel. To see more emojis, press the 1-key several times. If you have Premium, just select one of the displayed emoji categories.
 
 #### Show Settings Key:
 Open the Settings configuration screen. It is where you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
@@ -268,12 +266,12 @@ The on-screen keypad works the same way as a physical phone keypad. Keys with a 
 #### 0-9 Keys
 Number keys are used for typing words and entering digits. The Retro layout also allows for swipe left and swipe right gestures on some keys. When available, these functions are indicated by icons in the bottom-left or bottom-right corner of the key.
 
-In the Google Play version, the swipe gestures can be customized or disabled both for the Retro and the Modern layout. You can do this from Settings → Keypad → Key Functions.
+If you have Premium, the swipe gestures can be customized or disabled both for the Retro and the Modern layout. You can do this from Settings → Keypad → Key Functions.
 
 #### Custom Text Keys ("!" and "?")
 By default, these keys insert their respective punctuation marks. In numeric or phone input fields, they may insert alternative characters such as an asterisk, pound sign, or decimal point.
 
-In the Google Play version, these keys can be customized. You may change the default character and assign swipe up, swipe down, swipe left, and swipe right actions. This can be configured from Settings → Keypad → Key Functions.
+If you have Premium, these keys can be customized. You may change the default character and assign swipe up, swipe down, swipe left, and swipe right actions. This can be configured from Settings → Keypad → Key Functions.
 
 #### Input Mode Key
 - **Press:** Cycle the input modes (abc → Predictive → 123).

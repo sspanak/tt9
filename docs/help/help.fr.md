@@ -208,9 +208,7 @@ Ouvre la boîte de dialogue de changement de clavier d'Android, où vous pouvez 
 - **Lors de la saisie de caractères spéciaux avec la touche 0** : Affiche le groupe de caractères suivant.
 
 #### Touche Afficher les émojis :
-_Mode Prédictif uniquement._
-
-Affiche le panneau des émojis. C'est un raccourci pour appuyer plusieurs fois sur la touche 1 en mode Prédictif.
+Afficher le panneau d’emojis. Pour afficher davantage d’emojis, appuyer plusieurs fois sur la touche 1. Si vous disposez de Premium, sélectionner simplement l’une des catégories d’emojis affichées.
 
 #### Touche Afficher les Paramètres :
 Ouvre l’écran de configuration des Paramètres, où vous pouvez choisir les langues pour la saisie, configurer les raccourcis clavier, modifier l’apparence de l’application, ou améliorer la compatibilité avec votre téléphone.
@@ -268,12 +266,12 @@ Le clavier à l’écran fonctionne de la même manière qu’un clavier matéri
 #### Touches 0–9
 Les touches numériques sont utilisées pour saisir des mots et des chiffres. La disposition Retro permet également des gestes de balayage vers la gauche et vers la droite sur certaines touches. Lorsque ces fonctions sont disponibles, elles sont indiquées par des icônes dans le coin inférieur gauche ou droit de la touche.
 
-Dans la version Google Play, les gestes de balayage peuvent être personnalisés ou désactivés pour les dispositions Retro et Modern. Cela peut être configuré depuis Paramètres → Clavier → Fonctions des touches.
+Si vous disposez de Premium, les gestes de balayage peuvent être personnalisés ou désactivés pour les dispositions Retro et Modern. Cette option peut être configurée dans Paramètres → Clavier → Fonctions des touches.
 
 #### Touches de texte personnalisées (« ! » et « ? »)
 Par défaut, ces touches insèrent les signes de ponctuation correspondants. Dans les champs de saisie numériques ou téléphoniques, elles peuvent insérer des caractères alternatifs tels qu’un astérisque, un dièse ou un point décimal.
 
-Dans la version Google Play, ces touches peuvent être personnalisées. Il est possible de modifier le caractère par défaut et d’assigner des actions aux balayages vers le haut, le bas, la gauche et la droite. Cette configuration s’effectue depuis Paramètres → Clavier → Fonctions des touches.
+Si vous disposez de Premium, ces touches peuvent être personnalisées. Il est possible de modifier le caractère par défaut et d’attribuer des actions aux balayages vers le haut, vers le bas, vers la gauche et vers la droite. Cette option peut être configurée dans Paramètres → Clavier → Fonctions des touches.
 
 #### Touche de mode de saisie
 - **Appui :** Fait défiler les modes de saisie (abc → Prédictif → 123).

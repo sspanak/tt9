@@ -208,9 +208,7 @@ Apre la finestra di dialogo Cambia Tastiera di Android, dove è possibile selezi
 - **Quando si digitano caratteri speciali con il tasto 0**: Mostra il gruppo di caratteri successivo.
 
 #### Tasto Mostra Emoji:
-_Solo in modalità Predittiva._
-
-Mostra il pannello emoji. È una scorciatoia per premere più volte il tasto 1 in modalità Predittiva.
+Mostrare il pannello delle emoji. Per visualizzare altre emoji, premere più volte il tasto 1. Se si dispone di Premium, selezionare semplicemente una delle categorie di emoji visualizzate.
 
 #### Tasto Mostra Impostazioni:
 Apre la schermata di configurazione Impostazioni. Qui è possibile scegliere le lingue per digitare, configurare i tasti rapidi del tastierino, cambiare l’aspetto dell’applicazione o migliorare la compatibilità con il proprio telefono.
@@ -268,12 +266,12 @@ Il tastierino a schermo funziona allo stesso modo di una tastiera fisica per tel
 #### Tasti 0–9
 I tasti numerici vengono utilizzati per digitare parole e inserire cifre. Il layout Retro consente inoltre gesti di scorrimento verso sinistra e verso destra su alcuni tasti. Quando disponibili, tali funzioni sono indicate da icone nell’angolo inferiore sinistro o destro del tasto.
 
-Nella versione Google Play, i gesti di scorrimento possono essere personalizzati o disattivati sia per il layout Retro sia per quello Modern. Questa configurazione è disponibile in Impostazioni → Tastierino → Funzioni dei tasti.
+Se si dispone di Premium, i gesti di scorrimento possono essere personalizzati o disattivati sia per il layout Retro sia per quello Moderno. È possibile configurare questa opzione in Impostazioni → Tastierino → Funzioni dei tasti.
 
 #### Tasti di testo personalizzati («!» e «?»)
 Per impostazione predefinita, questi tasti inseriscono i rispettivi segni di punteggiatura. Nei campi di input numerici o telefonici, possono inserire caratteri alternativi come l’asterisco, il cancelletto o il punto decimale.
 
-Nella versione Google Play, questi tasti possono essere personalizzati. È possibile modificare il carattere predefinito e assegnare azioni ai gesti di scorrimento verso l’alto, il basso, sinistra e destra. Questa configurazione è disponibile in Impostazioni → Tastierino → Funzioni dei tasti.
+Se si dispone di Premium, questi tasti possono essere personalizzati. È possibile modificare il carattere predefinito e assegnare azioni allo scorrimento verso l’alto, verso il basso, verso sinistra e verso destra. È possibile configurare questa opzione in Impostazioni → Tastierino → Funzioni dei tasti.
 
 #### Tasto modalità di input
 - **Pressione:** Scorre le modalità di input (abc → Predittivo → 123).

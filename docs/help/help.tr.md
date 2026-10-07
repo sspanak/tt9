@@ -208,9 +208,7 @@ Android Klavye Değiştirme iletişim kutusunu açarak yüklü tüm klavyeler ar
 - **Özel karakterler yazarken:** 0-tușu ile sonraki karakter grubunu gösterin.
 
 #### Emojileri Göster Tușu:
-_Yalnızca Tahmin modunda._
-
-Emoji panelini açar. Tahmin modunda 1 tușuna birden çok kez basmak için bir kısayoldur.
+Emoji panelini gösterin. Daha fazla emoji görmek için 1 tuşuna birkaç kez basın. Premium kullanıyorsanız, görüntülenen emoji kategorilerinden birini seçmeniz yeterlidir.
 
 #### Ayarlar Tușu:
 Ayarlar yapılandırma ekranını açar. Bu, yazma dillerini seçebileceğiniz, tuş takımı kısayol tușlarını yapılandırabileceğiniz, uygulama görünümünü değiştirebileceğiniz veya telefonunuzla uyumluluğu geliştirebileceğiniz yerdir.
@@ -268,12 +266,12 @@ Ekran üzeri tuş takımı, fiziksel telefon tuş takımıyla aynı şekilde ça
 #### 0–9 Tuşları
 Sayı tuşları kelime yazmak ve rakam girmek için kullanılır. Retro düzende bazı tuşlarda sola ve sağa kaydırma hareketleri de kullanılabilir. Bu işlevler mevcut olduğunda, tuşun sol alt veya sağ alt köşesindeki simgelerle belirtilir.
 
-Google Play sürümünde, kaydırma hareketleri hem Retro hem de Modern düzen için özelleştirilebilir veya devre dışı bırakılabilir. Bu ayarlar Ayarlar → Tuş Takımı → Tuş İşlevleri bölümünden yapılabilir.
+Premium kullanıyorsanız, kaydırma hareketleri hem Retro hem de Modern düzen için özelleştirilebilir veya devre dışı bırakılabilir. Bu işlem Ayarlar → Tuş Takımı → Tuş İşlevleri bölümünden yapılabilir.
 
 #### Özel Metin Tuşları ("!" ve "?")
 Varsayılan olarak bu tuşlar kendi noktalama işaretlerini ekler. Sayısal veya telefon giriş alanlarında, yıldız, diyez veya ondalık ayırıcı gibi alternatif karakterler ekleyebilirler.
 
-Google Play sürümünde bu tuşlar özelleştirilebilir. Varsayılan karakter değiştirilebilir ve yukarı, aşağı, sola ve sağa kaydırma eylemleri atanabilir. Bu ayarlar Ayarlar → Tuş Takımı → Tuş İşlevleri bölümünden yapılandırılabilir.
+Premium kullanıyorsanız, bu tuşlar özelleştirilebilir. Varsayılan karakter değiştirilebilir ve yukarı, aşağı, sola ve sağa kaydırma hareketlerine eylemler atanabilir. Bu işlem Ayarlar → Tuş Takımı → Tuş İşlevleri bölümünden yapılabilir.
 
 #### Giriş Modu Tuşu
 - **Bas:** Giriş modları arasında geçiş yapar (abc → Öngörülü → 123).

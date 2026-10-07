@@ -210,9 +210,7 @@ Abra el diálogo de Cambiar Teclado de Android, donde puede seleccionar entre to
 - **Al escribir caracteres especiales con la tecla 0:** Muestra el siguiente grupo de caracteres.
 
 #### Tecla de Mostrar Emojis:
-_Solo en modo Predictivo._
-
-Mostrar el panel de emojis. Es un atajo para presionar la tecla 1 varias veces en modo Predictivo.
+Mostrar el panel de emojis. Para ver más emojis, pulsar varias veces la tecla 1. Si tiene Premium, simplemente seleccionar una de las categorías de emojis mostradas.
 
 #### Tecla de Mostrar Ajustes:
 Abra la pantalla de configuración de Ajustes. Aquí puede elegir los idiomas para escribir, configurar las teclas de acceso rápido del teclado, cambiar la apariencia de la aplicación o mejorar la compatibilidad con su teléfono.
@@ -270,12 +268,12 @@ El teclado en pantalla funciona de la misma manera que un teclado físico de tel
 #### Teclas 0–9
 Las teclas numéricas se utilizan para escribir palabras y para introducir dígitos. El diseño Retro también permite gestos de deslizamiento hacia la izquierda y la derecha en algunas teclas. Cuando están disponibles, estas funciones se indican mediante iconos en la esquina inferior izquierda o derecha de la tecla.
 
-En la versión de Google Play, los gestos de deslizamiento pueden personalizarse o desactivarse tanto en el diseño Retro como en el Modern. Esto se configura desde Configuración → Teclado → Funciones de las teclas.
+Si tiene Premium, los gestos de deslizamiento se pueden personalizar o desactivar tanto para el diseño Retro como para el Moderno. Esto se puede configurar en Ajustes → Teclado → Funciones de las teclas.
 
 #### Teclas de texto personalizadas («!» y «?»)
 De forma predeterminada, estas teclas insertan sus signos de puntuación correspondientes. En campos de entrada numéricos o telefónicos, pueden insertar caracteres alternativos como asterisco, signo de almohadilla o punto decimal.
 
-En la versión de Google Play, estas teclas pueden personalizarse. Puede cambiar el carácter predeterminado y asignar acciones para deslizar hacia arriba, abajo, izquierda y derecha. Esto se configura desde Configuración → Teclado → Funciones de las teclas.
+Si tiene Premium, estas teclas se pueden personalizar. Es posible cambiar el carácter predeterminado y asignar acciones al deslizar hacia arriba, hacia abajo, hacia la izquierda y hacia la derecha. Esto se puede configurar en Ajustes → Teclado → Funciones de las teclas.
 
 #### Tecla de modo de entrada
 - **Pulsar:** Alterna entre los modos de entrada (abc → Predictivo → 123).

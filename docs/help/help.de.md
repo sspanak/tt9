@@ -208,9 +208,7 @@ Die Eingabesprache ändern, wenn mehrere Sprachen in den Einstellungen aktiviert
 - **Beim Tippen von Sonderzeichen mit der 0-Taste**: Zeigt die nächste Zeichenkategorie an.
 
 #### Emojis anzeigen Taste:
-_Nur im Prädiktiven Modus._
-
-Öffnet das Emoji-Panel. Eine Abkürzung für mehrfaches Drücken der 1-Taste im prädiktiven Modus.
+Das Emoji-Panel anzeigen. Um weitere Emojis anzuzeigen, die 1-Taste mehrmals drücken. Wenn Sie Premium haben, einfach eine der angezeigten Emoji-Kategorien auswählen.
 
 #### Einstellungen anzeigen Taste:
 Öffnet den Einstellungsbildschirm. Hier können Sie die Sprachen für das Tippen auswählen, die Hotkeys der Tastatur konfigurieren, das Erscheinungsbild der Anwendung ändern oder die Kompatibilität mit Ihrem Telefon verbessern.
@@ -268,12 +266,12 @@ Die Bildschirmtastatur funktioniert genauso wie eine physische Telefontastatur. 
 #### Tasten 0–9
 Die Zahlentasten werden zum Schreiben von Wörtern und zur Eingabe von Ziffern verwendet. Das Retro-Layout ermöglicht zusätzlich Wischgesten nach links und rechts auf bestimmten Tasten. Falls verfügbar, werden diese Funktionen durch Symbole in der unteren linken oder rechten Ecke der Taste angezeigt.
 
-In der Google-Play-Version können die Wischgesten sowohl für das Retro- als auch für das Modern-Layout angepasst oder deaktiviert werden. Dies erfolgt über Einstellungen → Tastenfeld → Tastenfunktionen.
+Wenn Sie Premium haben, können die Wischgesten sowohl für das Retro- als auch für das Modern-Layout angepasst oder deaktiviert werden. Dies kann unter Einstellungen → Tastenfeld → Tastenfunktionen konfiguriert werden.
 
 #### Benutzerdefinierte Texttasten („!“ und „?“)
 Standardmäßig fügen diese Tasten die entsprechenden Satzzeichen ein. In numerischen oder Telefon-Eingabefeldern können sie alternative Zeichen wie Sternchen, Raute oder Dezimalpunkt einfügen.
 
-In der Google-Play-Version können diese Tasten angepasst werden. Sie können das Standardzeichen ändern und Aktionen für Wischen nach oben, unten, links und rechts zuweisen. Dies wird unter Einstellungen → Tastenfeld → Tastenfunktionen konfiguriert.
+Wenn Sie Premium haben, können diese Tasten angepasst werden. Das Standardzeichen kann geändert und den Aktionen Wischen nach oben, Wischen nach unten, Wischen nach links und Wischen nach rechts zugewiesen werden. Dies kann unter Einstellungen → Tastenfeld → Tastenfunktionen konfiguriert werden.
 
 #### Eingabemodus-Taste
 - **Drücken:** Durchläuft die Eingabemodi (abc → Prädiktiv → 123).
