@@ -54,8 +54,4 @@
 	<io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownZeroKeyCharacter
 		android:dependency="pref_predictive_mode"
 		android:title="@string/pref_double_zero_char" />
-
-	<io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownOneKeyEmoji
-		android:dependency="pref_predictive_mode"
-		android:title="@string/pref_one_key_emoji" />
 </androidx.preference.PreferenceScreen>

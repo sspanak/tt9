@@ -270,8 +270,8 @@
 	<string name="pref_quick_switch_language">Schneller Sprachwechsel</string>
 	<string name="key_chars_initial_chars">Anfangszeichen</string>
 	<string name="key_chars_group">Gruppierte Zeichen (optional)</string>
-	<string name="pref_one_key_emoji">Emojis auf der 1-Taste</string>
-	<string name="pref_one_key_emoji_none">Keine Emojis</string>
+	<string name="pref_one_key_emoji">Emojis</string>
+	<string name="pref_one_key_emoji_none">Deaktiviert</string>
 	<string name="pref_hold_to_type">Zahlentasten halten</string>
 	<string name="pref_color_scheme_device_dark">Systemdunkel</string>
 	<string name="click_here_for_preview">Hier klicken für Vorschau</string>

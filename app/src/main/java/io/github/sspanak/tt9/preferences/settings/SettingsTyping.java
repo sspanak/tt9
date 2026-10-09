@@ -9,7 +9,7 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.preferences.screens.keypad.SwitchUpsideDownKeys;
 import io.github.sspanak.tt9.preferences.screens.modeAbc.DropDownAbcAutoAcceptTime;
-import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownOneKeyEmoji;
+import io.github.sspanak.tt9.preferences.screens.keypad.DropDownOneKeyEmoji;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownPredictiveAutoAcceptTime;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownZeroKeyCharacter;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.OneKeyEmojiOptions;
