@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.screens.modePredictive;
+package io.github.sspanak.tt9.preferences.screens.keypad;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
+import io.github.sspanak.tt9.preferences.screens.modePredictive.OneKeyEmojiOptions;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 

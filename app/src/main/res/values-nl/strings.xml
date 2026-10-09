@@ -269,8 +269,8 @@
 	<string name="pref_quick_switch_language">Snel schakelen tussen talen</string>
 	<string name="key_chars_initial_chars">Initiële tekens</string>
 	<string name="key_chars_group">Gegroepeerde tekens (optioneel)</string>
-	<string name="pref_one_key_emoji">Emoji op de 1-toets</string>
-	<string name="pref_one_key_emoji_none">Geen emoji</string>
+	<string name="pref_one_key_emoji">Emoji\'s</string>
+	<string name="pref_one_key_emoji_none">Uitgeschakeld</string>
 	<string name="pref_hold_to_type">Cijfertoetsen ingedrukt houden</string>
 	<string name="pref_color_scheme_device_dark">Systeem donker</string>
 	<string name="click_here_for_preview">Klik hier voor voorbeeld</string>

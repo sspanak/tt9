@@ -275,8 +275,8 @@
 	<string name="pref_quick_switch_language">Alternância rápida de idioma</string>
 	<string name="key_chars_initial_chars">Caracteres iniciais</string>
 	<string name="key_chars_group">Caracteres agrupados (opcional)</string>
-	<string name="pref_one_key_emoji">Emojis na tecla 1</string>
-	<string name="pref_one_key_emoji_none">Sem emojis</string>
+	<string name="pref_one_key_emoji">Emojis</string>
+	<string name="pref_one_key_emoji_none">Desativados</string>
 	<string name="pref_hold_to_type">Manter teclas numéricas</string>
 	<string name="pref_color_scheme_device_dark">Escuro do sistema</string>
 	<string name="click_here_for_preview">Clique aqui para visualizar</string>

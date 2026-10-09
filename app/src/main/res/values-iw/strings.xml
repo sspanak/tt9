@@ -275,8 +275,8 @@
 	<string name="key_chars_initial_chars">תווי התחלה</string>
 	<string name="key_chars_group">תוים מקובצים (לא חובה)</string>
 	<string name="pref_category_keypad_hardware">מקשים פיזיים</string>
-	<string name="pref_one_key_emoji">אימוג’ים במקש 1</string>
-	<string name="pref_one_key_emoji_none">ללא אימוג’ים</string>
+	<string name="pref_one_key_emoji">אימוג\'ים</string>
+	<string name="pref_one_key_emoji_none">מושבתים</string>
 	<string name="pref_hold_to_type">החזקת מקשי המספרים</string>
 	<string name="pref_color_scheme_device_dark">כהה של המערכת</string>
 	<string name="click_here_for_preview">לחץ כאן לתצוגה מקדימה</string>

@@ -279,8 +279,8 @@
 	<string name="pref_quick_switch_language">Швидке перемикання мов</string>
 	<string name="key_chars_initial_chars">Початкові символи</string>
 	<string name="key_chars_group">Груповані символи (необов’язково)</string>
-	<string name="pref_one_key_emoji">Емодзі на клавіші 1</string>
-	<string name="pref_one_key_emoji_none">Без емодзі</string>
+	<string name="pref_one_key_emoji">Емодзі</string>
+	<string name="pref_one_key_emoji_none">Вимкнені</string>
 	<string name="pref_hold_to_type">Утримання цифрових клавіш</string>
 	<string name="pref_color_scheme_device_dark">Системний темний</string>
 	<string name="click_here_for_preview">Натисніть тут, щоб переглянути</string>

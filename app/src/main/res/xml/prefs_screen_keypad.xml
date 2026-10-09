@@ -20,6 +20,9 @@
 			android:title="@string/pref_category_key_chars"
 			android:summary="@string/pref_category_key_chars_summary" />
 
+		<io.github.sspanak.tt9.preferences.screens.keypad.DropDownOneKeyEmoji
+			android:title="@string/pref_one_key_emoji" />
+
 		<SwitchPreferenceCompat
 			android:defaultValue="false"
 			android:key="backspace_acceleration"

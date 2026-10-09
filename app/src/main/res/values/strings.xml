@@ -150,8 +150,8 @@
 	<string name="pref_numpad_shape_v">V-Shape</string>
 	<string name="pref_numpad_shape_long_space">Long Spacebar</string>
 	<string name="pref_numpad_width">Width</string>
-	<string name="pref_one_key_emoji">Emojis on 1-key</string>
-	<string name="pref_one_key_emoji_none">No emojis</string>
+	<string name="pref_one_key_emoji">Emojis</string>
+	<string name="pref_one_key_emoji_none">Disabled</string>
 	<string name="pref_one_key_emoji_simple">Brief list</string>
 	<string name="pref_predict_top_words">Learn Popular Words</string>
 	<string name="pref_predict_top_words_summary">Remember commonly used words to improve suggestion accuracy.</string>
