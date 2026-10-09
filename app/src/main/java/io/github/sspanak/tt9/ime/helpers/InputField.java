@@ -101,6 +101,16 @@ abstract class InputField {
 
 
 	/**
+	 * performPrivateCommand
+	 * Sends a vendor-specific command to the connected application.
+	 */
+	public boolean performPrivateCommand(@NonNull String action) {
+		InputConnection connection = getConnection();
+		return connection != null && connection.performPrivateCommand(action, null);
+	}
+
+
+	/**
 	 * getLanguage
 	 * Detects the language hint of the current field and returns a TT9-friendly Language object.
 	 * If the language is not supported, or the field has no hint, for example it's a numeric field or
