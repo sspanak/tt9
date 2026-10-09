@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.hacks.AppHacks;
+import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -55,7 +56,7 @@ abstract class UiHandler extends AbstractHandler {
 
 	@Override
 	public boolean onEvaluateFullscreenMode() {
-		return false;
+		return new InputType(this, getCurrentInputEditorInfo()).isKyoceraExtractField();
 	}
 
 

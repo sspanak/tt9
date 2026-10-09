@@ -120,6 +120,20 @@ public class InputType extends StandardInputType {
 
 
 	/**
+	 * isKyoceraExtractField
+	 * Some Kyocera "Done" fields, like the "Enter address" screen in jp.kyocera.fpmail, do not draw
+	 * the typed text themselves. They rely on the keyboard running in fullscreen mode, where the
+	 * text is displayed in the extract view, like the stock iWnn keyboard does. Fields that do not
+	 * want this declare IME_FLAG_NO_FULLSCREEN or IME_FLAG_NO_EXTRACT_UI.
+	 */
+	public boolean isKyoceraExtractField() {
+		return
+			isKyoceraDoneField()
+			&& (field.imeOptions & (EditorInfo.IME_FLAG_NO_FULLSCREEN | EditorInfo.IME_FLAG_NO_EXTRACT_UI)) == 0;
+	}
+
+
+	/**
 	 * isDuoLingoReportBug
 	 * When reporting a bug in the Duolingo app, the text field is missing the TYPE_TEXT flag, which
 	 * causes us to detect it as a numeric field. This effectively disables Predictive mode, which is
