@@ -168,6 +168,12 @@ public class AppHacks {
 			return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 		}
 
+		// Kyocera fields close only on "Finish_IME". Return "false" to also send IME_ACTION_DONE
+		// for the fields that ignore the private command.
+		if (inputType != null && textField != null && inputType.isKyoceraDoneField()) {
+			textField.performPrivateCommand("Finish_IME");
+		}
+
 		return false;
 	}
 
@@ -256,6 +262,10 @@ public class AppHacks {
 
 
 	public int getEditorAction(@NonNull SettingsStore settings) {
+		if (inputType != null && inputType.isKyoceraDoneField()) {
+			return EditorInfo.IME_ACTION_DONE;
+		}
+
 		int action = textField != null ? textField.getAction() : EditorInfo.IME_ACTION_UNSPECIFIED;
 
 		if (

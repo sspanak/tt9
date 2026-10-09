@@ -103,6 +103,23 @@ public class InputType extends StandardInputType {
 
 
 	/**
+	 * isKyoceraDoneField
+	 * Kyocera system apps (e.g. the "Create Mail" full-screen editor in jp.kyocera.fpmail) declare
+	 * IME_ACTION_DONE, sometimes together with IME_FLAG_NO_ENTER_ACTION, but ignore the action itself.
+	 * They close and keep the text only when the keyboard sends the "Finish_IME" private command,
+	 * like the stock iWnn keyboard does. Passing DPAD_CENTER through only inserts a new line.
+	 * <a href="https://github.com/sspanak/tt9/issues/423">#423</a>
+	 */
+	public boolean isKyoceraDoneField() {
+		return
+			field != null
+			&& field.packageName != null
+			&& field.packageName.startsWith("jp.kyocera.")
+			&& (field.imeOptions & EditorInfo.IME_MASK_ACTION) == EditorInfo.IME_ACTION_DONE;
+	}
+
+
+	/**
 	 * isDuoLingoReportBug
 	 * When reporting a bug in the Duolingo app, the text field is missing the TYPE_TEXT flag, which
 	 * causes us to detect it as a numeric field. This effectively disables Predictive mode, which is
