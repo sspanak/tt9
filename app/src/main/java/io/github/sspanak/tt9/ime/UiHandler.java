@@ -18,6 +18,7 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.FoldDetector;
+import io.github.sspanak.tt9.util.sys.HardwareInfo;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 abstract class UiHandler extends AbstractHandler {
@@ -56,7 +57,7 @@ abstract class UiHandler extends AbstractHandler {
 
 	@Override
 	public boolean onEvaluateFullscreenMode() {
-		return new InputType(this, getCurrentInputEditorInfo()).isKyoceraExtractField();
+		return HardwareInfo.IS_KYOCERA && new InputType(this, getCurrentInputEditorInfo()).isKyoceraExtractField();
 	}
 
 
