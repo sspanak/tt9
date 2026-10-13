@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.hacks.AppHacks;
+import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -17,6 +18,7 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.FoldDetector;
+import io.github.sspanak.tt9.util.sys.HardwareInfo;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 abstract class UiHandler extends AbstractHandler {
@@ -55,7 +57,7 @@ abstract class UiHandler extends AbstractHandler {
 
 	@Override
 	public boolean onEvaluateFullscreenMode() {
-		return false;
+		return HardwareInfo.IS_KYOCERA && new InputType(this, getCurrentInputEditorInfo()).isKyoceraExtractField();
 	}
 
 
