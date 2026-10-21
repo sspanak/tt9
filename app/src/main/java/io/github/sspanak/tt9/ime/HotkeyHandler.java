@@ -94,6 +94,8 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return true;
 		}
 
+		autoAddWord(); // the word at the end of the message
+
 		int action = appHacks.getEditorAction(settings);
 
 		boolean actionPerformed;

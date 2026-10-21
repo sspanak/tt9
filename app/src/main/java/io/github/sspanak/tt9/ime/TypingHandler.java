@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.commands.CmdSuggestionNext;
 import io.github.sspanak.tt9.commands.CmdSuggestionPrevious;
 import io.github.sspanak.tt9.commands.Command;
+import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
@@ -234,6 +235,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 			mindReader.setContext(mInputMode, mLanguage, surroundingChars, lastWord);
 		}
 
+		if (!hold && repeat == 0 && (key == 0 || key == 1)) {
+			autoAddWord();
+		}
+
 		// Auto-adjust the text case before each word/char, if the InputMode supports it.
 		mInputMode.determineNextWordTextCase(surroundingChars[0], key);
 
@@ -253,6 +258,45 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		return true;
+	}
+
+
+	/**
+	 * In ABC mode, silently adds the word before the cursor to the dictionary. Called when the
+	 * user starts typing a space or punctuation after it, or presses OK to send/submit the text.
+	 * Capitalized words at the start of a sentence are stored in lowercase.
+	 */
+	protected void autoAddWord() {
+		if (
+			!InputModeKind.isABC(mInputMode)
+			|| !settings.getAutoAddWords()
+			|| !settings.getPredictiveMode()
+			|| mLanguage == null || mLanguage.isTranscribed()
+			|| DictionaryLoader.isRunning()
+		) {
+			return;
+		}
+
+		String[] wordParts = textField.getSurroundingWordParts(mLanguage);
+		String word = wordParts[0];
+		if (!wordParts[1].isEmpty() || word.length() < 2) {
+			return;
+		}
+
+		String beforeCursor = textField.getStringBeforeCursor();
+		if (!beforeCursor.endsWith(word)) {
+			return; // InputConnection timeout
+		}
+
+		String textBeforeWord = beforeCursor.substring(0, beforeCursor.length() - word.length());
+		boolean isStartOfSentence = textBeforeWord.isEmpty() || textBeforeWord.endsWith("\n") || Text.isStartOfSentence(textBeforeWord);
+
+		Text text = new Text(mLanguage, word);
+		if (isStartOfSentence && text.isCapitalized()) {
+			word = text.toLowerCase();
+		}
+
+		DataStore.put((result) -> {}, mLanguage, word, false);
 	}
 
 

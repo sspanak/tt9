@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.preferences.settings;
 import android.content.Context;
 
 import io.github.sspanak.tt9.preferences.screens.languages.SwitchAddWordsWithoutConfirmation;
+import io.github.sspanak.tt9.preferences.screens.languages.SwitchAutoAddWords;
 import io.github.sspanak.tt9.preferences.screens.languages.SwitchRaiseImportLimits;
 
 public class SettingsAddedWords extends BaseSettings {
@@ -17,6 +18,10 @@ public class SettingsAddedWords extends BaseSettings {
 
 	public boolean getAddWordsNoConfirmation() {
 		return prefs.getBoolean(SwitchAddWordsWithoutConfirmation.NAME, false);
+	}
+
+	public boolean getAutoAddWords() {
+		return getAddWordsNoConfirmation() && prefs.getBoolean(SwitchAutoAddWords.NAME, SwitchAutoAddWords.DEFAULT);
 	}
 
 	public boolean getRaiseImportLimits() {
