@@ -35,12 +35,12 @@ public class InputModePolicy {
 
 
 	/** Use editor capabilities, since the current language may have no usable text mode. */
-	public static boolean canSwitchLanguage(boolean numericMode, boolean passwordField, Collection<Integer> editorModes) {
-		return !numericMode || (!passwordField && (
+	public static boolean canSwitchLanguage(boolean numericMode, Collection<Integer> editorModes) {
+		return !numericMode || (
 			editorModes.contains(InputMode.MODE_PREDICTIVE)
 			|| editorModes.contains(InputMode.MODE_ABC)
 			|| editorModes.contains(InputMode.MODE_HIRAGANA)
 			|| editorModes.contains(InputMode.MODE_KATAKANA)
-		));
+		);
 	}
 }

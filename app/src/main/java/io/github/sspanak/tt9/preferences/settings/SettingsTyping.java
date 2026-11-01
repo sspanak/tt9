@@ -101,7 +101,11 @@ class SettingsTyping extends SettingsMindReading {
 	}
 
 	public boolean getShowSuggestions() {
-		final int inputMode = getInputMode();
+		return getShowSuggestions(getInputMode());
+	}
+
+
+	public boolean getShowSuggestions(int inputMode) {
 		final boolean showInAbc = prefs.getBoolean("show_suggestions_abc", false);
 
 		return inputMode != InputMode.MODE_ABC || showInAbc;

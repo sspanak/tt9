@@ -9,6 +9,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
+import io.github.sspanak.tt9.preferences.settings.SettingsHotkeys;
 
 public class KeyPadScreen extends BaseScreenFragment {
 	final public static String NAME = "KeyPad";
@@ -27,6 +28,14 @@ public class KeyPadScreen extends BaseScreenFragment {
 		createVirtualKeysSection();
 		resetFontSize(true);
 	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		SwitchStarKeyCompatibility compatibility = findPreference(SettingsHotkeys.STAR_KEY_COMPATIBILITY);
+		if (compatibility != null) compatibility.refresh();
+	}
+
 
 	private void createTypingSection() {
 		EnhancedDropDownPreference dropdown = findPreference(DropDownOneKeyEmoji.NAME);

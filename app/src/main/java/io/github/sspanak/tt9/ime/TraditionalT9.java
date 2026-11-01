@@ -65,6 +65,7 @@ public class TraditionalT9 extends PremiumHandler {
 
 	@Override
 	public void onStartInput(EditorInfo inputField, boolean restarting) {
+		KeypadCompatibilityService.inputStarted(this);
 		Logger.i(
 			LOG_TAG,
 			"===> Start Up; packageName: " + inputField.packageName + " inputType: " + inputField.inputType + " actionId: " + inputField.actionId + " imeOptions: " + inputField.imeOptions + " privateImeOptions: " + inputField.privateImeOptions + " extras: " + inputField.extras
@@ -81,6 +82,7 @@ public class TraditionalT9 extends PremiumHandler {
 
 	@Override
 	public void onFinishInputView(boolean finishingInput) {
+		if (finishingInput) KeypadCompatibilityService.inputFinished(this);
 		super.onFinishInputView(finishingInput);
 		onFinishTyping(finishingInput);
 	}
@@ -191,6 +193,7 @@ public class TraditionalT9 extends PremiumHandler {
 
 	@Override
 	protected void onStop() {
+		KeypadCompatibilityService.inputFinished(this);
 		stopVoiceInput();
 		onFinishTyping(true);
 		statusBar.setText(mInputMode);
@@ -277,6 +280,7 @@ public class TraditionalT9 extends PremiumHandler {
 
 	@Override
 	protected void cleanUp() {
+		KeypadCompatibilityService.inputFinished(this);
 		stopHeartbeatCheck();
 		zombieDetector.removeCallbacksAndMessages(null);
 		zombieChecks = SettingsStore.ZOMBIE_CHECK_MAX;

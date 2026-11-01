@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -23,14 +24,14 @@ public class WebViewSafeClient extends WebViewClient {
 
 	@Override
 	public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-		final String url = request.getUrl().toString();
+		final Uri uri = request.getUrl();
 
-		if (!url.startsWith("http")) {
+		if (!"http".equals(uri.getScheme()) && !"https".equals(uri.getScheme())) {
 			return super.shouldOverrideUrlLoading(view, request);
 		}
 
-		if (!DeviceInfo.AT_LEAST_ANDROID_10 || !shareLink(url)) {
-			Clipboard.copy(activity, url);
+		if (!openLink(uri)) {
+			Clipboard.copy(activity, uri.toString());
 			if (!DeviceInfo.AT_LEAST_ANDROID_13) {
 				UI.toastShortSingle(activity, R.string.help_url_copied);
 			}
@@ -39,16 +40,15 @@ public class WebViewSafeClient extends WebViewClient {
 		return true;
 	}
 
-	private boolean shareLink(String url) {
-		Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.setType("text/plain");
-		intent.putExtra(Intent.EXTRA_TEXT, url);
+	private boolean openLink(Uri uri) {
+		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+		intent.addCategory(Intent.CATEGORY_BROWSABLE);
 
 		try {
-			activity.startActivity(Intent.createChooser(intent, "Share URL"));
+			activity.startActivity(intent);
 			return true;
 		} catch (Exception e) {
-			Logger.d(getClass().getSimpleName(), "Failed sharing URL: '" + url + "'. " + e.getMessage());
+			Logger.d(getClass().getSimpleName(), "Failed opening URL: '" + uri + "'. " + e.getMessage());
 			return false;
 		}
 	}

@@ -33,6 +33,7 @@ import io.github.sspanak.tt9.util.Logger;
 public class SettingsHotkeys extends SettingsVirtualNumpad {
 	private static final String HOTKEY_VERSION = "hotkeys_v6";
 	public static final String SWAP_STAR_POUND = "pref_swap_star_pound";
+	public static final String STAR_KEY_COMPATIBILITY = "pref_star_key_compatibility";
 
 
 	SettingsHotkeys(Context context) { super(context); }
@@ -76,6 +77,11 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 		} else {
 			getPrefsEditor().putString(CmdBackspace.ID, String.valueOf(KeyEvent.KEYCODE_BACK));
 		}
+	}
+
+
+	public boolean getStarKeyCompatibility() {
+		return prefs.getBoolean(STAR_KEY_COMPATIBILITY, false);
 	}
 
 

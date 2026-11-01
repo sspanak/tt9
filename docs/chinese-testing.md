@@ -495,3 +495,19 @@ path. Verify the following on the minified build:
 Record APK/ZIP hashes, application ID/version, Android version, signer match,
 test outcomes, and crash-log results. Preserve the exact base/split set used;
 debug runtime results cannot substitute for this R8 runtime smoke test.
+
+## STAR firmware compatibility and Help follow-up
+
+The optional host service is disabled by default. On the Mive AT-M120 (Android 12), enable **Keypad → System * key compatibility**, then explicitly enable that service in Android Accessibility settings. Only key filtering is declared (`canRetrieveWindowContent=false`). The setting remains configured while Android temporarily rebinds the service; the bound-service list is not used as proof that the user revoked access.
+
+Validation for the debug `full` test application, versionCode 1665:
+
+- Full and Lite host/Chinese unit suites: 245 passing per flavor; Full debug lint has no errors.
+- Mive physical password-field STAR hold: 3.599 seconds recorded, language switching worked, and the ringer remained NORMAL. The device owner also confirmed the result.
+- Mive virtual-hardware keyboard path (`uinput`, through InputReader, accessibility filtering and native policy): 19 scenario groups passed. They cover ordinary text, email, ordinary/visible/web passwords, number/PIN/phone restrictions, confirmed `@` plus Backspace in five text-field types, short/rapid/canceled STAR, star/pound swap, the disabled option and behavior outside an editor. Virtual hardware testing does not replace keypad-scanner evidence.
+- API 35 emulator: 29 additional direct-callback scenarios passed, including focus cancellation, disabling mid-hold, enabling mid-stream and unrelated-key/IME passthrough. These are callback tests, not physical-routing tests. Its original IME/accessibility state and temporary-package cleanup were verified.
+- Actual Help preference opened the test application's own offline document on Mive; its external Installation Guide launched the configured Via browser. The emulator also rendered the offline contents anchor and launched its default browser.
+
+Keep a virtual keyboard connected through each entire composing sequence. Removing it after every candidate movement can restart an IME. Span-only composing changes need a live editor snapshot rather than a stale TextWatcher record. Use Generic key-layout scan codes for virtual digits; the Mive Generic layout maps STAR/POUND but does not contain the dedicated Linux numeric digit entries used by its built-in vendor keypad.
+
+The final debug APK was freshly packaged to remove unused incremental ZIP space. Its 15,483,701 bytes are 10,502 bytes above the previous installed base. On that final build, with remembered ABC mode and optional alphabetic prediction disabled, a Chinese-hinted field showed the single-row Han candidates and expanded numbered rows in Suggestion list only layout; the touch function-key row stayed hidden. The ordinary ABC display option is retained; no remembered-mode preference is rewritten. Nine dictionary/personal-word/learning tables were unchanged against the fresh pre-update snapshot after testing. This is debug runtime coverage; no new R8 runtime claim is made for this follow-up.

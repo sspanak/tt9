@@ -58,6 +58,12 @@
 			android:title="@string/pref_swap_star_pound"
 			android:summary="@string/pref_swap_star_pound_summary" />
 
+		<io.github.sspanak.tt9.preferences.screens.keypad.SwitchStarKeyCompatibility
+			android:defaultValue="false"
+			android:key="pref_star_key_compatibility"
+			android:title="@string/pref_star_key_compatibility"
+			android:summary="@string/pref_star_key_compatibility_summary" />
+
 		<ListPreference
 			android:key="pref_candidate_scroll_speed"
 			android:defaultValue="normal"

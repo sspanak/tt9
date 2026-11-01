@@ -348,4 +348,7 @@
 	<string name="chinese_pack_finish_install">完成中文扩展安装</string>
 	<string name="chinese_pack_finish_removal">继续移除中文功能</string>
 	<string name="chinese_pack_importing">正在导入中文词库及扩展…</string>
+	<string name="pref_star_key_compatibility">系统星号键兼容</string>
+	<string name="pref_star_key_compatibility_summary">在 TT9 输入时阻止系统的长按 * 快捷功能。使用前需在 Android 设置中手动启用 TT9 无障碍服务。</string>
+	<string name="star_key_compatibility_description">仅在 TT9 正在处理输入框且兼容选项开启时，优先处理实体 * 键，避免触发系统快捷功能；其他按键照常传递。本服务不读取屏幕内容。</string>
 </resources>

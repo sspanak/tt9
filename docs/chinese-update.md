@@ -105,3 +105,23 @@ The implementation uses Android-signed splits and the system installation prompt
 ### Current scope
 
 Completion operates on the current composition using an offline prefix index. Zero-key prediction after commit, a sentence language model, and incremental segment confirmation remain future work. Personal readings and selected Pinyin preserve syllable boundaries and support reading edits; live Space segmentation is not implemented. Vendor key scanning, editor behavior, and installation restrictions still require device validation; reports should include the phone model, Android version, and exact key sequence.
+
+## Follow-up: firmware STAR shortcuts, passwords and Help
+
+### 中文
+
+- 新增主包按键设置中的“系统星号键兼容”，默认关闭。用户手动启用 Android 无障碍服务后，仅在 TT9 正在处理输入框时提前过滤实体 `*`，继续使用原来的短按、长按、互换及自定义分配。它不读取屏幕内容、不记录按键、不调整铃声，也不引入新依赖。离开输入框或关闭选项后保留手机原生快捷键。
+- 修复文本密码框中中文落入 123 后无法切到英文的问题。普通、可见和网页文本密码允许切换到可用的字母语言；数字 PIN、纯数字、电话和日期字段继续受原输入类型限制。密码预测、学习及英文缩写候选继续关闭。
+- 帮助入口使用当前安装应用的组件，避免带测试后缀的版本误开正式包或因正式包缺失而崩溃。帮助中的 HTTP/HTTPS 链接使用默认浏览器打开，无法打开时保留复制链接提示；离线正文与目录仍在应用中。
+- 候选区按当前实际输入模式显示，避免记住英文 ABC 模式后切入中文拼音却隐藏汉字和拼音候选；不改写用户记住的模式，也保留英文 ABC 的显示选项。
+- 现有 0 键符号包含 `@`。普通文字模式短按 0；123 文字/密码模式长按 0；然后左右选择并确认。邮箱字段优先排列 `@`。
+
+### English
+
+- Add an opt-in **System * key compatibility** setting to the host keypad screen. After the user enables its Android accessibility service, it filters physical STAR events only while TT9 handles an editor and delegates to the existing short/held/custom/swapped actions. It requests key filtering without screen-content access, key logging, ringer control or additional dependencies. Native behavior remains available outside an editor or with the option off.
+- Allow changing to an alphabetic language when Chinese leaves a text-password editor in 123 mode. Ordinary, visible and web text passwords retain their no-prediction/no-learning rules; numeric PIN, number, phone and date editors retain their input restrictions.
+- Bind Help to the current application rather than a fixed production package, fixing missing/wrong-app launches in suffixed test builds. External web links use Android's default browser; offline Help and its contents links remain internal, with the existing clipboard fallback when a browser cannot open a link.
+- Base candidate visibility on the active input mode, preventing a remembered English ABC mode from hiding Chinese conversion/spelling candidates after a field or language override. Keep the remembered preference and ordinary ABC display option intact.
+- Verify the existing `@` symbol through the 0-key list, including held 0 in a text/password editor using 123 mode and email-specific ordering.
+
+On the tested Mive AT-M120 firmware, the system starts a 1.5-second STAR ringer timer before IME dispatch, regardless of whether TT9 handles the key. The optional filter runs before that policy instead of attempting to undo a ringer change. It is a shared keypad feature, independent of the Chinese extension.

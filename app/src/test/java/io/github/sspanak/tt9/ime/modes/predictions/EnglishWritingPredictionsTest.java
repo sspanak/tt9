@@ -114,7 +114,7 @@ public class EnglishWritingPredictionsTest {
 		final List<String> words;
 		int selection;
 		TestSuggestionOps(TextField text, List<String> words) {
-			super(null, null, null, null, null, text, null, null, null, null);
+			super(null, null, null, null, null, text, null, null, null, null, null);
 			this.words = words;
 		}
 		@Override public boolean isEmpty() { return words.isEmpty(); }

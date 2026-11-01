@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.function.Consumer;
+import java.util.function.IntSupplier;
 
 import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.hacks.InputType;
@@ -32,16 +33,19 @@ public class SuggestionOps {
 	private boolean isInputLimited;
 	@NonNull private TextField textField;
 	@Nullable private final SettingsStore settings;
+	// A field or language may override the remembered mode without updating its preference.
+	@Nullable private final IntSupplier inputMode;
 	@Nullable private StatusBar statusBar;
 
 
-	public SuggestionOps(@Nullable InputMethodService ims, @Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable AppHacks appHacks, @Nullable InputType inputType, @Nullable TextField textField, @Nullable StatusBar statusBar, @Nullable Consumer<String> onDelayedAccept, @Nullable Runnable onSuggestionClick, @Nullable Runnable onSuggestionLongClick) {
+	public SuggestionOps(@Nullable InputMethodService ims, @Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable AppHacks appHacks, @Nullable InputType inputType, @Nullable TextField textField, @Nullable StatusBar statusBar, @Nullable Consumer<String> onDelayedAccept, @Nullable Runnable onSuggestionClick, @Nullable Runnable onSuggestionLongClick, @Nullable IntSupplier inputMode) {
 		delayedAcceptHandler = new Handler(Looper.getMainLooper());
 		this.onDelayedAccept = onDelayedAccept != null ? onDelayedAccept : s -> {};
 
 		this.appHacks = appHacks;
 		this.isInputLimited = inputType == null || inputType.isLimited();
 		this.settings = settings;
+		this.inputMode = inputMode;
 		this.statusBar = statusBar;
 		this.textField = textField != null ? textField : new TextField(ims, settings, null);
 
@@ -341,7 +345,8 @@ public class SuggestionOps {
 
 
 	private void setVisibility(@Nullable SettingsStore settings, boolean willBeEmpty, boolean forceVisible) {
-		final boolean areSuggestionsVisible = isInputLimited || forceVisible || (settings != null && settings.getShowSuggestions());
+		final boolean areSuggestionsVisible = isInputLimited || forceVisible || (settings != null
+			&& settings.getShowSuggestions(inputMode != null ? inputMode.getAsInt() : settings.getInputMode()));
 
 		if (suggestionBar != null) {
 			suggestionBar.setVisible(areSuggestionsVisible);

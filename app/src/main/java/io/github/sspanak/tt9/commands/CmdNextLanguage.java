@@ -24,7 +24,7 @@ public class CmdNextLanguage implements Command {
 			&& !tt9.shouldBeOff()
 			&& tt9.getSettings().areEnabledLanguagesMoreThanN(1)
 			&& InputModePolicy.canSwitchLanguage(
-				tt9.isInputModeNumeric(), tt9.getInputType().isPassword(),
+				tt9.isInputModeNumeric(),
 				tt9.getInputType().determineInputModes(tt9.getApplicationContext())
 			);
 	}

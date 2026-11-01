@@ -1,11 +1,15 @@
 package io.github.sspanak.tt9.ime.helpers;
 
+import android.content.Context;
+import android.view.inputmethod.EditorInfo;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NullLanguage;
@@ -106,25 +110,63 @@ public class InputModePolicyTest {
 
 	@Test
 	public void manuallySelectingNumbersDoesNotPreventChangingTextLanguage() {
-		assertTrue(InputModePolicy.canSwitchLanguage(true, false, Arrays.asList(PREDICTIVE, NUMERIC)));
-		assertTrue(InputModePolicy.canSwitchLanguage(true, false, Arrays.asList(NUMERIC, ABC)));
-		assertTrue(InputModePolicy.canSwitchLanguage(true, false, Arrays.asList(NUMERIC, HIRAGANA, KATAKANA)));
+		assertTrue(InputModePolicy.canSwitchLanguage(true, Arrays.asList(PREDICTIVE, NUMERIC)));
+		assertTrue(InputModePolicy.canSwitchLanguage(true, Arrays.asList(NUMERIC, ABC)));
+		assertTrue(InputModePolicy.canSwitchLanguage(true, Arrays.asList(NUMERIC, HIRAGANA, KATAKANA)));
 	}
 
 
 	@Test
 	public void languageSwitchUsesEditorCapabilitiesWhenCurrentLanguageHasNoTextMode() {
 		assertEquals(List.of(NUMERIC), InputModePolicy.getAllowedModes(TEXT_MODES, KOREAN, false));
-		assertTrue(InputModePolicy.canSwitchLanguage(true, false, TEXT_MODES));
+		assertTrue(InputModePolicy.canSwitchLanguage(true, TEXT_MODES));
 	}
 
 
 	@Test
-	public void numericOnlyAndPasswordModesKeepLanguageSwitchRestricted() {
-		assertFalse(InputModePolicy.canSwitchLanguage(true, false, List.of(NUMERIC)));
-		assertFalse(InputModePolicy.canSwitchLanguage(true, false, List.of(InputMode.MODE_PASSTHROUGH)));
-		assertFalse(InputModePolicy.canSwitchLanguage(true, true, Arrays.asList(NUMERIC, ABC)));
-		assertTrue(InputModePolicy.canSwitchLanguage(false, true, Arrays.asList(NUMERIC, ABC)));
+	public void numericOnlyAndPassthroughEditorsKeepLanguageSwitchRestricted() {
+		assertFalse(InputModePolicy.canSwitchLanguage(true, List.of(NUMERIC)));
+		assertFalse(InputModePolicy.canSwitchLanguage(true, List.of(InputMode.MODE_PASSTHROUGH)));
+	}
+
+
+	@Test
+	public void textPasswordCanSwitchFromChineseNumbersToAlphabeticLanguageWithoutPredictions() {
+		for (int variation : new int[]{EditorInfo.TYPE_TEXT_VARIATION_PASSWORD,
+			EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD, EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD}) {
+			InputType password = field(EditorInfo.TYPE_CLASS_TEXT | variation);
+			List<Integer> passwordModes = new ArrayList<>(password.determineInputModes(null));
+			assertEquals(Arrays.asList(NUMERIC, ABC), passwordModes);
+			assertEquals(List.of(NUMERIC), InputModePolicy.getAllowedModes(passwordModes, PINYIN, true));
+			assertTrue(InputModePolicy.canSwitchLanguage(true, passwordModes));
+			assertEquals(passwordModes, InputModePolicy.getAllowedModes(passwordModes, LATIN, true));
+			assertTrue(InputModePolicy.canSwitchLanguage(false, passwordModes));
+			assertTrue(password.notMindReadableText(null));
+			assertFalse(password.allowsWritingSuggestions());
+		}
+	}
+
+
+	@Test
+	public void numericPinPhoneAndDateFieldsKeepTheirNumericRestriction() {
+		for (int type : new int[]{EditorInfo.TYPE_CLASS_NUMBER,
+			EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_VARIATION_PASSWORD,
+			EditorInfo.TYPE_CLASS_PHONE, EditorInfo.TYPE_CLASS_DATETIME}) {
+			List<Integer> editorModes = new ArrayList<>(field(type).determineInputModes(null));
+			assertEquals(List.of(NUMERIC), editorModes);
+			assertFalse(InputModePolicy.canSwitchLanguage(true, editorModes));
+		}
+	}
+
+
+	private static InputType field(int type) {
+		EditorInfo editor = new EditorInfo();
+		editor.packageName = "example.writer";
+		editor.inputType = type;
+		return new InputType(null, editor) {
+			// Device-specific dialer/calculator checks are outside this editor-capability test.
+			@Override protected boolean isSpecialNumeric(Context context) { return false; }
+		};
 	}
 
 

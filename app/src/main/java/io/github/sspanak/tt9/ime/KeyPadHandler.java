@@ -216,6 +216,12 @@ abstract class KeyPadHandler extends UiHandler {
 	}
 
 
+	void cancelInterceptedKey(int keyCode) {
+		if (ignoreNextKeyUp == keyCode) ignoreNextKeyUp = 0;
+		resetKeyRepeat();
+	}
+
+
 	public void resetKeyRepeat() {
 		numKeyRepeatCounter = 0;
 		keyRepeatCounter = 0;
