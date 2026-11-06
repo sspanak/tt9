@@ -17,6 +17,7 @@ import io.github.sspanak.tt9.util.Text;
 
 abstract class InputField {
 	public static final int IME_ACTION_ENTER = EditorInfo.IME_MASK_ACTION + 1;
+	public static final int IME_ACTION_NEWLINE = EditorInfo.IME_MASK_ACTION + 2;
 
 	@NonNull public final String id;
 	@Nullable protected final InputMethodService ims;

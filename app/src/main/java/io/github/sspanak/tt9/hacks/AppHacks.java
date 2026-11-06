@@ -164,14 +164,24 @@ public class AppHacks {
 	 * Returns "true" if the action was handled, "false" otherwise.
 	 */
 	public boolean onAction(int action) {
-		if (inputType != null && textField != null && inputType.isSonimSearchField(action)) {
+		if (inputType == null || textField == null) {
+			return false;
+		}
+
+		if (inputType.isSonimSearchField(action)) {
 			return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 		}
 
 		// Kyocera fields close only on "Finish_IME". Return "false" to also send IME_ACTION_DONE
 		// for the fields that ignore the private command.
-		if (inputType != null && textField != null && inputType.isKyoceraDoneField()) {
+		if (inputType.isKyoceraDoneField()) {
 			textField.performPrivateCommand("Finish_IME");
+			return false;
+		}
+
+		if (action == TextField.IME_ACTION_NEWLINE) {
+			textField.setText("\n");
+			return true;
 		}
 
 		return false;
@@ -267,13 +277,18 @@ public class AppHacks {
 		}
 
 		int action = textField != null ? textField.getAction() : EditorInfo.IME_ACTION_UNSPECIFIED;
-
-		if (
-			action != EditorInfo.IME_ACTION_GO && action != EditorInfo.IME_ACTION_SEARCH
+		final boolean isChatField = action != EditorInfo.IME_ACTION_GO && action != EditorInfo.IME_ACTION_SEARCH
 			&& action != EditorInfo.IME_ACTION_PREVIOUS && action != EditorInfo.IME_ACTION_NEXT
-			&& settings.getSendWithEnterInChatApps()
-			&& inputType != null && inputType.isChatField()
-		) {
+			&& inputType != null && inputType.isChatField();
+		final boolean isSlackChatField = isChatField && inputType.isSlack();
+
+		// Slack ignores `IME_ACTION_SEND`, and its default action is to send the message. To achieve
+		// the same effect as in other apps we invert the logic.
+		if (isSlackChatField) {
+			return settings.getSendWithEnterInChatApps() ? action : TextField.IME_ACTION_NEWLINE;
+		}
+
+		if (isChatField && settings.getSendWithEnterInChatApps()) {
 			return EditorInfo.IME_ACTION_SEND;
 		}
 
