@@ -20,8 +20,7 @@ class DeletableWordsList {
 	private final boolean largeFont;
 	private final int pageSize;
 	@Nullable private IntConsumer onPageChange;
-	private final ArrayList<Preference> previousLinks = new ArrayList<>();
-	private final ArrayList<Preference> nextLinks = new ArrayList<>();
+	private final ArrayList<PreferencePageNavigation> navigationRows = new ArrayList<>();
 
 	private int offset = 0;
 	private int currentWords = 0;
@@ -41,8 +40,7 @@ class DeletableWordsList {
 		if (item != null) {
 			item.removeAll();
 		}
-		previousLinks.clear();
-		nextLinks.clear();
+		navigationRows.clear();
 	}
 
 	void delete(PreferenceDeletableWord wordItem) {
@@ -89,40 +87,30 @@ class DeletableWordsList {
 	}
 
 	/**
-	 * Adds "previous" and "next" page links. The links are added at both the top and the bottom of
-	 * the list, so that they are quickly reachable with a keypad, too.
+	 * Adds a row with the "previous" and "next" page links. The row is added at both the top and the
+	 * bottom of the list, so that it is quickly reachable with a keypad, too.
 	 */
 	private void addNavigation() {
 		if (item == null) {
 			return;
 		}
 
-		addNavigationLink(R.string.delete_words_page_previous, true);
-		addNavigationLink(R.string.delete_words_page_next, false);
-	}
-
-	private void addNavigationLink(int title, boolean previous) {
-		PreferencePlainText pref = new PreferencePlainText(item.getContext());
-		pref.setSummary(item.getContext().getString(title));
+		PreferencePageNavigation pref = new PreferencePageNavigation(item.getContext());
 		pref.setLayoutResource(largeFont ? pref.getLargeLayout() : pref.getDefaultLayout());
-		pref.setPersistent(false);
-		pref.setOnPreferenceClickListener((p) -> {
-			changePage(previous ? offset - pageSize : offset + currentWords);
-			return true;
-		});
+		pref.setHandlers(
+			() -> changePage(offset - pageSize),
+			() -> changePage(offset + currentWords)
+		);
 		item.addPreference(pref);
-		(previous ? previousLinks : nextLinks).add(pref);
+		navigationRows.add(pref);
 	}
 
 	private void updateNavigation() {
 		boolean hasPrevious = offset > 0;
 		boolean hasNext = offset + currentWords < totalMatching;
 
-		for (Preference pref : previousLinks) {
-			pref.setVisible(hasPrevious);
-		}
-		for (Preference pref : nextLinks) {
-			pref.setVisible(hasNext);
+		for (PreferencePageNavigation pref : navigationRows) {
+			pref.setAvailable(hasPrevious, hasNext);
 		}
 	}
 
