@@ -139,6 +139,16 @@ public class InputType extends StandardInputType {
 
 
 	/**
+	 * Detects Chrome for when the keyboard remaining invisible in websites.
+	 * Bug reports:
+	 * <a href="https://github.com/sspanak/tt9/issues/1211">#1211</a>
+	 */
+	boolean isChromeText() {
+		return isAppField("com.android.chrome", EditorInfo.TYPE_CLASS_TEXT);
+	}
+
+
+	/**
 	 * Detects incorrectly defined text fields.
 	 */
 	@Override
@@ -174,11 +184,18 @@ public class InputType extends StandardInputType {
 	}
 
 
+	/**
+	 * Detects Firefox for when the keyboard remaining invisible in websites.
+	 * Bug reports:
+	 * <a href="https://github.com/sspanak/tt9/issues/920">#920</a>
+	 * <a href="https://github.com/sspanak/tt9/issues/1211">#1211</a>
+	 */
 	public boolean isFirefoxText() {
 		return
 			isAppField("org.mozilla.firefox", EditorInfo.TYPE_CLASS_TEXT)
 			|| isAppField("org.mozilla.fennec_fdroid", EditorInfo.TYPE_CLASS_TEXT)
-			|| isAppField("org.mozilla.focus", EditorInfo.TYPE_CLASS_TEXT);
+			|| isAppField("org.mozilla.focus", EditorInfo.TYPE_CLASS_TEXT)
+			|| isAppField("org.ironfoxoss.ironfox", EditorInfo.TYPE_CLASS_TEXT);
 	}
 
 
