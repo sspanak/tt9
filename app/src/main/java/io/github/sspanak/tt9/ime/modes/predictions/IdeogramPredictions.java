@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.languages.Language;
@@ -203,8 +204,8 @@ public class IdeogramPredictions extends WordPredictions {
 
 
 	/**
-	 * Removes the Latin transcriptions from native words. Directly modifies the words list, but the
-	 * original is preserved in this.transcriptions.
+	 * Removes the Latin transcriptions and repeated native words, preserving their ranked order.
+	 * The original readings remain in this.transcriptions for filtering and learning.
 	 * Example operation: [SHIWU食物, SHIZU十足] -> [食物, 十足]
 	 */
 	public void stripTranscriptions() {
@@ -212,14 +213,14 @@ public class IdeogramPredictions extends WordPredictions {
 			return;
 		}
 
-		ArrayList<String> newWords = new ArrayList<>(transcriptions.size());
+		LinkedHashSet<String> newWords = new LinkedHashSet<>(transcriptions.size());
 		for (int i = 0; i < transcriptions.size(); i++) {
 			String transcription = transcriptions.get(i);
 			int firstNative = TextTools.lastIndexOfLatin(transcription) + 1;
 			newWords.add(firstNative >= transcription.length() ? transcription : transcription.substring(firstNative));
 		}
 
-		words = newWords;
+		words = new ArrayList<>(newWords);
 	}
 
 

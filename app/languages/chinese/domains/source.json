@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "domains": [
+    {
+      "id": "medical",
+      "labelEn": "Medicine",
+      "labelZh": "医学",
+      "license": "GPL-3.0-only (TT9 selected data); MIT (THUOCL term/DF source)",
+      "source": "https://github.com/thunlp/THUOCL/blob/a30ce79d895d01ab5132a5c74c29703ff7efb4cc/data/THUOCL_medical.txt; explicit readings from the existing weighted TT9 Simplified Chinese factory dictionary",
+      "sourceSha256": "a01f39f1677af0b6a620bbc68bf293e8e436f06248b74adb625cd61d9ad7bbcd",
+      "sourceCommit": "a30ce79d895d01ab5132a5c74c29703ff7efb4cc",
+      "wordCount": 1000,
+      "readingCount": 1000,
+      "tsvSha256": "6a1d56740a98dd708e564d418fe8f02c03af27c51d6ba386567b186e6a08dd73",
+      "minimumSourceDf": 1078,
+      "maximumSourceDf": 580436,
+      "weightFormula": "round(9999 * log1p(domain_df) / log1p(max_selected_domain_df))",
+      "readingPolicy": "Existing positive-weight factory pair; exactly one PinyinSyllables.segment result for the Han character count. Ambiguous/unsegmentable readings skipped; no new readings inferred.",
+      "review": "Every retained term string reviewed for obvious topic noise, names, malformed fragments and advertising/contact content. Existing factory pronunciations reused; this is not an independent pronunciation certification.",
+      "rejectedCandidateCounts": {
+        "generic_or_off_topic_manual_exclusion": 56,
+        "ambiguous_segmentation": 218
+      }
+    },
+    {
+      "id": "finance",
+      "labelEn": "Finance",
+      "labelZh": "金融",
+      "license": "GPL-3.0-only (TT9 selected data); MIT (THUOCL term/DF source)",
+      "source": "https://github.com/thunlp/THUOCL/blob/a30ce79d895d01ab5132a5c74c29703ff7efb4cc/data/THUOCL_caijing.txt; explicit readings from the existing weighted TT9 Simplified Chinese factory dictionary",
+      "sourceSha256": "68e63d2009e59c6f388eeaa789d19b6a681657de3e8e56cc3479b21cd8548542",
+      "sourceCommit": "a30ce79d895d01ab5132a5c74c29703ff7efb4cc",
+      "wordCount": 800,
+      "readingCount": 800,
+      "tsvSha256": "88c22d977ad6fc4c5352e5d35c5e2aaf829ca28b37b01ccf586c7e5bd7032341",
+      "minimumSourceDf": 63,
+      "maximumSourceDf": 1053266,
+      "weightFormula": "round(9999 * log1p(domain_df) / log1p(max_selected_domain_df))",
+      "readingPolicy": "Existing positive-weight factory pair; exactly one PinyinSyllables.segment result for the Han character count. Ambiguous/unsegmentable readings skipped; no new readings inferred.",
+      "review": "Every retained term string reviewed for obvious topic noise, names, malformed fragments and advertising/contact content. Existing factory pronunciations reused; this is not an independent pronunciation certification.",
+      "rejectedCandidateCounts": {
+        "generic_or_off_topic_manual_exclusion": 349,
+        "ambiguous_segmentation": 49,
+        "finance_topic_filter": 1879
+      }
+    },
+    {
+      "id": "technology",
+      "labelEn": "Computing and technology",
+      "labelZh": "计算机与技术",
+      "license": "GPL-3.0-only (TT9 selected data); MIT (THUOCL term/DF source)",
+      "source": "https://github.com/thunlp/THUOCL/blob/a30ce79d895d01ab5132a5c74c29703ff7efb4cc/data/THUOCL_IT.txt; explicit readings from the existing weighted TT9 Simplified Chinese factory dictionary",
+      "sourceSha256": "e8cd42c9f5559735fa3bfb91515cbe051f991efd4a803038a1d5c0da85af3526",
+      "sourceCommit": "a30ce79d895d01ab5132a5c74c29703ff7efb4cc",
+      "wordCount": 800,
+      "readingCount": 800,
+      "tsvSha256": "20097cf6838436ca80e8cbb723b81687ec5becef002d385357c5a1ab3ddf9b41",
+      "minimumSourceDf": 8704,
+      "maximumSourceDf": 395499,
+      "weightFormula": "round(9999 * log1p(domain_df) / log1p(max_selected_domain_df))",
+      "readingPolicy": "Existing positive-weight factory pair; exactly one PinyinSyllables.segment result for the Han character count. Ambiguous/unsegmentable readings skipped; no new readings inferred.",
+      "review": "Every retained term string reviewed for obvious topic noise, names, malformed fragments and advertising/contact content. Existing factory pronunciations reused; this is not an independent pronunciation certification.",
+      "rejectedCandidateCounts": {
+        "ambiguous_segmentation": 110,
+        "generic_or_off_topic_manual_exclusion": 14
+      }
+    },
+    {
+      "id": "acg",
+      "labelEn": "Games and ACG",
+      "labelZh": "游戏/ACG",
+      "license": "GPL-3.0-only",
+      "source": "TT9 contributors; original curated Chinese terms and explicit Pinyin readings; no external definitions or copied term list."
+    },
+    {
+      "id": "psychology",
+      "labelEn": "Psychology",
+      "labelZh": "心理学",
+      "license": "GPL-3.0-only",
+      "source": "TT9 contributors; original curated Chinese terms and explicit Pinyin readings; no external definitions or copied term list."
+    },
+    {
+      "id": "biochemistry",
+      "labelEn": "Biochemistry",
+      "labelZh": "生物化学",
+      "license": "GPL-3.0-only",
+      "source": "TT9 contributors; original curated Chinese terms and explicit Pinyin readings; no external definitions or copied term list."
+    },
+    {
+      "id": "engineering",
+      "labelEn": "Engineering",
+      "labelZh": "工程技术",
+      "license": "GPL-3.0-only",
+      "source": "TT9 contributors; original curated Chinese terms and explicit Pinyin readings; no external definitions or copied term list."
+    }
+  ]
+}

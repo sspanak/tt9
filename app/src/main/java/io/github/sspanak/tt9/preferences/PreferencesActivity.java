@@ -22,6 +22,11 @@ import io.github.sspanak.tt9.preferences.screens.appearanceUnfolded.AppearanceUn
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 import io.github.sspanak.tt9.preferences.screens.UsageStatsScreen;
 import io.github.sspanak.tt9.preferences.screens.appearance.AppearanceScreen;
+import io.github.sspanak.tt9.extensions.ChineseExtension;
+import io.github.sspanak.tt9.extensions.ChinesePack;
+import io.github.sspanak.tt9.extensions.ChineseExtensions;
+import io.github.sspanak.tt9.extensions.ChinesePackInstaller;
+import io.github.sspanak.tt9.extensions.ChinesePackScreen;
 import io.github.sspanak.tt9.preferences.screens.debug.DebugScreen;
 import io.github.sspanak.tt9.preferences.screens.deleteWords.DeleteWordsScreen;
 import io.github.sspanak.tt9.preferences.screens.fnKeyOrder.FnKeyOrderScreen;
@@ -37,12 +42,14 @@ import io.github.sspanak.tt9.preferences.screens.modePredictive.ModePredictiveSc
 import io.github.sspanak.tt9.preferences.screens.setup.SetupScreen;
 import io.github.sspanak.tt9.ui.PremiumPreferencesActivity;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.InterfaceLanguage;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 public class PreferencesActivity extends PremiumPreferencesActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		getSettings();
+		InterfaceLanguage.apply(this, settings.getInterfaceLanguage());
 		applyTheme();
 		Logger.setLevel(settings.getLogLevel());
 		new Thread(this::initSecondaryTasks).start();
@@ -83,6 +90,7 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 	@Override
 	protected void onResume() {
 		super.onResume();
+		ChinesePackInstaller.offer(this);
 
 		if (!SystemSettings.isTT9Enabled(this)) {
 			return;
@@ -95,6 +103,7 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 		BaseScreenFragment screen = getScreen(screenName);
 
 		if (screen.getName().equals(screenName)) {
+			intent.removeExtra("screen");
 			displayScreen(screen, false);
 		}
 	}
@@ -151,6 +160,12 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 
 		return switch (name) {
 			case AppearanceScreen.NAME -> new AppearanceScreen(this);
+			case "ChineseSettings", "ChineseUserWords", "ChineseAppearance", "ChineseDomainPacks" -> {
+				ChineseExtension chinese = ChineseExtensions.get();
+				BaseScreenFragment chineseScreen = chinese != null && ChinesePack.isDataAvailable(this) ? chinese.createScreen(this, name) : null;
+				yield chineseScreen != null ? chineseScreen
+					: "ChineseAppearance".equals(name) ? new AppearanceScreen(this) : new ChinesePackScreen(this);
+			}
 			case AppearanceUnfoldedScreen.NAME -> new AppearanceUnfoldedScreen(this);
 			case DebugScreen.NAME -> new DebugScreen(this);
 			case DeleteWordsScreen.NAME -> new DeleteWordsScreen(this);

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+	<Preference app:summary="@string/chinese_domain_packs_brief" app:selectable="false" />
+	<Preference app:key="chinese_domain_sources" app:title="@string/chinese_domain_sources" app:enabled="false" />
+	<PreferenceCategory app:key="chinese_domain_list" app:title="@string/chinese_domain_packs_title" />
+</PreferenceScreen>

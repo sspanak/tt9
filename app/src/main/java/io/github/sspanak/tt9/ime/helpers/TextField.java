@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime.helpers;
 
 import android.inputmethodservice.InputMethodService;
+import android.os.SystemClock;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -17,6 +18,9 @@ import io.github.sspanak.tt9.util.Text;
 
 public class TextField extends InputField {
 	@NonNull private CharSequence composingText = "";
+	private final ComposingSelection composingSelection;
+	private int composingCursor = -1;
+	private boolean nativeCursorRejected;
 
 	private boolean isComposingSupported;
 	private final boolean isNonText;
@@ -25,6 +29,10 @@ public class TextField extends InputField {
 
 	public TextField(@Nullable InputMethodService ims, @Nullable SettingsStore settings, EditorInfo inputField) {
 		super(ims, inputField);
+		composingSelection = new ComposingSelection(
+			inputField != null ? inputField.initialSelStart : -1,
+			inputField != null ? inputField.initialSelEnd : -1
+		);
 
 		InputType inputType = new InputType(ims, inputField);
 		isComposingSupported =
@@ -257,6 +265,7 @@ public class TextField extends InputField {
 
 		if (success) {
 			composingText = text;
+			composingSelection.recompose(text.length(), text.length(), SystemClock.uptimeMillis());
 		}
 
 		return success;
@@ -278,6 +287,7 @@ public class TextField extends InputField {
 
 		if (success) {
 			composingText = word;
+			composingSelection.recompose(parts[0].length(), word.length(), SystemClock.uptimeMillis());
 		}
 
 		return success ? word : "";
@@ -291,6 +301,9 @@ public class TextField extends InputField {
 	public void setText(String text) {
 		InputConnection connection = getConnection();
 		if (text != null && connection != null) {
+			composingCursor = -1;
+			composingSelection.replace(text.length(), 1, false, SystemClock.uptimeMillis());
+			composingSelection.finish(SystemClock.uptimeMillis());
 			connection.commitText(text, 1);
 			composingText = "";
 		}
@@ -301,6 +314,30 @@ public class TextField extends InputField {
 	public String getComposingText() {
 		return composingText.toString();
 	}
+
+
+	/** Request a real cursor within composing text; -1 restores the usual end-of-word cursor. */
+	public void setComposingCursor(int offset) { composingCursor = offset; }
+
+	public boolean supportsComposingCursor() {
+		return isComposingSupported && !nativeCursorRejected
+			&& composingSelection.getComposingStart() >= 0 && getConnection() != null;
+	}
+
+	public boolean hasComposingCursor() { return composingCursor >= 0; }
+
+	public int getComposingCursorOffset(int start, int end, int candidatesStart, int candidatesEnd) {
+		return composingCursor >= 0 && supportsComposingCursor()
+			? composingSelection.getCursorOffset(start, end, candidatesStart, candidatesEnd) : -1;
+	}
+
+	/** Returns true for our own selection writes, including delayed callbacks from an older write. */
+	public boolean onSelectionUpdate(int oldStart, int oldEnd, int start, int end, int candidatesStart, int candidatesEnd) {
+		return composingSelection.update(oldStart, oldEnd, start, end, candidatesStart, candidatesEnd, SystemClock.uptimeMillis());
+	}
+
+	public int getSelectionStart() { return composingSelection.getStart(); }
+	public int getSelectionEnd() { return composingSelection.getEnd(); }
 
 
 	/**
@@ -316,7 +353,26 @@ public class TextField extends InputField {
 
 		InputConnection connection = getConnection();
 		if (connection != null && isComposingSupported) {
-			connection.setComposingText(text, position);
+			boolean moveCursor = composingCursor >= 0 && supportsComposingCursor();
+			int origin = composingSelection.getComposingStart();
+			if (moveCursor) connection.beginBatchEdit();
+			composingSelection.replace(text.length(), position, moveCursor, SystemClock.uptimeMillis());
+			boolean written = connection.setComposingText(text, position);
+			if (moveCursor) {
+				int cursor = origin + Math.min(composingCursor, text.length());
+				composingSelection.moveTo(cursor, SystemClock.uptimeMillis());
+				if (!written || !connection.setSelection(cursor, cursor)) {
+					// Nonstandard editors may compose but reject selection. Keep the previous visible
+					// cursor behavior for this field instead of leaving an invisible editing position.
+					nativeCursorRejected = true;
+					String fallback = text.subSequence(0, Math.min(composingCursor, text.length()))
+						+ "|" + text.subSequence(Math.min(composingCursor, text.length()), text.length());
+					composingText = fallback;
+					composingSelection.replace(fallback.length(), 1, true, SystemClock.uptimeMillis());
+					connection.setComposingText(fallback, 1);
+				}
+				connection.endBatchEdit();
+			}
 		}
 	}
 
@@ -339,6 +395,7 @@ public class TextField extends InputField {
 		InputConnection connection = getConnection();
 		if (connection != null && isComposingSupported) {
 			connection.beginBatchEdit();
+			composingSelection.replace(text.length(), 1, false, SystemClock.uptimeMillis());
 			connection.commitText("", 0);
 			connection.setComposingText(text, 1);
 			connection.endBatchEdit();
@@ -351,6 +408,8 @@ public class TextField extends InputField {
 	 * Finish composing text or do nothing if the text field is invalid.
 	 */
 	public void finishComposingText() {
+		composingCursor = -1;
+		composingSelection.finish(SystemClock.uptimeMillis());
 		InputConnection connection = getConnection();
 		if (connection == null) {
 			return;

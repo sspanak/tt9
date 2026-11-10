@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.extensions.ChineseExtensions;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
@@ -56,6 +57,8 @@ public class SuggestionsBar {
 	@NonNull private final Runnable onItemLongClick;
 	@Nullable private final RecyclerView mView;
 	private final SettingsStore settings;
+	private final ResizableMainView mainView;
+	@Nullable private CandidatePanel candidatePanel;
 	private SuggestionsAdapter mSuggestionsAdapter;
 	private Vibration vibration;
 
@@ -66,6 +69,7 @@ public class SuggestionsBar {
 		this.onItemClick = onItemClick;
 		this.onItemLongClick = onItemLongClick;
 		this.settings = settings;
+		this.mainView = mainView;
 
 		mView = mainView.getView() != null ? mainView.getView().findViewById(R.id.suggestions_bar) : null;
 		if (mView != null) {
@@ -139,14 +143,18 @@ public class SuggestionsBar {
 
 		separatorDrawable.setColorFilter(suggestionSeparatorColor, PorterDuff.Mode.SRC_ATOP);
 
-		DividerItemDecoration separator = new DividerItemDecoration(mView.getContext(), RecyclerView.HORIZONTAL);
-		separator.setDrawable(separatorDrawable);
-
 		int decorations = mView.getItemDecorationCount();
 		if (decorations > 0) {
 			mView.removeItemDecorationAt(decorations - 1);
 		}
-		mView.addItemDecoration(separator);
+		RecyclerView.ItemDecoration decoration = candidatePanel != null ? candidatePanel.separators(separatorDrawable) : null;
+		if (decoration != null) {
+			mView.addItemDecoration(decoration);
+		} else {
+			DividerItemDecoration separator = new DividerItemDecoration(mView.getContext(), RecyclerView.HORIZONTAL);
+			separator.setDrawable(separatorDrawable);
+			mView.addItemDecoration(separator);
+		}
 	}
 
 
@@ -174,6 +182,59 @@ public class SuggestionsBar {
 
 	public int getCurrentIndex() {
 		return selectedIndex;
+	}
+
+	public boolean isExpanded() {
+		return candidatePanel != null && candidatePanel.isExpanded();
+	}
+
+	public boolean canExpand() {
+		if (mView == null || suggestions == null || suggestions.size() < 2) return false;
+		if (candidatePanel == null) {
+			var extension = ChineseExtensions.get();
+			if (extension != null) candidatePanel = extension.createCandidatePanel(settings, panelHost());
+		}
+		return candidatePanel != null && candidatePanel.canExpand();
+	}
+
+	public boolean expand() { return canExpand() && candidatePanel.expand(); }
+
+	public boolean collapse() { return candidatePanel != null && candidatePanel.collapse(); }
+
+	public boolean usesNumberKeys() { return candidatePanel != null && candidatePanel.usesNumberKeys(); }
+
+	public boolean selectNumbered(int number) {
+		if (!usesNumberKeys()) return false;
+		int index = candidatePanel.numberedIndex(number);
+		if (index < 0) return false;
+		mSuggestionsAdapter.setSelection(selectedIndex = index);
+		return true;
+	}
+
+	public void moveInGrid(int horizontal, int vertical, boolean collapseAtTop) {
+		if (candidatePanel != null) candidatePanel.move(horizontal, vertical, collapseAtTop);
+	}
+
+	private CandidatePanel.Host panelHost() {
+		return new CandidatePanel.Host() {
+			@Override public RecyclerView view() { return mView; }
+			@Override public SuggestionsAdapter adapter() { return mSuggestionsAdapter; }
+			@Override public List<String> candidates() { return visibleSuggestions; }
+			@Override public int selection() { return selectedIndex; }
+			@Override public void select(int index, boolean scroll) {
+				selectedIndex = Math.max(0, Math.min(index, visibleSuggestions.size() - 1));
+				if (scroll) scrollToSelected(); else mSuggestionsAdapter.setSelection(selectedIndex);
+			}
+			@Override public void showAll() {
+				visibleSuggestions.clear();
+				if (containsStem()) visibleSuggestions.add(stem + STEM_SUFFIX);
+				addManyVisible(suggestions, Integer.MAX_VALUE);
+			}
+			@Override public void render() { SuggestionsBar.this.render(); }
+			@Override public void cancelPendingScroll() { displayHandler.removeCallbacksAndMessages(null); }
+			@Override public void updateSeparators() { if (mView != null) initSeparator(mView.getContext()); }
+			@Override public void setExtraHeight(int height) { mainView.setSuggestionPanelExtraHeight(height); }
+		};
 	}
 
 
@@ -270,6 +331,7 @@ public class SuggestionsBar {
 
 
 	public void setMany(@Nullable List<String> newSuggestions, int initialSel, boolean containsGenerated) {
+		collapse();
 		if ((suggestions == null || suggestions.isEmpty()) && (newSuggestions == null || newSuggestions.isEmpty())) {
 			return;
 		}
@@ -380,7 +442,7 @@ public class SuggestionsBar {
 			setBackground(false);
 			mSuggestionsAdapter.setTextSize(settings.getSuggestionFontScale());
 
-			boolean smooth = settings.getSuggestionSmoothScroll() && visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX + 1;
+			boolean smooth = !isExpanded() && settings.getSuggestionSmoothScroll() && visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX + 1;
 			mView.setItemAnimator(smooth ? animator : null);
 		}
 
@@ -427,11 +489,15 @@ public class SuggestionsBar {
 
 
 	public void scrollToSuggestion(int increment) {
+		scrollToSuggestion(increment, true);
+	}
+
+	public void scrollToSuggestion(int increment, boolean wrap) {
 		if (visibleSuggestions.size() <= 1) {
 			return;
 		}
 
-		calculateScrollIndex(increment);
+		calculateScrollIndex(increment, wrap);
 		if (appendHiddenSuggestionsIfNeeded(increment < 0)) {
 			render();
 		}
@@ -439,12 +505,16 @@ public class SuggestionsBar {
 	}
 
 
-	private void calculateScrollIndex(int increment) {
+	private void calculateScrollIndex(int increment, boolean wrap) {
 		if (visibleSuggestions.isEmpty()) {
 			selectedIndex = 0;
 			return;
 		}
 
+		if (!wrap) {
+			selectedIndex = Math.max(containsStem() ? 1 : 0, Math.min(selectedIndex + increment, visibleSuggestions.size() - 1));
+			return;
+		}
 		selectedIndex = selectedIndex + increment;
 		if (selectedIndex == visibleSuggestions.size()) {
 			selectedIndex = containsStem() ? 1 : 0;
@@ -481,7 +551,7 @@ public class SuggestionsBar {
 			return;
 		}
 
-		boolean smooth = settings.getSuggestionSmoothScroll() && Math.abs(selectedIndex - lastScrollIndex) < SettingsStore.SUGGESTIONS_MAX;
+		boolean smooth = !isExpanded() && settings.getSuggestionSmoothScroll() && Math.abs(selectedIndex - lastScrollIndex) < SettingsStore.SUGGESTIONS_MAX;
 		mView.setItemAnimator(smooth ? animator : null);
 		mView.scrollToPosition(containsStem() && selectedIndex == 1 ? 0 : selectedIndex);
 		lastScrollIndex = selectedIndex;

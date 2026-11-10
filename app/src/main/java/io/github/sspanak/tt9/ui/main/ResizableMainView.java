@@ -22,6 +22,7 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 	private int heightNumpad;
 	private int heightSmall;
 	private int heightTray;
+	private int suggestionPanelExtraHeight;
 
 
 	public ResizableMainView(TraditionalT9 tt9) {
@@ -56,7 +57,11 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 
 	@Override
 	public boolean create() {
-		return super.create() && main != null;
+		boolean created = super.create() && main != null;
+		if (created) {
+			suggestionPanelExtraHeight = 0;
+		}
+		return created;
 	}
 
 
@@ -243,7 +248,13 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 			heightHigh = Math.max(heightTray, heightMain); // make room for the command palette
 		}
 
-		setHeight(heightMain, heightLow, heightHigh);
+		setHeight(heightMain + suggestionPanelExtraHeight, heightLow, heightHigh + suggestionPanelExtraHeight);
+	}
+
+	/** Temporary candidate space must not change the user's keyboard layout or saved size. */
+	public void setSuggestionPanelExtraHeight(int extraHeight) {
+		suggestionPanelExtraHeight = Math.max(0, extraHeight);
+		fitMain();
 	}
 
 	@Override

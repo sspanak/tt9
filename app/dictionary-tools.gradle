@@ -1,3 +1,5 @@
+import java.security.MessageDigest
+
 class Wrapper {
 	static def getDictionaryLineData(String line, String delimiter) {
 		String[] parts = line.split(delimiter, 3)
@@ -62,9 +64,36 @@ class Wrapper {
 	}
 
 
+	/** Packaging-only freshness; notices never change the runtime dictionary identity. */
+	static String getDictionaryNoticesHash(File dictionaryFile) {
+		Map<String, File> notices = getDictionaryNotices(dictionaryFile)
+		return notices.isEmpty() ? '' : MessageDigest.getInstance('SHA-256').digest(
+			notices.collect { name, source -> "${name}:${sha256(source.path)}" }.join('\n').getBytes('UTF-8')
+		).encodeHex().toString()
+	}
+
+
+	/** Separate dictionary data notices; ordinary imports ignore these ZIP entries. */
+	static Map<String, File> getDictionaryNotices(File dictionaryFile) {
+		if (dictionaryFile == null || dictionaryFile.name != 'zh-simplified-pinyin.csv') return [:]
+		File directory = new File(dictionaryFile.parentFile, '../chinese')
+		return [
+			'licenses/rime-ice-license.txt': new File(directory, 'RIME-ICE-LICENSE.txt'),
+			'licenses/rime-ice-notice.txt': new File(directory, 'RIME-ICE-NOTICE.txt')
+		]
+	}
+
+
 	static def sha256(String filePath) {
-		def parts = "sha256sum $filePath".execute().text.trim().split(" ")
-		return parts.length > 0 ? parts[0] : ""
+		def digest = MessageDigest.getInstance("SHA-256")
+		new File(filePath).withInputStream { stream ->
+			byte[] buffer = new byte[64 * 1024]
+			int count
+			while ((count = stream.read(buffer)) != -1) {
+				digest.update(buffer, 0, count)
+			}
+		}
+		return digest.digest().encodeHex().toString()
 	}
 }
 

@@ -20,10 +20,12 @@ import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.UpdateOps;
 import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.Timer;
 
 
@@ -76,6 +78,65 @@ public class WordStore extends BaseSyncStore {
 		} else {
 			return null;
 		}
+	}
+
+	/** Uses the existing (language, sequence) index, without loading the user's word list. */
+	public boolean isCustomWord(Language language, String rawWord) {
+		if (!checkOrNotify() || language == null || rawWord == null || rawWord.isEmpty()) return false;
+		try {
+			String sequence = language.getDigitSequenceForWord(LanguageKind.isChinesePinyin(language)
+				? rawWord.substring(0, TextTools.lastIndexOfLatin(rawWord) + 1) : rawWord);
+			return readOps.isCustomWord(sqlite.getDb(), language, rawWord, sequence);
+		} catch (Exception ignored) {
+			return false;
+		}
+	}
+
+	public AddWordResult put(@NonNull CustomWord entry, boolean makeTopWord) {
+		return replaceCustomWord(null, entry, makeTopWord);
+	}
+
+	/** A reading edit is atomic: failed validation or insertion retains the previous entry. */
+	public AddWordResult replaceCustomWord(@Nullable CustomWord previous, @NonNull CustomWord entry, boolean makeTopWord) {
+		String displayWord = entry.getDisplayWord();
+		if (!checkOrNotify()) return new AddWordResult(AddWordResult.CODE_GENERAL_ERROR, displayWord);
+		try {
+			if (LanguageKind.isChinesePinyin(entry.language) && (!entry.language.isValidWord(displayWord)
+				|| !entry.language.getDigitSequenceForWord(entry.getReading().replace("'", "")).equals(entry.sequence))) {
+				return new AddWordResult(AddWordResult.CODE_INVALID_LANGUAGE, displayWord);
+			}
+			if (previous != null && previous.language.getId() == entry.language.getId() && previous.word.equals(entry.word)) {
+				sqlite.beginTransaction();
+				if (!readOps.isCustomWord(sqlite.getDb(), previous.language, previous.word, previous.sequence)) throw new IllegalArgumentException("The original custom word no longer exists");
+				InsertOps.updateCustomReading(sqlite.getDb(), entry.language, entry.word, entry.getReading());
+				sqlite.finishTransaction();
+				return new AddWordResult(AddWordResult.CODE_SUCCESS, displayWord);
+			}
+			sqlite.beginTransaction();
+			boolean exists = LanguageKind.isChinesePinyin(entry.language)
+				? readOps.isCustomWord(sqlite.getDb(), entry.language, entry.word, entry.sequence)
+				: readOps.exists(sqlite.getDb(), entry.language, entry.word, entry.sequence);
+			if (exists) {
+				sqlite.failTransaction();
+				return new AddWordResult(AddWordResult.CODE_WORD_EXISTS, displayWord);
+			}
+			if (previous != null && !readOps.isCustomWord(sqlite.getDb(), previous.language, previous.word, previous.sequence)) {
+				throw new IllegalArgumentException("The original custom word no longer exists");
+			}
+			if (!InsertOps.insertCustomWord(sqlite.getDb(), entry.language, entry.sequence, entry.word, entry.getReading())) throw new IllegalStateException("Could not insert custom word");
+			if (previous != null) DeleteOps.deleteCustomWord(sqlite.getDb(), previous.language.getId(), previous.word);
+			sqlite.finishTransaction();
+			if (makeTopWord) makeTopWord(entry.language, entry.word, entry.sequence);
+			return new AddWordResult(AddWordResult.CODE_SUCCESS, displayWord);
+		} catch (Exception e) {
+			sqlite.failTransaction();
+			Logger.e(LOG_TAG, "Failed saving custom word: " + e.getMessage());
+			return new AddWordResult(AddWordResult.CODE_GENERAL_ERROR, displayWord);
+		}
+	}
+
+	public ArrayList<CustomWord> getChineseCustomWords(String filter, int limit) {
+		return checkOrNotify() ? readOps.getChineseCustomWords(sqlite.getDb(), filter, limit) : new ArrayList<>();
 	}
 
 
@@ -209,17 +270,18 @@ public class WordStore extends BaseSyncStore {
 				return;
 			}
 
-			int wordPosition = 0;
+			Word selectedWord = null;
 			for (Word tw : topWords) {
 				if (tw.word.toUpperCase(language.getLocale()).equals(word.toUpperCase(language.getLocale()))) {
-					wordPosition = tw.position;
+					selectedWord = tw;
 					break;
 				}
 			}
+			if (selectedWord == null) throw new Exception("No such word");
 
 			int newTopFrequency = topWord.frequency + 1;
 			Text wordFilter = new Text(language, word.length() == 1 ? word : null);
-			if (!UpdateOps.changeFrequency(sqlite.getDb(), language, wordFilter, wordPosition, newTopFrequency)) {
+			if (!UpdateOps.changeFrequency(sqlite.getDb(), language, wordFilter, selectedWord.position, newTopFrequency)) {
 				throw new Exception("No such word");
 			}
 

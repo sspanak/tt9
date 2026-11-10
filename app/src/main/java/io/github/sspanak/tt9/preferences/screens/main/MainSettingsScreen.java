@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.preferences.screens.main;
 
+import android.content.Intent;
+
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.HelpActivity;
 import io.github.sspanak.tt9.preferences.HelpFile;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
@@ -28,7 +31,7 @@ public class MainSettingsScreen extends BaseScreenFragment {
 		boolean isTT9On = SystemSettings.isTT9Enabled(activity);
 		createSettingsSection(isTT9On);
 		createAboutSection(isTT9On);
-		updateHelpButtonDescription();
+		configureHelpButton();
 		resetFontSize(false);
 	}
 
@@ -53,12 +56,13 @@ public class MainSettingsScreen extends BaseScreenFragment {
 	}
 
 
-	private void updateHelpButtonDescription() {
+	private void configureHelpButton() {
 		Preference help = findPreference("screen_help");
 		if (help == null || activity == null) {
 			return;
 		}
 
+		help.setIntent(new Intent(activity, HelpActivity.class));
 		String systemLanguage = SystemSettings.getLocale().replaceAll("_\\w+$", "");
 		if (new HelpFile(activity, systemLanguage).exists()) {
 			help.setSummary("");

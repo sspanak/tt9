@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="chinese_user_words_title">中文用户词</string>
+	<string name="chinese_user_add">添加词语和读音</string>
+	<string name="chinese_user_edit">编辑词语和读音</string>
+	<string name="chinese_user_save">保存</string>
+	<string name="chinese_user_delete">删除此读音</string>
+	<string name="chinese_user_delete_confirm">从用户词中删除 %1$s [%2$s]？</string>
+	<string name="chinese_user_word_hint">中文词语（1–32 个字）</string>
+	<string name="chinese_user_reading_hint">拼音，例如 chong qing</string>
+	<string name="chinese_user_reading_help">每个汉字对应一个不带声调的拼音音节，音节之间用空格或英文撇号分隔。ü、u:、v 均可使用；输入读音时可切换到英文输入。</string>
+	<string name="chinese_user_invalid">请检查汉字和拼音，确保每字对应一个有效音节；有歧义时请用空格分开音节。</string>
+	<string name="chinese_user_format">请在“语言 → 自定义字词”中导入或导出。UTF-8 文本，每行一个读音：中文词语、TAB、462106、TAB、拼音。例如：重庆[TAB]462106[TAB]chong qing。多音词的每个读音单独一行。仍支持原有的“词语＋语言编号”文件。</string>
+	<string name="chinese_user_search">按词语或读音查找</string>
+	<string name="chinese_user_list">词语和读音（最多 200 项结果）</string>
+	<string name="chinese_user_empty">没有匹配的用户词，可以添加词语，或在“语言”中导入。</string>
+</resources>

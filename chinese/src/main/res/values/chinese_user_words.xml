@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="chinese_user_words_title">Chinese User Words</string>
+	<string name="chinese_user_add">Add Word and Reading</string>
+	<string name="chinese_user_edit">Edit Word and Reading</string>
+	<string name="chinese_user_save">Save</string>
+	<string name="chinese_user_delete">Delete This Reading</string>
+	<string name="chinese_user_delete_confirm">Delete %1$s [%2$s] from your user words?</string>
+	<string name="chinese_user_word_hint">Chinese word (1–32 characters)</string>
+	<string name="chinese_user_reading_hint">Pinyin, e.g. chong qing</string>
+	<string name="chinese_user_reading_help">Use one unaccented Pinyin syllable per character, separated by spaces or apostrophes. ü, u: and v are accepted. Switch to English input to type the reading if needed.</string>
+	<string name="chinese_user_invalid">Check the Chinese word and provide one valid Pinyin syllable per character. Separate ambiguous syllables with spaces.</string>
+	<string name="chinese_user_format">Import or export through Languages → Added Words. UTF-8 text, one reading per line: Chinese word, a TAB, 462106, a TAB, Pinyin. Example: 重庆[TAB]462106[TAB]chong qing. Multiple pronunciations use separate lines. Existing word-and-language files remain supported.</string>
+	<string name="chinese_user_search">Find by Word or Reading</string>
+	<string name="chinese_user_list">Words and Readings (up to 200 results)</string>
+	<string name="chinese_user_empty">No matching user words. Add a word or import through Languages.</string>
+	<item name="chinese_user_word_input" type="id" />
+	<item name="chinese_user_reading_input" type="id" />
+	<item name="chinese_user_delete" type="id" />
+</resources>

@@ -31,6 +31,8 @@ class BaseSettings {
 		return prefsEditor;
 	}
 
+	public Context getContext() { return context.getApplicationContext(); }
+
 	protected int getStringifiedInt(String key, int defaultValue) {
 		try {
 			return Integer.parseInt(prefs.getString(key, String.valueOf(defaultValue)));

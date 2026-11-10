@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="chinese_domain_packs_title">Domain vocabulary</string>
+	<string name="chinese_domain_packs_help">Enable the subjects you use. All are off by default. Matching terms gain priority after the leading candidate, common single characters and your added words. Disabling a subject restores normal ordering and hides words supplied only by that subject; words already in the main dictionary remain available. Learning stays on this device. Delete the Chinese language pack to remove its domain data and settings.</string>
+	<string name="chinese_domain_packs_missing">This Chinese pack has no domain vocabulary. Import an updated Chinese pack under Languages → Chinese Input.</string>
+	<string name="chinese_domain_packs_brief">All off by default. Enable the subjects you use.</string>
+	<string name="chinese_domain_sources">About these vocabularies and sources</string>
+	<string name="chinese_domain_pack_detail">%1$d word/readings</string>
+</resources>

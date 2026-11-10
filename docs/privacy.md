@@ -4,14 +4,15 @@
 
 Thank you for using Traditional T9. Your privacy is a priority. This Privacy Policy explains how the app handles your data.
 
-## No Data Collection
-The app **does not collect, store, or share any personal or typing-related data.** User privacy is fully respected, with no tracking, telemetry, or data reporting of any kind.
+## Local Data
+The app stores settings, personal words/readings and learned candidate preferences locally on your device. **Typed text, personal word lists and learned preferences are not uploaded by the app.** There is no tracking, telemetry or typing-data reporting.
 
 ## No Spying, No Tracking
 The app does not contain any analytics, advertising trackers, or background data collection mechanisms. Your usage remains entirely private.
 
 ## Permissions
-- **Internet (Lite, Google Play versions only):** Required to download dictionaries from GitHub. Network use is limited to downloading dictionaries and any required metadata from GitHub; the app does not upload or share your personal, typing-related, or other user data. If your device does not allow revoking it, but you are concerned about your privacy, please use the full app version, that does not require Internet permission at all.
+- **Internet (all versions):** Used for dictionary downloads and the optional Chinese combined pack. Lite downloads its dictionaries on demand. Full retains its bundled ordinary dictionaries for offline use, but also has Internet permission so that users can download the Chinese function, dictionary and interface resources together. Typing and candidate learning remain local; downloading a pack does not upload typed text, personal words or learned preferences. A matching Chinese ZIP can also be transferred to the device and imported offline.
+- **Package installation:** Used to install or update the optional Chinese function and interface splits through Android's package installer. Android may ask you to allow installation from TT9 and requires installation confirmation. Downloading the Chinese pack does not silently install its executable content.
 - **Notifications:** Optionally needed to display dictionary loading progress, and when dictionary updates are available. Requested after first install or after an update on Android 13+. If you do not grant it, the app will download and update the dictionaries silently.
 - **Microphone:** Required only for the optional Voice Input feature. Not needed by default, and will be requested only when you choose to use this feature. The app does not access or transmit any audio data without your explicit action.
 - **Storage:** Required only when importing and exporting custom word lists or other backups. Not needed by default, and will be requested only when you choose to use these features. The app does not access or transmit any files without your explicit action.

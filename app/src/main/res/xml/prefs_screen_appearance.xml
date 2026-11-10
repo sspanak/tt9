@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" app:orderingFromXml="true">
+	<ListPreference
+		app:key="pref_interface_language"
+		app:persistent="false"
+		app:defaultValue="auto"
+		app:title="@string/pref_interface_language"
+		app:summary="@string/pref_interface_language_summary" />
+
 	<PreferenceCategory app:key="category_unfolded_appearance" app:title="@string/pref_category_unfolded_appearance">
 		<io.github.sspanak.tt9.preferences.screens.appearance.UnfoldedAppearanceLink />
 	</PreferenceCategory>
@@ -12,6 +19,12 @@
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownLayoutType app:title="@string/pref_layout" />
 		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchDragResize />
 		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchDoubleTapResize />
+		<Preference
+			app:fragment="io.github.sspanak.tt9.preferences.screens.chinese.ChineseAppearanceScreen"
+			app:key="screen_chinese_appearance"
+			app:title="@string/pref_chinese_appearance"
+			app:summary="@string/pref_chinese_appearance_summary"
+			app:isPreferenceVisible="false" />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:key="category_keyboard_geometry" app:title="@string/pref_category_geometry">

@@ -3,6 +3,7 @@
 	<SwitchPreferenceCompat
 		android:defaultValue="true"
 		android:key="pref_predictive_mode"
+		android:summary="@string/pref_predictive_mode_summary"
 		android:title="@string/pref_category_predictive_mode" />
 
 	<SwitchPreferenceCompat
@@ -25,6 +26,13 @@
 		android:key="auto_capitals_after_newline_predictive"
 		android:summary="@string/pref_auto_capitals_after_newline_summary"
 		android:title="@string/pref_auto_capitals_after_newline" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="true"
+		android:dependency="pref_predictive_mode"
+		android:key="english_writing_suggestions"
+		android:summary="@string/pref_english_writing_suggestions_summary"
+		android:title="@string/pref_english_writing_suggestions" />
 
 	<SwitchPreferenceCompat
 		android:defaultValue="true"

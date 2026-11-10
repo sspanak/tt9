@@ -1,0 +1,27 @@
+// Gradle init script: -I app/release-signing.gradle. Passwords stay in environment variables.
+gradle.beforeProject { project ->
+	project.pluginManager.withPlugin('com.android.application') {
+		project.androidComponents.finalizeDsl { android ->
+			String mode = System.getenv('TT9_SIGNING_MODE') ?: 'release'
+			if (mode == 'debug') {
+				// Explicit, secret-free CI validation only; never a release-key fallback.
+				android.buildTypes.getByName('release').signingConfig = android.signingConfigs.getByName('debug')
+			} else if (mode == 'release') {
+				String store = System.getenv('TT9_RELEASE_KEYSTORE')
+				String password = System.getenv('TT9_RELEASE_STORE_PASSWORD')
+				String alias = System.getenv('TT9_RELEASE_KEY_ALIAS')
+				if (!store || !password || !alias || !new File(store).isFile()) {
+					throw new GradleException('Configure TT9_RELEASE_KEYSTORE, TT9_RELEASE_STORE_PASSWORD and TT9_RELEASE_KEY_ALIAS')
+				}
+				def signing = android.signingConfigs.create('chineseRelease')
+				signing.storeFile = new File(store)
+				signing.storePassword = password
+				signing.keyAlias = alias
+				signing.keyPassword = System.getenv('TT9_RELEASE_KEY_PASSWORD') ?: password
+				android.buildTypes.getByName('release').signingConfig = signing
+			} else {
+				throw new GradleException('TT9_SIGNING_MODE must be release or debug')
+			}
+		}
+	}
+}

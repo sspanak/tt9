@@ -18,6 +18,7 @@ import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
@@ -154,10 +155,16 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 					return false;
 				}
 
-				if (customWord.language.isTranscribed() || readOps.exists(sqlite.getDb(), customWord.language, customWord.word, customWord.sequence)) {
+				boolean chinese = LanguageKind.isChinesePinyin(customWord.language);
+				boolean exists = chinese
+					? readOps.isCustomWord(sqlite.getDb(), customWord.language, customWord.word, customWord.sequence)
+					: readOps.exists(sqlite.getDb(), customWord.language, customWord.word, customWord.sequence);
+				if ((customWord.language.isTranscribed() && !chinese) || exists) {
 					ignoredWords++;
 				} else {
-					InsertOps.insertCustomWord(sqlite.getDb(), customWord.language, customWord.sequence, customWord.word);
+					if (!InsertOps.insertCustomWord(sqlite.getDb(), customWord.language, customWord.sequence, customWord.word, customWord.getReading())) {
+						throw new IOException("Could not insert custom word");
+					}
 				}
 
 				if (file.getSize() > 20) {
@@ -166,17 +173,18 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 			}
 
 			sqlite.finishTransaction();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			sqlite.failTransaction();
-			Logger.e(getClass().getSimpleName(), "Error opening the file. " + e.getMessage());
-			sendFailure(resources.getString(R.string.dictionary_import_error_cannot_read_file));
+			Logger.e(getClass().getSimpleName(), "Error importing custom words. " + e.getMessage());
+			sendFailure(resources.getString(e instanceof IOException
+				? R.string.dictionary_import_error_cannot_read_file : R.string.dictionary_import_failed));
 			return false;
 		}
 
 		if (ignoredWords > 0) {
 			Logger.i(
 				getClass().getSimpleName(),
-				"Skipped " + ignoredWords + " word(s) that are already in the dictionary or do not belong to an alphabetic language."
+				"Skipped " + ignoredWords + " existing or unsupported word(s)."
 			);
 		}
 
@@ -228,10 +236,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 
 	private CustomWord createCustomWord(String line, int lineCount) {
 		try {
-			return new CustomWord(
-				CustomWordFile.getWord(line),
-				CustomWordFile.getLanguage(line)
-			);
+			return CustomWordFile.getCustomWord(line);
 		} catch (Exception e) {
 			String linePreview = line.length() > 50 ? line.substring(0, 50) + "..." : line;
 			sendFailure(resources.getString(R.string.dictionary_import_error_malformed_line, linePreview, lineCount));

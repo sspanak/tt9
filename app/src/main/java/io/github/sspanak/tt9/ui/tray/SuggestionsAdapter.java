@@ -17,6 +17,12 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.ViewHolder> {
+	/** Optional item styling supplied by a feature; ordinary row binding stays unchanged. */
+	public interface Presentation {
+		void bind(View item, TextView text, int position);
+		CharSequence text(String candidate, int position);
+		int viewType();
+	}
 	private final Consumer<Integer> onItemClick;
 	private final Consumer<Integer> onItemLongClick;
 	private final int layout;
@@ -29,6 +35,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 	private int colorHighlight;
 	private int backgroundHighlight;
 	private int selectedIndex = 0;
+	private Presentation presentation;
 
 
 	public SuggestionsAdapter(Context context, @NonNull Consumer<Integer> onItemClick, @NonNull Consumer<Integer> onItemLongClick, int layout, int textViewResourceId, List<String> suggestions) {
@@ -50,7 +57,9 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
-		SpannableString scaledText = new SpannableString(mSuggestions.get(position));
+		if (presentation != null) presentation.bind(holder.itemView, holder.suggestionItem, position);
+		CharSequence text = presentation != null ? presentation.text(mSuggestions.get(position), position) : mSuggestions.get(position);
+		SpannableString scaledText = new SpannableString(text);
 		scaledText.setSpan(new RelativeSizeSpan(textSize), 0, scaledText.length(), 0);
 		holder.suggestionItem.setText(scaledText);
 
@@ -69,6 +78,13 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 	public int getItemCount() {
 		return mSuggestions.size();
 	}
+
+	@Override
+	public int getItemViewType(int position) {
+		return presentation != null ? presentation.viewType() : 0;
+	}
+
+	public void setPresentation(Presentation presentation) { this.presentation = presentation; }
 
 
 	public void setSelection(int newIndex) {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+	<Preference app:key="download_chinese_pack" app:title="@string/chinese_pack_download"
+		app:summary="@string/chinese_pack_download_summary" />
+	<Preference app:key="import_chinese_pack" app:title="@string/chinese_pack_import"
+		app:summary="@string/chinese_pack_import_summary" />
+	<Preference app:key="install_chinese_pack" app:title="@string/chinese_pack_finish_install"
+		app:summary="@string/chinese_pack_system_confirmation" />
+</PreferenceScreen>

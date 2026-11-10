@@ -18,3 +18,6 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+# The Android-installed optional split is discovered through its stable host interface.
+-keep class io.github.sspanak.tt9.chinese.ChineseFeature { public <init>(); public *; }

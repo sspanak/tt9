@@ -16,6 +16,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import io.github.sspanak.tt9.extensions.ChineseExtension;
+import io.github.sspanak.tt9.extensions.ChineseExtensions;
 import io.github.sspanak.tt9.db.entities.CustomWord;
 import io.github.sspanak.tt9.db.entities.NormalizationList;
 import io.github.sspanak.tt9.db.entities.WordList;
@@ -36,7 +38,15 @@ public class ReadOps {
 	 * Sequence is used for faster lookup.
 	 */
 	public boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word, @NonNull String sequence) {
-		return getWord(db, language, word, sequence) != null;
+		return getWord(db, language, word, sequence) != null || isCustomWord(db, language, word, sequence);
+	}
+
+	public boolean isCustomWord(@NonNull SQLiteDatabase db, @NonNull Language language, String word, String sequence) {
+		try (Cursor cursor = db.query(Tables.CUSTOM_WORDS, new String[]{"id"},
+			"langId = ? AND sequence = ? AND word = ? COLLATE NOCASE",
+			new String[]{String.valueOf(language.getId()), sequence, word}, null, null, null, "1")) {
+			return cursor.moveToFirst();
+		}
 	}
 
 
@@ -116,22 +126,37 @@ public class ReadOps {
 	public ArrayList<CustomWord> getCustomWords(@NonNull SQLiteDatabase db, @NonNull String wordFilter, int maxWords) {
 		ArrayList<CustomWord> words = new ArrayList<>();
 
-		String[] select = new String[]{"word", "sequence", "langId"};
-		String where = "word LIKE ?";
-		String[] whereArgs = new String[]{wordFilter + "%"};
+		String[] select = new String[]{"cw.word", "cw.sequence", "cw.langId", "cr.reading"};
+		String where = "cw.word LIKE ? OR (cw.langId = ? AND cw.word LIKE ?)";
+		String[] whereArgs = new String[]{wordFilter + "%", "462106", "%" + wordFilter + "%"};
 		String limit = maxWords > 0 ? String.valueOf(maxWords) : null;
-		String orderBy = maxWords > 0 ? null : "word";
+		String orderBy = maxWords > 0 ? null : "cw.word";
 
-		try (Cursor cursor = db.query(Tables.CUSTOM_WORDS, select, where, whereArgs, null, null, orderBy, limit)) {
+		try (Cursor cursor = db.query(customWordsWithReadings(), select, where, whereArgs, null, null, orderBy, limit)) {
 			while (cursor.moveToNext()) {
 				words.add(new CustomWord(
 					cursor.getString(0),
 					cursor.getString(1),
-					(int) cursor.getLong(2)
+					(int) cursor.getLong(2),
+					cursor.getString(3)
 				));
 			}
 		}
 
+		return words;
+	}
+
+	private String customWordsWithReadings() {
+		return Tables.CUSTOM_WORDS + " AS cw LEFT JOIN " + Tables.CUSTOM_WORD_READINGS + " AS cr ON cr.customId = cw.id";
+	}
+
+	public ArrayList<CustomWord> getChineseCustomWords(SQLiteDatabase db, String filter, int limit) {
+		ArrayList<CustomWord> words = new ArrayList<>();
+		try (Cursor cursor = db.query(customWordsWithReadings(), new String[]{"cw.word", "cw.sequence", "cr.reading"},
+			"cw.langId = 462106 AND (cw.word LIKE ? OR cr.reading LIKE ?)",
+			new String[]{"%" + filter + "%", "%" + filter + "%"}, null, null, "cw.word", String.valueOf(Math.max(1, limit)))) {
+			while (cursor.moveToNext()) words.add(new CustomWord(cursor.getString(0), cursor.getString(1), 462106, cursor.getString(2)));
+		}
 		return words;
 	}
 
@@ -177,11 +202,25 @@ public class ReadOps {
 	public String getWords(@NonNull SQLiteDatabase db, Language language, boolean customWords) {
 		StringBuilder words = new StringBuilder();
 
-		String table = customWords || language == null ? Tables.CUSTOM_WORDS : Tables.getWords(language.getId());
-		String[] columns = customWords || language == null ? new String[]{"word", "langId"} : new String[]{"word", "frequency"};
+		String table = customWords || language == null ? customWordsWithReadings() : Tables.getWords(language.getId());
+		String[] columns = customWords || language == null ? new String[]{"cw.word", "cw.langId", "cr.reading"} : new String[]{"word", "frequency"};
 
 		try (Cursor cursor = db.query(table, columns, null, null, null, null, null)) {
 			while (cursor.moveToNext()) {
+				if ((customWords || language == null) && cursor.getInt(1) == 462106) {
+					String explicitReading = cursor.getString(2);
+					if (explicitReading != null && !explicitReading.isEmpty()) {
+						String stored = cursor.getString(0);
+						int nativeStart = io.github.sspanak.tt9.util.TextTools.lastIndexOfLatin(stored) + 1;
+						words.append(stored.substring(nativeStart)).append("\t462106\t").append(explicitReading).append("\n");
+						continue;
+					}
+					ChineseExtension extension = ChineseExtensions.get();
+					if (extension != null) {
+						words.append(extension.exportUserWord(cursor.getString(0))).append("\n");
+						continue;
+					}
+				}
 				words
 					.append(cursor.getString(0))
 					.append("\t")
@@ -333,18 +372,18 @@ public class ReadOps {
 
 
 	/**
-	 * Generates a query to search for custom word positions. This does NOT support sequences that
-	 * start with a "0" (searches them as integers).
+	 * Searches custom positions as text, preserving leading zeroes and long phonetic sequences.
 	 */
 	@NonNull
 	private String getCustomWordPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
+		String literal = sequence.replace("'", "''");
 		String sql = "SELECT -id as `start`, -id as `end`, LENGTH(`sequence`) = " + sequence.length() + " as `exact` " +
 			" FROM " + Tables.CUSTOM_WORDS +
 			" WHERE langId = " + language.getId() +
-			" AND (sequence = " + sequence;
+			" AND (sequence = '" + literal + "'";
 
 		if (generations > 0) {
-			sql += " OR sequence BETWEEN " + sequence + "0 AND " + sequence + "999999)";
+			sql += " OR sequence BETWEEN '" + literal + "0' AND '" + literal + "999999')";
 		} else {
 			sql += ")";
 		}

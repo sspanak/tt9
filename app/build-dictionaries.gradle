@@ -78,7 +78,7 @@ def convertDictionary(File definition, File csvDictionary, String dictionariesOu
 
 	outputDictionary = sortDictionary(outputDictionary)
 
-	def (assetError, zippedDictionary) = writeZippedDictionary(dictionariesOutputDir, csvDictionary, outputDictionary, outputDictionaryExtension, noSyllables)
+	def (assetError, zippedDictionary) = writeZippedDictionary(dictionariesOutputDir, csvDictionary, outputDictionary, outputDictionaryExtension, noSyllables, DictionaryTools.getDictionaryNotices(csvDictionary))
 	if (assetError) {
 		errorCount++
 		errorMsg += assetError
@@ -128,6 +128,7 @@ def isDictionaryUpToDate(File definition, File csvDictionary, String dictionaryP
 	dictionaryProperties.withInputStream { stream -> props.load(stream) }
 
 	return props.getProperty("hash", "") == DictionaryTools.getLanguageHash(definition, csvDictionary)
+		&& props.getProperty('noticesHash', '') == DictionaryTools.getDictionaryNoticesHash(csvDictionary)
 }
 
 
@@ -174,7 +175,7 @@ static getZipDictionaryFile(dictionariesOutputDir, csvDictionary, outputDictiona
 /**
  * Zipping the text files results in a smaller APK in comparison to the uncompressed text files.
  */
-static def writeZippedDictionary(dictionariesOutputDir, csvDictionaryFile, outputDictionary, outputDictionaryExtension, noSyllables) {
+static def writeZippedDictionary(dictionariesOutputDir, csvDictionaryFile, outputDictionary, outputDictionaryExtension, noSyllables, Map<String, File> notices = [:]) {
 	def fileName = getDictionaryFileName(csvDictionaryFile)
 	def outputFile = getZipDictionaryFile(dictionariesOutputDir, csvDictionaryFile, outputDictionaryExtension)
 
@@ -185,6 +186,13 @@ static def writeZippedDictionary(dictionariesOutputDir, csvDictionaryFile, outpu
 			zipOutputStream.write(compressDictionaryLine(digitSequence, words, noSyllables))
 		}
 		zipOutputStream.closeEntry()
+		notices.each { name, source ->
+			ZipEntry entry = new ZipEntry(name)
+			entry.time = 0
+			zipOutputStream.putNextEntry(entry)
+			source.withInputStream { input -> input.transferTo(zipOutputStream) }
+			zipOutputStream.closeEntry()
+		}
 		zipOutputStream.close()
 		return ["", outputFile]
 	} catch (Exception e) {
@@ -193,16 +201,21 @@ static def writeZippedDictionary(dictionariesOutputDir, csvDictionaryFile, outpu
 }
 
 
-// this cannot be static, because it requires access to exec() and DictionaryTools
+// this cannot be static, because it requires access to providers and DictionaryTools
 def writeDictionaryProperties(File definition, File csvDictionary, File zipDictionary, outputDir, int words) {
 	def name = getPropertyFileName(csvDictionary)
 
 	try {
 		def hash = DictionaryTools.getLanguageHash(definition, csvDictionary)
-		def revision = zipDictionary.exists() ? exec("git log --pretty=tformat:%H -n 1 ${zipDictionary}") : ""
+		String noticesHash = DictionaryTools.getDictionaryNoticesHash(csvDictionary)
+		def revision = zipDictionary.exists() ? providers.exec {
+			workingDir rootDir
+			commandLine('git', 'log', '--pretty=tformat:%H', '-n', '1', '--', zipDictionary.absolutePath)
+		}.standardOutput.asText.get().trim() : ""
 		def size = zipDictionary.exists() ? zipDictionary.length() : 0
 
 		new File(outputDir, name).text = "hash: ${hash}\nrevision: ${revision}\nsize: ${size}\nwords: ${words}"
+		if (!noticesHash.isEmpty()) new File(outputDir, name).append("\nnoticesHash: ${noticesHash}", 'UTF-8')
 
 		return ""
 	} catch (Exception e) {

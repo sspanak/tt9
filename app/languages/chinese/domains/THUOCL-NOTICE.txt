@@ -1,0 +1,60 @@
+THUOCL domain vocabulary attribution and selection record
+
+Term and document-frequency source: THUOCL (THU Open Chinese Lexicon),
+THUNLP, Tsinghua University, https://github.com/thunlp/THUOCL
+The source is MIT-licensed, copyright (c) 2018 THUNLP.
+The complete source license accompanies this notice as THUOCL-LICENSE.txt.
+Reference: Shiyi Han, Yuhui Zhang, Yunshan Ma, Cunchao Tu, Zhipeng Guo,
+Zhiyuan Liu, Maosong Sun. THUOCL: Tsinghua Open Chinese Lexicon. 2016.
+
+Pinned source commit: a30ce79d895d01ab5132a5c74c29703ff7efb4cc
+The source word lists were last updated in 2016/2017. IT document frequencies
+come from the 2014-2016 CSDN corpus; finance and medicine use the 2008-2016
+Sina News corpus described in THUOCL's README. DF means document frequency,
+not a probability, current popularity measurement or a globally comparable rank.
+
+TT9 selected 1,000 medicine, 800 finance and 800 computing/technology terms.
+Only existing positive-weight factory word/reading pairs were eligible.
+All terms are Han-only, 2-12 characters, with positive source DF. Existing
+readings were segmented by the actual PinyinSyllables.segment implementation,
+with exactly one legal segmentation for that Han character count. Ambiguous
+or unsegmentable readings were skipped rather than guessed. All qualifying
+readings of each selected word are retained; these subsets have one per word.
+
+Every retained term string was reviewed for obvious topic noise, names,
+malformed fragments and advertising/contact content. Generic news phrases,
+unrelated people/places, media titles, stale unrelated stock names and clear
+fragments were pruned. Legitimate medical/reproductive and financial-crime
+terms remain vocabulary. There are no definitions, recommendations, contact
+details or executable content. Factory pronunciations are reused without
+claiming an independent manual certification of every pronunciation.
+
+Source DF determines ordering within each subset. The stored weight is:
+round(9999 * log1p(domain_df) / log1p(max_selected_domain_df)).
+The original factory frequencies are not changed or copied into these TSVs.
+Data selection does not delete any factory entry or alter personal words.
+
+The selected TSV data are distributed under GPL-3.0-only alongside the existing
+Chinese data notices, while preserving the THUOCL MIT source license above.
+Application source retains its existing Apache-2.0 license. The complete GPLv3
+text is in the Chinese distribution's rime-ice-license.txt. See the existing
+RIME-ICE-NOTICE.txt for factory-dictionary provenance and source paths.
+
+Preferred form for modification: medical.tsv, finance.tsv, technology.tsv and
+source.json in app/languages/chinese/domains/. The matching source distribution
+also provides the deterministic domain index builder. Source hashes and exact
+selected TSV hashes are recorded in source.json.
+
+Factory CSV SHA-256 at selection: 27e23367008413349bd4b055acf1bba3b20ed9d2c143bcd3cbcf551b35b8f64d
+
+medical: https://github.com/thunlp/THUOCL/blob/a30ce79d895d01ab5132a5c74c29703ff7efb4cc/data/THUOCL_medical.txt
+Source SHA-256: a01f39f1677af0b6a620bbc68bf293e8e436f06248b74adb625cd61d9ad7bbcd
+Selected TSV SHA-256: 6a1d56740a98dd708e564d418fe8f02c03af27c51d6ba386567b186e6a08dd73
+
+finance: https://github.com/thunlp/THUOCL/blob/a30ce79d895d01ab5132a5c74c29703ff7efb4cc/data/THUOCL_caijing.txt
+Source SHA-256: 68e63d2009e59c6f388eeaa789d19b6a681657de3e8e56cc3479b21cd8548542
+Selected TSV SHA-256: 88c22d977ad6fc4c5352e5d35c5e2aaf829ca28b37b01ccf586c7e5bd7032341
+
+technology: https://github.com/thunlp/THUOCL/blob/a30ce79d895d01ab5132a5c74c29703ff7efb4cc/data/THUOCL_IT.txt
+Source SHA-256: e8cd42c9f5559735fa3bfb91515cbe051f991efd4a803038a1d5c0da85af3526
+Selected TSV SHA-256: 20097cf6838436ca80e8cbb723b81687ec5becef002d385357c5a1ab3ddf9b41

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.NonNull;
 
+import java.nio.charset.StandardCharsets;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
@@ -47,6 +48,6 @@ public class CustomWordsExporter extends AbstractExporter {
 			throw new Exception("Could not open database");
 		}
 
-		return new ReadOps().getWords(db, null, true).getBytes();
+		return new ReadOps().getWords(db, null, true).getBytes(StandardCharsets.UTF_8);
 	}
 }

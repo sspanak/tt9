@@ -6,6 +6,7 @@ import android.view.Gravity;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.ime.helpers.CandidateKeyRepeat;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownAlignment;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownBottomPaddingPortrait;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownLayoutType;
@@ -162,8 +163,35 @@ public class SettingsUI extends SettingsTyping {
 		);
 	}
 
+	public boolean getChinesePrefixCompletion() { return prefs.getBoolean("pref_chinese_prefix_completion", true); }
+	public boolean getChineseCommitOnLanguageSwitch() { return prefs.getBoolean("pref_chinese_commit_on_language_switch", true); }
+	public boolean getChineseCommonOnly() { return prefs.getBoolean("pref_chinese_common_only", false); }
+	public int getChineseFuzzyOptions() {
+		int options = 0;
+		String[] keys = {"nl", "z_zh", "c_ch", "s_sh", "en_eng", "in_ing"};
+		for (int i = 0; i < keys.length; i++) if (prefs.getBoolean("pref_chinese_fuzzy_" + keys[i], false)) options |= 1 << i;
+		return options;
+	}
+
+	public void clearChineseSettings() {
+		android.content.SharedPreferences.Editor editor = getPrefsEditor();
+		for (String key : prefs.getAll().keySet()) if (key.startsWith("pref_chinese_")) editor.remove(key);
+		if ("zh-CN".equals(getInterfaceLanguage())) editor.remove("pref_interface_language");
+		editor.apply();
+	}
+
+	public String getInterfaceLanguage() {
+		String language = prefs.getString("pref_interface_language", "auto");
+		return "en".equals(language) || "zh-CN".equals(language) ? language : "auto";
+	}
+
 	public boolean getSuggestionSmoothScroll() {
 		return prefs.getBoolean("pref_suggestion_smooth_scroll", !DeviceInfo.noTouchScreen(context));
+	}
+
+	/** Minimum interval between held-arrow steps in the ordinary candidate row. */
+	public int getCandidateRepeatInterval() {
+		return CandidateKeyRepeat.interval(prefs.getString("pref_candidate_scroll_speed", "normal"));
 	}
 
 	public int getDefaultWidthPercent(boolean isPortrait) {

@@ -46,6 +46,7 @@ public class ThemedContextBuilder {
 	 * with a Theme.AppCompat theme (or descendant)."
 	 */
 	public ContextThemeWrapper build() {
+		InterfaceLanguage.configure(context, configuration);
 		configuration.uiMode = nightModeFlag | (configuration.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
 		ContextThemeWrapper themedCtx = new ContextThemeWrapper(context, theme);
 		themedCtx.applyOverrideConfiguration(configuration);

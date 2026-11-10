@@ -32,6 +32,8 @@ import io.github.sspanak.tt9.util.Logger;
 
 public class SettingsHotkeys extends SettingsVirtualNumpad {
 	private static final String HOTKEY_VERSION = "hotkeys_v6";
+	public static final String SWAP_STAR_POUND = "pref_swap_star_pound";
+	public static final String STAR_KEY_COMPATIBILITY = "pref_star_key_compatibility";
 
 
 	SettingsHotkeys(Context context) { super(context); }
@@ -78,15 +80,27 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 	}
 
 
+	public boolean getStarKeyCompatibility() {
+		return prefs.getBoolean(STAR_KEY_COMPATIBILITY, false);
+	}
+
+
+	public boolean getSwapStarPound() {
+		return prefs.getBoolean(SWAP_STAR_POUND, false);
+	}
+
+
 	public int getFunctionKey(String functionName) {
-		return getStringifiedInt(functionName, KeyEvent.KEYCODE_UNKNOWN);
+		return Hotkey.swapStarAndPound(getStringifiedInt(functionName, KeyEvent.KEYCODE_UNKNOWN), getSwapStarPound());
 	}
 
 
 	public void setFunctionKey(String functionName, int keyCode) {
 		if (isValidFunction(functionName)) {
 			Logger.d(LOG_TAG, "Setting hotkey for function: '" + functionName + "' to " + keyCode);
-			getPrefsEditor().putString(functionName, String.valueOf(keyCode)).apply();
+			// Keep stored assignments in the original keypad order so the swap is reversible.
+			int storedKeyCode = Hotkey.swapStarAndPound(keyCode, getSwapStarPound());
+			getPrefsEditor().putString(functionName, String.valueOf(storedKeyCode)).apply();
 		} else {
 			Logger.w(LOG_TAG,"Not setting a hotkey for invalid function: '" + functionName + "'");
 		}

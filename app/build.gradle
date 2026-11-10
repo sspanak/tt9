@@ -5,6 +5,8 @@ plugins {
 apply from: 'constants.gradle'
 apply from: 'build-definitions.gradle'
 apply from: 'build-dictionaries.gradle'
+apply from: 'build-chinese-prefix-index.gradle'
+apply from: 'build-chinese-domains.gradle'
 apply from: 'build-ngrams.gradle'
 apply from: 'validate-languages.gradle'
 apply from: 'help-tools.gradle'
@@ -156,6 +158,7 @@ def getVersionString = { flavor -> return flavor == 'debug' ? getDebugVersion() 
 android {
 	namespace = PACKAGE_NAME
 	compileSdk = 37
+	dynamicFeatures = [':chinese']
 
 	defaultConfig {
 		applicationId = PACKAGE_NAME
@@ -167,6 +170,7 @@ android {
 
 		buildConfigField 'String', 'DICTIONARY_EXTENSION', "\"${DICTIONARY_OUTPUT_EXTENSION}\""
 		buildConfigField 'String', 'DOCS_DIR', "\"${DOCS_DIR_NAME}\""
+		buildConfigField 'String', 'CHINESE_PACK_BASE_URL', '"' + providers.gradleProperty('chinesePackBaseUrl').getOrElse("https://github.com/sspanak/tt9/releases/download/v${getVerName()}/").replace('\\', '\\\\').replace('"', '\\"') + '"'
 		buildConfigField 'String', 'DONATION_URL', "\"${getDonationUrl()}\""
 
 		// F-droid hacks
@@ -191,6 +195,14 @@ android {
 	compileOptions {
 		sourceCompatibility JavaVersion.VERSION_17
 		targetCompatibility JavaVersion.VERSION_17
+	}
+	testOptions.unitTests.returnDefaultValues = true // Prediction tests do not need Android's font glyph probe.
+	testOptions.unitTests.all {
+		def chineseDictionary = file('languages/dictionaries/zh-simplified-pinyin.csv')
+		systemProperty 'tt9.chineseDictionary', chineseDictionary.absolutePath
+		inputs.file(chineseDictionary)
+		inputs.file(file('languages/definitions/ChineseSimplifiedPinyin.yml'))
+		inputs.file(file('languages/chinese/polyphonic-readings.tsv'))
 	}
 
 	flavorDimensions = ['app']
@@ -254,9 +266,19 @@ android {
 }
 
 dependencies {
+	testImplementation 'junit:junit:4.13.2'
 	implementation 'androidx.preference:preference:1.2.1'
 	implementation "androidx.window:window:1.5.1"
 	implementation "androidx.window:window-java:1.5.1"
 	implementation 'com.google.android.material:material:1.14.0'
 	premiumImplementation 'com.android.billingclient:billing:9.1.0'
+}
+
+apply from: 'build-chinese-pack.gradle'
+
+tasks.configureEach { task ->
+	if (task.name.startsWith('generate') && task.name.contains('Lint') && task.name.endsWith('Model')) {
+		task.dependsOn(buildDefinition, generateDocs, buildDictionaryDownloads, generateNgramsMeta, copyNgramsToAssets, copyNgramsToDownloads)
+		if (task.name.contains('Full')) task.dependsOn(copyDownloadsToAssets)
+	}
 }

@@ -2,15 +2,19 @@ package io.github.sspanak.tt9.preferences.screens.appearance;
 
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
+import androidx.preference.ListPreference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.extensions.ChinesePackInstaller;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.items.ItemSwitch;
 import io.github.sspanak.tt9.preferences.screens.ScreenWithPreviewKeyboardHeaderFragment;
+import io.github.sspanak.tt9.preferences.screens.chinese.ChineseSettingsProfile;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.InterfaceLanguage;
 
 public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 	final public static String NAME = "Appearance";
@@ -25,21 +29,57 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 	@Override
 	protected void onCreate() {
 		super.onCreate();
+		bindInterfaceLanguage();
 		createMainSection();
 		createUnfoldedAppearanceSection();
 		createHacksSection();
 		enablePreviewOnChange();
 		resetFontSize(true);
+		Preference chinese = findPreference("screen_chinese_appearance");
+		if (chinese != null) chinese.setVisible(false);
 	}
 
 
 	@Override
 	public void onResume() {
 		super.onResume();
+		bindInterfaceLanguage();
 		DropDownColorScheme colorScheme = findPreference(DropDownColorScheme.NAME);
 		if (colorScheme != null && activity != null) {
 			colorScheme.populate(activity.getSettings());
 		}
+		if (activity != null) {
+			ChineseSettingsProfile.checkAppearanceAvailable(activity, installed -> {
+				if (!isAdded()) return;
+				Preference chinese = findPreference("screen_chinese_appearance");
+				if (chinese != null) chinese.setVisible(installed);
+				resetFontSize(true);
+			});
+		}
+	}
+
+
+	private void bindInterfaceLanguage() {
+		ListPreference preference = findPreference("pref_interface_language");
+		if (preference == null || activity == null) return;
+		boolean chinese = ChinesePackInstaller.isLanguageInstalled(activity);
+		preference.setEntries(chinese ? new String[]{
+			getString(R.string.pref_interface_language_system), getString(R.string.pref_interface_language_english),
+			getString(R.string.pref_interface_language_chinese)
+		} : new String[]{getString(R.string.pref_interface_language_system), getString(R.string.pref_interface_language_english)});
+		preference.setEntryValues(chinese ? new String[]{"auto", "en", "zh-CN"} : new String[]{"auto", "en"});
+		String language = activity.getSettings().getInterfaceLanguage();
+		if (!chinese && "zh-CN".equals(language)) {
+			language = "auto";
+			activity.getSettings().getPrefsEditor().remove("pref_interface_language").apply();
+			InterfaceLanguage.apply(activity, language);
+		}
+		preference.setValue(language);
+		preference.setOnPreferenceChangeListener((item, value) -> {
+			activity.getSettings().getPrefsEditor().putString("pref_interface_language", value.toString()).apply();
+			InterfaceLanguage.apply(activity, value.toString());
+			return true;
+		});
 	}
 
 

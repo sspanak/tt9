@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.InterfaceLanguage;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
@@ -20,7 +22,9 @@ public abstract class DictionaryNotification {
 
 	private final NotificationManager manager;
 	protected final NotificationCompat.Builder notificationBuilder;
-	protected final Resources resources;
+	private final Context context;
+	private final SettingsStore settings;
+	private final InterfaceLanguage.ResourcesCache interfaceResources = new InterfaceLanguage.ResourcesCache();
 
 	protected boolean indeterminate = false;
 	protected String title = "";
@@ -29,7 +33,8 @@ public abstract class DictionaryNotification {
 
 
 	protected DictionaryNotification(@NonNull Context context, @Nullable Language language) {
-		resources = context.getResources();
+		this.context = context.getApplicationContext();
+		settings = new SettingsStore(this.context);
 
 		manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationBuilder = getNotificationBuilderCompat(context);
@@ -42,6 +47,11 @@ public abstract class DictionaryNotification {
 	}
 
 	protected abstract PendingIntent createNavigationIntent(@NonNull Context context, @Nullable Language language);
+
+
+	protected Resources getResources() {
+		return interfaceResources.get(context, context.getResources(), settings.getInterfaceLanguage());
+	}
 
 	private NotificationCompat.Builder getNotificationBuilderCompat(Context context) {
 		if (DeviceInfo.AT_LEAST_ANDROID_8) {

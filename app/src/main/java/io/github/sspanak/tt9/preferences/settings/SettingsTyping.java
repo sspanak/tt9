@@ -38,6 +38,7 @@ class SettingsTyping extends SettingsMindReading {
 	}
 	public boolean getAutoSpacePredictive() { return prefs.getBoolean("auto_space_predictive", true); }
 	public boolean getAutoTextCasePredictive() { return prefs.getBoolean("auto_text_case_predictive", true); }
+	public boolean getEnglishWritingSuggestions() { return prefs.getBoolean("english_writing_suggestions", true); }
 	public boolean getAutoCapitalsAfterNewlinePredictive() {
 		return getAutoTextCasePredictive() && prefs.getBoolean("auto_capitals_after_newline_predictive", false);
 	}
@@ -100,7 +101,11 @@ class SettingsTyping extends SettingsMindReading {
 	}
 
 	public boolean getShowSuggestions() {
-		final int inputMode = getInputMode();
+		return getShowSuggestions(getInputMode());
+	}
+
+
+	public boolean getShowSuggestions(int inputMode) {
 		final boolean showInAbc = prefs.getBoolean("show_suggestions_abc", false);
 
 		return inputMode != InputMode.MODE_ABC || showInAbc;

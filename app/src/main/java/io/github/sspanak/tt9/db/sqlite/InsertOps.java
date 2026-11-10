@@ -58,6 +58,10 @@ public class InsertOps {
 
 
 	public static boolean insertCustomWord(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, @NonNull String word) {
+		return insertCustomWord(db, language, sequence, word, "");
+	}
+
+	public static boolean insertCustomWord(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, @NonNull String word, @NonNull String reading) {
 		ContentValues values = new ContentValues();
 		values.put("langId", language.getId());
 		values.put("sequence", sequence);
@@ -67,6 +71,7 @@ public class InsertOps {
 		if (insertId == -1) {
 			return false;
 		}
+		long customId = insertId;
 
 		// If the user inserts more than 2^31 custom words, the "position" will overflow and will mess up
 		// the words table, but realistically it will never happen, so we don't bother preventing it.
@@ -76,7 +81,25 @@ public class InsertOps {
 		values.put("word", word);
 		insertId = db.insert(Tables.getWords(language.getId()), null, values);
 
-		return insertId != -1;
+		if (insertId == -1) return false;
+		if (!reading.isEmpty()) {
+			values = new ContentValues();
+			values.put("customId", customId);
+			values.put("reading", reading);
+			return db.insertWithOnConflict(Tables.CUSTOM_WORD_READINGS, null, values, SQLiteDatabase.CONFLICT_REPLACE) != -1;
+		}
+		return true;
+	}
+
+	public static void updateCustomReading(SQLiteDatabase db, Language language, String word, String reading) {
+		SQLiteStatement update = db.compileStatement("INSERT OR REPLACE INTO " + Tables.CUSTOM_WORD_READINGS
+			+ " (customId, reading) SELECT id, ? FROM " + Tables.CUSTOM_WORDS + " WHERE langId = ? AND word = ?");
+		try {
+			update.bindString(1, reading);
+			update.bindLong(2, language.getId());
+			update.bindString(3, word);
+			update.execute();
+		} finally { update.close(); }
 	}
 
 

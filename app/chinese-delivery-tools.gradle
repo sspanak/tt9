@@ -1,0 +1,57 @@
+import java.security.MessageDigest
+
+/** Build-time checks shared by local packaging and the release workflow. */
+class ChineseDeliveryTools {
+	static Map apkIdentity(String badging) {
+		def match = badging =~ /(?m)^package: name='([^']+)' versionCode='([0-9]+)'[^\r\n]*/
+		if (!match.find()) throw new IllegalArgumentException('Cannot read APK package/version')
+		String line = match.group(0)
+		def split = line =~ / split='([^']+)'/
+		return [packageName: match.group(1), versionCode: match.group(2), split: split.find() ? split.group(1) : '']
+	}
+
+	static String certificateSha256(String verification) {
+		def certificates = verification =~ /(?m)^Signer #[0-9]+ certificate SHA-256 digest: ([0-9a-fA-F:]+)\s*$/
+		List<String> hashes = certificates.collect { it[1].replace(':', '').toLowerCase(Locale.ROOT) }
+		if (hashes.size() != 1 || !(hashes[0] ==~ /[0-9a-f]{64}/)) {
+			throw new IllegalArgumentException('Chinese delivery requires one verified APK signer')
+		}
+		return hashes[0]
+	}
+
+	static void requireMatching(List<Map> apks, String packageName, String versionCode) {
+		if (apks.size() != 3 || apks*.split != ['', 'chinese', 'config.zh_rCN']) {
+			throw new IllegalArgumentException('Expected base, Chinese feature and Chinese UI APKs')
+		}
+		if (apks.any { it.packageName != packageName || it.versionCode != versionCode }
+			|| apks*.certificateSha256.toSet().size() != 1) {
+			throw new IllegalArgumentException('Chinese APK package/version/signature mismatch')
+		}
+	}
+
+	static String sha256(File file) {
+		MessageDigest digest = MessageDigest.getInstance('SHA-256')
+		file.withInputStream { input ->
+			byte[] buffer = new byte[65536]
+			for (int count; (count = input.read(buffer)) != -1;) digest.update(buffer, 0, count)
+		}
+		return digest.digest().encodeHex().toString()
+	}
+
+	static String assetName(String packageName, String versionCode, String flavor, String buildType, String certificate) {
+		if (!(packageName ==~ /[A-Za-z0-9_.]+/) || !(versionCode ==~ /[0-9]+/)
+			|| !(flavor ==~ /[a-z]+/) || !(buildType ==~ /[a-z]+/) || !(certificate ==~ /[0-9a-f]{64}/)) {
+			throw new IllegalArgumentException('Invalid Chinese delivery identity')
+		}
+		return "tt9-chinese-${packageName}-${versionCode}-${flavor}-${buildType}-${certificate}.zip"
+	}
+
+	static String properties(String packageName, String versionCode, String variant, String certificate,
+		File base, File feature, File ui) {
+		return "schema=1\npackageName=${packageName}\nversionCode=${versionCode}\nvariant=${variant}\n" +
+			"certificateSha256=${certificate}\nbaseSha256=${sha256(base)}\n" +
+			"featureSha256=${sha256(feature)}\nuiSha256=${sha256(ui)}\n"
+	}
+}
+
+ext.ChineseDeliveryTools = ChineseDeliveryTools

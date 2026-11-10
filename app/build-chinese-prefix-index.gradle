@@ -1,0 +1,117 @@
+import java.nio.charset.StandardCharsets
+
+// This file is stored as an extra entry in the Simplified Chinese dictionary ZIP.
+// Keep common phrases only, indexed by prefixes which are themselves factory words.
+def chinesePrefixOutput = layout.buildDirectory.file('generated/chinese-prefix-index/zh-simplified-prefixes.bin')
+ext.chinesePrefixIndexFile = chinesePrefixOutput
+
+tasks.register('buildChinesePrefixIndex') {
+	def dictionary = file('languages/dictionaries/zh-simplified-pinyin.csv')
+	inputs.file(dictionary)
+	outputs.file(chinesePrefixOutput)
+	doLast {
+		Map<String, ChinesePrefixWord> factoryWords = new HashMap<>()
+		Map<String, Integer> primaryCharacters = new TreeMap<>()
+		dictionary.eachLine('UTF-8') { line ->
+			String[] fields = line.split('\t', 3)
+			if (fields.length == 3 && (fields[1] ==~ /[A-Z]+/)
+				&& fields[0].codePoints().allMatch { Character.UnicodeScript.of(it) == Character.UnicodeScript.HAN }) {
+				ChinesePrefixWord entry = new ChinesePrefixWord(fields[0], fields[1], Integer.parseInt(fields[2]))
+				// 5800 on the existing logarithmic corpus scale is roughly 37,500 source
+				// occurrences. Keep readings distinct, including the original polyphonic pairs.
+				if (entry.word.codePointCount(0, entry.word.length()) == 1 && entry.frequency >= 5800) {
+					primaryCharacters.put(entry.reading + entry.word, entry.frequency)
+				}
+				ChinesePrefixWord previous = factoryWords.get(entry.word)
+				if (previous == null || entry.frequency > previous.frequency
+					|| (entry.frequency == previous.frequency && entry.reading < previous.reading)) {
+					factoryWords.put(entry.word, entry)
+				}
+			}
+		}
+		List<ChinesePrefixWord> words = factoryWords.values().findAll { it.word.codePointCount(0, it.word.length()) > 1 && it.frequency >= 5000 }
+		words.sort { a, b -> b.frequency <=> a.frequency ?: a.word <=> b.word ?: a.reading <=> b.reading }
+		words.each { entry ->
+			for (String suffix : ['吗', '呢', '吧']) {
+				ChinesePrefixWord question = factoryWords.get(entry.word + suffix)
+				if (question != null && question.frequency >= 5000) entry.questionFrequency = Math.max(entry.questionFrequency, question.frequency)
+			}
+		}
+		Map<String, List<Integer>> prefixes = new TreeMap<>()
+		words.eachWithIndex { entry, id ->
+			for (int end = entry.word.offsetByCodePoints(0, 1); end < entry.word.length(); end = entry.word.offsetByCodePoints(end, 1)) {
+				String prefix = entry.word.substring(0, end)
+				if (factoryWords.containsKey(prefix)) prefixes.computeIfAbsent(prefix, { [] }).add(id)
+			}
+		}
+		prefixes.each { prefix, ids ->
+			int prefixLength = prefix.codePointCount(0, prefix.length())
+			ids.sort { a, b ->
+				ChinesePrefixWord first = words[a]
+				ChinesePrefixWord second = words[b]
+				int firstExtra = first.word.codePointCount(0, first.word.length()) - prefixLength
+				int secondExtra = second.word.codePointCount(0, second.word.length()) - prefixLength
+				// Prefer short continuations. Existing common question forms provide a small
+				// corpus-derived signal for useful bases such as 你好; stored weights stay intact.
+				double firstScore = (first.frequency + first.questionFrequency / 10.0) / (firstExtra * firstExtra)
+				double secondScore = (second.frequency + second.questionFrequency / 10.0) / (secondExtra * secondExtra)
+				secondScore <=> firstScore ?: a <=> b
+			}
+			if (ids.size() > 16) ids.subList(16, ids.size()).clear()
+		}
+		BitSet referenced = new BitSet(words.size())
+		prefixes.values().each { ids -> ids.each { referenced.set(it) } }
+		int[] remap = new int[words.size()]
+		List<ChinesePrefixWord> indexedWords = []
+		words.eachWithIndex { entry, id ->
+			if (referenced.get(id)) {
+				remap[id] = indexedWords.size()
+				indexedWords.add(entry)
+			}
+		}
+		prefixes.values().each { ids -> ids.replaceAll { remap[it] } }
+		File output = chinesePrefixOutput.get().asFile
+		output.parentFile.mkdirs()
+		output.withDataOutputStream { stream ->
+			stream.writeInt(0x54543950)
+			stream.writeInt(2)
+			stream.writeInt(indexedWords.size())
+			stream.writeInt(prefixes.size())
+			indexedWords.each { entry ->
+				writeChinesePrefixString(stream, entry.word)
+				writeChinesePrefixString(stream, entry.reading)
+				stream.writeInt(entry.frequency)
+			}
+			prefixes.each { prefix, ids ->
+				writeChinesePrefixString(stream, prefix)
+				stream.writeByte(ids.size())
+				ids.each { stream.writeInt(it) }
+			}
+			stream.writeInt(primaryCharacters.size())
+			primaryCharacters.each { raw, frequency ->
+				writeChinesePrefixString(stream, raw)
+				stream.writeInt(frequency)
+			}
+		}
+		logger.lifecycle("Chinese prefix index: ${indexedWords.size()} phrases, ${prefixes.size()} prefixes, ${primaryCharacters.size()} primary character readings, ${output.length()} bytes")
+	}
+}
+
+static void writeChinesePrefixString(DataOutputStream stream, String value) {
+	byte[] bytes = value.getBytes(StandardCharsets.UTF_8)
+	if (bytes.length > 65535) throw new GradleException('Chinese prefix entry is too long')
+	stream.writeShort(bytes.length)
+	stream.write(bytes)
+}
+
+class ChinesePrefixWord {
+	final String word
+	final String reading
+	final int frequency
+	int questionFrequency = 0
+	ChinesePrefixWord(String word, String reading, int frequency) {
+		this.word = word
+		this.reading = reading
+		this.frequency = frequency
+	}
+}

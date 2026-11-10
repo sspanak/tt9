@@ -1,6 +1,8 @@
 package io.github.sspanak.tt9.db.words;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,14 +15,19 @@ import java.util.concurrent.Future;
 import io.github.sspanak.tt9.db.BaseSyncStore;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.WordDbOpener;
+import io.github.sspanak.tt9.extensions.ChinesePack;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.InterfaceLanguage;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
 public class DictionaryDeleter extends BaseSyncStore {
 	private static final String LOG_TAG = DictionaryDeleter.class.getSimpleName();
 	private static DictionaryDeleter self;
+	private final Context context;
 
 	@NonNull private final ExecutorService executor = Executors.newSingleThreadExecutor();
 	@Nullable Future<?> deleteTask;
@@ -29,6 +36,7 @@ public class DictionaryDeleter extends BaseSyncStore {
 
 	protected DictionaryDeleter(Context context) {
 		super(context);
+		this.context = context.getApplicationContext();
 	}
 
 
@@ -89,6 +97,11 @@ public class DictionaryDeleter extends BaseSyncStore {
 			return false;
 		}
 
+		if (LanguageKind.isChinesePinyin(language)) {
+			ChinesePack.remove(context);
+			new SettingsStore(context).clearChineseSettings();
+			new Handler(Looper.getMainLooper()).post(() -> InterfaceLanguage.apply(context, new SettingsStore(context).getInterfaceLanguage()));
+		}
 		return true;
 	}
 

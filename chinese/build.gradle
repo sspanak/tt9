@@ -1,0 +1,38 @@
+plugins {
+	id 'com.android.dynamic-feature'
+}
+
+android {
+	namespace = 'io.github.sspanak.tt9.chinese'
+	compileSdk = 37
+	defaultConfig { minSdk = 24 }
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_17
+		targetCompatibility JavaVersion.VERSION_17
+	}
+	flavorDimensions = ['app']
+	productFlavors {
+		full { dimension 'app' }
+		lite { dimension 'app' }
+		premium { dimension 'app' }
+	}
+	testOptions.unitTests.returnDefaultValues = true
+	testOptions.unitTests.all {
+		def reviewedReadings = rootProject.file('app/languages/chinese/polyphonic-readings.tsv')
+		systemProperty 'tt9.chineseReadings', reviewedReadings.absolutePath
+		inputs.file(reviewedReadings)
+		systemProperty 'tt9.commonHanTable', rootProject.file('app/languages/chinese/common-3500.txt').absolutePath
+		systemProperty 'tt9.chinesePrefixIndex', project(':app').chinesePrefixIndexFile.get().asFile.absolutePath
+		systemProperty 'tt9.chineseDomainIndex', project(':app').chineseDomainIndexFile.get().asFile.absolutePath
+		systemProperty 'tt9.chineseDomainsSource', rootProject.file('app/languages/chinese/domains').absolutePath
+		dependsOn ':app:buildChinesePrefixIndex'
+		dependsOn ':app:buildChineseDomains'
+	}
+}
+
+dependencies {
+	implementation project(':app')
+	compileOnly 'androidx.preference:preference:1.2.1'
+	compileOnly 'com.google.android.material:material:1.14.0'
+	testImplementation 'junit:junit:4.13.2'
+}

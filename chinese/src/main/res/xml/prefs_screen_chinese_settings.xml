@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" app:orderingFromXml="true">
+	<Preference app:key="download_chinese_pack" app:title="@string/chinese_pack_download"
+		app:summary="@string/chinese_pack_download_summary" />
+	<Preference app:key="screen_chinese_user_words" app:fragment="io.github.sspanak.tt9.chinese.ChineseUserWordsScreen"
+		app:title="@string/chinese_user_words_title" />
+	<Preference app:key="screen_chinese_domains" app:fragment="io.github.sspanak.tt9.chinese.ChineseDomainPacksScreen"
+		app:title="@string/chinese_domain_packs_title" />
+	<Preference app:key="import_chinese_pack" app:title="@string/chinese_pack_import_update" />
+	<Preference app:key="install_chinese_pack" app:title="@string/chinese_pack_finish_install"
+		app:summary="@string/chinese_pack_system_confirmation" />
+	<!-- Loading an absent profile must not recreate its preferences. Save explicit changes only. -->
+	<ListPreference app:key="pref_chinese_expanded_scroll_speed" app:persistent="false" app:defaultValue="normal"
+		app:title="@string/pref_chinese_expanded_scroll_speed"
+		app:entries="@array/candidate_scroll_speed_entries" app:entryValues="@array/candidate_scroll_speed_values" />
+	<SwitchPreferenceCompat app:key="pref_chinese_number_select" app:persistent="false" app:defaultValue="true"
+		app:title="@string/pref_chinese_number_select" app:summary="@string/pref_chinese_number_select_summary" />
+	<SwitchPreferenceCompat app:key="pref_chinese_prefix_completion" app:persistent="false" app:defaultValue="true"
+		app:title="@string/pref_chinese_prefix_completion" app:summary="@string/pref_chinese_prefix_completion_summary" />
+	<SwitchPreferenceCompat app:key="pref_chinese_commit_on_language_switch" app:persistent="false" app:defaultValue="true"
+		app:title="@string/pref_chinese_commit_on_language_switch" app:summary="@string/pref_chinese_commit_on_language_switch_summary" />
+	<SwitchPreferenceCompat app:key="pref_chinese_common_only" app:persistent="false" app:defaultValue="false"
+		app:title="@string/pref_chinese_common_only" app:summary="@string/pref_chinese_common_only_summary" />
+	<PreferenceCategory app:title="@string/pref_chinese_fuzzy">
+		<SwitchPreferenceCompat app:key="pref_chinese_fuzzy_nl" app:persistent="false" app:title="n / l" />
+		<SwitchPreferenceCompat app:key="pref_chinese_fuzzy_z_zh" app:persistent="false" app:title="z / zh" />
+		<SwitchPreferenceCompat app:key="pref_chinese_fuzzy_c_ch" app:persistent="false" app:title="c / ch" />
+		<SwitchPreferenceCompat app:key="pref_chinese_fuzzy_s_sh" app:persistent="false" app:title="s / sh" />
+		<SwitchPreferenceCompat app:key="pref_chinese_fuzzy_en_eng" app:persistent="false" app:title="en / eng" />
+		<SwitchPreferenceCompat app:key="pref_chinese_fuzzy_in_ing" app:persistent="false" app:title="in / ing" />
+	</PreferenceCategory>
+</PreferenceScreen>

@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ime;
 
+import android.content.res.Resources;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
@@ -14,6 +15,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.StatusIcon;
 import io.github.sspanak.tt9.ui.main.MainView;
 import io.github.sspanak.tt9.ui.tray.StatusBar;
+import io.github.sspanak.tt9.util.InterfaceLanguage;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -32,6 +34,15 @@ abstract class UiHandler extends AbstractHandler {
 	protected boolean isMainViewShown = false;
 	protected MainView mainView = null;
 	protected StatusBar statusBar = null;
+	private String interfaceLanguage = "auto";
+	private final InterfaceLanguage.ResourcesCache interfaceResources = new InterfaceLanguage.ResourcesCache();
+
+
+	@Override
+	public Resources getResources() {
+		Resources base = super.getResources();
+		return settings == null ? base : interfaceResources.get(this, base, settings.getInterfaceLanguage());
+	}
 
 
 	protected void cleanUp() {
@@ -79,6 +90,10 @@ abstract class UiHandler extends AbstractHandler {
 
 	@Override
 	protected boolean onStart(EditorInfo inputField, boolean restarting) {
+		if (!interfaceLanguage.equals(settings.getInterfaceLanguage())) {
+			interfaceLanguage = settings.getInterfaceLanguage();
+			setCurrentView();
+		}
 		if (getFinalContext().getInputType().isOwnSwitchPreviewField()) {
 			settings.setFolded(SettingsStore.isFoldedPreview);
 		} else if (foldDetector != null) {

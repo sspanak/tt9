@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
+import io.github.sspanak.tt9.extensions.ChineseExtension;
+import io.github.sspanak.tt9.extensions.ChineseExtensions;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
@@ -66,7 +68,10 @@ abstract public class InputMode {
 		switch (mode) {
 			case MODE_PREDICTIVE:
 				if (LanguageKind.isChineseBopomofo(language)) return new ModeBopomofo(settings, language, inputType, textField);
-				if (LanguageKind.isChinesePinyin(language)) return new ModePinyin(settings, language, inputType, textField);
+				if (LanguageKind.isChinesePinyin(language)) {
+					ChineseExtension chinese = ChineseExtensions.get();
+					return chinese != null ? chinese.createInputMode(settings, language, inputType, textField) : new ModePinyin(settings, language, inputType, textField);
+				}
 				if (LanguageKind.isJapanese(language)) return new ModeKanji(settings, language, inputType, textField);
 				if (LanguageKind.isKorean(language)) return new ModeCheonjiin(settings, inputType, textField);
 				if (language.isTranscribed()) return new ModeIdeograms(settings, language, inputType, textField);
@@ -169,6 +174,7 @@ abstract public class InputMode {
 	abstract public int getId();
 	public boolean containsEmojis() { return containsEmojis; }
 	public boolean containsGeneratedSuggestions() { return false; }
+	public boolean supportsExpandedSuggestions() { return false; }
 
 	public boolean isTyping() { return !digitSequence.isEmpty(); }
 	public int getFirstKey() { return digitSequence.isEmpty() ? -1 : digitSequence.charAt(0) - '0'; }

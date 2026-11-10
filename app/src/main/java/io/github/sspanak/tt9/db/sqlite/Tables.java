@@ -12,6 +12,7 @@ public class Tables {
 
 	static final String LANGUAGES_META = "languages_meta";
 	static final String CUSTOM_WORDS = "custom_words";
+	static final String CUSTOM_WORD_READINGS = "custom_word_readings";
 	private static final String MIND_READER_NGRAMS_TABLE_BASE_NAME = "mind_reader_ngrams_";
 	private static final String MIND_READER_TOKENS_TABLE_BASE_NAME = "mind_reader_tokens_";
 	private static final String POSITIONS_TABLE_BASE_NAME = "word_positions_";

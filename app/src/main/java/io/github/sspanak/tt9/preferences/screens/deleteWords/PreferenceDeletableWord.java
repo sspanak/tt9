@@ -21,6 +21,7 @@ public class PreferenceDeletableWord extends ScreenPreference {
 	private DeletableWordsList parent;
 	private Language language;
 	private String word;
+	private String displayWord;
 
 
 	public PreferenceDeletableWord(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
@@ -43,8 +44,9 @@ public class PreferenceDeletableWord extends ScreenPreference {
 	void setWord(CustomWord word) {
 		this.word = word.word;
 		this.language = word.language;
+		this.displayWord = word.getDisplayWord() + (word.getReading().isEmpty() ? "" : " [" + word.getReading() + "]");
 		setTitle(
-			Logger.isDebugLevel() ? word.word + " / " + word.sequence + " / " + word.language.getName() : word.word + " / " + word.language.getName()
+			Logger.isDebugLevel() ? displayWord + " / " + word.sequence + " / " + word.language.getName() : displayWord + " / " + word.language.getName()
 		);
 	}
 
@@ -57,7 +59,7 @@ public class PreferenceDeletableWord extends ScreenPreference {
 		new PopupBuilder(context)
 			.setCancelable(true)
 			.setTitle(context.getString(R.string.delete_words_deleted_confirm_deletion_title))
-			.setMessage(context.getString(R.string.delete_words_deleted_confirm_deletion_question, word))
+			.setMessage(context.getString(R.string.delete_words_deleted_confirm_deletion_question, displayWord))
 			.setNegativeButton(true, null)
 			.setPositiveButton(context.getString(R.string.delete), this::onDeletionConfirmed)
 			.show();
@@ -76,7 +78,7 @@ public class PreferenceDeletableWord extends ScreenPreference {
 			getParent().removePreference(this);
 		}
 
-		UI.toastFromAsync(getContext(), getContext().getString(R.string.delete_words_deleted_x, word));
+		UI.toastFromAsync(getContext(), getContext().getString(R.string.delete_words_deleted_x, displayWord));
 	}
 
 

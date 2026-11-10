@@ -2,14 +2,21 @@ package io.github.sspanak.tt9.db.entities;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.zip.ZipEntry;
 
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.extensions.ChinesePack;
+import io.github.sspanak.tt9.extensions.ChinesePackDownload;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.RemoteAssetFile;
 
@@ -17,6 +24,10 @@ public class WordFile extends RemoteAssetFile {
 	private static final String LOG_TAG = WordFile.class.getSimpleName();
 
 	private final boolean hasSyllables;
+	private final Context context;
+	private final boolean containsChinesePack;
+	private final Uri localSource;
+	private boolean downloadedChinesePack;
 
 	private int lastCharCode;
 
@@ -26,10 +37,38 @@ public class WordFile extends RemoteAssetFile {
 
 
 	public WordFile(@NonNull Context context, Language language, AssetManager assets) {
+		this(context, language, assets, null);
+	}
+
+	public WordFile(@NonNull Context context, Language language, AssetManager assets, Uri source) {
 		super(context, assets, language != null ? language.getDictionaryFile() : "");
 		hasSyllables = language != null && language.isTranscribed();
+		this.context = context.getApplicationContext();
+		containsChinesePack = LanguageKind.isChinesePinyin(language);
+		localSource = source;
 
 		lastCharCode = 0;
+	}
+
+	@Override protected InputStream openFileStream() throws IOException {
+		if (localSource == null) {
+			if (containsChinesePack && (!exists() || !ChinesePackDownload.isCurrent(context))) {
+				downloadedChinesePack = true;
+				return ChinesePackDownload.open(context);
+			}
+			return super.openFileStream();
+		}
+		InputStream stream = context.getContentResolver().openInputStream(localSource);
+		if (stream == null) throw new IOException("Cannot open Chinese pack");
+		return stream;
+	}
+
+	@Override protected void validateFirstEntry(ZipEntry entry) throws IOException {
+		String expected = new File(path).getName().replaceFirst("\\.zip$", ".txt");
+		if ((localSource != null || downloadedChinesePack) && (entry.isDirectory() || !expected.equals(entry.getName()))) {
+			zipStream.close();
+			throw new IOException("The selected ZIP is not a matching Chinese dictionary pack");
+		}
 	}
 
 
@@ -244,5 +283,18 @@ public class WordFile extends RemoteAssetFile {
 
 	public boolean notEOF() {
 		return lastCharCode != -1;
+	}
+
+	public ChinesePack.Prepared stageChinesePack() throws IOException {
+		ChinesePack.Prepared pack = containsChinesePack && zipStream != null ? ChinesePack.stage(context, zipStream) : null;
+		if ((localSource != null || downloadedChinesePack) && (pack == null || !pack.isComplete())) {
+			if (pack != null) pack.close();
+			throw new IOException("The selected Chinese pack is missing its data or signed extension");
+		}
+		if (pack != null) {
+			try { pack.validateDelivery(context, downloadedChinesePack); }
+			catch (IOException exception) { pack.close(); throw exception; }
+		}
+		return pack;
 	}
 }

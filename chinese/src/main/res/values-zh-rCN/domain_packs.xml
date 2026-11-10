@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="chinese_domain_packs_title">领域词包</string>
+	<string name="chinese_domain_packs_help">启用你常用的领域，默认全部关闭。匹配的领域词优先显示在首选、常用单字和用户词之后。关闭领域会恢复正常排序，并隐藏仅由该领域提供的词；主词库已有的词仍可使用。学习记录仅保存在本机。删除中文语言包会一并移除领域数据和设置。</string>
+	<string name="chinese_domain_packs_missing">当前中文包不含领域词库，请到“语言 → 中文输入”导入更新的中文包。</string>
+	<string name="chinese_domain_packs_brief">默认全部关闭，启用你常用的领域即可。</string>
+	<string name="chinese_domain_sources">词包说明与来源</string>
+	<string name="chinese_domain_pack_detail">%1$d 组词语／读音</string>
+</resources>

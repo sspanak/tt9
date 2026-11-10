@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="pref_chinese_settings">Chinese Input</string>
+	<string name="pref_chinese_settings_summary">Dictionary, readings and Chinese conversion options</string>
+	<string name="pref_chinese_appearance">Chinese Appearance</string>
+	<string name="pref_chinese_appearance_summary">Chinese candidate layout</string>
+</resources>

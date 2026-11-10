@@ -12,11 +12,15 @@ public class DeleteOps {
 	}
 
 	public static void deleteCustomWord(@NonNull SQLiteDatabase db, int languageId, String word) {
-		db.delete(Tables.getWords(languageId), "word = ?", new String[] { word });
-		db.delete(Tables.CUSTOM_WORDS, "word = ?", new String[] { word });
+		db.delete(Tables.CUSTOM_WORD_READINGS, "customId IN (SELECT id FROM " + Tables.CUSTOM_WORDS + " WHERE langId = ? AND word = ?)",
+			new String[]{String.valueOf(languageId), word});
+		db.delete(Tables.getWords(languageId), "word = ? AND position < 0", new String[] { word });
+		db.delete(Tables.CUSTOM_WORDS, "langId = ? AND word = ?", new String[] { String.valueOf(languageId), word });
 	}
 
 	public static int purgeCustomWords(@NonNull SQLiteDatabase db, int languageId) {
+		// Chinese entries are also explicit personal reading and rare-character overrides.
+		if (languageId == 462106) return 0;
 		String words = Tables.getWords(languageId);
 		String positions = Tables.getWordPositions(languageId);
 
@@ -32,7 +36,9 @@ public class DeleteOps {
 		repeatingWordsQuery.bindLong(1, languageId);
 		String repeatingWords = repeatingWordsQuery.simpleQueryForString();
 
-		return db.delete(Tables.CUSTOM_WORDS, "ROWID IN (" + repeatingWords + ")", null);
+		int deleted = db.delete(Tables.CUSTOM_WORDS, "ROWID IN (" + repeatingWords + ")", null);
+		db.delete(Tables.CUSTOM_WORD_READINGS, "customId NOT IN (SELECT id FROM " + Tables.CUSTOM_WORDS + ")", null);
+		return deleted;
 	}
 
 	public static void deleteWordPairs(@NonNull SQLiteDatabase db, int languageId) {

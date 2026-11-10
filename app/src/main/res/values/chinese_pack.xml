@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="chinese_pack_download">Download Chinese pack</string>
+	<string name="chinese_pack_download_summary">Download the dictionary and Chinese features together, then confirm installation.</string>
+	<string name="chinese_pack_download_failed">Could not load the Chinese pack. Check your connection and try again, or install the matching pack from a file.</string>
+	<string name="chinese_pack_unavailable">A Chinese pack for this app version is not available. Try again later or install the matching pack from a file.</string>
+	<string name="chinese_pack_invalid">The Chinese pack does not match this app or is damaged. Download it again or use the matching pack file.</string>
+	<string name="chinese_pack_title">Chinese extension</string>
+	<string name="chinese_pack_system_confirmation">Complete the Android confirmation to install or remove Chinese features.</string>
+	<string name="chinese_pack_install_failed">Android could not install or remove the Chinese extension. Keep the matching app and extension versions.</string>
+	<string name="chinese_pack_import">Install Chinese pack from file</string>
+	<string name="chinese_pack_import_summary">Choose the Chinese ZIP provided with this app. It contains the dictionary, offline data and matching signed Chinese extension. Android will ask you to confirm installation.</string>
+	<string name="chinese_pack_finish_install">Finish Chinese extension installation</string>
+	<string name="chinese_pack_finish_removal">Finish removing Chinese features</string>
+	<string name="chinese_pack_importing">Importing Chinese dictionary and extension…</string>
+</resources>

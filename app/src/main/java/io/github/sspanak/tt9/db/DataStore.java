@@ -7,11 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import io.github.sspanak.tt9.db.entities.AddWordResult;
 import io.github.sspanak.tt9.db.entities.CustomWord;
@@ -98,6 +101,48 @@ public class DataStore {
 
 	public static void put(Consumer<AddWordResult> statusHandler, Language language, String word, boolean makeTopWord) {
 		runInThread(() -> statusHandler.accept(words.put(language, word, makeTopWord)));
+	}
+
+	public static void putCustom(Consumer<AddWordResult> statusHandler, CustomWord word, boolean makeTopWord) {
+		runInThread(() -> statusHandler.accept(words.put(word, makeTopWord)));
+	}
+
+	public static void replaceCustom(Consumer<AddWordResult> statusHandler, @Nullable CustomWord previous, CustomWord entry, boolean makeTopWord) {
+		runInThread(() -> statusHandler.accept(words.replaceCustomWord(previous, entry, makeTopWord)));
+	}
+
+	/** Called by a prediction callback, which already runs on the database executor. */
+	public static boolean isCustomWord(Language language, String word) { return words.isCustomWord(language, word); }
+
+	/** One cancellable indexed request for a bounded set of phonetic alternatives. */
+	public static void getWordVariants(Consumer<ArrayList<String>> handler, Language language, List<String> sequences, String filter, Predicate<String> accept) {
+		getWordVariants(handler, language, sequences, filter, accept, null);
+	}
+
+	public static void getWordVariants(Consumer<ArrayList<String>> handler, Language language, List<String> sequences, String filter, Predicate<String> accept, @Nullable Predicate<String> acceptPrefix) {
+		if (getWordsTask != null && !getWordsTask.isDone()) getWordsCancellationSignal.cancel();
+		CancellationSignal cancellation = new CancellationSignal();
+		getWordsCancellationSignal = cancellation;
+		List<String> snapshot = new ArrayList<>(sequences);
+		getWordsTask = runInThread(() -> {
+			LinkedHashSet<String> result = new LinkedHashSet<>();
+			for (int i = 0; i < snapshot.size() && !cancellation.isCanceled(); i++) {
+				ArrayList<String> matches = words.getMany(cancellation, language, snapshot.get(i), true, filter, false, 1, SettingsStore.SUGGESTIONS_MAX);
+				for (String word : matches) if (accept.test(word)) result.add(word);
+			}
+			// An unfinished syllable can have no exact row while still being a valid word prefix.
+			if (result.isEmpty() && acceptPrefix != null && !snapshot.isEmpty() && !cancellation.isCanceled()) {
+				for (String word : words.getMany(cancellation, language, snapshot.get(0), false, filter, false, 1, SettingsStore.SUGGESTIONS_MAX)) {
+					if (acceptPrefix.test(word)) result.add(word);
+				}
+			}
+			if (!cancellation.isCanceled()) handler.accept(new ArrayList<>(result));
+		});
+		Future<?> task = getWordsTask;
+		runInThread(() -> {
+			try { if (task != null) task.get(SettingsStore.SLOW_QUERY_TIMEOUT, TimeUnit.MILLISECONDS); }
+			catch (Exception e) { cancellation.cancel(); }
+		});
 	}
 
 

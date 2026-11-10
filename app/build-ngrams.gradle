@@ -23,7 +23,7 @@ ext.generateNgramsMetadata = { definitionsInputDir, dictionariesInputDir, iconsD
 	}
 }
 
-// this cannot be static, because it requires access to exec()
+// this cannot be static, because it requires access to providers and rootDir
 def generateMetadata(File ngramFile, String ngramsMetaDir) {
 	if (ngramFile == null) {
 		return ""
@@ -32,7 +32,10 @@ def generateMetadata(File ngramFile, String ngramsMetaDir) {
 	def filename = ngramFile.name.replaceFirst("\\.zip\$", ".props.yml")
 
 	try {
-		def revision = ngramFile.exists() ? exec("git log --pretty=tformat:%H -n 1 ${ngramFile}") : ""
+		def revision = ngramFile.exists() ? providers.exec {
+			workingDir rootDir
+			commandLine('git', 'log', '--pretty=tformat:%H', '-n', '1', '--', ngramFile.absolutePath)
+		}.standardOutput.asText.get().trim() : ""
 		new File(ngramsMetaDir, filename).text = "revision: ${revision}"
 
 		return ""

@@ -3,6 +3,8 @@ package io.github.sspanak.tt9.ime.modes.predictions;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.Locale;
 
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.languages.Language;
@@ -16,6 +18,8 @@ public class WordPredictions extends Predictions {
 
 	private String inputWord;
 	private boolean isStemFuzzy;
+	private boolean englishWritingAllowed;
+	private Set<String> syntheticEnglishWords = Set.of();
 
 	private String lastEnforcedTopWord;
 	protected String penultimateWord;
@@ -61,6 +65,11 @@ public class WordPredictions extends Predictions {
 
 	public WordPredictions setInputWord(String inputWord) {
 		this.inputWord = inputWord.toLowerCase(language.getLocale());
+		return this;
+	}
+
+	public WordPredictions setEnglishWritingAllowed(boolean allowed) {
+		englishWritingAllowed = allowed;
 		return this;
 	}
 
@@ -112,13 +121,23 @@ public class WordPredictions extends Predictions {
 		dbWords = localeWordsSorter.shouldSort(stem, digitSequence) ? localeWordsSorter.sort(dbWords) : dbWords;
 		dbWords = rearrangeByPairFrequency(dbWords);
 		suggestMissingWords(generatePossibleStemVariations(dbWords), newWords);
-		suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords, newWords);
+		// Keep the existing ordinary fallback and its generated flag before adding optional shortcuts.
+		ArrayList<String> ordinaryWords = dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords;
+		EnglishWritingSuggestions.Result english = EnglishWritingSuggestions.merge(ordinaryWords, digitSequence, stem,
+			englishWritingAllowed && LanguageKind.isEnglish(language), this::isLearnedEnglishCompletion);
+		syntheticEnglishWords = english.syntheticWords();
+		suggestMissingWords(english.words(), newWords);
 		if (digitSequence.length() == 1 && digitSequence.charAt(0) >= '2' && digitSequence.charAt(0) <= '9') {
 			suggestMissingWords(settings.getOrderedKeyChars(language, digitSequence.charAt(0) - '0'), newWords);
 		}
 		words = insertPunctuationCompletions(newWords);
 
 		onWordsChanged.run();
+	}
+
+	/** Runs within the existing database callback, never on the key-event thread. */
+	protected boolean isLearnedEnglishCompletion(String word) {
+		return word.equals(lastEnforcedTopWord) || DataStore.isCustomWord(language, word);
 	}
 
 
@@ -263,6 +282,8 @@ public class WordPredictions extends Predictions {
 	public void onAccept(String word, String sequence) {
 		if (
 			word == null
+			// A shortcut is not a dictionary row under its alias keys. Do not alter unrelated ranks.
+			|| syntheticEnglishWords.contains(word.toLowerCase(Locale.ROOT))
 			// If the word is the first suggestion, we have already guessed it right, and it makes no
 			// sense to store it as a popular pair or increase its priority. However, if the stem has been
 			// set using word filtering, the user has probably tried to search for a word that has not been

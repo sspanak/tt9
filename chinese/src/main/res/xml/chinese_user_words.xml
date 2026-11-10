@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+	<Preference app:key="chinese_user_add" app:title="@string/chinese_user_add" />
+	<Preference app:key="chinese_user_format" app:summary="@string/chinese_user_format" app:selectable="false" />
+	<EditTextPreference app:key="chinese_user_search" app:title="@string/chinese_user_search" app:persistent="false" />
+	<PreferenceCategory app:key="chinese_user_list" app:title="@string/chinese_user_list" />
+</PreferenceScreen>

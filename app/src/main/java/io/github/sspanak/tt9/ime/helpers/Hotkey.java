@@ -69,6 +69,19 @@ public class Hotkey {
 		return new HashSet<>(defaults.keySet());
 	}
 
+
+	public static int swapStarAndPound(int keyCode, boolean swap) {
+		if (!swap) return keyCode;
+
+		return switch (keyCode) {
+			case KeyEvent.KEYCODE_STAR -> KeyEvent.KEYCODE_POUND;
+			case KeyEvent.KEYCODE_POUND -> KeyEvent.KEYCODE_STAR;
+			case -KeyEvent.KEYCODE_STAR -> -KeyEvent.KEYCODE_POUND;
+			case -KeyEvent.KEYCODE_POUND -> -KeyEvent.KEYCODE_STAR;
+			default -> keyCode;
+		};
+	}
+
 	public String getCode(@Nullable String key) {
 		int keyCode = getCodeByResId(defaults.getOrDefault(key, 0));
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.preference.Preference;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
+import io.github.sspanak.tt9.preferences.screens.chinese.ChineseSettingsProfile;
 
 public class LanguagesScreen extends BaseScreenFragment {
 	public static final String NAME = "Languages";
@@ -145,10 +147,27 @@ public class LanguagesScreen extends BaseScreenFragment {
 
 	protected void onActionStart() {
 		ItemClickable.disableAll(clickables);
+		Preference chinese = findPreference("screen_chinese_settings");
+		if (chinese != null) chinese.setEnabled(false);
 	}
 
 	protected void onActionFinish() {
 		ItemClickable.enableAll(clickables);
+		refreshChineseEntry();
+	}
+
+
+	private void refreshChineseEntry() {
+		if (activity == null) return;
+		ChineseSettingsProfile.checkAvailable(activity, activity.getSettings(), available -> {
+			if (!isAdded() || activity == null) return;
+			Preference chinese = findPreference("screen_chinese_settings");
+			if (chinese != null) {
+				chinese.setVisible(available);
+				chinese.setEnabled(!DictionaryLoader.isRunning() && !isProcessorRunning());
+			}
+			resetFontSize(true);
+		});
 	}
 
 	private void createBrowseFilesLauncher() {

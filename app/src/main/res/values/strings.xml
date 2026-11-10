@@ -65,6 +65,7 @@
 	<string name="pref_category_keypad_onscreen">On-Screen Keys</string>
 	<string name="pref_category_layout">On-screen Layout</string>
 	<string name="pref_category_predictive_mode">Predictive Mode</string>
+	<string name="pref_predictive_mode_summary">Chinese Pinyin and Bopomofo conversion stays available when this is off.</string>
 	<string name="pref_category_setup">Initial Setup</string>
 	<string name="pref_category_typing">Typing</string>
 	<string name="pref_category_unfolded_appearance">Unfolded Appearance</string>
@@ -103,6 +104,8 @@
 	<string name="pref_auto_space">Automatic Space</string>
 	<string name="pref_auto_space_summary">Automatically add a space after punctuation or words.</string>
 	<string name="pref_auto_text_case">Automatic Capitalization</string>
+	<string name="pref_english_writing_suggestions">English Writing Suggestions</string>
+	<string name="pref_english_writing_suggestions_summary">Suggest English contractions, abbreviations and short phrases from letter-only shortcuts.</string>
 	<string name="pref_auto_text_case_summary">Automatically start sentences with a capital letter. (Not possible in all languages)</string>
 	<string name="pref_auto_trim_trailing_space">Automatically Trim Trailing Whitespace</string>
 	<string name="pref_auto_trim_trailing_space_summary">Automatically remove extra spaces when moving the cursor back.</string>
@@ -173,6 +176,8 @@
 	<string name="pref_suggestion_smooth_scroll">Smooth Suggestion Scrolling</string>
 	<string name="pref_upside_down_keys">Reverse Key Order</string>
 	<string name="pref_upside_down_keys_summary">For computer numpads with 7–8–9 on the first row, instead of 1–2–3.</string>
+	<string name="pref_swap_star_pound">Swap * and # Functions</string>
+	<string name="pref_swap_star_pound_summary">Exchange both short-press and long-press functions. Turn off to restore the original assignments.</string>
 
 	<!-- Colors -->
 	<string name="pref_color_scheme">Theme</string>
@@ -371,4 +376,7 @@
 	<string name="voice_input_error_network_failed">Network connection failed</string>
 	<string name="voice_input_error_no_network">No Internet connection</string>
 	<string name="voice_input_error_not_available">Voice input is not available</string>
+	<string name="pref_star_key_compatibility">System * key compatibility</string>
+	<string name="pref_star_key_compatibility_summary">Blocks system long-press * shortcuts while TT9 is typing. Enable the TT9 accessibility service in Android settings to use this option.</string>
+	<string name="star_key_compatibility_description">Handles the physical * key before system shortcuts, only while TT9 is active in an input field and its compatibility option is on. Other keys are passed through. This service does not read screen content.</string>
 </resources>

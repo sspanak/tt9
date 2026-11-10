@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.db.sqlite;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.NonNull;
 
@@ -11,6 +12,12 @@ public class WordDbOpener extends SQLiteOpener {
 
 	private WordDbOpener(Context context) {
 		super(context.getApplicationContext(), "tt9.db");
+	}
+
+	@Override public void onOpen(SQLiteDatabase db) {
+		super.onOpen(db);
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + Tables.CUSTOM_WORD_READINGS
+			+ " (customId INTEGER PRIMARY KEY, reading TEXT NOT NULL)");
 	}
 
 	@NonNull

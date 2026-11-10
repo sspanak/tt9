@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ime;
 import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.ime.helpers.Key;
+import io.github.sspanak.tt9.ime.helpers.CandidateKeyRepeat;
 import io.github.sspanak.tt9.preferences.screens.debug.DropDownInputHandlingMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Timer;
@@ -20,6 +21,13 @@ abstract class KeyPadHandler extends UiHandler {
 
 	private int lastNumKeyCode = 0;
 	private int numKeyRepeatCounter = 0;
+	private final CandidateKeyRepeat candidateRepeat = new CandidateKeyRepeat();
+	private boolean repeatingCandidateArrow;
+
+	public boolean isCandidateArrowRepeating() { return repeatingCandidateArrow; }
+	protected boolean canRepeatCandidateArrow(int keyCode) { return false; }
+	protected int getCandidateArrowRepeatInterval() { return settings.getCandidateRepeatInterval(); }
+	protected void resetCandidateRepeat() { candidateRepeat.reset(); }
 
 
 	/**
@@ -57,6 +65,15 @@ abstract class KeyPadHandler extends UiHandler {
 		}
 
 //		Logger.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
+		if (Key.isArrow(keyCode) && canRepeatCandidateArrow(keyCode) && event.getRepeatCount() > 0) {
+			if (!candidateRepeat.dispatch(keyCode, event.getEventTime(), getCandidateArrowRepeatInterval())) return true;
+			repeatingCandidateArrow = true;
+			try {
+				return onHotkey(keyCode, true, false);
+			} finally {
+				repeatingCandidateArrow = false;
+			}
+		}
 
 		// "backspace" key must repeat its function when held down, so we handle it in a special way
 		if (Key.isBackspace(settings, keyCode)) {
@@ -107,6 +124,9 @@ abstract class KeyPadHandler extends UiHandler {
 		}
 
 //		Logger.d("onLongPress", "LONG PRESS: " + keyCode);
+		if (Key.isArrow(keyCode) && canRepeatCandidateArrow(keyCode)) {
+			return true; // Native repeats navigate candidates, including arrows with a hold binding.
+		}
 
 		if (event.getRepeatCount() > 1) {
 			return true;
@@ -153,6 +173,12 @@ abstract class KeyPadHandler extends UiHandler {
 		}
 
 //		Logger.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
+		if (candidateRepeat.release(keyCode)) {
+			if (ignoreNextKeyUp == keyCode) {
+				ignoreNextKeyUp = 0;
+			}
+			return true; // Release stops a held arrow; it must not advance once more.
+		}
 
 		if (keyCode == ignoreNextKeyUp) {
 //			Logger.d("onKeyUp", "Ignored: " + keyCode);
@@ -187,6 +213,12 @@ abstract class KeyPadHandler extends UiHandler {
 
 	private boolean handleHotkey(int keyCode, boolean hold, boolean repeat, boolean validateOnly) {
 		return onHotkey(keyCode * (hold ? -1 : 1), repeat, validateOnly);
+	}
+
+
+	void cancelInterceptedKey(int keyCode) {
+		if (ignoreNextKeyUp == keyCode) ignoreNextKeyUp = 0;
+		resetKeyRepeat();
 	}
 
 

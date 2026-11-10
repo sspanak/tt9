@@ -26,6 +26,7 @@ abstract public class RemoteAssetFile extends AssetFile {
 
 	private final Context context;
 	protected BufferedReader reader;
+	protected ZipInputStream zipStream;
 
 	private String downloadUrl = null;
 
@@ -58,15 +59,22 @@ abstract public class RemoteAssetFile extends AssetFile {
 			return reader;
 		}
 
-		InputStream stream = exists() ? getStream() : getRemoteStream();
-		ZipInputStream zipStream = new ZipInputStream(stream);
+		InputStream stream = openFileStream();
+		zipStream = new ZipInputStream(stream);
 		ZipEntry entry = zipStream.getNextEntry();
 		if (entry == null) {
 			zipStream.close();
 			throw new IOException("ZIP file: " + path + " is empty.");
 		}
+		validateFirstEntry(entry);
 		return reader = new BufferedReader(new InputStreamReader(zipStream, StandardCharsets.UTF_8));
 	}
+
+	protected InputStream openFileStream() throws IOException {
+		return exists() ? getStream() : getRemoteStream();
+	}
+
+	protected void validateFirstEntry(ZipEntry entry) throws IOException {}
 
 
 	protected String getDownloadUrl() {

@@ -14,6 +14,7 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.ime.modes.predictions.WordPredictions;
+import io.github.sspanak.tt9.ime.modes.predictions.EnglishWritingSuggestions;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
@@ -337,6 +338,7 @@ class ModeWords extends ModeCheonjiin {
 		}
 
 		((WordPredictions) predictions)
+			.setEnglishWritingAllowed(englishWritingSuggestionsAllowed())
 			.setInputWord(currentWord.isEmpty() ? stem : currentWord)
 			.setIsStemFuzzy(isStemFuzzy)
 			.setStem(stem)
@@ -416,6 +418,11 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {
 		return language.hasUpperCase() ? autoTextCase.adjustSuggestionTextCase(new Text(language, word), newTextCase) : word;
+	}
+
+	private boolean englishWritingSuggestionsAllowed() {
+		return EnglishWritingSuggestions.isEnabled(settings.getEnglishWritingSuggestions(), LanguageKind.isEnglish(language),
+			getId() == MODE_PREDICTIVE, inputType != null && inputType.allowsWritingSuggestions());
 	}
 
 	@Override

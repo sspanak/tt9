@@ -18,6 +18,7 @@ import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
 import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
+import io.github.sspanak.tt9.ime.helpers.InputModePolicy;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -25,11 +26,13 @@ import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.mindreader.MindReader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
+import io.github.sspanak.tt9.ime.modes.ModePinyin;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -38,7 +41,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected InputType inputType = new InputType(null, null);
 	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(null, null);
-	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null, null, null, null);
+	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null, null, null, null, null);
 
 	@NonNull protected CmdSuggestionNext cmdNextSuggestion = new CmdSuggestionNext();
 	@NonNull protected CmdSuggestionPrevious cmdPreviousSuggestion = new CmdSuggestionPrevious();
@@ -65,7 +68,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected void createSuggestionBar() {
-		suggestionOps = new SuggestionOps(this, settings, mainView, appHacks, inputType, textField, statusBar, this::onAcceptSuggestionsDelayed, this::onOK, () -> onOK(KeyEvent.KEYCODE_UNKNOWN));
+		suggestionOps = new SuggestionOps(this, settings, mainView, appHacks, inputType, textField, statusBar, this::onAcceptSuggestionsDelayed, this::onOK, () -> onOK(KeyEvent.KEYCODE_UNKNOWN), () -> mInputMode.getId());
 	}
 
 
@@ -108,6 +111,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		settings.setDefaultChars(mLanguage, false);
 		((NaturalLanguage) mLanguage).updateKeyCharacters(settings);
 		resetKeyRepeat();
+		if (mInputMode instanceof ModePinyin pinyin && pinyin.isPinyinSequenceEditing()) pinyin.reset();
 		mInputMode = determineInputMode();
 		determineTextCase();
 		suggestionOps.set(null);
@@ -165,6 +169,12 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	@Override
 	public boolean onBackspace(int repeat) {
+		if (mInputMode instanceof ModePinyin pinyin && pinyin.isPinyinSequenceEditing()) {
+			suggestionOps.cancelDelayedAccept();
+			pinyin.onBackspace();
+			getSuggestions(0, null, null);
+			return true;
+		}
 		// Dialer fields seem to handle backspace on their own, and we must ignore it,
 		// otherwise, a keyDown race condition occurs for all keys.
 		if (InputModeKind.isPassthrough(mInputMode)) {
@@ -367,6 +377,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		Language appLanguage = textField.getLanguage(mEnabledLanguages);
 		if (appLanguage != null) {
+			if (appLanguage.getId() != mLanguage.getId()) {
+				Logger.d("determineLanguage", "Input field language hint overrides language: " + mLanguage.getId() + " -> " + appLanguage.getId() + "; enabled: " + mEnabledLanguages);
+			}
 			mLanguage = appLanguage;
 		}
 
@@ -395,32 +408,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return InputMode.MODE_PASSTHROUGH;
 		}
 
-		allowedInputModes = new ArrayList<>(inputType.determineInputModes(getApplicationContext()));
-		if (LanguageKind.isJapanese(mLanguage)) {
-			determineJapaneseInputModes();
-		}
-
-		if (!mLanguage.hasABC()) {
-			allowedInputModes.remove((Integer) InputMode.MODE_ABC);
-		}
-
-		if (!settings.getPredictiveMode()) {
-			allowedInputModes.remove((Integer) InputMode.MODE_PREDICTIVE);
-		}
+		allowedInputModes = InputModePolicy.getAllowedModes(
+			inputType.determineInputModes(getApplicationContext()), mLanguage, settings.getPredictiveMode()
+		);
 
 		return InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
-	}
-
-
-	/**
-	 * In Japanese, Hiragana and Katakana modes are the equivalents of ABC mode in other languages.
-	 * So when typing letters is possible (ABC mode allowed), we replace ABC with these two modes.
-	 */
-	private void determineJapaneseInputModes() {
-		if (allowedInputModes.contains(InputMode.MODE_ABC)) {
-			allowedInputModes.add(InputMode.MODE_HIRAGANA);
-			allowedInputModes.add(InputMode.MODE_KATAKANA);
-		}
 	}
 
 
@@ -456,7 +448,27 @@ public abstract class TypingHandler extends KeyPadHandler {
 //		Logger.d("onUpdateSelection", "old (" + oldSelStart + ", " + oldSelEnd + ") => new (" + newSelStart + ", " + newSelEnd + "); candidates = (" + candidatesStart + ", " + candidatesEnd + ")");
 
 		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+		boolean ownSelection = textField.onSelectionUpdate(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+		if (ownSelection) {
+			textSelection.onSelectionUpdate(textField.getSelectionStart(), textField.getSelectionEnd());
+			return;
+		}
 		textSelection.onSelectionUpdate(newSelStart, newSelEnd);
+		if (mInputMode instanceof ModePinyin pinyin && pinyin.isPinyinSequenceEditing() && textField.hasComposingCursor()) {
+			int offset = textField.getComposingCursorOffset(newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+			if (offset >= 0) {
+				pinyin.setPinyinSequenceCursor(offset);
+				return;
+			}
+			if (candidatesStart < 0 || candidatesEnd < 0) {
+				// The application removed the composition. Do not recreate it over its new selection.
+				mInputMode.reset();
+				suggestionOps.set(null);
+				stopWaitingForSpaceTrimKey();
+				mindReader.clearContext();
+				return;
+			}
+		}
 
 		// in case the app has modified the InputField and moved the cursor without notifying us...
 		if (CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {

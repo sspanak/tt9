@@ -1,0 +1,69 @@
+Simplified Chinese dictionary frequency data — Rime Ice attribution
+
+This distribution adapts curated frequency data from Rime Ice / 雾凇拼音,
+by iDvel and contributors: https://github.com/iDvel/rime-ice
+Upstream specifies GNU GPL version 3 only (GPL-3.0-only):
+https://github.com/iDvel/rime-ice#许可证
+https://github.com/iDvel/rime-ice/blob/main/LICENSE
+The complete upstream license is included as rime-ice-license.txt.
+
+Source snapshots supplied for the TT9 frequency refresh of 2026-10-27:
+* cn_dicts/8105.dict.yaml, header version 2025-02-21
+  SHA-256 b208cd1e443b720e69a6cffe3a1dca35edbb191090e418baa40b8b3a985482ee
+  https://github.com/iDvel/rime-ice/blob/main/cn_dicts/8105.dict.yaml
+* cn_dicts/base.dict.yaml, header version 2025-02-21
+  SHA-256 1f49260adb871baadbfd8aed11e6c32e68d7decf8a828b76c267c76da1d61d09
+  https://github.com/iDvel/rime-ice/blob/main/cn_dicts/base.dict.yaml
+The header version is supplied by those files; their content hashes identify
+the inputs exactly. The upstream main branch continues to change.
+
+TT9 changes: exact word-and-reading matches are assigned
+round(9999 * log(1 + source_weight) / log(1 + 76938354)); unmatched or zero
+source weights become zero. The 2026-10-28 reading audit appends 393 missing
+readings for existing BMP characters using the same scale and pinned source;
+all preceding 482,284 rows and weights remain unchanged. Of the resulting
+482,677 word-and-reading pairs, 464,370 match the sources and 463,920 have
+positive weights. The original rows and alternative readings remain available. The original
+TT9 list was contributed by Vkiki2233: https://github.com/sspanak/tt9/issues/260
+The additional SHUO / XING / ZHONG / LV readings and their source provenance
+are documented in docs/dictionaries/pinyinWordlistReadme.txt.
+The subsequent audit covers all 8,341 active source readings of 7,944 factory
+BMP characters. It adds no characters or supplementary-plane readings and
+does not enable commented-out source rows. The reviewed polyphonic pairs, raw
+weights and source line numbers are recorded in polyphonic-readings.tsv;
+tools/repair_chinese_readings.py verifies the pinned source hash and restores
+missing exact pairs without replacing existing rows.
+
+The Rime-derived frequency data, including their transformed dictionary
+ordering and generated phrase-prefix / primary-character frequency index,
+are distributed under GPL-3.0-only. This notice applies to those data.
+TT9 application source retains its existing Apache-2.0 license. The separate
+common-3500.txt Unicode-derived character table has its own Unicode license.
+
+Corresponding source / preferred form for modifying these data is provided
+in the matching TT9 source distribution:
+  app/languages/dictionaries/zh-simplified-pinyin.csv
+  app/languages/definitions/ChineseSimplifiedPinyin.yml
+  app/build-dictionaries.gradle
+  app/dictionary-tools.gradle
+  app/build-chinese-prefix-index.gradle
+  app/build-chinese-pack.gradle
+  app/languages/chinese/RIME-ICE-LICENSE.txt
+  app/languages/chinese/RIME-ICE-NOTICE.txt
+  app/languages/chinese/polyphonic-readings.tsv
+  tools/repair_chinese_readings.py
+Build the word ZIP with buildDictionaryDownloads and the compact index with
+buildChinesePrefixIndex. Use the source tree/patch matching this distribution,
+not a later upstream download. Full original Rime dictionaries are not needed
+at runtime and are not bundled.
+
+Upstream data credits and source references:
+https://github.com/iDvel/rime-ice/blob/main/others/docs/Credits.md
+The 8105 header credits Wiktionary's standard-character Pinyin index and
+the BLCU 2.5-billion-character frequency table:
+https://faculty.blcu.edu.cn/xinghb/zh_CN/article/167473/content/1437.htm
+The base header credits the Huayu Yefeng dictionary, THUOCL, the Modern Chinese
+Common Words list, Tencent word vectors, and the reference dictionaries named
+in that source. Rime Ice's curated weights include later manual adjustments.
+
+These data are provided WITHOUT ANY WARRANTY, as detailed in the GPLv3 text.

@@ -3,9 +3,19 @@ Traditional T9 has two variants: "lite" and "full". The "lite" version is the st
 
 The "lite" version is meant to take minimum storage space and for fast upgrades over the air. The APK is about 3 MB and contains no language files. It downloads them on demand from GitHub.
 
-The "full" version has all language files bundled in the APK. It is a good choice when working offline and for devices where network traffic is expensive or very slow. It is also the recommended choice on low-end or 3G devices, because they may not be able to keep a stable Internet connection when downloading and processing the language files. The file size is more than 220 MB.
+The "full" version bundles ordinary dictionary data in the APK, so its other bundled languages can be loaded offline. It is a good choice for devices where network traffic is expensive or slow. Its optional Simplified Chinese features use a matching combined pack, described below. Full now also has Internet permission for that download; its bundled dictionaries do not need to be downloaded again. The file size is more than 220 MB.
 
 _The "lite" version is available since release 34.0. Before that, the APK always included all available languages, meaning all older versions were always "full"._
+
+## Simplified Chinese pack
+
+For GitHub APK builds, enable Simplified Chinese, then load its dictionary as usual or open **Languages → Chinese Input → Download Chinese pack**. TT9 downloads one matching ZIP containing the dictionary, Chinese functions and interface resources. Android then asks you to confirm installation of the optional functions and translations. You may first need to allow installation from TT9. There is no separate extension download to find manually.
+
+The pack must match the installed TT9 build. Use the matching base APK and Chinese pack from the same release and distribution source; an older plain dictionary download does not contain these new functions. If installation is cancelled, return to **Languages → Chinese Input** to finish installation. Downloading Chinese does not automatically switch the interface language.
+
+Both Lite and Full can use this in-app download. Full's other bundled dictionaries still work offline, and Chinese typing and local learning work offline once the combined pack is installed. To install Chinese without a network connection, transfer the matching combined ZIP to the phone and choose **Languages → Chinese Input → Install Chinese pack from file**, then complete Android's installation confirmation. A full offline installation therefore needs both the base APK and its matching Chinese ZIP.
+
+See the [Chinese extension notes](chinese-extension.md) for build and distribution details.
 
 ## Devices with Google
 On devices with Google Services, the recommended way of installing Traditional T9 is from the Play Store.

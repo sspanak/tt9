@@ -8,6 +8,9 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,6 +18,9 @@ jobs:
     # setup
     - name: Checkout project sources
       uses: actions/checkout@v5
+      with:
+        fetch-depth: 0 # TT9 versions and dictionary URLs depend on Git history/tags.
+        persist-credentials: false
     - name: Setup Java
       uses: actions/setup-java@v5
       with:
@@ -32,7 +38,29 @@ jobs:
       run: ./gradlew buildDefinition buildDictionaryDownloads
     - name: Copy Downloads
       run: ./gradlew copyDownloadsToAssets
+    - name: Test shared input and optional Chinese module
+      run: ./gradlew :app:testLiteDebugUnitTest :chinese:testLiteDebugUnitTest
+    - name: Test Chinese reading repair and release asset validation
+      run: python3 -m unittest discover -s tools -p 'test_*.py' -v
     - name: Lint
       run: ./gradlew lint # this actually runs mergeResources, so it must come after the dictionary tasks
-    - name: Build 'Lite' and 'Full' APK variants
-      run: ./gradlew assembleLiteRelease assembleFullRelease
+    - name: Validate matching Chinese release packaging without signing secrets
+      env:
+        TT9_SIGNING_MODE: debug
+      run: ./gradlew -I app/release-signing.gradle :app:packageLiteReleaseChinesePack :app:packageFullReleaseChinesePack
+    - name: Verify delivery assets
+      run: python3 tools/chinese_release.py --tag v0-ci --skip-source --output app/build/outputs/chinese-ci
+    - name: Test build-time delivery identity checks
+      shell: bash
+      run: |
+        groovy=$(find "${GRADLE_USER_HOME:-$HOME/.gradle}/wrapper/dists" -name 'groovy-[0-9]*.jar' -print -quit)
+        test -n "$groovy"
+        java -cp "$groovy" groovy.ui.GroovyMain tools/test_chinese_delivery.groovy
+        java -cp "$(dirname "$groovy")/*" groovy.ui.GroovyMain tools/test_chinese_reading_conversion.groovy "$PWD" app/build/reading-conversion-test
+    - name: Upload debug-signed packaging evidence (not release assets)
+      uses: actions/upload-artifact@v4
+      with:
+        name: chinese-packaging-ci
+        path: app/build/outputs/chinese-ci/*
+        compression-level: 0
+        if-no-files-found: error

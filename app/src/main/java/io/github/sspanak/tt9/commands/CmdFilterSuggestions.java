@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.ime.modes.ModePinyin;
 import io.github.sspanak.tt9.ui.UI;
 
 public class CmdFilterSuggestions implements Command {
@@ -51,6 +52,15 @@ public class CmdFilterSuggestions implements Command {
 		}
 
 		tt9.getSuggestionOps().cancelDelayedAccept();
+		if (tt9.getInputMode() instanceof ModePinyin pinyin) {
+			if (pinyin.isPinyinSequenceEditing()) {
+				return true;
+			}
+			pinyin.setOnSuggestionsUpdated(tt9::handleSuggestionsAsync);
+			if (pinyin.beginPinyinSequenceEdit(tt9.getSuggestionOps().getCurrentRaw())) {
+				return true;
+			}
+		}
 
 		String filter;
 		if (repeat && !tt9.getSuggestionOps().get(1).isEmpty()) {

@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+	<string name="pref_chinese_candidate_roomy">宽松候选区</string>
+	<string name="pref_chinese_candidate_roomy_summary">适度增大展开候选区的行高与词间距。</string>
+</resources>

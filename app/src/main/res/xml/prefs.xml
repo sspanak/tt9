@@ -5,12 +5,7 @@
 
 	<Preference
 		app:key="screen_help"
-		app:title="@string/pref_help">
-		<intent
-			android:action="android.intent.action.VIEW"
-			android:targetPackage="io.github.sspanak.tt9"
-			android:targetClass="io.github.sspanak.tt9.preferences.HelpActivity" />
-	</Preference>
+		app:title="@string/pref_help" />
 
 	<Preference
 		app:fragment="io.github.sspanak.tt9.preferences.AppearanceScreen"

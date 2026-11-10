@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="chinese_pack_import_update">Update or import Chinese pack</string>
+	<string name="pref_chinese_number_select">Numbered expanded candidates</string>
+	<string name="pref_chinese_number_select_summary">In the expanded panel, press 1–9 to select a candidate from the highlighted row.</string>
+	<string name="pref_chinese_prefix_completion">Chinese phrase completion</string>
+	<string name="pref_chinese_prefix_completion_summary">Suggest longer dictionary phrases beginning with the current Chinese candidate. Works offline.</string>
+	<string name="pref_chinese_commit_on_language_switch">Keep Chinese candidate when switching languages</string>
+	<string name="pref_chinese_commit_on_language_switch_summary">Confirm the current Chinese word before changing input languages. Pinyin spelling previews are excluded.</string>
+	<string name="pref_chinese_common_only">Hide uncommon Chinese characters</string>
+	<string name="pref_chinese_common_only_summary">Keep words using the 3,500 level-one characters from the 2013 national table. Your own words are kept. Turn off for uncommon names and specialist terms.</string>
+	<string name="pref_chinese_fuzzy">Optional fuzzy Pinyin</string>
+	<string name="chinese_pinyin_unresolved">No matching reading. Correct the Pinyin or press Back to cancel the edit.</string>
+	<string name="pref_chinese_expanded_scroll_speed">Expanded candidate scrolling speed</string>
+	<string name="pref_chinese_expanded_scroll_speed_summary">Repeated movement while a direction key is held in the expanded Chinese candidate panel.</string>
+</resources>

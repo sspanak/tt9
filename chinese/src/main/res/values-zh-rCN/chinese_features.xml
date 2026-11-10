@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="chinese_pack_import_update">更新/导入中文包</string>
+	<string name="pref_chinese_number_select">展开候选时数字直选</string>
+	<string name="pref_chinese_number_select_summary">候选面板展开时，按 1–9 选择当前高亮框所在行的候选词。</string>
+	<string name="pref_chinese_prefix_completion">汉字词语补全</string>
+	<string name="pref_chinese_prefix_completion_summary">根据当前汉字候选，联想词库中以它开头的更长词语。完全离线。</string>
+	<string name="pref_chinese_commit_on_language_switch">切换语言时保留中文候选</string>
+	<string name="pref_chinese_commit_on_language_switch_summary">切换输入语言前确认当前汉字候选，不提交拼音编辑预览。</string>
+	<string name="pref_chinese_common_only">隐藏生僻字</string>
+	<string name="pref_chinese_common_only_summary">保留由《通用规范汉字表》一级 3500 字组成的词语，用户词不受影响。输入生僻姓名、专业用字时可关闭。</string>
+	<string name="pref_chinese_fuzzy">可选模糊音</string>
+	<string name="chinese_pinyin_unresolved">没有匹配的读音。请修改拼音，或按返回取消本轮修改。</string>
+	<string name="pref_chinese_expanded_scroll_speed">展开候选滚动速度</string>
+	<string name="pref_chinese_expanded_scroll_speed_summary">调整在展开的中文候选面板中长按方向键时的连续移动速度。</string>
+</resources>

@@ -20,6 +20,8 @@ After you finish the initial setup, check out the [On-screen Keypad section](#on
 ### Enabling Predictive Mode
 Predictive Mode requires a language dictionary to be loaded to provide word suggestions. You can toggle the enabled languages and load their dictionaries from Settings Screen → [Languages](#language-options). In case, you have forgotten to load some dictionary, Traditional T9 will do it for you automatically when you start typing. For more information, [see below](#language-options).
 
+Chinese Pinyin and Bopomofo use a dictionary to convert phonetic input into Chinese characters. This conversion remains available when Predictive Mode is disabled in Settings. Enable the Chinese language and load its dictionary, then hold the Input Mode key to select it. In a text field, you can also change languages while using 123 mode; press the Input Mode key to return to character input. Number and password fields keep their usual input restrictions.
+
 #### Notes for low-end phones
 Dictionary loading may saturate low-end phones. When using the TT9 "lite" version, this will cause Android to abort the operation. If loading takes more than 30 seconds, plug in the charger or ensure the screen stays on during loading.
 
@@ -73,9 +75,9 @@ In all cases, your custom-added words will be preserved and restored once you re
 #### Added Words
 The "Export" option allows you to create a CSV file with all added words for all languages. Then, you can use the CSV file to make Traditional T9 better! Go to GitHub and share the words in a [new issue](https://github.com/sspanak/tt9/issues) or [pull request](https://github.com/sspanak/tt9/pulls). After being reviewed and approved, they will be included in the next version.
 
-With "Import", you can import a previously exported CSV. However, there are some restrictions:
-- You can import only words consisting of letters. Apostrophes, dashes, other punctuation, or special characters are not allowed.
-- Emojis are not allowed.
+With "Import", you can import a previously exported CSV. With the Chinese extension installed, Chinese entries use three TAB-separated columns: word, language ID `462106`, and unaccented Pinyin with spaces between syllables. For example: `重庆<TAB>462106<TAB>chong qing` (replace `<TAB>` with a real TAB). The Chinese user-word manager is under Languages → Chinese Input. Each reading is managed separately; shared import/export remains under Languages → Added Words.
+
+For other languages, words may contain letters only; apostrophes, dashes and other punctuation are not allowed. Chinese words require one valid Pinyin syllable per Han character. Emoji entries are unsupported. The existing import limits apply to every language:
 - One CSV file can contain a maximum of 250 words.
 - You can import up to 1000 words, meaning you can import at most 4 files X 250 words. Beyond that limit, you can still add words while typing.
 
@@ -84,6 +86,7 @@ Using "Delete", you can search for and delete misspelled words or others that yo
 ## Physical Hotkeys
 
 All hotkeys can be reconfigured or disabled from Settings → Keypad → Select Hotkeys.
+Settings → Keypad → Swap * and # Functions exchanges both short presses and holds without discarding custom assignments. Turn it off to restore them.
 
 ### Typing Keys
 
@@ -107,6 +110,20 @@ When filtering is enabled, the base text will become bold and italicized.
 _Predictive mode only._
 
 Clear the suggestion filter, if applied.
+
+When composing Chinese, press Down to expand the candidates into compact rows, including after confirming a Pinyin spelling. Candidates keep their natural widths and the usual vertical separators. Left/Right moves one candidate; Up/Down selects the nearest candidate in the adjacent row. Hold an arrow to scroll continuously; release stops scrolling. A short Up from the first row or Back collapses without committing; holding Up stops at the first row. Press OK to commit. With numbered selection enabled, 1–9 choose the correspondingly labelled visible candidate while the panel is expanded. Outside the panel they remain normal input keys. Delete closes the panel and continues editing. It does not enable an on-screen number pad.
+
+In Chinese Pinyin, the first Up opens the phonetic readings. Select a reading with Left/Right (hold to scroll), then press OK to filter by that reading. The list can distinguish syllable boundaries such as `XIAN` (one syllable) and `XI'AN` (two syllables). Where the dictionary lacks enough information to decide between two equal-length segmentations, the compact spelling is retained.
+
+Press Up again in the phonetic list to edit its key sequence. Left/Right moves the editing cursor, 2–9 inserts at that position, and Delete removes the previous key. OK or Down returns to Chinese candidates; Back cancels the edit. For example, select ZONG, enter editing, move after Z, then press 4 to produce ZHONG. Cursor indicators are never committed as text.
+
+Settings → Languages → Chinese Input contains Chinese pack import/update, user words/readings, numeric candidate selection, optional fuzzy Pinyin, phrase completion and uncommon-character filtering. Appearance → Chinese Appearance contains candidate presentation. The global Interface Language setting stays in Appearance; System and English are always available, while Chinese requires its translation split. The star/pound swap remains in Keypad.
+
+Enable Simplified Chinese to access the local pack importer, even before a dictionary has been loaded or when the phone is offline. Chinese implementation code and translations are delivered as Android-signed splits alongside the dictionary data; installing them requires Android's installation confirmation. Deselecting the language keeps the profile. Explicitly deleting its dictionary removes the Chinese profile and data; a Chinese UI preference returns to System, while English is retained. Removing the code splits also uses Android's package installer. User-created words are retained unless explicitly deleted through word management. Loading the pack again uses the defaults. Loading a Chinese dictionary does not change the interface language automatically.
+
+Phrase completion uses a compact offline index of common dictionary phrases beginning with the current candidate: for example, composing 你 can offer 你好 and 你好吗. Choosing one replaces the current composition. This is phrase completion, not an unrestricted sentence language model or automatic next-word output after a committed word.
+
+Fuzzy Pinyin is opt-in, with independent n/l, z/zh, c/ch, s/sh, en/eng and in/ing rules. Exact candidates remain first. The optional uncommon-character filter keeps words made from the 3,500 level-one characters in the 2013《通用规范汉字表》; it does not delete dictionary entries, and user-created words bypass it. Disable it when entering uncommon names or specialist terms.
 
 #### D-pad Center (OK or ENTER):
 - When suggestions are displayed, type the currently selected suggestion.

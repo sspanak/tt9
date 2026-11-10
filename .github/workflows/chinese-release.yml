@@ -1,0 +1,174 @@
+name: Prepare signed Chinese release
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseTag:
+        description: Existing version tag pointing to the selected workflow commit
+        required: true
+        type: string
+      publish:
+        description: Publish verified assets to GitHub Releases (otherwise upload workflow artifacts only)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: chinese-release-${{ inputs.releaseTag }}
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    environment: release
+    outputs:
+      sourceCommit: ${{ steps.tag.outputs.commit }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Validate existing tag against this checkout
+        id: tag
+        env:
+          RELEASE_TAG: ${{ inputs.releaseTag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$RELEASE_TAG" =~ ^v[0-9][A-Za-z0-9._-]*$ ]]
+          git check-ref-format "refs/tags/$RELEASE_TAG"
+          commit=$(git rev-parse HEAD)
+          test "$(git rev-parse --verify "refs/tags/$RELEASE_TAG^{commit}")" = "$commit"
+          printf 'commit=%s\n' "$commit" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/gradle-build-action@v3
+      - name: Validate release preparation
+        run: python3 -m unittest discover -s tools -p test_chinese_release.py -v
+      - name: Decode protected signing key
+        env:
+          TT9_RELEASE_KEYSTORE_BASE64: ${{ secrets.TT9_RELEASE_KEYSTORE_BASE64 }}
+          TT9_RELEASE_STORE_PASSWORD: ${{ secrets.TT9_RELEASE_STORE_PASSWORD }}
+          TT9_RELEASE_KEY_ALIAS: ${{ secrets.TT9_RELEASE_KEY_ALIAS }}
+        shell: python
+        run: |
+          import base64, os
+          from pathlib import Path
+          for key in ("TT9_RELEASE_KEYSTORE_BASE64", "TT9_RELEASE_STORE_PASSWORD", "TT9_RELEASE_KEY_ALIAS"):
+              if not os.environ.get(key):
+                  raise SystemExit("Missing release environment secret: " + key)
+          path = Path(os.environ["RUNNER_TEMP"]) / "tt9-release.keystore"
+          path.write_bytes(base64.b64decode(os.environ["TT9_RELEASE_KEYSTORE_BASE64"], validate=True))
+          path.chmod(0o600)
+      - name: Test and build matching signed Lite/Full delivery sets
+        env:
+          TT9_SIGNING_MODE: release
+          TT9_RELEASE_KEYSTORE: ${{ runner.temp }}/tt9-release.keystore
+          TT9_RELEASE_STORE_PASSWORD: ${{ secrets.TT9_RELEASE_STORE_PASSWORD }}
+          TT9_RELEASE_KEY_ALIAS: ${{ secrets.TT9_RELEASE_KEY_ALIAS }}
+          TT9_RELEASE_KEY_PASSWORD: ${{ secrets.TT9_RELEASE_KEY_PASSWORD }}
+          RELEASE_TAG: ${{ inputs.releaseTag }}
+        run: |
+          ./gradlew -I app/release-signing.gradle \
+            "-PchinesePackBaseUrl=https://github.com/$GITHUB_REPOSITORY/releases/download/$RELEASE_TAG" \
+            :app:testLiteDebugUnitTest :chinese:testLiteDebugUnitTest \
+            :app:testFullDebugUnitTest :chinese:testFullDebugUnitTest \
+            :app:packageLiteReleaseChinesePack :app:packageFullReleaseChinesePack \
+            :app:lintLiteRelease :app:lintFullRelease
+      - name: Prepare immutable assets, source and notices
+        env:
+          RELEASE_TAG: ${{ inputs.releaseTag }}
+        run: python3 tools/chinese_release.py --tag "$RELEASE_TAG" --output app/build/outputs/chinese-release
+      - name: Test build-time delivery identity checks
+        shell: bash
+        run: |
+          groovy=$(find "${GRADLE_USER_HOME:-$HOME/.gradle}/wrapper/dists" -name 'groovy-[0-9]*.jar' -print -quit)
+          test -n "$groovy"
+          java -cp "$groovy" groovy.ui.GroovyMain tools/test_chinese_delivery.groovy
+      - name: Upload reviewable release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: signed-chinese-release
+          path: app/build/outputs/chinese-release/*
+          compression-level: 0
+          if-no-files-found: error
+      - name: Remove temporary signing key
+        if: always()
+        run: rm -f -- "$RUNNER_TEMP/tt9-release.keystore"
+
+  publish:
+    if: ${{ inputs.publish }}
+    needs: prepare
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: signed-chinese-release
+          path: delivery
+      - name: Verify tag and immutable asset inventory
+        env:
+          RELEASE_TAG: ${{ inputs.releaseTag }}
+          SOURCE_COMMIT: ${{ needs.prepare.outputs.sourceCommit }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse --verify "refs/tags/$RELEASE_TAG^{commit}")" = "$SOURCE_COMMIT"
+          python3 tools/chinese_release.py --verify-inventory --output delivery
+      - name: Publish without replacing assets or existing release notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ inputs.releaseTag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if test "$(gh api "repos/$GH_REPO" --jq '.visibility')" != public; then
+            echo '::error::In-app Chinese downloads require a public repository and anonymous release asset access.'
+            exit 1
+          fi
+          shopt -s nullglob
+          assets=(delivery/*)
+          test "${#assets[@]}" -gt 0
+          if gh release view "$RELEASE_TAG" --json assets > "$RUNNER_TEMP/tt9-existing-release.json"; then
+            python3 -c 'import json,pathlib,sys; existing={a["name"] for a in json.load(open(sys.argv[1]))["assets"]}; collisions=existing&{p.name for p in pathlib.Path("delivery").iterdir()}; sys.exit("Refusing to replace release assets: "+", ".join(sorted(collisions))) if collisions else None' "$RUNNER_TEMP/tt9-existing-release.json"
+            gh release upload "$RELEASE_TAG" "${assets[@]}"
+          else
+            printf 'Matching Lite/Full APKs and optional Chinese delivery packs. Source, licenses, delivery metadata and SHA-256 checksums are attached.\n' > "$RUNNER_TEMP/tt9-release-notes.txt"
+            gh release create "$RELEASE_TAG" "${assets[@]}" --verify-tag \
+              --title "$RELEASE_TAG" --notes-file "$RUNNER_TEMP/tt9-release-notes.txt"
+          fi
+      - name: Verify anonymous public Chinese download URLs
+        env:
+          RELEASE_TAG: ${{ inputs.releaseTag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          packs=(delivery/tt9-chinese-*-lite-release-*.zip delivery/tt9-chinese-*-full-release-*.zip)
+          test "${#packs[@]}" -eq 2
+          for pack in "${packs[@]}"; do
+            name=$(basename "$pack")
+            downloaded="$RUNNER_TEMP/public-$name"
+            url="https://github.com/$GITHUB_REPOSITORY/releases/download/$RELEASE_TAG/$name"
+            # No authorization header/token or curl configuration: exercise the app's public URL.
+            curl --disable --proto '=https' --proto-redir '=https' --fail --location \
+              --retry 5 --retry-all-errors --retry-delay 5 --connect-timeout 20 --max-time 180 \
+              --output "$downloaded" "$url"
+            expected=$(sha256sum "$pack" | cut -d ' ' -f 1)
+            actual=$(sha256sum "$downloaded" | cut -d ' ' -f 1)
+            if test "$actual" != "$expected"; then
+              echo "::error::Public Chinese delivery asset differs from the verified build: $name"
+              exit 1
+            fi
+            printf 'Verified anonymous HTTPS download: %s\n' "$name"
+          done

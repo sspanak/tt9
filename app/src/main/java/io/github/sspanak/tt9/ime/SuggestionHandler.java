@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
+import io.github.sspanak.tt9.ime.modes.ModePinyin;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
@@ -162,6 +163,8 @@ abstract public class SuggestionHandler extends TypingHandler {
 		}
 
 		final ArrayList<String> suggestions = mInputMode.getSuggestions();
+		final ModePinyin pinyin = mInputMode instanceof ModePinyin mode ? mode : null;
+		final long pinyinRevision = pinyin != null ? pinyin.getPinyinSuggestionsRevision() : -1;
 		suggestionOps.set(suggestions, mInputMode.getRecommendedSuggestionIdx(), mInputMode.containsGeneratedSuggestions());
 
 		// either accept the first one automatically (when switching from punctuation to text
@@ -187,6 +190,7 @@ abstract public class SuggestionHandler extends TypingHandler {
 			trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
 			appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
 		}
+		if (pinyin != null && pinyin == mInputMode) pinyin.onPinyinSuggestionsShown(pinyinRevision);
 
 		// append guesses from the MindReader
 		if (loadingId != 0 && loadingId == mindReader.getLoadingId()) {

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" app:orderingFromXml="true">
+	<!-- Explicit changes only: opening a removed profile must not recreate its settings. -->
+	<SwitchPreferenceCompat
+		app:key="pref_chinese_candidate_roomy"
+		app:persistent="false"
+		app:defaultValue="false"
+		app:title="@string/pref_chinese_candidate_roomy"
+		app:summary="@string/pref_chinese_candidate_roomy_summary" />
+</PreferenceScreen>

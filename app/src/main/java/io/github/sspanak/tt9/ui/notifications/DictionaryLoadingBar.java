@@ -133,23 +133,23 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 		Language lang = LanguageCollection.getLanguage(languageId);
 
 		if (lang != null) {
-			return resources.getString(R.string.dictionary_loading, lang.getName());
+			return getResources().getString(R.string.dictionary_loading, lang.getName());
 		}
 
-		return resources.getString(R.string.dictionary_loading_indeterminate);
+		return getResources().getString(R.string.dictionary_loading_indeterminate);
 	}
 
 
 	private String generateShortMsg(int languageId, int progress) {
 		Language lang = LanguageCollection.getLanguage(languageId);
 		lang = lang != null ? lang : new NullLanguage();
-		return resources.getString(R.string.dictionary_loading_short, lang.getCode().toUpperCase(lang.getLocale()), progress) + "%";
+		return getResources().getString(R.string.dictionary_loading_short, lang.getCode().toUpperCase(lang.getLocale()), progress) + "%";
 	}
 
 
 	private void generateCancelMsg() {
 		title = "";
-		message = shortMessage = resources.getString(R.string.dictionary_load_cancelled);
+		message = shortMessage = getResources().getString(R.string.dictionary_load_cancelled);
 		progress = maxProgress = 0;
 
 		renderMessage();
@@ -157,19 +157,23 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 
 
 	private void generateErrorMsg(@NonNull String errorType, @Nullable Language lang, long line) {
-		if (lang == null || errorType.equals(InvalidLanguageException.class.getSimpleName())) {
-			message = resources.getString(R.string.add_word_invalid_language);
+		if (errorType.equals(io.github.sspanak.tt9.extensions.ChinesePackDownload.UnavailableException.class.getSimpleName())) {
+			message = getResources().getString(R.string.chinese_pack_unavailable);
+		} else if (errorType.equals(io.github.sspanak.tt9.extensions.ChinesePackDownload.InvalidPackException.class.getSimpleName())) {
+			message = getResources().getString(R.string.chinese_pack_invalid);
+		} else if (lang == null || errorType.equals(InvalidLanguageException.class.getSimpleName())) {
+			message = getResources().getString(R.string.add_word_invalid_language);
 		} else if (errorType.equals(DictionaryImportException.class.getSimpleName()) || errorType.equals(InvalidLanguageCharactersException.class.getSimpleName())) {
-			message = resources.getString(R.string.dictionary_load_bad_char, line, lang.getName());
+			message = getResources().getString(R.string.dictionary_load_bad_char, line, lang.getName());
 		} else if (errorType.equals(UnknownHostException.class.getSimpleName()) || errorType.equals(SocketException.class.getSimpleName())) {
-			message = resources.getString(R.string.dictionary_load_no_internet, lang.getName());
+			message = getResources().getString(R.string.dictionary_load_no_internet, lang.getName());
 		} else if (errorType.equals(IOException.class.getSimpleName()) || errorType.equals(FileNotFoundException.class.getSimpleName())) {
-			message = resources.getString(R.string.dictionary_not_found, lang.getName());
+			message = getResources().getString(R.string.dictionary_not_found, lang.getName());
 		} else {
-			message = resources.getString(R.string.dictionary_load_error, lang.getName(), errorType);
+			message = getResources().getString(R.string.dictionary_load_error, lang.getName(), errorType);
 		}
 
-		shortMessage = resources.getString(R.string.dictionary_load_error_short, lang != null ? lang.getName() : new NullLanguage().getName());
+		shortMessage = getResources().getString(R.string.dictionary_load_error_short, lang != null ? lang.getName() : new NullLanguage().getName());
 		title = generateTitle(-1);
 		progress = maxProgress = 0;
 
@@ -185,8 +189,8 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 			title = generateTitle(-1);
 
 			String timeFormat = time > 60000 ? " (%1.0fs)" : " (%1.1fs)";
-			message = resources.getString(R.string.completed) + String.format(Locale.ENGLISH, timeFormat, time / 1000.0);
-			shortMessage = resources.getString(R.string.completed);
+			message = getResources().getString(R.string.completed) + String.format(Locale.ENGLISH, timeFormat, time / 1000.0);
+			shortMessage = getResources().getString(R.string.completed);
 		} else {
 			title = generateTitle(languageId);
 			message = currentFileProgress + "%";

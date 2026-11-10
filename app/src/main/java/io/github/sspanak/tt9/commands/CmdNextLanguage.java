@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.ime.helpers.InputModePolicy;
 import io.github.sspanak.tt9.ui.dialogs.ChangeLanguageDialog;
 
 public class CmdNextLanguage implements Command {
@@ -22,7 +23,10 @@ public class CmdNextLanguage implements Command {
 			tt9 != null
 			&& !tt9.shouldBeOff()
 			&& tt9.getSettings().areEnabledLanguagesMoreThanN(1)
-			&& !tt9.isInputModeNumeric();
+			&& InputModePolicy.canSwitchLanguage(
+				tt9.isInputModeNumeric(),
+				tt9.getInputType().determineInputModes(tt9.getApplicationContext())
+			);
 	}
 
 

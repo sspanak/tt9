@@ -7,6 +7,13 @@
 		app:title="@string/pref_choose_languages" />
 
 	<Preference
+		app:fragment="io.github.sspanak.tt9.preferences.screens.chinese.ChineseSettingsScreen"
+		app:key="screen_chinese_settings"
+		app:title="@string/pref_chinese_settings"
+		app:summary="@string/pref_chinese_settings_summary"
+		app:isPreferenceVisible="false" />
+
+	<Preference
 		app:key="dictionary_load"
 		app:title="@string/dictionary_load_title" />
 

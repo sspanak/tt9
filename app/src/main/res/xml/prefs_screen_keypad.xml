@@ -53,6 +53,25 @@
 			android:key="screen_hotkeys"
 			android:title="@string/pref_category_function_keys" />
 
+		<SwitchPreferenceCompat
+			android:defaultValue="false"
+			android:key="pref_swap_star_pound"
+			android:title="@string/pref_swap_star_pound"
+			android:summary="@string/pref_swap_star_pound_summary" />
+
+		<io.github.sspanak.tt9.preferences.screens.keypad.SwitchStarKeyCompatibility
+			android:defaultValue="false"
+			android:key="pref_star_key_compatibility"
+			android:title="@string/pref_star_key_compatibility"
+			android:summary="@string/pref_star_key_compatibility_summary" />
+
+		<ListPreference
+			android:key="pref_candidate_scroll_speed"
+			android:defaultValue="normal"
+			android:title="@string/pref_candidate_scroll_speed"
+			android:entries="@array/candidate_scroll_speed_entries"
+			android:entryValues="@array/candidate_scroll_speed_values" />
+
 		<io.github.sspanak.tt9.preferences.screens.keypad.DropDownKeyPadDebounceTime android:title="@string/pref_hack_key_pad_debounce_time" />
 
 		<SwitchPreferenceCompat

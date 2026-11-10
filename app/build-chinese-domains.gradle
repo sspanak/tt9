@@ -1,0 +1,185 @@
+import groovy.json.JsonSlurper
+import java.nio.ByteBuffer
+import java.nio.charset.CodingErrorAction
+import java.nio.charset.StandardCharsets
+import java.security.MessageDigest
+
+def chineseDomainOutput = layout.buildDirectory.file('generated/chinese-domains/chinese-domains.bin')
+def chineseDomainNotice = layout.buildDirectory.file('generated/chinese-domains/chinese-domains-notice.txt')
+ext.chineseDomainIndexFile = chineseDomainOutput
+ext.chineseDomainNoticeFile = chineseDomainNotice
+
+tasks.register('buildChineseDomains') {
+	def sources = file('languages/chinese/domains')
+	def syllables = rootProject.file('chinese/src/main/java/io/github/sspanak/tt9/chinese/PinyinSyllables.java')
+	inputs.files(fileTree(sources) { include '*.tsv', 'source.json', 'THUOCL-NOTICE.txt', 'THUOCL-LICENSE.txt' })
+	inputs.file(syllables)
+	outputs.files(chineseDomainOutput, chineseDomainNotice)
+	doLast {
+		def result
+		try { result = ChineseDomainDataBuilder.build(sources, syllables) }
+		catch (IllegalArgumentException failure) { throw new GradleException("Chinese domain data: ${failure.message}", failure) }
+		File binary = chineseDomainOutput.get().asFile
+		binary.parentFile.mkdirs()
+		binary.bytes = result.bytes
+		chineseDomainNotice.get().asFile.setText(result.notice, 'UTF-8')
+		logger.lifecycle("Chinese domains: ${result.domainCount} domains, ${result.entryCount} word/readings, ${result.bytes.length} bytes")
+	}
+}
+
+/** Build-only validation and deterministic encoding; the optional feature owns runtime lookup. */
+class ChineseDomainDataBuilder {
+	static final int MAX_BYTES = 4 * 1024 * 1024
+	static final int MAX_ENTRIES = 50000
+	static final int MAX_DOMAINS = 30
+	private static final String ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+	private static final String KEYS = '22233344455566677778889999'
+
+	static Map build(File directory, File syllableSource) {
+		File catalogFile = new File(directory, 'source.json')
+		def catalog
+		try { catalog = new JsonSlurper().parseText(readUtf8(catalogFile)) }
+		catch (Exception failure) { throw new IllegalArgumentException("${catalogFile.name}: invalid JSON (${failure.message})", failure) }
+		if (!(catalog instanceof Map) || catalog.version != 1 || !(catalog.domains instanceof List)
+			|| catalog.domains.isEmpty() || catalog.domains.size() > MAX_DOMAINS) {
+			throw new IllegalArgumentException('source.json: expected version 1 and 1–30 domains')
+		}
+		Set<String> accepted = acceptedSyllables(syllableSource)
+		Set<String> ids = new LinkedHashSet<>()
+		List<Map> domains = []
+		Map<String, Map> words = new HashMap<>()
+		catalog.domains.eachWithIndex { value, index ->
+			if (!(value instanceof Map)) throw new IllegalArgumentException("source.json: invalid domain ${index + 1}")
+			Map domain = [:]
+			['id': 48, 'labelEn': 256, 'labelZh': 256, 'license': 512, 'source': 4096].each { key, limit ->
+				domain[key] = metadata(value[key], key, limit)
+			}
+			if (!(domain.id ==~ /[a-z][a-z0-9-]{0,47}/) || !ids.add(domain.id)) {
+				throw new IllegalArgumentException("source.json: invalid or duplicate domain ID '${domain.id}'")
+			}
+			File tsv = new File(directory, domain.id + '.tsv')
+			Set<String> seen = new HashSet<>()
+			int count = 0
+			readUtf8(tsv).readLines().eachWithIndex { line, row ->
+				if (line.isEmpty() || line.startsWith('#')) return
+				String location = "${tsv.name}:${row + 1}"
+				String[] fields = line.split('\t', -1)
+				if (fields.length != 3) throw new IllegalArgumentException("${location}: expected word, explicit reading and weight separated by TABs")
+				String word = fields[0], reading = fields[1]
+				int hanCount = word.codePointCount(0, word.length())
+				if (hanCount < 1 || hanCount > 32 || !word.codePoints().allMatch { Character.UnicodeScript.of(it) == Character.UnicodeScript.HAN }) {
+					throw new IllegalArgumentException("${location}: expected 1–32 Han characters")
+				}
+				if (!(reading ==~ /[A-Z]+(?:[ '][A-Z]+)*/)) throw new IllegalArgumentException("${location}: reading must use uppercase syllables separated by spaces or apostrophes")
+				String[] parts = reading.split(/[ ']/)
+				if (parts.length != hanCount || parts.any { !accepted.contains(it) }) {
+					throw new IllegalArgumentException("${location}: provide one accepted Pinyin syllable per Han character")
+				}
+				reading = parts.join("'")
+				if (!(fields[2] ==~ /(?:0|[1-9][0-9]{0,3})/)) throw new IllegalArgumentException("${location}: weight must be an integer from 0 to 9999")
+				int weight = Integer.parseInt(fields[2])
+				String identity = word + '\0' + reading
+				if (!seen.add(identity)) throw new IllegalArgumentException("${location}: duplicate word/reading '${word} ${reading}'")
+				Map existing = words[identity]
+				if (existing != null) {
+					existing.mask |= 1 << index
+					existing.weight = Math.max(existing.weight as int, weight)
+				} else {
+					String compact = parts.join('')
+					words[identity] = [word: word, reading: reading, sequence: sequence(compact), mask: 1 << index,
+						weight: weight, raw: compact + word]
+					if (words.size() > MAX_ENTRIES) throw new IllegalArgumentException("${location}: domain index exceeds ${MAX_ENTRIES} merged entries")
+				}
+				count++
+			}
+			if (count == 0) throw new IllegalArgumentException("${tsv.name}: domain has no entries")
+			domain.rows = count
+			domain.sha256 = sha256(tsv)
+			domains.add(domain)
+		}
+		Set<String> files = (directory.listFiles()?.findAll { it.isFile() && it.name.endsWith('.tsv') } ?: [])
+			.collect { it.name.substring(0, it.name.length() - 4) } as Set
+		if (files != ids) throw new IllegalArgumentException('source.json: TSV filenames and declared domain IDs differ')
+		List<Map> entries = words.values().toList().sort { first, second ->
+			first.sequence <=> second.sequence ?: second.weight <=> first.weight ?: first.raw <=> second.raw ?: first.reading <=> second.reading
+		}
+		long size = 16
+		domains.each { domain -> ['id', 'labelEn', 'labelZh', 'license', 'source'].each { size += 2 + utf8(domain[it]).length } }
+		entries.each { entry -> size += 14 + utf8(entry.sequence).length + utf8(entry.word).length + utf8(entry.reading).length }
+		if (size > MAX_BYTES) throw new IllegalArgumentException("domain index exceeds ${MAX_BYTES} bytes (${size})")
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream(size as int)
+		DataOutputStream output = new DataOutputStream(bytes)
+		output.writeInt(0x54543944)
+		output.writeInt(1)
+		output.writeInt(domains.size())
+		domains.each { domain -> ['id', 'labelEn', 'labelZh', 'license', 'source'].each { writeString(output, domain[it]) } }
+		output.writeInt(entries.size())
+		entries.each { entry ->
+			writeString(output, entry.sequence)
+			output.writeInt(entry.mask as int)
+			writeString(output, entry.word)
+			writeString(output, entry.reading)
+			output.writeInt(entry.weight as int)
+		}
+		output.flush()
+		if (bytes.size() != size) throw new IllegalArgumentException('Domain binary size accounting mismatch')
+		String notice = notice(directory, catalogFile, syllableSource, domains)
+		return [bytes: bytes.toByteArray(), notice: notice, domainCount: domains.size(), entryCount: entries.size()]
+	}
+
+	private static String metadata(value, String key, int limit) {
+		if (!(value instanceof String) || value.isEmpty() || value != value.trim() || value.length() > limit
+			|| value.codePoints().anyMatch { it < 32 || it == 127 }) throw new IllegalArgumentException("source.json: invalid ${key}")
+		return value
+	}
+
+	private static Set<String> acceptedSyllables(File source) {
+		String java = readUtf8(source)
+		int start = java.indexOf('SYLLABLES =')
+		int end = java.indexOf(').split(" ")))', start)
+		if (start < 0 || end < start) throw new IllegalArgumentException('Cannot find the accepted Pinyin syllable table')
+		Set<String> result = new HashSet<>()
+		(java.substring(start, end) =~ /"([A-Z ]+)"/).each { match -> result.addAll(match[1].split(' ').findAll { !it.isEmpty() }) }
+		if (result.size() < 300 || result.size() > 600) throw new IllegalArgumentException('Unexpected accepted Pinyin syllable table')
+		return result
+	}
+
+	private static String sequence(String reading) {
+		StringBuilder result = new StringBuilder(reading.length())
+		for (int i = 0; i < reading.length(); i++) result.append(KEYS.charAt(ALPHABET.indexOf(reading.charAt(i) as String)))
+		return result.toString()
+	}
+
+	private static String notice(File directory, File catalog, File syllables, List<Map> domains) {
+		File license = new File(directory, 'THUOCL-LICENSE.txt')
+		if (readUtf8(license).trim().isEmpty()) throw new IllegalArgumentException('Missing THUOCL license text')
+		String upstreamNotice = readUtf8(new File(directory, 'THUOCL-NOTICE.txt')).replace('\r\n', '\n').trim()
+		if (upstreamNotice.isEmpty()) throw new IllegalArgumentException('Missing THUOCL source notice')
+		StringBuilder text = new StringBuilder('TT9 optional Chinese domain vocabularies\n\n')
+		text.append('Generated deterministically from app/languages/chinese/domains/*.tsv and source.json.\n')
+		text.append('Records retain explicit syllable boundaries; shared word/readings merge domain masks and maximum weights.\n')
+		text.append('Full GPL-3.0 text: licenses/rime-ice-license.txt. Full MIT text: licenses/thuocl-license.txt.\n')
+		text.append("source.json SHA-256: ${sha256(catalog)}\nPinyinSyllables.java SHA-256: ${sha256(syllables)}\n")
+		domains.each { domain ->
+			text.append("\n${domain.id}: ${domain.labelEn} / ${domain.labelZh}\nLicense: ${domain.license}\nSource: ${domain.source}\n")
+			text.append("Input: ${domain.id}.tsv; ${domain.rows} rows; SHA-256: ${domain.sha256}\n")
+		}
+		return text.append('\nUpstream provenance notice\n\n').append(upstreamNotice).append('\n').toString()
+	}
+
+	private static String readUtf8(File file) {
+		if (!file.isFile()) throw new IllegalArgumentException("Missing ${file.name}")
+		try {
+			return StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
+				.onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(file.bytes)).toString()
+		} catch (IOException failure) { throw new IllegalArgumentException("${file.name}: cannot read UTF-8", failure) }
+	}
+	private static byte[] utf8(String value) { return value.getBytes(StandardCharsets.UTF_8) }
+	private static void writeString(DataOutputStream output, String value) {
+		byte[] bytes = utf8(value)
+		if (bytes.length > 65535) throw new IllegalArgumentException('Domain string exceeds unsigned-short UTF-8 length')
+		output.writeShort(bytes.length)
+		output.write(bytes)
+	}
+	private static String sha256(File file) { return MessageDigest.getInstance('SHA-256').digest(file.bytes).encodeHex().toString() }
+}

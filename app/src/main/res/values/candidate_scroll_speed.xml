@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="pref_candidate_scroll_speed">Single-row candidate scrolling speed</string>
+	<string name="pref_candidate_scroll_speed_summary">Repeated left/right movement while a direction key is held in the ordinary candidate row, including Pinyin choices.</string>
+	<string name="candidate_scroll_speed_slow">Slow</string>
+	<string name="candidate_scroll_speed_normal">Normal</string>
+	<string name="candidate_scroll_speed_fast">Fast</string>
+	<string-array name="candidate_scroll_speed_entries">
+		<item>@string/candidate_scroll_speed_slow</item>
+		<item>@string/candidate_scroll_speed_normal</item>
+		<item>@string/candidate_scroll_speed_fast</item>
+	</string-array>
+	<string-array name="candidate_scroll_speed_values" translatable="false">
+		<item>slow</item>
+		<item>normal</item>
+		<item>fast</item>
+	</string-array>
+</resources>

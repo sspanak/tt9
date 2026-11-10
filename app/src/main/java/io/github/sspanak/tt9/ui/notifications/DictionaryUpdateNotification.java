@@ -33,7 +33,7 @@ public class DictionaryUpdateNotification extends DictionaryNotification {
 	private NotificationCompat.Action getAction(Context context) {
 		return new NotificationCompat.Action(
 			R.drawable.ic_dictionary_update,
-			resources.getString(R.string.dictionary_update_update),
+			getResources().getString(R.string.dictionary_update_update),
 			createNavigationIntent(context, language)
 		);
 	}
@@ -42,7 +42,7 @@ public class DictionaryUpdateNotification extends DictionaryNotification {
 	@Override
 	public void show() {
 		notificationBuilder.setSmallIcon(R.drawable.ic_dictionary_update);
-		messageLong = message = resources.getString(R.string.dictionary_update_message, language.getName());
+		messageLong = message = getResources().getString(R.string.dictionary_update_message, language.getName());
 		super.show();
 	}
 

@@ -2,12 +2,14 @@ package io.github.sspanak.tt9.preferences.screens.keypad;
 
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
+import androidx.preference.ListPreference;
 import androidx.preference.PreferenceCategory;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
+import io.github.sspanak.tt9.preferences.settings.SettingsHotkeys;
 
 public class KeyPadScreen extends BaseScreenFragment {
 	final public static String NAME = "KeyPad";
@@ -27,6 +29,14 @@ public class KeyPadScreen extends BaseScreenFragment {
 		resetFontSize(true);
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		SwitchStarKeyCompatibility compatibility = findPreference(SettingsHotkeys.STAR_KEY_COMPATIBILITY);
+		if (compatibility != null) compatibility.refresh();
+	}
+
+
 	private void createTypingSection() {
 		EnhancedDropDownPreference dropdown = findPreference(DropDownOneKeyEmoji.NAME);
 		if (dropdown != null && activity != null) dropdown.populate(activity.getSettings()).preview();
@@ -34,6 +44,8 @@ public class KeyPadScreen extends BaseScreenFragment {
 	}
 
 	private void createPhysicalKeysSection() {
+		ListPreference scrollSpeed = findPreference("pref_candidate_scroll_speed");
+		if (scrollSpeed != null) scrollSpeed.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
 		Preference debounceTime = findPreference(DropDownKeyPadDebounceTime.NAME);
 		if (debounceTime instanceof DropDownKeyPadDebounceTime && activity != null) {
 			((DropDownKeyPadDebounceTime) debounceTime).populate(activity.getSettings()).preview();

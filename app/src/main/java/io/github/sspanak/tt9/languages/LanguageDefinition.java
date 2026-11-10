@@ -55,7 +55,11 @@ public class LanguageDefinition {
 	 * or an empty list on error.
 	 */
 	public static ArrayList<LanguageDefinition> getAll(AssetManager assets) {
-		String[] definitionLines = readDefinitions(assets);
+		return parseDefinitions(readDefinitions(assets));
+	}
+
+
+	static ArrayList<LanguageDefinition> parseDefinitions(String[] definitionLines) {
 		if (definitionLines.length == 0) {
 			return new ArrayList<>();
 		}
@@ -63,7 +67,8 @@ public class LanguageDefinition {
 		ArrayList<LanguageDefinition> definitions = new ArrayList<>();
 
 		LanguageDefinition definition = new LanguageDefinition();
-		for (String line : definitionLines) {
+		for (String rawLine : definitionLines) {
+			String line = rawLine.trim();
 			if (YAML_SEPARATOR.equals(line)) {
 				definitions.add(definition);
 				definition = new LanguageDefinition();

@@ -52,6 +52,18 @@ public class InputType extends StandardInputType {
 		return super.isEmail() && !isAndroidContactsSearch();
 	}
 
+	/** Writing shortcuts are unsuitable for identifiers, addresses, names and other structured fields. */
+	public boolean allowsWritingSuggestions() {
+		if (field == null || !isText() || isSpecialized() || (isUs() && !isOwnTestField())
+			|| (field.inputType & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) != 0) return false;
+		return switch (field.inputType & EditorInfo.TYPE_MASK_VARIATION) {
+			case EditorInfo.TYPE_TEXT_VARIATION_NORMAL, EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE,
+				EditorInfo.TYPE_TEXT_VARIATION_LONG_MESSAGE, EditorInfo.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT,
+				EditorInfo.TYPE_TEXT_VARIATION_EMAIL_SUBJECT -> true;
+			default -> false;
+		};
+	}
+
 
 	/**
 	 * isAndroid15ContactsField

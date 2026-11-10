@@ -5,6 +5,8 @@
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/> <!-- allows displaying notifications on Android >= 13 -->
+	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- optional signed Chinese split, with Android confirmation -->
+	<uses-permission android:name="android.permission.INTERNET" /> <!-- optional Chinese pack; other Full dictionaries remain bundled -->
 	<uses-permission android:name="android.permission.RECORD_AUDIO"/> <!-- allows voice input -->
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" /> <!-- allows words exporting on Android < 10 -->
 
@@ -21,6 +23,9 @@
 		android:label="@string/app_name"
 		android:theme="@style/TTheme"
 		android:supportsRtl="true">
+		<activity android:name="io.github.sspanak.tt9.extensions.ChinesePackInstallActivity"
+			android:exported="false" android:excludeFromRecents="true"
+			android:theme="@style/TTheme.Preferences" />
 
 		<service android:name="io.github.sspanak.tt9.ime.TraditionalT9" android:permission="android.permission.BIND_INPUT_METHOD"
 			android:exported="true">
@@ -28,6 +33,16 @@
 				<action android:name="android.view.InputMethod"/>
 			</intent-filter>
 			<meta-data android:name="android.view.im" android:resource="@xml/method"/>
+		</service>
+
+		<service android:name="io.github.sspanak.tt9.ime.KeypadCompatibilityService"
+			android:label="@string/pref_star_key_compatibility"
+			android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+			android:exported="true">
+			<intent-filter>
+				<action android:name="android.accessibilityservice.AccessibilityService" />
+			</intent-filter>
+			<meta-data android:name="android.accessibilityservice" android:resource="@xml/keypad_compatibility_service" />
 		</service>
 
 		<provider
