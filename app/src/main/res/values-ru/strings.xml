@@ -88,6 +88,8 @@
 	<string name="pref_abc_auto_accept_slow">Медленное</string>
 	<string name="pref_allow_composing_text">Показывать текст при вводе</string>
 	<string name="pref_allow_composing_text_summary">Показывать слова в текстовых полях во время набора. Если отключено, слова отображаются только после нажатия OK или пробела.</string>
+	<string name="pref_allow_system_tap_sound">Звук Android при нажатии клавиши</string>
+	<string name="pref_allow_system_tap_sound_summary">Позволяет Android воспроизводить звук при нажатии клавиши на клавиатуре.</string>
 	<string name="pref_alternative_suggestion_scrolling">Альтернативный метод прокрутки слов</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Включите, если иногда вы не видите все слова или у вас возникают проблемы с их прокруткой.</string>
 	<string name="pref_arrows_left_right_summary">Показывать клавиши со стрелками влево/вправо для прокрутки подсказок или горизонтального перемещения текстового курсора.</string>

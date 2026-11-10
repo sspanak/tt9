@@ -46,6 +46,8 @@
 	<string name="pref_abc_auto_accept_slow">Повільний</string>
 	<string name="pref_allow_composing_text">Показувати текст під час введення</string>
 	<string name="pref_allow_composing_text_summary">Показувати слова в текстових полях під час набору. Якщо вимкнено, слова відображаються лише після натискання OK або пробілу.</string>
+	<string name="pref_allow_system_tap_sound">Звук Android під час натискання клавіші</string>
+	<string name="pref_allow_system_tap_sound_summary">Дозволяє Android відтворювати звук під час натискання клавіші на клавіатурі.</string>
 	<string name="pref_alternative_suggestion_scrolling">Альтернативний метод прокрутки пропозицій</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Увімкніть, якщо ви іноді не бачите всіх пропозицій або не можете їх прокрутити.</string>
 	<string name="pref_arrows_left_right_summary">Показувати клавіші зі стрілками вліво/вправо для прокручування пропозицій або горизонтального переміщення текстового курсора.</string>

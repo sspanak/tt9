@@ -44,6 +44,7 @@
 
 	<PreferenceCategory android:title="@string/pref_category_keypad_onscreen" android:key="category_virtual_keys">
 		<io.github.sspanak.tt9.preferences.screens.keypad.SwitchHapticFeedback />
+		<io.github.sspanak.tt9.preferences.screens.keypad.SwitchAllowSystemTapSound />
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/pref_category_keypad_hardware">
