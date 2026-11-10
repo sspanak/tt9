@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.db.sqlite;
 
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDoneException;
 import android.database.sqlite.SQLiteStatement;
@@ -113,22 +114,42 @@ public class ReadOps {
 	}
 
 
-	public ArrayList<CustomWord> getCustomWords(@NonNull SQLiteDatabase db, @NonNull String wordFilter, int maxWords) {
+	public long countCustomWords(@NonNull SQLiteDatabase db, @NonNull String wordFilter) {
+		if (wordFilter.isEmpty()) {
+			return countCustomWords(db);
+		}
+
+		return DatabaseUtils.longForQuery(
+			db,
+			"SELECT COUNT(*) FROM " + Tables.CUSTOM_WORDS + " WHERE word LIKE ?",
+			new String[]{wordFilter + "%"}
+		);
+	}
+
+
+	/**
+	 * Returns custom words starting with "wordFilter", sorted alphabetically. Use "maxWords" and
+	 * "offset" for pagination. maxWords <= 0 means no limit.
+	 */
+	public ArrayList<CustomWord> getCustomWords(@NonNull SQLiteDatabase db, @NonNull String wordFilter, int maxWords, int offset) {
 		ArrayList<CustomWord> words = new ArrayList<>();
 
 		String[] select = new String[]{"word", "sequence", "langId"};
 		String where = "word LIKE ?";
 		String[] whereArgs = new String[]{wordFilter + "%"};
-		String limit = maxWords > 0 ? String.valueOf(maxWords) : null;
-		String orderBy = maxWords > 0 ? null : "word";
+		String limit = maxWords > 0 ? Math.max(offset, 0) + "," + maxWords : null;
 
-		try (Cursor cursor = db.query(Tables.CUSTOM_WORDS, select, where, whereArgs, null, null, orderBy, limit)) {
+		try (Cursor cursor = db.query(Tables.CUSTOM_WORDS, select, where, whereArgs, null, null, "word COLLATE NOCASE, word", limit)) {
 			while (cursor.moveToNext()) {
-				words.add(new CustomWord(
-					cursor.getString(0),
-					cursor.getString(1),
-					(int) cursor.getLong(2)
-				));
+				try {
+					words.add(new CustomWord(
+						cursor.getString(0),
+						cursor.getString(1),
+						(int) cursor.getLong(2)
+					));
+				} catch (IllegalArgumentException ignored) {
+					// skip words of removed languages or with invalid characters
+				}
 			}
 		}
 

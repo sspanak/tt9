@@ -13,7 +13,7 @@ public class DeleteOps {
 
 	public static void deleteCustomWord(@NonNull SQLiteDatabase db, int languageId, String word) {
 		db.delete(Tables.getWords(languageId), "word = ?", new String[] { word });
-		db.delete(Tables.CUSTOM_WORDS, "word = ?", new String[] { word });
+		db.delete(Tables.CUSTOM_WORDS, "langId = ? AND word = ?", new String[] { String.valueOf(languageId), word });
 	}
 
 	public static int purgeCustomWords(@NonNull SQLiteDatabase db, int languageId) {
