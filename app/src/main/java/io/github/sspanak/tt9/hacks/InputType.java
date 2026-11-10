@@ -47,9 +47,45 @@ public class InputType extends StandardInputType {
 	}
 
 
-	@Override
-	public boolean isEmail() {
-		return super.isEmail() && !isAndroidContactsSearch();
+	/**
+	 * isAnyOfApps
+	 * Checks if we are currently connected to one of the listed apps.
+	 */
+	protected boolean isAnyOfApps(@NonNull String[] packageNames) {
+		if (field == null || field.packageName == null) {
+			return false;
+		}
+
+		for (String packageName : packageNames) {
+			if (field.packageName.equals(packageName)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * isAppField
+	 * Checks if a particular app field has specific inputType flags.
+	 */
+	boolean isAppField(String appPackageName, int fieldSpec) {
+		return
+			field != null
+			&& ((field.inputType & fieldSpec) == fieldSpec)
+			&& field.packageName.equals(appPackageName);
+	}
+
+
+	/**
+	 * Similar to isAppField, but checks the inputType for strict equality, instead for contained flags.
+	 */
+	boolean isAppInput(String appPackageName, int inputType) {
+		return
+			field != null
+			&& field.inputType == inputType
+			&& field.packageName.equals(appPackageName);
 	}
 
 
@@ -103,33 +139,17 @@ public class InputType extends StandardInputType {
 
 
 	/**
-	 * isKyoceraDoneField
-	 * Kyocera system apps (e.g. the "Create Mail" full-screen editor in jp.kyocera.fpmail) declare
-	 * IME_ACTION_DONE, sometimes together with IME_FLAG_NO_ENTER_ACTION, but ignore the action itself.
-	 * They close and keep the text only when the keyboard sends the "Finish_IME" private command,
-	 * like the stock iWnn keyboard does. Passing DPAD_CENTER through only inserts a new line.
-	 * <a href="https://github.com/sspanak/tt9/issues/423">#423</a>
+	 * Detects incorrectly defined text fields.
 	 */
-	public boolean isKyoceraDoneField() {
-		return
-			field != null
-			&& field.packageName != null
-			&& field.packageName.startsWith("jp.kyocera.")
-			&& (field.imeOptions & EditorInfo.IME_MASK_ACTION) == EditorInfo.IME_ACTION_DONE;
+	@Override
+	public boolean isDefectiveText() {
+		return isDuoLingoReportBug() || isAndroid15ContactsField() || isSheinSearchField();
 	}
 
 
-	/**
-	 * isKyoceraExtractField
-	 * Some Kyocera "Done" fields, like the "Enter address" screen in jp.kyocera.fpmail, do not draw
-	 * the typed text themselves. They rely on the keyboard running in fullscreen mode, where the
-	 * text is displayed in the extract view, like the stock iWnn keyboard does. Fields that do not
-	 * want this declare IME_FLAG_NO_FULLSCREEN or IME_FLAG_NO_EXTRACT_UI.
-	 */
-	public boolean isKyoceraExtractField() {
-		return
-			isKyoceraDoneField()
-			&& (field.imeOptions & (EditorInfo.IME_FLAG_NO_FULLSCREEN | EditorInfo.IME_FLAG_NO_EXTRACT_UI)) == 0;
+	public boolean isDumbPhoneDialer(Context context) {
+		// the inputType is not always TYPE_CLASS_PHONE on all devices, so we must not filter by that.
+		return field.packageName.endsWith(".dialer") && !DeviceInfo.noKeyboard(context) && !isText();
 	}
 
 
@@ -148,30 +168,9 @@ public class InputType extends StandardInputType {
 	}
 
 
-	/**
-	 * isKindleInvertedTextField
-	 * When sharing a document to the Amazon Kindle app. It displays a screen where one could edit the title and the author of the
-	 * document. These two fields do not support SpannableString, which is used for suggestion highlighting. When they receive one
-	 * weird side effects occur. Nevertheless, all other text fields in the app are fine, so we detect only these two particular ones.
-	 */
-	boolean isKindleInvertedTextField() {
-		int titleImeOptions = EditorInfo.IME_ACTION_NONE | EditorInfo.IME_ACTION_SEND | EditorInfo.IME_FLAG_NAVIGATE_NEXT;
-		int titleAlternativeImeOptions = titleImeOptions | EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS; // sometimes the title field is different for no reason
-		int authorImeOptions = EditorInfo.IME_ACTION_SEND | EditorInfo.IME_ACTION_GO | EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS;
-
-		return
-			isAppField("com.amazon.kindle", EditorInfo.TYPE_CLASS_TEXT)
-			&& (
-				field.imeOptions == titleImeOptions
-				|| field.imeOptions == titleAlternativeImeOptions
-				|| field.imeOptions == authorImeOptions
-			);
-	}
-
-
-	public boolean isDumbPhoneDialer(Context context) {
-		// the inputType is not always TYPE_CLASS_PHONE on all devices, so we must not filter by that.
-		return field.packageName.endsWith(".dialer") && !DeviceInfo.noKeyboard(context) && !isText();
+	@Override
+	public boolean isEmail() {
+		return super.isEmail() && !isAndroidContactsSearch();
 	}
 
 
@@ -202,6 +201,58 @@ public class InputType extends StandardInputType {
 		return
 			isAppField(GMAIL, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE | EditorInfo.TYPE_TEXT_FLAG_AUTO_CORRECT)
 			|| isAppField(GMAIL, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+	}
+
+
+	/**
+	 * isKindleInvertedTextField
+	 * When sharing a document to the Amazon Kindle app. It displays a screen where one could edit the title and the author of the
+	 * document. These two fields do not support SpannableString, which is used for suggestion highlighting. When they receive one
+	 * weird side effects occur. Nevertheless, all other text fields in the app are fine, so we detect only these two particular ones.
+	 */
+	boolean isKindleInvertedTextField() {
+		int titleImeOptions = EditorInfo.IME_ACTION_NONE | EditorInfo.IME_ACTION_SEND | EditorInfo.IME_FLAG_NAVIGATE_NEXT;
+		int titleAlternativeImeOptions = titleImeOptions | EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS; // sometimes the title field is different for no reason
+		int authorImeOptions = EditorInfo.IME_ACTION_SEND | EditorInfo.IME_ACTION_GO | EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS;
+
+		return
+			isAppField("com.amazon.kindle", EditorInfo.TYPE_CLASS_TEXT)
+			&& (
+				field.imeOptions == titleImeOptions
+				|| field.imeOptions == titleAlternativeImeOptions
+				|| field.imeOptions == authorImeOptions
+			);
+	}
+
+
+	/**
+	 * isKyoceraDoneField
+	 * Kyocera system apps (e.g. the "Create Mail" full-screen editor in jp.kyocera.fpmail) declare
+	 * IME_ACTION_DONE, sometimes together with IME_FLAG_NO_ENTER_ACTION, but ignore the action itself.
+	 * They close and keep the text only when the keyboard sends the "Finish_IME" private command,
+	 * like the stock iWnn keyboard does. Passing DPAD_CENTER through only inserts a new line.
+	 * <a href="https://github.com/sspanak/tt9/issues/423">#423</a>
+	 */
+	public boolean isKyoceraDoneField() {
+		return
+			field != null
+			&& field.packageName != null
+			&& field.packageName.startsWith("jp.kyocera.")
+			&& (field.imeOptions & EditorInfo.IME_MASK_ACTION) == EditorInfo.IME_ACTION_DONE;
+	}
+
+
+	/**
+	 * isKyoceraExtractField
+	 * Some Kyocera "Done" fields, like the "Enter address" screen in jp.kyocera.fpmail, do not draw
+	 * the typed text themselves. They rely on the keyboard running in fullscreen mode, where the
+	 * text is displayed in the extract view, like the stock iWnn keyboard does. Fields that do not
+	 * want this declare IME_FLAG_NO_FULLSCREEN or IME_FLAG_NO_EXTRACT_UI.
+	 */
+	public boolean isKyoceraExtractField() {
+		return
+			isKyoceraDoneField()
+			&& (field.imeOptions & (EditorInfo.IME_FLAG_NO_FULLSCREEN | EditorInfo.IME_FLAG_NO_EXTRACT_UI)) == 0;
 	}
 
 
@@ -321,50 +372,6 @@ public class InputType extends StandardInputType {
 
 
 	/**
-	 * isTermux
-	 * Termux is a terminal emulator, and it naturally has a text input, but it incorrectly introduces itself as having a NULL input,
-	 * instead of a plain text input. However, NULL inputs are usually, buttons and dropdown menus, which indeed can not read text
-	 * and are ignored by TT9 by default. In order not to ignore Termux, we need this.
-	 */
-	public boolean isTermux() {
-		return isAppField("com.termux", EditorInfo.TYPE_NULL) && field.fieldId > 0;
-	}
-
-
-	/**
-	 * isTeamsInitial
-	 * M$ Teams seems to control the keyboard visibility on its own. Initially, it always reports
-	 * the input fields as TYPE_NULL, but once the keyboard accepts the show request, it switches to
-	 * TYPE_CLASS_TEXT. This method used to enforce us to stay active at all times in Teams.
-	 * The problem does not occur on all Android versions. I was able to reproduce it only on Unihertz
-	 * Atom L (Android 11), but not on Energizer H620S (Android 10). The bug report also suggests it
-	 * occurs on newer versions. See: <a href="https://github.com/sspanak/tt9/issues/749">#749</a>.
-	 */
-	public boolean isTeamsInitial() {
-		return isAppField("com.microsoft.teams", EditorInfo.TYPE_NULL);
-	}
-
-
-	/**
-	 * isWhatsApp
-	 * WhatsApp fails to replace one graphic character with another in the composing text, due to
-	 * its non-standard InputConnection implementation. This hacks detects the app, so that we can
-	 * clear the composing text when it starts with an emoji, to allow setting a new emoji (or other
-	 * character).
-	 */
-	public boolean isWhatsApp() {
-		return
-			isAppField("com.whatsapp", 180225) // standard chat field
-			|| isAppField("com.whatsapp", 147457); // the "add a caption" field when sharing media
-	}
-
-
-	public boolean isUs() {
-		return isUs;
-	}
-
-
-	/**
 	 * isSpecialNumeric
 	 * Calculator and Dialer fields seem to take care of numbers and backspace on their own,
 	 * so we need to be aware of them.
@@ -390,51 +397,45 @@ public class InputType extends StandardInputType {
 
 
 	/**
-	 * Detects incorrectly defined text fields.
+	 * isTeamsInitial
+	 * M$ Teams seems to control the keyboard visibility on its own. Initially, it always reports
+	 * the input fields as TYPE_NULL, but once the keyboard accepts the show request, it switches to
+	 * TYPE_CLASS_TEXT. This method used to enforce us to stay active at all times in Teams.
+	 * The problem does not occur on all Android versions. I was able to reproduce it only on Unihertz
+	 * Atom L (Android 11), but not on Energizer H620S (Android 10). The bug report also suggests it
+	 * occurs on newer versions. See: <a href="https://github.com/sspanak/tt9/issues/749">#749</a>.
 	 */
-	@Override
-	public boolean isDefectiveText() {
-		return isDuoLingoReportBug() || isAndroid15ContactsField() || isSheinSearchField();
+	public boolean isTeamsInitial() {
+		return isAppField("com.microsoft.teams", EditorInfo.TYPE_NULL);
 	}
 
 
 	/**
-	 * isAnyOfApps
-	 * Checks if we are currently connected to one of the listed apps.
+	 * isTermux
+	 * Termux is a terminal emulator, and it naturally has a text input, but it incorrectly introduces itself as having a NULL input,
+	 * instead of a plain text input. However, NULL inputs are usually, buttons and dropdown menus, which indeed can not read text
+	 * and are ignored by TT9 by default. In order not to ignore Termux, we need this.
 	 */
-	protected boolean isAnyOfApps(@NonNull String[] packageNames) {
-		if (field == null || field.packageName == null) {
-			return false;
-		}
-
-		for (String packageName : packageNames) {
-			if (field.packageName.equals(packageName)) {
-				return true;
-			}
-		}
-
-		return false;
+	public boolean isTermux() {
+		return isAppField("com.termux", EditorInfo.TYPE_NULL) && field.fieldId > 0;
 	}
 
 
 	/**
-	 * isAppField
-	 * Checks if a particular app field has specific inputType flags.
+	 * isWhatsApp
+	 * WhatsApp fails to replace one graphic character with another in the composing text, due to
+	 * its non-standard InputConnection implementation. This hacks detects the app, so that we can
+	 * clear the composing text when it starts with an emoji, to allow setting a new emoji (or other
+	 * character).
 	 */
-	boolean isAppField(String appPackageName, int fieldSpec) {
+	public boolean isWhatsApp() {
 		return
-			field != null
-			&& ((field.inputType & fieldSpec) == fieldSpec)
-			&& field.packageName.equals(appPackageName);
+			isAppField("com.whatsapp", 180225) // standard chat field
+			|| isAppField("com.whatsapp", 147457); // the "add a caption" field when sharing media
 	}
 
-	/**
-	 * Similar to isAppField, but checks the inputType for strict equality, instead for contained flags.
-	 */
-	boolean isAppInput(String appPackageName, int inputType) {
-		return
-			field != null
-			&& field.inputType == inputType
-			&& field.packageName.equals(appPackageName);
+
+	public boolean isUs() {
+		return isUs;
 	}
 }
