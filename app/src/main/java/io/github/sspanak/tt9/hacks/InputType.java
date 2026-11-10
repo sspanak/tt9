@@ -185,7 +185,7 @@ public class InputType extends StandardInputType {
 
 
 	/**
-	 * Detects Firefox for when the keyboard remaining invisible in websites.
+	 * Detects Firefox when the keyboard remains invisible on websites.
 	 * Bug reports:
 	 * <a href="https://github.com/sspanak/tt9/issues/920">#920</a>
 	 * <a href="https://github.com/sspanak/tt9/issues/1211">#1211</a>
