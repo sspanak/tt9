@@ -40,6 +40,8 @@
 	<string name="pref_abc_auto_accept_slow">Langzaam</string>
 	<string name="pref_allow_composing_text">Compositietekst weergeven</string>
 	<string name="pref_allow_composing_text_summary">Woorden tonen in tekstvelden tijdens het typen. Wanneer uitgeschakeld, worden woorden alleen getoond na het indrukken van OK of Spatie.</string>
+	<string name="pref_allow_system_tap_sound">Android-geluid bij toetsaanslag</string>
+	<string name="pref_allow_system_tap_sound_summary">Hiermee kan Android een geluid afspelen wanneer je op een toets op het toetsenbord drukt.</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternatieve suggestiescrolmethode</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Inschakelen als je soms niet alle suggesties kunt zien of problemen hebt met het scrollen.</string>
 	<string name="pref_arrows_left_right">Pijlen links/rechts</string>

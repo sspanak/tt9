@@ -46,6 +46,8 @@
 	<string name="pref_abc_auto_accept_slow">Lento</string>
 	<string name="pref_allow_composing_text">Mostrar texto em composição</string>
 	<string name="pref_allow_composing_text_summary">Mostrar palavras nos campos de texto enquanto digita. Quando desativado, as palavras são exibidas apenas após pressionar OK ou Espaço.</string>
+	<string name="pref_allow_system_tap_sound">Som do Android ao pressionar uma tecla</string>
+	<string name="pref_allow_system_tap_sound_summary">Permite que o Android reproduza um som quando uma tecla do teclado é pressionada.</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de rolagem de sugestões</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Ative se às vezes não conseguir ver todas as sugestões ou tiver problemas para rolá-las.</string>
 	<string name="pref_arrows_left_right_summary">Mostrar as teclas de seta esquerda/direita para rolar as sugestões ou mover o cursor de texto horizontalmente.</string>

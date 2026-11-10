@@ -137,6 +137,8 @@
 	<string name="pref_abc_auto_accept_slow">Бавен</string>
 	<string name="pref_allow_composing_text">Показвай текст при въвеждане</string>
 	<string name="pref_allow_composing_text_summary">Показване на думите в текстовите полета по време на въвеждане. Когато е изключено, думите се показват само след натискане на OK или Space.</string>
+	<string name="pref_allow_system_tap_sound">Звук от Android при натискане на клавиш</string>
+	<string name="pref_allow_system_tap_sound_summary">Позволява на Android да възпроизвежда звук при натискане на клавиш от клавиатурата.</string>
 	<string name="pref_alternative_suggestion_scrolling">Алтернативен метод за превъртане на думи</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Включете, ако понякога не виждате целия списък с думи или не може да стигнете до всички.</string>
 	<string name="pref_arrows_left_right_summary">Показване на стрелки наляво/надясно за превъртане на предложенията или хоризонтално преместване на текстовия курсор.</string>

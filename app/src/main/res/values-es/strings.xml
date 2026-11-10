@@ -93,6 +93,8 @@
 	<string name="pref_abc_auto_accept_slow">Lento</string>
 	<string name="pref_allow_composing_text">Mostrar texto en composición</string>
 	<string name="pref_allow_composing_text_summary">Mostrar palabras en los campos de texto mientras se escribe. Cuando está desactivado, las palabras se muestran solo después de pulsar OK o Espacio.</string>
+	<string name="pref_allow_system_tap_sound">Sonido de Android al pulsar una tecla</string>
+	<string name="pref_allow_system_tap_sound_summary">Permite que Android reproduzca un sonido al pulsar una tecla del teclado.</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de desplazamiento de sugerencias</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Habilítelo si a veces no puedes ver todas las sugerencias o tienes problemas para desplazarte por ellas.</string>
 	<string name="pref_arrows_left_right_summary">Mostrar las teclas de flecha izquierda/derecha para desplazarse por las sugerencias o mover el cursor de texto horizontalmente.</string>

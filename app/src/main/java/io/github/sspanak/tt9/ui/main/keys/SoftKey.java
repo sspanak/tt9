@@ -333,6 +333,8 @@ public class SoftKey extends BaseClickableKey {
 		setStrokeWidth(borderColor.getDefaultColor() == Color.TRANSPARENT ? 0 : 2);
 		setTextColor(textColor);
 
+		setSoundEffectsEnabled(tt9 != null && tt9.getSettings().getAllowSystemTapSound());
+
 		boolean isKeyEnabled = isEnabled();
 		renderTitle(isKeyEnabled);
 		getOverlayWrapper();
