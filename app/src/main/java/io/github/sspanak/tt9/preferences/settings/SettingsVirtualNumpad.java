@@ -19,6 +19,7 @@ import io.github.sspanak.tt9.preferences.screens.appearanceUnfolded.DropDownKeyH
 import io.github.sspanak.tt9.preferences.screens.appearanceUnfolded.DropDownNumpadFnKeyScaleUnfolded;
 import io.github.sspanak.tt9.preferences.screens.appearanceUnfolded.DropDownNumpadKeyFontSizeUnfolded;
 import io.github.sspanak.tt9.preferences.screens.fnKeyOrder.FnKeyOrderValidator;
+import io.github.sspanak.tt9.preferences.screens.keypad.SwitchAllowSystemTapSound;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class SettingsVirtualNumpad extends SettingsCustomKeyActions {
@@ -49,6 +50,10 @@ public class SettingsVirtualNumpad extends SettingsCustomKeyActions {
 
 	SettingsVirtualNumpad(Context context) {
 		super(context);
+	}
+
+	public boolean getAllowSystemTapSound() {
+		return prefs.getBoolean(SwitchAllowSystemTapSound.NAME, SwitchAllowSystemTapSound.DEFAULT);
 	}
 
 	public boolean getArrowsLeftRight() {

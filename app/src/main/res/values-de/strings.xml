@@ -41,6 +41,8 @@
 	<string name="pref_abc_auto_accept_slow">Langsam</string>
 	<string name="pref_allow_composing_text">Zusammengesetzten Text anzeigen</string>
 	<string name="pref_allow_composing_text_summary">Wörter in Textfeldern während der Eingabe anzeigen. Wenn deaktiviert, werden Wörter nur nach Drücken von OK oder der Leertaste angezeigt.</string>
+	<string name="pref_allow_system_tap_sound">Android-Sound beim Tastendruck</string>
+	<string name="pref_allow_system_tap_sound_summary">Android kann einen Ton abspielen, wenn eine Taste auf der Tastatur gedrückt wird.</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternative Wort-Scroll-Methode</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Aktivieren Sie, wenn Sie manchmal nicht alle Vorschläge sehen können oder Probleme beim Scrollen haben.</string>
 	<string name="pref_arrows_left_right_summary">Linke/rechte Pfeiltasten anzeigen, um durch Vorschläge zu scrollen oder den Textcursor horizontal zu bewegen.</string>
