@@ -139,7 +139,7 @@ public class InputType extends StandardInputType {
 
 
 	/**
-	 * Detects Chrome for when the keyboard remaining invisible in websites.
+	 * Detects Chrome when the keyboard remains invisible on websites.
 	 * Bug reports:
 	 * <a href="https://github.com/sspanak/tt9/issues/1211">#1211</a>
 	 */
