@@ -234,6 +234,52 @@ public class WordStore extends BaseSyncStore {
 	}
 
 
+	/**
+	 * Increases the frequency of the given word by one. Unlike makeTopWord(), the word does not jump
+	 * to the top immediately. It moves up only after it has been used more times than the words
+	 * above it.
+	 */
+	public void incrementFrequency(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
+		if (!checkOrNotify() || word.isEmpty() || sequence.isEmpty() || language instanceof NullLanguage) {
+			return;
+		}
+
+		try {
+			Timer.start(LOG_TAG);
+
+			String positions = readOps.getWordPositions(sqlite.getDb(), null, language, sequence, 0, 0, Integer.MAX_VALUE, "");
+			WordList words = readOps.getWords(sqlite.getDb(), null, language, positions, "", false, true);
+
+			Word match = null;
+			String upperCaseWord = word.toUpperCase(language.getLocale());
+			for (Word w : words) {
+				if (w.word.toUpperCase(language.getLocale()).equals(upperCaseWord)) {
+					match = w;
+					break;
+				}
+			}
+
+			if (match == null) {
+				throw new Exception("No such word");
+			}
+
+			int newFrequency = match.frequency + 1;
+			Text wordFilter = new Text(language, word.length() == 1 ? word : null);
+			if (!UpdateOps.changeFrequency(sqlite.getDb(), language, wordFilter, match.position, newFrequency)) {
+				throw new Exception("No such word");
+			}
+
+			if (newFrequency > SettingsStore.WORD_FREQUENCY_MAX) {
+				scheduleNormalization(language, positions);
+			}
+
+			Logger.d(LOG_TAG, "Incremented frequency of '" + word + "' to: " + newFrequency + ". Time: " + Timer.stop(LOG_TAG) + " ms");
+		} catch (Exception e) {
+			Logger.e(LOG_TAG,"Frequency increment failed. Word: '" + word + "'. " + e.getMessage());
+		}
+	}
+
+
 	public void normalizeNext() {
 		if (!checkOrNotify()) {
 			return;

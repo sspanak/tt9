@@ -95,6 +95,10 @@ class SettingsTyping extends SettingsMindReading {
 		return prefs.getBoolean("pref_predict_top_words", true);
 	}
 
+	public boolean getRankWordsByUsage() {
+		return getPredictTopWords() && prefs.getBoolean("pref_rank_words_by_usage", false);
+	}
+
 	public boolean getPredictWordPairs() {
 		return getPredictTopWords() && prefs.getBoolean("pref_predict_word_pairs", true);
 	}

@@ -106,6 +106,11 @@ public class DataStore {
 	}
 
 
+	public static void incrementWordFrequency(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
+		runInThread(() -> words.incrementFrequency(language, word, sequence));
+	}
+
+
 	public static void getWords(Consumer<ArrayList<String>> dataHandler, Language language, String sequence, boolean onlyExactSequence, String filter, boolean orderByLength, int minWords, int maxWords) {
 		if (getWordsTask != null && !getWordsTask.isDone()) {
 			getWordsCancellationSignal.cancel();
