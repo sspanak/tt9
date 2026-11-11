@@ -370,6 +370,15 @@ public class InputType extends StandardInputType {
 
 
 	/**
+	 * Slack requires special treatment when 'send with Enter' is enabled.
+	 * See AppHacks.getEditorAction() for more info.
+	 */
+	boolean isSlack() {
+		return field != null && field.packageName.equals("com.Slack");
+	}
+
+
+	/**
 	 * Simulate the behavior of the Sonim native keyboard. In search fields with integrated lists,
 	 * ENTER is used to select an item from the list. But some of them have actionId = NEXT, instead of NONE,
 	 * which normally means "navigate to the next button or field". This hack correctly allows selection
