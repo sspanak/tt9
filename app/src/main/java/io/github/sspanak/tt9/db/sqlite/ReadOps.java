@@ -41,29 +41,6 @@ public class ReadOps {
 
 
 	/**
-	 * Checks if a word was added by the user. getWord() can not find such words, because they are
-	 * not in the word positions table. The case variants are the same as in getWord().
-	 */
-	private boolean customWordExists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word, @NonNull String sequence) {
-		if (sequence.isEmpty() || word.isEmpty()) {
-			return false;
-		}
-
-		final SQLiteStatement query = CompiledQueryCache.get(
-			db,
-			"SELECT COUNT(*) FROM " + Tables.CUSTOM_WORDS + " WHERE langId = ? AND sequence = ? AND word IN(?,?,?)"
-		);
-		query.bindLong(1, language.getId());
-		query.bindString(2, sequence);
-		query.bindString(3, word);
-		query.bindString(4, word.toLowerCase(language.getLocale()));
-		query.bindString(5, word.toUpperCase(language.getLocale()));
-
-		return query.simpleQueryForLong() > 0;
-	}
-
-
-	/**
 	 * Checks which of the given words exist in the database for the given language and return them (case-insensitive).
 	 */
 	@NonNull
@@ -114,6 +91,29 @@ public class ReadOps {
 			"SELECT COUNT(*) FROM " + Tables.getWords(langId),
 			0
 		) > 0;
+	}
+
+
+	/**
+	 * Checks if a word was added by the user. getWord() can not find such words, because they are
+	 * not in the word positions table. The case variants are the same as in getWord().
+	 */
+	private boolean customWordExists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word, @NonNull String sequence) {
+		if (sequence.isEmpty() || word.isEmpty()) {
+			return false;
+		}
+
+		final SQLiteStatement query = CompiledQueryCache.get(
+			db,
+			"SELECT COUNT(*) FROM " + Tables.CUSTOM_WORDS + " WHERE langId = ? AND sequence = ? AND word IN(?,?,?)"
+		);
+		query.bindLong(1, language.getId());
+		query.bindString(2, sequence);
+		query.bindString(3, word);
+		query.bindString(4, word.toLowerCase(language.getLocale()));
+		query.bindString(5, word.toUpperCase(language.getLocale()));
+
+		return query.simpleQueryForLong() > 0;
 	}
 
 
