@@ -194,7 +194,7 @@ abstract public class InputMode {
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) { return false; }
 	public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextKey, boolean hold) { return false; }
 	public boolean shouldReplacePreviousSuggestion(@Nullable String currentWord) { return Characters.PLACEHOLDER.equals(currentWord); }
-	public boolean shouldAddTrailingSpace(@NonNull String previousChars, @NonNull String nextChars, boolean isWordAcceptedManually, int nextKey) { return false; }
+	public boolean shouldAddTrailingSpace(@Nullable String lastAcceptedWord, @NonNull String previousChars, @NonNull String nextChars, boolean isWordAcceptedManually, int nextKey) { return false; }
 	public boolean shouldAddPrecedingSpace(@NonNull String previousChars) { return false; }
 	public boolean shouldDeletePrecedingSpace(@NonNull String previousChars) { return false; }
 	protected boolean shouldDisplayEmojis() { return !isEmailMode && settings.areEmojisEnabled() && digitSequence.startsWith(seq.EMOJI_SEQUENCE); }

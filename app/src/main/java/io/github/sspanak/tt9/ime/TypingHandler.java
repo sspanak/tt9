@@ -329,13 +329,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			}
 		}
 
-		// When the app is too slow to tell us the text before the cursor, AutoSpace would blindly assume
-		// a word was typed and add a space. Then, a punctuation character (like "/" at the beginning
-		// of a slash command) would get a space only sometimes, depending on the app response time.
-		// We still know what we have just typed, so we use it to make the decision consistent.
-		final String charsForTrailingSpace = InputConnectionAsync.TIMEOUT_SENTINEL.equals(previousChars) ? currentWord : previousChars;
-
-		if (mInputMode.shouldAddTrailingSpace(charsForTrailingSpace, nextChars, isWordAcceptedManually, nextKey)) {
+		if (mInputMode.shouldAddTrailingSpace(currentWord, previousChars, nextChars, isWordAcceptedManually, nextKey)) {
 			textField.setText(" ");
 			previousChars += " ";
 		}
