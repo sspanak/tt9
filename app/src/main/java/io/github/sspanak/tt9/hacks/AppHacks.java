@@ -58,7 +58,7 @@ public class AppHacks {
 		return
 			inputType != null
 			&& (
-				(DeviceInfo.AT_LEAST_ANDROID_16 && inputType.isGmailComposeMail())
+				(DeviceInfo.AT_LEAST_ANDROID_16 && (inputType.isGmailComposeMail() || inputType.isChromeText()))
 				|| (DeviceInfo.AT_LEAST_ANDROID_14 && inputType.isFirefoxText())
 			);
 	}
