@@ -235,9 +235,9 @@ public class WordStore extends BaseSyncStore {
 
 
 	/**
-	 * Increases the frequency of the given word by one. Unlike makeTopWord(), the word does not jump
-	 * to the top immediately. It moves up only after it has been used more times than the words
-	 * above it.
+	 * Increases the frequency of the given word by WORD_FREQUENCY_USAGE_STEP. Unlike makeTopWord(),
+	 * the word does not jump to the top immediately. It moves up only after it has been used more
+	 * times than the words above it.
 	 */
 	public void incrementFrequency(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
 		if (!checkOrNotify() || word.isEmpty() || sequence.isEmpty() || language instanceof NullLanguage) {
@@ -263,7 +263,7 @@ public class WordStore extends BaseSyncStore {
 				throw new Exception("No such word");
 			}
 
-			int newFrequency = match.frequency + 1;
+			int newFrequency = match.frequency + SettingsStore.WORD_FREQUENCY_USAGE_STEP;
 			Text wordFilter = new Text(language, word.length() == 1 ? word : null);
 			if (!UpdateOps.changeFrequency(sqlite.getDb(), language, wordFilter, match.position, newFrequency)) {
 				throw new Exception("No such word");
