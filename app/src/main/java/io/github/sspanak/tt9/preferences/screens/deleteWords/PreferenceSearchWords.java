@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import io.github.sspanak.tt9.db.DataStore;
-import io.github.sspanak.tt9.db.entities.CustomWord;
 import io.github.sspanak.tt9.preferences.items.SearchPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
@@ -19,9 +18,11 @@ import io.github.sspanak.tt9.util.Logger;
 public class PreferenceSearchWords extends SearchPreference {
 	public static final String NAME = "dictionary_delete_words_search";
 	private static final String LOG_TAG = PreferenceSearchWords.class.getSimpleName();
+	static final int PAGE_SIZE = SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_MAX;
 
-	private Consumer<ArrayList<CustomWord>> onWords;
-	private Consumer<Long> onTotalWords;
+	@Nullable private Activity activity;
+	@Nullable private Consumer<CustomWordsPage> onPage;
+	private int lastRequestId = 0;
 
 	@NonNull private String lastSearchTerm = "";
 
@@ -44,23 +45,51 @@ public class PreferenceSearchWords extends SearchPreference {
 
 	void search(String word) {
 		lastSearchTerm = word == null || word.trim().isEmpty() ? "" : word.trim();
+		loadPage(0);
+	}
 
-		if (onWords == null) {
+	/**
+	 * Loads the words matching the last search term, starting from the given position. Must be
+	 * called on the UI thread.
+	 */
+	void loadPage(int offset) {
+		if (onPage == null || activity == null) {
 			Logger.w(LOG_TAG, "No handler set for the word change event.");
-		} else if (lastSearchTerm.isEmpty()) {
-			DataStore.countCustomWords(onTotalWords);
-			DataStore.getCustomWords(onWords, lastSearchTerm, SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_MAX);
-		} else {
-			DataStore.countCustomWords(onTotalWords);
-			DataStore.getCustomWords(onWords, lastSearchTerm, -1);
+			return;
 		}
+
+		final int requestId = ++lastRequestId;
+		final String searchTerm = lastSearchTerm;
+		final int start = Math.max(0, offset);
+
+		DataStore.countCustomWords(
+			(total) -> DataStore.getCustomWords(
+				(words) -> deliver(requestId, new CustomWordsPage(searchTerm, start, total, words == null ? new ArrayList<>() : words)),
+				searchTerm,
+				PAGE_SIZE,
+				start
+			),
+			searchTerm
+		);
 	}
 
-	void setOnWordsHandler(@NonNull Activity activity, Consumer<ArrayList<CustomWord>> onWords) {
-		this.onWords = (words) -> activity.runOnUiThread(() -> onWords.accept(words));
+	private void deliver(int requestId, @NonNull CustomWordsPage page) {
+		final Activity act = activity;
+		final Consumer<CustomWordsPage> handler = onPage;
+		if (act == null || handler == null) {
+			return;
+		}
+
+		act.runOnUiThread(() -> {
+			// ignore stale results, when the user has typed or changed the page in the meantime
+			if (requestId == lastRequestId) {
+				handler.accept(page);
+			}
+		});
 	}
 
-	void setOnTotalWordsHandler(@NonNull Activity activity, Consumer<Long> onTotalWords) {
-		this.onTotalWords = (total) -> activity.runOnUiThread(() -> onTotalWords.accept(total));
+	void setOnPageHandler(@NonNull Activity activity, @NonNull Consumer<CustomWordsPage> handler) {
+		this.activity = activity;
+		this.onPage = handler;
 	}
 }

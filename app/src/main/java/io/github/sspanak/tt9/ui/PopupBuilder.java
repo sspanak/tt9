@@ -69,6 +69,16 @@ public class PopupBuilder {
 	}
 
 
+	public PopupBuilder setNeutralButton(String text, Runnable action) {
+		if (DeviceInfo.AT_LEAST_ANDROID_12) {
+			builder12.setNeutralButton(text, (dialog, which) -> { if (action != null) action.run(); });
+		} else {
+			builderLegacy.setNeutralButton(text, (dialog, which) -> { if (action != null) action.run(); });
+		}
+		return this;
+	}
+
+
 	public PopupBuilder setOnKeyListener(DialogInterface.OnKeyListener listener) {
 		if (DeviceInfo.AT_LEAST_ANDROID_12) {
 			builder12.setOnKeyListener(listener);
