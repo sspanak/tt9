@@ -17,6 +17,7 @@ public class HardwareInfo {
 	public static final boolean IS_LG_X100S = Build.MANUFACTURER.equals("LGE") && Build.MODEL.contains("X100S");
 	public static final boolean IS_QIN_F21 = Build.MANUFACTURER.equals("DuoQin") && Build.MODEL.contains("F21");
 	public static final boolean IS_SAMSUNG = Build.MANUFACTURER.equals("samsung") || Build.MANUFACTURER.equals("Samsung") || Build.MANUFACTURER.equals("SAMSUNG");
+	public static final boolean IS_SIDEPHONE_SP01 = Build.MANUFACTURER.equals("Sidephone") && Build.MODEL.startsWith("SP01");
 	public static final boolean IS_SONIM = Build.MANUFACTURER.equals("Sonimtech");
 	public static final boolean IS_XIAOMI = Build.MANUFACTURER.equals("Xiaomi");
 
