@@ -237,7 +237,8 @@ public class WordStore extends BaseSyncStore {
 	/**
 	 * Increases the frequency of the given word by WORD_FREQUENCY_USAGE_STEP. Unlike makeTopWord(),
 	 * the word does not jump to the top immediately. It moves up only after it has been used more
-	 * times than the words above it.
+	 * times than the words above it. The top word can be at most WORD_FREQUENCY_USAGE_MAX_TOP_LEAD
+	 * ahead of the second one.
 	 */
 	public void incrementFrequency(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
 		if (!checkOrNotify() || word.isEmpty() || sequence.isEmpty() || language instanceof NullLanguage) {
@@ -264,6 +265,18 @@ public class WordStore extends BaseSyncStore {
 			}
 
 			int newFrequency = match.frequency + SettingsStore.WORD_FREQUENCY_USAGE_STEP;
+
+			// Do not let the top word get too far ahead of the second one. Otherwise, after many uses,
+			// it would take a very long time for another word to overtake it, if the user's habits change.
+			if (match == words.get(0) && words.size() > 1) {
+				newFrequency = Math.min(newFrequency, words.get(1).frequency + SettingsStore.WORD_FREQUENCY_USAGE_MAX_TOP_LEAD);
+			}
+
+			if (newFrequency == match.frequency) {
+				Logger.d(LOG_TAG, "'" + word + "' is already far enough ahead. Frequency: " + newFrequency + ". Time: " + Timer.stop(LOG_TAG) + " ms");
+				return;
+			}
+
 			Text wordFilter = new Text(language, word.length() == 1 ? word : null);
 			if (!UpdateOps.changeFrequency(sqlite.getDb(), language, wordFilter, match.position, newFrequency)) {
 				throw new Exception("No such word");

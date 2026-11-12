@@ -52,6 +52,7 @@ public class SettingsStatic extends SettingsColors {
 	public final static int WORD_BACKGROUND_TASKS_DELAY = 15000; // ms
 	public final static int WORD_FREQUENCY_MAX = 25500;
 	public final static int WORD_FREQUENCY_USAGE_STEP = 10; // large enough to overcome the dictionary frequencies after a few uses
+	public final static int WORD_FREQUENCY_USAGE_MAX_TOP_LEAD = 5 * WORD_FREQUENCY_USAGE_STEP; // limits how far ahead the top word can get, so that another word can overtake it after a few uses
 	public final static int WORD_FREQUENCY_NORMALIZATION_DIVIDER = 100; // normalized frequency = WORD_FREQUENCY_MAX / WORD_FREQUENCY_NORMALIZATION_DIVIDER
 	public final static int WORD_PAIR_MAX = 1250;
 	public final static int WORD_PAIR_MAX_WORD_LENGTH = 6;
