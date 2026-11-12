@@ -261,14 +261,19 @@ public class WordPredictions extends Predictions {
 	 * when there are many textonyms for a single sequence.
 	 */
 	public void onAccept(String word, String sequence) {
-		if (
-			word == null
-			// If the word is the first suggestion, we have already guessed it right, and it makes no
-			// sense to store it as a popular pair or increase its priority. However, if the stem has been
-			// set using word filtering, the user has probably tried to search for a word that has not been
-			// displayed at the beginning. In this case, we process it after all.
-			|| (!words.isEmpty() && words.get(0).equals(word) && stem.isEmpty())
-		) {
+		if (word == null) {
+			return;
+		}
+
+		// If the word is the first suggestion, we have already guessed it right, and it makes no
+		// sense to store it as a popular pair or increase its priority. However, if the stem has been
+		// set using word filtering, the user has probably tried to search for a word that has not been
+		// displayed at the beginning. In this case, we process it after all.
+		if (!words.isEmpty() && words.get(0).equals(word) && stem.isEmpty()) {
+			// When ranking by usage, every use counts, including the uses of the top word.
+			if (settings.getRankWordsByUsage()) {
+				DataStore.incrementWordFrequency(language, word, sequence);
+			}
 			return;
 		}
 
@@ -279,10 +284,13 @@ public class WordPredictions extends Predictions {
 
 	/**
 	 * Update the priority only if the user has selected the word, not when we have enforced it
-	 * because it is in a popular word pair.
+	 * because it is in a popular word pair. When ranking by usage, the word is counted in either case,
+	 * because the user has typed it.
 	 */
 	protected void makeTopWord(String word, String sequence) {
-		if (settings.getPredictTopWords() && !word.equals(lastEnforcedTopWord)) {
+		if (settings.getRankWordsByUsage()) {
+			DataStore.incrementWordFrequency(language, word, sequence);
+		} else if (settings.getPredictTopWords() && !word.equals(lastEnforcedTopWord)) {
 			DataStore.makeTopWord(language, word, sequence);
 		}
 	}
