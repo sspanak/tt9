@@ -57,7 +57,7 @@ public class AutoSpace {
 	 * suggestion. This allows faster typing, without pressing space. See the helper functions for
 	 * the list of rules.
 	 */
-	public boolean shouldAddTrailingSpace(@Nullable InputType inputType, @NonNull InputMode mode, @NonNull String previousChars, @NonNull String nextChars, boolean isWordAcceptedManually, int nextKey) {
+	public boolean shouldAddTrailingSpace(@Nullable InputType inputType, @NonNull InputMode mode, @Nullable String lastAcceptedWord, @NonNull String previousChars, @NonNull String nextChars, boolean isWordAcceptedManually, int nextKey) {
 		if (
 			!isLanguageWithSpaceBetweenWords
 			|| nextKey == 0
@@ -68,9 +68,15 @@ public class AutoSpace {
 			return false;
 		}
 
-		// If the InputConnection timed out, assume we are right after a word and we want a space.
-		// It should be the more convenient option.
-		if (previousChars.equals(InputConnectionAsync.TIMEOUT_SENTINEL)) {
+		// When the app is too slow to tell us the text before the cursor, we still know what we have
+		// just typed, so we use it. Otherwise, a punctuation character (like "/" at the beginning of
+		// a slash command) would get a space only sometimes, depending on the app response time.
+		final boolean isTimeout = previousChars.equals(InputConnectionAsync.TIMEOUT_SENTINEL);
+		if (isTimeout && lastAcceptedWord != null && !lastAcceptedWord.isEmpty()) {
+			previousChars = lastAcceptedWord;
+		} else if (isTimeout) {
+			// If we know nothing, assume we are right after a word and we want a space.
+			// It should be the more convenient option.
 			return true;
 		}
 
