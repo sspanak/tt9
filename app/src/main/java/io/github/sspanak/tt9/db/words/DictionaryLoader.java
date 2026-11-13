@@ -46,7 +46,7 @@ public class DictionaryLoader {
 	@NonNull private final DictionaryLoadingBar loadingBar;
 	@Nullable private Thread loadThread;
 
-	@NonNull private static final HashMap<Integer, Long> lastAutoLoadAttemptTime = new HashMap<>();
+	@NonNull private static final HashMap<Integer, Long> lastNewUpdateNotificationTime = new HashMap<>();
 	private static boolean skipNextAutoLoad = false;
 	private int currentFile = 0;
 
@@ -99,29 +99,29 @@ public class DictionaryLoader {
 	}
 
 
-	public static boolean autoLoad(@NonNull InputMethodService context, @NonNull SettingsStore settings, @NonNull Language language) {
+	public static void autoLoad(@NonNull InputMethodService context, @NonNull SettingsStore settings, @NonNull Language language) {
 		if (!settings.getPredictiveMode() || isRunning()) {
-			return false;
+			return;
 		}
 
 		if (skipNextAutoLoad) {
 			skipNextAutoLoad = false;
-			return false;
+			return;
 		}
 
-		final Long lastUpdateTime = lastAutoLoadAttemptTime.get(language.getId());
-		final boolean isItTooSoon = lastUpdateTime != null && System.currentTimeMillis() - lastUpdateTime < SettingsStore.DICTIONARY_AUTO_LOAD_COOLDOWN_TIME;
+		final boolean noNotifications = DeviceInfo.AT_LEAST_ANDROID_12;
+		final Long lastNotifyTime = noNotifications ? null : lastNewUpdateNotificationTime.get(language.getId());
+		final boolean isItTooSoon = lastNotifyTime != null && System.currentTimeMillis() - lastNotifyTime < SettingsStore.DICTIONARY_AUTO_LOAD_COOLDOWN_TIME;
 		if (isItTooSoon) {
-			return false;
+			return;
 		}
 
 		DataStore.getLastLanguageUpdateTime(
 			(hash) -> {
-				lastAutoLoadAttemptTime.put(language.getId(), System.currentTimeMillis());
+				lastNewUpdateNotificationTime.put(language.getId(), System.currentTimeMillis());
 
 				final boolean noDictionary = hash == null || hash.isEmpty();
 				final boolean isDictionaryOutdated = noDictionary || !hash.equals(new WordFile(context, language, context.getAssets()).getHash());
-				final boolean noNotifications = DeviceInfo.AT_LEAST_ANDROID_13;
 
 				if (noDictionary || (isDictionaryOutdated && noNotifications)) {
 					load(context, settings, language);
@@ -131,8 +131,13 @@ public class DictionaryLoader {
 			},
 			language
 		);
+	}
 
-		return true;
+
+	public static void clearAutoLoadNotificationCooldown(ArrayList<Language> languages) {
+		for (Language language : languages) {
+			lastNewUpdateNotificationTime.remove(language.getId());
+		}
 	}
 
 
@@ -228,12 +233,12 @@ public class DictionaryLoader {
 		} catch (DictionaryImportAbortedException e) {
 			sqlite.failTransaction();
 			stop();
-			lastAutoLoadAttemptTime.put(language.getId(), null);
+			lastNewUpdateNotificationTime.put(language.getId(), null);
 			Logger.i(LOG_TAG, e.getMessage() + ". File '" + language.getDictionaryFile() + "' not imported.");
 		} catch (DictionaryImportException e) {
 			stop();
 			sqlite.failTransaction();
-			lastAutoLoadAttemptTime.put(language.getId(), null);
+			lastNewUpdateNotificationTime.put(language.getId(), null);
 			loadingBar.showError(DictionaryImportException.class.getSimpleName(), language, e.line);
 
 			Logger.e(
@@ -248,9 +253,9 @@ public class DictionaryLoader {
 			loadingBar.showError(e.getClass().getSimpleName(), language, -1);
 
 			if (e instanceof UnknownHostException) {
-				lastAutoLoadAttemptTime.put(language.getId(), System.currentTimeMillis());
+				lastNewUpdateNotificationTime.put(language.getId(), System.currentTimeMillis());
 			} else {
-				lastAutoLoadAttemptTime.put(language.getId(), null);
+				lastNewUpdateNotificationTime.put(language.getId(), null);
 			}
 
 			Logger.e(

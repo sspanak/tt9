@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.mindreader.MindReaderStore;
 import io.github.sspanak.tt9.db.words.DictionaryDeleter;
+import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
@@ -86,6 +87,6 @@ class ItemTruncateAll extends ItemClickable {
 			}
 		});
 
-		deleterOfWords.deleteLanguages(languages);
+		deleterOfWords.deleteLanguages(languages, () -> DictionaryLoader.clearAutoLoadNotificationCooldown(languages));
 	}
 }

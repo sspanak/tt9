@@ -47,18 +47,18 @@ public class DictionaryDeleter extends BaseSyncStore {
 	}
 
 
-	public void deleteLanguages(@NonNull ArrayList<Language> languages) {
+	public void deleteLanguages(@NonNull ArrayList<Language> languages, @NonNull Runnable onDone) {
 		if (!checkOrNotify()) {
 			onFinish();
 			return;
 		}
 
 		Timer.start(LOG_TAG);
-		deleteTask = executor.submit(() -> deleteLanguagesSync(languages));
+		deleteTask = executor.submit(() -> deleteLanguagesSync(languages, onDone));
 	}
 
 
-	private void deleteLanguagesSync(@NonNull ArrayList<Language> languages) {
+	private void deleteLanguagesSync(@NonNull ArrayList<Language> languages, @NonNull Runnable onDone) {
 		for (Language language : languages) {
 			if (!deleteLanguage(language)) {
 				break;
@@ -67,6 +67,7 @@ public class DictionaryDeleter extends BaseSyncStore {
 
 		deleteTask = null;
 		onFinish();
+		onDone.run();
 
 		Logger.d(LOG_TAG, "Deleted " + languages.size() + " languages. Time: " + Timer.stop(LOG_TAG) + " ms");
 	}
@@ -82,6 +83,7 @@ public class DictionaryDeleter extends BaseSyncStore {
 			sqlite.beginTransaction();
 			DeleteOps.delete(sqlite.getDb(), language.getId());
 			DeleteOps.deleteWordPairs(sqlite.getDb(), language.getId());
+			DeleteOps.deleteMeta(sqlite.getDb(), language.getId());
 			sqlite.finishTransaction();
 		} catch (Exception e) {
 			sqlite.failTransaction();

@@ -16,6 +16,10 @@ public class DeleteOps {
 		db.delete(Tables.CUSTOM_WORDS, "word = ?", new String[] { word });
 	}
 
+	public static void deleteMeta(@NonNull SQLiteDatabase db, int languageId) {
+		db.delete(Tables.LANGUAGES_META, "langId = ?", new String[] { String.valueOf(languageId) });
+	}
+
 	public static int purgeCustomWords(@NonNull SQLiteDatabase db, int languageId) {
 		String words = Tables.getWords(languageId);
 		String positions = Tables.getWordPositions(languageId);
