@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
@@ -47,6 +48,9 @@ public class CmdNextInputMode implements Command {
 		final int nextModeId = getNextInputMode(tt9);
 		if (nextModeId != inputMode.getId()) {
 			tt9.setInputMode(nextModeId);
+			if (InputModeKind.isPredictive(tt9.getInputMode()) && tt9.getLanguage() != null) {
+				DictionaryLoader.autoLoad(tt9, tt9.getSettings(), tt9.getLanguage());
+			}
 		}
 
 		tt9.forceShowWindow();

@@ -318,15 +318,6 @@ public class TraditionalT9 extends PremiumHandler {
 
 
 	@Override
-	protected boolean onNumber(int key, boolean hold, int repeat) {
-		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.autoLoad(this, settings, mLanguage)) {
-			return true;
-		}
-		return super.onNumber(key, hold, repeat);
-	}
-
-
-	@Override
 	protected TraditionalT9 getFinalContext() {
 		return this;
 	}

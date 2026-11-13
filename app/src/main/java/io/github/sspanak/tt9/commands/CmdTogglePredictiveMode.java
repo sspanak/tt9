@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
@@ -47,6 +48,9 @@ public class CmdTogglePredictiveMode implements Command {
 			tt9.setInputMode(InputMode.MODE_ABC);
 		} else if (InputModeKind.isABC(tt9.getInputMode()) && allowedInputModes.contains(InputMode.MODE_PREDICTIVE)) {
 			tt9.setInputMode(InputMode.MODE_PREDICTIVE);
+			if (tt9.getLanguage() != null) {
+				DictionaryLoader.autoLoad(tt9, tt9.getSettings(), tt9.getLanguage());
+			}
 		}
 
 		return true;
