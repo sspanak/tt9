@@ -4,26 +4,52 @@ import android.app.Activity;
 
 import androidx.annotation.NonNull;
 
+import org.json.JSONException;
+
+import io.github.sspanak.tt9.preferences.PreferencesActivity;
+
 public class SettingsExporter extends AbstractExporter {
+	private static final String BASE_FILE_NAME = "tt9-settings-";
+
 	public SettingsExporter() {
 		FILE_EXTENSION = ".json";
 		MIME_TYPE = "application/json";
 	}
 
+	public String getOutputFileName() {
+		return getOutputFile();
+	}
+
 	@NonNull
 	@Override
 	protected String generateFileName() {
-		return "";
+		return BASE_FILE_NAME + System.currentTimeMillis() + FILE_EXTENSION;
 	}
 
 	@NonNull
 	@Override
 	protected byte[] getFileContents(Activity activity) throws Exception {
-		return new byte[0];
+		byte[] bytes = new byte[0];
+
+		try {
+			if (activity instanceof PreferencesActivity) {
+				bytes = ((PreferencesActivity) activity).getSettings().exportAll().getBytes();
+			}
+		} catch (JSONException ex) {
+			throw new Exception("Failed exporting settings. " + ex);
+		}
+
+		return bytes;
 	}
 
 	@Override
 	protected void runSync(Activity activity) {
-
+		try {
+			sendStart("Exporting settings...");
+			write(activity);
+			sendSuccess();
+		} catch (Exception e) {
+			sendFailure();
+		}
 	}
 }

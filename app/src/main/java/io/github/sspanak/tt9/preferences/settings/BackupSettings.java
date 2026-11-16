@@ -45,7 +45,7 @@ public class BackupSettings extends BaseSettings {
 	}
 
 
-	public String exportAll() {
+	public String exportAll() throws JSONException {
 		Timer.start(LOG_TAG);
 		final JSONObject json = new JSONObject();
 
@@ -91,13 +91,10 @@ public class BackupSettings extends BaseSettings {
 			}
 		}
 
-		try {
-			Logger.d(LOG_TAG, "Settings export finished in: " + Timer.stop(LOG_TAG) + " ms");
-			return json.toString(2);
-		} catch (JSONException ex) {
-			Logger.e(LOG_TAG, "Failed exporting settings. " + ex);
-			return "{}";
-		}
+		final String out = json.toString(2);
+		Logger.d(LOG_TAG, "Settings export finished in: " + Timer.stop(LOG_TAG) + " ms");
+
+		return out;
 	}
 
 

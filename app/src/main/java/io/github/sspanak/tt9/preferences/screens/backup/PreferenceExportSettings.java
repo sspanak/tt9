@@ -10,7 +10,6 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.customWords.SettingsExporter;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
-import io.github.sspanak.tt9.util.Logger;
 
 public class PreferenceExportSettings extends ScreenPreference {
 	public static final String NAME = "export_settings";
@@ -26,11 +25,12 @@ public class PreferenceExportSettings extends ScreenPreference {
 
 	private void init(@NonNull Context context) {
 		exporter = new SettingsExporter();
+		exporter.setFailureHandler(this::onFailure);
+		exporter.setSuccessHandler(this::onSuccess);
 		setKey(NAME);
 		setTitle(R.string.backup_export);
 		setSummary(context.getString(R.string.backup_export_summary, exporter.getOutputDir()));
 	}
-
 
 	@Override
 	public int getLargeLayout() {
@@ -41,14 +41,21 @@ public class PreferenceExportSettings extends ScreenPreference {
 	@Override
 	protected void onClick() {
 		if (activity == null) {
-			Logger.d("LOG", "=>>>> pros si" );
 			return;
 		}
 
 		super.onClick();
+		exporter.run(activity);
+	}
 
-		String json = activity.getSettings().exportAll();
-		Logger.d("LOG", json );
+
+	private void onFailure() {
+		activity.runOnUiThread(() -> setSummary(activity.getString(R.string.backup_export_failed)));
+	}
+
+
+	private void onSuccess(String s) {
+		activity.runOnUiThread(() -> setSummary(activity.getString(R.string.backup_export_success, exporter.getOutputFileName())));
 	}
 
 

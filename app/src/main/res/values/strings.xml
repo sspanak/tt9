@@ -177,8 +177,12 @@
 
 	<!-- Backup -->
 	<string name="backup_export">Export</string>
-	<string name="backup_export_summary">Backup all app settings to a JSON file in %1$s.</string>
+	<string name="backup_export_failed">Settings export Failed.</string>
+	<string name="backup_export_success">Settings exported to: \"%1$s\".</string>
+	<string name="backup_export_summary">Backup all app settings to a JSON file in \"%1$s\".</string>
 	<string name="backup_import">Import</string>
+	<string name="backup_import_failed">Settings import Failed.</string>
+	<string name="backup_import_success">Settings imported successfully.</string>
 	<string name="backup_import_summary">Import a previously exported backup file.</string>
 
 	<!-- Colors -->
