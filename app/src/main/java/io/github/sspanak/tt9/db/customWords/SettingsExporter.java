@@ -12,8 +12,8 @@ public class SettingsExporter extends AbstractExporter {
 	private static final String BASE_FILE_NAME = "tt9-settings-";
 
 	public SettingsExporter() {
-		FILE_EXTENSION = ".json";
-		MIME_TYPE = "application/json";
+		FILE_EXTENSION = SettingsImporter.FILE_EXTENSION;
+		MIME_TYPE = SettingsImporter.MIME_TYPE;
 	}
 
 	public String getOutputFileName() {

@@ -86,8 +86,9 @@ public class BackupSettings extends BaseSettings {
 				}
 
 				json.put(jsonKey, entry);
+				Logger.v(LOG_TAG, "Exported setting '" + key + "' = '" + value + "' as '" + jsonKey + "'");
 			} catch (JSONException ex) {
-				Logger.w(LOG_TAG, "Failed exporting setting '" + key + "' = '" + value + "'. " + ex + " as '" + jsonKey + "'");
+				Logger.w(LOG_TAG, "Failed exporting setting '" + key + "' = '" + value + "' as '" + jsonKey + "'. " + ex);
 			}
 		}
 
@@ -98,17 +99,8 @@ public class BackupSettings extends BaseSettings {
 	}
 
 
-	private void importAll(String jsonString) {
-		Timer.start(LOG_TAG);
-		JSONObject json;
-
-		try {
-			json = new JSONObject(jsonString);
-		} catch (JSONException ex) {
-			Logger.e(LOG_TAG, "Failed parsing settings JSON string. " + ex);
-			return;
-		}
-
+	public void importAll(String jsonString) throws JSONException {
+		JSONObject json = new JSONObject(jsonString);
 
 		final Iterator<String> keys = json.keys();
 		boolean isSameDevice = false;
@@ -126,6 +118,7 @@ public class BackupSettings extends BaseSettings {
 				} catch (JSONException ex) {
 					Logger.e(LOG_TAG, "Failed getting device name from JSON. " + ex);
 				}
+				continue;
 			}
 
 			final boolean isDeviceOnly = key.startsWith(BACKUP_DEVICE_ONLY_PREFIX);
@@ -138,18 +131,23 @@ public class BackupSettings extends BaseSettings {
 				switch (type) {
 					case "boolean":
 						getPrefsEditor().putBoolean(preferenceKey, entry.getBoolean("v"));
+						Logger.v(LOG_TAG, "Imported setting '" + preferenceKey + "'");
 						break;
 					case "int":
 						getPrefsEditor().putInt(preferenceKey, entry.getInt("v"));
+						Logger.v(LOG_TAG, "Imported setting '" + preferenceKey + "'");
 						break;
 					case "long":
 						getPrefsEditor().putLong(preferenceKey, entry.getLong("v"));
+						Logger.v(LOG_TAG, "Imported setting '" + preferenceKey + "'");
 						break;
 					case "float":
 						getPrefsEditor().putFloat(preferenceKey, (float) entry.getDouble("v"));
+						Logger.v(LOG_TAG, "Imported setting '" + preferenceKey + "'");
 						break;
 					case "string":
 						getPrefsEditor().putString(preferenceKey, entry.getString("v"));
+						Logger.v(LOG_TAG, "Imported setting '" + preferenceKey + "'");
 						break;
 					case "set":
 						final JSONArray array = entry.getJSONArray("v");
@@ -158,6 +156,7 @@ public class BackupSettings extends BaseSettings {
 							set.add(array.getString(i));
 						}
 						getPrefsEditor().putStringSet(preferenceKey, set);
+						Logger.v(LOG_TAG, "Imported setting '" + preferenceKey + "'");
 						break;
 					default:
 						Logger.w(LOG_TAG, "Unknown setting type '" + type + "' for key '" + key + "'");
@@ -168,7 +167,6 @@ public class BackupSettings extends BaseSettings {
 		}
 
 		getPrefsEditor().apply();
-		Logger.d(LOG_TAG, "Settings import finished in: " + Timer.stop(LOG_TAG) + " ms");
 	}
 
 

@@ -1,6 +1,10 @@
 package io.github.sspanak.tt9.preferences.screens.backup;
 
 
+import android.content.Intent;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
@@ -19,21 +23,24 @@ public class BackupScreen extends BaseScreenFragment {
 
 	@Override
 	public void onCreate() {
-		initButtons();
 		resetFontSize(false);
+		initButtons();
+		createBrowseFilesLauncher();
 	}
+
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		onCreate();
+		resetFontSize(false);
+		initButtons();
 	}
+
 
 	private void initButtons() {
 		if (activity == null) {
 			return;
 		}
-
 
 		PreferenceExportSettings export = findPreference(PreferenceExportSettings.NAME);
 		if (export != null) {
@@ -44,5 +51,20 @@ public class BackupScreen extends BaseScreenFragment {
 		if (importPref != null) {
 			importPref.populate(activity);
 		}
+	}
+
+
+	private void createBrowseFilesLauncher() {
+		PreferenceImportSettings importPref = findPreference(PreferenceImportSettings.NAME);
+		if (importPref == null) {
+			return;
+		}
+
+		ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+			new ActivityResultContracts.StartActivityForResult(),
+			importPref::onFileSelected
+		);
+
+		importPref.setBrowseFilesLauncher(launcher);
 	}
 }
