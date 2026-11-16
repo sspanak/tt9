@@ -141,8 +141,18 @@ public class DataStore {
 	}
 
 
-	public static void getCustomWords(Consumer<ArrayList<CustomWord>> dataHandler, String wordFilter, int maxWords) {
-		runInThread(() -> dataHandler.accept(words.getSimilarCustom(wordFilter, maxWords)));
+	public static void getCustomWords(Consumer<ArrayList<CustomWord>> dataHandler, @NonNull String wordFilter, int maxWords, int offset) {
+		runInThread(() -> dataHandler.accept(words.getSimilarCustom(wordFilter, maxWords, offset)));
+	}
+
+
+	public static void countCustomWords(Consumer<Long> dataHandler, @NonNull String wordFilter) {
+		runInThread(() -> dataHandler.accept(words.countSimilarCustom(wordFilter)));
+	}
+
+
+	public static void editCustomWord(Consumer<AddWordResult> statusHandler, Language language, String oldWord, String newWord) {
+		runInThread(() -> statusHandler.accept(words.editCustomWord(language, oldWord, newWord)));
 	}
 
 

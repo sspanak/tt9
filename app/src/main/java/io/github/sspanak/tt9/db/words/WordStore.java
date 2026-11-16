@@ -24,6 +24,7 @@ import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.Timer;
 
 
@@ -121,13 +122,18 @@ public class WordStore extends BaseSyncStore {
 	}
 
 
-	@NonNull public ArrayList<CustomWord> getSimilarCustom(String wordFilter, int maxWords) {
-		return checkOrNotify() ? readOps.getCustomWords(sqlite.getDb(), wordFilter, maxWords) : new ArrayList<>();
+	@NonNull public ArrayList<CustomWord> getSimilarCustom(@NonNull String wordFilter, int maxWords, int offset) {
+		return checkOrNotify() ? readOps.getCustomWords(sqlite.getDb(), wordFilter, maxWords, offset) : new ArrayList<>();
 	}
 
 
 	public long countCustom() {
 		return checkOrNotify() ? readOps.countCustomWords(sqlite.getDb()) : 0;
+	}
+
+
+	public long countSimilarCustom(@NonNull String wordFilter) {
+		return checkOrNotify() ? readOps.countCustomWords(sqlite.getDb(), wordFilter) : 0;
 	}
 
 
@@ -149,6 +155,61 @@ public class WordStore extends BaseSyncStore {
 			sqlite.failTransaction();
 			Logger.e(LOG_TAG, "Failed deleting custom word: '" + word + "' for language: " + language.getId() + ". " + e.getMessage());
 		}
+	}
+
+
+	/**
+	 * Replaces an existing custom word with a new one. The operation is atomic: if the new word can
+	 * not be added, the old one is kept.
+	 */
+	@NonNull public AddWordResult editCustomWord(Language language, @NonNull String oldWord, String newWord) {
+		newWord = newWord == null ? "" : newWord.trim();
+		if (newWord.isEmpty()) {
+			return new AddWordResult(AddWordResult.CODE_BLANK_WORD, newWord);
+		}
+
+		if (language == null || language instanceof NullLanguage) {
+			return new AddWordResult(AddWordResult.CODE_INVALID_LANGUAGE, newWord);
+		}
+
+		if (newWord.equals(oldWord)) {
+			return new AddWordResult(AddWordResult.CODE_SUCCESS, newWord);
+		}
+
+		if (!checkOrNotify()) {
+			return new AddWordResult(AddWordResult.CODE_GENERAL_ERROR, newWord);
+		}
+
+		final String sequence;
+		try {
+			if (TextTools.containsPunctuation(newWord)) {
+				throw new IllegalArgumentException("Word contains punctuation.");
+			}
+			sequence = language.getDigitSequenceForWord(newWord);
+		} catch (Exception e) {
+			Logger.d(LOG_TAG, "Invalid replacement word: '" + newWord + "' for language: " + language.getId() + ". " + e.getMessage());
+			return new AddWordResult(AddWordResult.CODE_INVALID_WORD, newWord);
+		}
+
+		// a case-only change would match the old word itself, so skip the check in that case
+		if (!newWord.equalsIgnoreCase(oldWord) && readOps.exists(sqlite.getDb(), language, newWord, sequence)) {
+			return new AddWordResult(AddWordResult.CODE_WORD_EXISTS, newWord);
+		}
+
+		try {
+			sqlite.beginTransaction();
+			DeleteOps.deleteCustomWord(sqlite.getDb(), language.getId(), oldWord);
+			if (!InsertOps.insertCustomWord(sqlite.getDb(), language, sequence, newWord)) {
+				throw new Exception("SQLite INSERT failure.");
+			}
+			sqlite.finishTransaction();
+		} catch (Exception e) {
+			sqlite.failTransaction();
+			Logger.e(LOG_TAG, "Failed replacing custom word: '" + oldWord + "' with: '" + newWord + "' for language: " + language.getId() + ". " + e.getMessage());
+			return new AddWordResult(AddWordResult.CODE_GENERAL_ERROR, newWord);
+		}
+
+		return new AddWordResult(AddWordResult.CODE_SUCCESS, newWord);
 	}
 
 
