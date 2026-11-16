@@ -6,7 +6,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
 
-class ItemDemoMode extends ItemClickable {
+public class ItemDemoMode extends ItemClickable {
 	public static final String NAME = "pref_demo_mode";
 
 	private final PreferencesActivity activity;

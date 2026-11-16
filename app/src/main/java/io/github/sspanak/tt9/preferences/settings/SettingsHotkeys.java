@@ -31,14 +31,15 @@ import io.github.sspanak.tt9.ime.helpers.Hotkey;
 import io.github.sspanak.tt9.util.Logger;
 
 public class SettingsHotkeys extends SettingsVirtualNumpad {
-	private static final String HOTKEY_VERSION = "hotkeys_v6";
+	public static final String HOTKEY_VERSION_PREFIX = "hotkeys_v";
+	private static final int HOTKEY_VERSION = 6;
 
 
 	SettingsHotkeys(Context context) { super(context); }
 
 
 	public boolean areHotkeysInitialized() {
-		return !prefs.getBoolean(HOTKEY_VERSION, false);
+		return !prefs.getBoolean(HOTKEY_VERSION_PREFIX + HOTKEY_VERSION, false);
 	}
 
 
@@ -55,7 +56,7 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 			}
 		}
 
-		getPrefsEditor().putBoolean(HOTKEY_VERSION, true).apply();
+		getPrefsEditor().putBoolean(HOTKEY_VERSION_PREFIX + HOTKEY_VERSION, true).apply();
 	}
 
 

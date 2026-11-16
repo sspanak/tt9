@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:orderingFromXml="true">
+	<io.github.sspanak.tt9.preferences.screens.backup.PreferenceImportSettings />
+	<io.github.sspanak.tt9.preferences.screens.backup.PreferenceExportSettings />
+
+</androidx.preference.PreferenceScreen>

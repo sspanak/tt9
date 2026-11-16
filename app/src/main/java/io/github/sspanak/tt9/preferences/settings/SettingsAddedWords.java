@@ -5,7 +5,7 @@ import android.content.Context;
 import io.github.sspanak.tt9.preferences.screens.languages.SwitchAddWordsWithoutConfirmation;
 import io.github.sspanak.tt9.preferences.screens.languages.SwitchRaiseImportLimits;
 
-public class SettingsAddedWords extends BaseSettings {
+public class SettingsAddedWords extends BackupSettings {
 	public final static int IMPORT_DEFAULT_MAX_FILE_LINES = 250;
 	public final static int IMPORT_DEFAULT_MAX_WORDS = 1000;
 	public final static int IMPORT_RAISED_MAX_FILE_LINES = 10_000;

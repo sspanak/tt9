@@ -28,6 +28,11 @@
 		app:title="@string/pref_category_keypad" />
 
 	<Preference
+		app:fragment="io.github.sspanak.tt9.preferences.BackupScreen"
+		app:key="screen_backup"
+		app:title="@string/pref_category_backup" />
+
+	<Preference
 		app:fragment="io.github.sspanak.tt9.preferences.SetupScreen"
 		app:key="screen_setup"
 		app:title="@string/pref_category_setup" />

@@ -49,6 +49,7 @@
 	<string name="pref_category_about">About</string>
 	<string name="pref_category_abc_mode">ABC Mode</string>
 	<string name="pref_category_appearance">Appearance</string>
+	<string name="pref_category_backup">Backup</string>
 	<string name="pref_category_colors">Colors</string>
 	<string name="pref_category_custom_words">Added Words</string>
 	<string name="pref_category_geometry">Geometry</string>
@@ -173,6 +174,12 @@
 	<string name="pref_suggestion_smooth_scroll">Smooth Suggestion Scrolling</string>
 	<string name="pref_upside_down_keys">Reverse Key Order</string>
 	<string name="pref_upside_down_keys_summary">For computer numpads with 7–8–9 on the first row, instead of 1–2–3.</string>
+
+	<!-- Backup -->
+	<string name="backup_export">Export</string>
+	<string name="backup_export_summary">Backup all app settings to a JSON file in %1$s.</string>
+	<string name="backup_import">Import</string>
+	<string name="backup_import_summary">Import a previously exported backup file.</string>
 
 	<!-- Colors -->
 	<string name="pref_color_scheme">Theme</string>

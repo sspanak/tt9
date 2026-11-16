@@ -80,6 +80,7 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 		ArrayList<Preference> screens = new ArrayList<>(Arrays.asList(
 			findPreference("screen_appearance"),
+			findPreference("screen_backup"),
 			findPreference("screen_keypad"),
 			findPreference("screen_languages")
 		));
