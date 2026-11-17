@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 
 import org.json.JSONException;
 
+import java.io.File;
+
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class SettingsExporter extends AbstractExporter {
@@ -17,7 +19,9 @@ public class SettingsExporter extends AbstractExporter {
 	}
 
 	public String getOutputFileName() {
-		return getOutputFile();
+		return getOutputFile()
+			.replace(getOutputDir(), "")
+			.replace(File.pathSeparator, "");
 	}
 
 	@NonNull

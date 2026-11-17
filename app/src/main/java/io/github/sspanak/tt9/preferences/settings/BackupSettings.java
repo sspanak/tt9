@@ -122,7 +122,10 @@ public class BackupSettings extends BaseSettings {
 			}
 
 			final boolean isDeviceOnly = key.startsWith(BACKUP_DEVICE_ONLY_PREFIX);
-			final String preferenceKey = isDeviceOnly && isSameDevice ? key.substring(BACKUP_DEVICE_ONLY_PREFIX.length()) : key;
+			if (isDeviceOnly && !isSameDevice) {
+				continue;
+			}
+			final String preferenceKey = isDeviceOnly ? key.substring(BACKUP_DEVICE_ONLY_PREFIX.length()) : key;
 
 			try {
 				final JSONObject entry = json.getJSONObject(key);

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
@@ -51,7 +52,14 @@ public class SettingsImporter extends AbstractFileProcessor {
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 			byte[] chunk = new byte[4096];
 			int n;
-			while ((n = in.read(chunk)) != -1) buffer.write(chunk, 0, n);
+			int total = 0;
+			while ((n = in.read(chunk)) != -1) {
+				total += n;
+				if (total > SettingsStatic.SETTINGS_IMPORT_MAX_SIZE) {
+					throw new IOException("Settings import file is too large.");
+				}
+				buffer.write(chunk, 0, n);
+			}
 
 			settings.importAll(buffer.toString());
 
@@ -68,6 +76,8 @@ public class SettingsImporter extends AbstractFileProcessor {
 	public void run(@Nullable PreferencesActivity activity, @Nullable Uri uri) {
 		fileUri = uri;
 		settings = activity != null ? activity.getSettings() : null;
-		runSync(activity);
+		if (activity != null) {
+			super.run(activity);
+		}
 	}
 }
