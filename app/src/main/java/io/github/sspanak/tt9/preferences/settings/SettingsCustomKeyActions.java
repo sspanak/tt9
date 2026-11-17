@@ -33,12 +33,12 @@ public class SettingsCustomKeyActions extends SettingsUI {
 		put(CUSTOM_ACTION_KEY_3, CmdVoiceInput.ID);
 	}};
 
-	public float getMoveCursorWithSpaceThreshold() {
-		return 0;
-	}
-
 	protected SettingsCustomKeyActions(Context context) {
 		super(context);
+	}
+
+	public float getMoveCursorWithSpaceThreshold() {
+		return 0;
 	}
 
 	public boolean getMoveCursorWithSpace() {

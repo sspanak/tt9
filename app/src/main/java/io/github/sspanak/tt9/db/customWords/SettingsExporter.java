@@ -9,8 +9,10 @@ import org.json.JSONException;
 import java.io.File;
 
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.util.Logger;
 
 public class SettingsExporter extends AbstractExporter {
+	private static final String LOG_TAG = SettingsExporter.class.getSimpleName();
 	private static final String BASE_FILE_NAME = "tt9-settings-";
 
 	public SettingsExporter() {
@@ -40,6 +42,7 @@ public class SettingsExporter extends AbstractExporter {
 				bytes = ((PreferencesActivity) activity).getSettings().exportAll().getBytes();
 			}
 		} catch (JSONException ex) {
+			Logger.e(LOG_TAG, "Failed exporting settings. " + ex);
 			throw new Exception("Failed exporting settings. " + ex);
 		}
 
@@ -53,6 +56,7 @@ public class SettingsExporter extends AbstractExporter {
 			write(activity);
 			sendSuccess();
 		} catch (Exception e) {
+			Logger.e(LOG_TAG, "Failed exporting settings. " + e);
 			sendFailure();
 		}
 	}
