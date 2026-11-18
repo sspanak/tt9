@@ -31,7 +31,7 @@ import io.github.sspanak.tt9.ime.helpers.Hotkey;
 import io.github.sspanak.tt9.util.Logger;
 
 public class SettingsHotkeys extends SettingsVirtualNumpad {
-	private static final String HOTKEY_VERSION = "hotkeys_v6";
+	public static final String HOTKEY_VERSION = "hotkeys_v6";
 
 
 	SettingsHotkeys(Context context) { super(context); }

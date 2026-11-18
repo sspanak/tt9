@@ -22,6 +22,7 @@
 	<string name="commands_select_command">לבחור פקודה</string>
 	<string name="pref_category_about">אודות</string>
 	<string name="pref_category_abc_mode">מצב אבג</string>
+	<string name="pref_category_backup">גיבוי</string>
 	<string name="pref_category_colors">צבעים</string>
 	<string name="pref_category_custom_words">מילים שהוספו</string>
 	<string name="pref_category_delete_words">מחק מילים שהוספו</string>
@@ -326,4 +327,12 @@
 	<string name="pref_category_unfolded_appearance">מראה במצב פתוח</string>
 	<string name="pref_category_unfolded_appearance_summary">הגדרת המראה כאשר המכשיר פתוח.</string>
 	<string name="pref_predict_top_words">זכירת מילים נפוצות</string>
+	<string name="backup_export">ייצוא</string>
+	<string name="backup_export_failed">ייצוא ההגדרות נכשל.</string>
+	<string name="backup_export_success">ההגדרות יוצאו אל: \"%1$s\".</string>
+	<string name="backup_export_summary">גיבוי כל הגדרות האפליקציה לקובץ „%1$s“ בתיקייה „%2$s“. הגיבוי אינו כולל מילים שנוספו באופן ידני או את סדר המילים שנלמדו במילון.</string>
+	<string name="backup_import">ייבוא</string>
+	<string name="backup_import_failed">ייבוא ההגדרות נכשל.</string>
+	<string name="backup_import_success">ההגדרות יובאו בהצלחה.</string>
+	<string name="backup_import_summary">ייבוא קובץ גיבוי שיוצא בעבר.\nאזהרה! לעולם אין לייבא קבצים שנוצרו על ידי מישהו אחר — הם עלולים לגרום לקריסת האפליקציה.</string>
 </resources>

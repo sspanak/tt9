@@ -59,6 +59,7 @@
 	<string name="dictionary_not_found">Неуспешно зареждане. Липсва речник за „%1$s“.</string>
 	<string name="dictionary_truncated">Речникът е изтрит успешно.</string>
 	<string name="pref_category_abc_mode">Режим АБВ</string>
+	<string name="pref_category_backup">Резерно копие</string>
 	<string name="pref_category_colors">Цветове</string>
 	<string name="pref_category_custom_words">Добавени думи</string>
 	<string name="pref_category_delete_words">Изтрий добавени думи</string>
@@ -319,4 +320,12 @@
 	<string name="pref_category_unfolded_appearance">Изглед при разгънато устройство</string>
 	<string name="pref_category_unfolded_appearance_summary">Настройки на изгледа при разгънато устройство.</string>
 	<string name="pref_predict_top_words">Запомняне на често използвани думи</string>
+	<string name="backup_export">Експортиране</string>
+	<string name="backup_export_failed">Неуспешно експортиране на настройките.</string>
+	<string name="backup_export_success">Настройките са експортирани в: \"%1$s\".</string>
+	<string name="backup_export_summary">Архивирай всички настройки на приложението във файл „%1$s“ в „%2$s“. Архивът не включва ръчно добавените думи или реда на научените думи в речника.</string>
+	<string name="backup_import">Импортиране</string>
+	<string name="backup_import_failed">Неуспешно импортиране на настройките.</string>
+	<string name="backup_import_success">Настройките са импортирани успешно.</string>
+	<string name="backup_import_summary">Импортирай по-рано експортиран архивен файл.\nВНИМАНИЕ! Никога не импортирайте файлове, създадени от други хора — те може да доведат до срив на приложението.</string>
 </resources>

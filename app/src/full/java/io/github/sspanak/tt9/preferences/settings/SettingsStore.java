@@ -4,6 +4,6 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-public class SettingsStore extends SettingsStatic {
+public class SettingsStore extends SettingsBackup {
 	public SettingsStore(@NonNull Context context) { super(context); }
 }

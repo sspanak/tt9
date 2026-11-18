@@ -19,8 +19,8 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.Permissions;
 
 public abstract class AbstractExporter extends AbstractFileProcessor {
-	protected static String FILE_EXTENSION = ".csv";
-	protected static String MIME_TYPE = "text/csv";
+	protected String FILE_EXTENSION = ".csv";
+	protected String MIME_TYPE = "text/csv";
 
 	private String outputFile;
 
