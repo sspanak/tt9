@@ -156,6 +156,7 @@
 
 	<string name="char_newline">Nauja eilutė</string>
 	<string name="char_space">Tarpas</string>
+	<string name="pref_category_backup">Atsarginė kopija</string>
 	<string name="pref_category_colors">Spalvos</string>
 	<string name="pref_category_custom_words">Pridėtos žodžiai</string>
 	<string name="pref_category_delete_words">Trinti pridėtus žodžius</string>
@@ -328,4 +329,12 @@
 	<string name="pref_category_unfolded_appearance">Išskleisto įrenginio išvaizda</string>
 	<string name="pref_category_unfolded_appearance_summary">Išvaizdos nustatymai, kai įrenginys išskleistas.</string>
 	<string name="pref_predict_top_words">Išmokti dažnai vartojamus žodžius</string>
+	<string name="backup_export">Eksportuoti</string>
+	<string name="backup_export_failed">Nepavyko eksportuoti nustatymų.</string>
+	<string name="backup_export_success">Nustatymai eksportuoti į: „%1$s“.</string>
+	<string name="backup_export_summary">Sukurkite visų programos nustatymų atsarginę kopiją faile „%1$s“, esančiame „%2$s“. Į atsarginę kopiją neįtraukiami rankiniu būdu pridėti žodžiai ar išmoktų žodžių tvarka žodyne.</string>
+	<string name="backup_import">Importuoti</string>
+	<string name="backup_import_failed">Nepavyko importuoti nustatymų.</string>
+	<string name="backup_import_success">Nustatymai sėkmingai importuoti.</string>
+	<string name="backup_import_summary">Importuokite anksčiau eksportuotą atsarginės kopijos failą.\nĮSPĖJIMAS! Niekada neimportuokite kitų žmonių sukurtų failų – dėl jų programa gali užstrigti.</string>
 </resources>

@@ -72,6 +72,7 @@
 	<string name="char_space">Пробел</string>
 	<string name="char_newline">Новая строка</string>
 	<string name="pref_category_abc_mode">Режим AБВ</string>
+	<string name="pref_category_backup">Резервная копия</string>
 	<string name="pref_category_colors">Цвета</string>
 	<string name="pref_category_custom_words">Добавленные слова</string>
 	<string name="pref_category_delete_words">Удалить добавленные слова</string>
@@ -319,4 +320,12 @@
 	<string name="pref_category_unfolded_appearance">Вид в развернутом режиме</string>
 	<string name="pref_category_unfolded_appearance_summary">Настройка внешнего вида в развернутом режиме.</string>
 	<string name="pref_predict_top_words">Запоминать часто используемые слова</string>
+	<string name="backup_export">Экспорт</string>
+	<string name="backup_export_failed">Не удалось экспортировать настройки.</string>
+	<string name="backup_export_success">Настройки экспортированы в: \"%1$s\".</string>
+	<string name="backup_export_summary">Создать резервную копию всех настроек приложения в файле \"%1$s\" в папке \"%2$s\". Резервная копия не включает слова, добавленные вручную, и порядок изученных слов в словаре.</string>
+	<string name="backup_import">Импорт</string>
+	<string name="backup_import_failed">Не удалось импортировать настройки.</string>
+	<string name="backup_import_success">Настройки успешно импортированы.</string>
+	<string name="backup_import_summary">Импортировать ранее экспортированный файл резервной копии.\nВНИМАНИЕ! Никогда не импортируйте файлы, созданные другими людьми: они могут привести к сбою приложения.</string>
 </resources>

@@ -22,6 +22,7 @@
 	<string name="commands_select_command">Selecionar um comando</string>
 	<string name="pref_category_about">Sobre</string>
 	<string name="pref_category_abc_mode">Modo ABC</string>
+	<string name="pref_category_backup">Backup</string>
 	<string name="pref_category_colors">Cores</string>
 	<string name="pref_category_custom_words">Palavras adicionadas</string>
 	<string name="pref_category_delete_words">Excluir palavras adicionadas</string>
@@ -326,4 +327,12 @@
 	<string name="pref_category_unfolded_appearance">Aparência no modo aberto</string>
 	<string name="pref_category_unfolded_appearance_summary">Configura a aparência quando o dispositivo está aberto.</string>
 	<string name="pref_predict_top_words">Aprender palavras frequentes</string>
+	<string name="backup_export">Exportar</string>
+	<string name="backup_export_failed">Falha ao exportar as configurações.</string>
+	<string name="backup_export_success">Configurações exportadas para: \"%1$s\".</string>
+	<string name="backup_export_summary">Faça backup de todas as configurações do aplicativo em um arquivo \"%1$s\" em \"%2$s\". O backup não inclui palavras adicionadas manualmente nem a ordem das palavras aprendidas no dicionário.</string>
+	<string name="backup_import">Importar</string>
+	<string name="backup_import_failed">Falha ao importar as configurações.</string>
+	<string name="backup_import_success">Configurações importadas com sucesso.</string>
+	<string name="backup_import_summary">Importe um arquivo de backup exportado anteriormente.\nAVISO! Nunca importe arquivos criados por outras pessoas — eles podem fazer o aplicativo travar.</string>
 </resources>
