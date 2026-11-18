@@ -25,7 +25,7 @@ public class SettingsImporter extends AbstractFileProcessor {
 	private static final String LOG_TAG = SettingsImporter.class.toString();
 
 	public static final String MIME_TYPE = "text/plain";
-	public static final String FILE_EXTENSION = ".t9s";
+	public static final String FILE_EXTENSION = ".txt";
 
 	@Nullable private Uri fileUri = null;
 	@Nullable private SettingsStore settings = null;
