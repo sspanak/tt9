@@ -115,7 +115,7 @@ public class SettingsBackup extends SettingsStatic {
 
 
 			// device-only`
-			put(BACKUP_DEVICE_ONLY_PREFIX + HOTKEY_VERSION, new JSONObject().put("t", "boolean").put("v", areHotkeysInitialized()));
+put(BACKUP_DEVICE_ONLY_PREFIX + HOTKEY_VERSION, new JSONObject().put("t", "boolean").put("v", !areHotkeysInitialized()));
 			put(BACKUP_DEVICE_ONLY_PREFIX + DropDownSettingsFontSize.NAME, new JSONObject().put("t", "string").put("v", String.valueOf(getSettingsFontSize())));
 			put(BACKUP_DEVICE_ONLY_PREFIX + "pref_suggestion_smooth_scroll", new JSONObject().put("t", "boolean").put("v", getSuggestionSmoothScroll()));
 			put(BACKUP_DEVICE_ONLY_PREFIX + DropDownLayoutType.NAME, new JSONObject().put("t", "string").put("v", String.valueOf(getMainViewLayout())));
