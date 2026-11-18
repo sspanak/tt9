@@ -30,7 +30,7 @@ public class SettingsStatic extends SettingsColors {
 	public static final int MIND_READER_NGRAMS_INITIAL_CAPACITY = 1000;
 	public static final int MIND_READER_MAX_DICTIONARY_WORDS = (int) Math.pow(2, MIND_READER_DICTIONARY_WORD_SIZE);
 	public final static int RESIZE_THROTTLING_TIME = 60; // ms
-	public static final int SETTINGS_IMPORT_MAX_SIZE = 131072; // bytes
+	public static final int SETTINGS_IMPORT_MAX_SIZE = 65536; // bytes
 	public final static int SHIFT_STATE_DEBOUNCE_TIME = 175; // ms
 	public final static byte SLOW_QUERY_TIME = 50; // ms
 	public final static int SLOW_QUERY_TIMEOUT = 3000; // ms

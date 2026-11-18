@@ -7,18 +7,16 @@ import android.os.Build;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import org.json.JSONException;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Base64;
 import java.util.zip.InflaterOutputStream;
 
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.LimitedOutputStream;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
@@ -69,7 +67,7 @@ public class SettingsImporter extends AbstractFileProcessor {
 
 			byte[] zipBytes = Base64.getDecoder().decode(buffer.toByteArray());
 			buffer = new ByteArrayOutputStream();
-			try (OutputStream ios = new InflaterOutputStream(buffer)) {
+			try (LimitedOutputStream ios = new LimitedOutputStream(new InflaterOutputStream(buffer), SettingsStatic.SETTINGS_IMPORT_MAX_SIZE * 4)) {
 				ios.write(zipBytes);
 			} catch (Exception exx) {
 				Logger.e(LOG_TAG, "Failed to decompress settings import file. " + exx);
@@ -80,7 +78,7 @@ public class SettingsImporter extends AbstractFileProcessor {
 
 			sendSuccess();
 			Logger.d(LOG_TAG, "Settings import finished in: " + Timer.stop(LOG_TAG) + " ms");
-		} catch (IOException | JSONException ex) {
+		} catch (Exception ex) {
 			Timer.stop(LOG_TAG);
 			Logger.e(LOG_TAG, "Failed importing settings from JSON file. " + ex);
 			sendFailure();
