@@ -15,13 +15,14 @@ import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class PreferenceImportSettings extends ScreenPreference {
 	public static final String NAME = "import_settings";
 
-	private PreferencesActivity activity;
-	private SettingsImporter importer;
-	private ActivityResultLauncher<Intent> importSettingsLauncher;
+	@Nullable private PreferencesActivity activity;
+	@Nullable private SettingsImporter importer;
+	@Nullable private ActivityResultLauncher<Intent> importSettingsLauncher;
 
 	public PreferenceImportSettings(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); init(context); }
 	public PreferenceImportSettings(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); init(context); }
@@ -34,9 +35,11 @@ public class PreferenceImportSettings extends ScreenPreference {
 		setTitle(R.string.backup_import);
 		setSummary(context.getString(R.string.backup_import_summary));
 
-		importer = new SettingsImporter();
-		importer.setFailureHandler(this::onFailure);
-		importer.setSuccessHandler(this::onSuccess);
+		if (DeviceInfo.AT_LEAST_ANDROID_8) {
+			importer = new SettingsImporter();
+			importer.setFailureHandler(this::onFailure);
+			importer.setSuccessHandler(this::onSuccess);
+		}
 	}
 
 
@@ -48,7 +51,7 @@ public class PreferenceImportSettings extends ScreenPreference {
 
 	@Override
 	protected void onClick() {
-		if (activity == null) {
+		if (activity == null || importer == null || !DeviceInfo.AT_LEAST_ANDROID_8) {
 			return;
 		}
 
@@ -78,7 +81,9 @@ public class PreferenceImportSettings extends ScreenPreference {
 
 
 	public void onFileSelected(ActivityResult result) {
-		importer.run(activity, result.getData() != null ? result.getData().getData() : null);
+		if (importer != null && DeviceInfo.AT_LEAST_ANDROID_8) {
+			importer.run(activity, result.getData() != null ? result.getData().getData() : null);
+		}
 	}
 
 
@@ -88,11 +93,15 @@ public class PreferenceImportSettings extends ScreenPreference {
 
 
 	private void onFailure() {
-		activity.runOnUiThread(() -> setSummary(R.string.backup_import_failed));
+		if (activity != null) {
+			activity.runOnUiThread(() -> setSummary(R.string.backup_import_failed));
+		}
 	}
 
 
 	private void onSuccess(String s) {
-		activity.runOnUiThread(() -> setSummary(R.string.backup_import_success));
+		if (activity != null) {
+			activity.runOnUiThread(() -> setSummary(R.string.backup_import_success));
+		}
 	}
 }

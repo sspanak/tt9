@@ -8,14 +8,16 @@ import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.customWords.SettingsExporter;
+import io.github.sspanak.tt9.db.customWords.SettingsImporter;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class PreferenceExportSettings extends ScreenPreference {
 	public static final String NAME = "export_settings";
 
-	private PreferencesActivity activity;
-	private SettingsExporter exporter;
+	@Nullable private PreferencesActivity activity;
+	@Nullable private SettingsExporter exporter;
 
 	public PreferenceExportSettings(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); init(context); }
 	public PreferenceExportSettings(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); init(context); }
@@ -24,12 +26,19 @@ public class PreferenceExportSettings extends ScreenPreference {
 
 
 	private void init(@NonNull Context context) {
-		exporter = new SettingsExporter();
-		exporter.setFailureHandler(this::onFailure);
-		exporter.setSuccessHandler(this::onSuccess);
 		setKey(NAME);
 		setTitle(R.string.backup_export);
-		setSummary(context.getString(R.string.backup_export_summary, exporter.getOutputDir()));
+
+		if (DeviceInfo.AT_LEAST_ANDROID_8) {
+			exporter = new SettingsExporter();
+			exporter.setFailureHandler(this::onFailure);
+			exporter.setSuccessHandler(this::onSuccess);
+			setSummary(context.getString(
+				R.string.backup_export_summary,
+				SettingsImporter.FILE_EXTENSION,
+				exporter.getOutputDir()
+			));
+		}
 	}
 
 	@Override
@@ -40,7 +49,7 @@ public class PreferenceExportSettings extends ScreenPreference {
 
 	@Override
 	protected void onClick() {
-		if (activity == null) {
+		if (activity == null || exporter == null || !DeviceInfo.AT_LEAST_ANDROID_8) {
 			return;
 		}
 
@@ -50,12 +59,24 @@ public class PreferenceExportSettings extends ScreenPreference {
 
 
 	private void onFailure() {
-		activity.runOnUiThread(() -> setSummary(activity.getString(R.string.backup_export_failed)));
+		if (activity != null) {
+			activity.runOnUiThread(() -> {
+				if (activity != null) {
+					setSummary(activity.getString(R.string.backup_export_failed));
+				}
+			});
+		}
 	}
 
 
 	private void onSuccess(String s) {
-		activity.runOnUiThread(() -> setSummary(activity.getString(R.string.backup_export_success, exporter.getOutputFileName())));
+		if (activity != null) {
+			activity.runOnUiThread(() -> {
+				if (activity != null && exporter != null && DeviceInfo.AT_LEAST_ANDROID_8) {
+					setSummary(activity.getString(R.string.backup_export_success, exporter.getOutputFileName()));
+				}
+			});
+		}
 	}
 
 

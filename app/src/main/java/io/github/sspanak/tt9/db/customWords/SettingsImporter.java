@@ -2,14 +2,19 @@ package io.github.sspanak.tt9.db.customWords;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.Build;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import org.json.JSONException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Base64;
+import java.util.zip.InflaterOutputStream;
 
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.settings.SettingsStatic;
@@ -17,11 +22,12 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class SettingsImporter extends AbstractFileProcessor {
 	private static final String LOG_TAG = SettingsImporter.class.toString();
 
-	public static final String MIME_TYPE = "application/json";
-	public static final String FILE_EXTENSION = ".json";
+	public static final String MIME_TYPE = "text/plain";
+	public static final String FILE_EXTENSION = ".t9s";
 
 	@Nullable private Uri fileUri = null;
 	@Nullable private SettingsStore settings = null;
@@ -59,6 +65,15 @@ public class SettingsImporter extends AbstractFileProcessor {
 					throw new IOException("Settings import file is too large.");
 				}
 				buffer.write(chunk, 0, n);
+			}
+
+			byte[] zipBytes = Base64.getDecoder().decode(buffer.toByteArray());
+			buffer = new ByteArrayOutputStream();
+			try (OutputStream ios = new InflaterOutputStream(buffer)) {
+				ios.write(zipBytes);
+			} catch (Exception exx) {
+				Logger.e(LOG_TAG, "Failed to decompress settings import file. " + exx);
+				throw new IOException("Failed to decompress settings import file. " + exx);
 			}
 
 			settings.importAll(buffer.toString());

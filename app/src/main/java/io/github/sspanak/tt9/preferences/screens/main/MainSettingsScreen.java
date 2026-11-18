@@ -89,6 +89,10 @@ public class MainSettingsScreen extends BaseScreenFragment {
 			if (goToScreen != null) {
 				goToScreen.setEnabled(isTT9On || activity.getSettings().getDemoMode());
 			}
+
+			if (goToScreen instanceof PreferenceBackupScreen) {
+				((PreferenceBackupScreen) goToScreen).populate(activity);
+			}
 		}
 	}
 }
