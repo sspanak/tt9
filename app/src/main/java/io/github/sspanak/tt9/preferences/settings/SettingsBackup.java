@@ -114,7 +114,7 @@ public class SettingsBackup extends SettingsStatic {
 			put("pref_tutorial_fn_keys_seen", new JSONObject().put("t", "boolean").put("v", prefs.getBoolean("pref_tutorial_fn_keys_seen", false)));
 
 			// device-only`
-put(BACKUP_DEVICE_ONLY_PREFIX + HOTKEY_VERSION, new JSONObject().put("t", "boolean").put("v", !areHotkeysInitialized()));
+			put(BACKUP_DEVICE_ONLY_PREFIX + HOTKEY_VERSION, new JSONObject().put("t", "boolean").put("v", !areHotkeysInitialized()));
 			put(BACKUP_DEVICE_ONLY_PREFIX + DropDownSettingsFontSize.NAME, new JSONObject().put("t", "string").put("v", String.valueOf(getSettingsFontSize())));
 			put(BACKUP_DEVICE_ONLY_PREFIX + "pref_suggestion_smooth_scroll", new JSONObject().put("t", "boolean").put("v", getSuggestionSmoothScroll()));
 			put(BACKUP_DEVICE_ONLY_PREFIX + "pref_alternative_suggestion_scrolling", new JSONObject().put("t", "boolean").put("v", getSuggestionScrollingDelay() > 0));
@@ -209,23 +209,14 @@ put(BACKUP_DEVICE_ONLY_PREFIX + HOTKEY_VERSION, new JSONObject().put("t", "boole
 
 	public void importAll(String jsonString) throws JSONException {
 		JSONObject json = new JSONObject(jsonString);
+		final boolean isSameDevice = BACKUP_DEVICE_NAME.equals(json.optString(BACKUP_DEVICE_NAME_KEY, ""));
 
 		final Iterator<String> keys = json.keys();
-		boolean isSameDevice = false;
 
 		while (keys.hasNext()) {
 			final String key = keys.next();
 			if (isBlacklistedForBackup(key)) {
 				Logger.d(LOG_TAG, "Not importing blacklisted setting '" + key + "'");
-				continue;
-			}
-
-			if (BACKUP_DEVICE_NAME_KEY.equals(key)) {
-				try {
-					isSameDevice = BACKUP_DEVICE_NAME.equals(json.getString(key));
-				} catch (JSONException ex) {
-					Logger.e(LOG_TAG, "Failed getting device name from JSON. " + ex);
-				}
 				continue;
 			}
 
