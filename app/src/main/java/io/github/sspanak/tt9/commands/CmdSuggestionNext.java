@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
+import io.github.sspanak.tt9.ime.modes.ModeCheonjiin;
 import io.github.sspanak.tt9.languages.LanguageKind;
 
 public class CmdSuggestionNext implements Command {
@@ -46,6 +47,12 @@ public class CmdSuggestionNext implements Command {
 			tt9.getAppHacks().setComposingTextPartsWithHighlightedJoining(tt9.getInputMode().getWordStem() + tt9.getSuggestionOps().getCurrent(), tt9.getInputMode().getRecomposingSuffix());
 		} else {
 			tt9.getAppHacks().setComposingTextWithHighlightedStem(tt9.getSuggestionOps().getCurrent(), tt9.getInputMode().getWordStem(), tt9.getInputMode().isStemFilterFuzzy());
+		}
+
+		if (InputModeKind.isInstanceOfCheonjiin(tt9.getInputMode())) {
+			((ModeCheonjiin) tt9.getInputMode()).setSurroundingText(
+				tt9.getTextField().getSurroundingStringForAutoAssistance(tt9.getSettings(), tt9.getInputMode())
+			);
 		}
 	}
 }

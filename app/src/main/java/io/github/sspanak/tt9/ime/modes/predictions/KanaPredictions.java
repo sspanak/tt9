@@ -50,7 +50,7 @@ public class KanaPredictions extends IdeogramPredictions {
 	public void onAcceptIdeogram(String word) throws InvalidLanguageCharactersException {
 		String transcription = getTranscription(word);
 		String sequence = SEQUENCE_PREFIX + language.getDigitSequenceForWord(stripStemPrefix(transcription));
-		super.onAccept(transcription + word, sequence);
+		super.onAccept(transcription + word, sequence, false, null);
 	}
 
 	@Override

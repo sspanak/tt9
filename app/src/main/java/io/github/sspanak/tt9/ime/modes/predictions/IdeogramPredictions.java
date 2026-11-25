@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime.modes.predictions;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -68,7 +69,7 @@ public class IdeogramPredictions extends WordPredictions {
 	 * must not cause a frequency change, because it belongs to a different position group.
 	 */
 	public void onAcceptIdeogram(String word) throws InvalidLanguageCharactersException {
-		super.onAccept(getTranscription(word) + word, digitSequence);
+		super.onAccept(getTranscription(word) + word, digitSequence, false, null);
 	}
 
 
@@ -111,9 +112,9 @@ public class IdeogramPredictions extends WordPredictions {
 	 * last typed or just give up.
 	 */
 	@Override
-	protected void pairWithPreviousWord(@NonNull String word, @NonNull String sequence) {
+	protected void pairWithPreviousWord(@NonNull String word, @NonNull String sequence, @Nullable String previousSequence) {
 		if (language.hasSpaceBetweenWords()) {
-			super.pairWithPreviousWord(word, sequence);
+			super.pairWithPreviousWord(word, sequence, previousSequence);
 			return;
 		}
 

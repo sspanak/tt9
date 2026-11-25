@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime.modes.predictions;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -155,7 +156,7 @@ abstract public class Predictions {
 	}
 
 
-	abstract public void onAccept(String word, String sequence);
+	abstract public void onAccept(String word, String sequence, boolean isSpecialCharSequence, @Nullable String previousSequence);
 	abstract protected boolean isRetryAllowed();
 	abstract protected void onDbWords(ArrayList<String> dbWords, boolean retryAllowed);
 }

@@ -23,7 +23,7 @@ import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-class ModeCheonjiin extends InputMode {
+public class ModeCheonjiin extends InputMode {
 	// used when we want to display a different set of characters for a given key, for example
 	// in email fields
 	protected final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
@@ -101,6 +101,14 @@ class ModeCheonjiin extends InputMode {
 	}
 
 
+	public void setSurroundingText(@NonNull String[] surroundingChars) {
+		if (surroundingChars.length > 1) {
+			beforeCursor = new Text(language, surroundingChars[0]);
+			afterCursor = new Text(language, surroundingChars[1]);
+		}
+	}
+
+
 	protected boolean validateLanguage(Language newLanguage) {
 		return LanguageKind.isKorean(newLanguage);
 	}
@@ -133,8 +141,7 @@ class ModeCheonjiin extends InputMode {
 
 	@Override
 	public boolean onNumber(int number, boolean hold, int repeat, @NonNull String[] surroundingChars) {
-		beforeCursor = new Text(language, surroundingChars[0]);
-		afterCursor = new Text(language, surroundingChars[1]);
+		setSurroundingText(surroundingChars);
 
 		if (hold) {
 			reset();

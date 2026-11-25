@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime.modes.predictions;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -8,10 +9,13 @@ import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class WordPredictions extends Predictions {
+	@NonNull private String lastAcceptedWord = "";
+
 	private LocaleWordsSorter localeWordsSorter;
 
 	private String inputWord;
@@ -260,7 +264,8 @@ public class WordPredictions extends Predictions {
 	 * prevents from suggesting the same word twice in row and makes the suggestions more intuitive
 	 * when there are many textonyms for a single sequence.
 	 */
-	public void onAccept(String word, String sequence) {
+	public void onAccept(String word, String sequence, boolean isSpecialCharSequence, @Nullable String previousSequence) {
+		lastAcceptedWord = word;
 		if (
 			word == null
 			// If the word is the first suggestion, we have already guessed it right, and it makes no
@@ -272,8 +277,10 @@ public class WordPredictions extends Predictions {
 			return;
 		}
 
-		pairWithPreviousWord(word, sequence);
-		makeTopWord(word, sequence);
+		pairWithPreviousWord(word, sequence, previousSequence);
+		if (!isSpecialCharSequence) {
+			makeTopWord(word, sequence);
+		}
 	}
 
 
@@ -302,16 +309,20 @@ public class WordPredictions extends Predictions {
 			return words;
 		}
 
-		ArrayList<String> rearrangedWords = new ArrayList<>();
-		if (penultimateWord.isEmpty()) {
-			penultimateWord = getPenultimateWord(words.get(0));
-		}
+		// update the beforeCursor snapshot with the incoming words
+		final int composingLength = words.get(0).length();
+		String before = composingLength > 0 ? beforeCursor.toString().substring(0, Math.max(0, beforeCursor.length() - composingLength + 1)) : beforeCursor.toString();
+		Text beforeComposing = new Text(language, before.trim());
+
+		penultimateWord = beforeComposing.getPreviousWord(LanguageKind.usesApostrophes(language), true);
 
 		String pairWord = DataStore.getWord2(language, penultimateWord, digitSequence);
 		int morePopularIndex = TextTools.indexOfIgnoreCase(words, pairWord);
 		if (morePopularIndex == -1) {
 			return words;
 		}
+
+		final ArrayList<String> rearrangedWords = new ArrayList<>();
 
 		lastEnforcedTopWord = words.get(morePopularIndex);
 		rearrangedWords.add(lastEnforcedTopWord);
@@ -331,8 +342,9 @@ public class WordPredictions extends Predictions {
 	 * Second condition note: If the accepted word is longer than the sequence, it is some different word,
 	 * not a textonym of the fist suggestion. We don't need to store it.
 	 */
-	protected void pairWithPreviousWord(@NonNull String word, @NonNull String sequence) {
-		if (settings.getPredictWordPairs() && sequence.length() == digitSequence.length()) {
+	protected void pairWithPreviousWord(@NonNull String word, @NonNull String sequence, @Nullable String previousSequence) {
+		final int previousSequenceLength = previousSequence != null ? previousSequence.length() : 0;
+		if (settings.getPredictWordPairs() && sequence.length() <= previousSequenceLength) {
 			DataStore.addWordPair(language, getPenultimateWord(word), word, sequence);
 		}
 	}
@@ -353,16 +365,14 @@ public class WordPredictions extends Predictions {
 			return Characters.START_OF_TEXT;
 		}
 
-		// We are at the end of a word. The user is probably typing a compound word. We do not want to
-		// pair with the first part of the compound word.
 		final String before = beforeCursor.toString();
-		if (before.length() > currentWord.length() && before.endsWith(currentWord) && Character.isAlphabetic(before.charAt(before.length() - currentWord.length() - 1))) {
-			return Characters.END_OF_TEXT;
+		Text beforeComposing = beforeCursor;
+		if (before.endsWith(lastAcceptedWord)) {
+			beforeComposing = new Text(language, (before.substring(0, before.length() - lastAcceptedWord.length())).trim());
 		}
 
-		return beforeCursor.getPreviousWord(
-			!currentWord.isEmpty(),
-			LanguageKind.isUkrainian(language) || LanguageKind.isHebrew(language),
+		return beforeComposing.getPreviousWord(
+			LanguageKind.usesApostrophes(language),
 			true
 		);
 	}
