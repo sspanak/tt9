@@ -34,6 +34,13 @@
 		android:title="@string/pref_predict_top_words" />
 
 	<SwitchPreferenceCompat
+		android:defaultValue="false"
+		android:dependency="pref_predict_top_words"
+		android:key="pref_rank_words_by_usage"
+		android:summary="@string/pref_rank_words_by_usage_summary"
+		android:title="@string/pref_rank_words_by_usage" />
+
+	<SwitchPreferenceCompat
 		android:defaultValue="true"
 		android:dependency="pref_predict_top_words"
 		android:key="pref_predict_word_pairs"
