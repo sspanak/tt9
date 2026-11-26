@@ -11,6 +11,7 @@ import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 
 public class IdeogramPredictions extends WordPredictions {
@@ -248,8 +249,18 @@ public class IdeogramPredictions extends WordPredictions {
 	}
 
 
-	public void orderByPairs() {
+	public void orderByPairs(@NonNull String lastAcceptedWord, @NonNull String composingText) {
 		final ArrayList<String> snapshot = words;
+
+		// since ideographic languages usually have no spaces between the words, we trim beforeCursor
+		// to the last known word + the current word in progress, for simpler word pair detection
+		if (!beforeCursor.toString().endsWith(lastAcceptedWord + composingText)) {
+			return;
+		}
+
+		final Text beforeCursorBak = beforeCursor;
+		beforeCursor = new Text(language, lastAcceptedWord);
 		words = rearrangeByPairFrequency(snapshot);
+		beforeCursor = beforeCursorBak;
 	}
 }

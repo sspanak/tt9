@@ -310,9 +310,9 @@ public class WordPredictions extends Predictions {
 		}
 
 		// update the beforeCursor snapshot with the incoming words
-		final int composingLength = words.get(0).length();
-		String before = composingLength > 0 ? beforeCursor.toString().substring(0, Math.max(0, beforeCursor.length() - composingLength + 1)) : beforeCursor.toString();
-		Text beforeComposing = new Text(language, before.trim());
+		final String composingText = textField != null ? textField.getComposingText() : "";
+		String before = beforeCursor.toString().replaceFirst(composingText + "$", "").trim();
+		Text beforeComposing = new Text(language, before);
 
 		penultimateWord = beforeComposing.getPreviousWord(LanguageKind.usesApostrophes(language), true);
 

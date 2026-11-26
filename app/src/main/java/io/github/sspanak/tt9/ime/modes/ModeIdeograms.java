@@ -67,7 +67,9 @@ public class ModeIdeograms extends ModeWords {
 		if (!isFiltering) {
 			// We can reorder by pairs only after stripping the transcriptions, if any.
 			// Otherwise, the input field words will not match with any pair.
-			((IdeogramPredictions) predictions).orderByPairs();
+			final String composingText = textField != null ? textField.getComposingText() : "";
+			predictions.setDigitSequence(digitSequence);
+			((IdeogramPredictions) predictions).orderByPairs(lastAcceptedWord, composingText);
 		}
 
 		super.onPredictions();
@@ -85,6 +87,12 @@ public class ModeIdeograms extends ModeWords {
 		lastTextBeforeDelete = textBefore.isEmpty() ? textField.getTextBeforeCursor(language, 1).toString() : textBefore;
 	}
 
+
+	@Override
+	public boolean onBackspace() {
+		lastAcceptedWord = "";
+		return super.onBackspace();
+	}
 
 	@Override
 	public String recompose() {

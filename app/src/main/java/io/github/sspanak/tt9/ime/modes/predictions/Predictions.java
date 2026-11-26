@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import io.github.sspanak.tt9.db.DataStore;
+import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -20,6 +21,7 @@ abstract public class Predictions {
 	@NonNull protected Text beforeCursor = new Text(null);
 	@NonNull protected String digitSequence = "";
 	@NonNull protected Language language = new NullLanguage();
+	@Nullable protected TextField textField = null;
 	protected boolean orderWordsByLength = true;
 	protected int minWords = SettingsStore.SUGGESTIONS_MIN;
 	protected final int maxWords = SettingsStore.SUGGESTIONS_MAX;
@@ -79,6 +81,12 @@ abstract public class Predictions {
 
 	public Predictions setOnlyExactMatches(boolean onlyExactMatches) {
 		this.onlyExactMatches = onlyExactMatches;
+		return this;
+	}
+
+
+	public Predictions setTextField(@Nullable TextField textField) {
+		this.textField = textField;
 		return this;
 	}
 

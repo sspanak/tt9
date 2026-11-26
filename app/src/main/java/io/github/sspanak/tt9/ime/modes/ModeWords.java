@@ -356,6 +356,7 @@ class ModeWords extends ModeCheonjiin {
 			.setBeforeCursor(beforeCursor)
 			.setDigitSequence(digitSequence)
 			.setLanguage(language)
+			.setTextField(textField)
 			.load();
 	}
 

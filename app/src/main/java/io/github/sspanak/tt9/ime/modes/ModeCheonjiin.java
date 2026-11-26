@@ -248,6 +248,7 @@ public class ModeCheonjiin extends InputMode {
 			.setBeforeCursor(beforeCursor)
 			.setDigitSequence(currentSeq)
 			.setLanguage(language)
+			.setTextField(textField)
 			.load();
 	}
 
