@@ -33,10 +33,6 @@ public class Text extends TextTools {
 	private static final Pattern PREVIOUS_WORD_WITH_FINAL_COMMA = Pattern.compile("(?<=\\s|\\p{Punct}|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+,?)(?![\\r\\n])$");
 	private static final Pattern PREVIOUS_WORD_WITH_APOSTROPHES = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}']+)(?![\\r\\n])$");
 	private static final Pattern PREVIOUS_WORD_WITH_APOSTROPHES_AND_FINAL_COMMA = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}']+,?)(?![\\r\\n])$");
-	private static final Pattern PENULTIMATE_WORD = Pattern.compile("(?<=\\s|\\p{Punct}|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+)[\\s'][^\\s']*$");
-	private static final Pattern PENULTIMATE_WORD_WITH_FINAL_COMMA = Pattern.compile("(?<=\\s|\\p{Punct}|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+,?)[\\s'][^\\s']*$");
-	private static final Pattern PENULTIMATE_WORD_WITH_APOSTROPHES = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}']+)\\s\\S*$");
-	private static final Pattern PENULTIMATE_WORD_WITH_APOSTROPHES_AND_FINAL_COMMA = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}']+,?)\\s\\S*$");
 
 	@Nullable private final Language language;
 	@Nullable private final String text;
@@ -66,6 +62,12 @@ public class Text extends TextTools {
 		char[] chars = text.toCharArray();
 		chars[0] = Character.toUpperCase(chars[0]);
 		return String.valueOf(chars);
+	}
+
+
+	@NonNull
+	public Text clone() {
+		return new Text(language, text);
 	}
 
 
@@ -99,21 +101,21 @@ public class Text extends TextTools {
 
 
 	@NonNull
-	public String getPreviousWord(boolean skipOne, boolean includeApostrophes, boolean allowFinalComma) {
+	public String getPreviousWord(boolean includeApostrophes, boolean allowFinalComma) {
 		if (text == null || text.isEmpty()) {
 			return "";
 		}
 
 		Pattern pattern;
 		if (allowFinalComma && includeApostrophes) {
-			pattern = skipOne ? PENULTIMATE_WORD_WITH_APOSTROPHES_AND_FINAL_COMMA : PREVIOUS_WORD_WITH_APOSTROPHES_AND_FINAL_COMMA;
+			pattern = PREVIOUS_WORD_WITH_APOSTROPHES_AND_FINAL_COMMA;
 		} else if (allowFinalComma) {
-			pattern = skipOne ? PENULTIMATE_WORD_WITH_FINAL_COMMA : PREVIOUS_WORD_WITH_FINAL_COMMA;
+			pattern = PREVIOUS_WORD_WITH_FINAL_COMMA;
 		} else if (includeApostrophes) {
 			// In Ukrainian and Hebrew, apostrophes are part of the word, so count them as "letters"
-			pattern = skipOne ? PENULTIMATE_WORD_WITH_APOSTROPHES : PREVIOUS_WORD_WITH_APOSTROPHES;
+			pattern = PREVIOUS_WORD_WITH_APOSTROPHES;
 		} else {
-			pattern = skipOne ? PENULTIMATE_WORD : PREVIOUS_WORD;
+			pattern = PREVIOUS_WORD;
 		}
 
 		final Matcher matcher = pattern.matcher(text);
@@ -162,7 +164,7 @@ public class Text extends TextTools {
 
 
 	public boolean isWord() {
-		boolean isApostropheAllowed = LanguageKind.isUkrainian(language) || LanguageKind.isHebrew(language);
+		boolean isApostropheAllowed = LanguageKind.usesApostrophes(language);
 		for (int i = 0, end = text == null ? 0 : text.length(); i < end; i++) {
 			if (!Character.isAlphabetic(text.charAt(i)) && !(isApostropheAllowed && text.charAt(i) == '\'')) {
 				return false;

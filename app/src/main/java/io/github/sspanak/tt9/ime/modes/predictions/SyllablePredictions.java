@@ -101,7 +101,7 @@ public class SyllablePredictions extends Predictions {
 
 
 	@Override
-	public void onAccept(String word, String sequence) {
+	public void onAccept(String word, String sequence, boolean isSpecialCharSequence, String previousSequence) {
 		lastWord = lastStableWord = "";
 		lastStableSequenceLength = 0;
 	}

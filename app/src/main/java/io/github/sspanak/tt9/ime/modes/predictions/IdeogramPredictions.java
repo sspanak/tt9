@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime.modes.predictions;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 
 public class IdeogramPredictions extends WordPredictions {
@@ -68,7 +70,7 @@ public class IdeogramPredictions extends WordPredictions {
 	 * must not cause a frequency change, because it belongs to a different position group.
 	 */
 	public void onAcceptIdeogram(String word) throws InvalidLanguageCharactersException {
-		super.onAccept(getTranscription(word) + word, digitSequence);
+		super.onAccept(getTranscription(word) + word, digitSequence, false, null);
 	}
 
 
@@ -111,9 +113,9 @@ public class IdeogramPredictions extends WordPredictions {
 	 * last typed or just give up.
 	 */
 	@Override
-	protected void pairWithPreviousWord(@NonNull String word, @NonNull String sequence) {
+	protected void pairWithPreviousWord(@NonNull String word, @NonNull String sequence, @Nullable String previousSequence) {
 		if (language.hasSpaceBetweenWords()) {
-			super.pairWithPreviousWord(word, sequence);
+			super.pairWithPreviousWord(word, sequence, previousSequence);
 			return;
 		}
 
@@ -247,8 +249,18 @@ public class IdeogramPredictions extends WordPredictions {
 	}
 
 
-	public void orderByPairs() {
+	public void orderByPairs(@NonNull String lastAcceptedWord, @NonNull String composingText) {
 		final ArrayList<String> snapshot = words;
+
+		// since ideographic languages usually have no spaces between the words, we trim beforeCursor
+		// to the last known word + the current word in progress, for simpler word pair detection
+		if (!beforeCursor.toString().endsWith(lastAcceptedWord + composingText)) {
+			return;
+		}
+
+		final Text beforeCursorBak = beforeCursor;
+		beforeCursor = new Text(language, lastAcceptedWord);
 		words = rearrangeByPairFrequency(snapshot);
+		beforeCursor = beforeCursorBak;
 	}
 }

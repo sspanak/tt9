@@ -1,11 +1,13 @@
 package io.github.sspanak.tt9.ime.modes.predictions;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import io.github.sspanak.tt9.db.DataStore;
+import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -19,6 +21,7 @@ abstract public class Predictions {
 	@NonNull protected Text beforeCursor = new Text(null);
 	@NonNull protected String digitSequence = "";
 	@NonNull protected Language language = new NullLanguage();
+	@Nullable protected TextField textField = null;
 	protected boolean orderWordsByLength = true;
 	protected int minWords = SettingsStore.SUGGESTIONS_MIN;
 	protected final int maxWords = SettingsStore.SUGGESTIONS_MAX;
@@ -78,6 +81,12 @@ abstract public class Predictions {
 
 	public Predictions setOnlyExactMatches(boolean onlyExactMatches) {
 		this.onlyExactMatches = onlyExactMatches;
+		return this;
+	}
+
+
+	public Predictions setTextField(@Nullable TextField textField) {
+		this.textField = textField;
 		return this;
 	}
 
@@ -155,7 +164,7 @@ abstract public class Predictions {
 	}
 
 
-	abstract public void onAccept(String word, String sequence);
+	abstract public void onAccept(String word, String sequence, boolean isSpecialCharSequence, @Nullable String previousSequence);
 	abstract protected boolean isRetryAllowed();
 	abstract protected void onDbWords(ArrayList<String> dbWords, boolean retryAllowed);
 }

@@ -63,7 +63,7 @@ public class WordPair {
 
 
 	public String toSqlRow() {
-		return "('" + word1 + "','" + word2 + "','" + sequence2 + "')";
+		return "('" + word1.replace("'", "''") + "','" + word2.replace("'", "''")	 + "','" + sequence2 + "')";
 	}
 
 

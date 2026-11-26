@@ -17,6 +17,10 @@ public class InputModeKind {
 		return mode != null && mode.getId() == InputMode.MODE_HIRAGANA;
 	}
 
+	public static boolean isInstanceOfCheonjiin(InputMode mode) {
+		return mode instanceof ModeCheonjiin;
+	}
+
 	public static boolean isKatakana(InputMode mode) {
 		return mode != null && mode.getId() == InputMode.MODE_KATAKANA;
 	}

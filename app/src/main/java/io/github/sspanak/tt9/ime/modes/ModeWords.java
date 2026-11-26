@@ -160,6 +160,18 @@ class ModeWords extends ModeCheonjiin {
 
 
 	@Override
+	public void beforeDeleteText() {
+		if (settings == null || !settings.isAutoAssistanceOn(this)) {
+			return;
+		}
+
+		setSurroundingText(
+			textField == null ? new String[] { "", "" } : textField.getSurroundingStringForAutoAssistance(settings, this)
+		);
+	}
+
+
+	@Override
 	public String recompose() {
 		isRecomposing = false;
 		if (textField == null || !language.hasSpaceBetweenWords() || language.isTranscribed()) {
@@ -172,7 +184,7 @@ class ModeWords extends ModeCheonjiin {
 		}
 
 		boolean includeApostrophes = LanguageKind.isUkrainian(language) || LanguageKind.isHebrew(language);
-		String previousWord = textField.getTextBeforeCursor(language, 50).getPreviousWord(false, includeApostrophes, false);
+		String previousWord = textField.getTextBeforeCursor(language, 50).getPreviousWord(includeApostrophes, false);
 		if (previousWord.length() < 2 || previousWord.contains(" ")) {
 			Logger.d(LOG_TAG, "Not recomposing invalid word: '" + previousWord + "'");
 			textCase = settings.getTextCase();
@@ -344,6 +356,7 @@ class ModeWords extends ModeCheonjiin {
 			.setBeforeCursor(beforeCursor)
 			.setDigitSequence(digitSequence)
 			.setLanguage(language)
+			.setTextField(textField)
 			.load();
 	}
 
@@ -380,6 +393,7 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	public void onAcceptSuggestion(@NonNull String currentWord, boolean preserveWords) {
 		lastAcceptedWord = currentWord;
+		String previousSequence = digitSequence;
 
 		if (preserveWords) {
 			clearLastAcceptedWord();
@@ -399,14 +413,13 @@ class ModeWords extends ModeCheonjiin {
 		}
 
 		try {
-			// special chars are not in the database, no need to run queries on them
 			String currentWordSeq = language.getDigitSequenceForWord(currentWord);
-			if (seq.isAnySpecialCharSequence(currentWordSeq)) {
-				return;
-			}
 
 			// increment the frequency of the given word
-			predictions.onAccept(currentWord, currentWordSeq);
+			predictions
+				.setAfterCursor(afterCursor)
+				.setBeforeCursor(beforeCursor)
+				.onAccept(currentWord, currentWordSeq, seq.isAnySpecialCharSequence(currentWordSeq), previousSequence);
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
 		}
