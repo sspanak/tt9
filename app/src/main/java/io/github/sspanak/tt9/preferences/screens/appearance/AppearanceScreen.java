@@ -116,16 +116,8 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 			}
 		}
 
-		SwitchWhenLargeTouchscreenLayout[] switches = {
-			leftRightArrows,
-			dragResize,
-			doubleTapResize
-		};
-
-		for (SwitchWhenLargeTouchscreenLayout item : switches) {
-			if (item != null) {
-				item.populate(activity.getSettings());
-			}
+		if (leftRightArrows != null) {
+			leftRightArrows.populate(activity.getSettings());
 		}
 	}
 
