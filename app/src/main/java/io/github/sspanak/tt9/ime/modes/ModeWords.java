@@ -161,14 +161,13 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	public void beforeDeleteText() {
-		if (textField == null) {
-			beforeCursor = new Text(language, "");
+		if (settings == null || !settings.isAutoAssistanceOn(this)) {
 			return;
 		}
 
-		String textBefore = textField.getComposingText();
-		textBefore = textBefore.isEmpty() ? textField.getTextBeforeCursor(language, 1).toString() : textBefore;
-		beforeCursor = new Text(language, textBefore);
+		setSurroundingText(
+			textField == null ? new String[] { "", "" } : textField.getSurroundingStringForAutoAssistance(settings, this)
+		);
 	}
 
 
