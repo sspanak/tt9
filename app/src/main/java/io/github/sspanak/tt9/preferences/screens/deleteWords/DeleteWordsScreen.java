@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.preferences.screens.deleteWords;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
@@ -26,13 +28,12 @@ public class DeleteWordsScreen extends BaseScreenFragment {
 		}
 
 		DeletableWordsList searchResultsList = new DeletableWordsList(activity.getSettings(), findPreference(DeletableWordsList.NAME));
-		searchResultsList.setTotalWords(0);
-		searchResultsList.setResult("", null);
+		searchResultsList.setResult(new CustomWordsPage("", 0, 0, new ArrayList<>()));
 
 		PreferenceSearchWords searchWords = findPreference(PreferenceSearchWords.NAME);
-		if (activity != null && searchWords != null) {
-			searchWords.setOnWordsHandler(activity, (words) -> searchResultsList.setResult(searchWords.getLastSearchTerm(), words));
-			searchWords.setOnTotalWordsHandler(activity, searchResultsList::setTotalWords);
+		if (searchWords != null) {
+			searchWords.setOnPageHandler(activity, searchResultsList::setResult);
+			searchResultsList.setOnPageChangeHandler(searchWords::loadPage);
 			searchWords.search("");
 		}
 

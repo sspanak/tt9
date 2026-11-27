@@ -117,6 +117,11 @@
 		<item name="widgetLayout">@layout/pref_switch_v31</item>
 	</style>
 
+	<!-- use the dynamic accent color for the page navigation links, so that they look clickable -->
+	<style name="TTheme.Preferences.PageNavigation.Link" parent="TTheme.Preferences.PageNavigation.Link.Base">
+		<item name="android:textColor">?attr/colorPrimary</item>
+	</style>
+
 <!--	<style name="AppDropDownStyle" parent="Widget.Material3.PopupMenu.ListPopupWindow">-->
 <!--		<item name="android:background">@color/material_dynamic_neutral_variant90</item>-->
 <!--		<item name="popupMenuBackground">@color/material_dynamic_neutral_variant90</item>-->

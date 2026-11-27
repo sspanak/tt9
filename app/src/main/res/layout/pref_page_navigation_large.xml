@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/TTheme.Preferences.PageNavigation">
+
+	<TextView
+		android:id="@+id/page_navigation_previous"
+		style="@style/TTheme.Preferences.PageNavigation.Link.Large"
+		android:text="@string/delete_words_page_previous" />
+
+	<Space style="@style/TTheme.Preferences.PageNavigation.Spacer" />
+
+	<TextView
+		android:id="@+id/page_navigation_next"
+		style="@style/TTheme.Preferences.PageNavigation.Link.Large"
+		android:text="@string/delete_words_page_next" />
+</LinearLayout>
