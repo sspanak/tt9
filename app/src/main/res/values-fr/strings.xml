@@ -60,6 +60,7 @@
 	<string name="dictionary_not_found">Echec du chargement. Dictionnaire «%1$s» introuvable.</string>
 	<string name="pref_category_function_keys">Raccourcis clavier</string>
 	<string name="pref_category_abc_mode">Saisie ABC</string>
+	<string name="pref_category_backup">Sauvegarde</string>
 	<string name="pref_category_colors">Couleurs</string>
 	<string name="pref_category_custom_words">Mots ajoutés</string>
 	<string name="pref_category_delete_words">Supprimer des mots ajoutés</string>
@@ -319,4 +320,12 @@
 	<string name="pref_category_unfolded_appearance">Apparence en mode déplié</string>
 	<string name="pref_category_unfolded_appearance_summary">Configure l\'apparence lorsque l\'appareil est déplié.</string>
 	<string name="pref_predict_top_words">Mémoriser les mots fréquents</string>
+	<string name="backup_export">Exporter</string>
+	<string name="backup_export_failed">Échec de l’exportation des paramètres.</string>
+	<string name="backup_export_success">Paramètres exportés vers : \"%1$s\".</string>
+	<string name="backup_export_summary">Sauvegarder tous les paramètres de l’application dans un fichier « %1$s » dans « %2$s ». La sauvegarde n’inclut pas les mots ajoutés manuellement ni l’ordre des mots appris dans le dictionnaire.</string>
+	<string name="backup_import">Importer</string>
+	<string name="backup_import_failed">Échec de l’importation des paramètres.</string>
+	<string name="backup_import_success">Paramètres importés avec succès.</string>
+	<string name="backup_import_summary">Importer une sauvegarde précédemment exportée.\n ● AVERTISSEMENT ! N’importez jamais de fichiers créés par quelqu’un d’autre : ils pourraient provoquer le plantage de l’application.\n ● Certains paramètres seront ignorés si la sauvegarde a été créée sur un appareil d’une autre marque ou d’un autre modèle.</string>
 </resources>

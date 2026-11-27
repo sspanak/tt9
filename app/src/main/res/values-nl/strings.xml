@@ -90,6 +90,7 @@
 	<string name="dictionary_truncate_unselected">Verwijder de niet-geselecteerde</string>
 	<string name="dictionary_truncated">Woordenboek succesvol gewist.</string>
 	<string name="pref_category_abc_mode">ABC-modus</string>
+	<string name="pref_category_backup">Back-up</string>
 	<string name="pref_category_colors">Kleuren</string>
 	<string name="pref_category_custom_words">Toegevoegde woorden</string>
 	<string name="pref_category_delete_words">Verwijder toegevoegde woorden</string>
@@ -320,4 +321,12 @@
 	<string name="pref_category_unfolded_appearance">Weergave uitgeklapt</string>
 	<string name="pref_category_unfolded_appearance_summary">De weergave instellen wanneer het apparaat is uitgeklapt.</string>
 	<string name="pref_predict_top_words">Veelgebruikte woorden leren</string>
+	<string name="backup_export">Exporteren</string>
+	<string name="backup_export_failed">Instellingen exporteren mislukt.</string>
+	<string name="backup_export_success">Instellingen geëxporteerd naar: \"%1$s\".</string>
+	<string name="backup_export_summary">Maak een back-up van alle app-instellingen in een bestand met de naam \"%1$s\" in \"%2$s\". De back-up bevat geen zelf toegevoegde woorden of de volgorde van geleerde woorden in het woordenboek.</string>
+	<string name="backup_import">Importeren</string>
+	<string name="backup_import_failed">Instellingen importeren mislukt.</string>
+	<string name="backup_import_success">Instellingen zijn geïmporteerd.</string>
+	<string name="backup_import_summary">Een eerder geëxporteerde back-up importeren.\n ● WAARSCHUWING! Importeer nooit bestanden die door iemand anders zijn gemaakt. Deze kunnen ervoor zorgen dat de app vastloopt.\n ● Sommige instellingen worden overgeslagen als de back-up is gemaakt op een apparaat van een andere fabrikant of een ander model.</string>
 </resources>

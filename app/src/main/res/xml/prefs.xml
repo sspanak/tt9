@@ -27,6 +27,8 @@
 		app:key="screen_keypad"
 		app:title="@string/pref_category_keypad" />
 
+	<io.github.sspanak.tt9.preferences.screens.main.PreferenceBackupScreen />
+
 	<Preference
 		app:fragment="io.github.sspanak.tt9.preferences.SetupScreen"
 		app:key="screen_setup"

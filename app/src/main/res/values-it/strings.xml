@@ -81,6 +81,7 @@
 	<string name="dictionary_load_title">Carica le selezionate</string>
 	<string name="dictionary_not_found">Impossibile caricare. Dizionario per “%1$s” non trovato.</string>
 	<string name="pref_category_abc_mode">Modalità ABC</string>
+	<string name="pref_category_backup">Backup</string>
 	<string name="pref_category_colors">Colori</string>
 	<string name="pref_category_custom_words">Parole aggiunte</string>
 	<string name="pref_category_delete_words">Elimina parole aggiunte</string>
@@ -322,5 +323,13 @@
 	<string name="pref_category_unfolded_appearance">Aspetto in modalità aperta</string>
 	<string name="pref_category_unfolded_appearance_summary">Configura l\'aspetto quando il dispositivo è aperto.</string>
 	<string name="pref_predict_top_words">Memorizza le parole più usate</string>
+	<string name="backup_export">Esporta</string>
+	<string name="backup_export_failed">Esportazione delle impostazioni non riuscita.</string>
+	<string name="backup_export_success">Impostazioni esportate in: \"%1$s\".</string>
+	<string name="backup_export_summary">Esegui il backup di tutte le impostazioni dell’app in un file \"%1$s\" in \"%2$s\". Il backup non include le parole aggiunte manualmente né l’ordine delle parole apprese nel dizionario.</string>
+	<string name="backup_import">Importa</string>
+	<string name="backup_import_failed">Importazione delle impostazioni non riuscita.</string>
+	<string name="backup_import_success">Impostazioni importate correttamente.</string>
+	<string name="backup_import_summary">Importa un backup esportato in precedenza.\n ● ATTENZIONE! Non importare mai file creati da altre persone: potrebbero causare l’arresto anomalo dell’app.\n ● Alcune impostazioni verranno ignorate se il backup è stato creato su un dispositivo di un’altra marca o di un altro modello.</string>
 </resources>
 

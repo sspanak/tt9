@@ -29,6 +29,7 @@
 	<string name="add_word_success">\"%1$s\" añadida.</string>
 	<string name="add_word_title">Agregar palabra</string>
 	<string name="pref_category_abc_mode">Modo ABC</string>
+	<string name="pref_category_backup">Copia de seguridad</string>
 	<string name="pref_category_colors">Colores</string>
 	<string name="pref_category_custom_words">Palabras añadidas</string>
 	<string name="pref_category_delete_words">Eliminar palabras añadidas</string>
@@ -319,4 +320,12 @@
 	<string name="pref_category_unfolded_appearance">Apariencia en modo desplegado</string>
 	<string name="pref_category_unfolded_appearance_summary">Configura la apariencia cuando el dispositivo está desplegado.</string>
 	<string name="pref_predict_top_words">Aprender palabras frecuentes</string>
+	<string name="backup_export">Exportar</string>
+	<string name="backup_export_failed">Error al exportar los ajustes.</string>
+	<string name="backup_export_success">Ajustes exportados a: \"%1$s\".</string>
+	<string name="backup_export_summary">Crear una copia de seguridad de todos los ajustes de la aplicación en un archivo \"%1$s\" en \"%2$s\". La copia de seguridad no incluye las palabras añadidas manualmente ni el orden de las palabras aprendidas en el diccionario.</string>
+	<string name="backup_import">Importar</string>
+	<string name="backup_import_failed">Error al importar los ajustes.</string>
+	<string name="backup_import_success">Los ajustes se han importado correctamente.</string>
+	<string name="backup_import_summary">Importar una copia de seguridad exportada anteriormente.\n ● ¡ADVERTENCIA! Nunca importes archivos creados por otras personas, ya que podrían provocar que la aplicación se cierre inesperadamente.\n ● Algunos ajustes se omitirán si la copia de seguridad se creó en un dispositivo de otra marca o modelo.</string>
 </resources>

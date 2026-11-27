@@ -80,6 +80,7 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 		ArrayList<Preference> screens = new ArrayList<>(Arrays.asList(
 			findPreference("screen_appearance"),
+			findPreference("screen_backup"),
 			findPreference("screen_keypad"),
 			findPreference("screen_languages")
 		));
@@ -87,6 +88,10 @@ public class MainSettingsScreen extends BaseScreenFragment {
 		for (Preference goToScreen : screens) {
 			if (goToScreen != null) {
 				goToScreen.setEnabled(isTT9On || activity.getSettings().getDemoMode());
+			}
+
+			if (goToScreen instanceof PreferenceBackupScreen) {
+				((PreferenceBackupScreen) goToScreen).populate(activity);
 			}
 		}
 	}

@@ -87,6 +87,7 @@
 	<string name="dictionary_load_title">Ausgewählte laden</string>
 	<string name="dictionary_not_found">Wird nicht geladen. Wörterbuch für \"%1$s\" nicht gefunden.</string>
 	<string name="pref_category_abc_mode">ABC-Modus</string>
+	<string name="pref_category_backup">Sicherung</string>
 	<string name="pref_category_colors">Farben</string>
 	<string name="pref_category_custom_words">Hinzugefügte Wörter</string>
 	<string name="pref_category_delete_words">Hinzugefügte Wörter löschen</string>
@@ -321,4 +322,12 @@
 	<string name="pref_category_unfolded_appearance">Darstellung im aufgeklappten Zustand</string>
 	<string name="pref_category_unfolded_appearance_summary">Darstellung bei aufgeklapptem Gerät konfigurieren.</string>
 	<string name="pref_predict_top_words">Häufig verwendete Wörter lernen</string>
+	<string name="backup_export">Exportieren</string>
+	<string name="backup_export_failed">Einstellungen konnten nicht exportiert werden.</string>
+	<string name="backup_export_success">Einstellungen exportiert nach: \"%1$s\".</string>
+	<string name="backup_export_summary">Alle App-Einstellungen in einer Datei „%1$s“ unter „%2$s“ sichern. Die Sicherung enthält keine selbst hinzugefügten Wörter oder die Reihenfolge der gelernten Wörter im Wörterbuch.</string>
+	<string name="backup_import">Importieren</string>
+	<string name="backup_import_failed">Einstellungen konnten nicht importiert werden.</string>
+	<string name="backup_import_success">Einstellungen erfolgreich importiert.</string>
+	<string name="backup_import_summary">Eine zuvor exportierte Sicherung importieren.\n ● WARNUNG! Importiere niemals Dateien, die von anderen Personen erstellt wurden. Sie können zum Absturz der App führen.\n ● Einige Einstellungen werden übersprungen, wenn die Sicherung auf einem Gerät eines anderen Herstellers oder Modells erstellt wurde.</string>
 </resources>
