@@ -332,5 +332,5 @@
 	<string name="backup_import">İçe aktar</string>
 	<string name="backup_import_failed">Ayarlar içe aktarılamadı.</string>
 	<string name="backup_import_success">Ayarlar başarıyla içe aktarıldı.</string>
-	<string name="backup_import_summary">Daha önce dışa aktarılmış bir yedekleme dosyasını içe aktarın.\nUYARI! Başkaları tarafından oluşturulan dosyaları asla içe aktarmayın; bu dosyalar uygulamanın çökmesine neden olabilir.</string>
+	<string name="backup_import_summary">Daha önce dışa aktarılmış bir yedeklemeyi içe aktarın.\n ● UYARI! Başkaları tarafından oluşturulan dosyaları asla içe aktarmayın; bu dosyalar uygulamanın çökmesine neden olabilir.\n ● Yedekleme farklı bir marka veya model cihazda oluşturulduysa bazı ayarlar atlanır.</string>
 </resources>

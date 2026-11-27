@@ -336,5 +336,5 @@
 	<string name="backup_import">Importuoti</string>
 	<string name="backup_import_failed">Nepavyko importuoti nustatymų.</string>
 	<string name="backup_import_success">Nustatymai sėkmingai importuoti.</string>
-	<string name="backup_import_summary">Importuokite anksčiau eksportuotą atsarginės kopijos failą.\nĮSPĖJIMAS! Niekada neimportuokite kitų žmonių sukurtų failų – dėl jų programa gali užstrigti.</string>
+	<string name="backup_import_summary">Importuokite anksčiau eksportuotą atsarginę kopiją.\n ● ĮSPĖJIMAS! Niekada neimportuokite kitų žmonių sukurtų failų – dėl jų programa gali užstrigti.\n ● Kai kurie nustatymai bus praleisti, jei atsarginė kopija buvo sukurta kito gamintojo arba kito modelio įrenginyje.</string>
 </resources>

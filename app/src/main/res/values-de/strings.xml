@@ -329,5 +329,5 @@
 	<string name="backup_import">Importieren</string>
 	<string name="backup_import_failed">Einstellungen konnten nicht importiert werden.</string>
 	<string name="backup_import_success">Einstellungen erfolgreich importiert.</string>
-	<string name="backup_import_summary">Eine zuvor exportierte Sicherungsdatei importieren.\nWARNUNG! Importiere niemals Dateien, die von anderen Personen erstellt wurden. Sie können zum Absturz der App führen.</string>
+	<string name="backup_import_summary">Eine zuvor exportierte Sicherung importieren.\n ● WARNUNG! Importiere niemals Dateien, die von anderen Personen erstellt wurden. Sie können zum Absturz der App führen.\n ● Einige Einstellungen werden übersprungen, wenn die Sicherung auf einem Gerät eines anderen Herstellers oder Modells erstellt wurde.</string>
 </resources>

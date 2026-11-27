@@ -183,7 +183,7 @@
 	<string name="backup_import">Import</string>
 	<string name="backup_import_failed">Settings import failed.</string>
 	<string name="backup_import_success">Settings imported successfully.</string>
-	<string name="backup_import_summary">Import a previously exported backup file.\nWARNING! Never import files created by someone else—they may cause the app to crash.</string>
+	<string name="backup_import_summary">Import a previously exported backup.\n ● WARNING! Never import files created by someone else—they may cause the app to crash.\n ● Some settings will be skipped if the backup was created on a device of a different make or model.</string>
 
 	<!-- Colors -->
 	<string name="pref_color_scheme">Theme</string>

@@ -330,6 +330,6 @@
 	<string name="backup_import">Importa</string>
 	<string name="backup_import_failed">Importazione delle impostazioni non riuscita.</string>
 	<string name="backup_import_success">Impostazioni importate correttamente.</string>
-	<string name="backup_import_summary">Importa un file di backup esportato in precedenza.\nATTENZIONE! Non importare mai file creati da altre persone: potrebbero causare l’arresto anomalo dell’app.</string>
+	<string name="backup_import_summary">Importa un backup esportato in precedenza.\n ● ATTENZIONE! Non importare mai file creati da altre persone: potrebbero causare l’arresto anomalo dell’app.\n ● Alcune impostazioni verranno ignorate se il backup è stato creato su un dispositivo di un’altra marca o di un altro modello.</string>
 </resources>
 

@@ -327,5 +327,5 @@
 	<string name="backup_import">Importar</string>
 	<string name="backup_import_failed">Error al importar los ajustes.</string>
 	<string name="backup_import_success">Los ajustes se han importado correctamente.</string>
-	<string name="backup_import_summary">Importar un archivo de copia de seguridad exportado anteriormente.\n¡ADVERTENCIA! Nunca importes archivos creados por otras personas, ya que podrían provocar que la aplicación se cierre inesperadamente.</string>
+	<string name="backup_import_summary">Importar una copia de seguridad exportada anteriormente.\n ● ¡ADVERTENCIA! Nunca importes archivos creados por otras personas, ya que podrían provocar que la aplicación se cierre inesperadamente.\n ● Algunos ajustes se omitirán si la copia de seguridad se creó en un dispositivo de otra marca o modelo.</string>
 </resources>

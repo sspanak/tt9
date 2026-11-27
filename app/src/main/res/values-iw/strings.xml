@@ -334,5 +334,5 @@
 	<string name="backup_import">ייבוא</string>
 	<string name="backup_import_failed">ייבוא ההגדרות נכשל.</string>
 	<string name="backup_import_success">ההגדרות יובאו בהצלחה.</string>
-	<string name="backup_import_summary">ייבוא קובץ גיבוי שיוצא בעבר.\nאזהרה! לעולם אין לייבא קבצים שנוצרו על ידי מישהו אחר — הם עלולים לגרום לקריסת האפליקציה.</string>
+	<string name="backup_import_summary">ייבוא גיבוי שיוצא בעבר.\n ● אזהרה! לעולם אין לייבא קבצים שנוצרו על ידי מישהו אחר — הם עלולים לגרום לקריסת האפליקציה.\n ● חלק מההגדרות יידלגו אם הגיבוי נוצר במכשיר של יצרן אחר או מדגם אחר.</string>
 </resources>

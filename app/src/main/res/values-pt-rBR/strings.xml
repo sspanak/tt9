@@ -334,5 +334,5 @@
 	<string name="backup_import">Importar</string>
 	<string name="backup_import_failed">Falha ao importar as configurações.</string>
 	<string name="backup_import_success">Configurações importadas com sucesso.</string>
-	<string name="backup_import_summary">Importe um arquivo de backup exportado anteriormente.\nAVISO! Nunca importe arquivos criados por outras pessoas — eles podem fazer o aplicativo travar.</string>
+	<string name="backup_import_summary">Importe um backup exportado anteriormente.\n ● AVISO! Nunca importe arquivos criados por outras pessoas — eles podem fazer o aplicativo travar.\n ● Algumas configurações serão ignoradas se o backup tiver sido criado em um dispositivo de outra marca ou modelo.</string>
 </resources>

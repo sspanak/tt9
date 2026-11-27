@@ -328,5 +328,5 @@
 	<string name="backup_import">Importeren</string>
 	<string name="backup_import_failed">Instellingen importeren mislukt.</string>
 	<string name="backup_import_success">Instellingen zijn geïmporteerd.</string>
-	<string name="backup_import_summary">Importeer een eerder geëxporteerd back-upbestand.\nWAARSCHUWING! Importeer nooit bestanden die door iemand anders zijn gemaakt. Deze kunnen ervoor zorgen dat de app vastloopt.</string>
+	<string name="backup_import_summary">Een eerder geëxporteerde back-up importeren.\n ● WAARSCHUWING! Importeer nooit bestanden die door iemand anders zijn gemaakt. Deze kunnen ervoor zorgen dat de app vastloopt.\n ● Sommige instellingen worden overgeslagen als de back-up is gemaakt op een apparaat van een andere fabrikant of een ander model.</string>
 </resources>

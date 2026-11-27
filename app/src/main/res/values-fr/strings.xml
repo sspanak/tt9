@@ -327,5 +327,5 @@
 	<string name="backup_import">Importer</string>
 	<string name="backup_import_failed">Échec de l’importation des paramètres.</string>
 	<string name="backup_import_success">Paramètres importés avec succès.</string>
-	<string name="backup_import_summary">Importer un fichier de sauvegarde précédemment exporté.\nAVERTISSEMENT ! N’importez jamais de fichiers créés par quelqu’un d’autre : ils pourraient provoquer le plantage de l’application.</string>
+	<string name="backup_import_summary">Importer une sauvegarde précédemment exportée.\n ● AVERTISSEMENT ! N’importez jamais de fichiers créés par quelqu’un d’autre : ils pourraient provoquer le plantage de l’application.\n ● Certains paramètres seront ignorés si la sauvegarde a été créée sur un appareil d’une autre marque ou d’un autre modèle.</string>
 </resources>
