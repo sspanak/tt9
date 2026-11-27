@@ -178,7 +178,7 @@ public class Text extends TextTools {
 	}
 
 
-	private boolean isCapitalized() {
+	public boolean isCapitalized() {
 		if (text == null || text.length() < 2) {
 			return false;
 		}
