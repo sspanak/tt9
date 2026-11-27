@@ -27,7 +27,7 @@ public class DeleteWordsScreen extends BaseScreenFragment {
 			return;
 		}
 
-		DeletableWordsList searchResultsList = new DeletableWordsList(activity.getSettings(), findPreference(DeletableWordsList.NAME), PreferenceSearchWords.PAGE_SIZE);
+		DeletableWordsList searchResultsList = new DeletableWordsList(activity.getSettings(), findPreference(DeletableWordsList.NAME));
 		searchResultsList.setResult(new CustomWordsPage("", 0, 0, new ArrayList<>()));
 
 		PreferenceSearchWords searchWords = findPreference(PreferenceSearchWords.NAME);

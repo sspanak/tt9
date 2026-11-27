@@ -65,6 +65,42 @@
 		<item name="android:layout_height">1dp</item>
 	</style>
 
+	<!-- Page navigation (Edit or Delete Added Words screen) -->
+	<style name="TTheme.Preferences.PageNavigation" parent="">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:gravity">center_vertical</item>
+		<item name="android:orientation">horizontal</item>
+	</style>
+
+	<style name="TTheme.Preferences.PageNavigation.Spacer" parent="">
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_height">0dp</item>
+		<item name="android:layout_weight">1</item>
+	</style>
+
+	<style name="TTheme.Preferences.PageNavigation.Link.Base" parent="">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:background">?android:attr/selectableItemBackground</item>
+		<item name="android:clickable">true</item>
+		<item name="android:focusable">true</item>
+		<item name="android:gravity">center_vertical</item>
+		<item name="android:minHeight">@dimen/pref_custom_min_height</item>
+		<item name="android:paddingStart">@dimen/pref_custom_spacing_horizontal</item>
+		<item name="android:paddingEnd">@dimen/pref_custom_spacing_horizontal</item>
+	</style>
+
+	<style name="TTheme.Preferences.PageNavigation.Link" parent="TTheme.Preferences.PageNavigation.Link.Base">
+		<item name="android:textColor">?android:attr/textColorSecondary</item>
+	</style>
+
+	<style name="TTheme.Preferences.PageNavigation.Link.Large" parent="TTheme.Preferences.PageNavigation.Link">
+		<item name="android:paddingStart">@dimen/large_pref_spacing_horizontal</item>
+		<item name="android:paddingEnd">@dimen/large_pref_spacing_horizontal</item>
+		<item name="android:textSize">@dimen/large_pref_summary_size</item>
+	</style>
+
 	<style name="TTheme.Keyboard" parent="TTheme">
 		<item name="android:background">?attr/colorKeyboardBackground</item>
 	</style>

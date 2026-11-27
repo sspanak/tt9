@@ -25,7 +25,7 @@
 	<string name="pref_category_abc_mode">Режим АБВ</string>
 	<string name="pref_category_colors">Кольори</string>
 	<string name="pref_category_custom_words">Додані слова</string>
-	<string name="pref_category_delete_words">Видалити додані слова</string>
+	<string name="pref_category_delete_words">Редагувати або видалити додані слова</string>
 	<string name="pref_category_fn_key_order">Порядок функціональних клавіш</string>
 	<string name="pref_category_hacks">Сумістність</string>
 	<string name="pref_category_appearance">Зовнішній вигляд</string>
@@ -135,12 +135,18 @@
 	<string name="dictionary_import_error_too_many_words">Сховище доданих слів заповнено. Ви не можете імпортувати більше слів.</string>
 	<string name="delete">Видалити</string>
 	<string name="dictionary_import_raise_import_limits_summary">Збільшити максимальну кількість слів у файлі з %1$d до %2$d і загальну кількість слів з %3$d до %4$d.\nУвага! Імпорт занадто великої кількості слів може уповільнити введення тексту.</string>
-	<string name="delete_words_link_summary">Знайти та видалити неправильно написані або зайві слова.</string>
+	<string name="delete_words_link_summary">Знайти, виправити або видалити неправильно написані або зайві слова.</string>
 	<string name="search_results">Знайдені слова</string>
 	<string name="search_results_void">Немає результатів.</string>
 	<string name="delete_words_deleted_confirm_deletion_title">Підтвердіть видалення</string>
 	<string name="delete_words_deleted_confirm_deletion_question">Ви впевнені, що хочете видалити \"%1$s\"?</string>
 	<string name="delete_words_deleted_x">\"%1$s\" було видалено.</string>
+	<string name="delete_words_page_next">Наступна сторінка ›</string>
+	<string name="delete_words_page_previous">‹ Попередня сторінка</string>
+	<string name="edit_word_title">Редагування слова</string>
+	<string name="edit_word_save">Зберегти</string>
+	<string name="edit_word_success">«%1$s» змінено на «%2$s».</string>
+	<string name="edit_word_invalid">«%1$s» містить символи, недопустимі в цій мові.</string>
 	<string name="dictionary_update_message">Доступне оновлення словника для \"%1$s\".</string>
 	<string name="dictionary_update_update">Завантажити</string>
 

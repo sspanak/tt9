@@ -20,6 +20,7 @@ import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
 import io.github.sspanak.tt9.ui.PopupBuilder;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.sys.HardwareInfo;
 
 public class PreferenceDeletableWord extends ScreenPreference {
 	private DeletableWordsList parent;
@@ -75,7 +76,7 @@ public class PreferenceDeletableWord extends ScreenPreference {
 		input.setSelection(word.length());
 
 		FrameLayout container = new FrameLayout(context);
-		int padding = Math.round(20 * context.getResources().getDisplayMetrics().density);
+		int padding = Math.round(20 * HardwareInfo.getScreenPixelDensity(context));
 		container.setPadding(padding, 0, padding, 0);
 		container.addView(input);
 

@@ -147,8 +147,8 @@ public class ReadOps {
 						cursor.getString(1),
 						(int) cursor.getLong(2)
 					));
-				} catch (IllegalArgumentException ignored) {
-					// skip words of removed languages or with invalid characters
+				} catch (IllegalArgumentException ex) {
+					Logger.w(LOG_TAG, "Cannot load word '" + cursor.getString(0) + "' with invalid sequence or characters for language " + cursor.getLong(2) + ". " + ex);
 				}
 			}
 		}

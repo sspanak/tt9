@@ -18,7 +18,6 @@ import io.github.sspanak.tt9.util.Logger;
 public class PreferenceSearchWords extends SearchPreference {
 	public static final String NAME = "dictionary_delete_words_search";
 	private static final String LOG_TAG = PreferenceSearchWords.class.getSimpleName();
-	static final int PAGE_SIZE = SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_MAX;
 
 	@Nullable private Activity activity;
 	@Nullable private Consumer<CustomWordsPage> onPage;
@@ -66,7 +65,7 @@ public class PreferenceSearchWords extends SearchPreference {
 			(total) -> DataStore.getCustomWords(
 				(words) -> deliver(requestId, new CustomWordsPage(searchTerm, start, total, words == null ? new ArrayList<>() : words)),
 				searchTerm,
-				PAGE_SIZE,
+				SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_PAGE_SIZE,
 				start
 			),
 			searchTerm

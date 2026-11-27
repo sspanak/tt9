@@ -12,7 +12,7 @@ public class SettingsStatic extends SettingsColors {
 	public static final int BACKSPACE_ACCELERATION_MAX_CHARS_NO_SPACE = 4; // maximum chars to be deleted at once for languages with no spaces
 	public static final int BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE = 5;
 	public final static int CLIPBOARD_PREVIEW_LENGTH = 20;
-	public final static int CUSTOM_WORDS_SEARCH_RESULTS_MAX = 50;
+	public final static int CUSTOM_WORDS_SEARCH_RESULTS_PAGE_SIZE = 50;
 	public final static int DICTIONARY_AUTO_LOAD_COOLDOWN_TIME = 1200000; // 20 minutes in ms
 	public final static int DICTIONARY_DOWNLOAD_CONNECTION_TIMEOUT = 10000; // ms
 	public final static int DICTIONARY_DOWNLOAD_READ_TIMEOUT = 10000; // ms

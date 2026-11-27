@@ -18,7 +18,6 @@ class DeletableWordsList {
 
 	private final PreferenceCategory item;
 	private final boolean largeFont;
-	private final int pageSize;
 	@Nullable private IntConsumer onPageChange;
 	private final ArrayList<PreferencePageNavigation> navigationRows = new ArrayList<>();
 
@@ -26,10 +25,9 @@ class DeletableWordsList {
 	private int currentWords = 0;
 	private long totalMatching = 0;
 
-	DeletableWordsList(SettingsStore settings, Preference preference, int pageSize) {
+	DeletableWordsList(SettingsStore settings, Preference preference) {
 		item = preference instanceof PreferenceCategory ? (PreferenceCategory) preference : null;
 		largeFont = settings.getSettingsFontSize() == SettingsStore.FONT_SIZE_LARGE;
-		this.pageSize = pageSize;
 	}
 
 	void setOnPageChangeHandler(@Nullable IntConsumer handler) {
@@ -54,7 +52,7 @@ class DeletableWordsList {
 
 		if (currentWords == 0 && totalMatching > 0) {
 			// the page is now empty, show the words that were after it, or the previous page
-			changePage(offset < totalMatching ? offset : offset - pageSize);
+			changePage(offset < totalMatching ? offset : offset - SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_PAGE_SIZE);
 		} else {
 			setResultCount();
 			updateNavigation();
@@ -98,7 +96,7 @@ class DeletableWordsList {
 		PreferencePageNavigation pref = new PreferencePageNavigation(item.getContext());
 		pref.setLayoutResource(largeFont ? pref.getLargeLayout() : pref.getDefaultLayout());
 		pref.setHandlers(
-			() -> changePage(offset - pageSize),
+			() -> changePage(offset - SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_PAGE_SIZE),
 			() -> changePage(offset + currentWords)
 		);
 		item.addPreference(pref);
@@ -123,7 +121,7 @@ class DeletableWordsList {
 	void setResult(@NonNull CustomWordsPage page) {
 		if (page.words().isEmpty() && page.offset() > 0 && page.totalMatching() > 0) {
 			// we went past the end (e.g. some words were deleted elsewhere), so go to the last page
-			int lastPageOffset = (int) ((page.totalMatching() - 1) / pageSize * pageSize);
+			int lastPageOffset = (int) ((page.totalMatching() - 1) / SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_PAGE_SIZE * SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_PAGE_SIZE);
 			if (lastPageOffset < page.offset()) {
 				changePage(lastPageOffset);
 				return;

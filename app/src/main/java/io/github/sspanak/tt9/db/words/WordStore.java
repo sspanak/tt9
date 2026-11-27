@@ -162,7 +162,7 @@ public class WordStore extends BaseSyncStore {
 	 * Replaces an existing custom word with a new one. The operation is atomic: if the new word can
 	 * not be added, the old one is kept.
 	 */
-	@NonNull public AddWordResult editCustomWord(Language language, @NonNull String oldWord, String newWord) {
+	@NonNull public AddWordResult editCustomWord(@Nullable Language language, @NonNull String oldWord, @Nullable String newWord) {
 		newWord = newWord == null ? "" : newWord.trim();
 		if (newWord.isEmpty()) {
 			return new AddWordResult(AddWordResult.CODE_BLANK_WORD, newWord);
